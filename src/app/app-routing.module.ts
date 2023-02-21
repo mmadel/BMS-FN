@@ -30,6 +30,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/invoice/invoice.module').then((m) => m.InvoiceModule)
       },
+      {
+        path: 'posting',
+        loadChildren: () =>
+          import('./modules/post/posting.module').then((m) => m.PostingModule)
+      },
     ]
   }
 ];

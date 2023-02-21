@@ -64,16 +64,16 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Posting',
-    url: '/base',
+    url: '/posting',
     iconComponent: { name: 'cil-send' },
     children: [
       {
         name: 'Batch Insurance Payment',
-        url: '/base/accordion'
+        url: '/posting/bip'
       },
       {
         name: 'ERA',
-        url: '/base/accordion'
+        url: '/posting/era'
       }
     ]
   },
