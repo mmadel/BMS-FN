@@ -9,6 +9,33 @@ const routes: Routes = [
     data: {
       title: 'Home'
     },
+    children: [
+      {
+        path: 'patient',
+        loadChildren: () =>
+          import('./modules/patient/patient.module').then((m) => m.PatientModule)
+      },
+      {
+        path: 'provider',
+        loadChildren: () =>
+          import('./modules/providers/providers.module').then((m) => m.ProvidersModule)
+      },
+      {
+        path: 'insurance',
+        loadChildren: () =>
+          import('./modules/Insurance/insurance.module').then((m) => m.InsuranceModule)
+      },
+      {
+        path: 'invoice',
+        loadChildren: () =>
+          import('./modules/invoice/invoice.module').then((m) => m.InvoiceModule)
+      },
+      {
+        path: 'posting',
+        loadChildren: () =>
+          import('./modules/post/posting.module').then((m) => m.PostingModule)
+      },
+    ]
   }
 ];
 

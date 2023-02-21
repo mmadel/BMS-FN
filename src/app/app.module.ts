@@ -19,7 +19,7 @@ import {
   DefaultHeaderComponent,
   DefaultFooterComponent,
   DefaultAsideComponent
-  
+
 } from './core';
 
 import {
@@ -42,6 +42,15 @@ import {
   TabsModule,
   UtilitiesModule,
 } from '@coreui/angular-pro';
+
+//import modules
+import {
+  PatientModule,
+  ProvidersModule,
+  InsuranceModule,
+  InvoiceModule,
+  PostingModule
+} from './modules'
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 
@@ -86,7 +95,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BadgeModule,
     ListGroupModule,
     CardModule,
-
+    PatientModule,
+    ProvidersModule,
+    InsuranceModule,
+    InvoiceModule,
+    PostingModule
   ],
   providers: [
     {
