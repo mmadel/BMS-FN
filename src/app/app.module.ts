@@ -47,7 +47,8 @@ import {
 import {
   PatientModule,
   ProvidersModule,
-  InsuranceModule
+  InsuranceModule,
+  InvoiceModule
 } from './modules'
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
@@ -95,7 +96,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CardModule,
     PatientModule,
     ProvidersModule,
-    InsuranceModule
+    InsuranceModule,
+    InvoiceModule
   ],
   providers: [
     {

@@ -53,12 +53,12 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Invoicing',
-    url: '/base',
+    url: '/invoice',
     iconComponent: { name: 'cil-money' },
     children: [
       {
         name: 'Invoicing Area',
-        url: '/base/accordion'
+        url: '/invoice/list'
       }
     ]
   },
