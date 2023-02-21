@@ -8,20 +8,20 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Patient',
-    url: '/base',
+    url: '/patient',
     iconComponent: { name: 'cil-disabled' },
     children: [
       {
         name: 'Patient List',
-        url: '/base/accordion'
+        url: '/patient/list'
       },
       {
         name: 'Patient Profile',
-        url: '/base/accordion'
+        url: '/patient/profile'
       },
       {
         name: 'Patient Session',
-        url: '/base/accordion'
+        url: '/patient/session'
       },
     ]
   },

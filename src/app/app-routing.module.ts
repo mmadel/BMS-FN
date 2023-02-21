@@ -9,6 +9,13 @@ const routes: Routes = [
     data: {
       title: 'Home'
     },
+    children: [
+      {
+        path: 'patient',
+        loadChildren: () =>
+          import('./modules/patient/patient.module').then((m) => m.PatientModule)
+      },
+    ]
   }
 ];
 
