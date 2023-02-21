@@ -42,12 +42,12 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Insurance',
-    url: '/base',
+    url: '/insurance',
     iconComponent: { name: 'cil-library-building' },
     children: [
       {
         name: 'Insurance List',
-        url: '/base/accordion'
+        url: '/insurance/list'
       }
     ]
   },

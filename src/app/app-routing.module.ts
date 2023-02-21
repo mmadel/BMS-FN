@@ -20,6 +20,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/providers/providers.module').then((m) => m.ProvidersModule)
       },
+      {
+        path: 'insurance',
+        loadChildren: () =>
+          import('./modules/Insurance/insurance.module').then((m) => m.InsuranceModule)
+      },
     ]
   }
 ];
