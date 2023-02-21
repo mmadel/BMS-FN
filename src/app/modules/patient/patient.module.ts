@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientRoutingModule } from './patient-routing.module';
 //import patient components
 import {
@@ -8,6 +8,23 @@ import {
   PatientProfileComponent,
   PatientSessionComponent
 } from './index'
+
+import {
+  AlertModule,
+  BadgeModule,
+  ButtonModule,
+  CardModule,
+  CollapseModule,
+  GridModule,
+  SharedModule,
+  SmartTableModule,
+  TableModule,
+  FormModule,
+  DatePickerModule,
+  DropdownModule,
+  ButtonGroupModule,
+  ListGroupModule
+} from '@coreui/angular-pro';
 
 
 
@@ -19,7 +36,22 @@ import {
   ],
   imports: [
     CommonModule,
-    PatientRoutingModule
+    PatientRoutingModule,
+    AlertModule,
+    BadgeModule,
+    ButtonModule,
+    CardModule,
+    CollapseModule,
+    GridModule,
+    SharedModule,
+    SmartTableModule,
+    TableModule,
+    FormModule,
+    DatePickerModule,
+    DropdownModule,
+    ButtonGroupModule,
+    ListGroupModule
+
   ]
 })
 export class PatientModule { }

@@ -1,1 +1,139 @@
-<p>patient-list works!</p>
+<c-row>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Patient Search</strong> <small>From patient list</small>
+      </c-card-header>
+      <c-card-body>
+        <p class="text-medium-emphasis small">
+          The Abiltiy to filter the patient list using his/her personal Info,
+          Also using the insurnace , provider and Facility data.
+        </p>
+        <form cForm class="row g-3">
+          <c-col md="3">
+            <input aria-describedby="basic-addon1" aria-label="Username" cFormControl placeholder="Name" />
+          </c-col>
+          <c-col md="3">
+            <input aria-describedby="basic-addon1" aria-label="phone" cFormControl placeholder="Phone" />
+          </c-col>
+          <c-col xs="3">
+            <input aria-describedby="basic-addon1" aria-label="address" cFormControl placeholder="Address" />
+          </c-col>
+          <c-col xs="3">
+            <input aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Email" />
+          </c-col>
+          <c-col md="4">
+            <select aria-label="Insurance company" id="insurancecompany" cSelect>
+              <option value="1">Insurance Company</option>
+              <option value="1">company-one</option>
+              <option value="2">company-two</option>
+              <option value="3">company-three</option>
+            </select>
+          </c-col>
+          <c-col md="4">
+            <select aria-label="Provider" id="provider" cSelect>
+              <option value="1">Provider</option>
+              <option value="1">Provider-one</option>
+              <option value="2">Provider-two</option>
+              <option value="3">Provider-three</option>
+            </select>
+          </c-col>
+          <c-col md="4">
+            <select aria-label="Facility" id="facility" cSelect>
+              <option value="1">Facility</option>
+              <option value="1">Facility-one</option>
+              <option value="2">Facility-two</option>
+              <option value="3">Facility-three</option>
+            </select>
+          </c-col>
+          <c-col xs="12" class="text-center">
+            <button cButton class="me-1" color="primary" style="width: 15%;">
+              Search
+            </button>
+          </c-col>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12">
+    <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+      <button cButton color="primary" variant="outline">Add New Client</button>
+      <c-dropdown variant="btn-group">
+        <button cButton cDropdownToggle>
+          Actions
+        </button>
+        <ul cDropdownMenu variant="outline">
+          <li><a cDropdownItem [routerLink]="[]">Activate (Selected)</a></li>
+          <li><a cDropdownItem [routerLink]="[]">Inactivate (Selected)</a></li>
+          <li cDropdownDivider></li>
+          <li><a cDropdownItem [routerLink]="[]">Show Inactive</a></li>
+        </ul>
+      </c-dropdown>
+    </c-button-group>
+    <div style="float: right;">
+      <div cListGroup>
+        <a cListGroupItem>
+          <div class="d-flex w-10 justify-content-between">
+            <h6 class="mb-1">Clients Active/Inactive</h6>
+          </div>
+          <p class="mb-1">
+            Active Clients <c-badge color="primary" shape="rounded-pill">130</c-badge>
+          </p>
+          <p class="mb-1">
+            InActive Clients <c-badge color="danger" shape="rounded-pill">10</c-badge>
+          </p>
+          <div class="d-flex w-10 justify-content-between">
+            <h6 class="mb-1">Clients Scheduled</h6>
+          </div>
+          <p class="mb-1">
+            Past 7 Days <c-badge color="primary" shape="rounded-pill">129</c-badge>
+          </p>
+          <p class="mb-1">
+            Past 30 Days <c-badge color="primary" shape="rounded-pill">393</c-badge>
+          </p>
+        </a>
+      </div>
+    </div>
+  </c-col>
+  <c-col xs="12">
+    <c-smart-table [activePage]="3" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
+      [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
+      [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+      clickableRows footer header pagination selectable>
+      <ng-template cTemplateId="tableDetails" let-item="item">
+        <div>
+          <div [visible]="this.details_visible[item._id]===true" cCollapse class="card-body">
+            <h5>{{item['name']}}</h5>
+            <p class="text-muted">User since: {{item['registered']}}</p>
+            <button cButton color="info" size="sm">
+              User Settings
+            </button>
+            <button cButton class="ms-1" color="danger" size="sm">
+              Delete
+            </button>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+        <td>
+          <ng-container [ngSwitch]="columnName">
+            <ng-container *ngSwitchCase="'status'">
+              <c-badge [color]="getBadge(tdContent)">
+                {{(item[columnName])}}
+              </c-badge>
+            </ng-container>
+            <ng-container *ngSwitchCase="'show'" class="py-2">
+              <button (click)="toggleDetails(item._id)" cButton color="primary" size="sm" variant="outline">
+                Show
+              </button>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              {{tdContent}}
+            </ng-container>
+          </ng-container>
+        </td>
+      </ng-template>
+    </c-smart-table>
+
+  </c-col>
+</c-row>
