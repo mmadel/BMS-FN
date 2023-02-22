@@ -25,7 +25,8 @@ import {
   ButtonGroupModule,
   ListGroupModule,
   TooltipModule,
-  NavModule,
+  TabsModule,
+  NavModule
 } from '@coreui/angular-pro';
 
 
@@ -55,7 +56,8 @@ import { IconModule } from '@coreui/icons-angular';
     ListGroupModule,
     IconModule,
     TooltipModule,
-    NavModule,
+    TabsModule,
+    NavModule
 
   ]
 })
