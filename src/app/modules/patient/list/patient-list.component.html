@@ -70,28 +70,15 @@
         </ul>
       </c-dropdown>
     </c-button-group>
-    <div style="float: right;">
-      <div cListGroup>
-        <a cListGroupItem>
-          <div class="d-flex w-10 justify-content-between">
-            <h6 class="mb-1">Clients Active/Inactive</h6>
-          </div>
-          <p class="mb-1">
-            Active Clients <c-badge color="primary" shape="rounded-pill">130</c-badge>
-          </p>
-          <p class="mb-1">
-            InActive Clients <c-badge color="danger" shape="rounded-pill">10</c-badge>
-          </p>
-          <div class="d-flex w-10 justify-content-between">
-            <h6 class="mb-1">Clients Scheduled</h6>
-          </div>
-          <p class="mb-1">
-            Past 7 Days <c-badge color="primary" shape="rounded-pill">129</c-badge>
-          </p>
-          <p class="mb-1">
-            Past 30 Days <c-badge color="primary" shape="rounded-pill">393</c-badge>
-          </p>
-        </a>
+    <div class="card" style="float: right;">
+      <div class="card-header">
+        <h5>Clients information</h5>
+      </div>
+      <div class="card-body">
+        <strong>Active Clients : </strong> 3033<br>
+        <strong>Inactive Clients : </strong> 30<br>
+        <strong>Clients Scheduled-Past 7 Days : </strong> 20<br>
+        <strong>Clients Scheduled-Past 30 Days : </strong> 330<br>
       </div>
     </div>
   </c-col>
