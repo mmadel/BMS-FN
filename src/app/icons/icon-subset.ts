@@ -96,7 +96,8 @@ import {
   cilTablet,
   cilNoteAdd,
   cilRunning,
-  cibSuperuser
+  cibSuperuser,
+  cilFindInPage
   
 } from '@coreui/icons';
 
@@ -198,7 +199,8 @@ export const iconSubset = {
   cilTablet,
   cilNoteAdd,
   cilRunning,
-  cibSuperuser
+  cibSuperuser,
+  cilFindInPage
 };
 
 export enum IconSubset {
