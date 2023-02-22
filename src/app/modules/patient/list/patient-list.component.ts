@@ -17,20 +17,34 @@ export class PatientListComponent implements OnInit {
   columns = [
     {
       key: 'name',
-      _style: { width: '30%' }
+      _style: { width: '15%' }
     },
     { key: 'birthDate', _style: { width: '10%' } },
     { key: 'email', _style: { width: '20%' } },
     { key: 'insurance', _style: { width: '15%' } },
     {
-      key: 'show',
+      key: 'profile',
       label: '',
       _style: { width: '5%' },
       filter: false,
       sorter: false
     },
     {
-      key: 'delete',
+      key: 'session',
+      label: '',
+      _style: { width: '5%' },
+      filter: false,
+      sorter: false
+    },
+    {
+      key: 'attach',
+      label: '',
+      _style: { width: '5%' },
+      filter: false,
+      sorter: false
+    },
+    {
+      key: 'status',
       label: '',
       _style: { width: '5%' },
       filter: false,

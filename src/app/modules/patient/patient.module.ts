@@ -23,11 +23,12 @@ import {
   DatePickerModule,
   DropdownModule,
   ButtonGroupModule,
-  ListGroupModule
+  ListGroupModule,
+  TooltipModule
 } from '@coreui/angular-pro';
 
 
-
+import { IconModule } from '@coreui/icons-angular';
 @NgModule({
   declarations: [
     PatientListComponent,
@@ -50,7 +51,9 @@ import {
     DatePickerModule,
     DropdownModule,
     ButtonGroupModule,
-    ListGroupModule
+    ListGroupModule,
+    IconModule,
+    TooltipModule
 
   ]
 })
