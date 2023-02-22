@@ -6,7 +6,11 @@ import { PatientRoutingModule } from './patient-routing.module';
 import {
   PatientListComponent,
   PatientProfileComponent,
-  PatientSessionComponent
+  PatientSessionComponent,
+  BillingComponent,
+  AuthsComponent,
+  AdvancedComponent,
+  FillingComponent
 } from './index'
 
 import {
@@ -35,7 +39,11 @@ import { IconModule } from '@coreui/icons-angular';
   declarations: [
     PatientListComponent,
     PatientProfileComponent,
-    PatientSessionComponent
+    PatientSessionComponent,
+    BillingComponent,
+    AuthsComponent,
+    AdvancedComponent,
+    FillingComponent
   ],
   imports: [
     CommonModule,
