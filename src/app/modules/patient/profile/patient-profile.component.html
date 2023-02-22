@@ -1,1 +1,34 @@
-<p>patient-profile works!</p>
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <strong>Patient Information</strong>
+            </c-card-header>
+            <c-card-body>
+
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-body>
+                <c-nav variant="tabs">
+                    <c-nav-item>
+                        <a [active]="true" cNavLink [routerLink]="[]">
+                            Billing Info
+                        </a>
+                    </c-nav-item>
+                    <c-nav-item>
+                        <a cNavLink [routerLink]="[]">Advanced</a>
+                    </c-nav-item>
+                    <c-nav-item>
+                        <a cNavLink [routerLink]="[]">Auths</a>
+                    </c-nav-item>
+                    <c-nav-item>
+                        <a cNavLink [routerLink]="[]">Filing</a>
+                    </c-nav-item>
+                </c-nav>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
