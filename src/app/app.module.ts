@@ -99,7 +99,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ProvidersModule,
     InsuranceModule,
     InvoiceModule,
-    PostingModule
+    
   ],
   providers: [
     {

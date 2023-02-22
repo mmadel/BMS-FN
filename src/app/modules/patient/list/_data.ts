@@ -1,0 +1,28 @@
+const usersData = [
+  { id: 0, name: 'John Doe', birthDate: '2018/01/01', Address: '915 Konopelski Rapids, Apt. 851, 49718, Buckridgebury, Idaho, United States', email: 'fiona59@hotmail.com', insurance: 'company-1:10202' },
+  { id: 1, name: 'Samppa Nori', birthDate: '2018/01/01', Address: '613 Colin Viaduct, Apt. 043, 73313-0919, Lake Sydnie, New Mexico, United States', email: 'kennedi.ryan@gmail.com', insurance: 'company-2:10203' },
+  { id: 2, name: 'Estavan Lykos', birthDate: '2018/02/01', Address: '320 Cruickshank Mountain, Suite 437, 35998, East Adan, Iowa, United States"', email: 'amani.farrell18@gmail.com', insurance: 'company-2:10203' },
+  { id: 3, name: 'Chetan Mohamed', birthDate: '2018/02/01', Address: '2765 Waelchi Gateway, Suite 764, 31480, North Joanyshire, Nebraska, United States', email: 'dorcas.bergstrom94@yahoo.com', insurance: 'company-3:10204' },
+  { id: 4, name: 'Derick Maximinus', birthDate: '2018/03/01', Address: '460 Gaylord Turnpike, Suite 279, 98737-5459, West Earlene, Virginia, United States', email: 'patsy_schowalter6@gmail.com', insurance: 'company-4:10205' },
+  { id: 5, name: 'Friderik Dávid', birthDate: '2018/01/21', Address: '7937 Hector Knoll, Suite 828, 79493-4821, Austinburgh, Vermont, United States', email: 'kayli.bernier@yahoo.com', insurance: 'company-6:10206' },
+  { id: 6, name: 'Yiorgos Avraamu', birthDate: '2018/01/01', Address: '2125 MacGyver Junction, Suite 275, 33137-4214, Lake Jerel, Idaho, United States', email: 'franco_kirlin55@yahoo.com', insurance: 'company-6:10206' },
+  { id: 7, name: 'Avram Tarasios', birthDate: '2018/02/01', Address: '84636 Labadie Stream, Suite 342, 89168-6102, Jensenmouth, Arkansas, United States', email: 'sven.parker97@yahoo.com', insurance: 'company-8:10208' },
+  { id: 8, name: 'Quintin Ed', birthDate: '2018/02/01', Address: '063 Dameon Extension, Suite 793, 77071-6397, East Aftonstad, Georgia, United States', email: 'natalie.cartwright50@gmail.com', insurance: 'company-9:10209' },
+  { id: 9, name: 'Enéas Kwadwo', birthDate: '2018/03/01', Address: '7916 Gerlach Circles, Apt. 989, 11810-5432, New Micheal, Vermont, United States', email: 'roman10@yahoo.com', insurance: 'company-10:10210' },
+  { id: 10, name: 'Agapetus Tadeáš', birthDate: '2018/01/21', Address: '27730 Mckenzie Spurs, Suite 833, 06628, Lessiehaven, Vermont, United States', email: 'melvin78@yahoo.com', insurance: 'company-11:10211' },
+  { id: 11, name: 'Carwyn Fachtna', birthDate: '2018/01/01', Address: '8369 Yundt Centers, Apt. 488, 30733-8020, Rippinburgh, Virginia, United States', email: 'marcia_huels48@gmail.com', insurance: 'company-11:10211' },
+  { id: 12, name: 'Nehemiah Tatius', birthDate: '2018/02/01', Address: '2564 Litzy Corner, Suite 808, 82742-9272, New Destinborough, New Jersey, United States', email: 'oceane30@yahoo.com', insurance: 'company-12:10212' },
+  { id: 13, name: 'Ebbe Gemariah', birthDate: '2018/02/01', Address: '28873 Maggio Lights, Suite 469, 02565, West Alimouth, North Dakota, United States', email: 'luisa58@yahoo.com', insurance: 'company-13:10213' },
+  { id: 14, name: 'Eustorgios Amulius', birthDate: '2018/03/01', Address: '75945 Jesus Ramp, Apt. 625, 30241-1783, North Kayliborough, Montana, United States', email: 'letitia.reynolds49@hotmail.com', insurance: 'company-14:10214' },
+  { id: 15, name: 'Leopold Gáspár', birthDate: '2018/01/21', Address: '4801 Kuphal Trail, Apt. 450, 46590-6092, South Alexanderton, Missouri, United States', email: 'oswaldo.zulauf91@yahoo.com', insurance: 'company-15:10215' },
+  { id: 16, name: 'Pompeius René', birthDate: '2018/01/01', Address: '0593 Conn Circles, Apt. 476, 23649, Kassulkeview, Connecticut, United States', email: 'roman10@yahoo.com', insurance: 'company-16:10216' },
+  { id: 17, name: 'Paĉjo Jadon', birthDate: '2018/02/01', Address: '28873 Maggio Lights, Suite 469, 02565, West Alimouth, North Dakota, United States', email: 'luisa58@yahoo.com', insurance: 'company-17:10217' },
+  { id: 18, name: 'Micheal Mercurius', birthDate: '2018/02/01', Address: '723 Gardner Road, Suite 121, 71098-3634, South Haleighburgh, Utah, United States', email: 'callie.hauck@hotmail.com', insurance: 'company-18:10218' },
+  { id: 19, name: 'Ganesha Dubhghall', birthDate: '2018/03/01', Address: '47103 Elvie Neck, Apt. 151, 28160-1212, Verdiemouth, Washington, United States', email: 'demarco_kub64@yahoo.com', insurance: 'company-19:10219' },
+  { id: 20, name: 'Hiroto Šimun', birthDate: '2018/01/21', Address: '0999 Bergnaum Crossroad, Apt. 458, 33991-9323, Drewbury, Kentucky, United States', email: 'naomie_wintheiser83@gmail.com', insurance: 'company-20:10220' },
+  { id: 21, name: 'Vishnu Serghei', birthDate: '2018/01/01', Address: '20999 Bergnaum Crossroad, Apt. 458, 33991-9323, Drewbury, Kentucky, United States', email: 'korey.weber@yahoo.com', insurance: 'company-21:10221' },
+  { id: 22, name: 'Zbyněk Phoibos', birthDate: '2018/02/01', Address: '17937 Hector Knoll, Suite 828, 79493-4821, Austinburgh, Vermont, United States', email: 'franco_kirlin55@yahoo.com', insurance: 'company-22:10222' },
+  { id: 23, name: 'Aulus Agmundr', birthDate: '2018/01/01', Address: '57916 Gerlach Circles, Apt. 989, 11810-5432, New Micheal, Vermont, United States', email: 'luiddsa58@yahoo.com', insurance: 'company-23:10223' },
+  { id: 42, name: 'Ford Prefect', birthDate: '2001/05/25', Address: '20 Cruickshank Mountain, Suite 437, 35998, East Adan, Iowa, United States', email: 'kayli.berddnier@gmail.com', insurance: 'company-24:10224' }
+]
+export default usersData
