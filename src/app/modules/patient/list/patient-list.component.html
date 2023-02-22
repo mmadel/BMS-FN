@@ -96,7 +96,7 @@
     </div>
   </c-col>
   <c-col xs="12">
-    <c-smart-table [activePage]="3" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
+    <c-smart-table [activePage]="3" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
       [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
       [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
       clickableRows footer header pagination selectable>
@@ -104,7 +104,7 @@
         <div>
           <div [visible]="this.details_visible[item._id]===true" cCollapse class="card-body">
             <h5>{{item['name']}}</h5>
-            <p class="text-muted">User since: {{item['registered']}}</p>
+            <p class="text-muted">User since: {{item['birthDate']}}</p>
             <button cButton color="info" size="sm">
               User Settings
             </button>
@@ -116,15 +116,15 @@
       </ng-template>
       <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
         <td>
-          <ng-container [ngSwitch]="columnName">
-            <ng-container *ngSwitchCase="'status'">
-              <c-badge [color]="getBadge(tdContent)">
-                {{(item[columnName])}}
-              </c-badge>
-            </ng-container>
+          <ng-container [ngSwitch]="columnName">            
             <ng-container *ngSwitchCase="'show'" class="py-2">
               <button (click)="toggleDetails(item._id)" cButton color="primary" size="sm" variant="outline">
                 Show
+              </button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'delete'" class="py-2">
+              <button (click)="toggleDetails(item._id)" cButton color="primary" size="sm" variant="outline">
+                Delete
               </button>
             </ng-container>
             <ng-container *ngSwitchDefault>
