@@ -17,11 +17,11 @@ export class PatientListComponent implements OnInit {
   columns = [
     {
       key: 'name',
-      _style: { width: '15%' }
+      _style: { width: '40%' }
     },
     { key: 'birthDate', _style: { width: '10%' } },
     { key: 'email', _style: { width: '20%' } },
-    { key: 'insurance', _style: { width: '15%' } },
+    { key: 'insurance', _style: { width: '25%' } },
     {
       key: 'profile',
       label: '',
