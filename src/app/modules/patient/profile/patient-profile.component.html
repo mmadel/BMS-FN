@@ -1,1 +1,127 @@
-<p>patient-profile works!</p>
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <strong>Patient Information</strong>
+            </c-card-header>
+            <c-card-body>
+                <div style="float: left;">
+                    <svg cIcon name="cilUser" title="cilUser" size="7xl"></svg>
+                </div>
+                <form cForm>
+                    <c-row>
+                        <c-col xs="8" class="mb-2">
+                            <c-input-group>
+                                <span cInputGroupText style="width: 18%;">Patient Name</span>
+                                <input aria-label="First name" cFormControl placeholder="First" />
+                                <input aria-label="Middle name" cFormControl placeholder="M" style="max-width: 5%;" />
+                                <input aria-label="Last name" cFormControl placeholder="Last" />
+                                <input aria-label="Identifier" cFormControl placeholder="Identifier" />
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="2" class="mb-2">
+                            <select aria-label="" cSelect>
+                                <option>Select Gender</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3">Other</option>
+                            </select>
+                        </c-col>
+                        <c-col xs="2" class="mb-2">
+                            <select aria-label="" cSelect>
+                                <option>Select Marital Status</option>
+                            </select>
+                        </c-col>
+                        <c-col xs="8" class="mb-2">
+                            <c-input-group>
+                                <span cInputGroupText style="width: 18%;">Patient Address</span>
+                                <select aria-label="" cSelect>
+                                    <option>Select Country</option>
+                                </select>
+                                <input aria-label="street" cFormControl placeholder="street" />
+                                <input aria-label="City" cFormControl placeholder="City" />
+                                <input aria-label="state" cFormControl placeholder="State" />
+                                <input aria-label="zip" cFormControl placeholder="Zip" />
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="2" class="mb-2">
+                            <input aria-label="email" cFormControl placeholder="E-mail" />
+                        </c-col>
+                        <c-col xs="2" class="mb-2">
+                            <c-date-picker placeholder="BirthDate"></c-date-picker>
+                        </c-col>
+                        <c-col xs="8" class="mb-2">
+                            <c-input-group>
+                                <span cInputGroupText style="width: 18%;">Patient Phone</span>
+                                <select aria-label="" cSelect>
+                                    <option>Select Phone Type</option>
+                                    <option value="1">Home</option>
+                                    <option value="2">Work</option>
+                                </select>
+                                <input aria-label="Phone" cFormControl placeholder="Phone" />
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="4" class="mb-2">
+                            <c-input-group>
+                                <span cInputGroupText>Voice Mail</span>
+                                <select aria-label="" cSelect>
+                                    <option>Select Voice Mail</option>
+                                </select>
+                                <input aria-label="Phone" cFormControl placeholder="Voice Mail" />
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+                </form>
+
+
+
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-body>
+                <c-nav variant="tabs">
+                    <c-nav-item>
+                        <a [cTabContent]="tabContent2" [routerLink] [tabPaneIdx]="0" cNavLink>
+                            <svg cIcon class="me-2" name="cil-money"></svg>
+                            Billing Info
+                        </a>
+                    </c-nav-item>
+                    <c-nav-item>
+                        <a [cTabContent]="tabContent2" [routerLink] [tabPaneIdx]=1 cNavLink>
+                            <svg cIcon class="me-2" name="cil-task"></svg>
+                            Auths
+                        </a>
+                    </c-nav-item>
+                    <c-nav-item>
+                        <a [cTabContent]="tabContent2" [routerLink] [tabPaneIdx]=2 cNavLink>
+                            <svg cIcon class="me-2" name="cil-settings"></svg>
+                            Advanced
+                        </a>
+                    </c-nav-item>
+                    <c-nav-item>
+                        <a [cTabContent]="tabContent2" [routerLink] [tabPaneIdx]=3 cNavLink>
+                            <svg cIcon class="me-2" name="cil-paperPlane"></svg>
+                            Filling
+                        </a>
+                    </c-nav-item>
+                </c-nav>
+                <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
+                    <c-tab-pane tabPaneIdx=0>
+                        <app-billing></app-billing>
+                    </c-tab-pane>
+                    <c-tab-pane tabPaneIdx=1>
+                        <app-auths></app-auths>
+                    </c-tab-pane>
+                    <c-tab-pane tabPaneIdx=2>
+                        <app-advanced></app-advanced>
+                    </c-tab-pane>
+                    <c-tab-pane tabPaneIdx=3>
+                        <app-filling></app-filling>
+                    </c-tab-pane>
+                </c-tab-content>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>

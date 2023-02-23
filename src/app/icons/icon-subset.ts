@@ -95,7 +95,11 @@ import {
   cilSend,
   cilTablet,
   cilNoteAdd,
-  cilRunning
+  cilRunning,
+  cibSuperuser,
+  cilFindInPage,
+  cibAdobeAcrobatReader
+  
 } from '@coreui/icons';
 
 export const iconSubset = {
@@ -195,7 +199,10 @@ export const iconSubset = {
   cilSend,
   cilTablet,
   cilNoteAdd,
-  cilRunning
+  cilRunning,
+  cibSuperuser,
+  cilFindInPage,
+  cibAdobeAcrobatReader
 };
 
 export enum IconSubset {

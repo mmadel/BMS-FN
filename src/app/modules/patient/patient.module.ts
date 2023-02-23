@@ -6,7 +6,11 @@ import { PatientRoutingModule } from './patient-routing.module';
 import {
   PatientListComponent,
   PatientProfileComponent,
-  PatientSessionComponent
+  PatientSessionComponent,
+  BillingComponent,
+  AuthsComponent,
+  AdvancedComponent,
+  FillingComponent
 } from './index'
 
 import {
@@ -24,7 +28,10 @@ import {
   DropdownModule,
   ButtonGroupModule,
   ListGroupModule,
-  TooltipModule
+  TooltipModule,
+  TabsModule,
+  NavModule,
+  DateRangePickerModule
 } from '@coreui/angular-pro';
 
 
@@ -33,7 +40,11 @@ import { IconModule } from '@coreui/icons-angular';
   declarations: [
     PatientListComponent,
     PatientProfileComponent,
-    PatientSessionComponent
+    PatientSessionComponent,
+    BillingComponent,
+    AuthsComponent,
+    AdvancedComponent,
+    FillingComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +64,10 @@ import { IconModule } from '@coreui/icons-angular';
     ButtonGroupModule,
     ListGroupModule,
     IconModule,
-    TooltipModule
+    TooltipModule,
+    TabsModule,
+    NavModule,
+    DateRangePickerModule
 
   ]
 })
