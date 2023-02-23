@@ -10,7 +10,10 @@ import {
   BillingComponent,
   AuthsComponent,
   AdvancedComponent,
-  FillingComponent
+  FillingComponent,
+  ShedulingComponent,
+  BillingCodeComponent,
+  SessionHistoryComponent
 } from './index'
 
 import {
@@ -31,11 +34,13 @@ import {
   TooltipModule,
   TabsModule,
   NavModule,
-  DateRangePickerModule
+  DateRangePickerModule,
+  TimePickerModule
 } from '@coreui/angular-pro';
 
 
 import { IconModule } from '@coreui/icons-angular';
+
 @NgModule({
   declarations: [
     PatientListComponent,
@@ -44,7 +49,10 @@ import { IconModule } from '@coreui/icons-angular';
     BillingComponent,
     AuthsComponent,
     AdvancedComponent,
-    FillingComponent
+    FillingComponent,
+    ShedulingComponent,
+    BillingCodeComponent,
+    SessionHistoryComponent
   ],
   imports: [
     CommonModule,
@@ -67,7 +75,8 @@ import { IconModule } from '@coreui/icons-angular';
     TooltipModule,
     TabsModule,
     NavModule,
-    DateRangePickerModule
+    DateRangePickerModule,
+    TimePickerModule
 
   ]
 })
