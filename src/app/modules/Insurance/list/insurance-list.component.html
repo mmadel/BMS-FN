@@ -1,1 +1,58 @@
-<p>insurance-list works!</p>
+<c-row>
+    <c-col xs="12" class="mb-2">
+        <h1>Insurance Companies</h1>
+    </c-col>
+</c-row>
+<hr />
+<c-row>
+    <c-col xs="12">
+        <div style="float:right;">
+            <button cButton color="primary" variant="outline">
+                Add Insurance Company
+            </button>
+        </div>
+    </c-col>
+    <c-col xs="12">
+        <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [columnFilter]="true"
+            [itemsPerPageSelect]="true" [itemsPerPage]="5" [items]="usersData"
+            [sorterValue]="{ column: 'name', state: 'asc' }" [tableFilter]="true"
+            [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+            cleaner clickableRows header pagination>
+            <ng-template cTemplateId="tableDetails" let-item="item">
+                <div [visible]="this.details_visible[item._id]===true" cCollapse class="card-body">
+                    <div class="mb-3 ms-2">
+                        <h4>{{item['name']}}</h4> <br />
+                        <strong>Address</strong> : {{item['Address']}} <br />
+                        {{item['submission']}}<br />
+                        <strong>Active client count</strong> : {{item['activeClientCount']}}<br />
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+                <td>
+                    <ng-container [ngSwitch]="columnName">
+                        <ng-container *ngSwitchCase="'status'">
+                            <c-badge>
+                                {{(item[columnName])}}
+                            </c-badge>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'show'" class="py-2">
+                            <button (click)="toggleDetails(item._id)" cButton color="primary" size="sm"
+                                variant="outline">
+                                Open
+                            </button>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'settings'" class="py-2">
+                            <button cButton color="primary" size="sm" variant="outline">
+                                Settings
+                            </button>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                            {{tdContent}}
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </ng-template>
+        </c-smart-table>
+    </c-col>
+</c-row>
