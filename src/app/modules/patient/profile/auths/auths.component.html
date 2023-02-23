@@ -1,47 +1,96 @@
 <c-container [fluid]="true" class="mt-3">
     <c-row>
-        <c-col xs="4" class="mb-3">
+        <c-col xs="6" class="mb-3">
             <c-card>
                 <c-card-header>
-                    <strong>Is the parent's condtion related to</strong>
+                    <strong>Authorization Watch</strong>
                 </c-card-header>
                 <c-card-body>
-
-                    <c-col xs="6" class="mb-1">
-                        <select aria-label="" cSelect>
-                            <option>Empoyment</option>
-                            <option>Yes</option>
-                            <option>No</option>
-                            <option>N/A</option>
-                        </select>
-                    </c-col>
-                    <c-col xs="6" class="mb-1">
-
-                        <select aria-label="" cSelect>
-                            <option>Auto Accident</option>
-                            <option>Yes</option>
-                            <option>No</option>
-                            <option>N/A</option>
-                        </select>
-                    </c-col>
-                    <c-col xs="6" class="mb-1">
-                        <select aria-label="" cSelect>
-                            <option>Other Accident</option>
-                            <option>Yes</option>
-                            <option>No</option>
-                            <option>N/A</option>
-                        </select>
-                    </c-col>
-                    <c-col xs="6" class="mb-1">
-                        <input cFormControl placeholder="State" />
-                    </c-col>
-
-
+                    <c-row>
+                        <c-col xs="12">
+                            <div style="float: right;" class="mb-2">
+                                <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                    <button cButton color="primary" variant="outline">Add Authorization</button>
+                                    <c-dropdown variant="btn-group">
+                                      <button cButton cDropdownToggle>
+                                        Actions
+                                      </button>
+                                      <ul cDropdownMenu variant="outline">
+                                        <li><a cDropdownItem [routerLink]="[]">View Expired</a></li>
+                                        <li cDropdownDivider></li>
+                                        <li><a cDropdownItem [routerLink]="[]">Turn Off</a></li>
+                                      </ul>
+                                    </c-dropdown>
+                                  </c-button-group>
+                            </div>
+                        </c-col>
+                        <c-col xs="12">
+                            <div class="card border-primary mb-2">
+                                <div class="card-body">
+                                    <div style="float: right;">
+                                        <c-button-group aria-label="Button outlined group with nested dropdown"
+                                            role="group">
+                                            <button cButton variant="outline" class="btn-sm">
+                                                <svg cIcon name="cilPen"></svg>
+                                            </button>
+                                            <button cButton variant="outline" class="btn-sm">
+                                                <svg cIcon name="cilTrash"></svg>
+                                            </button>
+                                        </c-button-group>
+                                    </div>
+                                    <c-row>
+                                        <c-col xs="6">
+                                            0000
+                                        </c-col>
+                                        <c-col xs="6">
+                                            Remaining Visits : <strong>6</strong> of <strong>10</strong>
+                                        </c-col>
+                                    </c-row>
+                                    Service Code : All <br>
+                                    <c-col xs="6">
+                                        <c-date-range-picker size="sm" disabled="true"
+                                            [placeholder]="['Starts', 'Expires']" [(endDate)]="endDate"
+                                            [(startDate)]="startDate" cTooltipPlacement="top"
+                                            cTooltip="Starts to Expires date"></c-date-range-picker>
+                                    </c-col>
+                                </div>
+                            </div>
+                        </c-col>
+                        <c-col xs="12">
+                            <div class="card border-primary mb-2">
+                                <div class="card-body">
+                                    <div style="float: right;">
+                                        <c-button-group aria-label="Button outlined group with nested dropdown"
+                                            role="group">
+                                            <button cButton variant="outline" class="btn-sm">
+                                                <svg cIcon name="cilPen"></svg>
+                                            </button>
+                                            <button cButton variant="outline" class="btn-sm">
+                                                <svg cIcon name="cilTrash"></svg>
+                                            </button>
+                                        </c-button-group>
+                                    </div>
+                                    <c-row>
+                                        <c-col xs="6">
+                                            0001
+                                        </c-col>
+                                        <c-col xs="6">
+                                            Remaining Visits : <strong>1</strong> of <strong>10</strong>
+                                        </c-col>
+                                    </c-row>
+                                    Service Code : All <br>
+                                    <c-col xs="6">
+                                        <c-date-range-picker size="sm" disabled="true"
+                                            [placeholder]="['Starts', 'Expires']" [(endDate)]="endDate"
+                                            [(startDate)]="startDate" cTooltipPlacement="top"
+                                            cTooltip="Starts to Expires date"></c-date-range-picker>
+                                    </c-col>
+                                </div>
+                            </div>
+                        </c-col>
+                    </c-row>
                 </c-card-body>
             </c-card>
-        </c-col>
-        <c-col xs="6" class="mb-3">
-
         </c-col>
     </c-row>
 </c-container>

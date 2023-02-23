@@ -30,7 +30,8 @@ import {
   ListGroupModule,
   TooltipModule,
   TabsModule,
-  NavModule
+  NavModule,
+  DateRangePickerModule
 } from '@coreui/angular-pro';
 
 
@@ -65,7 +66,8 @@ import { IconModule } from '@coreui/icons-angular';
     IconModule,
     TooltipModule,
     TabsModule,
-    NavModule
+    NavModule,
+    DateRangePickerModule
 
   ]
 })
