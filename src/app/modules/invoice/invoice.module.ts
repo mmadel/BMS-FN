@@ -30,7 +30,8 @@ import {
 import {
   InvoicingAreaComponent,
   InsurancePatientListComponent,
-  InsuranceSessionListComponent
+  InsuranceSessionListComponent,
+  InvoiceCreationComponent
 } from './index';
 
 
@@ -39,7 +40,8 @@ import {
   declarations: [
     InvoicingAreaComponent,
     InsurancePatientListComponent,
-    InsuranceSessionListComponent
+    InsuranceSessionListComponent,
+    InvoiceCreationComponent
   ],
   imports: [
     CommonModule,
