@@ -9,6 +9,7 @@ import sessionData from './_sessiondata';
 export class InsuranceSessionListComponent implements OnInit {
   sessionsData = sessionData;
   editFields: boolean = false;
+  invoiceCreationVisible:boolean = false;
   columns = [
     'DOS',
     'provider',
@@ -32,6 +33,15 @@ export class InsuranceSessionListComponent implements OnInit {
   ];
   toggleDetails() {
     this.editFields = !this.editFields;
+  }
+  handleInsuranceSesstingsChange(event: boolean){
+    this.invoiceCreationVisible = event;
+  }
+  clickOnCreateInvoice(){
+    this.invoiceCreationVisible = true;
+  }
+  createInvoice(){
+    this.invoiceCreationVisible = false;
   }
   constructor() { }
 
