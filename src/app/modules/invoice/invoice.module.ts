@@ -4,13 +4,18 @@ import { CommonModule } from '@angular/common';
 import { InvoiceRoutingModule } from './invoice-routing.module';
 
 import {
-  InvoicingAreaComponent
-} from './index'
+  InvoicingAreaComponent,
+  InsurancePatientListComponent,
+  InsuranceSessionListComponent
+} from './index';
+
 
 
 @NgModule({
   declarations: [
-    InvoicingAreaComponent
+    InvoicingAreaComponent,
+    InsurancePatientListComponent,
+    InsuranceSessionListComponent
   ],
   imports: [
     CommonModule,
