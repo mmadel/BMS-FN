@@ -1,0 +1,27 @@
+<c-container fluid="true">
+    <c-row>
+        <c-col xs="12">
+            <c-form-check inline>
+                <input cFormCheckInput id="radioinline1" name="radioinline" type="radio" />
+                <label cFormCheckLabel for="radioinline1">
+                    <strong>Use Patient/Client address in Box33</strong> for home based sessions
+                </label>
+            </c-form-check>
+        </c-col>
+        <c-col xs="12">
+            <br/>
+        </c-col>
+        <c-col xs="12">
+            <label for="box26" class="control-label">
+                <strong>
+                    In Box-26 of CMS-1500(Patient Account Number)
+                </strong>
+            </label>
+            <select cSelect id="box26" style="height: auto;line-height: 14px;">
+                <option value="1">Insured's PrimaryID</option>
+                <option value="2">Pateint SSD</option>
+                <option value="3">Pateint External ID</option>
+            </select>
+        </c-col>
+    </c-row>
+</c-container>

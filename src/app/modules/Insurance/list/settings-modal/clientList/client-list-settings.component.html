@@ -1,0 +1,22 @@
+<c-container fluid="true">
+    <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [columnSorter]="true" [columnFilter]="true" [itemsPerPageSelect]="true"
+        [itemsPerPage]="5" [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
+        [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+        clickableRows footer header pagination>
+        <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+            <td>
+                <ng-container [ngSwitch]="columnName">
+                    <ng-container *ngSwitchCase="'profile'" class="py-2">
+                        <button cButton color="primary" size="sm" variant="outline" cTooltipPlacement="top"
+                            cTooltip="View client profile">
+                            <svg cIcon class="me-2" name="cil-tablet"></svg>
+                        </button>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        {{tdContent}}
+                    </ng-container>
+                </ng-container>
+            </td>
+        </ng-template>
+    </c-smart-table>
+</c-container>

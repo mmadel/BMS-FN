@@ -1,0 +1,77 @@
+<c-container fluid="true">
+    <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [columnSorter]="true"
+        [itemsPerPageSelect]="true" [itemsPerPage]="5" [items]="usersData"
+        [sorterValue]="{ column: 'name', state: 'asc' }" [tableProps]="{ hover: true, striped: true, responsive: true }"
+        [tableBodyProps]="{ align: 'middle' }" clickableRows footer header pagination>
+        <ng-template cTemplateId="tableDetails" let-item="item">
+            <div>
+                <div [visible]="this.details_visible[item._id]===true" cCollapse class="card-body">
+                    <h4>{{item['name']}}</h4>
+                    <h6><strong>Group: </strong> Default Billing Provider</h6>
+                    <h6><strong>Billing Provider</strong></h6>
+                    <hr />
+                    <form cForm>
+                        <div class="mb-3">
+                            <label cLabel for="npi">NPI</label>
+                            <input cFormControl id="npi" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="taxid">Tax ID</label>
+                            <input cFormControl id="taxid" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="org">Organization</label>
+                            <input cFormControl id="org" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="fname">First Name</label>
+                            <input cFormControl id="fname" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="lname">Last Name</label>
+                            <input cFormControl id="lname" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="billingaddress">Billing Address</label>
+                            <input cFormControl id="billingaddress" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="zipcode">Zip Code</label>
+                            <input cFormControl id="zipcode" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="city">City</label>
+                            <input cFormControl id="city" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="state">State</label>
+                            <input cFormControl id="state" sizing="sm" />
+                        </div>
+                        <div class="mb-3">
+                            <label cLabel for="phone">Phone</label>
+                            <input cFormControl id="phone" sizing="sm" />
+                        </div>
+                    </form>
+                    <div class="card-footer" style="text-align: center;">
+                        <button cButton (click)="toggleDetails(item._id)" color="primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+            <td>
+                <ng-container [ngSwitch]="columnName">
+                    <ng-container *ngSwitchCase="'profile'" class="py-2">
+                        <button cButton color="primary" size="sm" variant="outline" cTooltipPlacement="top"
+                            cTooltip="View client profile" (click)="toggleDetails(item._id)">
+                            <svg cIcon class="me-2" name="cil-pen"></svg>
+                        </button>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        {{tdContent}}
+                    </ng-container>
+                </ng-container>
+            </td>
+        </ng-template>
+    </c-smart-table>
+</c-container>
