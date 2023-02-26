@@ -1,1 +1,73 @@
-<p>insurance-session-list works!</p>
+<c-container fluid="true">
+  <c-row>
+    <c-col xs="12">
+      <div style="float: right;" class="mb-3">
+        <button cButton color="primary" variant="outline">
+          Create Invoice
+        </button>
+      </div>
+    </c-col>
+    <c-col xs="12">
+      <c-card>
+        <c-card-header>
+          <svg cIcon name="cilPen"></svg> &nbsp; <strong>Avram Tarasios</strong>
+        </c-card-header>
+        <c-card-body>
+          <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true"
+            [itemsPerPage]="5" [items]="sessionsData" [sorterValue]="{ column: 'provider', state: 'asc' }"
+            [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+            footer header pagination selectable>
+            <ng-template cTemplateId="tableDetails" let-item="item">
+            </ng-template>
+            <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+              <td>
+                <ng-container [ngSwitch]="columnName">
+                  <ng-container *ngSwitchCase="'edit'" class="py-2">
+                    <button cButton variant="outline" class="btn-sm" (click)="toggleDetails()">
+                      <svg cIcon name="cilDollar"></svg>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'session'" class="py-2">
+                    <button cButton variant="outline" class="btn-sm">
+                      <svg cIcon name="cilPen"></svg>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="editFields">
+                    <ng-container *ngSwitchCase="'units'" class="py-2">
+                      <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'place'" class="py-2">
+                      <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'charge'" class="py-2">
+                      <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'CPT'" class="py-2">
+                      <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'DOS'" class="py-2">
+                      {{tdContent}}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'provider'" class="py-2">
+                      {{tdContent}}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'dxCase'" class="py-2">
+                      {{tdContent}}
+                    </ng-container>
+
+                  </ng-container>
+                  <ng-container *ngIf="!editFields">
+                    {{tdContent}}
+                  </ng-container>
+
+                </ng-container>
+              </td>
+            </ng-template>
+          </c-smart-table>
+
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>

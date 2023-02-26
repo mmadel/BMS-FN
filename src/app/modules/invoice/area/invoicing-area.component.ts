@@ -12,6 +12,7 @@ export class InvoicingAreaComponent implements OnInit {
 
   togglePatientListVisibale() {
     this.patientListVisible = true;
+    this.sessionListVisible = false;
   }
   toggleSessionListVisibale() {
     this.patientListVisible = false;
