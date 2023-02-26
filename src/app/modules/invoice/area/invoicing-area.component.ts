@@ -7,6 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvoicingAreaComponent implements OnInit {
 
+  patientListVisible: boolean = false;
+  sessionListVisible:boolean=false;
+
+  togglePatientListVisibale() {
+    this.patientListVisible = true;
+  }
+  toggleSessionListVisibale() {
+    this.patientListVisible = false;
+    this.sessionListVisible = true;
+  }
   constructor() { }
 
   ngOnInit(): void {

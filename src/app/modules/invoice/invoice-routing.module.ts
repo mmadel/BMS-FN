@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'list',
         component: InvoicingAreaComponent,
         data: {
-          title: 'Insurance List',
+          title: 'Invoice Area',
         },
       },
     ]
