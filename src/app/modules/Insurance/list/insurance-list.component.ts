@@ -10,6 +10,7 @@ import usersData from './_data';
 export class InsuranceListComponent implements OnInit {
 
   usersData = usersData;
+  public isnsuranceSettingsVisible = false;
 
   columns = [
     {
@@ -40,6 +41,12 @@ export class InsuranceListComponent implements OnInit {
 
   toggleDetails(item: any) {
     this.details_visible[item] = !this.details_visible[item];
+  }
+  toggleInsuranceSettings() {
+    this.isnsuranceSettingsVisible = !this.isnsuranceSettingsVisible;
+  }
+  handleInsuranceSesstingsChange(event: boolean) {
+    this.isnsuranceSettingsVisible = event;
   }
   constructor() { }
 

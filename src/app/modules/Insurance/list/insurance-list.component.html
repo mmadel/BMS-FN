@@ -43,7 +43,8 @@
                             </button>
                         </ng-container>
                         <ng-container *ngSwitchCase="'settings'" class="py-2">
-                            <button cButton color="primary" size="sm" variant="outline">
+                            <button (click)="toggleInsuranceSettings()" cButton color="primary" size="sm"
+                                variant="outline">
                                 Settings
                             </button>
                         </ng-container>
@@ -54,5 +55,22 @@
                 </td>
             </ng-template>
         </c-smart-table>
+        <c-modal [visible]="isnsuranceSettingsVisible" (visibleChange)="handleInsuranceSesstingsChange($event)"
+            scrollable 
+            size="xl">
+            <c-modal-header>
+                <h5 cModalTitle>Insurance Company Settings</h5>
+                <button (click)="toggleInsuranceSettings()" cButtonClose></button>
+            </c-modal-header>
+            <c-modal-body>
+                <app-insurance-settings-modal></app-insurance-settings-modal>
+            </c-modal-body>
+            <c-modal-footer>
+                <button (click)="toggleInsuranceSettings()" cButton color="secondary">
+                    Close
+                </button>
+                <button cButton color="primary">Save changes</button>
+            </c-modal-footer>
+        </c-modal>
     </c-col>
 </c-row>

@@ -23,15 +23,26 @@ import {
   NavModule,
   DateRangePickerModule,
   TimePickerModule,
-  UtilitiesModule
+  UtilitiesModule,
+  ModalModule
 } from '@coreui/angular-pro';
 import {
-  InsuranceListComponent
-} from './index'
+  InsuranceListComponent,
+  InsuranceSettingsModalComponent,
+  GeneralSettingsComponent,
+  Box33SettingsComponent,
+  ClientListSettingsComponent
+} from './index';
+
+
 
 @NgModule({
   declarations: [
-    InsuranceListComponent
+    InsuranceListComponent,
+    InsuranceSettingsModalComponent,
+    GeneralSettingsComponent,
+    Box33SettingsComponent,
+    ClientListSettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -56,7 +67,8 @@ import {
     DateRangePickerModule,
     TimePickerModule,
     IconModule,
-    UtilitiesModule
+    UtilitiesModule,
+    ModalModule
   ]
 })
 export class InsuranceModule { }
