@@ -7,7 +7,7 @@
 <c-col xs="12">
     <c-card class="mb-4">
         <c-card-header ngPreserveWhitespaces>
-            <h3>Payment Seach Criteria</h3>
+            <h3>Payment Search Criteria</h3>
         </c-card-header>
         <c-card-body>
             <form cForm>
@@ -64,7 +64,8 @@
                         <strong>Total Adjustment</strong> : $ 00.00
                     </c-col>
                     <c-col xs="12" class="text-center">
-                        <button cButton class="me-1" color="primary" variant="outline" style="width: 15%;">
+                        <button cButton class="me-1" color="primary" variant="outline" style="width: 15%;"
+                        (click)="clickApplyPayment()">
                             Apply Payment
                         </button>
                     </c-col>
@@ -74,4 +75,5 @@
     </c-card>
 </c-col>
 <c-col xs="12">
-<app-posting-lines></app-posting-lines>
+
+<app-posting-lines *ngIf="postingLinesVisibility"></app-posting-lines>
