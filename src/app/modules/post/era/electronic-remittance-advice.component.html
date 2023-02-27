@@ -83,5 +83,26 @@
         </td>
     </ng-template>
 </c-smart-table>
-
-<app-posting-era></app-posting-era>
+<c-modal [visible]="eraLinesVisibality" (visibleChange)="handleERALinesVisibleChange($event)" scrollable
+    [fullscreen]="true">
+    <c-modal-header>
+        <h5 cModalTitle>
+            <div class="btn btn-outline">
+                <svg cIcon name="cilPen"></svg>
+            </div>
+            John Doe
+        </h5>
+        <button (click)="toggleERALines()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-posting-era></app-posting-era>
+    </c-modal-body>
+    <c-modal-footer>
+        <div class="col-md-12 text-center">
+            <button cButton class="me-1" color="primary" variant="outline" style="width: 15%;"
+            (click)="apply()">
+                Apply
+            </button>
+        </div>
+    </c-modal-footer>
+</c-modal>

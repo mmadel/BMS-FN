@@ -40,6 +40,16 @@ export class ElectronicRemittanceAdviceComponent implements OnInit {
   clickOpenERA() {
     this.eraLinesVisibality = true;
   }
+  handleERALinesVisibleChange(event: boolean) {
+    this.eraLinesVisibality = event;
+  }
+
+  toggleERALines() {
+    this.eraLinesVisibality = !this.eraLinesVisibality;
+  }
+  apply(){
+    this.eraLinesVisibality = !this.eraLinesVisibality;
+  }
   ngOnInit(): void {
   }
 

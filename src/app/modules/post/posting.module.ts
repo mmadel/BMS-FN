@@ -28,7 +28,8 @@ import {
   TabsModule,
   NavModule,
   DateRangePickerModule,
-  TimePickerModule
+  TimePickerModule,
+  ModalModule
 } from '@coreui/angular-pro';
 
 @NgModule({
@@ -60,7 +61,8 @@ import {
     NavModule,
     DateRangePickerModule,
     TimePickerModule,
-    IconModule
+    IconModule,
+    ModalModule
   ]
 })
 export class PostingModule { }

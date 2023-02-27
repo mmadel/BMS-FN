@@ -3,11 +3,14 @@
         <input cFormControl placeholder="Insurance Company" class="w-25">
     </c-col>
     <c-col xs="2">
-        <c-date-picker placeholder="Deposit Date"></c-date-picker>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-primary" style="width: 150px;">Apply Date</button>
+            <c-date-picker placeholder="Deposit Date"></c-date-picker>
+        </div>
     </c-col>
 </c-row>
-<c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
-    [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
+<c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true"
+    [itemsPerPage]="10" [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
     [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }" header
     pagination>
 
@@ -46,8 +49,3 @@
         </td>
     </ng-template>
 </c-smart-table>
-<c-col xs="12" class="text-center mb-3">
-    <button cButton class="me-1" color="primary" variant="outline" style="width: 15%;">
-        Apply
-    </button>
-</c-col>
