@@ -1,0 +1,51 @@
+<c-row>
+    <c-col xs="10" class="text-center mb-3">
+        <input cFormControl placeholder="Insurance Company" class="w-25">
+    </c-col>
+    <c-col xs="2">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-primary" style="width: 150px;">Apply Date</button>
+            <c-date-picker placeholder="Deposit Date"></c-date-picker>
+        </div>
+    </c-col>
+</c-row>
+<c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true"
+    [itemsPerPage]="10" [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
+    [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }" header
+    pagination>
+
+    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+        <td>
+            <ng-container [ngSwitch]="columnName">
+                <ng-container *ngSwitchCase="'action'" class="py-2">
+                    <select cSelect sizing="sm" class="w-75">
+                        <option value="Close session"> Close session</option>
+                        <option value="Send to insurance invoice area">Send to insurance invoice area</option>
+                        <option value="Keep current status">Keep current status</option>
+                    </select>
+                </ng-container>
+                <ng-container *ngSwitchCase="'adjust'" class="py-2 ">
+                    <input cFormControl [value]="tdContent" sizing="sm" class="w-50">
+                </ng-container>
+                <ng-container *ngSwitchCase="'paid'" class="py-2">
+                    <input cFormControl [value]="tdContent" sizing="sm" class="w-50">
+                </ng-container>
+                <ng-container *ngSwitchCase="'label'" class="py-2">
+                    <strong>Payer claim Ref #:</strong> ERC13HQ20000<br />
+                    <strong>Calim Status :</strong> Processed As Primary<br />
+                </ng-container>
+                <ng-container *ngSwitchCase="'apply'" class="py-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Apply
+                        </label>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    {{tdContent}}
+                </ng-container>
+            </ng-container>
+        </td>
+    </ng-template>
+</c-smart-table>

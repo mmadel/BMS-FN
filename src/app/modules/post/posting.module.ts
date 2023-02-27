@@ -6,7 +6,8 @@ import { PostingRoutingModule } from './posting-routing.module';
 import {
   BatchInsurnacePaymentComponent,
   ElectronicRemittanceAdviceComponent,
-  PostingLinesComponent
+  PostingLinesComponent,
+  PostingERAComponent
 } from './index';
 import {
   AlertModule,
@@ -27,14 +28,16 @@ import {
   TabsModule,
   NavModule,
   DateRangePickerModule,
-  TimePickerModule
+  TimePickerModule,
+  ModalModule
 } from '@coreui/angular-pro';
 
 @NgModule({
   declarations: [
     BatchInsurnacePaymentComponent,
     ElectronicRemittanceAdviceComponent,
-    PostingLinesComponent
+    PostingLinesComponent,
+    PostingERAComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +61,8 @@ import {
     NavModule,
     DateRangePickerModule,
     TimePickerModule,
-    IconModule
+    IconModule,
+    ModalModule
   ]
 })
 export class PostingModule { }
