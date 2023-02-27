@@ -8,6 +8,7 @@ import usersData from './_eraData';
 })
 export class ElectronicRemittanceAdviceComponent implements OnInit {
   usersData = usersData;
+  eraLinesVisibality: boolean = false;
   columns = [
     { key: 'status', _style: { width: '15%' } },
     'date',
@@ -36,6 +37,9 @@ export class ElectronicRemittanceAdviceComponent implements OnInit {
   }
   constructor() { }
 
+  clickOpenERA() {
+    this.eraLinesVisibality = true;
+  }
   ngOnInit(): void {
   }
 

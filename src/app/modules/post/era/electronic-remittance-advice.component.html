@@ -67,7 +67,7 @@
                     </ng-container>
                 </ng-container>
                 <ng-container *ngSwitchCase="'open'" class="py-2">
-                    <button cButton color="primary" size="sm" variant="outline">
+                    <button cButton color="primary" size="sm" variant="outline" (click)="clickOpenERA()">
                         <svg cIcon class="me-2" name="cilDollar"></svg>
                     </button>
                 </ng-container>
@@ -83,3 +83,5 @@
         </td>
     </ng-template>
 </c-smart-table>
+
+<app-posting-era></app-posting-era>

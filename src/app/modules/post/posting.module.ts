@@ -6,7 +6,8 @@ import { PostingRoutingModule } from './posting-routing.module';
 import {
   BatchInsurnacePaymentComponent,
   ElectronicRemittanceAdviceComponent,
-  PostingLinesComponent
+  PostingLinesComponent,
+  PostingERAComponent
 } from './index';
 import {
   AlertModule,
@@ -34,7 +35,8 @@ import {
   declarations: [
     BatchInsurnacePaymentComponent,
     ElectronicRemittanceAdviceComponent,
-    PostingLinesComponent
+    PostingLinesComponent,
+    PostingERAComponent
   ],
   imports: [
     CommonModule,
