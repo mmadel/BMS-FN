@@ -100,7 +100,8 @@ import {
   cilFindInPage,
   cibAdobeAcrobatReader,
   cilAddressBook,
-  cilPlus
+  cilPlus,
+  cilViewStream
   
 } from '@coreui/icons';
 
@@ -206,7 +207,8 @@ export const iconSubset = {
   cilFindInPage,
   cibAdobeAcrobatReader,
   cilAddressBook,
-  cilPlus
+  cilPlus,
+  cilViewStream
 };
 
 export enum IconSubset {
