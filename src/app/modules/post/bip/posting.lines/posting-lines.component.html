@@ -1,0 +1,39 @@
+<c-smart-table
+  [columnSorter]="true"
+  [columns]="columns"
+  [itemsPerPageSelect]="true"
+  [itemsPerPage]="5"
+  [items]="usersData"
+  [tableBodyProps]="{ align: 'middle' }"
+  [tableProps]="{ hover: true, striped: true, responsive: true }"
+  clickableRows
+  header
+  pagination
+>
+  <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+    <td>
+      <ng-container [ngSwitch]="columnName">
+        <ng-container *ngSwitchCase="'PmtAmt'" class="py-2 ">
+            <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+        </ng-container>
+        <ng-container *ngSwitchCase="'adjust'" class="py-2">
+            <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+        </ng-container>
+        <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
+            <select cS  sizing="sm" class="w-50">
+                <option selected>Select</option>
+                <option value="Resubmit"> Resubmit</option>
+                <option value="Close Session">Close Session</option>
+                <option value="Bill To Client">Bill To Client</option>
+                <option value="Bill To agency">Bill To agency</option>
+                <option value="Keep current status">Keep current status</option>
+            </select>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          {{tdContent}}
+        </ng-container>
+      </ng-container>
+    </td>
+  </ng-template>
+</c-smart-table>
+

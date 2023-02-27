@@ -101,7 +101,8 @@ import {
   cibAdobeAcrobatReader,
   cilAddressBook,
   cilPlus,
-  cilViewStream
+  cilViewStream,
+  cilHouse
   
 } from '@coreui/icons';
 
@@ -208,7 +209,8 @@ export const iconSubset = {
   cibAdobeAcrobatReader,
   cilAddressBook,
   cilPlus,
-  cilViewStream
+  cilViewStream,
+  cilHouse
 };
 
 export enum IconSubset {

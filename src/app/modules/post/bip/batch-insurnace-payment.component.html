@@ -1,1 +1,79 @@
-<p>batch-insurnace-payment works!</p>
+<c-row>
+    <c-col xs="8" class="mb-2">
+        <h1>Batch Insurance Payment</h1>
+    </c-col>
+</c-row>
+<hr />
+<c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+            <h3>Payment Search Criteria</h3>
+        </c-card-header>
+        <c-card-body>
+            <form cForm>
+                <c-row>
+                    <c-col xs="12">
+                        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group me-2" role="group" aria-label="First group">
+                                <select class="form-select" aria-label="Default select example"
+                                    (change)="onEntityChange($event)">
+                                    <option selected [value]="1">
+                                        Client
+                                    </option>
+                                    <option [value]="2">
+                                        Insurance Company
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-text" id="btnGroupAddon">@</div>
+                                <input type="text" class="form-control" placeholder="Client/Insurance Name"
+                                    aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            </div>
+                        </div>
+                    </c-col>
+                    <c-col class="mb-2" xs="3">
+                        <div class="input-group mb-3">
+                            <select cSelect>
+                                <option>Pmt Method</option>
+                                <option>Check</option>
+                            </select>
+                            <input type="text" class="form-control" placeholder="Total Amount"
+                                aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        </div>
+                    </c-col>
+                    <c-col xs="2">
+                        <c-date-picker placeholder="Received Date"></c-date-picker>
+                    </c-col>
+                    <c-col xs="2">
+                        <c-date-picker placeholder="Checked Date"></c-date-picker>
+                    </c-col>
+                    <c-col xs="3">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Check Auth #"
+                                aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            <c-date-picker placeholder="Deposit Date"></c-date-picker>
+                        </div>
+                    </c-col>
+                    <c-col xs="2" *ngIf="entity == 1">
+                        <input type="text" class="form-control" placeholder="Insurance Company"
+                            aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    </c-col>
+                    <c-col xs="12" class="mb-3">
+                        <strong>Total Payment</strong> : $ 00.00 <br />
+                        <strong>Total Adjustment</strong> : $ 00.00
+                    </c-col>
+                    <c-col xs="12" class="text-center">
+                        <button cButton class="me-1" color="primary" variant="outline" style="width: 15%;"
+                        (click)="clickApplyPayment()">
+                            Apply Payment
+                        </button>
+                    </c-col>
+                </c-row>
+            </form>
+        </c-card-body>
+    </c-card>
+</c-col>
+<c-col xs="12">
+
+<app-posting-lines *ngIf="postingLinesVisibility"></app-posting-lines>
