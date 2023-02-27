@@ -1,1 +1,16 @@
-<p>invoicing-area works!</p>
+<c-row>
+    <c-col xs="10" class="mb-2">
+        <h1>Insurance Invoicing</h1>
+    </c-col>
+    <c-col xs="2" class="mb-2">
+        <button cButton class="me-1" variant="outline" type="submit" style="width: 90%;"
+            (click)="togglePatientListVisibale()">
+            Select Client
+        </button>
+    </c-col>
+</c-row>
+<hr />
+<c-container fluid="true">
+    <app-insurance-patient-list (sessionListVisibility)="toggleSessionListVisibale()" *ngIf="patientListVisible"></app-insurance-patient-list>
+    <app-insurance-session-list *ngIf="sessionListVisible"></app-insurance-session-list>
+</c-container>
