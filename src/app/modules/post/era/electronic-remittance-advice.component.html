@@ -1,1 +1,85 @@
-<p>electronic-remittance-advice works!</p>
+<c-row>
+    <c-col xs="12" class="mb-2">
+        <h1>Electronic Remittance Advice (ERA)</h1>
+    </c-col>
+</c-row>
+<hr />
+<c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-body>
+            <form cForm>
+                <c-row>
+                    <c-col xs="12">
+                    </c-col>
+                    <c-col class="mb-2" xs="3">
+                        <c-date-range-picker [placeholder]="['From', 'To']"></c-date-range-picker>
+                    </c-col>
+                    <c-col xs="2">
+                        <input type="text" class="form-control" placeholder="Client"
+                            aria-label="Example text with button addon">
+                    </c-col>
+                    <c-col xs="2">
+                        <input type="text" class="form-control" placeholder="Payer">
+                    </c-col>
+                    <c-col xs="3">
+                        <input type="text" class="form-control" placeholder="Check Number">
+                    </c-col>
+                    <c-col xs="2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Auto save while posting
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                show flagged only
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                show archived ERA's
+                            </label>
+                        </div>
+                    </c-col>
+                </c-row>
+            </form>
+        </c-card-body>
+    </c-card>
+</c-col>
+<c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
+    [items]="usersData" [tableProps]="{ hover: true, striped: true, responsive: true }"
+    [tableBodyProps]="{ align: 'middle' }" footer header pagination>
+
+    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+        <td>
+            <ng-container [ngSwitch]="columnName">
+                <ng-container *ngSwitchCase="'status'">
+                    <ng-container *ngIf="tdContent == 'new'">
+                        <c-badge color="success">
+                            {{tdContent}}
+                        </c-badge>
+                    </ng-container>
+                    <ng-container *ngIf="tdContent == 'flag'">
+                        <svg cIcon class="me-2" name="cilFlagAlt"></svg>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngSwitchCase="'open'" class="py-2">
+                    <button cButton color="primary" size="sm" variant="outline">
+                        <svg cIcon class="me-2" name="cilDollar"></svg>
+                    </button>
+                </ng-container>
+                <ng-container *ngSwitchCase="'archive'" class="py-2">
+                    <button cButton color="primary" size="sm" variant="outline">
+                        <svg cIcon class="me-2" name="cilFile"></svg>
+                    </button>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    {{tdContent}}
+                </ng-container>
+            </ng-container>
+        </td>
+    </ng-template>
+</c-smart-table>

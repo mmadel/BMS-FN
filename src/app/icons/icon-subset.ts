@@ -102,7 +102,9 @@ import {
   cilAddressBook,
   cilPlus,
   cilViewStream,
-  cilHouse
+  cilHouse,
+  cilFlagAlt,
+  
   
 } from '@coreui/icons';
 
@@ -210,7 +212,8 @@ export const iconSubset = {
   cilAddressBook,
   cilPlus,
   cilViewStream,
-  cilHouse
+  cilHouse,
+  cilFlagAlt
 };
 
 export enum IconSubset {
