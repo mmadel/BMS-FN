@@ -4,31 +4,34 @@
     </c-col>
 </c-row>
 <hr />
-<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group me-2" role="group" aria-label="First group">
-        <select class="form-select" aria-label="Default select example" (change)="onEntityChange($event)">
-            <option selected [value]="1">
-                Client
-            </option>
-            <option [value]="2">
-                Insurance Company
-            </option>
-        </select>
-    </div>
-    <div class="input-group">
-        <div class="input-group-text" id="btnGroupAddon">@</div>
-        <input type="text" class="form-control" placeholder="Client/Insurance Name" aria-label="Input group example"
-            aria-describedby="btnGroupAddon">
-    </div>
-</div>
 <c-col xs="12">
     <c-card class="mb-4">
         <c-card-header ngPreserveWhitespaces>
-            <strong>Search</strong>
+            <h3>Payment Seach Criteria</h3>
         </c-card-header>
         <c-card-body>
             <form cForm>
                 <c-row>
+                    <c-col xs="12">
+                        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group me-2" role="group" aria-label="First group">
+                                <select class="form-select" aria-label="Default select example"
+                                    (change)="onEntityChange($event)">
+                                    <option selected [value]="1">
+                                        Client
+                                    </option>
+                                    <option [value]="2">
+                                        Insurance Company
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-text" id="btnGroupAddon">@</div>
+                                <input type="text" class="form-control" placeholder="Client/Insurance Name"
+                                    aria-label="Input group example" aria-describedby="btnGroupAddon">
+                            </div>
+                        </div>
+                    </c-col>
                     <c-col class="mb-2" xs="3">
                         <div class="input-group mb-3">
                             <select cSelect>
@@ -71,3 +74,4 @@
     </c-card>
 </c-col>
 <c-col xs="12">
+<app-posting-lines></app-posting-lines>

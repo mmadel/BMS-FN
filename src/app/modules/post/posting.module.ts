@@ -5,7 +5,8 @@ import { PostingRoutingModule } from './posting-routing.module';
 
 import {
   BatchInsurnacePaymentComponent,
-  ElectronicRemittanceAdviceComponent
+  ElectronicRemittanceAdviceComponent,
+  PostingLinesComponent
 } from './index';
 import {
   AlertModule,
@@ -32,7 +33,8 @@ import {
 @NgModule({
   declarations: [
     BatchInsurnacePaymentComponent,
-    ElectronicRemittanceAdviceComponent
+    ElectronicRemittanceAdviceComponent,
+    PostingLinesComponent
   ],
   imports: [
     CommonModule,
