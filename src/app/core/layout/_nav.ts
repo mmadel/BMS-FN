@@ -77,4 +77,12 @@ export const navItems: INavData[] = [
       }
     ]
   },
+  {
+    name: 'Tools',
+    url: '/tools',
+    iconComponent: { name: 'cilAppsSettings' },
+    children: [
+     
+    ]
+  },
 ];
