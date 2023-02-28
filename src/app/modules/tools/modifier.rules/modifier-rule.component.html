@@ -1,1 +1,38 @@
-<p>modifier-rule works!</p>
+<c-row>
+    <c-col xs="10" class="mb-2">
+        <h1>Modifier Rules</h1>
+    </c-col>
+    <c-col xs="2" class="mb-2">
+        <button cButton class="me-1" variant="outline" type="submit" style="width: 90%;"
+            (click)="clickAddRule()">
+            Add Rule
+        </button>
+    </c-col>
+</c-row>
+<hr />
+
+<c-smart-table
+  [columnSorter]="true"
+  [columns]="columns"  
+  [items]="usersData"
+  [sorterValue]="{ column: 'name', state: 'asc' }"
+  [tableProps]="{ hover: true, striped: true, responsive: true }"
+  [tableBodyProps]="{ align: 'middle' }"
+  header
+>
+
+  <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+    <td>
+      <ng-container [ngSwitch]="columnName">
+        <ng-container *ngSwitchCase="'delete'" class="py-2">
+          <button  cButton color="primary" size="sm" variant="outline">
+            <svg cIcon name="cilTrash"> </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          {{tdContent}}
+        </ng-container>
+      </ng-container>
+    </td>
+  </ng-template>
+</c-smart-table>
