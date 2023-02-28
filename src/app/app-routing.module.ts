@@ -35,6 +35,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/post/posting.module').then((m) => m.PostingModule)
       },
+      {
+        path: 'tools',
+        loadChildren: () =>
+          import('./modules/tools/tools.module').then((m) => m.ToolsModule)
+      }
     ]
   }
 ];
