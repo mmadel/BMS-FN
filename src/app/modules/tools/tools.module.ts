@@ -8,7 +8,8 @@ import { ToolsRoutingModule } from './tools-routing.module';
 import {
   FeeScheduleComponent,
   CancelClaimComponent,
-  ModifierRuleComponent
+  ModifierRuleComponent,
+  RuleCreationComponent
 } from './index'
 
 
@@ -31,38 +32,41 @@ import {
   TabsModule,
   NavModule,
   DateRangePickerModule,
-  TimePickerModule
+  TimePickerModule,
+  ModalModule
 } from '@coreui/angular-pro';
 
 @NgModule({
   declarations: [
     FeeScheduleComponent,
     CancelClaimComponent,
-    ModifierRuleComponent
+    ModifierRuleComponent,
+    RuleCreationComponent
   ],
   imports: [
     CommonModule,
     ToolsRoutingModule,
     AlertModule,
-  BadgeModule,
-  ButtonModule,
-  CardModule,
-  CollapseModule,
-  GridModule,
-  SharedModule,
-  SmartTableModule,
-  TableModule,
-  FormModule,
-  DatePickerModule,
-  DropdownModule,
-  ButtonGroupModule,
-  ListGroupModule,
-  TooltipModule,
-  TabsModule,
-  NavModule,
-  DateRangePickerModule,
-  TimePickerModule,
-  IconModule
+    BadgeModule,
+    ButtonModule,
+    CardModule,
+    CollapseModule,
+    GridModule,
+    SharedModule,
+    SmartTableModule,
+    TableModule,
+    FormModule,
+    DatePickerModule,
+    DropdownModule,
+    ButtonGroupModule,
+    ListGroupModule,
+    TooltipModule,
+    TabsModule,
+    NavModule,
+    DateRangePickerModule,
+    TimePickerModule,
+    IconModule,
+    ModalModule
   ]
 })
 export class ToolsModule { }

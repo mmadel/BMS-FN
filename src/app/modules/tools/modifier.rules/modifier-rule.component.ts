@@ -6,6 +6,7 @@ import usersData from './_data';
   styleUrls: ['./modifier-rule.component.scss']
 })
 export class ModifierRuleComponent implements OnInit {
+  public addRuleVisible = false;
   usersData = usersData
   columns = [
     'modifier',
@@ -18,12 +19,18 @@ export class ModifierRuleComponent implements OnInit {
       _style: { width: '20%' }
     }
   ];
-  clickAddRule(){
-    
+  clickAddRule() {
+    this.addRuleVisible = !this.addRuleVisible;
   }
   constructor() { }
 
   ngOnInit(): void {
+  }
+  toggleAddRule() {
+    this.addRuleVisible = !this.addRuleVisible;
+  }
+  handleAddRuleChange(event: boolean) {
+    this.addRuleVisible = event;
   }
 
 }
