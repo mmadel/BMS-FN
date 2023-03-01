@@ -104,6 +104,7 @@ import {
   cilViewStream,
   cilHouse,
   cilFlagAlt,
+  cilAppsSettings
   
   
 } from '@coreui/icons';
@@ -213,7 +214,8 @@ export const iconSubset = {
   cilPlus,
   cilViewStream,
   cilHouse,
-  cilFlagAlt
+  cilFlagAlt,
+  cilAppsSettings
 };
 
 export enum IconSubset {
