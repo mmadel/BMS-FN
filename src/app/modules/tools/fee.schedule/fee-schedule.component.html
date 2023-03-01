@@ -4,3 +4,82 @@
     </c-col>
 </c-row>
 <hr />
+<c-row>
+    <c-col xs="2" class="mb-2">
+        <div class="mb-3">
+            <select cSelect class="form-control" id="provider" sizing="sm">
+                <option>Select Provider</option>
+                <option>Default</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <select cSelect class="form-control" id="planetype" sizing="sm">
+                <option>Select Plan Type</option>
+                <option>Default</option>
+            </select>
+        </div>
+    </c-col>
+</c-row>
+<hr />
+<c-row>
+    <c-col xs="12">
+        <div style="float: right;">
+            <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                <c-dropdown variant="btn-group">
+                    <button cButton cDropdownToggle variant="outline">
+                        Actions
+                    </button>
+                    <ul cDropdownMenu>
+                        <li><a cDropdownItem [routerLink]="[]">Import Fees</a></li>
+                        <li><a cDropdownItem [routerLink]="[]">Export Fees</a></li>
+                        <li cDropdownDivider></li>
+                        <li><a cDropdownItem [routerLink]="[]">Export Template</a></li>
+                    </ul>
+                </c-dropdown>
+            </c-button-group>
+        </div>
+    </c-col>
+    <c-col xs="12">
+        <c-smart-table [columns]="columns" [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
+            [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+            header>
+            <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+                <td>
+                    <ng-container [ngSwitch]="columnName">
+                        <ng-container *ngSwitchCase="'unitType'" class="py-2">
+                            <select cSelect sizing="sm" class="w-50">
+                                <option selected>Select</option>
+                                <option value="Resubmit">Fixed Rate</option>
+                                <option value="Close Session">Per Unit</option>
+                                <option value="Bill To Client">Per Minute</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'perUnit'" class="py-2">
+                            <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'chargeAmount'" class="py-2">
+                            <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'apply'" class="py-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            </div>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'delete'" class="py-2">
+                            <button cButton variant="outline">
+                                <svg cIcon name="cilTrash"></svg>
+                            </button>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                            {{tdContent}}
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </ng-template>
+        </c-smart-table>
+
+    </c-col>
+</c-row>
+<div class="col-12 text-center">
+    <button cButton variant="outline" style="width: 10%;">Save</button>
+</div>

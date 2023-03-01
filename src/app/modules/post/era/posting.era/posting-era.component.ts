@@ -27,7 +27,7 @@ export class PostingERAComponent implements OnInit {
     },
     {
       key: 'apply',
-      label: '',
+      label: 'Apply',
     }
   ];
   ngOnInit(): void {
