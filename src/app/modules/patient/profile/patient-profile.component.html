@@ -27,9 +27,12 @@
                                 <span cInputGroupText>
                                     <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
                                 </span>
-                                <input cFormControl placeholder="FirstName" />
-                                <input cFormControl placeholder="MiddleName" />
-                                <input cFormControl placeholder="LastName" />
+                                <input cFormControl placeholder="FirstName" [(ngModel)]="patient.firstName"
+                                    name="fname" />
+                                <input cFormControl placeholder="MiddleName" [(ngModel)]="patient.middleName"
+                                    name="mname" />
+                                <input cFormControl placeholder="LastName" [(ngModel)]="patient.lastName"
+                                    name="lastname" />
                             </c-input-group>
                         </c-col>
                     </c-row>
@@ -40,10 +43,10 @@
                                     <svg cIcon name="cilUser" title="cilUser"></svg>
                                 </span>
                                 <select aria-label="" cSelect>
-                                    <option>Select Gender</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
-                                    <option value="3">Other</option>
+                                    <option [value]="null">Select Gender</option>
+                                    <option *ngFor="let genderValue of genderKeys(genders)" [ngValue]="genderValue">
+                                        {{genders[genderValue]}}
+                                    </option>
                                 </select>
                             </c-input-group>
                         </c-col>
@@ -55,7 +58,11 @@
                                     <svg cIcon name="cilPeople" title="cilPeople"></svg>
                                 </span>
                                 <select aria-label="" cSelect>
-                                    <option>Select Marital Status</option>
+                                    <option [value]="null" disabled selected>Select MaritalStatus</option>
+                                    <option *ngFor="let maritalStatusValue of maritalStatusKeys(maritalStatuses)"
+                                        [value]="maritalStatusValue">
+                                        {{maritalStatuses[maritalStatusValue]}}
+                                    </option>
                                 </select>
                             </c-input-group>
                         </c-col>
@@ -66,10 +73,14 @@
                                 <span cInputGroupText>
                                     <svg cIcon name="cilPhone" title="cilPhone"></svg>
                                 </span>
-                                <select  cSelect style="max-width: 12%;">
-                                    <option>Select Phone Type</option>
+                                <select cSelect style="max-width: 12%;">
+                                    <option [value]="null" disabled selected>Select phoneType</option>
+                                    <option *ngFor="let phoneTypevalue of phoneTypesKeys(phoneTypes)"
+                                        [value]="phoneTypes">
+                                        {{phoneTypes[phoneTypevalue]}}
+                                    </option>
                                 </select>
-                                <input cFormControl  size="sm" placeholder="Phone"/>
+                                <input cFormControl size="sm" placeholder="Phone" />
                             </c-input-group>
                         </c-col>
                     </c-row>
@@ -79,7 +90,7 @@
                                 <span cInputGroupText>
                                     <svg cIcon name="cibMailRu" title="cibMailRu"></svg>
                                 </span>
-                                <input cFormControl  placeholder="Email"/>
+                                <input cFormControl placeholder="Email" />
                             </c-input-group>
                         </c-col>
                     </c-row>
@@ -92,7 +103,7 @@
                                 <select cSelect aria-label="" cSelect style="max-width: 12%;">
                                     <option>Dollar Amt</option>
                                 </select>
-                                <input cFormControl    placeholder="Copay"/>
+                                <input cFormControl placeholder="Copay" />
                             </c-input-group>
                         </c-col>
                     </c-row>
@@ -112,16 +123,34 @@
                                 <c-card-header>Address</c-card-header>
                                 <c-card-body>
                                     <c-row>
-                                        <c-col xs="12"><input cFormControl placeholder="Country" sizing="sm"
-                                                class="mb-1" /></c-col>
+                                        <c-col xs="12">
+                                            <c-input-group class="mb-3">
+                                                <select cFormControl cSelect sizing="sm" id="country" name="country"
+                                                    required>
+                                                    <option [value]="null" disabled selected>Select Country</option>
+                                                    <option *ngFor="let country of countries" [value]="country.name">
+                                                        {{country.name}}
+                                                    </option>
+                                                </select>
+                                            </c-input-group>
+                                        </c-col>
                                         <c-col xs="12"><input cFormControl placeholder="Street" sizing="sm"
                                                 class="mb-1" /></c-col>
                                         <c-col xs="12"><input cFormControl placeholder="City" sizing="sm"
                                                 class="mb-1" /></c-col>
-                                        <c-col xs="6"><input cFormControl placeholder="State" sizing="sm"
-                                                class="mb-1" /></c-col>
-                                        <c-col xs="6"><input cFormControl placeholder="ZipCode" sizing="sm"
-                                                class="mb-1" /></c-col>
+                                        <c-col xs="6">
+                                            <c-col xs="12">
+                                                <select cFormControl cSelect sizing="sm" id="country" name="country"
+                                                    required>
+                                                    <option [value]="null" disabled selected>Select Country</option>
+                                                    <option *ngFor="let state of states" [value]="state">
+                                                        {{state}}
+                                                    </option>
+                                                </select>
+                                            </c-col>
+                                        </c-col>
+                                        <c-col xs="6"><input zipcode cFormControl id="zipCode" name="zipCode" [(ngModel)]="patient.address.zipCode"
+                                                placeholder="ZipCode" sizing="sm" class="mb-1" /></c-col>
                                     </c-row>
                                 </c-card-body>
                             </c-card>

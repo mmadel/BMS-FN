@@ -2,12 +2,13 @@ import { Address } from "../common/address";
 import { PatientCase } from "./patient.case";
 
 export interface Patient {
+    id?:number
     firstName?: string;
     middleName?: string;
     lastName?: string;
-    birthDate: number;
+    birthDate?: number;
     maritalStatus?: string;
     gender?: string;
-    addresses?: Address
+    address?: Address
     cases?: PatientCase[];
 }

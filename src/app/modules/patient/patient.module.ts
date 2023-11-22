@@ -37,8 +37,8 @@ import {
   TimePickerModule
 } from '@coreui/angular-pro';
 
-
 import { IconModule } from '@coreui/icons-angular';
+import { ModelModule } from '../model/model.module';
 
 @NgModule({
   declarations: [
@@ -56,6 +56,7 @@ import { IconModule } from '@coreui/icons-angular';
   imports: [
     CommonModule,
     PatientRoutingModule,
+    ModelModule,
     AlertModule,
     BadgeModule,
     ButtonModule,
@@ -75,8 +76,7 @@ import { IconModule } from '@coreui/icons-angular';
     TabsModule,
     NavModule,
     DateRangePickerModule,
-    TimePickerModule
-
+    TimePickerModule, 
   ]
 })
 export class PatientModule { }
