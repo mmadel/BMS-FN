@@ -7,7 +7,7 @@ import usersData from '../../patient/list/_data';
   styleUrls: ['./referring-provider-list.component.scss']
 })
 export class ReferringProviderListComponent extends ListTemplate implements OnInit {
-  referringProviderCreationVisibility:boolean
+  referringProviderCreationVisibility: boolean
   usersData = usersData;
   columns = [
     {
@@ -44,7 +44,11 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   ngOnInit(): void {
     this.initListComponent();
   }
-  toggleReferringProviderCreation(){
-    this.referringProviderCreationVisibility=!this.referringProviderCreationVisibility;
+  toggleReferringProviderCreation() {
+    this.referringProviderCreationVisibility = !this.referringProviderCreationVisibility;
+  }
+  changeVisibility(event: any) {
+    if (event === 'close')
+      this.referringProviderCreationVisibility = false;
   }
 }

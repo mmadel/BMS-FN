@@ -1,6 +1,6 @@
 export interface ReferringProvider {
-    id: number;
-    firstName: string;
-    lastName: string;
-    npi: string;
+    id?: number;
+    firstName?: string;
+    lastName?: string;
+    npi?: string;
 }

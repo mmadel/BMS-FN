@@ -1,1 +1,48 @@
-<p>referring-provider-create works!</p>
+
+<ngx-spinner></ngx-spinner>
+<c-container fluid>
+    <form cForm #referringProviderCreateForm="ngForm" (ngSubmit)="create()">
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="form-text text-danger">
+                    First Name is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <span cInputGroupText id="basic-addon1" style="width: 25%;">FirstName</span>
+                    <input placeholder="First Name" cFormControl id="fname" name="fname" sizing="sm" required
+                        [ngClass]="{'is-invalid': fname.invalid && (fname.dirty || fname.touched)}" #fname="ngModel"
+                        [(ngModel)]="referringProvider.firstName" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="form-text text-danger">
+                    Last Name is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <span cInputGroupText id="basic-addon1" style="width: 25%;">MiddleName</span>
+                    <input placeholder="Last Name" cFormControl id="lname" name="lname" sizing="sm" required
+                        [ngClass]="{'is-invalid': lname.invalid && (lname.dirty || lname.touched)}" #lname="ngModel"
+                        [(ngModel)]="referringProvider.lastName" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="npi.invalid && (npi.dirty || npi.touched)" class="form-text text-danger">
+                    npi is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <span cInputGroupText id="basic-addon1" style="width: 25%;">NPI</span>
+                    <input placeholder="NPI Name" cFormControl id="npi" name="npi" sizing="sm" required
+                        [ngClass]="{'is-invalid': npi.invalid && (npi.dirty || npi.touched)}" #npi="ngModel"
+                        [(ngModel)]="referringProvider.npi" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-center">
+            <button cButton type="submit" [disabled]="!referringProviderCreateForm.valid">Create</button>
+        </div>
+    </form>
+</c-container>

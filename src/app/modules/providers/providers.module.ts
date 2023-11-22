@@ -29,6 +29,8 @@ import {
   ReferringProviderListComponent
 } from './index';
 import { ReferringProviderCreateComponent } from './referring/create/referring-provider-create.component'
+import { ModelModule } from '../model/model.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ReferringProviderCreateComponent } from './referring/create/referring-p
     DateRangePickerModule,
     TimePickerModule,
     IconModule,
-    ModalModule
+    ModalModule,
+    ModelModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
 export class ProvidersModule { }
