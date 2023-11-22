@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve  --port 4409",
+    "start": "ng serve  --port 4409 --proxy-config proxy-local.config.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -27,7 +27,10 @@
     "bootstrap": "^5.2.3",
     "chart.js": "^3.9.1",
     "date-fns": "^2.29.3",
+    "moment": "^2.29.4",
     "ngx-perfect-scrollbar": "^10.1.1",
+    "ngx-spinner": "^14.0.0",
+    "ngx-toastr": "^15.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

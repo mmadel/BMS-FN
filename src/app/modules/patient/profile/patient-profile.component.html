@@ -4,6 +4,10 @@
     </c-col>
 </c-row>
 <hr />
+<div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-end">
+    <button cButton color="primary" style="width: 10%;" variant="outline" (click)="create()">Save</button>
+    <button cButton color="primary" style="width: 10%;" variant="outline">Save And Close</button>
+</div>
 <c-row>
     <c-col xs="12">
         <c-card class="mb-4">
@@ -23,11 +27,13 @@
                 <form cForm #patientCreationForm="ngForm">
                     <c-row>
                         <c-col class="mb-1">
-                            <small *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                            <small
+                                *ngIf="notValidForm   && (firstName.errors) || firstName.invalid && (firstName.dirty || firstName.touched)"
                                 class="form-text text-danger">
                                 First Name is required
                             </small>
-                            <small *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                            <small
+                                *ngIf="notValidForm   && (lastName.errors) || lastName.invalid && (lastName.dirty || lastName.touched)"
                                 class="form-text text-danger">
                                 Last Name is required
                             </small>
@@ -46,7 +52,8 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <small *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+                            <small
+                                *ngIf="notValidForm   && (gender.errors) ||gender.invalid && (gender.dirty || gender.touched)"
                                 class="form-text text-danger">
                                 Gender is required
                             </small>
@@ -66,7 +73,8 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <small *ngIf="maritalStatus.invalid && (maritalStatus.dirty || maritalStatus.touched)"
+                            <small
+                                *ngIf="notValidForm   && (maritalStatus.errors) || maritalStatus.invalid && (maritalStatus.dirty || maritalStatus.touched)"
                                 class="form-text text-danger">
                                 Marital Status is required
                             </small>
@@ -87,11 +95,13 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <small *ngIf="phonetype.invalid && (phonetype.dirty || phonetype.touched)"
+                            <small
+                                *ngIf="notValidForm   && (phonetype.errors) || phonetype.invalid && (phonetype.dirty || phonetype.touched)"
                                 class="form-text text-danger">
                                 Phone type is required
                             </small>
-                            <small *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                            <small
+                                *ngIf="notValidForm   && (phone.errors) || phone.invalid && (phone.dirty || phone.touched)"
                                 class="form-text text-danger">
                                 Phone is required
                             </small>
@@ -103,7 +113,7 @@
                                     [(ngModel)]="patient.phoneType">
                                     <option [value]=null disabled selected>Select phoneType</option>
                                     <option *ngFor="let phoneTypevalue of phoneTypesKeys(phoneTypes)"
-                                        [value]="phoneTypes">
+                                        [value]="phoneTypevalue">
                                         {{phoneTypes[phoneTypevalue]}}
                                     </option>
                                 </select>
@@ -114,7 +124,8 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <small *ngIf="email.invalid && (email.dirty || email.touched)"
+                            <small
+                                *ngIf="notValidForm   && (email.errors) || email.invalid && (email.dirty || email.touched)"
                                 class="form-text text-danger">
                                 Email is required
                             </small>
@@ -129,7 +140,8 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <small *ngIf="copay.invalid && (copay.dirty || copay.touched)"
+                            <small
+                                *ngIf="notValidForm   && (copay.errors) || copay.invalid && (copay.dirty || copay.touched)"
                                 class="form-text text-danger">
                                 Copay is required
                             </small>
@@ -147,9 +159,10 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <small *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="form-text text-danger">
+                            <!-- <small *ngIf="notValidForm   && (dob.errors) || dob.invalid && (dob.dirty || dob.touched)"
+                                class="form-text text-danger">
                                 Date Of birth is required
-                            </small>
+                            </small> -->
                             <c-input-group sizing="sm">
                                 <span cInputGroupText>
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
@@ -166,7 +179,8 @@
                                 <c-card-body>
                                     <c-row>
                                         <c-col xs="12">
-                                            <small *ngIf="country.invalid && (country.dirty || country.touched)"
+                                            <small
+                                                *ngIf="notValidForm   && (country.errors) ||  country.invalid && (country.dirty || country.touched)"
                                                 class="form-text text-danger">
                                                 country is required
                                             </small>
@@ -181,7 +195,8 @@
                                             </c-input-group>
                                         </c-col>
                                         <c-col xs="12">
-                                            <small *ngIf="street.invalid && (street.dirty || street.touched)"
+                                            <small
+                                                *ngIf="notValidForm   && (street.errors) ||  street.invalid && (street.dirty || street.touched)"
                                                 class="form-text text-danger">
                                                 street is required
                                             </small>
@@ -190,7 +205,8 @@
                                                 required />
                                         </c-col>
                                         <c-col xs="12">
-                                            <small *ngIf="City.invalid && (City.dirty || City.touched)"
+                                            <small
+                                                *ngIf="notValidForm   && (City.errors) || City.invalid && (City.dirty || City.touched)"
                                                 class="form-text text-danger">
                                                 City is required
                                             </small>
@@ -199,7 +215,8 @@
                                                 required /></c-col>
                                         <c-col xs="6">
                                             <c-col xs="12">
-                                                <small *ngIf="state.invalid && (state.dirty || state.touched)"
+                                                <small
+                                                    *ngIf="notValidForm   && (state.errors) || state.invalid && (state.dirty || state.touched)"
                                                     class="form-text text-danger">
                                                     State is required
                                                 </small>
@@ -213,7 +230,7 @@
                                             </c-col>
                                         </c-col>
                                         <c-col xs="6">
-                                            <small *ngIf="zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+                                            <small *ngIf="notValidForm   && (zipCode.errors) || zipCode.invalid && (zipCode.dirty || zipCode.touched)"
                                                 class="form-text text-danger">
                                                 ZipCode is required
                                             </small>

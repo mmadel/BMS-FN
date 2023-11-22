@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../../model/clinical/patient';
 import { Country } from '../../model/common/country';
 import { Gender } from '../../model/enum/geneder';
@@ -14,14 +17,18 @@ import { PatientService } from '../service/patient.service';
   styleUrls: ['./patient-profile.component.scss']
 })
 export class PatientProfileComponent implements OnInit {
+  notValidForm: boolean = false;
+  @ViewChild('patientCreationForm') patientCreationForm: NgForm;
   patient: Patient = {
+    gender: null,
+    maritalStatus: null,
     address: {
-      country:null,
-      state:null
+      country: null,
+      state: null
     },
-    phoneType:null
+    phoneType: null
   }
-  patientDOB: string
+  patientDOB: Date
   genderKeys = Object.values;
   genders = Gender;
   maritalStatusKeys = Object.values;
@@ -30,8 +37,24 @@ export class PatientProfileComponent implements OnInit {
   phoneTypes = PhoneType
   countries: Country[] = Countries;
   states: string[] = States;
-  constructor(private patientService: PatientService) { }
+
+  constructor(private patientService: PatientService
+    , private toastr: ToastrService) { }
   ngOnInit(): void {
   }
-
-}
+  create() {
+    if (this.patientCreationForm.valid) {
+      this.patient.birthDate = moment(this.patientDOB).unix() * 1000;
+      this.patientService.create(this.patient)
+        .subscribe((result) => {
+          this.toastr.success('Patient Created');
+          this.patientCreationForm.reset();
+        }, (error) => {
+          this.toastr.error('Error in Patient Created');
+        })
+      this.notValidForm = false
+    } else {
+      this.notValidForm = true;
+    }
+  }
+} 
