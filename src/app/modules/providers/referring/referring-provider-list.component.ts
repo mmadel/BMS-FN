@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { ReferringProvider } from '../../model/clinical/referring.provider';
 import { ListTemplate } from '../../model/template/list.template';
 import usersData from '../../patient/list/_data';
+import { ReferringProviderService } from '../service/referring-provider.service';
 @Component({
   selector: 'app-referring-provider-list',
   templateUrl: './referring-provider-list.component.html',
@@ -8,30 +11,24 @@ import usersData from '../../patient/list/_data';
 })
 export class ReferringProviderListComponent extends ListTemplate implements OnInit {
   referringProviderCreationVisibility: boolean
-  usersData = usersData;
+  referringProviders$!: Observable<ReferringProvider[]>;
   columns = [
     {
-      key: 'name',
-      _style: { width: '20%' }
+      key: 'firstName',
     },
     {
-      key: 'id',
-      _style: { width: '5%' }
+      key: 'lastName',
     },
     {
-      key: 'edit',
-      label: '',
+      key: 'npi',
+    },
+    {
+      key: 'actions',
       _style: { width: '1%' },
+      label: '',
       filter: false,
       sorter: false
     },
-    {
-      key: 'delete',
-      label: '',
-      _style: { width: '1%' },
-      filter: false,
-      sorter: false
-    }
   ];
 
   details_visible = Object.create({});
@@ -39,10 +36,11 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   toggleDetails(item: any) {
     this.details_visible[item] = !this.details_visible[item];
   }
-  constructor() { super(); }
+  constructor(private referringProviderService: ReferringProviderService) { super(); }
 
   ngOnInit(): void {
     this.initListComponent();
+    this.find()
   }
   toggleReferringProviderCreation() {
     this.referringProviderCreationVisibility = !this.referringProviderCreationVisibility;
@@ -50,5 +48,19 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   changeVisibility(event: any) {
     if (event === 'close')
       this.referringProviderCreationVisibility = false;
+    this.find();
+  }
+  remove(item: any) {
+
+  }
+  edit(item: any) {
+
+  }
+  find() {
+    this.referringProviders$ = this.referringProviderService.findAll(this.apiParams$).pipe(
+      map((response: any) => {
+        return response.records;
+      })
+    );
   }
 }

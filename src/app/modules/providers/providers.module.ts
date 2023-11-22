@@ -22,7 +22,8 @@ import {
   NavModule,
   DateRangePickerModule,
   TimePickerModule,
-  ModalModule
+  ModalModule,
+  SmartPaginationModule
 } from '@coreui/angular-pro';
 import {
   ListComponent,
@@ -62,6 +63,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     IconModule,
     ModalModule,
     ModelModule,
+    SmartPaginationModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
