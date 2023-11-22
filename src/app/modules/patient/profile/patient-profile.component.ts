@@ -15,8 +15,13 @@ import { PatientService } from '../service/patient.service';
 })
 export class PatientProfileComponent implements OnInit {
   patient: Patient = {
-    address:{}
+    address: {
+      country:null,
+      state:null
+    },
+    phoneType:null
   }
+  patientDOB: string
   genderKeys = Object.values;
   genders = Gender;
   maritalStatusKeys = Object.values;

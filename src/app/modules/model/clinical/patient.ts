@@ -6,9 +6,13 @@ export interface Patient {
     firstName?: string;
     middleName?: string;
     lastName?: string;
-    birthDate?: number;
+    birthDate?: string;
     maritalStatus?: string;
     gender?: string;
     address?: Address
     cases?: PatientCase[];
+    phoneType?:String|null;
+    phone?:string;
+    email?:string
+    copay?:string
 }
