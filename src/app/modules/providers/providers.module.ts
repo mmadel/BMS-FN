@@ -22,16 +22,19 @@ import {
   NavModule,
   DateRangePickerModule,
   TimePickerModule,
+  ModalModule
 } from '@coreui/angular-pro';
 import {
   ListComponent,
   ReferringProviderListComponent
-} from './index'
+} from './index';
+import { ReferringProviderCreateComponent } from './referring/create/referring-provider-create.component'
 
 @NgModule({
   declarations: [
     ListComponent,
-    ReferringProviderListComponent
+    ReferringProviderListComponent,
+    ReferringProviderCreateComponent
   ],
   imports: [
     CommonModule,
@@ -54,8 +57,8 @@ import {
     NavModule,
     DateRangePickerModule,
     TimePickerModule,
-    IconModule
-    
+    IconModule,
+    ModalModule
   ]
 })
 export class ProvidersModule { }

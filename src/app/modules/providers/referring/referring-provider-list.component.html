@@ -9,7 +9,7 @@
         <c-col xs="12">
             <div style="float:right;">
                 <c-button-group aria-label="Basic outlined example" role="group">
-                    <button cButton color="primary" variant="outline">
+                    <button cButton color="primary" variant="outline" (click)="toggleReferringProviderCreation()">
                         Add Referring Provider
                     </button>
                     <button cButton color="primary" variant="outline">
@@ -64,3 +64,11 @@
         </c-col>
     </c-row>
 </c-container>
+<c-modal id="AppointmentAction" [visible]="referringProviderCreationVisibility">
+    <c-modal-header>
+      <h5 cModalTitle>Referring Provider Creation</h5>
+      <button (click)="toggleReferringProviderCreation()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+    </c-modal-body>
+  </c-modal>

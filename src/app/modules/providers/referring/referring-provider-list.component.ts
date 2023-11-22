@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ListTemplate } from '../../model/template/list.template';
 import usersData from '../../patient/list/_data';
 @Component({
   selector: 'app-referring-provider-list',
   templateUrl: './referring-provider-list.component.html',
   styleUrls: ['./referring-provider-list.component.scss']
 })
-export class ReferringProviderListComponent implements OnInit {
-
+export class ReferringProviderListComponent extends ListTemplate implements OnInit {
+  referringProviderCreationVisibility:boolean
   usersData = usersData;
   columns = [
     {
@@ -38,9 +39,12 @@ export class ReferringProviderListComponent implements OnInit {
   toggleDetails(item: any) {
     this.details_visible[item] = !this.details_visible[item];
   }
-  constructor() { }
+  constructor() { super(); }
 
   ngOnInit(): void {
+    this.initListComponent();
   }
-
+  toggleReferringProviderCreation(){
+    this.referringProviderCreationVisibility=!this.referringProviderCreationVisibility;
+  }
 }
