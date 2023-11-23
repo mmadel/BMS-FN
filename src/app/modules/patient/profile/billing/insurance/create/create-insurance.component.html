@@ -1,57 +1,214 @@
 <c-container fluid>
     <!--demographics-->
-    <c-row class="justify-content-center">
-        <c-col class="col">
-            <c-card class="mb-3 ustify-content-center">
-                <c-card-header>
-                    <strong>Demographics</strong>
-                </c-card-header>
-                <c-card-body>
+    <form cForm #insuranceCreateForm="ngForm" (ngSubmit)="create()" (change)="resetError()">
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <c-card class="mb-3 ustify-content-center">
+                    <c-card-header>
+                        <strong>Demographics</strong>
+                    </c-card-header>
+                    <c-card-body>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (relation.errors) ||relation.invalid && (relation.dirty || relation.touched)"
+                                    class="form-text text-danger">
+                                    Relation is required
+                                </small>
+                                <c-input-group sizing="sm">
+                                    <span cInputGroupText>
+                                        <svg cIcon name="cilUser" title="cilUser"></svg>
+                                    </span>
+                                    <select aria-label="" cSelect #relation="ngModel" name="relation" required
+                                        [(ngModel)]="patientInsurance.relation">
+                                        <option [value]="null" selected disabled>Select Relation</option>
+                                        <option *ngFor="let relationValue of relationsKeys(relations)"
+                                            [ngValue]="relationValue">
+                                            {{relations[relationValue]}}
+                                        </option>
+                                    </select>
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <span *ngIf="patientInsurance.relation !== null">
+                            <c-row>
+                                <c-col class="mb-1">
+                                    <small
+                                        *ngIf="notValidForm   && (firstName.errors) || firstName.invalid && (firstName.dirty || firstName.touched)"
+                                        class="form-text text-danger">
+                                        First Name is required
+                                    </small>
+                                    <small
+                                        *ngIf="notValidForm   && (lastName.errors) || lastName.invalid && (lastName.dirty || lastName.touched)"
+                                        class="form-text text-danger">
+                                        Last Name is required
+                                    </small>
+                                    <c-input-group sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
+                                        </span>
+                                        <input cFormControl placeholder="FirstName" name="firstName" required
+                                            [(ngModel)]="patientInsurance.patientRelation.firstName"
+                                            #firstName="ngModel" name="fname" />
+                                        <input cFormControl placeholder="MiddleName"
+                                            [(ngModel)]="patientInsurance.patientRelation.middleName" name="mname" />
+                                        <input cFormControl placeholder="LastName"
+                                            [(ngModel)]="patientInsurance.patientRelation.lastName" required
+                                            #lastName="ngModel" name="lastname" />
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                            <c-row>
+                                <c-col class="mb-1">
+                                    <small
+                                        *ngIf="notValidForm   && (gender.errors) ||gender.invalid && (gender.dirty || gender.touched)"
+                                        class="form-text text-danger">
+                                        Gender is required
+                                    </small>
+                                    <c-input-group sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilUser" title="cilUser"></svg>
+                                        </span>
+                                        <select aria-label="" cSelect #gender="ngModel" name="gender" required
+                                            [(ngModel)]="patientInsurance.patientRelation.gender">
+                                            <option [value]="null">Select Gender</option>
+                                            <option *ngFor="let genderValue of genderKeys(genders)"
+                                                [ngValue]="genderValue">
+                                                {{genders[genderValue]}}
+                                            </option>
+                                        </select>
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                            <c-row>
+                                <c-col class="mb-1">
 
-                </c-card-body>
-            </c-card>
-        </c-col>
-    </c-row>
-    <!--Policy Information-->
-    <c-row class="justify-content-center">
-        <c-col class="col">
-            <c-card class="mb-3 ustify-content-center">
-                <c-card-header>
-                    <strong>Policy Information</strong>
-                </c-card-header>
-                <c-card-body>
+                                    <small
+                                        *ngIf="notValidForm   && (phone.errors) || phone.invalid && (phone.dirty || phone.touched)"
+                                        class="form-text text-danger">
+                                        Phone is required
+                                    </small>
+                                    <c-input-group sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilPhone" title="cilPhone"></svg>
+                                        </span>
+                                        <input cFormControl size="sm" placeholder="Phone"
+                                            [(ngModel)]="patientInsurance.patientRelation.phone" #phone="ngModel"
+                                            name="phone" required />
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                            <c-row>
+                                <c-col xs="12">
+                                    <small
+                                        *ngIf="notValidForm   && (country.errors) ||  country.invalid && (country.dirty || country.touched)"
+                                        class="form-text text-danger">
+                                        country is required
+                                    </small>
+                                    <c-input-group class="mb-1">
+                                        <select cFormControl cSelect sizing="sm" id="country" name="country"
+                                            #country="ngModel"
+                                            [(ngModel)]="patientInsurance.patientRelation.address.country" required>
+                                            <option [value]="null" disabled selected>Select Country</option>
+                                            <option *ngFor="let country of countries" [value]="country.name">
+                                                {{country.name}}
+                                            </option>
+                                        </select>
+                                    </c-input-group>
+                                </c-col>
+                                <c-col xs="12">
+                                    <small
+                                        *ngIf="notValidForm   && (street.errors) ||  street.invalid && (street.dirty || street.touched)"
+                                        class="form-text text-danger">
+                                        street is required
+                                    </small>
+                                    <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #street="ngModel"
+                                        name="street" [(ngModel)]="patientInsurance.patientRelation.address.first"
+                                        required />
+                                </c-col>
+                                <c-col xs="12">
+                                    <small
+                                        *ngIf="notValidForm   && (City.errors) || City.invalid && (City.dirty || City.touched)"
+                                        class="form-text text-danger">
+                                        City is required
+                                    </small>
+                                    <input cFormControl placeholder="City" sizing="sm" class="mb-1" #City="ngModel"
+                                        name="City" [(ngModel)]="patientInsurance.patientRelation.address.city"
+                                        required /></c-col>
+                                <c-col xs="6">
+                                    <c-col xs="12">
+                                        <small
+                                            *ngIf="notValidForm   && (state.errors) || state.invalid && (state.dirty || state.touched)"
+                                            class="form-text text-danger">
+                                            State is required
+                                        </small>
+                                        <select cFormControl cSelect sizing="sm" id="state" name="state" required
+                                            #state="ngModel"
+                                            [(ngModel)]="patientInsurance.patientRelation.address.state">
+                                            <option [value]="null" disabled selected>Select State</option>
+                                            <option *ngFor="let state of states" [value]="state">
+                                                {{state}}
+                                            </option>
+                                        </select>
+                                    </c-col>
+                                </c-col>
+                                <c-col xs="6">
+                                    <small
+                                        *ngIf="notValidForm   && (zipCode.errors) || zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+                                        class="form-text text-danger">
+                                        ZipCode is required
+                                    </small>
+                                    <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
+                                        sizing="sm" #zipCode="ngModel" name="zipCode"
+                                        [(ngModel)]="patientInsurance.patientRelation.address.zipCode" required
+                                        class="mb-1" /></c-col>
+                            </c-row>
+                        </span>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        <!--Policy Information-->
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <c-card class="mb-3 ustify-content-center">
+                    <c-card-header>
+                        <strong>Policy Information</strong>
+                    </c-card-header>
+                    <c-card-body>
 
-                </c-card-body>
-            </c-card>
-        </c-col>
-    </c-row>
-    <!--Advanced -->
-    <c-row class="justify-content-center">
-        <c-col class="col">
-            <c-card class="mb-3 ustify-content-center">
-                <c-card-header>
-                    <strong>Advanced</strong>
-                </c-card-header>
-                <c-card-body>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        <!--Advanced -->
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <c-card class="mb-3 ustify-content-center">
+                    <c-card-header>
+                        <strong>Advanced</strong>
+                    </c-card-header>
+                    <c-card-body>
 
-                </c-card-body>
-            </c-card>
-        </c-col>
-    </c-row>
-    <!--payor Address -->
-    <c-row class="justify-content-center">
-        <c-col class="col">
-            <c-card class="mb-3 ustify-content-center">
-                <c-card-header>
-                    <strong>Payor Address</strong>
-                </c-card-header>
-                <c-card-body>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        <!--payor Address -->
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <c-card class="mb-3 ustify-content-center">
+                    <c-card-header>
+                        <strong>Payor Address</strong>
+                    </c-card-header>
+                    <c-card-body>
 
-                </c-card-body>
-            </c-card>
-        </c-col>
-    </c-row>
-    <div class="d-md-flex justify-content-md-center">
-        <button cButton color="primary" variant="outline">Save </button>
-    </div>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        <div class="d-md-flex justify-content-md-center">
+            <button cButton color="primary" variant="outline">Create</button>
+        </div>
+    </form>
 </c-container>
