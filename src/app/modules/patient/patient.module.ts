@@ -34,7 +34,10 @@ import {
   TabsModule,
   NavModule,
   DateRangePickerModule,
-  TimePickerModule
+  TimePickerModule,
+  ModalModule,
+  MultiSelectModule,
+  SpinnerModule
 } from '@coreui/angular-pro';
 
 import { IconModule } from '@coreui/icons-angular';
@@ -42,6 +45,7 @@ import { ModelModule } from '../model/model.module';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ViewReferringProviderComponent } from './profile/billing/referring.provider/view-referring-provider.component';
 import { ViewCaseComponent } from './profile/billing/cases/view-case.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -82,7 +86,11 @@ import { ViewCaseComponent } from './profile/billing/cases/view-case.component';
     NavModule,
     DateRangePickerModule,
     TimePickerModule, 
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    ModalModule,
+    ModelModule,
+    MultiSelectModule,
+    SpinnerModule
   ]
 })
 export class PatientModule { }
