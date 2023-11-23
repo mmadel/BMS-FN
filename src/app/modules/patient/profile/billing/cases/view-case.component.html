@@ -6,20 +6,20 @@
         </div>
     </c-col>
     <c-col xs="12">
-        <div class="card border mb-2" *ngFor="let case of cases">
+        <div class="card border mb-2" *ngFor="let case of cases;let i=index;">
             <div class="card-body">
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                         <button cButton color="info" variant="outline" class="btn-sm">
                             <svg cIcon name="cilPen"></svg>
                         </button>
-                        <button cButton color="info" variant="outline" class="btn-sm">
+                        <button cButton color="info" variant="outline" class="btn-sm" (click)="remove(i)">
                             <svg cIcon name="cilTrash"></svg>
                         </button>
                     </c-button-group>
                 </div>
-                <h4>{{case.title }}</h4> <br />
-                <h5>ICD-10 Codes</h5> 
+                <h6>{{case.title }}</h6> <br />
+                <h6>ICD-10 Codes</h6> 
                 <ul *ngFor="let code of case.caseDiagnosis">
                     <li style="list-style-type: none">
                         {{code.diagnosisCode}} - {{code.diagnosisDescription}}

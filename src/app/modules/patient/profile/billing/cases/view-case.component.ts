@@ -77,6 +77,9 @@ export class ViewCaseComponent implements OnInit {
     this.cases.push(this.case)
     this.toggleAddCaseVisibility();
   }
+  remove(index: number) {
+    this.cases.splice(index, 1);
+  }
   addICD10diagnosis(diagnosis: any) {
     diagnosis.forEach((element: string) => {
       var code: string = element.split(',')[0]
