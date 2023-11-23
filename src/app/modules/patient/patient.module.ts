@@ -39,6 +39,7 @@ import {
 
 import { IconModule } from '@coreui/icons-angular';
 import { ModelModule } from '../model/model.module';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ModelModule } from '../model/model.module';
     NavModule,
     DateRangePickerModule,
     TimePickerModule, 
+    AutocompleteLibModule
   ]
 })
 export class PatientModule { }

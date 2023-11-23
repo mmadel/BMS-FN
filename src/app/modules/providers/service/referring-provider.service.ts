@@ -22,4 +22,9 @@ export class ReferringProviderService extends BasePaginationService {
     var url = this.baseUrl + '/create'
     return this.httpClient.post(`${url}`, JSON.stringify(referringProvider), { 'headers': headers })
   }
+
+  public findAllWithoutPagination(){
+    var url = this.baseUrl + '/find/all'
+    return this.httpClient.get(url);
+  }
 }
