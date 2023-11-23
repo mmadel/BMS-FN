@@ -1,0 +1,44 @@
+<c-row [gutter]="0">
+    <c-col xs="4">
+        <ng-autocomplete [data]="referringFirstNameList" [searchKeyword]="" id="patientname"
+            name="patientname" placeholder="FirstName" [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate" (selected)='pickFirstName($event)'
+            (inputCleared)="unpickFirstName()" [(ngModel)]="selectedFirstName">
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+        </ng-template>
+    </c-col>
+    <c-col xs="4">
+        <ng-autocomplete [data]="referringLastNameList" [searchKeyword]="" id="LastName"
+            name="LastName" placeholder="LastName" [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate" (selected)='pickLastName($event)'
+            (inputCleared)="unpickLastName()" [(ngModel)]="selectedLastName">
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+        </ng-template>
+    </c-col>
+    <c-col xs="4">
+        <ng-autocomplete [data]="referringNPIList" [searchKeyword]="" id="NPI" name="NPI"
+            placeholder="NPI" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+            [notFoundTemplate]="notFoundTemplate" (selected)='pickNPI($event)'
+            (inputCleared)="unpickNPI()" [(ngModel)]="selectedNPI">
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.fullName"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+        </ng-template>
+    </c-col>
+</c-row>

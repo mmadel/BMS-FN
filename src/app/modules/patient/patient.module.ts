@@ -40,6 +40,7 @@ import {
 import { IconModule } from '@coreui/icons-angular';
 import { ModelModule } from '../model/model.module';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { ViewReferringProviderComponent } from './profile/billing/referring.provider/view-referring-provider.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     FillingComponent,
     ShedulingComponent,
     BillingCodeComponent,
-    SessionHistoryComponent
+    SessionHistoryComponent,
+    ViewReferringProviderComponent
   ],
   imports: [
     CommonModule,
