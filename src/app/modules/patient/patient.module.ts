@@ -46,6 +46,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ViewReferringProviderComponent } from './profile/billing/referring.provider/view-referring-provider.component';
 import { ViewCaseComponent } from './profile/billing/cases/view-case.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ViewInsuranceComponent } from './profile/billing/insurance/view-insurance.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BillingCodeComponent,
     SessionHistoryComponent,
     ViewReferringProviderComponent,
-    ViewCaseComponent
+    ViewCaseComponent,
+    ViewInsuranceComponent
   ],
   imports: [
     CommonModule,
