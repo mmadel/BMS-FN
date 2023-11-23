@@ -4,9 +4,12 @@
     </c-col>
 </c-row>
 <hr />
-<div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-end">
-    <button cButton color="primary" style="width: 10%;" variant="outline" (click)="create()">Save</button>
-    <button cButton color="primary" style="width: 10%;" variant="outline">Save And Close</button>
+<div class="d-md-flex justify-content-md-end">
+    <c-button-group aria-label="Basic example" role="group" class="mb-3">
+        <button cButton color="primary" variant="outline">Save & Edit</button>
+        <button cButton color="primary" variant="outline" (click)="create()">Save & New</button>
+        <button cButton color="primary" variant="outline">Save & Close</button>
+    </c-button-group>
 </div>
 <c-row>
     <c-col xs="12">
@@ -230,7 +233,8 @@
                                             </c-col>
                                         </c-col>
                                         <c-col xs="6">
-                                            <small *ngIf="notValidForm   && (zipCode.errors) || zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+                                            <small
+                                                *ngIf="notValidForm   && (zipCode.errors) || zipCode.invalid && (zipCode.dirty || zipCode.touched)"
                                                 class="form-text text-danger">
                                                 ZipCode is required
                                             </small>
