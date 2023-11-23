@@ -41,6 +41,7 @@ import { IconModule } from '@coreui/icons-angular';
 import { ModelModule } from '../model/model.module';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ViewReferringProviderComponent } from './profile/billing/referring.provider/view-referring-provider.component';
+import { ViewCaseComponent } from './profile/billing/cases/view-case.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ViewReferringProviderComponent } from './profile/billing/referring.prov
     ShedulingComponent,
     BillingCodeComponent,
     SessionHistoryComponent,
-    ViewReferringProviderComponent
+    ViewReferringProviderComponent,
+    ViewCaseComponent
   ],
   imports: [
     CommonModule,
