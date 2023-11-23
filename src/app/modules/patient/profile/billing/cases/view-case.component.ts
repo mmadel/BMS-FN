@@ -80,6 +80,9 @@ export class ViewCaseComponent implements OnInit {
   remove(index: number) {
     this.cases.splice(index, 1);
   }
+  edit(selectedCase:any){
+    console.log(JSON.stringify(selectedCase))
+  }
   addICD10diagnosis(diagnosis: any) {
     diagnosis.forEach((element: string) => {
       var code: string = element.split(',')[0]
