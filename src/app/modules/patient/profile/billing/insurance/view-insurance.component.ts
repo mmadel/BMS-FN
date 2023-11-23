@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-insurance.component.scss']
 })
 export class ViewInsuranceComponent implements OnInit {
-
+  addInsuranceVisibility: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  toggleAddInsuranceVisibility() {
+    this.addInsuranceVisibility = !this.addInsuranceVisibility;
+  }
 }

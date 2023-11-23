@@ -1,1 +1,36 @@
-<p>view-insurance works!</p>
+<c-row>
+    <c-col xs="12">
+        <div style="float: right;" class="mb-2">
+            <c-button cButton color="primary" class="btn-sm" (click)="toggleAddInsuranceVisibility()"
+                variant="outline">Add Card</c-button>
+        </div>
+    </c-col>
+    <c-col xs="12">
+        <div class="card border mb-2">
+            <div class="card-body">
+                <div style="float: right;">
+                    <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                        <button cButton variant="outline" class="btn-sm" variant="outline" color="info">
+                            <svg cIcon name="cilPen"></svg>
+                        </button>
+                        <button cButton variant="outline" class="btn-sm" variant="outline" color="info">
+                            <svg cIcon name="cilTrash"></svg>
+                        </button>
+                    </c-button-group>
+                </div>
+                <div>
+                    dkdkkd
+                </div>
+            </div>
+        </div>
+    </c-col>
+</c-row>
+<c-modal id="addInsuranceModal" [visible]="addInsuranceVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h5 cModalTitle>Add Insurance</h5>
+        <button (click)="toggleAddInsuranceVisibility()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-create-insurance></app-create-insurance>
+    </c-modal-body>
+</c-modal>
