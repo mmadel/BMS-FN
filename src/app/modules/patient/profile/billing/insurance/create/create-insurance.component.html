@@ -20,7 +20,7 @@
                                         <svg cIcon name="cilUser" title="cilUser"></svg>
                                     </span>
                                     <select aria-label="" cSelect #relation="ngModel" name="relation" required
-                                        [(ngModel)]="patientInsurance.relation">
+                                        [(ngModel)]="patientInsurance.relation" (change)="changeRelation()">
                                         <option [value]="null" selected disabled>Select Relation</option>
                                         <option *ngFor="let relationValue of relationsKeys(relations)"
                                             [ngValue]="relationValue">
@@ -186,7 +186,7 @@
                                 <input cFormControl placeholder="Insurance Company" name="insurancecompany" required
                                     sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsurancePolicy.insuranceCompnayName"
-                                    #insurancecompany="ngModel" name="fname" />
+                                    #insurancecompany="ngModel" name="insurancecompany" />
                             </c-col>
                         </c-row>
                         <c-row>

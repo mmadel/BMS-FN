@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { CreateInsuranceComponent } from './create/create-insurance.component';
 
@@ -9,6 +10,7 @@ import { CreateInsuranceComponent } from './create/create-insurance.component';
 })
 export class ViewInsuranceComponent implements OnInit {
   @ViewChild('createInsuranceComponent') createInsuranceComponent: CreateInsuranceComponent;
+  @Input()patient:Patient
   addInsuranceVisibility: boolean = false;
   patientInsurances: PatientInsurance[] = new Array();
   constructor() { }

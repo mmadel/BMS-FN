@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { Country } from 'src/app/modules/model/common/country';
 import { Gender } from 'src/app/modules/model/enum/geneder';
@@ -18,8 +19,9 @@ import { States } from 'src/app/modules/model/lookups/state-data-store';
 export class CreateInsuranceComponent implements OnInit {
   @ViewChild('insuranceCreateForm') insuranceCreateForm: NgForm;
   @Output() changeVisibility = new EventEmitter<string>()
+  @Input() patient: Patient;
   notValidForm: boolean = false
-  relationsKeys = Object.values;
+  relationsKeys = Object.keys;
   relations = Relation;
   genderKeys = Object.values;
   genders = Gender;
@@ -69,5 +71,17 @@ export class CreateInsuranceComponent implements OnInit {
   }
   resetError() {
     this.notValidForm = false;
+  }
+  changeRelation() {
+    if (this.patientInsurance.relation === 'Self')
+      this.patientInsurance.patientRelation = this.patient;
+    else
+      this.patientInsurance.patientRelation = {
+        gender: null,
+        address:{
+          country:null,
+          state:null
+        }
+      }
   }
 }

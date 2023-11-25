@@ -248,9 +248,6 @@
                         </c-col>
                     </c-row>
                 </form>
-
-
-
             </c-card-body>
         </c-card>
     </c-col>
@@ -285,7 +282,7 @@
                 </c-nav>
                 <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
                     <c-tab-pane tabPaneIdx=0>
-                        <app-billing></app-billing>
+                        <app-billing [patient]="patient"></app-billing>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=1>
                         <app-auths></app-auths>
