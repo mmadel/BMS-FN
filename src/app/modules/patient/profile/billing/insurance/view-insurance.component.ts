@@ -16,14 +16,14 @@ export class ViewInsuranceComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.patientInsurances.push({
-      isArchived: false,
-      patientInsurancePolicy: {
-        responsability: 'Primary',
-        planType : "company insurance type A",
-        primaryId: '4949944',
-      }
-    })
+    // this.patientInsurances.push({
+    //   isArchived: false,
+    //   patientInsurancePolicy: {
+    //     responsability: 'Primary',
+    //     planType : "company insurance type A",
+    //     primaryId: '4949944',
+    //   }
+    // })
   }
   toggleAddInsuranceVisibility() {
     this.addInsuranceVisibility = !this.addInsuranceVisibility;
