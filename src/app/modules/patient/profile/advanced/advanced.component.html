@@ -6,10 +6,10 @@
                     <strong>Is the parent's condtion related to</strong>
                 </c-card-header>
                 <c-card-body>
-
                     <c-col xs="8" class="mb-1">
-                        <select aria-label="" cSelect>
-                            <option>Empoyment</option>
+                        <select aria-label="" cSelect sizing="sm"
+                            [(ngModel)]="patientAdvancedInformation.pateintAdvancedCondtion.employment">
+                            <option [value]=null disabled>Select Empoyment</option>
                             <option>Yes</option>
                             <option>No</option>
                             <option>N/A</option>
@@ -17,23 +17,25 @@
                     </c-col>
                     <c-col xs="8" class="mb-1">
 
-                        <select aria-label="" cSelect>
-                            <option>Auto Accident</option>
+                        <select aria-label="" cSelect sizing="sm"
+                            [(ngModel)]="patientAdvancedInformation.pateintAdvancedCondtion.autoAccident">
+                            <option [value]=null disabled>Select Auto Accident</option>
                             <option>Yes</option>
                             <option>No</option>
                             <option>N/A</option>
                         </select>
                     </c-col>
                     <c-col xs="8" class="mb-1">
-                        <select aria-label="" cSelect>
-                            <option>Other Accident</option>
+                        <select aria-label="" cSelect sizing="sm"
+                            [(ngModel)]="patientAdvancedInformation.pateintAdvancedCondtion.otherAccident">
+                            <option [value]=null disabled>Select Other Accident</option>
                             <option>Yes</option>
                             <option>No</option>
                             <option>N/A</option>
                         </select>
                     </c-col>
                     <c-col xs="8" class="mb-1">
-                        <input cFormControl placeholder="State" />
+                        <input cFormControl placeholder="State" sizing="sm" />
                     </c-col>
 
 
@@ -48,19 +50,24 @@
                 <c-card-body>
                     <c-row>
                         <c-col xs="12" class="mb-1">
-                            <c-date-picker placeholder="First Symptoms"></c-date-picker>
+                            <c-date-picker placeholder="First Symptoms" size="sm"
+                                [(ngModel)]="patientAdvancedInformation.patientAdvancedDates.firstSymptoms"></c-date-picker>
                         </c-col>
                         <c-col xs="12" class="mb-1">
-                            <c-date-picker placeholder="Last Seen By Doctor"></c-date-picker>
+                            <c-date-picker placeholder="Last Seen By Doctor" size="sm"
+                                [(ngModel)]="patientAdvancedInformation.patientAdvancedDates.lastSeenByDoctor"></c-date-picker>
                         </c-col>
                         <c-col xs="12" class="mb-1">
-                            <c-date-picker placeholder="Accident Date"></c-date-picker>
+                            <c-date-picker placeholder="Accident Date" size="sm"
+                                [(ngModel)]="patientAdvancedInformation.patientAdvancedDates.accident"></c-date-picker>
                         </c-col>
                         <c-col xs="12" class="mb-1">
-                            <c-date-picker placeholder="First Treatment"></c-date-picker>
+                            <c-date-picker placeholder="First Treatment" size="sm"
+                                [(ngModel)]="patientAdvancedInformation.patientAdvancedDates.firstTreatment"></c-date-picker>
                         </c-col>
                         <c-col xs="12" class="mb-1">
-                            <c-date-picker placeholder="Same Illness"></c-date-picker>
+                            <c-date-picker placeholder="Same Illness" size="sm"
+                                [(ngModel)]="patientAdvancedInformation.patientAdvancedDates.sameIInes"></c-date-picker>
                         </c-col>
                     </c-row>
                 </c-card-body>
@@ -72,7 +79,9 @@
                     <strong>Unable to Work</strong>
                 </c-card-header>
                 <c-card-body>
-                    <c-date-range-picker size="sm" [placeholder]="['From', 'To']"></c-date-range-picker>
+                    <c-date-range-picker size="sm" [placeholder]="['From', 'To']"
+                        [(startDate)]="patientAdvancedInformation.unableToWorkStartDate"
+                        [(endDate)]="patientAdvancedInformation.unableToWorkEndDate"></c-date-range-picker>
                 </c-card-body>
             </c-card>
         </c-col>
@@ -82,7 +91,9 @@
                     <strong>Hospitalized</strong>
                 </c-card-header>
                 <c-card-body>
-                    <c-date-range-picker size="sm" [placeholder]="['From', 'To']"></c-date-range-picker>
+                    <c-date-range-picker size="sm" [placeholder]="['From', 'To']"
+                        [(startDate)]="patientAdvancedInformation.hospitalizedStartDate"
+                        [(startDate)]="patientAdvancedInformation.hospitalizedEndDate"></c-date-range-picker>
                 </c-card-body>
             </c-card>
         </c-col>
