@@ -17,7 +17,8 @@ export class ViewInsuranceComponent implements OnInit {
     this.patientInsurances.push({
       isArchived: false,
       patientInsurancePolicy: {
-        responsability: '3333',
+        responsability: 'Primary',
+        planType : "company insurance type A",
         primaryId: '4949944',
       }
     })
