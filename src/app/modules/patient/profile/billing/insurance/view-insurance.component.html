@@ -6,7 +6,7 @@
         </div>
     </c-col>
     <c-col xs="12">
-        <div class="card border mb-2">
+        <div class="card border mb-2" *ngFor="let insurance of patientInsurances;let i=index;">
             <div class="card-body">
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
@@ -18,9 +18,9 @@
                         </button>
                     </c-button-group>
                 </div>
-                <div>
-                    dkdkkd
-                </div>
+                <h4><strong>{{insurance.patientInsurancePolicy.responsability }}</strong></h4>
+                <h6>{{insurance.patientInsurancePolicy.planType}}</h6>
+                <h6>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h6>
             </div>
         </div>
     </c-col>
@@ -31,6 +31,7 @@
         <button (click)="toggleAddInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-insurance></app-create-insurance>
+        <app-create-insurance (changeVisibility)="changeVisibility($event)"
+            #createInsuranceComponent></app-create-insurance>
     </c-modal-body>
 </c-modal>

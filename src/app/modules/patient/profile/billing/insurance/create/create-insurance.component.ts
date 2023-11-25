@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { Country } from 'src/app/modules/model/common/country';
 import { Gender } from 'src/app/modules/model/enum/geneder';
@@ -15,6 +16,8 @@ import { States } from 'src/app/modules/model/lookups/state-data-store';
   styleUrls: ['./create-insurance.component.scss']
 })
 export class CreateInsuranceComponent implements OnInit {
+  @ViewChild('insuranceCreateForm') insuranceCreateForm: NgForm;
+  @Output() changeVisibility = new EventEmitter<string>()
   notValidForm: boolean = false
   relationsKeys = Object.values;
   relations = Relation;
@@ -56,9 +59,15 @@ export class CreateInsuranceComponent implements OnInit {
   ngOnInit(): void {
   }
   create() {
-
+    if (this.insuranceCreateForm.valid) {
+      this.notValidForm = false;
+      this.changeVisibility.emit('close');
+      //this.insuranceCreateForm.reset()
+    } else {
+      this.notValidForm = true;
+    }
   }
   resetError() {
-
+    this.notValidForm = false;
   }
 }
