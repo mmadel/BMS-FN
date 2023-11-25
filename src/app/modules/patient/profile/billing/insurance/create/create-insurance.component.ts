@@ -45,6 +45,10 @@ export class CreateInsuranceComponent implements OnInit {
       acceptAssigment: true,
       signatureOnFile: true,
       informationRelease: null
+    },
+    payerAddress: {
+      country: null,
+      state: null
     }
   }
   constructor() { }
