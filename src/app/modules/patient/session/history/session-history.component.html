@@ -4,50 +4,47 @@
             <h5>Session History</h5>
         </c-card-header>
         <c-card-body>
-            <c-col xs="12">
-                <c-col xs="4">
-                    <div class="float:right">
-                        <label for="service">Service </label>
-                        <select id="service" aria-label="Disabled select example" cSelect>
-                            <option>3030</option>
-                            <option value="1">330</option>
-                            <option selected value="2">4949</option>
-                            <option value="3">4040</option>
-                        </select>
+            <c-row class="mb-3">
+                <c-col>
+                    <select cSelect id="Service" sizing="sm">
+                        <option value=null disabled selected>Select Service Code</option>
+                        <option value="1">330</option>
+                        <option value="2">4949</option>
+                        <option value="3">4040</option>
+                    </select>
+                </c-col>
+            </c-row>
+            <c-row>
+                <c-col>
+                    <div class="card border mb-1">
+                        <div class="card-body">
+                            <div style="float: right;">
+                                120.0
+                            </div>
+                            <strong>03/02/2023</strong> <br>
+                            Entered in schedule <br>
+                        </div>
+                    </div>
+                    <div class="card border mb-1">
+                        <div class="card-body">
+                            <div style="float: right;">
+                                -39.3
+                            </div>
+                            <strong>03/02/2020</strong> <br>
+                            Invoiced To Network Management <br>
+                        </div>
+                    </div>
+                    <div class="card border mb-1">
+                        <div class="card-body">
+                            <div style="float: right;">
+                                -39.3
+                            </div>
+                            <strong>03/02/2020</strong> <br>
+                            Insurance payment <br />
+                        </div>
                     </div>
                 </c-col>
-            </c-col>
-            <hr />
-            <c-col xs="12">
-                <div class="card border-primary mb-2">
-                    <div class="card-body">
-                        <div style="float: right;">
-                            120.0
-                        </div>
-                        <strong>03/02/2023</strong> <br>
-                        Entered in schedule <br>
-                    </div>
-                </div>
-                <div class="card border-primary mb-2">
-                    <div class="card-body">
-                        <div style="float: right;">
-                            -39.3
-                        </div>
-                        <strong>03/02/2020</strong> <br>
-                        Invoiced To Network Management <br>
-                    </div>
-                </div>
-                <div class="card border-primary mb-2">
-                    <div class="card-body">
-                        <div style="float: right;">
-                            -39.3
-                        </div>
-                        <strong>03/02/2020</strong> <br>
-                        Insurance payment <br />
-                        Closed session to insurance <br>
-                    </div>
-                </div>
-            </c-col>
+            </c-row>
         </c-card-body>
     </c-card>
 </c-container>
