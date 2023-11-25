@@ -4,38 +4,26 @@
             <h5>Scheduling</h5>
         </c-card-header>
         <c-card-body>
-                <c-row class="mb-3">
-                    <label cLabel="col" class="col-sm-2" for="client">
-                        Client
-                    </label>
-                    <c-col [sm]="10">
-                        <input cFormControl id="client" type="text" />
-                    </c-col>
-                </c-row>
-                <c-row class="mb-3">
-                    <label cLabel="col" class="col-sm-2" for="provider">
-                        Provider
-                    </label>
-                    <c-col [sm]="10">
-                        <input cFormControl id="provider" type="text" />
-                    </c-col>
-                </c-row>
-                <c-row class="mb-3">
-                    <label cLabel="col" class="col-sm-2" for="servicetime" style="font-size:15px;">
-                        Service Time
-                    </label>
-                    <c-col [sm]="10">
-                        <c-date-picker id="servicetime"></c-date-picker>
-                    </c-col>
-                </c-row>
-                <c-row class="mb-3">
-                    <label cLabel="col" class="col-sm-2" for="time">
-                        Time
-                    </label>
-                    <c-col [sm]="10">
-                        <c-time-picker id="time" locale="en-US"></c-time-picker>
-                    </c-col>
-                </c-row>
+            <c-row class="mb-3">
+                <c-col>
+                    <input cFormControl id="client" placeholder="Client" type="text" sizing="sm" />
+                </c-col>
+            </c-row>
+            <c-row class="mb-3">
+                <c-col>
+                    <input cFormControl id="provider" type="text" placeholder="Provider" sizing="sm" />
+                </c-col>
+            </c-row>
+            <c-row class="mb-3">
+                <c-col>
+                    <c-date-picker id="servicetime" size="sm" placeholder="Service Time"></c-date-picker>
+                </c-col>
+            </c-row>
+            <c-row class="mb-3">
+                <c-col>
+                    <c-time-picker id="time" locale="en-US" size="sm" placeholder="Time"></c-time-picker>
+                </c-col>
+            </c-row>
         </c-card-body>
     </c-card>
 </c-container>
