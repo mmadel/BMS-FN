@@ -1,5 +1,5 @@
 export interface PatientInsuranceAdvanced {
-    acceptAssigment?: string;
+    acceptAssigment?: boolean;
     signatureOnFile?: boolean
-    informationRelease: string;
+    informationRelease?: string;
 }

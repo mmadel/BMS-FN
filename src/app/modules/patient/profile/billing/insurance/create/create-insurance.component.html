@@ -171,13 +171,13 @@
         <!--Policy Information-->
         <c-row class="justify-content-center">
             <c-col class="col">
-                <c-card class="mb-3 ustify-content-center">
+                <c-card class="mb-1 ustify-content-center">
                     <c-card-header>
                         <strong>Policy Information</strong>
                     </c-card-header>
                     <c-card-body>
                         <c-row>
-                            <c-col class="mb-3">
+                            <c-col class="mb-1">
                                 <small
                                     *ngIf="notValidForm   && (insurancecompany.errors) || insurancecompany.invalid && (insurancecompany.dirty || insurancecompany.touched)"
                                     class="form-text text-danger">
@@ -189,12 +189,13 @@
                                     #insurancecompany="ngModel" name="fname" />
                             </c-col>
                         </c-row>
-                        <c-row><small
+                        <c-row>
+                            <small
                                 *ngIf="notValidForm   && (insuranceRes.errors) ||insuranceRes.invalid && (insuranceRes.dirty || insuranceRes.touched)"
                                 class="form-text text-danger">
                                 insuranceResponsability is required
                             </small>
-                            <c-col class="mb-3">
+                            <c-col class="mb-1">
                                 <select cSelect #insuranceRes="ngModel" name="insuranceRes" required sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsurancePolicy.responsability">
                                     <option [value]="null">Select ResponsabilityValues</option>
@@ -207,7 +208,7 @@
                             </c-col>
                         </c-row>
                         <c-row>
-                            <c-col class="mb-3">
+                            <c-col class="mb-1">
                                 <small
                                     *ngIf="notValidForm   && (plantype.errors) ||plantype.invalid && (plantype.dirty || plantype.touched)"
                                     class="form-text text-danger">
@@ -224,7 +225,7 @@
                             </c-col>
                         </c-row>
                         <c-row>
-                            <c-col class="mb-3">
+                            <c-col class="mb-1">
                                 <small
                                     *ngIf="notValidForm   && (primaryid.errors) ||primaryid.invalid && (primaryid.dirty || primaryid.touched)"
                                     class="form-text text-danger">
@@ -236,7 +237,7 @@
                             </c-col>
                         </c-row>
                         <c-row>
-                            <c-col class="mb-3">
+                            <c-col class="mb-1">
                                 <small
                                     *ngIf="notValidForm   && (policygroup.errors) ||policygroup.invalid && (policygroup.dirty || policygroup.touched)"
                                     class="form-text text-danger">
@@ -248,7 +249,7 @@
                             </c-col>
                         </c-row>
                         <c-row>
-                            <c-col class="mb-3">
+                            <c-col class="mb-1">
                                 <small
                                     *ngIf="notValidForm   && (planprogram.errors) ||planprogram.invalid && (planprogram.dirty || planprogram.touched)"
                                     class="form-text text-danger">
@@ -260,7 +261,7 @@
                             </c-col>
                         </c-row>
                         <c-row>
-                            <c-col class="mb-3">
+                            <c-col class="mb-1">
                                 <small
                                     *ngIf="notValidForm   && (employer.errors) ||employer.invalid && (employer.dirty || employer.touched)"
                                     class="form-text text-danger">
@@ -283,7 +284,47 @@
                         <strong>Advanced</strong>
                     </c-card-header>
                     <c-card-body>
-
+                        <c-row>
+                            <c-col>
+                                <c-form-check [switch]="true">
+                                    <label cFormCheckLabel>Accept Assignment</label>
+                                    <input cFormCheckInput checked type="checkbox" name="acceptAssigment"
+                                        [(ngModel)]="patientInsurance.patientInsuranceAdvanced.acceptAssigment" />
+                                </c-form-check>
+                            </c-col>
+                        </c-row>
+                        <c-row [gutter]="-1">
+                            <c-col xs="2">
+                                <c-form-check>
+                                    <label cFormCheckLabel for="checkTwo">Signature File</label>
+                                    <input [checked]="true" cFormCheckInput id="checkTwo" type="checkbox"
+                                        name="signatureOnFile"
+                                        [(ngModel)]="patientInsurance.patientInsuranceAdvanced.signatureOnFile" />
+                                </c-form-check>
+                            </c-col>
+                            <c-col xs="10" class="mb-3">
+                                <strong>Check here to indicate that the insured authorized payment of medicalbenefits of
+                                    yours clinic</strong>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <small
+                                *ngIf="notValidForm   && (inforelease.errors) ||inforelease.invalid && (inforelease.dirty || inforelease.touched)"
+                                class="form-text text-danger">
+                                Information Release is required
+                            </small>
+                            <c-col class="mb-3">
+                                <select cSelect #inforelease="ngModel" name="inforelease" required sizing="sm"
+                                    [(ngModel)]="patientInsurance.patientInsuranceAdvanced.informationRelease">
+                                    <option [value]="null" disabled selected>Select Information Release</option>
+                                    <option
+                                        *ngFor="let informationReleasevalue of informationReleaseKeys(informationRelease)"
+                                        [ngValue]="informationReleasevalue">
+                                        {{informationRelease[informationReleasevalue]}}
+                                    </option>
+                                </select>
+                            </c-col>
+                        </c-row>
                     </c-card-body>
                 </c-card>
             </c-col>

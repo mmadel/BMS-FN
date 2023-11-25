@@ -7,7 +7,7 @@ export interface PatientInsurance {
     relation?: string
     patientRelation?: PatientRelation;
     patientInsurancePolicy?: PatientInsurancePolicy
-    atientInsuranceAdvanced?: PatientInsuranceAdvanced
+    patientInsuranceAdvanced?: PatientInsuranceAdvanced
     payerAddress?: Address
 
 }
