@@ -14,6 +14,13 @@ export class ViewInsuranceComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.patientInsurances.push({
+      isArchived: false,
+      patientInsurancePolicy: {
+        responsability: '3333',
+        primaryId: '4949944',
+      }
+    })
   }
   toggleAddInsuranceVisibility() {
     this.addInsuranceVisibility = !this.addInsuranceVisibility;
@@ -25,5 +32,8 @@ export class ViewInsuranceComponent implements OnInit {
     if (event === 'close') {
       this.addInsuranceVisibility = false;
     }
+  }
+  remove(index: number) {
+    this.patientInsurances.splice(index, 1);
   }
 }

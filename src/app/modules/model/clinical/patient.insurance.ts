@@ -9,5 +9,6 @@ export interface PatientInsurance {
     patientInsurancePolicy?: PatientInsurancePolicy
     patientInsuranceAdvanced?: PatientInsuranceAdvanced
     payerAddress?: Address
+    isArchived?:boolean;
 
 }
