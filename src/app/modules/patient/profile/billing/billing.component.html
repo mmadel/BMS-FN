@@ -6,16 +6,14 @@
                     <strong>Account & Identifying Number</strong>
                 </c-card-header>
                 <c-card-body>
-                    <form cForm>
-                        <c-row>
-                            <c-col xs="12" class="mb-1">
-                                <input class="h-auto" aria-label="SSN" cFormControl placeholder="SSN" />
-                            </c-col>
-                            <c-col xs="12" class="mb-1">
-                                <input class="h-auto" aria-label="External ID" cFormControl placeholder="External ID" />
-                            </c-col>
-                        </c-row>
-                    </form>
+                    <c-row>
+                        <c-col xs="12" class="mb-1">
+                            <input class="h-auto" aria-label="SSN" cFormControl placeholder="SSN"  sizing="sm"/>
+                        </c-col>
+                        <c-col xs="12" class="mb-1">
+                            <input class="h-auto" aria-label="External ID" cFormControl placeholder="External ID"  sizing="sm"/>
+                        </c-col>
+                    </c-row>
                 </c-card-body>
             </c-card>
         </c-col>
@@ -37,8 +35,8 @@
                     <strong>Insurance Card</strong>
                 </c-card-header>
                 <c-card-body>
-                    
-                   <app-view-insurance [patient]="patient"></app-view-insurance>
+
+                    <app-view-insurance [patient]="patient"></app-view-insurance>
                 </c-card-body>
             </c-card>
         </c-col>
