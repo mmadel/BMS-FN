@@ -1,5 +1,5 @@
-import { PatientHistorySession } from "./patient.history.session"
-import { PatientSessionBillingCode } from "./patient.session.billing.code"
+import { CaseDiagnosis } from "../case.diagnosis"
+import { ServiceLine } from "./service.line"
 
 export interface PatientSession {
     id?: number
@@ -18,9 +18,11 @@ export interface PatientSession {
     serviceStartTime?: Date
     serviceEndTime?: Date
 
-    patientSessionBillingCode?: PatientSessionBillingCode;
+    authorization: string;
+    placeOfCode: string;
 
-    patientHistorySession?: PatientHistorySession[];
+    caseDiagnosis: CaseDiagnosis[]
 
+    serviceLines?: ServiceLine[];
 
 }
