@@ -4,6 +4,6 @@ import { CPTCode } from "../cpt.code";
 
 export interface ServiceLine {
     caseDiagnosis: CaseDiagnosis[]
-    cptCodes: CPTCode
+    cptCode: CPTCode
     type: ServiceLineType
 }

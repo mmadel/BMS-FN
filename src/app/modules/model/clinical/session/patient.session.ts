@@ -1,19 +1,12 @@
 import { CaseDiagnosis } from "../case.diagnosis"
+import { DoctorInfo } from "./doctor.info";
+import { PateintInfo } from "./patient.info";
 import { ServiceLine } from "./service.line"
 
 export interface PatientSession {
     id?: number
-
-    patientId?: number
-    patientFirstName?: string
-    patientMiddleName?: string
-    patientLasttName: string
-
-    doctorId?: number
-    doctorFirstName?: string
-    doctorLastName?: string
-    doctorNPI?: string
-
+    patientInfo: PateintInfo;
+    doctorInfo?: DoctorInfo;
     serviceDate?: Date;
     serviceStartTime?: Date
     serviceEndTime?: Date
