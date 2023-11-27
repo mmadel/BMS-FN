@@ -18,7 +18,7 @@ export class FillingComponent implements OnInit {
     this.sestionFlag = 'history'
   }
   onClickCMS() {
-    this.sestionFlag = 'attach'
+    this.sestionFlag = 'cms'
   }
   onClickAttacment() {
     this.sestionFlag = ''

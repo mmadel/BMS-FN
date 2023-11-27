@@ -49,6 +49,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ViewInsuranceComponent } from './profile/billing/insurance/view-insurance.component';
 import { CreateInsuranceComponent } from './profile/billing/insurance/create/create-insurance.component';
 import { PateintSessionListComponent } from './profile/filling/sessions/pateint-session-list.component';
+import { PatientCmsComponent } from './profile/filling/cms/patient-cms.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { PateintSessionListComponent } from './profile/filling/sessions/pateint-
     ViewCaseComponent,
     ViewInsuranceComponent,
     CreateInsuranceComponent,
-    PateintSessionListComponent
+    PateintSessionListComponent,
+    PatientCmsComponent
   ],
   imports: [
     CommonModule,
