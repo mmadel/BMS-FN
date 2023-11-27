@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import usersData from '../../../list/_data';
+import { map, Observable } from 'rxjs';
+import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
+import { ListTemplate } from 'src/app/modules/model/template/list.template';
+import { PatientSessionService } from '../../../service/profile/filling/patient-session.service';
 
 @Component({
   selector: 'app-pateint-session-list',
   templateUrl: './pateint-session-list.component.html',
   styleUrls: ['./pateint-session-list.component.scss']
 })
-export class PateintSessionListComponent implements OnInit {
-  usersData = usersData;
+export class PateintSessionListComponent extends ListTemplate implements OnInit {
   columns = [
     {
       key: 'birthDate',
@@ -23,25 +25,21 @@ export class PateintSessionListComponent implements OnInit {
     }
   ];
   details_visible = Object.create({});
-  constructor() { }
+  patientSessions$!: Observable<PatientSession[]>;
+  constructor(private patientSessionService: PatientSessionService) { super(); }
 
   ngOnInit(): void {
+    this.initListComponent();
+    this.find();
   }
   toggleDetails(item: any) {
     this.details_visible[item] = !this.details_visible[item];
   }
-  getBadge(status: string) {
-    switch (status) {
-      case 'Active':
-        return 'success';
-      case 'Inactive':
-        return 'secondary';
-      case 'Pending':
-        return 'warning';
-      case 'Banned':
-        return 'danger';
-      default:
-        return 'primary';
-    }
+  find() {
+    this.patientSessions$ = this.patientSessionService.findSessions(this.apiParams$).pipe(
+      map((response: any) => {
+        return response.records;
+      })
+    );
   }
 }

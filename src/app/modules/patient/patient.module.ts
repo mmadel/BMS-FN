@@ -37,7 +37,8 @@ import {
   TimePickerModule,
   ModalModule,
   MultiSelectModule,
-  SpinnerModule
+  SpinnerModule,
+  SmartPaginationModule
 } from '@coreui/angular-pro';
 
 import { IconModule } from '@coreui/icons-angular';
@@ -98,7 +99,8 @@ import { PatientCmsComponent } from './profile/filling/cms/patient-cms.component
     ModalModule,
     ModelModule,
     MultiSelectModule,
-    SpinnerModule
+    SpinnerModule,
+    SmartPaginationModule,
   ]
 })
 export class PatientModule { }
