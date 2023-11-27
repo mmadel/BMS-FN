@@ -9,12 +9,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PatientSessionService extends BasePaginationService {
-  private baseUrl = environment.baseURL + '/referring/profile'
+  private baseUrl = environment.baseURL + 'session'
 
   constructor(httpClient: HttpClient) { super(httpClient) }
 
   public findSessions(config$: BehaviorSubject<IApiParams>): Observable<any> {
-    var url = this.baseUrl + '/filling/sessions'
-    return this.get(config$, this.baseUrl)
+    var url = this.baseUrl + '/find/patientId/46'
+    return this.get(config$, url)
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
+import { PatientSessionResponse } from 'src/app/modules/model/clinical/session/patient.session.response';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PatientSessionService } from '../../../service/profile/filling/patient-session.service';
 
@@ -12,12 +14,13 @@ import { PatientSessionService } from '../../../service/profile/filling/patient-
 export class PateintSessionListComponent extends ListTemplate implements OnInit {
   columns = [
     {
-      key: 'birthDate',
-      _style: { width: '20%' }
+      key: 'dateOfService',
     },
-    'name',
     {
-      key: 'show',
+      key: 'doctorName',
+    },
+    {
+      key: 'actions',
       label: '',
       _style: { width: '5%' },
       filter: false,
@@ -25,7 +28,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     }
   ];
   details_visible = Object.create({});
-  patientSessions$!: Observable<PatientSession[]>;
+  patientSessions$!: Observable<PatientSessionResponse[]>;
   constructor(private patientSessionService: PatientSessionService) { super(); }
 
   ngOnInit(): void {
@@ -38,7 +41,19 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   find() {
     this.patientSessions$ = this.patientSessionService.findSessions(this.apiParams$).pipe(
       map((response: any) => {
-        return response.records;
+        var list: PatientSessionResponse[] = new Array();
+        for (let i = 0; i < response.records.length; i++) {
+          var patientSession: PatientSession = response.records[i];
+          var patientSessionResponse: PatientSessionResponse = {
+            id: patientSession.id,
+            dateOfService: moment.unix(patientSession.serviceDate / 1000).toDate(),
+            doctorName: '(' + patientSession.doctorInfo.doctorLastName + ', ' + patientSession.doctorInfo.doctorFirstName + ')'
+
+          }
+          list.push(patientSessionResponse);
+        }
+        console.log(JSON.stringify(list))
+        return list;
       })
     );
   }

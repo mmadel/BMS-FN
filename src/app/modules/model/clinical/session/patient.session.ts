@@ -7,9 +7,9 @@ export interface PatientSession {
     id?: number
     patientInfo: PateintInfo;
     doctorInfo?: DoctorInfo;
-    serviceDate?: Date;
-    serviceStartTime?: Date
-    serviceEndTime?: Date
+    serviceDate?: number;
+    serviceStartTime?: number
+    serviceEndTime?: number
 
     authorization: string;
     placeOfCode: string;
