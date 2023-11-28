@@ -1,0 +1,41 @@
+<ng-container *ngIf="props$ | async as props" fluid="true">
+  <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(patientSessions$ | async) ?? []"
+    [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
+    [itemsPerPageOptions]="[5,10,20]" [itemsPerPageSelect]="true"
+    [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+    [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+    [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+    (sorterValueChange)="handleSorterValueChange($event)" header>
+    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+      <td>
+        <ng-container [ngSwitch]="columnName">
+          <ng-container *ngSwitchCase="'dateOfService'" class="py-2">
+            {{tdContent| date:'MMM d, y, h:mm a'}}
+          </ng-container>
+          <ng-container *ngSwitchCase="'actions'" class="py-2">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button cButton variant="outline" size="sm" (click)="toggleEditSession(item)">
+                <svg cIcon name="cilPen"></svg>
+              </button>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{tdContent}}
+          </ng-container>
+        </ng-container>
+      </td>
+    </ng-template>
+  </c-smart-table>
+  <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+    (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+</ng-container>
+
+<c-modal id="editSession" [visible]="editSessionVisibility" backdrop="static" size="xl">
+  <c-modal-header>
+    <h5 cModalTitle>Edit Session</h5>
+    <button (click)="toggleEditSession(null)" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <app-patient-session *ngIf="selectedPatientSession" [model]="selectedPatientSession"></app-patient-session>
+  </c-modal-body>
+</c-modal>

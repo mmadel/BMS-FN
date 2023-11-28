@@ -37,7 +37,8 @@ import {
   TimePickerModule,
   ModalModule,
   MultiSelectModule,
-  SpinnerModule
+  SpinnerModule,
+  SmartPaginationModule
 } from '@coreui/angular-pro';
 
 import { IconModule } from '@coreui/icons-angular';
@@ -48,6 +49,8 @@ import { ViewCaseComponent } from './profile/billing/cases/view-case.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ViewInsuranceComponent } from './profile/billing/insurance/view-insurance.component';
 import { CreateInsuranceComponent } from './profile/billing/insurance/create/create-insurance.component';
+import { PateintSessionListComponent } from './profile/filling/sessions/pateint-session-list.component';
+import { PatientCmsComponent } from './profile/filling/cms/patient-cms.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,9 @@ import { CreateInsuranceComponent } from './profile/billing/insurance/create/cre
     ViewReferringProviderComponent,
     ViewCaseComponent,
     ViewInsuranceComponent,
-    CreateInsuranceComponent
+    CreateInsuranceComponent,
+    PateintSessionListComponent,
+    PatientCmsComponent
   ],
   imports: [
     CommonModule,
@@ -94,7 +99,8 @@ import { CreateInsuranceComponent } from './profile/billing/insurance/create/cre
     ModalModule,
     ModelModule,
     MultiSelectModule,
-    SpinnerModule
+    SpinnerModule,
+    SmartPaginationModule,
   ]
 })
 export class PatientModule { }
