@@ -32,12 +32,14 @@ import {
 import { ReferringProviderCreateComponent } from './referring/create/referring-provider-create.component'
 import { ModelModule } from '../model/model.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CreateProviderComponent } from './create/create-provider.component';
 
 @NgModule({
   declarations: [
     ListComponent,
     ReferringProviderListComponent,
-    ReferringProviderCreateComponent
+    ReferringProviderCreateComponent,
+    CreateProviderComponent
   ],
   imports: [
     CommonModule,
