@@ -12,7 +12,7 @@ import { PatientSessionService } from '../../../service/profile/filling/patient-
   styleUrls: ['./pateint-session-list.component.scss']
 })
 export class PateintSessionListComponent extends ListTemplate implements OnInit {
-  editSessionVisibility:boolean=false;
+  editSessionVisibility: boolean = false;
   columns = [
     {
       key: 'dateOfService',
@@ -48,17 +48,17 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
           var patientSessionResponse: PatientSessionResponse = {
             id: patientSession.id,
             dateOfService: moment.unix(patientSession.serviceDate / 1000).toDate(),
-            doctorName: '(' + patientSession.doctorInfo.doctorLastName + ', ' + patientSession.doctorInfo.doctorFirstName + ')'
-
+            doctorName: '(' + patientSession.doctorInfo.doctorLastName + ', ' + patientSession.doctorInfo.doctorFirstName + ')',
+            data: patientSession
           }
           list.push(patientSessionResponse);
         }
-        console.log(JSON.stringify(list))
         return list;
       })
     );
   }
-  toggleEditSession() {
+  toggleEditSession(item: any) {
+    console.log(JSON.stringify(item))
     this.editSessionVisibility = !this.editSessionVisibility;
   }
 }
