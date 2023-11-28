@@ -58,8 +58,9 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
       })
     );
   }
-  toggleEditSession(item: PatientSession) {
-    this.selectedPatientSession = item
+  toggleEditSession(item: any) {
+    if (item !== null)
+      this.selectedPatientSession = item.data
     this.editSessionVisibility = !this.editSessionVisibility;
   }
 }

@@ -14,7 +14,7 @@
         <strong>Visit Number </strong> : 4 <br />
     </c-col>
     <c-col xs="5">
-        <app-sheduling></app-sheduling>
+        <app-sheduling *ngIf="sessionScheduling" [sessionScheduling]="sessionScheduling"></app-sheduling>
     </c-col>
     <c-col xs="7">
         <app-billing-code></app-billing-code>

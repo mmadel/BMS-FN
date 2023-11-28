@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SessionScheduling } from '../model/session.scheduling';
 
 @Component({
   selector: 'app-sheduling',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sheduling.component.scss']
 })
 export class ShedulingComponent implements OnInit {
-
+  @Input() sessionScheduling: SessionScheduling;
   constructor() { }
 
   ngOnInit(): void {
