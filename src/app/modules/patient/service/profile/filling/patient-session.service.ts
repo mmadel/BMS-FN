@@ -14,7 +14,7 @@ export class PatientSessionService extends BasePaginationService {
   constructor(httpClient: HttpClient) { super(httpClient) }
 
   public findSessions(config$: BehaviorSubject<IApiParams>): Observable<any> {
-    var url = this.baseUrl + '/find/patientId/46'
+    var url = this.baseUrl + '/find/patientId/50'
     return this.get(config$, url)
   }
 }

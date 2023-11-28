@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { PatientSession } from '../../model/clinical/session/patient.session';
+import { BillingCode } from './model/billing.code';
 import { SessionScheduling } from './model/session.scheduling';
 
 @Component({
@@ -11,14 +12,18 @@ import { SessionScheduling } from './model/session.scheduling';
 export class PatientSessionComponent implements OnInit {
   @Input() model: PatientSession
   sessionScheduling: SessionScheduling
+  billingCode:BillingCode
   constructor() { }
 
   ngOnInit(): void {
     this.populate();
   }
 
+  private populate() {
+    this.populateSessionScheduling();
+    this.populateBillingCode()
+  }
   private populateSessionScheduling() {
-    console.log(JSON.stringify(this.model))
     this.sessionScheduling = {
       clientName: this.model.patientInfo.patientLastName + ',' + this.model.patientInfo.patientFirstName,
       provider : this.model.doctorInfo.doctorLastName + ',' +this.model.doctorInfo.doctorFirstName,
@@ -29,8 +34,13 @@ export class PatientSessionComponent implements OnInit {
 
   }
 
-  private populate() {
-    this.populateSessionScheduling();
+  private populateBillingCode(){
+    this.billingCode={
+      placeOfCode:this.model.placeOfCode,
+      facility:this.model.clinicInfo.clinicName,
+      diagnosisCode:this.model.caseDiagnosis[0],
+      ServiceLines:this.model.serviceLines
+    }
   }
 
 }

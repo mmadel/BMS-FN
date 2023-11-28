@@ -8,7 +8,7 @@ export interface PatientSession {
     id?: number
     patientInfo: PateintInfo;
     doctorInfo?: DoctorInfo;
-    ClinicInfo?: ClinicInfo
+    clinicInfo?: ClinicInfo
     serviceDate?: number;
     serviceStartTime?: number
     serviceEndTime?: number

@@ -17,7 +17,7 @@
         <app-sheduling *ngIf="sessionScheduling" [sessionScheduling]="sessionScheduling"></app-sheduling>
     </c-col>
     <c-col xs="7">
-        <app-billing-code></app-billing-code>
+        <app-billing-code *ngIf="billingCode" [billingCode]="billingCode"></app-billing-code>
     </c-col>
     <c-col xs="12">
         <app-session-history></app-session-history>

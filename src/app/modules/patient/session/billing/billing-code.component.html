@@ -6,11 +6,11 @@
         <c-card-body>
             <div class="mb-3">
                 <c-row class="mb-1">
-                    <c-col >
-                        <select cSelect sizing="sm">
+                    <c-col>
+                        <select cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode">
                             <option [value]=null selected disabled>Select Place Code</option>
                             <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)"
-                                [ngValue]="placeOfCodes">
+                                [ngValue]="placeOfCodevalue">
                                 {{placeOfCodes[placeOfCodevalue]}}
                             </option>
                         </select>
@@ -18,21 +18,38 @@
                 </c-row>
                 <c-row class="mb-1">
                     <c-col>
-                        <select cSelect sizing="sm">
+                        <select cSelect sizing="sm" [(ngModel)]="billingCode.facility">
                             <option [value]=null selected disabled>Select Facility</option>
+                            <option [value]="'clinic-a'">clinic-a</option>
+                            <option [value]="'clinic-b'">clinic-b</option>
                         </select>
                     </c-col>
                 </c-row>
                 <c-row class="mb-1">
                     <c-col>
-                        <select cSelect sizing="sm">
-                            <option [value]=null selected disabled>Select Diagnsis code</option>
-                        </select>
+                        <input cFormControl name="icd10diagnosis" [formControl]="diagnosisCtrl"
+                            placeholder="Type ICD-10 Code" sizing="sm"/>
                     </c-col>
+                </c-row>
+                <c-row>
+                    <span align="center" *ngIf="isLoading">
+                        <c-spinner variant="grow"></c-spinner>
+                    </span>
+                    <span *ngIf="!isLoading">
+                        <c-col>
+                            <select cSelect class="mb-2" (valueChange)="addICD10diagnosis($event)"
+                                visibleItems="20" placeholder="Select ICD-10 Code Description"
+                                [(ngModel)]="billingCode.diagnosisCode.diagnosisDescription">
+                                <option *ngFor="let option of filteredDiagnosis">
+                                    {{ option}}
+                                </option>
+                            </select>
+                        </c-col>
+                    </span>
                 </c-row>
             </div>
             <div style="float:right">
-                <button cButton color="primary"  variant="outline" size="sm">Add Code</button>
+                <button cButton color="primary" variant="outline" size="sm">Add Code</button>
             </div>
             <div>
                 <c-row>
