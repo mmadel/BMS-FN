@@ -65,6 +65,6 @@
       <button (click)="toggleAddProvider()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-     <app-create-provider></app-create-provider>
+     <app-create-provider (changeVisibility)="change($event)"></app-create-provider>
     </c-modal-body>
   </c-modal>

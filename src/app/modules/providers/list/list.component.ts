@@ -52,4 +52,9 @@ export class ListComponent implements OnInit {
   toggleAddProvider() {
     this.addVisibility = !this.addVisibility
   }
+  change(event: any) {
+    if (event === 'close') {
+      this.addVisibility = false;
+    }
+  }
 }
