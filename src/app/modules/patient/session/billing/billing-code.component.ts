@@ -22,8 +22,8 @@ export class BillingCodeComponent implements OnInit {
     caseDiagnosis: []
   };
   filteredDiagnosis: any = new Array()
-  unitCount: number = 0;
-  chargeCount: number = 0;
+  unitCount: number;
+  chargeCount: number;
   editServiceLineVisibility: boolean = false
   selectedServiceLine: ServiceLine;
   constructor(private caseDiagnosisService: CaseDiagnosisService) { }
@@ -89,16 +89,41 @@ export class BillingCodeComponent implements OnInit {
     });
   }
   countChargeUnit() {
+    this.unitCount = 0
+    this.chargeCount = 0
     for (var i = 0; i < this.billingCode.ServiceLines.length; i++) {
       var serviceLine: ServiceLine = this.billingCode.ServiceLines[i];
-      this.unitCount = this.unitCount + serviceLine.cptCode.unit;
-      this.chargeCount = this.chargeCount + serviceLine.cptCode.charge;
+      this.unitCount = this.unitCount + Number(serviceLine.cptCode.unit);
+      this.chargeCount = this.chargeCount + Number(serviceLine.cptCode.charge);
     }
   }
-  toggleEditServiceLine(serviceLine: ServiceLine) {
-    if (serviceLine !== null)
+  toggleEditServiceLine(serviceLine: ServiceLine, index: number) {
+    if (serviceLine !== null) {
+      serviceLine.id = index
       this.selectedServiceLine = serviceLine
+    } else {
+      this.selectedServiceLine = {
+        id: null,
+        cptCode: {},
+        type: null,
+        caseDiagnosis: []
+
+      }
+    }
     this.editServiceLineVisibility = !this.editServiceLineVisibility
   }
-
+  saveServiceCode() {
+    console.log()
+    if (this.selectedServiceLine.id !== null) {
+      this.billingCode.ServiceLines[this.selectedServiceLine.id] = this.selectedServiceLine;
+    } else {
+      this.billingCode.ServiceLines.push(this.selectedServiceLine)
+    }
+    this.countChargeUnit();
+    this.editServiceLineVisibility = !this.editServiceLineVisibility
+  }
+  removeSergiceCode(index: number) {
+    this.billingCode.ServiceLines.splice(index, 1);
+    this.countChargeUnit();
+  }
 }

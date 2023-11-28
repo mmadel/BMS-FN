@@ -49,7 +49,9 @@
                 </c-row>
             </div>
             <div style="float:right">
-                <button cButton color="primary" variant="outline" size="sm">Add Code</button>
+                <button cButton  color="info" variant="outline" size="sm" (click)="toggleEditServiceLine(null,null)">
+                    <svg cIcon name="cilPlus"></svg>
+                </button>
             </div>
             <div>
                 <c-row>
@@ -73,9 +75,18 @@
                                     <td>{{serviceLine.cptCode.unit}}</td>
                                     <td>{{serviceLine.cptCode.charge}}</td>
                                     <td>
-                                        <button cButton variant="ghost" (click)="toggleEditServiceLine(serviceLine)">
-                                            <svg cIcon name="cilPen"></svg>
-                                        </button>
+                                        <c-button-group aria-label="Button outlined group with nested dropdown"
+                                            role="group">
+                                            <button cButton color="info" variant="outline"
+                                                (click)="toggleEditServiceLine(serviceLine,i)" size="sm">
+                                                <svg cIcon name="cilPen"></svg>
+                                            </button>
+                                            <button cButton color="info" variant="outline"
+                                                (click)="removeSergiceCode(i)" size="sm">
+                                                <svg cIcon name="cilTrash"></svg>
+                                            </button>
+                                        </c-button-group>
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -95,11 +106,12 @@
         </c-card-body>
     </c-card>
 </c-container>
+
 <c-modal id="editServiceLine" *ngIf="selectedServiceLine" [visible]="editServiceLineVisibility" backdrop="static"
     size="lg">
     <c-modal-header>
         <h5 cModalTitle>Edit Service Code</h5>
-        <button (click)="toggleEditServiceLine(null)" cButtonClose></button>
+        <button (click)="toggleEditServiceLine(null,null)" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
         <c-container fluid>
@@ -128,7 +140,7 @@
                     sizing="sm" />
             </div>
             <div class="col-12 text-center">
-                <button cButton variant="outline" style="width: 10%;">Save</button>
+                <button cButton variant="outline" style="width: 10%;" (click)="saveServiceCode()">Save</button>
             </div>
         </c-container>
     </c-modal-body>
