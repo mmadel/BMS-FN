@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PatientSession } from '../../model/clinical/session/patient.session';
 
 @Component({
   selector: 'app-patient-session',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-session.component.scss']
 })
 export class PatientSessionComponent implements OnInit {
-
+  @Input() model: PatientSession
   constructor() { }
 
   ngOnInit(): void {

@@ -13,6 +13,7 @@ import { PatientSessionService } from '../../../service/profile/filling/patient-
 })
 export class PateintSessionListComponent extends ListTemplate implements OnInit {
   editSessionVisibility: boolean = false;
+  selectedPatientSession: PatientSession
   columns = [
     {
       key: 'dateOfService',
@@ -57,8 +58,8 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
       })
     );
   }
-  toggleEditSession(item: any) {
-    console.log(JSON.stringify(item))
+  toggleEditSession(item: PatientSession) {
+    this.selectedPatientSession = item
     this.editSessionVisibility = !this.editSessionVisibility;
   }
 }
