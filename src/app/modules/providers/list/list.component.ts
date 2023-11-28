@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { Provider } from '../../model/clinical/provider/provider';
+import { ListTemplate } from '../../model/template/list.template';
 import usersData from '../../patient/list/_data';
+import { ProviderService } from '../service/provider.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends ListTemplate implements OnInit {
   usersData = usersData;
+  providers$!: Observable<Provider[]>;
   addVisibility: boolean = false
   columns = [
     {
@@ -18,43 +23,40 @@ export class ListComponent implements OnInit {
       _style: { width: '50%' }
     },
     {
-      key: 'view',
-      label: '',
-      _style: { width: '1%' },
-      filter: false,
-      sorter: false
+      key: 'Prof Abbrv',
+      _style: { width: '50%' }
     },
     {
-      key: 'edit',
-      label: '',
-      _style: { width: '1%' },
-      filter: false,
-      sorter: false
-    },
-    {
-      key: 'delete',
-      label: '',
-      _style: { width: '1%' },
-      filter: false,
-      sorter: false
+      key: 'actions',
+      _style: { width: '5%' }
     }
-  ];
-
-  details_visible = Object.create({});
-
-  toggleDetails(item: any) {
-    this.details_visible[item] = !this.details_visible[item];
-  }
-  constructor() { }
+  ]
+  constructor(private providerService: ProviderService) { super(); }
 
   ngOnInit(): void {
+    this.initListComponent();
+    this.find();
   }
   toggleAddProvider() {
     this.addVisibility = !this.addVisibility
   }
   change(event: any) {
     if (event === 'close') {
+      this.find();
       this.addVisibility = false;
     }
+  }
+  find() {
+    this.providers$ = this.providerService.findAll(this.apiParams$).pipe(
+      map((response: any) => {
+        return response.records;
+      })
+    );
+  }
+  remove(event: any) {
+
+  }
+  edit(event: any) {
+
   }
 }

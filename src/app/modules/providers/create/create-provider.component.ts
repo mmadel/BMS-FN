@@ -28,6 +28,7 @@ export class CreateProviderComponent implements OnInit {
         .subscribe((result) => {
           this.toastr.success("Provider Created")
           this.changeVisibility.emit('close');
+          this.providerCreateForm.reset();
           this.notValidForm = false;
         }, (error) => {
           this.toastr.error("Error in  Provider Creation")
