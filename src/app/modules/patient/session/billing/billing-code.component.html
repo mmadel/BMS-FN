@@ -28,7 +28,7 @@
                 <c-row class="mb-1">
                     <c-col>
                         <input cFormControl name="icd10diagnosis" [formControl]="diagnosisCtrl"
-                            placeholder="Type ICD-10 Code" sizing="sm"/>
+                            placeholder="Type ICD-10 Code" sizing="sm" />
                     </c-col>
                 </c-row>
                 <c-row>
@@ -37,8 +37,8 @@
                     </span>
                     <span *ngIf="!isLoading">
                         <c-col>
-                            <select cSelect class="mb-2" (valueChange)="addICD10diagnosis($event)"
-                                visibleItems="20" placeholder="Select ICD-10 Code Description"
+                            <select cSelect class="mb-2" (valueChange)="addICD10diagnosis($event)" visibleItems="20"
+                                placeholder="Select ICD-10 Code Description"
                                 [(ngModel)]="billingCode.diagnosisCode.diagnosisDescription">
                                 <option *ngFor="let option of filteredDiagnosis">
                                     {{ option}}
@@ -54,7 +54,7 @@
             <div>
                 <c-row>
                     <c-col>
-                        <table cTable hover>
+                        <table cTable hover small>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -66,41 +66,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>939.39.GP.59</td>
+                                <tr *ngFor="let serviceLine of billingCode.ServiceLines;index as i">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{serviceLine.cptCode.serviceCode +'.' + serviceLine.cptCode.modifier}}</td>
                                     <td></td>
-                                    <td>2</td>
-                                    <td>120.0</td>
+                                    <td>{{serviceLine.cptCode.unit}}</td>
+                                    <td>{{serviceLine.cptCode.charge}}</td>
                                     <td>
-                                        <button cButton variant="outline" class="btn-sm">
+                                        <button cButton variant="ghost" (click)="toggleEditServiceLine(serviceLine)">
                                             <svg cIcon name="cilPen"></svg>
                                         </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">2</th>
-                                    <td>3930.23.GP.59</td>
                                     <td></td>
-                                    <td>1</td>
-                                    <td>110.0</td>
-                                    <td>
-                                        <button cButton variant="outline" class="btn-sm">
-                                            <svg cIcon name="cilPen"></svg>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>2420.13.GP.59</td>
                                     <td></td>
-                                    <td>3</td>
-                                    <td>300.0</td>
+                                    <td></td>
                                     <td>
-                                        <button cButton variant="outline" class="btn-sm">
-                                            <svg cIcon name="cilPen"></svg>
-                                        </button>
+                                        Total : {{unitCount}}
                                     </td>
+                                    <td>{{chargeCount}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -110,3 +95,41 @@
         </c-card-body>
     </c-card>
 </c-container>
+<c-modal id="editServiceLine" *ngIf="selectedServiceLine" [visible]="editServiceLineVisibility" backdrop="static"
+    size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Edit Service Code</h5>
+        <button (click)="toggleEditServiceLine(null)" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <c-container fluid>
+            <div class="mb-3">
+                <label cLabel for="serviceCode">Service Code</label>
+                <input cFormControl id="serviceCode" placeholder="Service Code"
+                    [(ngModel)]="selectedServiceLine.cptCode.serviceCode" sizing="sm" />
+            </div>
+            <div class="mb-3">
+                <label cLabel for="modifier">Email address</label>
+                <input cFormControl id="modifier" placeholder="Modifier"
+                    [(ngModel)]="selectedServiceLine.cptCode.modifier" sizing="sm" />
+            </div>
+            <div class="mb-3">
+                <label cLabel for="lineNote">Example textarea</label>
+                <textarea cFormControl id="lineNote" rows="1" sizing="sm"></textarea>
+            </div>
+            <div class="mb-3">
+                <label cLabel for="unit">Unit</label>
+                <input cFormControl id="unit" placeholder="unit" [(ngModel)]="selectedServiceLine.cptCode.unit"
+                    sizing="sm" />
+            </div>
+            <div class="mb-3">
+                <label cLabel for="charge">Charge</label>
+                <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="selectedServiceLine.cptCode.charge"
+                    sizing="sm" />
+            </div>
+            <div class="col-12 text-center">
+                <button cButton variant="outline" style="width: 10%;">Save</button>
+            </div>
+        </c-container>
+    </c-modal-body>
+</c-modal>

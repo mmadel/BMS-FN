@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ToasterHostDirective } from '@coreui/angular-pro';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
+import { ServiceLine } from 'src/app/modules/model/clinical/session/service.line';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { CaseDiagnosisService } from '../../profile/service/case-diagnosis.service';
 import { BillingCode } from '../model/billing.code';
@@ -20,6 +22,10 @@ export class BillingCodeComponent implements OnInit {
     caseDiagnosis: []
   };
   filteredDiagnosis: any = new Array()
+  unitCount: number = 0;
+  chargeCount: number = 0;
+  editServiceLineVisibility: boolean = false
+  selectedServiceLine: ServiceLine;
   constructor(private caseDiagnosisService: CaseDiagnosisService) { }
 
   ngOnInit(): void {
@@ -27,6 +33,7 @@ export class BillingCodeComponent implements OnInit {
       this.diagnosisCtrl.setValue(this.billingCode.diagnosisCode.diagnosisCode)
       this.filteredDiagnosis.push(this.billingCode.diagnosisCode.diagnosisDescription)
     }
+    this.countChargeUnit();
 
     this.diagnosisCtrl.valueChanges
       .pipe(
@@ -81,4 +88,17 @@ export class BillingCodeComponent implements OnInit {
 
     });
   }
+  countChargeUnit() {
+    for (var i = 0; i < this.billingCode.ServiceLines.length; i++) {
+      var serviceLine: ServiceLine = this.billingCode.ServiceLines[i];
+      this.unitCount = this.unitCount + serviceLine.cptCode.unit;
+      this.chargeCount = this.chargeCount + serviceLine.cptCode.charge;
+    }
+  }
+  toggleEditServiceLine(serviceLine: ServiceLine) {
+    if (serviceLine !== null)
+      this.selectedServiceLine = serviceLine
+    this.editServiceLineVisibility = !this.editServiceLineVisibility
+  }
+
 }
