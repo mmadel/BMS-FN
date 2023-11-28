@@ -7,6 +7,7 @@ import usersData from '../../patient/list/_data';
 })
 export class ListComponent implements OnInit {
   usersData = usersData;
+  addVisibility: boolean = false
   columns = [
     {
       key: 'id',
@@ -38,20 +39,6 @@ export class ListComponent implements OnInit {
       sorter: false
     }
   ];
-  getBadge(status: string) {
-    switch (status) {
-      case 'Active':
-        return 'success';
-      case 'Inactive':
-        return 'secondary';
-      case 'Pending':
-        return 'warning';
-      case 'Banned':
-        return 'danger';
-      default:
-        return 'primary';
-    }
-  }
 
   details_visible = Object.create({});
 
@@ -62,5 +49,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  toggleAddProvider() {
+    this.addVisibility = !this.addVisibility
+  }
 }
