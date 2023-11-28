@@ -12,6 +12,7 @@ import { PatientSessionService } from '../../../service/profile/filling/patient-
   styleUrls: ['./pateint-session-list.component.scss']
 })
 export class PateintSessionListComponent extends ListTemplate implements OnInit {
+  editSessionVisibility:boolean=false;
   columns = [
     {
       key: 'dateOfService',
@@ -56,5 +57,8 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
         return list;
       })
     );
+  }
+  toggleEditSession() {
+    this.editSessionVisibility = !this.editSessionVisibility;
   }
 }
