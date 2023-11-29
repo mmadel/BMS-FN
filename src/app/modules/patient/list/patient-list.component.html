@@ -93,10 +93,9 @@
   <c-col xs="12">
     <ng-container *ngIf="props$ | async as props" fluid="true">
       <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(patients$ | async) ?? []"
-        activePage="1" pagination
-        [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
-        [itemsPerPageOptions]="[5,10,20]" [itemsPerPageSelect]="true"
-        [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+        activePage="1" pagination [itemsPerPage]="props.itemsPerPage"
+        (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+        [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
         [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
         [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
         (sorterValueChange)="handleSorterValueChange($event)" header>
@@ -109,6 +108,9 @@
               </ng-container>
               <ng-container *ngSwitchCase="'actions'" class="py-2">
                 <div class="btn-group" role="group" aria-label="Basic example">
+                  <button cButton variant="outline" (click)="view(item)" size="sm">
+                    <svg cIcon name="cilBrowser"></svg>
+                  </button>
                   <button cButton variant="outline" (click)="remove(item)" size="sm">
                     <svg cIcon name="cilTrash"></svg>
                   </button>

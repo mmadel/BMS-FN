@@ -25,14 +25,17 @@ export class PatientListComponent extends ListTemplate implements OnInit {
       key: 'name',
       _style: { width: '10%' }
     },
-    { key: 'dob',label :'Date Of birth', _style: { width: '10%' }  },
+    { key: 'dob', label: 'Date Of birth', _style: { width: '10%' } },
     { key: 'email', _style: { width: '20%' } },
-    { key: 'insurance', _style: { width: '25%' } },
+    { key: 'actions', _style: { width: '5%' } }
   ];
   remove(event: any) {
 
   }
   edit(event: any) {
+
+  }
+  view(event:any){
 
   }
   find() {
