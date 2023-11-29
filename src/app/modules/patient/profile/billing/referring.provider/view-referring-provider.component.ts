@@ -62,7 +62,7 @@ export class ViewReferringProviderComponent implements OnInit {
     this.selectedLastName = '';
   }
   getReferringDoctor() {
-    if (this.selectedFirstName !== '' && this.selectedLastName !== '' && this.selectedNPI !== '') {
+    if (this.selectedFirstName !== undefined && this.selectedLastName !== undefined && this.selectedNPI !== undefined) {
       return {
         firstName: this.selectedFirstName,
         lastName: this.selectedLastName,
@@ -71,7 +71,7 @@ export class ViewReferringProviderComponent implements OnInit {
     } else
       return null;
   }
-  public resetReferringProvider(){
+  public resetReferringProvider() {
     this.selectedFirstName = null;
     this.selectedLastName = null;
     this.selectedNPI = null

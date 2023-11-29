@@ -95,9 +95,12 @@ export class ViewCaseComponent implements OnInit {
     });
   }
   public getcases() {
-    return this.cases;
+    if (this.cases.length > 0)
+      return this.cases;
+    else
+      return null;
   }
-  public resetCases(){
+  public resetCases() {
     this.case = {};
     this.cases = [];
   }

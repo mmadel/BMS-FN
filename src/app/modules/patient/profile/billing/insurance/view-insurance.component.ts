@@ -10,27 +10,18 @@ import { CreateInsuranceComponent } from './create/create-insurance.component';
 })
 export class ViewInsuranceComponent implements OnInit {
   @ViewChild('createInsuranceComponent') createInsuranceComponent: CreateInsuranceComponent;
-  @Input()patient:Patient
+  @Input() patient: Patient
   addInsuranceVisibility: boolean = false;
   patientInsurances: PatientInsurance[] = new Array();
   constructor() { }
 
   ngOnInit(): void {
-    // this.patientInsurances.push({
-    //   isArchived: false,
-    //   patientInsurancePolicy: {
-    //     responsability: 'Primary',
-    //     planType : "company insurance type A",
-    //     primaryId: '4949944',
-    //   }
-    // })
   }
   toggleAddInsuranceVisibility() {
     this.addInsuranceVisibility = !this.addInsuranceVisibility;
   }
   changeVisibility(event: any) {
-    console.log(JSON.stringify(this.createInsuranceComponent.patientInsurance))
-    var createdInsurance: PatientInsurance = Object.create(this.createInsuranceComponent.patientInsurance);
+    var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
     this.patientInsurances.push(createdInsurance);
     if (event === 'close') {
       this.addInsuranceVisibility = false;
@@ -38,5 +29,15 @@ export class ViewInsuranceComponent implements OnInit {
   }
   remove(index: number) {
     this.patientInsurances.splice(index, 1);
+  }
+  getInsurances() {    
+    if (this.patientInsurances.length > 0)
+      return this.patientInsurances;
+    else
+      return null;
+  }
+  reset(){
+    this.createInsuranceComponent.insuranceCreateForm.reset();
+    this.patientInsurances = []
   }
 }

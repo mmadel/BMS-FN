@@ -36,8 +36,8 @@ export class CreateInsuranceComponent implements OnInit {
   patientInsurance: PatientInsurance = {
     relation: null,
     patientRelation: {
-      gender: null,
-      address: {
+      r_gender: null,
+      r_address: {
         country: null,
         state: null
       }
@@ -73,14 +73,22 @@ export class CreateInsuranceComponent implements OnInit {
     this.notValidForm = false;
   }
   changeRelation() {
-    if (this.patientInsurance.relation === 'Self')
-      this.patientInsurance.patientRelation = this.patient;
+    if (this.patientInsurance.relation === 'Self') {
+      this.patientInsurance.patientRelation.r_firstName = this.patient.firstName;
+      this.patientInsurance.patientRelation.r_lastName = this.patient.lastName;
+      this.patientInsurance.patientRelation.r_middleName = this.patient.middleName;
+      this.patientInsurance.patientRelation.r_phone = this.patient.phone
+      this.patientInsurance.patientRelation.r_gender = this.patient.gender;
+      this.patientInsurance.patientRelation.r_address = this.patient.address
+      this.patientInsurance.patientRelation.r_birthDate = this.patient.birthDate
+
+    }
     else
       this.patientInsurance.patientRelation = {
-        gender: null,
-        address:{
-          country:null,
-          state:null
+        r_gender: null,
+        r_address: {
+          country: null,
+          state: null
         }
       }
   }

@@ -67,6 +67,7 @@ export class PatientProfileComponent implements OnInit {
       this.patient.birthDate = moment(this.patientDOB).unix() * 1000;
       this.patient.cases = this.billingComponent?.getCases();
       this.patient.referringProvider = this.billingComponent.getReferringProvider();
+      this.patient.patientInsurances = this.billingComponent.getInsurances();
       this.patientService.create(this.patient)
         .subscribe((result) => {
           this.toastr.success('Patient Created');

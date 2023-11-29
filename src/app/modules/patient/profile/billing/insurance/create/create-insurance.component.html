@@ -48,12 +48,12 @@
                                             <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
                                         </span>
                                         <input cFormControl placeholder="FirstName" name="firstName" required
-                                            [(ngModel)]="patientInsurance.patientRelation.firstName"
+                                            [(ngModel)]="patientInsurance.patientRelation.r_firstName"
                                             #firstName="ngModel" name="fname" />
                                         <input cFormControl placeholder="MiddleName"
-                                            [(ngModel)]="patientInsurance.patientRelation.middleName" name="mname" />
+                                            [(ngModel)]="patientInsurance.patientRelation.r_middleName" name="mname" />
                                         <input cFormControl placeholder="LastName"
-                                            [(ngModel)]="patientInsurance.patientRelation.lastName" required
+                                            [(ngModel)]="patientInsurance.patientRelation.r_lastName" required
                                             #lastName="ngModel" name="lastname" />
                                     </c-input-group>
                                 </c-col>
@@ -70,7 +70,7 @@
                                             <svg cIcon name="cilUser" title="cilUser"></svg>
                                         </span>
                                         <select aria-label="" cSelect #gender="ngModel" name="gender" required
-                                            [(ngModel)]="patientInsurance.patientRelation.gender">
+                                            [(ngModel)]="patientInsurance.patientRelation.r_gender">
                                             <option [value]="null">Select Gender</option>
                                             <option *ngFor="let genderValue of genderKeys(genders)"
                                                 [ngValue]="genderValue">
@@ -93,7 +93,7 @@
                                             <svg cIcon name="cilPhone" title="cilPhone"></svg>
                                         </span>
                                         <input cFormControl size="sm" placeholder="Phone"
-                                            [(ngModel)]="patientInsurance.patientRelation.phone" #phone="ngModel"
+                                            [(ngModel)]="patientInsurance.patientRelation.r_phone" #phone="ngModel"
                                             name="phone" required />
                                     </c-input-group>
                                 </c-col>
@@ -108,7 +108,7 @@
                                     <c-input-group class="mb-1">
                                         <select cFormControl cSelect sizing="sm" id="country" name="country"
                                             #country="ngModel"
-                                            [(ngModel)]="patientInsurance.patientRelation.address.country" required>
+                                            [(ngModel)]="patientInsurance.patientRelation.r_address.country" required>
                                             <option [value]="null" disabled selected>Select Country</option>
                                             <option *ngFor="let country of countries" [value]="country.name">
                                                 {{country.name}}
@@ -123,7 +123,7 @@
                                         street is required
                                     </small>
                                     <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #street="ngModel"
-                                        name="street" [(ngModel)]="patientInsurance.patientRelation.address.first"
+                                        name="street" [(ngModel)]="patientInsurance.patientRelation.r_address.first"
                                         required />
                                 </c-col>
                                 <c-col xs="12">
@@ -133,7 +133,7 @@
                                         City is required
                                     </small>
                                     <input cFormControl placeholder="City" sizing="sm" class="mb-1" #City="ngModel"
-                                        name="City" [(ngModel)]="patientInsurance.patientRelation.address.city"
+                                        name="City" [(ngModel)]="patientInsurance.patientRelation.r_address.city"
                                         required /></c-col>
                                 <c-col xs="6">
                                     <c-col xs="12">
@@ -144,7 +144,7 @@
                                         </small>
                                         <select cFormControl cSelect sizing="sm" id="state" name="state" required
                                             #state="ngModel"
-                                            [(ngModel)]="patientInsurance.patientRelation.address.state">
+                                            [(ngModel)]="patientInsurance.patientRelation.r_address.state">
                                             <option [value]="null" disabled selected>Select State</option>
                                             <option *ngFor="let state of states" [value]="state">
                                                 {{state}}
@@ -160,7 +160,7 @@
                                     </small>
                                     <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
                                         sizing="sm" #zipCode="ngModel" name="zipCode"
-                                        [(ngModel)]="patientInsurance.patientRelation.address.zipCode" required
+                                        [(ngModel)]="patientInsurance.patientRelation.r_address.zipCode" required
                                         class="mb-1" /></c-col>
                             </c-row>
                         </span>

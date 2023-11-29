@@ -1,5 +1,6 @@
 import { Address } from "../common/address";
 import { PatientCase } from "./patient.case";
+import { PatientInsurance } from "./patient.insurance";
 import { ReferringProvider } from "./referring.provider";
 
 export interface Patient {
@@ -12,7 +13,8 @@ export interface Patient {
     gender?: string;
     address?: Address
     cases?: PatientCase[];
-    referringProvider?: ReferringProvider;
+    referringProvider?: ReferringProvider
+    patientInsurances?: PatientInsurance[]
     phoneType?: String | null;
     phone?: string;
     email?: string
