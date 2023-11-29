@@ -8,13 +8,10 @@
                 <c-col>
                     <select cSelect id="Service" sizing="sm">
                         <option value=null disabled selected>Select Service Code</option>
-                        <option value="1">330</option>
-                        <option value="2">4949</option>
-                        <option value="3">4040</option>
                     </select>
                 </c-col>
             </c-row>
-            <c-row>
+            <c-row *ngFor="let record of historyRecords">
                 <c-col>
                     <div class="card border mb-1">
                         <div class="card-body">
@@ -23,24 +20,6 @@
                             </div>
                             <strong>03/02/2023</strong> <br>
                             Entered in schedule <br>
-                        </div>
-                    </div>
-                    <div class="card border mb-1">
-                        <div class="card-body">
-                            <div style="float: right;">
-                                -39.3
-                            </div>
-                            <strong>03/02/2020</strong> <br>
-                            Invoiced To Network Management <br>
-                        </div>
-                    </div>
-                    <div class="card border mb-1">
-                        <div class="card-body">
-                            <div style="float: right;">
-                                -39.3
-                            </div>
-                            <strong>03/02/2020</strong> <br>
-                            Insurance payment <br />
                         </div>
                     </div>
                 </c-col>

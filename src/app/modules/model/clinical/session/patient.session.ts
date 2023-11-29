@@ -2,6 +2,7 @@ import { CaseDiagnosis } from "../case.diagnosis"
 import { ClinicInfo } from "./clinic.info";
 import { DoctorInfo } from "./doctor.info";
 import { PateintInfo } from "./patient.info";
+import { PatientSessionHistory } from "./patient.session.history";
 import { ServiceLine } from "./service.line"
 
 export interface PatientSession {
@@ -19,5 +20,6 @@ export interface PatientSession {
     caseDiagnosis: CaseDiagnosis[]
 
     serviceLines?: ServiceLine[];
+    patientSessionHistory:PatientSessionHistory[]
 
 }

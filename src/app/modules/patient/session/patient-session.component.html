@@ -10,7 +10,8 @@
         <app-billing-code *ngIf="billingCode" [billingCode]="billingCode"></app-billing-code>
     </c-col>
     <c-col xs="12">
-        <app-session-history></app-session-history>
+        <app-session-history *ngIf="patientSessionHistory"
+            [historyRecords]="patientSessionHistory"></app-session-history>
 
     </c-col>
 </c-row>
