@@ -13,6 +13,7 @@ import { Countries } from '../../model/lookups/country-data-store';
 import { States } from '../../model/lookups/state-data-store';
 import { PateintEmittingService } from '../service/emitting/pateint-emitting.service';
 import { PatientService } from '../service/patient.service';
+import { BillingComponent } from './billing/billing.component';
 
 @Component({
   selector: 'app-patient-profile',
@@ -22,6 +23,7 @@ import { PatientService } from '../service/patient.service';
 export class PatientProfileComponent implements OnInit {
   notValidForm: boolean = false;
   @ViewChild('patientCreationForm') patientCreationForm: NgForm;
+  @ViewChild('billingComponent') billingComponent: BillingComponent;
   patient: Patient = {
     gender: null,
     maritalStatus: null,
@@ -63,10 +65,13 @@ export class PatientProfileComponent implements OnInit {
   create() {
     if (this.patientCreationForm.valid) {
       this.patient.birthDate = moment(this.patientDOB).unix() * 1000;
+      this.patient.cases = this.billingComponent?.getCases();
       this.patientService.create(this.patient)
         .subscribe((result) => {
           this.toastr.success('Patient Created');
           this.patientCreationForm.reset();
+          this.reset();
+          this.patientDOB = null;
         }, (error) => {
           this.toastr.error('Error in Patient Created');
         })
@@ -74,5 +79,8 @@ export class PatientProfileComponent implements OnInit {
     } else {
       this.notValidForm = true;
     }
+  }
+  private reset() {
+    this.billingComponent.resetBilling();
   }
 } 

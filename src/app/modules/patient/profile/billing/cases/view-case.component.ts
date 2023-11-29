@@ -15,7 +15,7 @@ export class ViewCaseComponent implements OnInit {
   diagnosisCtrl = new FormControl();
   filteredDiagnosis: any;
   isLoading = false;
-  cases :PatientCase[] = new Array(); 
+  cases: PatientCase[] = new Array();
   case: PatientCase = {
     caseDiagnosis: []
   };
@@ -73,14 +73,14 @@ export class ViewCaseComponent implements OnInit {
     this.diagnosisCtrl.setValue('')
     this.filteredDiagnosis = []
   }
-  addCase(){
+  addCase() {
     this.cases.push(this.case)
     this.toggleAddCaseVisibility();
   }
   remove(index: number) {
     this.cases.splice(index, 1);
   }
-  edit(selectedCase:any){
+  edit(selectedCase: any) {
     console.log(JSON.stringify(selectedCase))
   }
   addICD10diagnosis(diagnosis: any) {
@@ -88,13 +88,17 @@ export class ViewCaseComponent implements OnInit {
       var code: string = element.split(',')[0]
       var desrciption: string = element.split(',')[1]
       const exists: boolean = this.case.caseDiagnosis?.findIndex(element => element.diagnosisCode === code) > -1;
-      if (!exists || this.case.caseDiagnosis.length === 0) {
-        this.case.caseDiagnosis.push({
-          diagnosisCode: code,
-          diagnosisDescription: desrciption
-        })
-      }
-
+      this.case.caseDiagnosis.push({
+        diagnosisCode: code,
+        diagnosisDescription: desrciption
+      })
     });
+  }
+  public getcases() {
+    return this.cases;
+  }
+  public resetCases(){
+    this.case = null;
+    this.cases = null;
   }
 }

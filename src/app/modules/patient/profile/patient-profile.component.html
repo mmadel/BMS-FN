@@ -166,7 +166,7 @@
                                 <span cInputGroupText>
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
                                 </span>
-                                <c-date-picker cFormControl size="sm"  [date]="patientDOB"
+                                <c-date-picker cFormControl size="sm"  [(date)]="patientDOB"
                                     required="true"></c-date-picker>
                             </c-input-group>
                         </c-col>
@@ -279,7 +279,7 @@
                 <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom"
                     (activeTabPaneIdxChange)="onTabChange($event)">
                     <c-tab-pane tabPaneIdx=0>
-                        <app-billing *ngIf="selectedTab === 0" [patient]="patient"></app-billing>
+                        <app-billing #billingComponent *ngIf="selectedTab === 0" [patient]="patient"></app-billing>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=1>
                         <app-auths *ngIf="selectedTab === 1"></app-auths>
