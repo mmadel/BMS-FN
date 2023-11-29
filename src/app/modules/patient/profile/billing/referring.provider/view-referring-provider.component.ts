@@ -61,4 +61,19 @@ export class ViewReferringProviderComponent implements OnInit {
     this.selectedFirstName = '';
     this.selectedLastName = '';
   }
+  getReferringDoctor() {
+    if (this.selectedFirstName !== '' && this.selectedLastName !== '' && this.selectedNPI !== '') {
+      return {
+        firstName: this.selectedFirstName,
+        lastName: this.selectedLastName,
+        npi: this.selectedNPI
+      }
+    } else
+      return null;
+  }
+  public resetReferringProvider(){
+    this.selectedFirstName = null;
+    this.selectedLastName = null;
+    this.selectedNPI = null
+  }
 }

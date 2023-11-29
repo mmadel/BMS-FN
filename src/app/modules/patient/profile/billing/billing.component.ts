@@ -3,6 +3,7 @@ import { Patient } from 'src/app/modules/model/clinical/patient';
 import { ReferringProvider } from 'src/app/modules/model/clinical/referring.provider';
 import { ReferringProviderService } from 'src/app/modules/providers/service/referring-provider.service';
 import { ViewCaseComponent } from './cases/view-case.component';
+import { ViewReferringProviderComponent } from './referring.provider/view-referring-provider.component';
 
 @Component({
   selector: 'app-billing',
@@ -12,6 +13,7 @@ import { ViewCaseComponent } from './cases/view-case.component';
 export class BillingComponent implements OnInit {
   @Input() patient: Patient;
   @ViewChild('casesComponent') casesComponent: ViewCaseComponent;
+  @ViewChild('referringProviderComponent') referringProviderComponent: ViewReferringProviderComponent;
   constructor() { }
 
   ngOnInit(): void {
@@ -23,7 +25,14 @@ export class BillingComponent implements OnInit {
     else
       return null;
   }
+  getReferringProvider() {
+    if (this.referringProviderComponent !== null || this.referringProviderComponent !== undefined)
+      return this.referringProviderComponent.getReferringDoctor();
+    else
+      return null;
+  }
   public resetBilling() {
     this.casesComponent.resetCases();
+    this.referringProviderComponent.resetReferringProvider();
   }
 }
