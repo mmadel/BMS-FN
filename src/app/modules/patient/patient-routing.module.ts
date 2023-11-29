@@ -28,6 +28,13 @@ const routes: Routes = [
         },
       },
       {
+        path: 'profile/:id',
+        component: PatientProfileComponent,
+        data: {
+          title: 'Patient Profile',
+        },
+      },
+      {
         path: 'session',
         component: PatientSessionComponent,
         data: {

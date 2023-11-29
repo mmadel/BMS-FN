@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { map, Observable, tap } from 'rxjs';
 import { Patient } from '../../model/clinical/patient';
@@ -13,7 +14,7 @@ import usersData from './_data';
 })
 export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<Patient[]>;
-  constructor(private paitentService: PatientService) { super() }
+  constructor(private paitentService: PatientService, private router: Router) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -33,10 +34,10 @@ export class PatientListComponent extends ListTemplate implements OnInit {
 
   }
   edit(event: any) {
-
+    this.router.navigate(['/patient/profile', event.data.id]);
   }
   view(event:any){
-
+  
   }
   find() {
     this.patients$ = this.paitentService.findAll(this.apiParams$).pipe(
