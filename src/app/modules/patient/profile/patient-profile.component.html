@@ -288,7 +288,7 @@
                         <app-advanced *ngIf="selectedTab === 2"></app-advanced>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=3>
-                        <app-filling *ngIf="selectedTab === 3"></app-filling>
+                        <app-filling *ngIf="selectedTab === 3" [pateintId]="patient.id"></app-filling>
                     </c-tab-pane>
                 </c-tab-content>
             </c-card-body>

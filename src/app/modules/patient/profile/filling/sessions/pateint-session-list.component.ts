@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
@@ -12,6 +12,7 @@ import { PatientSessionService } from '../../../service/profile/filling/patient-
   styleUrls: ['./pateint-session-list.component.scss']
 })
 export class PateintSessionListComponent extends ListTemplate implements OnInit {
+  @Input() pateintId: number;
   editSessionVisibility: boolean = false;
   selectedPatientSession: PatientSession
   columns = [
@@ -41,7 +42,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     this.details_visible[item] = !this.details_visible[item];
   }
   find() {
-    this.patientSessions$ = this.patientSessionService.findSessions(this.apiParams$).pipe(
+    this.patientSessions$ = this.patientSessionService.findSessions(this.apiParams$,this.pateintId).pipe(
       map((response: any) => {
         var list: PatientSessionResponse[] = new Array();
         for (let i = 0; i < response.records.length; i++) {
