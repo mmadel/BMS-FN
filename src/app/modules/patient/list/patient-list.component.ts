@@ -5,6 +5,7 @@ import { map, Observable, tap } from 'rxjs';
 import { Patient } from '../../model/clinical/patient';
 import { PatientResponse } from '../../model/clinical/patient.response';
 import { ListTemplate } from '../../model/template/list.template';
+import { PateintEmittingService } from '../service/emitting/pateint-emitting.service';
 import { PatientService } from '../service/patient.service';
 import usersData from './_data';
 @Component({
@@ -14,7 +15,9 @@ import usersData from './_data';
 })
 export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<Patient[]>;
-  constructor(private paitentService: PatientService, private router: Router) { super() }
+  constructor(private paitentService: PatientService
+    , private router: Router
+    , private pateintEmittingService: PateintEmittingService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -34,10 +37,10 @@ export class PatientListComponent extends ListTemplate implements OnInit {
 
   }
   edit(event: any) {
-    this.router.navigate(['/patient/profile', event.data.id]);
+    this.pateintEmittingService.selectedPatient$.next(event.data)
+    this.router.navigate(['/patient/profile',event.data.id]);
   }
-  view(event:any){
-  
+  view(event: any) {
   }
   find() {
     this.patients$ = this.paitentService.findAll(this.apiParams$).pipe(

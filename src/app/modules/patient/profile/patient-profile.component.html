@@ -162,15 +162,11 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <!-- <small *ngIf="notValidForm   && (dob.errors) || dob.invalid && (dob.dirty || dob.touched)"
-                                class="form-text text-danger">
-                                Date Of birth is required
-                            </small> -->
                             <c-input-group sizing="sm">
                                 <span cInputGroupText>
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
                                 </span>
-                                <c-date-picker cFormControl size="sm" #dob="ngModel" name="dob" [(ngModel)]="patientDOB"
+                                <c-date-picker cFormControl size="sm"  [date]="patientDOB"
                                     required="true"></c-date-picker>
                             </c-input-group>
                         </c-col>
@@ -280,18 +276,19 @@
                         </a>
                     </c-nav-item>
                 </c-nav>
-                <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
+                <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom"
+                    (activeTabPaneIdxChange)="onTabChange($event)">
                     <c-tab-pane tabPaneIdx=0>
-                        <app-billing [patient]="patient"></app-billing>
+                        <app-billing *ngIf="selectedTab === 0" [patient]="patient"></app-billing>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=1>
-                        <app-auths></app-auths>
+                        <app-auths *ngIf="selectedTab === 1"></app-auths>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=2>
-                        <app-advanced></app-advanced>
+                        <app-advanced *ngIf="selectedTab === 2"></app-advanced>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=3>
-                        <app-filling></app-filling>
+                        <app-filling *ngIf="selectedTab === 3"></app-filling>
                     </c-tab-pane>
                 </c-tab-content>
             </c-card-body>
