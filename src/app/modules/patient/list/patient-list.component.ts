@@ -57,7 +57,7 @@ export class PatientListComponent extends ListTemplate implements OnInit {
         for (var i = 0; i < response.records.length; i++) {
           var obj: Patient = response.records[i];
           var patientResponse: PatientResponse = {
-            name: obj.lastName + ',' + obj.lastName,
+            name: obj.lastName + ',' + obj.firstName,
             dob: moment.unix(obj.birthDate / 1000).toDate(),
             email: obj.email,
             data: obj
