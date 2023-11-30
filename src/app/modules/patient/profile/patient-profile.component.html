@@ -4,13 +4,22 @@
     </c-col>
 </c-row>
 <hr />
-<div class="d-md-flex justify-content-md-end">
-    <c-button-group aria-label="Basic example" role="group" class="mb-3" size="sm">
-        <button cButton color="primary" variant="outline">Save & Edit</button>
-        <button cButton color="primary" variant="outline" (click)="create()">Save & New</button>
-        <button cButton color="primary" variant="outline">Save & Close</button>
-    </c-button-group>
-</div>
+<span *ngIf="!isupdated">
+    <div class="d-md-flex justify-content-md-end">
+        <c-button-group aria-label="Basic example" role="group" class="mb-3" size="sm">
+            <button cButton color="primary" variant="outline" (click)="create()">Save</button>
+            <button cButton color="primary" variant="outline" (click)="create('close')">Save & Close</button>
+        </c-button-group>
+    </div>
+</span>
+<span *ngIf="isupdated">
+    <div class="d-md-flex justify-content-md-end">
+        <c-button-group aria-label="Basic example" role="group" class="mb-3" size="sm">
+            <button cButton color="primary" variant="outline" (click)="create()">Edit</button>
+            <button cButton color="primary" variant="outline" (click)="create('close')">Edit & Close</button>
+        </c-button-group>
+    </div>
+</span>
 <c-row>
     <c-col xs="12">
         <c-card class="mb-4">
@@ -166,7 +175,7 @@
                                 <span cInputGroupText>
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
                                 </span>
-                                <c-date-picker cFormControl size="sm"  [(date)]="patientDOB"
+                                <c-date-picker cFormControl size="sm" [(date)]="patientDOB"
                                     required="true"></c-date-picker>
                             </c-input-group>
                         </c-col>

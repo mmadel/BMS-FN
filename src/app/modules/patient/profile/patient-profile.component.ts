@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { filter, first, tap } from 'rxjs';
@@ -43,10 +43,12 @@ export class PatientProfileComponent implements OnInit {
   countries: Country[] = Countries;
   states: string[] = States;
   selectedTab: number = 0;
+  isupdated: boolean = false;
   constructor(private patientService: PatientService
     , private toastr: ToastrService
     , private pateintEmittingService: PateintEmittingService
-    , private route: ActivatedRoute) { }
+    , private route: ActivatedRoute
+    , private router: Router) { }
   ngOnInit(): void {
     var patientId = this.route.snapshot.paramMap.get('id');
     if (patientId) {
@@ -54,15 +56,18 @@ export class PatientProfileComponent implements OnInit {
         filter((patient) => patient !== null),
         first()
       ).subscribe((result) => {
+        this.isupdated = true;
         this.patient = result
         this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
       })
+    } else {
+      this.isupdated = false;
     }
   }
   onTabChange(event: any) {
     this.selectedTab = Number(event)
   }
-  create() {
+  create(action?: string) {
     if (this.patientCreationForm.valid) {
       this.patient.birthDate = moment(this.patientDOB).unix() * 1000;
       this.patient.cases = this.billingComponent?.getCases();
@@ -72,10 +77,12 @@ export class PatientProfileComponent implements OnInit {
       this.patient.externalId = this.billingComponent.getExternalId();
       this.patientService.create(this.patient)
         .subscribe((result) => {
-          this.toastr.success('Patient Created');
-          this.patientCreationForm.reset();
-          this.reset();
-          this.patientDOB = null;
+          if (this.isupdated)
+            this.toastr.success('Patient Updated');
+          else
+            this.toastr.success('Patient Created');
+          if (action === 'close')
+            this.reset();
         }, (error) => {
           this.toastr.error('Error in Patient Created');
         })
@@ -83,8 +90,12 @@ export class PatientProfileComponent implements OnInit {
     } else {
       this.notValidForm = true;
     }
+    if (action === 'close')
+      this.router.navigate(['/patient/list']);
   }
   private reset() {
+    this.patientCreationForm.reset();
     this.billingComponent.resetBilling();
+    this.patientDOB = null;
   }
 } 
