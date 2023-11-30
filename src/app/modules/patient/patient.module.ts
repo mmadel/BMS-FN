@@ -51,6 +51,7 @@ import { ViewInsuranceComponent } from './profile/billing/insurance/view-insuran
 import { CreateInsuranceComponent } from './profile/billing/insurance/create/create-insurance.component';
 import { PateintSessionListComponent } from './profile/filling/sessions/pateint-session-list.component';
 import { PatientCmsComponent } from './profile/filling/cms/patient-cms.component';
+import { PatientSessionCreateComponent } from './profile/filling/sessions/create/patient-session-create.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { PatientCmsComponent } from './profile/filling/cms/patient-cms.component
     ViewInsuranceComponent,
     CreateInsuranceComponent,
     PateintSessionListComponent,
-    PatientCmsComponent
+    PatientCmsComponent,
+    PatientSessionCreateComponent
   ],
   imports: [
     CommonModule,

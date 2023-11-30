@@ -8,8 +8,7 @@ import usersData from '../../../patient/list/_data';
 export class FillingComponent implements OnInit {
   @Input() pateintId: number;
   sestionFlag: string = "history";
-
-  details_visible = Object.create({});
+  addSessionVisibility:boolean= false
   constructor() { }
 
   ngOnInit(): void {
@@ -24,6 +23,9 @@ export class FillingComponent implements OnInit {
     this.sestionFlag = ''
   }
   createSession(){
-    
+      this.toggleAddSession();
   }
+  toggleAddSession(){
+    this.addSessionVisibility = !this.addSessionVisibility
+  } 
 }

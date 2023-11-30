@@ -3,7 +3,7 @@
         <c-col xs="12">
             <div style="float: right;" class="mb-3">
                 <c-button-group aria-label="Basic outlined" role="group">
-                    <button cButton color="primary" variant="outline" (click)="createSession">
+                    <button cButton color="primary" variant="outline" (click)="createSession()">
                         Create Session
                     </button>
                     <button cButton color="primary" variant="outline" (click)="onClickSessionHistory()">
@@ -26,3 +26,12 @@
         </c-col>
     </c-row>
 </c-container>
+<c-modal id="addSession" [visible]="addSessionVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+      <h5 cModalTitle>Add Session</h5>
+      <button (click)="toggleAddSession()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <app-patient-session-create></app-patient-session-create>
+    </c-modal-body>
+  </c-modal>
