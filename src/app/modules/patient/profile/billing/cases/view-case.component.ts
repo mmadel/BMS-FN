@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
+import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { CaseDiagnosisService } from '../../service/case-diagnosis.service';
 
@@ -11,6 +12,7 @@ import { CaseDiagnosisService } from '../../service/case-diagnosis.service';
   styleUrls: ['./view-case.component.scss']
 })
 export class ViewCaseComponent implements OnInit {
+  @Input() _cases: PatientCase[]
   addCaseVisibility: boolean = false
   diagnosisCtrl = new FormControl();
   filteredDiagnosis: any;
@@ -22,7 +24,8 @@ export class ViewCaseComponent implements OnInit {
   constructor(private caseDiagnosisService: CaseDiagnosisService) { }
 
   ngOnInit(): void {
-
+    if (this._cases !== undefined || this._cases !== undefined)
+      this.cases = this._cases
     this.diagnosisCtrl.valueChanges
       .pipe(
         filter(text => {

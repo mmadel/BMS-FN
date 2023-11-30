@@ -19,4 +19,6 @@ export interface Patient {
     phone?: string;
     email?: string
     copay?: string
+    ssn?: string | null
+    externalId?: string | null;
 }

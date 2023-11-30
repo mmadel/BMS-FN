@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ReferringProvider } from 'src/app/modules/model/clinical/referring.provider';
 import { ReferringProviderService } from 'src/app/modules/providers/service/referring-provider.service';
 
@@ -8,6 +8,7 @@ import { ReferringProviderService } from 'src/app/modules/providers/service/refe
   styleUrls: ['./view-referring-provider.component.scss']
 })
 export class ViewReferringProviderComponent implements OnInit {
+  @Input() referringProvider: ReferringProvider;
   referringProviders: ReferringProvider[]
   referringFirstNameList: string[];
   referringLastNameList: string[];
@@ -18,6 +19,11 @@ export class ViewReferringProviderComponent implements OnInit {
   constructor(private referringProviderService: ReferringProviderService) { }
 
   ngOnInit(): void {
+
+    this.selectedFirstName = this.referringProvider?.firstName;
+    this.selectedLastName = this.referringProvider?.lastName;
+    this.selectedNPI = this.referringProvider?.npi;
+
     this.referringProviderService.findAllWithoutPagination().subscribe((response: any) => {
       this.referringProviders = response;
       this.referringFirstNameList = this.referringProviders.map(a => a.firstName);

@@ -83,13 +83,5 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_birthDate = this.patient.birthDate
 
     }
-    else
-      this.patientInsurance.patientRelation = {
-        r_gender: null,
-        r_address: {
-          country: null,
-          state: null
-        }
-      }
   }
 }

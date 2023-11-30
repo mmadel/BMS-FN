@@ -68,6 +68,8 @@ export class PatientProfileComponent implements OnInit {
       this.patient.cases = this.billingComponent?.getCases();
       this.patient.referringProvider = this.billingComponent.getReferringProvider();
       this.patient.patientInsurances = this.billingComponent.getInsurances();
+      this.patient.ssn = this.billingComponent.getSSN();
+      this.patient.externalId = this.billingComponent.getExternalId();
       this.patientService.create(this.patient)
         .subscribe((result) => {
           this.toastr.success('Patient Created');

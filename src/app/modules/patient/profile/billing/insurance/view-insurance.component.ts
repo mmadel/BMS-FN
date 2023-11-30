@@ -16,6 +16,7 @@ export class ViewInsuranceComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.patientInsurances = this.patient?.patientInsurances
   }
   toggleAddInsuranceVisibility() {
     this.addInsuranceVisibility = !this.addInsuranceVisibility;
@@ -30,13 +31,13 @@ export class ViewInsuranceComponent implements OnInit {
   remove(index: number) {
     this.patientInsurances.splice(index, 1);
   }
-  getInsurances() {    
-    if (this.patientInsurances.length > 0)
+  getInsurances() {
+    if (this.patientInsurances !== undefined && this.patientInsurances.length > 0)
       return this.patientInsurances;
     else
       return null;
   }
-  reset(){
+  reset() {
     this.createInsuranceComponent.insuranceCreateForm.reset();
     this.patientInsurances = []
   }

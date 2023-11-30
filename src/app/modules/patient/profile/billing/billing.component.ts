@@ -16,10 +16,13 @@ export class BillingComponent implements OnInit {
   @ViewChild('casesComponent') casesComponent: ViewCaseComponent;
   @ViewChild('referringProviderComponent') referringProviderComponent: ViewReferringProviderComponent;
   @ViewChild('insuranceComponent') insuranceComponent: ViewInsuranceComponent;
+  ssn: string;
+  externalID: string;
   constructor() { }
 
   ngOnInit(): void {
-
+    this.ssn = this.patient?.ssn;
+    this.externalID = this.patient?.externalId
   }
   getCases() {
     if (this.casesComponent !== null || this.casesComponent !== undefined)
@@ -39,9 +42,23 @@ export class BillingComponent implements OnInit {
     else
       return null;
   }
+  getSSN() {
+    if (this.ssn !== undefined || this.ssn !== null)
+      return this.ssn
+    else
+      return null;
+  }
+  getExternalId() {
+    if (this.externalID !== undefined || this.externalID !== null)
+      return this.externalID;
+    else
+      return null;
+  }
   public resetBilling() {
     this.casesComponent.resetCases();
     this.referringProviderComponent.resetReferringProvider();
     this.insuranceComponent.reset();
+    this.ssn = null;
+    this.externalID = null;
   }
 }
