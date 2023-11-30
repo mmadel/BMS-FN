@@ -18,7 +18,7 @@
                         </button>
                     </c-button-group>
                 </div>
-                <h6>{{case.title }}</h6> <br />
+                <h4><strong>{{case.title }}</strong></h4>
                 <h6>ICD-10 Codes</h6> 
                 <ul *ngFor="let code of case.caseDiagnosis">
                     <li style="list-style-type: none">
@@ -37,7 +37,7 @@
     <c-modal-body>
         <c-row>
             <c-col>
-                <input cFormControl placeholder="Case Name" class="mb-3" [(ngModel)]="case.title" />
+                <input cFormControl placeholder="Case Name" class="mb-3" [(ngModel)]="case!.title" />
             </c-col>
         </c-row>
         <c-row>

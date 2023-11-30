@@ -1,62 +1,71 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
+import { map, Observable, tap } from 'rxjs';
+import { Patient } from '../../model/clinical/patient';
+import { PatientResponse } from '../../model/clinical/patient.response';
+import { ListTemplate } from '../../model/template/list.template';
+import { PateintEmittingService } from '../service/emitting/pateint-emitting.service';
+import { PatientService } from '../service/patient.service';
 import usersData from './_data';
 @Component({
   selector: 'app-patient-list',
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.scss']
 })
-export class PatientListComponent implements OnInit {
+export class PatientListComponent extends ListTemplate implements OnInit {
+  patients$!: Observable<Patient[]>;
+  constructor(private paitentService: PatientService
+    , private router: Router
+    , private pateintEmittingService: PateintEmittingService) { super() }
 
-  constructor() { }
-  
   ngOnInit(): void {
+    this.initListComponent();
+    this.find();
   }
-  usersData = usersData;
-  
 
   columns = [
     {
       key: 'name',
-      _style: { width: '40%' }
+      _style: { width: '10%' }
     },
-    { key: 'birthDate', _style: { width: '10%' } },
+    { key: 'dob', label: 'Date Of birth', _style: { width: '10%' } },
     { key: 'email', _style: { width: '20%' } },
-    { key: 'insurance', _style: { width: '25%' } },
-    {
-      key: 'profile',
-      label: '',
-      _style: { width: '5%' },
-      filter: false,
-      sorter: false
-    },
-    {
-      key: 'session',
-      label: '',
-      _style: { width: '5%' },
-      filter: false,
-      sorter: false
-    },
-    {
-      key: 'attach',
-      label: '',
-      _style: { width: '5%' },
-      filter: false,
-      sorter: false
-    },
-    {
-      key: 'status',
-      label: '',
-      _style: { width: '5%' },
-      filter: false,
-      sorter: false
-    }
+    { key: 'actions', _style: { width: '5%' } }
   ];
- 
+  remove(event: any) {
 
-  details_visible = Object.create({});
-
-  toggleDetails(item: any) {
-    this.details_visible[item] = !this.details_visible[item];
   }
-
+  edit(event: any) {
+    this.pateintEmittingService.selectedPatient$.next(event.data)
+    this.router.navigate(['/patient/profile',event.data.id]);
+  }
+  view(event: any) {
+  }
+  find() {
+    this.patients$ = this.paitentService.findAll(this.apiParams$).pipe(
+      tap((response: any) => {
+        this.totalItems$.next(response.number_of_matching_records);
+        if (response.number_of_records) {
+          this.errorMessage$.next('');
+        }
+        this.retry$.next(false);
+        this.loadingData$.next(false);
+      }),
+      map((response: any) => {
+        var list: PatientResponse[] = new Array()
+        for (var i = 0; i < response.records.length; i++) {
+          var obj: Patient = response.records[i];
+          var patientResponse: PatientResponse = {
+            name: obj.lastName + ',' + obj.firstName,
+            dob: moment.unix(obj.birthDate / 1000).toDate(),
+            email: obj.email,
+            data: obj
+          }
+          list.push(patientResponse)
+        }
+        return list;
+      })
+    );
+  }
 }

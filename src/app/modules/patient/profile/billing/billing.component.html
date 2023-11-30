@@ -8,10 +8,12 @@
                 <c-card-body>
                     <c-row>
                         <c-col xs="12" class="mb-1">
-                            <input class="h-auto" aria-label="SSN" cFormControl placeholder="SSN"  sizing="sm"/>
+                            <input class="h-auto" aria-label="SSN" cFormControl placeholder="SSN" sizing="sm"
+                                [(ngModel)]="ssn" />
                         </c-col>
                         <c-col xs="12" class="mb-1">
-                            <input class="h-auto" aria-label="External ID" cFormControl placeholder="External ID"  sizing="sm"/>
+                            <input class="h-auto" aria-label="External ID" cFormControl placeholder="External ID"
+                                sizing="sm" [(ngModel)]="externalID" />
                         </c-col>
                     </c-row>
                 </c-card-body>
@@ -24,7 +26,8 @@
                     <strong>Referring Provider</strong>
                 </c-card-header>
                 <c-card-body>
-                    <app-view-referring-provider></app-view-referring-provider>
+                    <app-view-referring-provider #referringProviderComponent
+                        [referringProvider]="patient.referringProvider"></app-view-referring-provider>
                 </c-card-body>
             </c-card>
         </c-col>
@@ -36,7 +39,7 @@
                 </c-card-header>
                 <c-card-body>
 
-                    <app-view-insurance [patient]="patient"></app-view-insurance>
+                    <app-view-insurance #insuranceComponent [patient]="patient"></app-view-insurance>
                 </c-card-body>
             </c-card>
         </c-col>
@@ -46,7 +49,7 @@
                     <strong>Diagnosis/Cases</strong>
                 </c-card-header>
                 <c-card-body>
-                    <app-view-case></app-view-case>
+                    <app-view-case #casesComponent [_cases]="patient.cases"></app-view-case>
                 </c-card-body>
             </c-card>
         </c-col>

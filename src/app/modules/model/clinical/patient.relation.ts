@@ -1,11 +1,11 @@
 import { Address } from "../common/address";
 
 export interface PatientRelation{
-    firstName?: string;
-    middleName?: string;
-    lastName?: string;
-    birthDate?: number;
-    gender?: string;
-    address?: Address
-    phone?:string;
+    r_firstName?: string;
+    r_middleName?: string;
+    r_lastName?: string;
+    r_birthDate?: number;
+    r_gender?: string;
+    r_address?: Address
+    r_phone?:string;
 }

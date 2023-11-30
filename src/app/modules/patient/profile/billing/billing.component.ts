@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { ReferringProvider } from 'src/app/modules/model/clinical/referring.provider';
 import { ReferringProviderService } from 'src/app/modules/providers/service/referring-provider.service';
+import { ViewCaseComponent } from './cases/view-case.component';
+import { ViewInsuranceComponent } from './insurance/view-insurance.component';
+import { ViewReferringProviderComponent } from './referring.provider/view-referring-provider.component';
 
 @Component({
   selector: 'app-billing',
@@ -10,57 +13,52 @@ import { ReferringProviderService } from 'src/app/modules/providers/service/refe
 })
 export class BillingComponent implements OnInit {
   @Input() patient: Patient;
-  referringProviders: ReferringProvider[]
-  referringFirstNameList: string[];
-  referringLastNameList: string[];
-  referringNPIList: string[];
-  selectedFirstName: string;
-  selectedLastName: string;
-  selectedNPI: string;
-  constructor(private referringProviderService: ReferringProviderService) { }
+  @ViewChild('casesComponent') casesComponent: ViewCaseComponent;
+  @ViewChild('referringProviderComponent') referringProviderComponent: ViewReferringProviderComponent;
+  @ViewChild('insuranceComponent') insuranceComponent: ViewInsuranceComponent;
+  ssn: string;
+  externalID: string;
+  constructor() { }
 
   ngOnInit(): void {
-    this.referringProviderService.findAllWithoutPagination().subscribe((response: any) => {
-      this.referringProviders = response;
-      this.referringFirstNameList = this.referringProviders.map(a => a.firstName);
-      this.referringLastNameList = this.referringProviders.map(a => a.lastName);
-      this.referringNPIList = this.referringProviders.map(a => a.npi);
-    })
+    this.ssn = this.patient?.ssn;
+    this.externalID = this.patient?.externalId
   }
-  pickFirstName(event: any) {
-    this.referringProviders.forEach(element => {
-      if (element.firstName === event) {
-        this.selectedLastName = element.lastName;
-        this.selectedNPI = element.npi
-      }
-    });
+  getCases() {
+    if (this.casesComponent !== null || this.casesComponent !== undefined)
+      return this.casesComponent.getcases();
+    else
+      return null;
   }
-  unpickFirstName() {
-    this.selectedLastName = '';
-    this.selectedNPI = '';
+  getReferringProvider() {
+    if (this.referringProviderComponent !== null || this.referringProviderComponent !== undefined)
+      return this.referringProviderComponent.getReferringDoctor();
+    else
+      return null;
   }
-  pickLastName(event: any) {
-    this.referringProviders.forEach(element => {
-      if (element.lastName === event) {
-        this.selectedFirstName = element.firstName;
-        this.selectedNPI = element.npi
-      }
-    });
+  getInsurances() {
+    if (this.insuranceComponent !== null || this.insuranceComponent !== undefined)
+      return this.insuranceComponent.getInsurances();
+    else
+      return null;
   }
-  unpickLastName() {
-    this.selectedFirstName = '';
-    this.selectedNPI = '';
+  getSSN() {
+    if (this.ssn !== undefined || this.ssn !== null)
+      return this.ssn
+    else
+      return null;
   }
-  pickNPI(event: any) {
-    this.referringProviders.forEach(element => {
-      if (element.npi === event) {
-        this.selectedFirstName = element.firstName;
-        this.selectedLastName = element.lastName
-      }
-    });
+  getExternalId() {
+    if (this.externalID !== undefined || this.externalID !== null)
+      return this.externalID;
+    else
+      return null;
   }
-  unpickNPI() {
-    this.selectedFirstName = '';
-    this.selectedLastName = '';
+  public resetBilling() {
+    this.casesComponent.resetCases();
+    this.referringProviderComponent.resetReferringProvider();
+    this.insuranceComponent.reset();
+    this.ssn = null;
+    this.externalID = null;
   }
 }

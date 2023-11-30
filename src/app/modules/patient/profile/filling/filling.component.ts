@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import usersData from '../../../patient/list/_data';
 @Component({
   selector: 'app-filling',
@@ -6,7 +6,7 @@ import usersData from '../../../patient/list/_data';
   styleUrls: ['./filling.component.scss']
 })
 export class FillingComponent implements OnInit {
-
+  @Input() pateintId: number;
   sestionFlag: string = "history";
 
   details_visible = Object.create({});
