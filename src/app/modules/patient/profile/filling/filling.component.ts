@@ -23,5 +23,7 @@ export class FillingComponent implements OnInit {
   onClickAttacment() {
     this.sestionFlag = ''
   }
-
+  createSession(){
+    
+  }
 }
