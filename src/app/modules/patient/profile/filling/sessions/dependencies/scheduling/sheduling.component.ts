@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { filter } from 'rxjs';
 import { Provider } from 'src/app/modules/model/clinical/provider/provider';
+import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { ProviderService } from 'src/app/modules/providers/service/provider.service';
 import { SessionScheduling } from '../../model/session.scheduling';
 interface ProviderInfo {
@@ -17,11 +19,27 @@ export class ShedulingComponent implements OnInit {
   providers: ProviderInfo[];
   notValidForm: boolean = false;
   @ViewChild('sessionForm') sessionForm: NgForm;
+  @Input() editMode?: boolean = false
+  constructor(private providerService: ProviderService, private emitPatientSessionService: EmitPatientSessionService) { }
 
-  constructor(private providerService:ProviderService) { }
-  
   ngOnInit(): void {
+    if (this.editMode)
+      this.popultaeModel();
+    else
+      this.initializeModel();
+    this.findProviders();
+  }
+  private popultaeModel() {
+    this.emitPatientSessionService.sessionScheduling$.pipe(
+      filter((selectedSessionScheduling) => selectedSessionScheduling !== null)
+    ).subscribe((selectedSessionScheduling) => {
+      this.sessionScheduling = selectedSessionScheduling;
+    })
+  }
+  private initializeModel() {
     this.sessionScheduling = {}
+  }
+  private findProviders() {
     this.providerService.findAllWithoutPagination()
       .subscribe((result: any) => {
         this.providers = new Array();

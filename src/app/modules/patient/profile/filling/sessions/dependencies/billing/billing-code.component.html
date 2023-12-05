@@ -55,7 +55,7 @@
                                     placeholder="Select ICD-10 Code Description">
                                     <option selected disabled>Select Diagnosis</option>
                                     <option *ngFor="let option of filteredDiagnosis">
-                                        {{ option}}
+                                        {{option}}
                                     </option>
                                 </select>
                             </c-col>
@@ -67,7 +67,7 @@
                         <svg cIcon name="cilPlus"></svg>
                     </button>
                 </div>
-                <service-code-list #serviceCodeListComponent></service-code-list>
+                <service-code-list #serviceCodeListComponent [editMode]="editMode"></service-code-list>
             </c-card-body>
         </c-card>
     </form>

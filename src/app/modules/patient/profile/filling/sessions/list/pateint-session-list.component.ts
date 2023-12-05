@@ -6,6 +6,7 @@ import { PatientSession } from 'src/app/modules/model/clinical/session/patient.s
 import { PatientSessionResponse } from 'src/app/modules/model/clinical/session/patient.session.response';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
+import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { PatientSessionEditComponent } from '../edit/patient-session-edit.component';
 
 @Component({
@@ -16,7 +17,6 @@ import { PatientSessionEditComponent } from '../edit/patient-session-edit.compon
 export class PateintSessionListComponent extends ListTemplate implements OnInit {
   @Input() pateintId: number;
   editSessionVisibility: boolean = false;
-  selectedPatientSession: PatientSession
   @ViewChild(PatientSessionEditComponent, { static: false }) patientSessionEditComponent: PatientSessionEditComponent;
   columns = [
     {
@@ -35,7 +35,8 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   ];
   details_visible = Object.create({});
   patientSessions$!: Observable<PatientSessionResponse[]>;
-  constructor(private patientSessionService: PatientSessionService, private router: Router) { super(); }
+  constructor(private patientSessionService: PatientSessionService
+    , private emitPatientSessionService: EmitPatientSessionService) { super(); }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -63,10 +64,11 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     );
   }
   toggleEditSession(item: any) {
-    if (item !== null)
-      this.selectedPatientSession = item.data
     this.editSessionVisibility = !this.editSessionVisibility;
-    if (!this.editSessionVisibility)
-      this.selectedPatientSession = undefined;
+  }
+  openEditPateintSession(selectedPatientSession: any){
+    this.editSessionVisibility = true;
+    this.emitPatientSessionService.patientSession$.next(selectedPatientSession.data);
+
   }
 }

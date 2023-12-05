@@ -14,7 +14,7 @@
           </ng-container>
           <ng-container *ngSwitchCase="'actions'" class="py-2">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button cButton variant="outline" size="sm" (click)="toggleEditSession(item)">
+              <button cButton variant="outline" size="sm" (click)="openEditPateintSession(item)">
                 <svg cIcon name="cilPen"></svg>
               </button>
             </div>
@@ -36,6 +36,6 @@
     <button (click)="toggleEditSession(null)" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <app-patient-session-edit #patientSessionEditComponent *ngIf="selectedPatientSession" [model]="selectedPatientSession"></app-patient-session-edit>
+    <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"></app-patient-session-edit>
   </c-modal-body>
 </c-modal>

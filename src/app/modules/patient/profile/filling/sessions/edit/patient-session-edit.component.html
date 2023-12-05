@@ -4,15 +4,14 @@
         <strong>Visit Number </strong> : 4 <br />
     </c-col>
     <c-col xs="5">
-
+        <patient-session-sheduling #editPateintSessionShedulingComponent [editMode]="true"></patient-session-sheduling>
     </c-col>
     <c-col xs="7">
-
+        <patient-session-billing-code #editPateintSessionBillingCodeComponent
+            [editMode]="true"></patient-session-billing-code>
     </c-col>
     <c-col xs="12">
-        <app-session-history *ngIf="patientSessionHistory"
-            [historyRecords]="patientSessionHistory"></app-session-history>
-
+        <app-session-history></app-session-history>
     </c-col>
 </c-row>
 <div class="col-12 text-center">

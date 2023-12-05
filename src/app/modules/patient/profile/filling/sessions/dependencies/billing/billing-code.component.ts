@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
-import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
+import { debounceTime, filter, finalize, first, switchMap, tap } from 'rxjs';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
+import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { CaseDiagnosisService } from '../../../../../service/case.diagnosis/case-diagnosis.service';
 import { BillingCode } from '../../model/billing.code';
 import { ServiceCodeListComponent } from '../service.code/list/service.code.list.component';
@@ -26,14 +27,16 @@ export class BillingCodeComponent implements OnInit {
   unitCount: number;
   chargeCount: number;
   serviceCodeVisibility: boolean
+  @Input() editMode?: boolean = false
 
-  constructor(private caseDiagnosisService: CaseDiagnosisService) { }
+  constructor(private caseDiagnosisService: CaseDiagnosisService, private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-    this.billingCode = {
-      placeOfCode: null,
-      facility: null,
-    }
+    if (this.editMode)
+      this.populateModel();
+    else
+      this.initializeModel();
+
     this.selectICD10diagnosis();
   }
   selectICD10diagnosis() {
@@ -92,7 +95,25 @@ export class BillingCodeComponent implements OnInit {
     this.serviceCodeVisibility = false;
     this.serviceCodeListComponent.pushServiceCode(createdServiceCode);
   }
-  getServiceCodes(){
+  getServiceCodes() {
     return this.serviceCodeListComponent.getServiceCodes();
+  }
+  private populateModel() {
+    this.emitPatientSessionService.sessionBillingCode$.pipe(
+      filter((selectedBillCode) => selectedBillCode !== null),
+      first()
+    ).subscribe((selectedBillCode) => {
+      this.billingCode = selectedBillCode;
+      this.filteredDiagnosis = new Array();
+      this.diagnosisCtrl.setValue(this.billingCode.diagnosisCode.diagnosisCode)
+      this.filteredDiagnosis.push(this.billingCode.diagnosisCode.diagnosisCode + ',' + this.billingCode.diagnosisCode.diagnosisDescription)
+      this.emitPatientSessionService.sessionserviceCodes$.next(selectedBillCode.ServiceCodes)
+    })
+  }
+  private initializeModel() {
+    this.billingCode = {
+      placeOfCode: null,
+      facility: null,
+    }
   }
 }

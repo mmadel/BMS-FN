@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { filter, tap } from 'rxjs';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
+import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 
 @Component({
   selector: 'service-code-list',
@@ -7,18 +9,23 @@ import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code
   styleUrls: ['./service.code.list.component.scss']
 })
 export class ServiceCodeListComponent implements OnInit {
-  serviceCodes: ServiceCode[] = new Array();
+  serviceCodes: ServiceCode[];
   unitCount: number;
   chargeCount: number;
-  constructor() { }
+  @Input() editMode?: boolean = false;
+  constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-    this.countChargeUnit();
+    console.log('ngOnInit.....ServiceCodeListComponent')
+    if (this.editMode)
+      this.populateList();
+    else
+      this.serviceCodes = new Array();
   }
   toggleEditServiceLine(serviceCode: ServiceCode, index: number) {
 
   }
-  popSergiceCode(index: number) {
+  popServiceCode(index: number) {
     this.serviceCodes.splice(index, 1);
     this.countChargeUnit();
   }
@@ -38,5 +45,16 @@ export class ServiceCodeListComponent implements OnInit {
 
   getServiceCodes() {
     return this.serviceCodes;
+  }
+  private populateList() {
+    this.emitPatientSessionService.sessionserviceCodes$.pipe(
+      filter((serviceCodes) => serviceCodes !== null)
+    ).subscribe((serviceCodes) => {
+      this.serviceCodes = new Array();
+      for (var i = 0; i < serviceCodes.length; i++) {
+        this.serviceCodes.push(serviceCodes[i])
+      }
+      this.countChargeUnit();
+    })
   }
 }
