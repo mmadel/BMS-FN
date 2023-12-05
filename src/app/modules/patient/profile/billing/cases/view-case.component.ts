@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
-import { CaseDiagnosisService } from '../../service/case-diagnosis.service';
+import { CaseDiagnosisService } from '../../../service/case.diagnosis/case-diagnosis.service';
 
 @Component({
   selector: 'app-view-case',

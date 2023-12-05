@@ -1,1 +1,15 @@
-<p>patient-session-create works!</p>
+<c-row>
+    <c-col xs="12" class="mb-2">
+        <strong>Editing Session Id</strong> : <br />
+        <strong>Visit Number </strong> : <br />
+    </c-col>
+    <c-col xs="5">
+        <patient-session-sheduling #pateintSessionShedulingComponent></patient-session-sheduling>
+    </c-col>
+    <c-col xs="7">
+        <patient-session-billing-code #pateintSessionBillingCodeComponent></patient-session-billing-code>
+    </c-col>
+</c-row>
+<div class="col-12 text-center">
+    <button cButton variant="outline" style="width: 15%;" (click)="createSession()">Create Session</button>
+</div>

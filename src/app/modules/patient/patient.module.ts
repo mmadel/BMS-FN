@@ -5,14 +5,11 @@ import { PatientRoutingModule } from './patient-routing.module';
 import {
   PatientListComponent,
   PatientProfileComponent,
-  PatientSessionComponent,
+  
   BillingComponent,
   AuthsComponent,
   AdvancedComponent,
   FillingComponent,
-  ShedulingComponent,
-  BillingCodeComponent,
-  SessionHistoryComponent
 } from './index'
 
 import {
@@ -46,32 +43,40 @@ import { ModelModule } from '../model/model.module';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ViewReferringProviderComponent } from './profile/billing/referring.provider/view-referring-provider.component';
 import { ViewCaseComponent } from './profile/billing/cases/view-case.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { ViewInsuranceComponent } from './profile/billing/insurance/view-insurance.component';
 import { CreateInsuranceComponent } from './profile/billing/insurance/create/create-insurance.component';
-import { PateintSessionListComponent } from './profile/filling/sessions/pateint-session-list.component';
 import { PatientCmsComponent } from './profile/filling/cms/patient-cms.component';
 import { PatientSessionCreateComponent } from './profile/filling/sessions/create/patient-session-create.component';
+import { PateintSessionListComponent } from './profile/filling/sessions/list/pateint-session-list.component';
+import { BillingCodeComponent } from './profile/filling/sessions/dependencies/billing/billing-code.component';
+import { ShedulingComponent } from './profile/filling/sessions/dependencies/scheduling/sheduling.component';
+import { SessionHistoryComponent } from './profile/filling/sessions/dependencies/history/session-history.component';
+import { PatientSessionEditComponent } from './profile/filling/sessions/edit/patient-session-edit.component';
+import { ServiceCodeCreateComponent } from './profile/filling/sessions/dependencies/service.code/create/service.code.create.component';
+import { ServiceCodeListComponent } from './profile/filling/sessions/dependencies/service.code/list/service.code.list.component';
+
 
 @NgModule({
   declarations: [
     PatientListComponent,
     PatientProfileComponent,
-    PatientSessionComponent,
     BillingComponent,
     AuthsComponent,
     AdvancedComponent,
     FillingComponent,
-    ShedulingComponent,
-    BillingCodeComponent,
-    SessionHistoryComponent,
     ViewReferringProviderComponent,
     ViewCaseComponent,
     ViewInsuranceComponent,
     CreateInsuranceComponent,
     PateintSessionListComponent,
     PatientCmsComponent,
-    PatientSessionCreateComponent
+    PatientSessionCreateComponent,
+    BillingCodeComponent,
+    ShedulingComponent,
+    SessionHistoryComponent,
+    PatientSessionEditComponent,
+    ServiceCodeCreateComponent,
+    ServiceCodeListComponent,
   ],
   imports: [
     CommonModule,

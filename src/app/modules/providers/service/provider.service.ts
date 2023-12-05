@@ -23,5 +23,9 @@ export class ProviderService extends BasePaginationService  {
     var url = this.baseUrl + '/create'
     return this.httpClient.post(`${url}`, JSON.stringify(provider), { 'headers': headers })
   }
+  public findAllWithoutPagination() {
+    var url = this.baseUrl + '/find/all'
+    return this.httpClient.get(url);
+  }
 
 }

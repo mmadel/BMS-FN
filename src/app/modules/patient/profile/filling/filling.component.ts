@@ -1,15 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-import usersData from '../../../patient/list/_data';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Patient } from 'src/app/modules/model/clinical/patient';
+import { PatientSessionCreateComponent } from './sessions/create/patient-session-create.component';
+import { PateintSessionListComponent } from './sessions/list/pateint-session-list.component';
 @Component({
   selector: 'app-filling',
   templateUrl: './filling.component.html',
   styleUrls: ['./filling.component.scss']
 })
 export class FillingComponent implements OnInit {
-  @Input() pateintId: number;
+  @Input() pateint: Patient;
+  @ViewChild('patientSessionComponent') patientSessionComponent: PatientSessionCreateComponent;
+  @ViewChild('pateintSessionListComponent') pateintSessionListComponent: PateintSessionListComponent;
   sestionFlag: string = "history";
-  addSessionVisibility:boolean= false
-  constructor() { }
+  addSessionVisibility: boolean = false
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -22,10 +28,19 @@ export class FillingComponent implements OnInit {
   onClickAttacment() {
     this.sestionFlag = ''
   }
-  createSession(){
-      this.toggleAddSession();
+  createSession() {
+    this.toggleAddSession();
   }
-  toggleAddSession(){
+  toggleAddSession() {
     this.addSessionVisibility = !this.addSessionVisibility
-  } 
+    if (!this.addSessionVisibility) {
+      this.patientSessionComponent.clear();
+    }
+  }
+  changeVisibility(event: any) {
+    if (event === 'close'){
+      this.addSessionVisibility = false;
+      this.pateintSessionListComponent.find();
+    }
+  }
 }

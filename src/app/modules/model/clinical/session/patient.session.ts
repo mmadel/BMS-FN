@@ -3,23 +3,23 @@ import { ClinicInfo } from "./clinic.info";
 import { DoctorInfo } from "./doctor.info";
 import { PateintInfo } from "./patient.info";
 import { PatientSessionHistory } from "./patient.session.history";
-import { ServiceLine } from "./service.line"
+import { ServiceCode } from "./service.code";
 
 export interface PatientSession {
     id?: number
-    patientInfo: PateintInfo;
+    patientInfo?: PateintInfo;
     doctorInfo?: DoctorInfo;
     clinicInfo?: ClinicInfo
     serviceDate?: number;
     serviceStartTime?: number
     serviceEndTime?: number
 
-    authorization: string;
-    placeOfCode: string;
+    authorization?: string;
+    placeOfCode?: string;
 
-    caseDiagnosis: CaseDiagnosis[]
+    caseDiagnosis?: CaseDiagnosis
 
-    serviceLines?: ServiceLine[];
-    patientSessionHistory:PatientSessionHistory[]
+    serviceCodes?: ServiceCode[];
+    patientSessionHistory?:PatientSessionHistory[]
 
 }

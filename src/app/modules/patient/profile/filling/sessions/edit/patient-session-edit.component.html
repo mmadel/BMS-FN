@@ -4,10 +4,10 @@
         <strong>Visit Number </strong> : 4 <br />
     </c-col>
     <c-col xs="5">
-        <app-sheduling *ngIf="sessionScheduling" [sessionScheduling]="sessionScheduling"></app-sheduling>
+
     </c-col>
     <c-col xs="7">
-        <app-billing-code *ngIf="billingCode" [billingCode]="billingCode"></app-billing-code>
+
     </c-col>
     <c-col xs="12">
         <app-session-history *ngIf="patientSessionHistory"
@@ -15,3 +15,6 @@
 
     </c-col>
 </c-row>
+<div class="col-12 text-center">
+    <button cButton variant="outline" style="width: 15%;">Edit Session</button>
+</div>

@@ -36,6 +36,6 @@
     <button (click)="toggleEditSession(null)" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <app-patient-session *ngIf="selectedPatientSession" [model]="selectedPatientSession"></app-patient-session>
+    <app-patient-session-edit #patientSessionEditComponent *ngIf="selectedPatientSession" [model]="selectedPatientSession"></app-patient-session-edit>
   </c-modal-body>
 </c-modal>

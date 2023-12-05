@@ -1,0 +1,29 @@
+<c-container fluid>
+    <div class="mb-3">
+        <label cLabel for="serviceCode">Service Code</label>
+        <input cFormControl id="serviceCode" placeholder="Service Code"
+            [(ngModel)]="serviceCode.cptCode.serviceCode" sizing="sm" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="modifier">Email address</label>
+        <input cFormControl id="modifier" placeholder="Modifier"
+            [(ngModel)]="serviceCode.cptCode.modifier" sizing="sm" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="lineNote">Line Note</label>
+        <textarea cFormControl id="lineNote" rows="1" sizing="sm"></textarea>
+    </div>
+    <div class="mb-3">
+        <label cLabel for="unit">Unit</label>
+        <input cFormControl id="unit" placeholder="unit" [(ngModel)]="serviceCode.cptCode.unit"
+            sizing="sm" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="charge">Charge</label>
+        <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="serviceCode.cptCode.charge"
+            sizing="sm" />
+    </div>
+    <div class="col-12 text-center">
+        <button cButton variant="outline" style="width: 10%;" (click)="saveServiceCode()">Save</button>
+    </div>
+</c-container>

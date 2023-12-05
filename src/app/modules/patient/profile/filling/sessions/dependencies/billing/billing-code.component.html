@@ -1,0 +1,84 @@
+<c-container [fluid]="true">
+    <form cForm #billingcodeForm="ngForm">
+        <c-card class="mb-3">
+            <c-card-header>
+                <h5>Billing And Coding</h5>
+            </c-card-header>
+            <c-card-body>
+                <small
+                    *ngIf="notValidForm   && (placeOfCode.errors) ||  placeOfCode.invalid && (placeOfCode.dirty || placeOfCode.touched)"
+                    class="form-text text-danger">
+                    Place Of Code is required
+                </small>
+                <div class="mb-3">
+                    <c-row class="mb-1">
+                        <c-col>
+                            <select cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="placeOfCode"
+                                required="true" name="placeOfCode" #placeOfCode="ngModel">
+                                <option [value]=null selected disabled>Select Place Code</option>
+                                <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)"
+                                    [ngValue]="placeOfCodevalue">
+                                    {{placeOfCodes[placeOfCodevalue]}}
+                                </option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-1">
+                        <small
+                            *ngIf="notValidForm   && (facility.errors) ||  facility.invalid && (facility.dirty || facility.touched)"
+                            class="form-text text-danger">
+                            facility is required
+                        </small>
+                        <c-col>
+                            <select cSelect sizing="sm" [(ngModel)]="billingCode.facility" id="facility" name="facility"
+                                required="true" #facility="ngModel">
+                                <option [value]=null selected disabled>Select Facility</option>
+                                <option [value]="'clinic-a'">clinic-a</option>
+                                <option [value]="'clinic-b'">clinic-b</option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-1">
+                        <c-col>
+                            <input cFormControl name="icd10diagnosis" [formControl]="diagnosisCtrl" id="icd10diagnosis"
+                                placeholder="Type ICD-10 Code" sizing="sm" />
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <span align="center" *ngIf="isLoading">
+                            <c-spinner variant="grow"></c-spinner>
+                        </span>
+                        <span *ngIf="!isLoading">
+                            <c-col>
+                                <select cSelect class="mb-2" (change)="addICD10diagnosis($event)" visibleItems="20"
+                                    id="diagnosisValue" name="diagnosisValue"
+                                    placeholder="Select ICD-10 Code Description">
+                                    <option selected disabled>Select Diagnosis</option>
+                                    <option *ngFor="let option of filteredDiagnosis">
+                                        {{ option}}
+                                    </option>
+                                </select>
+                            </c-col>
+                        </span>
+                    </c-row>
+                </div>
+                <div style="float:right">
+                    <button cButton color="info" variant="outline" size="sm" (click)="toggleserviceCode()">
+                        <svg cIcon name="cilPlus"></svg>
+                    </button>
+                </div>
+                <service-code-list #serviceCodeListComponent></service-code-list>
+            </c-card-body>
+        </c-card>
+    </form>
+</c-container>
+<c-modal id="serviceCodeModal" [visible]="serviceCodeVisibility" backdrop="static" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Service Code Creation</h5>
+        <button (click)="toggleserviceCode()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <service-code-creation *ngIf="serviceCodeVisibility"
+            (onCreateServiceCode)="getCreatedServiceCode($event)"></service-code-creation>
+    </c-modal-body>
+</c-modal>
