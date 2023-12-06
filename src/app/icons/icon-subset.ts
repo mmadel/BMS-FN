@@ -104,12 +104,16 @@ import {
   cilViewStream,
   cilHouse,
   cilFlagAlt,
-  cilAppsSettings,cilPhone,cibMailRu,cilBirthdayCake,cilViewColumn,cilEyedropper,cilBrowser
+  cilAppsSettings,cilPhone,cibMailRu,cilBirthdayCake,cilViewColumn,cilEyedropper,cilBrowser,
+  cilBank,
+  cilMedicalCross,
   
   
 } from '@coreui/icons';
 
 export const iconSubset = {
+  cilMedicalCross,
+  cilBank,
   cilBrowser,
   cilEyedropper,
   cilViewColumn,
