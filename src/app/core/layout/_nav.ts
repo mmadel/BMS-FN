@@ -96,4 +96,27 @@ export const navItems: INavData[] = [
       }
     ]
   },
+  {
+    name: 'Admin Tools',
+    url: 'admin/tools',
+    iconComponent: { name: 'cibSuperuser' },
+    children:[
+      {
+        name: 'Group Information',
+        url: ''
+      },
+      {
+        name: 'Insurance Mapping',
+        url: ''
+      },
+      {
+        name: 'Session Defaults',
+        url: ''
+      },
+      {
+        name: 'Account Management',
+        url: ''
+      }
+    ]
+  }
 ];

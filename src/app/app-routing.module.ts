@@ -39,6 +39,12 @@ const routes: Routes = [
         path: 'tools',
         loadChildren: () =>
           import('./modules/tools/tools.module').then((m) => m.ToolsModule)
+      },
+      {
+        path:'admin',
+        loadChildren: () =>
+          import('./modules/admin.tools/admin-tools.module').then((m) => m.AdminToolsModule)
+
       }
     ]
   }
