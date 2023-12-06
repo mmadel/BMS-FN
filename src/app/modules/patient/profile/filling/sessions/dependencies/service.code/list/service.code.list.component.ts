@@ -23,6 +23,7 @@ export class ServiceCodeListComponent implements OnInit {
       this.serviceCodes = new Array();
   }
   toggleEditServiceLine(serviceCode: ServiceCode, index: number) {
+    this.emitPatientSessionService.sessionserviceCode$.next(serviceCode)
     this.editServiceCodeVisibility = true;
   }
   popServiceCode(index: number) {
@@ -59,5 +60,11 @@ export class ServiceCodeListComponent implements OnInit {
   }
   toggleEditServiceCode() {
     this.editServiceCodeVisibility = !this.editServiceCodeVisibility;
+  }
+  changeVisibility(event: any) {
+    if (event === 'close') {
+      this.editServiceCodeVisibility = false;
+      this.countChargeUnit();
+    }
   }
 }
