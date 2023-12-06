@@ -31,10 +31,14 @@ import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ModelModule } from '../model/model.module';
 import { GroupComponent } from './components/group/group.component';
+import { OrganizationComponent } from './components/organization/organization.component';
+import { ClinicsComponent } from './components/clinics/clinics.component';
 
 @NgModule({
   declarations: [
-    GroupComponent
+    GroupComponent,
+    OrganizationComponent,
+    ClinicsComponent
   ],
   imports: [
     CommonModule,
