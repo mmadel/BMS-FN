@@ -13,6 +13,7 @@ export class ServiceCodeListComponent implements OnInit {
   unitCount: number;
   chargeCount: number;
   @Input() editMode?: boolean = false;
+  editServiceCodeVisibility: boolean = false;
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
@@ -22,7 +23,7 @@ export class ServiceCodeListComponent implements OnInit {
       this.serviceCodes = new Array();
   }
   toggleEditServiceLine(serviceCode: ServiceCode, index: number) {
-
+    this.editServiceCodeVisibility = true;
   }
   popServiceCode(index: number) {
     this.serviceCodes.splice(index, 1);
@@ -55,5 +56,8 @@ export class ServiceCodeListComponent implements OnInit {
       }
       this.countChargeUnit();
     })
+  }
+  toggleEditServiceCode() {
+    this.editServiceCodeVisibility = !this.editServiceCodeVisibility;
   }
 }

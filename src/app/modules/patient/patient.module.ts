@@ -54,6 +54,7 @@ import { SessionHistoryComponent } from './profile/filling/sessions/dependencies
 import { PatientSessionEditComponent } from './profile/filling/sessions/edit/patient-session-edit.component';
 import { ServiceCodeCreateComponent } from './profile/filling/sessions/dependencies/service.code/create/service.code.create.component';
 import { ServiceCodeListComponent } from './profile/filling/sessions/dependencies/service.code/list/service.code.list.component';
+import { ServiceCodeEditComponent } from './profile/filling/sessions/dependencies/service.code/edit/service.code.edit.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { ServiceCodeListComponent } from './profile/filling/sessions/dependencie
     PatientSessionEditComponent,
     ServiceCodeCreateComponent,
     ServiceCodeListComponent,
+    ServiceCodeEditComponent,
   ],
   imports: [
     CommonModule,

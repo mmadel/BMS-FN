@@ -20,14 +20,12 @@
                         <td>{{serviceCode.cptCode.unit}}</td>
                         <td>{{serviceCode.cptCode.charge}}</td>
                         <td>
-                            <c-button-group aria-label="Button outlined group with nested dropdown"
-                                role="group">
+                            <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                                 <button cButton color="info" variant="outline"
                                     (click)="toggleEditServiceLine(serviceCode,i)" size="sm">
                                     <svg cIcon name="cilPen"></svg>
                                 </button>
-                                <button cButton color="info" variant="outline"
-                                    (click)="popServiceCode(i)" size="sm">
+                                <button cButton color="info" variant="outline" (click)="popServiceCode(i)" size="sm">
                                     <svg cIcon name="cilTrash"></svg>
                                 </button>
                             </c-button-group>
@@ -48,3 +46,13 @@
         </c-col>
     </c-row>
 </div>
+<c-modal id="editServiceCode" [visible]="editServiceCodeVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h5 cModalTitle>Edit Service Code<strong>
+            </strong></h5>
+        <button (click)="toggleEditServiceCode()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <service-code-update></service-code-update>
+    </c-modal-body>
+</c-modal>
