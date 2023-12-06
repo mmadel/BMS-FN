@@ -1,16 +1,9 @@
+import { OrganizationData } from "./organization.data";
+
 export interface Organization {
-    busniessname?: string,
-    firstname?: string,
-    lastname?: string,
+    businessName?: string,
+    firstName?: string,
+    lastName?: string,
     npi?: string,
-    taxid?: string,
-    taxonomy?: string,
-    address?: string,
-    addresstwo?: string,
-    city?: string,
-    state?: string,
-    zipcode?: string,
-    phone?: string,
-    fax?: string,
-    email?: string
+    organizationData?: OrganizationData;
 }

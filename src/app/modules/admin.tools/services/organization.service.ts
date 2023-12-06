@@ -10,7 +10,7 @@ export class OrganizationService {
   constructor(private httpClient: HttpClient) { }
 
   findDefaultOrganization() {
-    var url = this.baseUrl + '/find'
+    var url = this.baseUrl + '/find/default'
     return this.httpClient.get(url);
   }
 }

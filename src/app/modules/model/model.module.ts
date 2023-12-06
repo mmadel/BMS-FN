@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ZipCodeDirective } from './directives/zip-code.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule, FormModule, GridModule, SharedModule, TableModule, UtilitiesModule } from '@coreui/angular-pro';
+import { ClonePipe } from './pipe/clone.pipe';
 
 const APP_COMMON_DIRECTIVES = [
   ZipCodeDirective
@@ -11,7 +12,8 @@ const APP_COMMON_DIRECTIVES = [
 
 @NgModule({
   declarations: [
-    APP_COMMON_DIRECTIVES
+    APP_COMMON_DIRECTIVES,
+    ClonePipe
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ const APP_COMMON_DIRECTIVES = [
   ],
   exports: [
     APP_COMMON_DIRECTIVES,
+    ClonePipe,
     ReactiveFormsModule, FormsModule
   ]
 })

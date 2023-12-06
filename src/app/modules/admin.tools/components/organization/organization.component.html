@@ -1,58 +1,61 @@
-<form cForm>
+<form cForm *ngIf="organization$ | async | clone as organization">
     <div class="mb-3">
         <label cLabel for="busniessname">Busniess Name</label>
-        <input cFormControl id="busniessname" sizing="sm" />
+        <input cFormControl id="busniessname" name="busniessname"  sizing="sm" readonly [(ngModel)]="organization.businessName" />
     </div>
     <div class="mb-3">
         <label cLabel for="firstname">First Name</label>
-        <input cFormControl id="firstname" sizing="sm" />
+        <input cFormControl id="firstname" name="firstname" sizing="sm" readonly [(ngModel)]="organization.firstName" />
     </div>
     <div class="mb-3">
         <label cLabel for="lastname">Last Name</label>
-        <input cFormControl id="lastname" sizing="sm" />
+        <input cFormControl id="lastname" name="lastname" sizing="sm" readonly [(ngModel)]="organization.lastName" />
     </div>
     <div class="mb-3">
         <label cLabel for="npi">NPI</label>
-        <input cFormControl id="npi" sizing="sm" />
+        <input cFormControl id="npi"  name="npi" sizing="sm" readonly [(ngModel)]="organization.npi" />
     </div>
     <div class="mb-3">
         <label cLabel for="taxid">Tax ID</label>
-        <input cFormControl id="taxid" sizing="sm" />
+        <input cFormControl id="taxid" name="taxid" sizing="sm" readonly [(ngModel)]="organization.organizationData.taxId" />
     </div>
     <div class="mb-3">
         <label cLabel for="taxonomy">Taxonomy</label>
-        <input cFormControl id="taxonomy" sizing="sm" />
+        <input cFormControl id="taxonomy" name="taxonomy" sizing="sm" readonly [(ngModel)]="organization.organizationData.taxonomy" />
     </div>
     <div class="mb-3">
         <label cLabel for="address">Address</label>
-        <textarea cFormControl id="address" rows="3" sizing="sm"></textarea>
+        <textarea cFormControl id="address" name="address" rows="3" sizing="sm" readonly
+            [(ngModel)]="organization.organizationData.address"></textarea>
     </div>
     <div class="mb-3">
         <label cLabel for="addresstwo">Address 2</label>
-        <textarea cFormControl id="addresstwo" rows="3" sizing="sm"></textarea>
+        <textarea cFormControl id="addresstwo" name="addresstwo" rows="3" sizing="sm" readonly
+            [(ngModel)]="organization.organizationData.addressTwo"></textarea>
     </div>
     <div class="mb-3">
         <label cLabel for="city">City</label>
-        <input cFormControl id="city" sizing="sm" />
+        <input cFormControl id="city" name="city" sizing="sm" readonly  [(ngModel)]="organization.organizationData.city" />
     </div>
     <div class="mb-3">
         <label cLabel for="state">State</label>
-        <input cFormControl id="state" sizing="sm" />
+        <input cFormControl id="state" name="state" sizing="sm" readonly [(ngModel)]="organization.organizationData.state" />
     </div>
     <div class="mb-3">
         <label cLabel for="zipcode">Zip Code</label>
-        <input cFormControl id="zipcode" sizing="sm" />
+        <input cFormControl id="zipcode" name="zipcode" sizing="sm" readonly [(ngModel)]="organization.organizationData.zipcode" />
     </div>
     <div class="mb-3">
         <label cLabel for="phone">Phone</label>
-        <input cFormControl id="phone" sizing="sm" />
+        <input cFormControl id="phone" name="phone" sizing="sm" readonly [(ngModel)]="organization.organizationData.phone" />
     </div>
     <div class="mb-3">
         <label cLabel for="fax">Fax</label>
-        <input cFormControl id="fax" sizing="sm" />
+        <input cFormControl id="fax"  name="fax" sizing="sm" readonly [(ngModel)]="organization.organizationData.fax" />
     </div>
     <div class="mb-3">
         <label cLabel for="email">Email</label>
-        <input cFormControl id="email" type="email" sizing="sm" />
+        <input cFormControl id="email" name="email" type="email" sizing="sm" readonly
+            [(ngModel)]="organization.organizationData.email" />
     </div>
 </form>
