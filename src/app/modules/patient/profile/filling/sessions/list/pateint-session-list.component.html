@@ -36,6 +36,7 @@
     <button (click)="toggleEditSession(null)" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"></app-patient-session-edit>
+    <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"
+      (changeVisibility)="changeVisibility($event)"></app-patient-session-edit>
   </c-modal-body>
 </c-modal>

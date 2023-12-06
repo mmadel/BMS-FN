@@ -71,4 +71,10 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     this.emitPatientSessionService.patientSession$.next(selectedPatientSession.data);
 
   }
+  changeVisibility(event: any) {
+    if (event === 'close'){
+      this.editSessionVisibility = false;
+      this.find();
+    }
+  }
 }

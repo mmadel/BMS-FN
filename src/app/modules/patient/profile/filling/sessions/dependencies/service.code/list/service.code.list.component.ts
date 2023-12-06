@@ -16,7 +16,6 @@ export class ServiceCodeListComponent implements OnInit {
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-    console.log('ngOnInit.....ServiceCodeListComponent')
     if (this.editMode)
       this.populateList();
     else

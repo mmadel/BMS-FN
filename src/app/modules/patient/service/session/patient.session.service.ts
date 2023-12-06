@@ -23,4 +23,9 @@ export class PatientSessionService extends BasePaginationService {
     var url = this.baseUrl + '/create'
     return this.httpClient.post(`${url}`, JSON.stringify(patientSession), { 'headers': headers })
   }
+  update(patientSession: PatientSession) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/update'
+    return this.httpClient.put(`${url}`, JSON.stringify(patientSession), { 'headers': headers })
+  }
 }
