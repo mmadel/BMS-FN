@@ -30,11 +30,15 @@ import {
 import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ModelModule } from '../model/model.module';
+import { GroupComponent } from './components/group/group.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    GroupComponent
+  ],
   imports: [
     CommonModule,
+    AdminToolsRoutingModule,
     ModelModule,
     AlertModule,
     BadgeModule,

@@ -98,12 +98,12 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Admin Tools',
-    url: 'admin/tools',
+    url: '/admin/tools',
     iconComponent: { name: 'cibSuperuser' },
     children:[
       {
         name: 'Group Information',
-        url: ''
+        url: '/admin/tools/group'
       },
       {
         name: 'Insurance Mapping',
