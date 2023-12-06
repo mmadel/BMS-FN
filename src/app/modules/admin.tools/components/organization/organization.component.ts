@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Organization } from 'src/app/modules/model/group/organiztion';
+import { Organization } from 'src/app/modules/model/admin/organiztion';
 import { OrganizationService } from '../../services/organization.service';
 
 @Component({
