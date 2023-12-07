@@ -9,10 +9,16 @@
                     <c-col class="mb-1">
                         <h3>Billing Provider Information</h3>
                     </c-col>
+                    <c-col>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button cButton class="my-2" size="sm" color="link"
+                                (click)="onClickEditProviderInformation()">Edit Provider</button>
+                        </div>
+                    </c-col>
                 </c-row>
             </c-card-header>
             <c-card-body>
-                <app-organization></app-organization>
+                <app-organization #organizationComponent></app-organization>
             </c-card-body>
         </c-card>
     </c-col>
@@ -34,3 +40,12 @@
         </c-card>
     </c-col>
 </c-row>
+<c-modal id="editProvider" [visible]="editProviderVisibility" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Edit Provider Information</h5>
+        <button (click)="toggleEditProvider()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-organization [editModel]="true" *ngIf="editProviderVisibility" (changeVisibility)="changeProviderVisibility($event)"></app-organization>
+    </c-modal-body>
+</c-modal>

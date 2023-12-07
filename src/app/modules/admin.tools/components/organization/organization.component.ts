@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Organization } from 'src/app/modules/model/admin/organiztion';
 import { OrganizationService } from '../../services/organization.service';
@@ -9,12 +9,24 @@ import { OrganizationService } from '../../services/organization.service';
   styleUrls: ['./organization.component.scss']
 })
 export class OrganizationComponent implements OnInit {
-
-  organization$!: Observable<Organization>;
+  @Input() editModel?: boolean = false;
+  organization!: Organization;
+  @Output() changeVisibility = new EventEmitter<string>()
   constructor(private organizationService: OrganizationService) { }
 
   ngOnInit(): void {
-    this.organization$ = this.organizationService.findDefaultOrganization();
+    this.find();
   }
-
+  edit(){
+      this.organizationService.update(this.organization)
+      .subscribe((result)=>{
+        this.changeVisibility.emit('close')        
+      })
+  }
+  find(){
+    this.organizationService.findDefaultOrganization()
+    .subscribe((reuslt)=>{
+      this.organization = reuslt;
+    })
+  }
 }
