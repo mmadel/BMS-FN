@@ -33,12 +33,14 @@ import { ModelModule } from '../model/model.module';
 import { GroupComponent } from './components/group/group.component';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { ClinicsComponent } from './components/clinics/clinics.component';
+import { CreateFacilityComponent } from './components/clinics/create/create-facility.component';
 
 @NgModule({
   declarations: [
     GroupComponent,
     OrganizationComponent,
-    ClinicsComponent
+    ClinicsComponent,
+    CreateFacilityComponent
   ],
   imports: [
     CommonModule,

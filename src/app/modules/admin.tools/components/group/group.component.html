@@ -32,6 +32,12 @@
                     <c-col class="mb-1">
                         <h3>Service Facilities</h3>
                     </c-col>
+                    <c-col>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button cButton class="my-2" size="sm" color="link" (click)="onClickAddFacility()">Add
+                                Facility</button>
+                        </div>
+                    </c-col>
                 </c-row>
             </c-card-header>
             <c-card-body>
@@ -46,6 +52,16 @@
         <button (click)="toggleEditProvider()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-organization [editModel]="true" *ngIf="editProviderVisibility" (changeVisibility)="changeProviderVisibility($event)"></app-organization>
+        <app-organization [editModel]="true" *ngIf="editProviderVisibility"
+            (changeVisibility)="changeProviderVisibility($event)"></app-organization>
+    </c-modal-body>
+</c-modal>
+<c-modal id="addFacility" [visible]="addFacilityVisibility" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Add Facility</h5>
+        <button (click)="toggleAddFacility()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-create-facility #clinicsComponent (changeVisibility)="changeAddFacilityVisibility($event)"></app-create-facility>
     </c-modal-body>
 </c-modal>

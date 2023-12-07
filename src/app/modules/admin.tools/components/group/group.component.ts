@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ClinicsComponent } from '../clinics/clinics.component';
 import { OrganizationComponent } from '../organization/organization.component';
 
 @Component({
@@ -8,7 +9,9 @@ import { OrganizationComponent } from '../organization/organization.component';
 })
 export class GroupComponent implements OnInit {
   @ViewChild('organizationComponent') organizationComponent: OrganizationComponent;
+  @ViewChild('clinicsComponent') clinicsComponent: ClinicsComponent;
   editProviderVisibility: boolean = false;
+  addFacilityVisibility: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
@@ -16,13 +19,25 @@ export class GroupComponent implements OnInit {
   toggleEditProvider() {
     this.editProviderVisibility = !this.editProviderVisibility;
   }
+  toggleAddFacility() {
+    this.addFacilityVisibility = !this.addFacilityVisibility;
+  }
   onClickEditProviderInformation() {
     this.editProviderVisibility = true;
+  }
+  onClickAddFacility() {
+    this.addFacilityVisibility = true;
   }
   changeProviderVisibility(event: any) {
     if (event === 'close') {
       this.editProviderVisibility = false;
       this.organizationComponent.find()
+    }
+  }
+  changeAddFacilityVisibility(event: any) {
+    if (event === 'close') {
+      this.addFacilityVisibility = false
+      this.clinicsComponent.find();
     }
   }
 }
