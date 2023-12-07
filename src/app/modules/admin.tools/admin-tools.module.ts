@@ -34,6 +34,7 @@ import { GroupComponent } from './components/group/group.component';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { ClinicsComponent } from './components/clinics/clinics.component';
 import { CreateFacilityComponent } from './components/clinics/create/create-facility.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { CreateFacilityComponent } from './components/clinics/create/create-faci
     ModelModule,
     MultiSelectModule,
     SpinnerModule,
-    SmartPaginationModule,
+    SmartPaginationModule
   ]
 })
 export class AdminToolsModule { }

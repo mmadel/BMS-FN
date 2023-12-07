@@ -9,7 +9,7 @@ import { OrganizationComponent } from '../organization/organization.component';
 })
 export class GroupComponent implements OnInit {
   @ViewChild('organizationComponent') organizationComponent: OrganizationComponent;
-  @ViewChild('clinicsComponent') clinicsComponent: ClinicsComponent;
+  @ViewChild('listclinicsComponent') listclinicsComponent: ClinicsComponent;
   editProviderVisibility: boolean = false;
   addFacilityVisibility: boolean = false;
   constructor() { }
@@ -36,8 +36,8 @@ export class GroupComponent implements OnInit {
   }
   changeAddFacilityVisibility(event: any) {
     if (event === 'close') {
-      this.addFacilityVisibility = false
-      this.clinicsComponent.find();
+      this.addFacilityVisibility = false;
+      this.listclinicsComponent.find();
     }
   }
 }

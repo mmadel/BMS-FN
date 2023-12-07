@@ -25,6 +25,10 @@ export class ClinicService extends BasePaginationService {
     var url = this.baseUrl + '/update'
     return this.httpClient.put(`${url}`, JSON.stringify(clinic), { 'headers': headers })
   }
+  delete(clinicId: number) {
+    var url = this.baseUrl + '/delete/clinicId/' + clinicId
+    return this.httpClient.delete(`${url}`)
+  }
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {
     var url = this.baseUrl + '/find'
     return this.get(config$, url)

@@ -48,7 +48,8 @@ import {
   ProvidersModule,
   InsuranceModule,
   InvoiceModule,
-  PostingModule
+  PostingModule,
+  AdminToolsModule
 } from './modules'
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
@@ -102,6 +103,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    AdminToolsModule,
     ToastrModule.forRoot({
       timeOut: 15000, // 15 seconds
       closeButton: true,

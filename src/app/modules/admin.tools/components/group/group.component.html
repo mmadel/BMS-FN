@@ -41,7 +41,7 @@
                 </c-row>
             </c-card-header>
             <c-card-body>
-                <app-clinics></app-clinics>
+                <app-clinics #listclinicsComponent></app-clinics>
             </c-card-body>
         </c-card>
     </c-col>
@@ -62,6 +62,6 @@
         <button (click)="toggleAddFacility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-facility #clinicsComponent (changeVisibility)="changeAddFacilityVisibility($event)"></app-create-facility>
+        <app-create-facility  (changeVisibility)="changeAddFacilityVisibility($event)"></app-create-facility>
     </c-modal-body>
 </c-modal>
