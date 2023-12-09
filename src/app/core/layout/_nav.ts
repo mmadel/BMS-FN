@@ -106,8 +106,8 @@ export const navItems: INavData[] = [
         url: '/admin/tools/group'
       },
       {
-        name: 'Insurance Mapping',
-        url: ''
+        name: 'Insurance Company Mapping',
+        url: '/admin/tools/insurance/company/mapping'
       },
       {
         name: 'Session Defaults',

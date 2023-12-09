@@ -35,13 +35,16 @@ import { OrganizationComponent } from './components/organization/organization.co
 import { ClinicsComponent } from './components/clinics/clinics.component';
 import { CreateFacilityComponent } from './components/clinics/create/create-facility.component';
 import { ToastrModule } from 'ngx-toastr';
+import { InsuranceMappingComponent } from './components/insurance.company/mapping/insurance-mapping.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
     GroupComponent,
     OrganizationComponent,
     ClinicsComponent,
-    CreateFacilityComponent
+    CreateFacilityComponent,
+    InsuranceMappingComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +75,8 @@ import { ToastrModule } from 'ngx-toastr';
     ModelModule,
     MultiSelectModule,
     SpinnerModule,
-    SmartPaginationModule
+    SmartPaginationModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
 export class AdminToolsModule { }

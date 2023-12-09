@@ -1,0 +1,49 @@
+<ngx-spinner></ngx-spinner>
+<c-container [fluid]="true">
+    <c-row>
+        <c-col xs="12">
+            <h1>Insurance Comapnies Mapping</h1>
+        </c-col>
+    </c-row>
+    <hr />
+    <c-row>
+        <c-col>
+            <c-col xs="12">
+                <ng-container  fluid="true">
+                    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
+                        [items]="(isuranceCompanies$ | async) ?? []"
+                        [tableProps]="{ hover: true, striped: true, small:true }"
+                        [tableBodyProps]="{ align: 'middle' }" header>
+                        <ng-template cTemplateId="tableDetails" let-item="item">
+                            <div [visible]="this.details_visible[item._id]===true" cCollapse>
+                              <c-card class="rounded-0">
+                                <c-card-body>
+                                  {{item | json}}
+                                </c-card-body>
+                              </c-card>
+                            </div>
+                          </ng-template>
+                        <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
+                            let-tdContent="tdContent">
+                            <td>
+                                <ng-container [ngSwitch]="columnName">
+                                    <ng-container *ngSwitchCase="'mapping'" class="py-2">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button cButton variant="outline" size="sm" (click)="toggleDetails(item['id'])">
+                                                <svg cIcon name="cilMenu"></svg>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        {{tdContent}}
+                                    </ng-container>
+                                </ng-container>
+                            </td>
+                        </ng-template>
+                    </c-smart-table>
+                </ng-container>
+
+            </c-col>
+        </c-col>
+    </c-row>
+</c-container>
