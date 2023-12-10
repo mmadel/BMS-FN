@@ -1,4 +1,4 @@
 export interface IsuranceCompanyMapper{
-    insuranceCompanyId:number;
-    payerId:number;
+    insuranceCompanyId?:number;
+    payerId?:number;
 }

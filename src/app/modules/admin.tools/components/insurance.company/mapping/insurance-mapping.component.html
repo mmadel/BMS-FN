@@ -6,44 +6,47 @@
         </c-col>
     </c-row>
     <hr />
+    <div class="d-md-flex justify-content-md-end">
+        <button cButton variant="outline" size="sm" [disabled]='selected?.length === 0 || selected === undefined'
+        (click)="assignSelected()">Assign Selected</button>
+    </div>
     <c-row>
         <c-col>
-            <c-col xs="12">
-                <ng-container  fluid="true">
-                    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" selectable (selectedItemsChange)="onSelectedInsuranceCompany($event)"
-                        [items]="(isuranceCompanies$ | async) ?? []"
-                        [tableProps]="{ hover: true, striped: true, small:true }"
-                        [tableBodyProps]="{ align: 'middle' }" header>
-                        <ng-template cTemplateId="tableDetails" let-item="item">
-                            <div [visible]="this.details_visible[item._id]===true" cCollapse>
-                              <c-card class="rounded-0">
+            <ng-container fluid="true">
+                <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" selectable  
+                    (selectedItemsChange)="onSelectedInsuranceCompany($event)"
+                    [items]="(isuranceCompanies$ | async) ?? []"
+                    [tableProps]="{ hover: true, striped: true, small:true  }" [tableBodyProps]="{ align: 'middle'}"
+                    header>
+                    <ng-template cTemplateId="tableDetails" let-item="item">
+                        <div [visible]="this.details_visible[item._id]===true" cCollapse>
+                            <c-card class="rounded-0">
                                 <c-card-body>
-                                  <assign-payer [insuranceCompany]="item" (onMapChanged)="mapInsuranceCompany($event)"></assign-payer>
+                                    <assign-payer [insuranceCompany]="item"
+                                        (onMapChanged)="mapInsuranceCompany($event)"></assign-payer>
                                 </c-card-body>
-                              </c-card>
-                            </div>
-                          </ng-template>
-                        <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
-                            let-tdContent="tdContent">
-                            <td>
-                                <ng-container [ngSwitch]="columnName">
-                                    <ng-container *ngSwitchCase="'mapping'" class="py-2">
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button cButton variant="outline" size="sm" (click)="toggleDetails(item['id'])">
-                                                <svg cIcon name="cilMenu"></svg>
-                                            </button>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngSwitchDefault>
-                                        {{tdContent}}
-                                    </ng-container>
+                            </c-card>
+                        </div>
+                    </ng-template>
+                    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
+                        let-tdContent="tdContent">
+                        <td>
+                            <ng-container [ngSwitch]="columnName">
+                                <ng-container *ngSwitchCase="'mapping'" class="py-2">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button cButton variant="outline" size="sm" (click)="toggleDetails(item['id'])">
+                                            <svg cIcon name="cilMenu"></svg>
+                                        </button>
+                                    </div>
                                 </ng-container>
-                            </td>
-                        </ng-template>
-                    </c-smart-table>
-                </ng-container>
-
-            </c-col>
+                                <ng-container *ngSwitchDefault>
+                                    {{tdContent}}
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                    </ng-template>
+                </c-smart-table>
+            </ng-container>
         </c-col>
     </c-row>
 </c-container>

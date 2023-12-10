@@ -21,4 +21,9 @@ export class InsuranceCompanyService {
     var url = this.baseUrl + '/map'
     return this.httpClient.put(`${url}`, JSON.stringify(isuranceCompanyMapper), { 'headers': headers })
   }
+  mapAll(isuranceCompanyMappers: IsuranceCompanyMapper[]) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/map/all'
+    return this.httpClient.put(`${url}`, JSON.stringify(isuranceCompanyMappers), { 'headers': headers })
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { InsuranceCompanyEmittingService } from 'src/app/modules/admin.tools/services/emitting/insurance-company-emitting.service';
 import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
 import { PayerService } from 'src/app/modules/admin.tools/services/payer/payer.service';
 import { IsuranceCompany } from 'src/app/modules/model/admin/insurance.company';
@@ -23,7 +24,8 @@ export class AssignPayerComponent implements OnInit {
   @Output() onMapChanged = new EventEmitter<string>()
   constructor(private payerService: PayerService
     , private insuranceCompanyService: InsuranceCompanyService
-    , private toastr: ToastrService) { }
+    , private toastr: ToastrService
+    , private insuranceCompanyEmittingService: InsuranceCompanyEmittingService) { }
 
   ngOnInit(): void {
     this.payerService.findAll().subscribe((result: any) => {
@@ -39,6 +41,12 @@ export class AssignPayerComponent implements OnInit {
         this.selectedpayerId = element.payerId.toString();
       }
     });
+    this.insuranceCompanyEmittingService.selectedInsuranceCompany$.next(
+      {
+        id: this.insuranceCompany.id,
+        payerId: Number(this.selectedpayerId)
+      }
+    )
   }
   unPickName() {
     this.selectedpayerId = '';
@@ -49,6 +57,12 @@ export class AssignPayerComponent implements OnInit {
         this.selectedpayerName = element.displayName;
       }
     });
+    this.insuranceCompanyEmittingService.selectedInsuranceCompany$.next(
+      {
+        id: this.insuranceCompany.id,
+        payerId: Number(event)
+      }
+    )
   }
   unPickId() {
     this.selectedpayerName = '';
