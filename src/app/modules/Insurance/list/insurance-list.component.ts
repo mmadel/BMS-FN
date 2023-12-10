@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
+import { InsuranceCompanyContainerService } from '../service/insurance-company-container.service';
 
 import usersData from './_data';
 //import usersData from './../../patient/list/_data';
@@ -8,49 +11,31 @@ import usersData from './_data';
   styleUrls: ['./insurance-list.component.scss']
 })
 export class InsuranceListComponent implements OnInit {
-
-  usersData = usersData;
+  isuranceCompanyList$!: Observable<InsuranceCompanyContainer[]>;
   public isnsuranceSettingsVisible = false;
 
   columns = [
     {
-      key: 'insuranceId',
-      _style: { width: '4%' }
-    },
-    {
-      key: 'name',
+      key: 'displayName',
+      label: 'Name',
       _style: { width: '40%' }
     },
     {
-      key: 'show',
-      label: '',
-      _style: { width: '1%' },
-      filter: false,
-      sorter: false
+      key: 'payerId',
+      label: 'Payer Id',
+      _style: { width: '40%' }
     },
     {
-      key: 'settings',
-      label: '',
-      _style: { width: '1%' },
-      filter: false,
-      sorter: false
-    }
+      key: 'actions',
+      _style: { width: '5%' }
+    },
   ];
 
   details_visible = Object.create({});
-
-  toggleDetails(item: any) {
-    this.details_visible[item] = !this.details_visible[item];
-  }
-  toggleInsuranceSettings() {
-    this.isnsuranceSettingsVisible = !this.isnsuranceSettingsVisible;
-  }
-  handleInsuranceSesstingsChange(event: boolean) {
-    this.isnsuranceSettingsVisible = event;
-  }
-  constructor() { }
+  constructor(private insuranceCompanyContainerService: InsuranceCompanyContainerService) { }
 
   ngOnInit(): void {
+    this.isuranceCompanyList$ = this.insuranceCompanyContainerService.findInsuranceCompanyContianers();
   }
 
 }
