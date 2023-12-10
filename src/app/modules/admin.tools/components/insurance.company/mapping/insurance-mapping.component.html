@@ -18,7 +18,7 @@
                             <div [visible]="this.details_visible[item._id]===true" cCollapse>
                               <c-card class="rounded-0">
                                 <c-card-body>
-                                  <assign-payer [insuranceCompany]="item"></assign-payer>
+                                  <assign-payer [insuranceCompany]="item" (onMapChanged)="mapInsuranceCompany($event)"></assign-payer>
                                 </c-card-body>
                               </c-card>
                             </div>

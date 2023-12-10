@@ -9,6 +9,11 @@
         </strong> :
         {{insuranceCompany.address.address}},{{insuranceCompany.address.city}},{{insuranceCompany.address.city}},{{insuranceCompany.address.state}},{{insuranceCompany.address.zipCode}}</c-col>
 </c-row>
+<c-row *ngIf="assignedPayer">
+    <c-col class="mb-3"><strong>
+            Payer 
+        </strong> : {{assignedPayer.displayName}} , {{assignedPayer.payerId}}</c-col> 
+</c-row>
 <c-row>
     <c-col class=" justify-content-md-center">
         <c-card>
@@ -45,7 +50,7 @@
             </c-card-body>
             <c-card-footer>
                 <div class="d-md-flex justify-content-md-center">
-                    <button cButton variant="outline" size="sm">Assign</button>
+                    <button cButton variant="outline" size="sm" (click)="assign()">Assign</button>
                 </div>
             </c-card-footer>
         </c-card>

@@ -17,7 +17,7 @@ export class InsuranceMappingComponent implements OnInit {
     {
       key: 'mapping',
       label: 'Assign',
-      _style: { width: '10%' },      
+      _style: { width: '10%' },
       filter: false,
       sorter: false
     },
@@ -25,12 +25,19 @@ export class InsuranceMappingComponent implements OnInit {
   details_visible = Object.create({});
   constructor(private insuranceCompanyService: InsuranceCompanyService) { }
   public toggleDetails(item: any) {
-    this.details_visible[item-1] = !this.details_visible[item-1];
+    this.details_visible[item - 1] = !this.details_visible[item - 1];
   }
   ngOnInit(): void {
     this.isuranceCompanies$ = this.insuranceCompanyService.findAll();
   }
-  onSelectedInsuranceCompany(even:any){
+  onSelectedInsuranceCompany(even: any) {
     console.log(JSON.stringify(even))
+  }
+  assignSelected() {
+  }
+  mapInsuranceCompany(event: any) {
+    if (event === 'mapped'){
+      this.ngOnInit();
+    }
   }
 }
