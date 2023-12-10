@@ -30,5 +30,7 @@ export class InsuranceMappingComponent implements OnInit {
   ngOnInit(): void {
     this.isuranceCompanies$ = this.insuranceCompanyService.findAll();
   }
-
+  onSelectedInsuranceCompany(even:any){
+    console.log(JSON.stringify(even))
+  }
 }

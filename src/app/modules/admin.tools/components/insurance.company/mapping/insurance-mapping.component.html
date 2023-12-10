@@ -10,7 +10,7 @@
         <c-col>
             <c-col xs="12">
                 <ng-container  fluid="true">
-                    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
+                    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" selectable (selectedItemsChange)="onSelectedInsuranceCompany($event)"
                         [items]="(isuranceCompanies$ | async) ?? []"
                         [tableProps]="{ hover: true, striped: true, small:true }"
                         [tableBodyProps]="{ align: 'middle' }" header>
