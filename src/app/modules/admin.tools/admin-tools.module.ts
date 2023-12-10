@@ -37,6 +37,7 @@ import { CreateFacilityComponent } from './components/clinics/create/create-faci
 import { ToastrModule } from 'ngx-toastr';
 import { InsuranceMappingComponent } from './components/insurance.company/mapping/insurance-mapping.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AssignPayerComponent } from './components/insurance.company/mapping/payer.assign/assign-payer.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     OrganizationComponent,
     ClinicsComponent,
     CreateFacilityComponent,
-    InsuranceMappingComponent
+    InsuranceMappingComponent,
+    AssignPayerComponent
   ],
   imports: [
     CommonModule,

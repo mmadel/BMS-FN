@@ -1,0 +1,53 @@
+<c-row>
+    <c-col class="mb-3"><strong>
+            Insurance Company Name
+        </strong> : {{insuranceCompany.name}}</c-col>
+</c-row>
+<c-row>
+    <c-col class="mb-3"><strong>
+            Insurance Company Address
+        </strong> :
+        {{insuranceCompany.address.address}},{{insuranceCompany.address.city}},{{insuranceCompany.address.city}},{{insuranceCompany.address.state}},{{insuranceCompany.address.zipCode}}</c-col>
+</c-row>
+<c-row>
+    <c-col class=" justify-content-md-center">
+        <c-card>
+            <c-card-header><strong>Assign to payer</strong> </c-card-header>
+            <c-card-body>
+                <c-row [gutter]="0">
+                    <c-col xs="12">
+                        <ng-autocomplete [data]="payerNames" [searchKeyword]="" id="payername" name="payername"
+                            placeholder="Payer Name" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                            (selected)='pickName($event)' (inputCleared)="unPickName()" [(ngModel)]="selectedpayerName">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item"></a>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </c-col>
+                    <c-col xs="12">
+                        <ng-autocomplete [data]="payerIds" [searchKeyword]="" id="payerid" name="payerid"
+                            placeholder="Payer Id" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                            (selected)='pickId($event)' (inputCleared)="unPickId()" [(ngModel)]="selectedpayerId">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item"></a>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+            <c-card-footer>
+                <div class="d-md-flex justify-content-md-center">
+                    <button cButton variant="outline" size="sm">Assign</button>
+                </div>
+            </c-card-footer>
+        </c-card>
+    </c-col>
+</c-row>
