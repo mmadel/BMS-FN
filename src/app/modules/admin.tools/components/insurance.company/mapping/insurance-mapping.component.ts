@@ -65,7 +65,7 @@ export class InsuranceMappingComponent implements OnInit {
     this.insuranceCompanyService.mapAll(isuranceCompanyMappers)
       .subscribe((result) => {
         this.find();
-        this.toastr.success("payer assigned to insurance companies")
+        this.toastr.success("payer assigned to selected insurance companies")
       })
   }
   mapInsuranceCompany(event: any) {

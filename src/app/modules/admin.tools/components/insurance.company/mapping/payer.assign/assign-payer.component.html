@@ -21,7 +21,7 @@
             <c-card-body>
                 <c-row [gutter]="0">
                     <c-col xs="12">
-                        <ng-autocomplete [data]="payerNames" [searchKeyword]="" id="payername" name="payername"
+                        <ng-autocomplete [data]="payerNames" [searchKeyword]="''" id="payername" name="payername"
                             placeholder="Payer Name" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                             (selected)='pickName($event)' (inputCleared)="unPickName()" [(ngModel)]="selectedpayerName">
                         </ng-autocomplete>
