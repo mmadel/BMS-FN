@@ -28,7 +28,6 @@ import {
 } from '@coreui/angular-pro';
 import {
   InsuranceListComponent,
-  InsuranceSettingsModalComponent,
   GeneralSettingsComponent,
   Box33SettingsComponent,
   ClientListSettingsComponent
@@ -41,7 +40,6 @@ import { ModelModule } from '../model/model.module';
 @NgModule({
   declarations: [
     InsuranceListComponent,
-    InsuranceSettingsModalComponent,
     GeneralSettingsComponent,
     Box33SettingsComponent,
     ClientListSettingsComponent,
