@@ -13,7 +13,6 @@ import usersData from './_data';
 export class InsuranceListComponent implements OnInit {
   isuranceCompanyList$!: Observable<InsuranceCompanyContainer[]>;
   public isnsuranceSettingsVisible = false;
-
   columns = [
     {
       key: 'displayName',
@@ -36,6 +35,9 @@ export class InsuranceListComponent implements OnInit {
 
   ngOnInit(): void {
     this.isuranceCompanyList$ = this.insuranceCompanyContainerService.findInsuranceCompanyContianers();
+  }
+  public toggleInsuranceSettings(){
+    this.isnsuranceSettingsVisible = !this.isnsuranceSettingsVisible
   }
 
 }
