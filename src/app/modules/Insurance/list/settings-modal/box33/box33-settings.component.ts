@@ -43,10 +43,12 @@ export class Box33SettingsComponent implements OnInit {
   fill() {
     if (this.selectedBillingProviderConfiguration.billingProvider !== null) {
       this.defualtBillingProvider = this.selectedBillingProviderConfiguration.billingProvider;
+      this.billingProviderConfiguration.billingProvider = this.defualtBillingProvider = this.selectedBillingProviderConfiguration.billingProvider
     }
     else {
       this.organizationService.findDefaultOrganization()
         .subscribe((result) => {
+          this.billingProviderConfiguration.billingProvider = result;
           this.defualtBillingProvider = result;
         })
     }

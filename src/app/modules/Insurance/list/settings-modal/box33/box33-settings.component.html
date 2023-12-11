@@ -3,7 +3,8 @@
         <c-col class="my-3">
             <c-card>
                 <c-card-body>
-                    <h5 cCardTitle>Billing Provider</h5>
+                    <h5 cCardTitle *ngIf="defualtBillingProvider.type === 'Default'">Default Billing Provider</h5>
+                    <h5 cCardTitle *ngIf="defualtBillingProvider.type === 'Other'">Billing Provider</h5>
                     <h6 cCardSubtitle class="mb-2 text-medium-emphasis">
                         {{defualtBillingProvider.businessName}}
                     </h6>

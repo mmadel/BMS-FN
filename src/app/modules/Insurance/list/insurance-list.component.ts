@@ -23,6 +23,7 @@ export class InsuranceListComponent implements OnInit {
   selectedInsuranceCompany: InsuranceCompanyContainer;
   selectedGeneralConfiguration: GeneralConfiguration;
   selectedBillingProviderConfiguration: BillingProviderConfiguration;
+  openedInsuranceCompanyConfigurationId: number = null;
   columns = [
     {
       key: 'displayName',
@@ -56,6 +57,8 @@ export class InsuranceListComponent implements OnInit {
     this.insuranceCompanyConfigurationService.findInsuranceCompanyConfiguration(this.selectedInsuranceCompany.payerId !== null ?
       this.selectedInsuranceCompany.payerId : this.selectedInsuranceCompany.insuranceCompanyId)
       .subscribe((result: any) => {
+        if (result !== null)
+          this.openedInsuranceCompanyConfigurationId = result.id;
         this.constructGeneralConfiguration(result)
         this.constructBillingProviderConfiguration(result);
         this.isnsuranceSettingsVisible = true;
@@ -63,6 +66,7 @@ export class InsuranceListComponent implements OnInit {
   }
   save() {
     var insuranceCompanyConfiguration: InsuranceCompanyConfiguration = {
+      id: this.openedInsuranceCompanyConfigurationId,
       insuranceCompanyIdentifier: this.selectedInsuranceCompany.payerId === null ?
         this.selectedInsuranceCompany.insuranceCompanyId : this.selectedInsuranceCompany.payerId,
       box32: this.generalSettings.generalConfiguration.box32,
