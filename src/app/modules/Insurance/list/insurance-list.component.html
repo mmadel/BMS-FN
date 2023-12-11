@@ -71,7 +71,7 @@
                             </c-nav>
                             <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
                                 <c-tab-pane tabPaneIdx=0>
-                                    <app-general-settings></app-general-settings>
+                                    <app-general-settings #generalSettings></app-general-settings>
                                 </c-tab-pane>
                                 <c-tab-pane tabPaneIdx=1>
                                     <app-box33-settings></app-box33-settings>
@@ -87,6 +87,6 @@
         </c-container>
     </c-modal-body>
     <c-modal-footer>
-        <button cButton color="primary" size="sm" variant="outline">Save changes</button>
+        <button cButton color="primary" size="sm" variant="outline" (click)="save()">Save changes</button>
     </c-modal-footer>
 </c-modal>

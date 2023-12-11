@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
 import { InsuranceCompanyContainerService } from '../service/insurance-company-container.service';
+import { GeneralSettingsComponent } from './settings-modal/general/general-settings.component';
 //import usersData from './../../patient/list/_data';
 @Component({
   selector: 'app-insurance-list',
@@ -11,7 +12,7 @@ import { InsuranceCompanyContainerService } from '../service/insurance-company-c
 export class InsuranceListComponent implements OnInit {
   isuranceCompanyList$!: Observable<InsuranceCompanyContainer[]>;
   public isnsuranceSettingsVisible = false;
-  selectedInsuranceCompany:InsuranceCompanyContainer
+  @ViewChild('generalSettings') generalSettings: GeneralSettingsComponent;
   columns = [
     {
       key: 'displayName',
@@ -35,11 +36,13 @@ export class InsuranceListComponent implements OnInit {
   ngOnInit(): void {
     this.isuranceCompanyList$ = this.insuranceCompanyContainerService.findInsuranceCompanyContianers();
   }
-  public toggleInsuranceSettings(){
+  public toggleInsuranceSettings() {
     this.isnsuranceSettingsVisible = !this.isnsuranceSettingsVisible
   }
-  public openSesstings(event:any){
-    this.selectedInsuranceCompany = event;
+  public openSesstings(event: any) {
     this.isnsuranceSettingsVisible = true;
+  }
+  save() {
+    
   }
 }
