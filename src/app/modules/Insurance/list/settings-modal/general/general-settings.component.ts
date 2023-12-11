@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GeneralConfiguration } from '../../../model/general.configuration';
 
 @Component({
@@ -7,14 +7,18 @@ import { GeneralConfiguration } from '../../../model/general.configuration';
   styleUrls: ['./general-settings.component.scss']
 })
 export class GeneralSettingsComponent implements OnInit {
-  generalConfiguration: GeneralConfiguration = {
-    box26: 'insured_primary_id',
-    box32: false
-  }
+  @Input() selectedGeneralConfiguration: GeneralConfiguration;
+  generalConfiguration: GeneralConfiguration;
   constructor() { }
 
   ngOnInit(): void {
-    console.log('ngOnInit .... GeneralSettingsComponent')
+    if (this.selectedGeneralConfiguration !== null)
+      this.generalConfiguration = this.selectedGeneralConfiguration;
+    else
+      this.generalConfiguration = {
+        box26: 'insured_primary_id',
+        box32: false
+      }
   }
 
 }

@@ -9,10 +9,16 @@ import { InsuranceCompanyConfiguration } from '../../model/admin/insurance.compa
 export class InsuranceCompanyConfigurationService {
   private baseUrl = environment.baseURL + '/insurance/company'
 
-  constructor(private httpClient:HttpClient) { }
-  configure(insuranceCompnayConfiguration : InsuranceCompanyConfiguration) {
+  constructor(private httpClient: HttpClient) { }
+
+  configure(insuranceCompnayConfiguration: InsuranceCompanyConfiguration) {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/configure'
     return this.httpClient.post(`${url}`, JSON.stringify(insuranceCompnayConfiguration), { 'headers': headers })
+  }
+
+  public findInsuranceCompanyConfiguration(identifier: number) {
+    var url = this.baseUrl + '/find/configuration/identifier/' + identifier
+    return this.httpClient.get(url)
   }
 }

@@ -71,12 +71,12 @@
                             </c-nav>
                             <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
                                 <c-tab-pane tabPaneIdx=0>
-                                    <app-general-settings *ngIf="isnsuranceSettingsVisible"
-                                        #generalSettings></app-general-settings>
+                                    <app-general-settings *ngIf="isnsuranceSettingsVisible" #generalSettings
+                                        [selectedGeneralConfiguration]="selectedGeneralConfiguration"></app-general-settings>
                                 </c-tab-pane>
                                 <c-tab-pane tabPaneIdx=1>
-                                    <app-box33-settings *ngIf="isnsuranceSettingsVisible"
-                                        #box33Settings></app-box33-settings>
+                                    <app-box33-settings *ngIf="isnsuranceSettingsVisible" #box33Settings
+                                        [selectedBillingProviderConfiguration]="selectedBillingProviderConfiguration"></app-box33-settings>
                                 </c-tab-pane>
                                 <c-tab-pane tabPaneIdx=2>
                                     <app-client-list-settings

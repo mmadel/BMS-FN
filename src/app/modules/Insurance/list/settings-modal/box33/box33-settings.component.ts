@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { filter } from 'rxjs';
 import { OrganizationService } from 'src/app/modules/admin.tools/services/organization.service';
 import { Organization } from 'src/app/modules/model/admin/organiztion';
@@ -11,24 +11,24 @@ import { InsuranceCompanyConfigurationEmitterService } from '../../../service/em
   styleUrls: ['./box33-settings.component.scss']
 })
 export class Box33SettingsComponent implements OnInit {
-  constructor(private organizationService: OrganizationService
-    , private insuranceCompanyConfigurationEmitterService: InsuranceCompanyConfigurationEmitterService) { }
+  @Input() selectedBillingProviderConfiguration: BillingProviderConfiguration;
   defualtBillingProvider!: Organization;
   changeProviderVisible: boolean = false;
-  billingProviderConfiguration: BillingProviderConfiguration ={};
+  billingProviderConfiguration: BillingProviderConfiguration = {}
+
+  constructor(private organizationService: OrganizationService
+    , private insuranceCompanyConfigurationEmitterService: InsuranceCompanyConfigurationEmitterService) { }
+
 
   ngOnInit(): void {
-    console.log('ngOnInit .... Box33SettingsComponent')
+    this.fill();
     this.insuranceCompanyConfigurationEmitterService.updatedBillingProvider$.pipe(
       filter((result) => result != null)
     ).subscribe((result) => {
       this.billingProviderConfiguration.billingProvider = result;
 
     })
-    this.organizationService.findDefaultOrganization()
-      .subscribe((result) => {
-        this.defualtBillingProvider = result;
-      })
+
   }
   onChangeDefualtBillingProvider() {
     this.changeProviderVisible = true;
@@ -39,5 +39,16 @@ export class Box33SettingsComponent implements OnInit {
   closeEditProvider(event: any) {
     if (event === 'close')
       this.changeProviderVisible = false
+  }
+  fill() {
+    if (this.selectedBillingProviderConfiguration.billingProvider !== null) {
+      this.defualtBillingProvider = this.selectedBillingProviderConfiguration.billingProvider;
+    }
+    else {
+      this.organizationService.findDefaultOrganization()
+        .subscribe((result) => {
+          this.defualtBillingProvider = result;
+        })
+    }
   }
 }
