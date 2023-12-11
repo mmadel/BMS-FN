@@ -18,6 +18,7 @@ export class Box33SettingsComponent implements OnInit {
   billingProviderConfiguration: BillingProviderConfiguration = {
     box33: false
   };
+
   ngOnInit(): void {
     this.insuranceCompanyConfigurationEmitterService.updatedBillingProvider$.pipe(
       filter((result) => result != null)
@@ -36,5 +37,9 @@ export class Box33SettingsComponent implements OnInit {
   }
   toggleChangeProviderVisible() {
     this.changeProviderVisible = !this.changeProviderVisible;
+  }
+  closeEditProvider(event: any) {
+    if (event === 'close')
+      this.changeProviderVisible = false
   }
 }

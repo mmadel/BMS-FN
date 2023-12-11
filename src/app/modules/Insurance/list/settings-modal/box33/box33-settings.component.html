@@ -25,6 +25,7 @@
         <button (click)="toggleChangeProviderVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <edit-provider *ngIf="changeProviderVisible" [organization] = "defualtBillingProvider"></edit-provider>
+        <edit-provider *ngIf="changeProviderVisible" [organization]="defualtBillingProvider"
+            (changeVisibility)="closeEditProvider($event)"></edit-provider>
     </c-modal-body>
 </c-modal>
