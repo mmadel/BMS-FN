@@ -61,12 +61,12 @@ export class InsuranceListComponent implements OnInit {
       isAssignedToPayer: this.selectedInsuranceCompany.payerId === null ? false : true
     }
     this.insuranceCompanyConfigurationService.configure(insuranceCompanyConfiguration)
-    .subscribe((result)=>{
-      this.toastr.success("Insurance Company configured successfully")
-      this.isnsuranceSettingsVisible = false;
-      this.ngOnInit();
-    },error=>{
-      this.toastr.error("Error during configure Insurance Company")
-    })
+      .subscribe((result) => {
+        this.toastr.success("Insurance Company configured successfully")
+        this.isnsuranceSettingsVisible = false;
+        this.ngOnInit();
+      }, error => {
+        this.toastr.error("Error during configure Insurance Company")
+      })
   }
 }
