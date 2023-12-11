@@ -49,11 +49,12 @@ export class InsuranceListComponent implements OnInit {
   }
   save() {
     var insuranceCompanyConfiguration: InsuranceCompanyConfiguration = {
-      insuranceCompnayIdentifier: this.selectedInsuranceCompany.payerId === undefined ?
+      insuranceCompnayIdentifier: this.selectedInsuranceCompany.payerId === null ?
         this.selectedInsuranceCompany.insuranceCompanyId : this.selectedInsuranceCompany.payerId,
       box32: this.generalSettings.generalConfiguration.box32,
       box26: this.generalSettings.generalConfiguration.box26,
-      billingProvider: this.box33Settings.billingProviderConfiguration.billingProvider
+      billingProvider: this.box33Settings.billingProviderConfiguration.billingProvider,
+      isAssignedToPayer: this.selectedInsuranceCompany.payerId === null ? false : true
     }
     console.log(JSON.stringify(insuranceCompanyConfiguration))
   }
