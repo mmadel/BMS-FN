@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GeneralConfiguration } from '../../../model/general.configuration';
 
 @Component({
   selector: 'app-general-settings',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./general-settings.component.scss']
 })
 export class GeneralSettingsComponent implements OnInit {
-
+  generalConfiguration: GeneralConfiguration = {
+    box26: 'insured_primary_id',
+    box32: false
+  }
   constructor() { }
 
   ngOnInit(): void {
