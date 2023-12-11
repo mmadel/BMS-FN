@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { InsuranceCompanyConfiguration } from '../../model/admin/insurance.company.configuration';
 import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
 import { InsuranceCompanyContainerService } from '../service/insurance-company-container.service';
 import { Box33SettingsComponent } from './settings-modal/box33/box33-settings.component';
@@ -15,6 +16,7 @@ export class InsuranceListComponent implements OnInit {
   public isnsuranceSettingsVisible = false;
   @ViewChild('generalSettings') generalSettings: GeneralSettingsComponent;
   @ViewChild('box33Settings') box33Settings: Box33SettingsComponent;
+  selectedInsuranceCompany: InsuranceCompanyContainer;
   columns = [
     {
       key: 'displayName',
@@ -42,10 +44,17 @@ export class InsuranceListComponent implements OnInit {
     this.isnsuranceSettingsVisible = !this.isnsuranceSettingsVisible
   }
   public openSesstings(event: any) {
+    this.selectedInsuranceCompany = event;
     this.isnsuranceSettingsVisible = true;
   }
   save() {
-    console.log(JSON.stringify(this.generalSettings.generalConfiguration))
-    console.log(JSON.stringify(this.box33Settings.billingProviderConfiguration))
+    var insuranceCompanyConfiguration: InsuranceCompanyConfiguration = {
+      insuranceCompnayIdentifier: this.selectedInsuranceCompany.payerId === undefined ?
+        this.selectedInsuranceCompany.insuranceCompanyId : this.selectedInsuranceCompany.payerId,
+      box32: this.generalSettings.generalConfiguration.box32,
+      box26: this.generalSettings.generalConfiguration.box26,
+      billingProvider: this.box33Settings.billingProviderConfiguration.billingProvider
+    }
+    console.log(JSON.stringify(insuranceCompanyConfiguration))
   }
 }

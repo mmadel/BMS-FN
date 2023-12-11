@@ -15,15 +15,12 @@ export class Box33SettingsComponent implements OnInit {
     , private insuranceCompanyConfigurationEmitterService: InsuranceCompanyConfigurationEmitterService) { }
   defualtBillingProvider!: Organization;
   changeProviderVisible: boolean = false;
-  billingProviderConfiguration: BillingProviderConfiguration = {
-    box33: false
-  };
+  billingProviderConfiguration: BillingProviderConfiguration ={};
 
   ngOnInit(): void {
     this.insuranceCompanyConfigurationEmitterService.updatedBillingProvider$.pipe(
       filter((result) => result != null)
     ).subscribe((result) => {
-      this.billingProviderConfiguration.box33 = true;;
       this.billingProviderConfiguration.billingProvider = result;
 
     })

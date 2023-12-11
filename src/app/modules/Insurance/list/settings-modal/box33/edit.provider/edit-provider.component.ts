@@ -10,11 +10,13 @@ import { Organization } from 'src/app/modules/model/admin/organiztion';
 export class EditProviderComponent implements OnInit {
   @Input() organization: Organization
   @Output() changeVisibility = new EventEmitter<string>()
-  constructor(private insuranceCompanyConfigurationEmitterService:InsuranceCompanyConfigurationEmitterService) { }
+  constructor(private insuranceCompanyConfigurationEmitterService: InsuranceCompanyConfigurationEmitterService) { }
 
   ngOnInit(): void {
   }
   edit() {
+    this.organization.type = "Other"
+    this.organization.id = null;
     this.insuranceCompanyConfigurationEmitterService.updatedBillingProvider$.next(this.organization)
     this.changeVisibility.emit('close');
   }
