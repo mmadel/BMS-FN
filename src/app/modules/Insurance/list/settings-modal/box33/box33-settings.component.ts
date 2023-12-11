@@ -20,8 +20,9 @@ export class Box33SettingsComponent implements OnInit {
   };
   ngOnInit(): void {
     this.insuranceCompanyConfigurationEmitterService.updatedBillingProvider$.pipe(
-      filter((result)=> result !=null)
-    ).subscribe((result)=>{
+      filter((result) => result != null)
+    ).subscribe((result) => {
+      this.billingProviderConfiguration.box33 = true;;
       this.billingProviderConfiguration.billingProvider = result;
 
     })

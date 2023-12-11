@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
 import { InsuranceCompanyContainerService } from '../service/insurance-company-container.service';
+import { Box33SettingsComponent } from './settings-modal/box33/box33-settings.component';
 import { GeneralSettingsComponent } from './settings-modal/general/general-settings.component';
 //import usersData from './../../patient/list/_data';
 @Component({
@@ -13,6 +14,7 @@ export class InsuranceListComponent implements OnInit {
   isuranceCompanyList$!: Observable<InsuranceCompanyContainer[]>;
   public isnsuranceSettingsVisible = false;
   @ViewChild('generalSettings') generalSettings: GeneralSettingsComponent;
+  @ViewChild('box33Settings') box33Settings: Box33SettingsComponent;
   columns = [
     {
       key: 'displayName',
@@ -43,6 +45,7 @@ export class InsuranceListComponent implements OnInit {
     this.isnsuranceSettingsVisible = true;
   }
   save() {
-    
+    console.log(JSON.stringify(this.generalSettings.generalConfiguration))
+    console.log(JSON.stringify(this.box33Settings.billingProviderConfiguration))
   }
 }
