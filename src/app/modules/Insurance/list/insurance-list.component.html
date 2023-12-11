@@ -21,7 +21,7 @@
                             </ng-container>
                             <ng-container *ngSwitchCase="'actions'" class="py-2">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button cButton variant="outline" size="sm" (click)="toggleInsuranceSettings()">
+                                    <button cButton variant="outline" size="sm" (click)="openSesstings(item)">
                                         <svg cIcon name="cilMenu"></svg>
                                     </button>
                                 </div>
@@ -37,13 +37,13 @@
 
     </c-col>
 </c-row>
-<c-modal [visible]="isnsuranceSettingsVisible" scrollable size="xl">
+<c-modal [visible]="isnsuranceSettingsVisible" scrollable size="xl" backdrop="static">
     <c-modal-header>
         <h5 cModalTitle>Insurance Company Settings</h5>
         <button (click)="toggleInsuranceSettings()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-insurance-settings-modal *ngIf="isnsuranceSettingsVisible"></app-insurance-settings-modal>
+        <app-insurance-settings-modal *ngIf="isnsuranceSettingsVisible" [selectedInsuranceCompany] ="selectedInsuranceCompany"></app-insurance-settings-modal>
     </c-modal-body>
     <c-modal-footer>
         <button cButton color="primary" size="sm">Save changes</button>
