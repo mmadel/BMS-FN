@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import usersData from '../../../../patient/list/_data';
+import { OrganizationService } from 'src/app/modules/admin.tools/services/organization.service';
+import { Organization } from 'src/app/modules/model/admin/organiztion';
 
 @Component({
   selector: 'app-box33-settings',
@@ -7,33 +8,19 @@ import usersData from '../../../../patient/list/_data';
   styleUrls: ['./box33-settings.component.scss']
 })
 export class Box33SettingsComponent implements OnInit {
-
-
-  usersData = usersData;
-  
-
-  columns = [
-    {
-      key: 'name',
-      _style: { width: '20%' }
-    },
-    { key: 'email', _style: { width: '5%' } },
-    {
-      key: 'profile',
-      label: '',
-      _style: { width: '5%' },
-      filter: false,
-      sorter: false
-    }
-  ];
-  details_visible = Object.create({});
-
-  toggleDetails(item: any) {
-    this.details_visible[item] = !this.details_visible[item];
-  }
-  constructor() { }
-
+  constructor(private organizationService: OrganizationService) { }
+  defualtBillingProvider!: Organization;
+  changeProviderVisible: boolean = false;
   ngOnInit(): void {
+    this.organizationService.findDefaultOrganization()
+      .subscribe((result) => {
+        this.defualtBillingProvider = result;
+      })
   }
-
+  onChangeDefualtBillingProvider() {
+    this.changeProviderVisible = true;
+  }
+  toggleChangeProviderVisible() {
+    this.changeProviderVisible = !this.changeProviderVisible;
+  }
 }

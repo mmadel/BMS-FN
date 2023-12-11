@@ -1,0 +1,64 @@
+<form #editProviderForm  cForm *ngIf="organization"  (submit)="edit()">
+    <div class="mb-3">
+        <label cLabel for="busniessname">Busniess Name</label>
+        <input cFormControl id="busniessname" name="busniessname"  sizing="sm"  [(ngModel)]="organization!.businessName" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="firstname">First Name</label>
+        <input cFormControl id="firstname" name="firstname" sizing="sm"  [(ngModel)]="organization!.firstName" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="lastname">Last Name</label>
+        <input cFormControl id="lastname" name="lastname" sizing="sm"  [(ngModel)]="organization!.lastName" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="npi">NPI</label>
+        <input cFormControl id="npi"  name="npi" sizing="sm"  [(ngModel)]="organization!.npi" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="taxid">Tax ID</label>
+        <input cFormControl id="taxid" name="taxid" sizing="sm"  [(ngModel)]="organization!.organizationData.taxId" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="taxonomy">Taxonomy</label>
+        <input cFormControl id="taxonomy" name="taxonomy" sizing="sm"  [(ngModel)]="organization!.organizationData.taxonomy" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="address">Address</label>
+        <textarea cFormControl id="address" name="address" rows="3" sizing="sm" 
+            [(ngModel)]="organization!.organizationData.address"></textarea>
+    </div>
+    <div class="mb-3">
+        <label cLabel for="addresstwo">Address 2</label>
+        <textarea cFormControl id="addresstwo" name="addresstwo" rows="3" sizing="sm" 
+            [(ngModel)]="organization!.organizationData.addressTwo"></textarea>
+    </div>
+    <div class="mb-3">
+        <label cLabel for="city">City</label>
+        <input cFormControl id="city" name="city" sizing="sm"   [(ngModel)]="organization!.organizationData.city" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="state">State</label>
+        <input cFormControl id="state" name="state" sizing="sm"  [(ngModel)]="organization!.organizationData.state" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="zipcode">Zip Code</label>
+        <input cFormControl id="zipcode" name="zipcode" sizing="sm"  [(ngModel)]="organization!.organizationData.zipcode" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="phone">Phone</label>
+        <input cFormControl id="phone" name="phone" sizing="sm"  [(ngModel)]="organization!.organizationData.phone" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="fax">Fax</label>
+        <input cFormControl id="fax"  name="fax" sizing="sm"  [(ngModel)]="organization!.organizationData.fax" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="email">Email</label>
+        <input cFormControl id="email" name="email" type="email" sizing="sm" 
+            [(ngModel)]="organization!.organizationData.email" />
+    </div>
+    <div class="d-md-flex justify-content-md-center">
+        <button cButton type="submit" size="sm" style="width: 10%;" variant="outline">Change</button>
+    </div>
+</form>

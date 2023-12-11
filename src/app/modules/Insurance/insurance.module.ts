@@ -33,6 +33,8 @@ import {
   Box33SettingsComponent,
   ClientListSettingsComponent
 } from './index';
+import { EditProviderComponent } from './list/settings-modal/box33/edit.provider/edit-provider.component';
+import { ModelModule } from '../model/model.module';
 
 
 
@@ -43,6 +45,7 @@ import {
     GeneralSettingsComponent,
     Box33SettingsComponent,
     ClientListSettingsComponent,
+    EditProviderComponent,
   ],
   imports: [
     CommonModule,
@@ -68,7 +71,8 @@ import {
     TimePickerModule,
     IconModule,
     UtilitiesModule,
-    ModalModule
+    ModalModule,
+    ModelModule
   ]
 })
 export class InsuranceModule { }
