@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
 import { InsuranceCompanyContainerService } from '../service/insurance-company-container.service';
-
-import usersData from './_data';
 //import usersData from './../../patient/list/_data';
 @Component({
   selector: 'app-insurance-list',
