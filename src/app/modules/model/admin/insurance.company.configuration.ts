@@ -5,7 +5,7 @@ export interface InsuranceCompanyConfiguration {
     box32?: boolean;
     box26?: string;
     billingProvider?: Organization
-    insuranceCompnayIdentifier: number;
+    insuranceCompanyIdentifier: number;
     isAssignedToPayer:boolean;
 
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { InsuranceCompanyConfiguration } from '../../model/admin/insurance.company.configuration';
 import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
+import { InsuranceCompanyConfigurationService } from '../service/insurance-company-configuration.service';
 import { InsuranceCompanyContainerService } from '../service/insurance-company-container.service';
 import { Box33SettingsComponent } from './settings-modal/box33/box33-settings.component';
 import { GeneralSettingsComponent } from './settings-modal/general/general-settings.component';
@@ -35,7 +37,9 @@ export class InsuranceListComponent implements OnInit {
   ];
 
   details_visible = Object.create({});
-  constructor(private insuranceCompanyContainerService: InsuranceCompanyContainerService) { }
+  constructor(private insuranceCompanyContainerService: InsuranceCompanyContainerService
+    , private insuranceCompanyConfigurationService: InsuranceCompanyConfigurationService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.isuranceCompanyList$ = this.insuranceCompanyContainerService.findInsuranceCompanyContianers();
@@ -49,13 +53,20 @@ export class InsuranceListComponent implements OnInit {
   }
   save() {
     var insuranceCompanyConfiguration: InsuranceCompanyConfiguration = {
-      insuranceCompnayIdentifier: this.selectedInsuranceCompany.payerId === null ?
+      insuranceCompanyIdentifier: this.selectedInsuranceCompany.payerId === null ?
         this.selectedInsuranceCompany.insuranceCompanyId : this.selectedInsuranceCompany.payerId,
       box32: this.generalSettings.generalConfiguration.box32,
       box26: this.generalSettings.generalConfiguration.box26,
       billingProvider: this.box33Settings.billingProviderConfiguration.billingProvider,
       isAssignedToPayer: this.selectedInsuranceCompany.payerId === null ? false : true
     }
-    console.log(JSON.stringify(insuranceCompanyConfiguration))
+    this.insuranceCompanyConfigurationService.configure(insuranceCompanyConfiguration)
+    .subscribe((result)=>{
+      this.toastr.success("Insurance Company configured successfully")
+      this.isnsuranceSettingsVisible = false;
+      this.ngOnInit();
+    },error=>{
+      this.toastr.error("Error during configure Insurance Company")
+    })
   }
 }

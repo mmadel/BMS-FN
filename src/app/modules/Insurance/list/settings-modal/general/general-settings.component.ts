@@ -14,6 +14,7 @@ export class GeneralSettingsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('ngOnInit .... GeneralSettingsComponent')
   }
 
 }
