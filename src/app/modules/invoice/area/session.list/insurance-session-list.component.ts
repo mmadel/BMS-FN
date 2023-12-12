@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, first } from 'rxjs';
+import * as moment from 'moment';
+import { filter, first, map, Observable } from 'rxjs';
+import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
+import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ClientSessionResponse } from '../../model/client.session.response';
+import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import sessionData from './_sessiondata';
 
@@ -10,20 +14,24 @@ import sessionData from './_sessiondata';
   templateUrl: './insurance-session-list.component.html',
   styleUrls: ['./insurance-session-list.component.scss']
 })
-export class InsuranceSessionListComponent implements OnInit {
+export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   sessionsData = sessionData;
   editFields: boolean = false;
   invoiceCreationVisible: boolean = false;
   clientSessionResponse!: ClientSessionResponse;
+  sessionServiceCodeLine: Observable<SessionServiceCodeLine[]>
   constructor(private route: ActivatedRoute,
     private invoiceEmitterService: InvoiceEmitterService) { }
+  ngAfterViewInit(): void {
+   
+  }
   columns = [
-    'DOS',
+    'dos',
     'provider',
-    'dxCase',
+    'case',
     'place',
-    'CPT',
-    'units',
+    'cpt',
+    'unit',
     'charge',
     {
       key: 'edit',
@@ -51,13 +59,30 @@ export class InsuranceSessionListComponent implements OnInit {
     this.invoiceCreationVisible = false;
   }
   ngOnInit(): void {
-    this.invoiceEmitterService.selectedInvoiceClientSession$.pipe(
+    this.sessionServiceCodeLine = this.invoiceEmitterService.selectedInvoiceClientSession$.pipe(
       filter((result) => result !== null),
-      first()
-    ).subscribe((result) => {
-      this.clientSessionResponse = result;
-      console.log(JSON.stringify(this.clientSessionResponse))
-    })
+      map(result => {
+        var lines: SessionServiceCodeLine[] = new Array();
+        for (var i = 0; i < result.sessions.length; i++) {
+          var session: PatientSession = result.sessions[i]
+          var line: SessionServiceCodeLine;
+          for (var j = 0; j < session.serviceCodes.length; j++) {
+            var serviceCode: ServiceCode = session.serviceCodes[j]
+            line = {
+              dos: moment.unix(session.serviceDate / 1000).format('MM/DD/YYYY'),
+              provider: session.doctorInfo.doctorFirstName + ',' + session.doctorInfo.doctorLastName,
+              case: session.caseDiagnosis.diagnosisCode,
+              place: session.placeOfCode,
+              cpt: serviceCode.cptCode.serviceCode,
+              unit: serviceCode.cptCode.unit,
+              charge: serviceCode.cptCode.charge,
+            }
+            lines.push(line);
+          }
+        }
+        return lines;
+      })
+    )
   }
 
 }
