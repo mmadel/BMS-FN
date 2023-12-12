@@ -24,7 +24,8 @@ import {
   DateRangePickerModule,
   TimePickerModule,
   UtilitiesModule,
-  ModalModule
+  ModalModule,
+  SmartPaginationModule
 } from '@coreui/angular-pro';
 
 import {
@@ -67,7 +68,8 @@ import {
     TimePickerModule,
     IconModule,
     UtilitiesModule,
-    ModalModule
+    ModalModule,
+    SmartPaginationModule,
   ]
 })
 export class InvoiceModule { }

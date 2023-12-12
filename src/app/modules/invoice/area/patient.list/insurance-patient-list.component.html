@@ -1,21 +1,38 @@
-<c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
-    [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
-    [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }" clickableRows
-    footer header pagination>
-
-    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+<ng-container *ngIf="props$ | async as props" fluid="true">
+    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(patients$ | async) ?? []"
+      activePage="1" pagination [itemsPerPage]="props.itemsPerPage"
+      (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+      [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+      [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+      [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+      (sorterValueChange)="handleSorterValueChange($event)" header>
+      <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
         <td>
-            <ng-container [ngSwitch]="columnName">
-                <ng-container *ngSwitchCase="'profile'" class="py-2">
-                    <button cButton color="primary" size="sm" variant="outline" cTooltipPlacement="top"
-                        cTooltip="View client profile">
-                        <svg cIcon class="me-2" name="cil-tablet"></svg>
-                    </button>
-                </ng-container>
-                <ng-container *ngSwitchDefault>
-                    {{tdContent}}
-                </ng-container>
+          <ng-container [ngSwitch]="columnName">
+
+            <ng-container *ngSwitchCase="'dob'" class="py-2">
+              {{item.dob | date:'MMM d, y' }}
             </ng-container>
+            <!-- <ng-container *ngSwitchCase="'actions'" class="py-2">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button cButton variant="outline" (click)="view(item)" size="sm">
+                  <svg cIcon name="cilBrowser"></svg>
+                </button>
+                <button cButton variant="outline" (click)="remove(item)" size="sm">
+                  <svg cIcon name="cilTrash"></svg>
+                </button>
+                <button cButton variant="outline" (click)="edit(item)" size="sm">
+                  <svg cIcon name="cilPen"></svg>
+                </button>
+              </div>
+            </ng-container> -->
+            <ng-container *ngSwitchDefault>
+              {{tdContent}}
+            </ng-container>
+          </ng-container>
         </td>
-    </ng-template>
-</c-smart-table>
+      </ng-template>
+    </c-smart-table>
+    <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+      (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+  </ng-container>
