@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { filter, first } from 'rxjs';
+import { ClientSessionResponse } from '../../model/client.session.response';
+import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import sessionData from './_sessiondata';
 
 @Component({
@@ -11,8 +14,9 @@ export class InsuranceSessionListComponent implements OnInit {
   sessionsData = sessionData;
   editFields: boolean = false;
   invoiceCreationVisible: boolean = false;
-  patientId: number
-  constructor(private route: ActivatedRoute) { }
+  clientSessionResponse!: ClientSessionResponse;
+  constructor(private route: ActivatedRoute,
+    private invoiceEmitterService: InvoiceEmitterService) { }
   columns = [
     'DOS',
     'provider',
@@ -47,8 +51,13 @@ export class InsuranceSessionListComponent implements OnInit {
     this.invoiceCreationVisible = false;
   }
   ngOnInit(): void {
-    this.patientId = Number(this.route.snapshot.paramMap.get('patientId'))
-    console.log(this.patientId);
+    this.invoiceEmitterService.selectedInvoiceClientSession$.pipe(
+      filter((result) => result !== null),
+      first()
+    ).subscribe((result) => {
+      this.clientSessionResponse = result;
+      console.log(JSON.stringify(this.clientSessionResponse))
+    })
   }
 
 }

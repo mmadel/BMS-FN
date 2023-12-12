@@ -11,7 +11,7 @@
         <ng-container [ngSwitch]="columnName">
 
           <ng-container *ngSwitchCase="'actions'" class="py-2">
-            <a cLink [routerLink]="['/invoice/session/list/',item.clientId]">Open Sessions</a>
+            <a cLink [routerLink]="['/invoice/session/list/']" (click)="sendSession(item)">Open Sessions</a>
           </ng-container>
           <ng-container *ngSwitchDefault>
             {{tdContent}}
