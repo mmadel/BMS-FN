@@ -14,10 +14,7 @@ export class InvoicingAreaComponent implements OnInit {
     this.patientListVisible = true;
     this.sessionListVisible = false;
   }
-  toggleSessionListVisibale() {
-    this.patientListVisible = false;
-    this.sessionListVisible = true;
-  }
+
   constructor() { }
 
   ngOnInit(): void {

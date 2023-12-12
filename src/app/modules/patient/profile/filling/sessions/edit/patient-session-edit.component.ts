@@ -39,17 +39,13 @@ export class PatientSessionEditComponent implements OnInit {
   }
   private assignPatientSessionData(selectedPateintSession: PatientSession) {
     this.selectedPateint = {
-      id: selectedPateintSession.patientInfo.patientId,
-      firstName: selectedPateintSession.patientInfo.patientFirstName,
-      lastName: selectedPateintSession.patientInfo.patientLastName,
-      middleName: selectedPateintSession.patientInfo.patientMiddleName,
+      id: selectedPateintSession.patientId,
     }
     this.oldProvider = selectedPateintSession.doctorInfo;
     this.selectedPateintSessionId = selectedPateintSession.id
   }
   private populateSessionScheduling(selectedPateintSession: PatientSession) {
     var sessionScheduling: SessionScheduling = {
-      clientName: selectedPateintSession.patientInfo.patientLastName + ',' + selectedPateintSession.patientInfo.patientFirstName,
       provider: selectedPateintSession.doctorInfo.doctorLastName + ',' + selectedPateintSession.doctorInfo.doctorFirstName,
       serviceDate: moment.unix(selectedPateintSession.serviceDate / 1000).toDate(),
       startTime: moment.unix(selectedPateintSession.serviceStartTime / 1000).toDate(),
@@ -65,14 +61,6 @@ export class PatientSessionEditComponent implements OnInit {
       ServiceCodes: selectedPateintSession.serviceCodes
     }
     this.emitPatientSessionService.sessionBillingCode$.next(billingCode)
-  }
-  private constructModelPateintInfo() {
-    return {
-      patientId: this.selectedPateint.id,
-      patientFirstName: this.selectedPateint.firstName,
-      patientMiddleName: this.selectedPateint.middleName,
-      patientLastName: this.selectedPateint.lastName
-    }
   }
   private constructorModelDoctorInfo() {
     return {
@@ -97,7 +85,7 @@ export class PatientSessionEditComponent implements OnInit {
       serviceStartTime: moment(this.editPateintSessionShedulingComponent.sessionScheduling.startTime).unix() * 1000,
       serviceEndTime: moment(this.editPateintSessionShedulingComponent.sessionScheduling.endTime).unix() * 1000,
       placeOfCode: this.editPateintSessionBillingCodeComponent.billingCode.placeOfCode,
-      patientInfo: this.constructModelPateintInfo(),
+      patientId: this.selectedPateint.id,
       doctorInfo: this.constructorModelDoctorInfo(),
       clinicInfo: this.constructModelClinicInfo(),
       caseDiagnosis: this.constructModelICDCaseDiagnosis(),

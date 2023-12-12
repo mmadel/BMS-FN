@@ -50,7 +50,7 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
       serviceStartTime: moment(this.pateintSessionShedulingComponent.sessionScheduling.startTime).unix() * 1000,
       serviceEndTime: moment(this.pateintSessionShedulingComponent.sessionScheduling.endTime).unix() * 1000,
       placeOfCode: this.pateintSessionBillingCodeComponent.billingCode.placeOfCode,
-      patientInfo: this.constructModelPateintInfo(),
+      patientId: this.selectedPateint.id,
       doctorInfo: this.constructorModelDoctorInfo(),
       clinicInfo: this.constructModelClinicInfo(),
       caseDiagnosis: this.constructModelICDCaseDiagnosis(),
@@ -58,14 +58,6 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private constructModelPateintInfo() {
-    return {
-      patientId: this.selectedPateint.id,
-      patientFirstName: this.selectedPateint.firstName,
-      patientMiddleName: this.selectedPateint.middleName,
-      patientLastName: this.selectedPateint.lastName
-    }
-  }
   private constructorModelDoctorInfo() {
     return {
       doctorId: this.pateintSessionShedulingComponent.sessionScheduling.provider.model.id,

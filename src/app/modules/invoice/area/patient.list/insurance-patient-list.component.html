@@ -1,8 +1,7 @@
 <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
     [items]="usersData" [sorterValue]="{ column: 'name', state: 'asc' }"
     [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }" clickableRows
-    (rowClick)="clickPatientRow()"
-    footer header pagination >
+    footer header pagination>
 
     <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
         <td>

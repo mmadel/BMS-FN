@@ -5,8 +5,7 @@ import usersData from '../../../patient/list/_data';
   templateUrl: './insurance-patient-list.component.html',
   styleUrls: ['./insurance-patient-list.component.scss']
 })
-export class InsurancePatientListComponent implements OnInit {
-  @Output() sessionListVisibility = new EventEmitter<{ sessionListVisible: boolean }>();
+export class InsurancePatientListComponent implements OnInit {  
   usersData = usersData;
 
 
@@ -19,10 +18,6 @@ export class InsurancePatientListComponent implements OnInit {
     { key: 'primaryinsurance', _style: { width: '25%' } },
     { key: 'secondaryinsurance', _style: { width: '25%' } },
   ];
-
-  clickPatientRow() {
-    this.sessionListVisibility.emit({ sessionListVisible: true });
-  }
   constructor() { }
 
   ngOnInit(): void {
