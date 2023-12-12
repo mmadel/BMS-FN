@@ -58,7 +58,7 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Invoicing Area',
-        url: '/invoice/list'
+        url: '/invoice/client/list'
       }
     ]
   },

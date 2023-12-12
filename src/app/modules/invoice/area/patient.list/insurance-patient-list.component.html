@@ -1,19 +1,19 @@
 <ng-container *ngIf="props$ | async as props" fluid="true">
-    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(patients$ | async) ?? []"
-      activePage="1" pagination [itemsPerPage]="props.itemsPerPage"
-      (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
-      [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
-      [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
-      [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
-      (sorterValueChange)="handleSorterValueChange($event)" header>
-      <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
-        <td>
-          <ng-container [ngSwitch]="columnName">
+  <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(patients$ | async) ?? []"
+    activePage="1" pagination [itemsPerPage]="props.itemsPerPage"
+    (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+    [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+    [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+    [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+    (sorterValueChange)="handleSorterValueChange($event)" header>
+    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+      <td>
+        <ng-container [ngSwitch]="columnName">
 
-            <ng-container *ngSwitchCase="'dob'" class="py-2">
-              {{item.dob | date:'MMM d, y' }}
-            </ng-container>
-            <!-- <ng-container *ngSwitchCase="'actions'" class="py-2">
+          <ng-container *ngSwitchCase="'actions'" class="py-2">
+            <a cLink [routerLink]="['/invoice/session/list']">Open Sessions</a>
+          </ng-container>
+          <!-- <ng-container *ngSwitchCase="'actions'" class="py-2">
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button cButton variant="outline" (click)="view(item)" size="sm">
                   <svg cIcon name="cilBrowser"></svg>
@@ -26,13 +26,13 @@
                 </button>
               </div>
             </ng-container> -->
-            <ng-container *ngSwitchDefault>
-              {{tdContent}}
-            </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{tdContent}}
           </ng-container>
-        </td>
-      </ng-template>
-    </c-smart-table>
-    <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
-      (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
-  </ng-container>
+        </ng-container>
+      </td>
+    </ng-template>
+  </c-smart-table>
+  <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+    (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+</ng-container>

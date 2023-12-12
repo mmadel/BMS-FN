@@ -20,6 +20,7 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
     },
     { key: 'primaryInsurance', _style: { width: '25%' } },
     { key: 'secondaryInsurance', _style: { width: '25%' } },
+    { key: 'actions', _style: { width: '25%' } ,label:''},
   ];
   constructor(private invoiceService: InvoiceService) { super() }
 
