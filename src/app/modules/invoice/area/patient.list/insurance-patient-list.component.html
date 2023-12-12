@@ -11,21 +11,8 @@
         <ng-container [ngSwitch]="columnName">
 
           <ng-container *ngSwitchCase="'actions'" class="py-2">
-            <a cLink [routerLink]="['/invoice/session/list']">Open Sessions</a>
+            <a cLink [routerLink]="['/invoice/session/list/',item.clientId]">Open Sessions</a>
           </ng-container>
-          <!-- <ng-container *ngSwitchCase="'actions'" class="py-2">
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button cButton variant="outline" (click)="view(item)" size="sm">
-                  <svg cIcon name="cilBrowser"></svg>
-                </button>
-                <button cButton variant="outline" (click)="remove(item)" size="sm">
-                  <svg cIcon name="cilTrash"></svg>
-                </button>
-                <button cButton variant="outline" (click)="edit(item)" size="sm">
-                  <svg cIcon name="cilPen"></svg>
-                </button>
-              </div>
-            </ng-container> -->
           <ng-container *ngSwitchDefault>
             {{tdContent}}
           </ng-container>

@@ -21,7 +21,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'session/list',
+        path: 'session/list/:patientId',
         component: InsuranceSessionListComponent,
         data: {
           title: 'sessions',

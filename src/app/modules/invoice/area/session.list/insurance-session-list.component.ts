@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import sessionData from './_sessiondata';
 
 @Component({
@@ -9,7 +10,9 @@ import sessionData from './_sessiondata';
 export class InsuranceSessionListComponent implements OnInit {
   sessionsData = sessionData;
   editFields: boolean = false;
-  invoiceCreationVisible:boolean = false;
+  invoiceCreationVisible: boolean = false;
+  patientId: number
+  constructor(private route: ActivatedRoute) { }
   columns = [
     'DOS',
     'provider',
@@ -34,18 +37,18 @@ export class InsuranceSessionListComponent implements OnInit {
   toggleDetails() {
     this.editFields = !this.editFields;
   }
-  handleInsuranceSesstingsChange(event: boolean){
+  handleInsuranceSesstingsChange(event: boolean) {
     this.invoiceCreationVisible = event;
   }
-  clickOnCreateInvoice(){
+  clickOnCreateInvoice() {
     this.invoiceCreationVisible = true;
   }
-  createInvoice(){
+  createInvoice() {
     this.invoiceCreationVisible = false;
   }
-  constructor() { }
-
   ngOnInit(): void {
+    this.patientId = Number(this.route.snapshot.paramMap.get('patientId'))
+    console.log(this.patientId);
   }
 
 }
