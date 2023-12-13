@@ -1,9 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
+import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
+import { ClientSessionResponse } from '../../model/client.session.response';
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
+import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 
 @Component({
   selector: 'session-item-edit',
@@ -20,6 +24,8 @@ export class SessionItemEditComponent implements OnInit {
   changedUnit: number;
   changedCharge: number;
   constructor(private patientSessionService: PatientSessionService,
+    private patientService: PatientService,
+    private invoiceEmitterService: InvoiceEmitterService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -34,15 +40,24 @@ export class SessionItemEditComponent implements OnInit {
       this.editUnit();
     if (this.itemType === 'charge')
       this.editCharge();
-
-    console.log(JSON.stringify(this.selectedSession.data))
     this.patientSessionService.update(this.selectedSession.data)
       .subscribe((result) => {
         this.changeVisibility.emit('close');
         this.toastr.success("pateint session updated")
+        this.patientService.findById(this.selectedSession.data.patientId)
+          .subscribe((result) => {
+            this.emitChanges(result);
+          })
       }, (error) => {
         this.toastr.success("Error during session udpate")
       })
+  }
+  private emitChanges(pateint: Patient) {
+    var clientSessionResponse: ClientSessionResponse = {
+      sessions: pateint.sessions,
+      client: pateint
+    }
+    this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
   }
   private editCPT() {
     for (var i = 0; i < this.selectedSession.data.serviceCodes.length; i++) {

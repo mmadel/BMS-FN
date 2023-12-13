@@ -23,4 +23,9 @@ export class PatientService extends BasePaginationService {
     var url = this.baseUrl + '/find'
     return this.get(config$, url)
   }
+
+  public findById(patientId: number) {
+    var url = this.baseUrl + '/find/patientId/' + patientId
+    return this.httpClient.get(url)
+  }
 }
