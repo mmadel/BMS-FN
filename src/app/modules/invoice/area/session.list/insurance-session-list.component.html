@@ -30,18 +30,21 @@
                       </button>
                     </div>
                   </ng-container>
-                  <ng-container *ngIf="editFields">
-                    <ng-container *ngSwitchCase="'unit'" class="py-2">
-                      <input cFormControl [value]="tdContent" sizing="sm">
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'charge'" class="py-2">
-                      <input cFormControl [value]="tdContent" sizing="sm" >
-                    </ng-container>
+                  <ng-container *ngSwitchCase="'place'" class="py-2">
+                    <button class="btn btn-link">{{tdContent}}</button>
                   </ng-container>
-                  <ng-container *ngIf="!editFields">
+                  <ng-container *ngSwitchCase="'cpt'" class="py-2">
+                    <button class="btn btn-link">{{tdContent}}</button>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'unit'" class="py-2">
+                    <button class="btn btn-link">{{tdContent}}</button>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'charge'" class="py-2">
+                    <button class="btn btn-link">{{tdContent}}</button>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
                     {{tdContent}}
                   </ng-container>
-
                 </ng-container>
               </td>
             </ng-template>
