@@ -58,7 +58,9 @@ export class PatientSessionEditComponent implements OnInit {
       placeOfCode: selectedPateintSession.placeOfCode,
       facility: selectedPateintSession.clinicInfo.clinicName,
       diagnosisCode: selectedPateintSession.caseDiagnosis,
-      ServiceCodes: selectedPateintSession.serviceCodes
+      ServiceCodes: selectedPateintSession.serviceCodes,
+      caseTitle: selectedPateintSession.caseTitle
+
     }
     this.emitPatientSessionService.sessionBillingCode$.next(billingCode)
   }
@@ -89,7 +91,8 @@ export class PatientSessionEditComponent implements OnInit {
       doctorInfo: this.constructorModelDoctorInfo(),
       clinicInfo: this.constructModelClinicInfo(),
       caseDiagnosis: this.constructModelICDCaseDiagnosis(),
-      serviceCodes: this.editPateintSessionBillingCodeComponent.getServiceCodes()
+      serviceCodes: this.editPateintSessionBillingCodeComponent.getServiceCodes(),
+      caseTitle: this.editPateintSessionBillingCodeComponent.billingCode.caseTitle
     }
   }
   private constructModelClinicInfo() {

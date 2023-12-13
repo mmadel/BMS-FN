@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
+import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 
 @Component({
@@ -17,21 +19,27 @@ export class SessionItemEditComponent implements OnInit {
   changedCPT: string;
   changedUnit: number;
   changedCharge: number;
-  constructor() { }
+  constructor(private patientSessionService: PatientSessionService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.selectedSession))
   }
   edit() {
     if (this.itemType === 'cpt')
       this.editCPT();
     if (this.itemType === 'unit')
-      this.editCPT();
+      this.editUnit();
     if (this.itemType === 'charge')
       this.editCharge();
 
     console.log(JSON.stringify(this.selectedSession.data))
-    this.changeVisibility.emit('close');
+    this.patientSessionService.update(this.selectedSession.data)
+      .subscribe((result) => {
+        this.changeVisibility.emit('close');
+        this.toastr.success("pateint session updated")
+      }, (error) => {
+        this.toastr.success("Error during session udpate")
+      })
   }
   private editCPT() {
     for (var i = 0; i < this.selectedSession.data.serviceCodes.length; i++) {

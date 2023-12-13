@@ -104,8 +104,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     AdminToolsModule,
-    ToastrModule.forRoot({
-      timeOut: 15000, // 15 seconds
+    ToastrModule.forRoot({      
       closeButton: true,
       progressBar: true,
     }),
