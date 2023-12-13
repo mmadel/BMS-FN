@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { PayerService } from 'src/app/modules/admin.tools/services/payer/payer.service';
+import { Payer } from 'src/app/modules/model/admin/payer';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { Country } from 'src/app/modules/model/common/country';
@@ -56,13 +58,46 @@ export class CreateInsuranceComponent implements OnInit {
       state: null
     }
   }
-  constructor() { }
+  payers: Payer[]
+  payerNameList: string[];
+  payerIdList: string[];
+  selectedPayerName: string;
+  selectedPayerId: string
+  constructor(private payerService: PayerService) { }
 
   ngOnInit(): void {
+    this.payerService.findAll()
+      .subscribe((result: any) => {
+        this.payers = result;
+        this.payerNameList = this.payers.map(a => a.displayName);
+        this.payerIdList = this.payers.map(a => a.payerId + '');
+      })
+  }
+  pickPayerName(event: any) {
+    this.payers.forEach(element => {
+      if (element.displayName === event) {
+        this.selectedPayerId = element.payerId + ''
+      }
+    });
+  }
+  unpickPayerName() {
+    this.selectedPayerId = '';
+  }
+  pickPayerId(event: any) {
+    this.payers.forEach(element => {
+      if (element.payerId + '' === event) {
+        this.selectedPayerName = element.displayName
+      }
+    });
+  }
+  unpickPayerId() {
+    this.selectedPayerName = ''
   }
   create() {
     if (this.insuranceCreateForm.valid) {
       this.notValidForm = false;
+      this.patientInsurance.patientInsurancePolicy.payerName = this.selectedPayerName
+      this.patientInsurance.patientInsurancePolicy.payerId = this.selectedPayerId
       this.changeVisibility.emit('close');
       //this.insuranceCreateForm.reset()
     } else {

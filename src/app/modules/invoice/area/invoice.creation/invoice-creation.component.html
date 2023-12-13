@@ -1,133 +1,57 @@
+{{patientInsurances | json}}
 <c-container [fluid]="true" class="mt-3">
-    <c-row>
-        <c-col xs="12" class="mb-3">
-            <c-card>
-                <c-card-body>
-                    <c-row>
-                        <c-col xs="12">
-                            <div class="card border-primary mb-2">
-                                <div class="card-body">
-                                    <div style="float: right;">
-                                        <c-button-group aria-label="Button outlined group with nested dropdown"
-                                            role="group">
-                                            <c-dropdown variant="btn-group">
-                                                <button cButton cDropdownToggle variant="outline">
-                                                    Actions
-                                                </button>
-                                                <ul cDropdownMenu variant="outline">
-                                                    <li><a cDropdownItem [routerLink]="[]"><svg cIcon
-                                                                name="cilViewStream" class="text-info"></svg>
-                                                            Preview</a></li>
-                                                    <li cDropdownDivider></li>
-                                                    <li><a cDropdownItem [routerLink]="[]"><svg cIcon
-                                                                name="cibAdobeAcrobatReader" class="text-danger"></svg>
-                                                            Print</a></li>
-                                                    <li><a cDropdownItem [routerLink]="[]"><svg cIcon name="cilSend"
-                                                                class="text-success"></svg>
-                                                            Electronic Submission</a>
-                                                    </li>
-                                                </ul>
-                                            </c-dropdown>
-                                        </c-button-group>
-                                    </div>
-                                    <div>
-                                        <h3><strong>Blue Cross Blue Shield Empire </strong></h3>
-                                        <h4>Primary</h4>
-                                        Primary ID : 00000 <br>
-                                        Payer ID : 32873 <br>
-                                        Clearinghouse : Availity
-                                    </div>
-                                    <div class="col-6 border border-light mt-3 me-3 bg-light">
-                                        <h5>Additional Settings</h5>
-                                        <c-row>
-                                            <c-col xs="12" class="mt-1 mx-1">
-                                                <c-form-check inline>
-                                                    <input cFormCheckInput id="radioinline1" name="radioinline"
-                                                        type="radio" />
-                                                    <label cFormCheckLabel for="radioinline1">
-                                                        One date of service per claim
-                                                    </label>
-                                                </c-form-check>
-                                            </c-col>
-                                            <c-col xs="6" class="mb-1 mx-1">
-                                                <label for="drc" class="control-label">
-                                                    Delayed Reason Code (EDI only)
-                                                </label>
-                                                <select cSelect id="drc" sizing="sm"
-                                                    style="height: auto;line-height: 14px;">
-                                                    <option value="1">none</option>
-                                                    <option value="2">option-a</option>
-                                                    <option value="3">option-b</option>
-                                                </select>
-                                            </c-col>
-                                        </c-row>
-                                    </div>
+    <div class="card border-dark mb-2">
+        <div class="card-body">
+            <div style="float: right;">
+                <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                    <c-dropdown variant="btn-group">
+                        <button cButton cDropdownToggle variant="outline">
+                            Actions
+                        </button>
+                        <ul cDropdownMenu variant="outline">
+                            <li><a cDropdownItem><svg cIcon name="cilViewStream" class="text-info"></svg>
+                                    Preview</a></li>
+                            <li cDropdownDivider></li>
+                            <li><a cDropdownItem><svg cIcon name="cibAdobeAcrobatReader" class="text-danger"></svg>
+                                    Print</a></li>
+                            <li><a cDropdownItem><svg cIcon name="cilSend" class="text-success"></svg>
+                                    Electronic Submission</a>
+                            </li>
+                        </ul>
+                    </c-dropdown>
+                </c-button-group>
+            </div>
+            <div>
+                <h3><strong>Blue Cross Blue Shield Empire </strong></h3>
+                <h4>Primary</h4>
+                Primary ID : 00000 <br>
+                Payer ID : 32873 <br>
+                Clearinghouse : Availity
+            </div>
+            <div class="col-6 border border-light mt-3 me-3 bg-light">
+                <h5>Additional Settings</h5>
+                <c-row>
+                    <c-col xs="12" class="mt-1 mx-1">
+                        <c-form-check inline>
+                            <input cFormCheckInput id="radioinline1" name="radioinline" type="radio" />
+                            <label cFormCheckLabel for="radioinline1">
+                                One date of service per claim
+                            </label>
+                        </c-form-check>
+                    </c-col>
+                    <c-col xs="6" class="mb-1 mx-1">
+                        <label for="drc" class="control-label">
+                            Delayed Reason Code (EDI only)
+                        </label>
+                        <select cSelect id="drc" sizing="sm" style="height: auto;line-height: 14px;">
+                            <option value="1">none</option>
+                            <option value="2">option-a</option>
+                            <option value="3">option-b</option>
+                        </select>
+                    </c-col>
+                </c-row>
+            </div>
 
-                                </div>
-                            </div>
-                            <div class="card border-primary mb-2">
-                                <div class="card-body">
-                                    <div style="float: right;" >
-                                        <c-button-group aria-label="Button outlined group with nested dropdown"
-                                            role="group" class="">
-                                            <c-dropdown variant="btn-group"> 
-                                                <button cButton cDropdownToggle variant="outline">
-                                                    Actions
-                                                </button>
-                                                <ul cDropdownMenu >
-                                                    <li><a cDropdownItem [routerLink]="[]"><svg cIcon
-                                                                name="cilViewStream" class="text-info"></svg>
-                                                            Preview</a></li>
-                                                    <li cDropdownDivider></li>
-                                                    <li><a cDropdownItem [routerLink]="[]"><svg cIcon
-                                                                name="cibAdobeAcrobatReader" class="text-danger"></svg>
-                                                            Print</a></li>
-                                                    <li><a cDropdownItem [routerLink]="[]"><svg cIcon name="cilSend"
-                                                                class="text-success"></svg>
-                                                            Electronic Submission</a>
-                                                    </li>
-                                                </ul>
-                                            </c-dropdown>
-                                        </c-button-group>
-                                    </div>
-                                    <div>
-                                        <h3><strong>New York Network Mangment </strong></h3>
-                                        <h4>Primary</h4>
-                                        Primary ID : 00000 <br>
-                                        Payer ID : 32873 <br>
-                                        Clearinghouse : Availity
-                                    </div>
-                                    <div class="col-6 border border-light mt-3 me-3 bg-light">
-                                        <h5 class="me-1">Additional Settings</h5>
-                                        <c-row>
-                                            <c-col xs="12" class="mt-1 mx-1">
-                                                <c-form-check inline>
-                                                    <input cFormCheckInput id="radioinline1" name="radioinline"
-                                                        type="radio" />
-                                                    <label cFormCheckLabel for="radioinline1">
-                                                        One date of service per claim
-                                                    </label>
-                                                </c-form-check>
-                                            </c-col>
-                                            <c-col xs="6" class="mb-1 mx-1">
-                                                <label for="drc" class="control-label">
-                                                    Delayed Reason Code (EDI only)
-                                                </label>
-                                                <select cSelect id="drc" sizing="sm"
-                                                    style="height: auto;line-height: 14px;">
-                                                    <option value="1">none</option>
-                                                    <option value="2">option-a</option>
-                                                    <option value="3">option-b</option>
-                                                </select>
-                                            </c-col>
-                                        </c-row>
-                                    </div>
-                                </div>
-                            </div>
-                        </c-col>
-                    </c-row>
-                </c-card-body>
-            </c-card>
-        </c-col>
-    </c-row>
+        </div>
+    </div>
 </c-container>

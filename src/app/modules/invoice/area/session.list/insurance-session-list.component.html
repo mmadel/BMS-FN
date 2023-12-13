@@ -2,7 +2,7 @@
   <c-row>
     <c-col xs="12">
       <div style="float: right;" class="mb-3">
-        <button cButton color="primary" variant="outline" (click)="clickOnCreateInvoice()">
+        <button cButton color="primary" variant="outline" (click)="createInvoice()">
           Create Invoice
         </button>
       </div>
@@ -53,23 +53,19 @@
         </c-card-body>
       </c-card>
     </c-col>
-    <c-modal [visible]="invoiceCreationVisible" (visibleChange)="handleInsuranceSesstingsChange($event)" scrollable
-      size="xl">
-      <c-modal-header>
-        <h5 cModalTitle>Invoice Creation</h5>
-
-      </c-modal-header>
-      <c-modal-body>
-        <app-invoice-creation></app-invoice-creation>
-      </c-modal-body>
-      <c-modal-footer>
-        <button (click)="createInvoice()" cButton color="primary">
-          Create
-        </button>
-      </c-modal-footer>
-    </c-modal>
   </c-row>
 </c-container>
+<!-- Create Invocie-->
+<c-modal [visible]="invoiceCreationVisible" scrollable backdrop="static" size="xl">
+  <c-modal-header>
+    <h5 cModalTitle>Invoice Creation</h5>
+    <button (click)="toggleCreateInvoice()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <app-invoice-creation [patientInsurances]="client?.patientInsurances"></app-invoice-creation>
+  </c-modal-body>
+</c-modal>
+<!-- Edit Session-->
 <c-modal id="editSessioninvoice" [visible]="editSessionVisibility" backdrop="static" size="xl">
   <c-modal-header>
     <h5 cModalTitle>Edit Session</h5>
@@ -81,6 +77,7 @@
   </c-modal-body>
 </c-modal>
 
+<!-- Edit Session Item-->
 <c-modal id="editSessioniteminvoice" [visible]="editSessionItemVisibility" backdrop="static" size="lg">
   <c-modal-header>
     <h5 cModalTitle>Edit </h5>

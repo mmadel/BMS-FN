@@ -26,6 +26,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   editSessionItemVisibility: boolean = false;
   selectedSessionToEditItem: SessionServiceCodeLine
   sessionItemType: string;
+  
   constructor(private route: ActivatedRoute,
     private invoiceEmitterService: InvoiceEmitterService
     , private router: Router
@@ -64,14 +65,9 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   toggleDetails() {
     this.editFields = !this.editFields;
   }
-  handleInsuranceSesstingsChange(event: boolean) {
-    this.invoiceCreationVisible = event;
-  }
+
   clickOnCreateInvoice() {
     this.invoiceCreationVisible = true;
-  }
-  createInvoice() {
-    this.invoiceCreationVisible = false;
   }
   ngOnInit(): void {
     this.sessionServiceCodeLine = this.invoiceEmitterService.selectedInvoiceClientSession$.pipe(
@@ -112,17 +108,24 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     this.editSessionVisibility = true;
     this.emitPatientSessionService.patientSession$.next(event.data);
   }
+  editSessionItem(item: any, itemType: string) {
+    this.sessionItemType = itemType;
+    this.selectedSessionToEditItem = item;
+    this.editSessionItemVisibility = true;
+  }
+  createInvoice(){
+      this.invoiceCreationVisible = true;
+  }
   toggleEditSession() {
     this.editSessionVisibility = !this.editSessionVisibility;
   }
   toggleEditSessionItem() {
     this.editSessionItemVisibility = !this.editSessionItemVisibility;
   }
-  editSessionItem(item: any, itemType: string) {
-    this.sessionItemType = itemType;
-    this.selectedSessionToEditItem = item;
-    this.editSessionItemVisibility = true;
+  toggleCreateInvoice() {
+    this.invoiceCreationVisible = !this.invoiceCreationVisible
   }
+  
   changeVisibility(event: any) {
     if (event === 'close')
       this.editSessionVisibility = false;
