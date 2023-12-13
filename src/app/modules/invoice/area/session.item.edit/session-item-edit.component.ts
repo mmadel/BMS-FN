@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
+import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 
 @Component({
@@ -10,9 +11,13 @@ import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 export class SessionItemEditComponent implements OnInit {
   @Input() selectedSession: SessionServiceCodeLine;
   @Input() itemType: string
+  placeOfCodeKeys = Object.keys;
+  placeOfCodes = PlaceOfCode;
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  edit(){
+    
+  }
 }

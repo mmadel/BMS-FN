@@ -18,6 +18,7 @@ import {
   InvoiceCreationComponent, InvoicingAreaComponent
 } from './index';
 import { SessionItemEditComponent } from './area/session.item.edit/session-item-edit.component';
+import { ModelModule } from '../model/model.module';
 
 
 
@@ -55,7 +56,8 @@ import { SessionItemEditComponent } from './area/session.item.edit/session-item-
     UtilitiesModule,
     ModalModule,
     SmartPaginationModule,
-    PatientModule
+    PatientModule,
+    ModelModule
   ]
 })
 export class InvoiceModule { }

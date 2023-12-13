@@ -11,8 +11,12 @@
     </c-card>
     <!-- Place of code-->
     <c-row *ngIf="itemType === 'place'">
-        <select cSelect aria-label="" cSelect sizing="sm">
-            <option>Dollar Amt</option>
+        <select cSelect sizing="sm" [(ngModel)]="selectedSession.data.placeOfCode" id="placeOfCode" required="true"
+            name="placeOfCode-item">
+            <option [value]=null selected disabled>Select Place Code</option>
+            <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)" [ngValue]="placeOfCodevalue">
+                {{placeOfCodes[placeOfCodevalue]}}
+            </option>
         </select>
     </c-row>
     <!-- Place of CPT-->
@@ -29,5 +33,10 @@
     <c-row *ngIf="itemType === 'charge'">
         <label cLabel for="charge-item">Charge</label>
         <input cFormControl id="charge-item" type="number" sizing="sm">
+    </c-row>
+    <c-row class="my-3">
+        <div class="col-12 text-center">
+            <button cButton variant="outline" style="width: 15%;" (click)="edit()" size="sm">Change</button>
+        </div>
     </c-row>
 </c-container>
