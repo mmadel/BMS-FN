@@ -22,17 +22,17 @@
     <!-- Place of CPT-->
     <c-row *ngIf="itemType === 'cpt'">
         <label cLabel for="cpt-item">CPT</label>
-        <input cFormControl id="cpt-item" sizing="sm">
+        <input cFormControl id="cpt-item" sizing="sm" [(ngModel)]="changedCPT">
     </c-row>
     <!-- Place of Unit-->
     <c-row *ngIf="itemType === 'unit'">
         <label cLabel for="unit-item">Unit</label>
-        <input cFormControl id="unit-item" type="number" sizing="sm">
+        <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="changedUnit">
     </c-row>
     <!-- Place of Charge-->
     <c-row *ngIf="itemType === 'charge'">
         <label cLabel for="charge-item">Charge</label>
-        <input cFormControl id="charge-item" type="number" sizing="sm">
+        <input cFormControl id="charge-item" type="number" sizing="sm" [(ngModel)]="changedCharge">
     </c-row>
     <c-row class="my-3">
         <div class="col-12 text-center">

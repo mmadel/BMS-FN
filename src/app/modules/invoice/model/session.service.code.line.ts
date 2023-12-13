@@ -9,4 +9,5 @@ export interface SessionServiceCodeLine {
     unit?: number,
     charge?: number
     data?:PatientSession
+    cptId?:number
 }

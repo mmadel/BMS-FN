@@ -88,6 +88,6 @@
   </c-modal-header>
   <c-modal-body>
     <session-item-edit *ngIf="editSessionItemVisibility" [selectedSession]="selectedSessionToEditItem"
-      [itemType]="sessionItemType"> </session-item-edit>
+      [itemType]="sessionItemType" (changeVisibility)="changeSessionItemVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>

@@ -23,9 +23,9 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   sessionServiceCodeLine: Observable<SessionServiceCodeLine[]>
   client: Patient
   editSessionVisibility: boolean = false;
-  editSessionItemVisibility:boolean = false;
-  selectedSessionToEditItem:SessionServiceCodeLine
-  sessionItemType:string;
+  editSessionItemVisibility: boolean = false;
+  selectedSessionToEditItem: SessionServiceCodeLine
+  sessionItemType: string;
   constructor(private route: ActivatedRoute,
     private invoiceEmitterService: InvoiceEmitterService
     , private router: Router
@@ -39,19 +39,19 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     'provider',
     'case',
     {
-      key:'place',
+      key: 'place',
       _style: { width: '5%' },
     },
     {
-      key:'cpt',
+      key: 'cpt',
       _style: { width: '8%' },
     },
     {
-      key:'unit',
+      key: 'unit',
       _style: { width: '5%' },
     },
     {
-      key:'charge',
+      key: 'charge',
       _style: { width: '8%' },
     },
     {
@@ -92,6 +92,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
               cpt: serviceCode.cptCode.serviceCode,
               unit: serviceCode.cptCode.unit,
               charge: serviceCode.cptCode.charge,
+              cptId: serviceCode.id,
               data: session
             }
             lines.push(line);
@@ -117,7 +118,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   toggleEditSessionItem() {
     this.editSessionItemVisibility = !this.editSessionItemVisibility;
   }
-  editSessionItem(item:any , itemType:string){
+  editSessionItem(item: any, itemType: string) {
     this.sessionItemType = itemType;
     this.selectedSessionToEditItem = item;
     this.editSessionItemVisibility = true;
@@ -125,5 +126,9 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   changeVisibility(event: any) {
     if (event === 'close')
       this.editSessionVisibility = false;
+  }
+  changeSessionItemVisibility(event: any) {
+    if (event === 'close')
+      this.editSessionItemVisibility = false;
   }
 }
