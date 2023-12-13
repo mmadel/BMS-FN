@@ -85,6 +85,7 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
     return result;
   }
   sendSession(item: any) {
+    console.log(JSON.stringify(item.sessions))
     var clientSessionResponse: ClientSessionResponse = {
       sessions: item.sessions,
       client: item.data

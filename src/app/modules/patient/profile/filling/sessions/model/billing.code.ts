@@ -5,6 +5,7 @@ import { ServiceCode } from "src/app/modules/model/clinical/session/service.code
 export interface BillingCode {
     placeOfCode?: string;
     facility?: string;
+    caseTitle?:string
     diagnosisCode?: CaseDiagnosis;
     ServiceCodes?: ServiceCode[]
 }

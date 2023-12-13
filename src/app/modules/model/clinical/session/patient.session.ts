@@ -16,7 +16,7 @@ export interface PatientSession {
 
     authorization?: string;
     placeOfCode?: string;
-
+    caseTitle?:string
     caseDiagnosis?: CaseDiagnosis
 
     serviceCodes?: ServiceCode[];

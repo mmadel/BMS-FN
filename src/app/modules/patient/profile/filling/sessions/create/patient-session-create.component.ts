@@ -53,6 +53,7 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
       patientId: this.selectedPateint.id,
       doctorInfo: this.constructorModelDoctorInfo(),
       clinicInfo: this.constructModelClinicInfo(),
+      caseTitle: this.pateintSessionBillingCodeComponent.billingCode.caseTitle,
       caseDiagnosis: this.constructModelICDCaseDiagnosis(),
       serviceCodes: this.pateintSessionBillingCodeComponent.getServiceCodes()
     }

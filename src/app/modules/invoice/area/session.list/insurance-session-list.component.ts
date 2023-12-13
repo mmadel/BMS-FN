@@ -72,8 +72,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
             line = {
               dos: moment.unix(session.serviceDate / 1000).format('MM/DD/YYYY'),
               provider: session.doctorInfo.doctorFirstName + ',' + session.doctorInfo.doctorLastName,
-              case: session.caseDiagnosis.diagnosisCode,
-              place: session.placeOfCode,
+              case: session.caseTitle,
+              place: session.placeOfCode.split('_')[1],
               cpt: serviceCode.cptCode.serviceCode,
               unit: serviceCode.cptCode.unit,
               charge: serviceCode.cptCode.charge,
