@@ -7,7 +7,6 @@ import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
-import sessionData from './_sessiondata';
 
 @Component({
   selector: 'app-insurance-session-list',
@@ -15,7 +14,6 @@ import sessionData from './_sessiondata';
   styleUrls: ['./insurance-session-list.component.scss']
 })
 export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
-  sessionsData = sessionData;
   editFields: boolean = false;
   invoiceCreationVisible: boolean = false;
   clientSessionResponse!: ClientSessionResponse;
@@ -34,13 +32,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     'unit',
     'charge',
     {
-      key: 'edit',
-      label: '',
-      filter: false,
-      sorter: false
-    },
-    {
-      key: 'session',
+      key: 'actions',
       label: '',
       filter: false,
       sorter: false
