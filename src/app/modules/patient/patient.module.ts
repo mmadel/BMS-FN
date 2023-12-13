@@ -5,7 +5,7 @@ import { PatientRoutingModule } from './patient-routing.module';
 import {
   PatientListComponent,
   PatientProfileComponent,
-  
+
   BillingComponent,
   AuthsComponent,
   AdvancedComponent,
@@ -103,13 +103,17 @@ import { ServiceCodeEditComponent } from './profile/filling/sessions/dependencie
     TabsModule,
     NavModule,
     DateRangePickerModule,
-    TimePickerModule, 
+    TimePickerModule,
     AutocompleteLibModule,
     ModalModule,
     ModelModule,
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+  ],
+  exports: [
+    PatientSessionEditComponent
   ]
+
 })
 export class PatientModule { }

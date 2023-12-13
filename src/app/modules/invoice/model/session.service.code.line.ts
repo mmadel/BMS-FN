@@ -1,3 +1,5 @@
+import { PatientSession } from "../../model/clinical/session/patient.session"
+
 export interface SessionServiceCodeLine {
     dos?: string,
     provider?: string,
@@ -6,4 +8,5 @@ export interface SessionServiceCodeLine {
     cpt?: string,
     unit?: number,
     charge?: number
+    data?:PatientSession
 }

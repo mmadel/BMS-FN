@@ -1,38 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { IconModule } from '@coreui/icons-angular';
 import { InvoiceRoutingModule } from './invoice-routing.module';
 
 import {
   AlertModule,
-  BadgeModule,
-  ButtonModule,
+  BadgeModule, ButtonGroupModule, ButtonModule,
   CardModule,
-  CollapseModule,
-  GridModule,
-  SharedModule,
-  SmartTableModule,
-  TableModule,
-  FormModule,
-  DatePickerModule,
-  DropdownModule,
-  ButtonGroupModule,
-  ListGroupModule,
-  TooltipModule,
-  TabsModule,
-  NavModule,
-  DateRangePickerModule,
-  TimePickerModule,
-  UtilitiesModule,
-  ModalModule,
-  SmartPaginationModule
+  CollapseModule, DatePickerModule, DateRangePickerModule, DropdownModule, FormModule, GridModule, ListGroupModule, ModalModule, NavModule, SharedModule, SmartPaginationModule, SmartTableModule,
+  TableModule, TabsModule, TimePickerModule, TooltipModule, UtilitiesModule
 } from '@coreui/angular-pro';
 
+import { PatientModule } from '../patient';
 import {
-  InvoicingAreaComponent,
   InsurancePatientListComponent,
   InsuranceSessionListComponent,
-  InvoiceCreationComponent
+  InvoiceCreationComponent, InvoicingAreaComponent
 } from './index';
 
 
@@ -42,7 +25,7 @@ import {
     InvoicingAreaComponent,
     InsurancePatientListComponent,
     InsuranceSessionListComponent,
-    InvoiceCreationComponent
+    InvoiceCreationComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +53,7 @@ import {
     UtilitiesModule,
     ModalModule,
     SmartPaginationModule,
+    PatientModule
   ]
 })
 export class InvoiceModule { }

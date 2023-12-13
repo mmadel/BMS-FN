@@ -2,9 +2,9 @@
   <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(patientSessions$ | async) ?? []"
     [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
     [itemsPerPageOptions]="[5,10,20]" [itemsPerPageSelect]="true"
-    [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+    [tableProps]="{ hover: true, striped: true, small:true }"
     [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
-    [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+    [tableBodyProps]="{ align: 'middle' }"
     (sorterValueChange)="handleSorterValueChange($event)" header>
     <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
       <td>
