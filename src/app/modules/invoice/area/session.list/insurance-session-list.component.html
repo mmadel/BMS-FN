@@ -31,16 +31,16 @@
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="'place'" class="py-2">
-                    <button class="btn btn-link">{{tdContent}}</button>
+                    <button class="btn btn-link" (click)="editSessionItem()">{{tdContent}}</button>
                   </ng-container>
                   <ng-container *ngSwitchCase="'cpt'" class="py-2">
-                    <button class="btn btn-link">{{tdContent}}</button>
+                    <button class="btn btn-link" (click)="editSessionItem()">{{tdContent}}</button>
                   </ng-container>
                   <ng-container *ngSwitchCase="'unit'" class="py-2">
-                    <button class="btn btn-link">{{tdContent}}</button>
+                    <button class="btn btn-link" (click)="editSessionItem()">{{tdContent}}</button>
                   </ng-container>
                   <ng-container *ngSwitchCase="'charge'" class="py-2">
-                    <button class="btn btn-link">{{tdContent}}</button>
+                    <button class="btn btn-link" (click)="editSessionItem()">{{tdContent}}</button>
                   </ng-container>
                   <ng-container *ngSwitchDefault>
                     {{tdContent}}
@@ -70,7 +70,7 @@
     </c-modal>
   </c-row>
 </c-container>
-<c-modal id="editSession" [visible]="editSessionVisibility" backdrop="static" size="xl">
+<c-modal id="editSessioninvoice" [visible]="editSessionVisibility" backdrop="static" size="xl">
   <c-modal-header>
     <h5 cModalTitle>Edit Session</h5>
     <button (click)="toggleEditSession()" cButtonClose></button>
@@ -78,5 +78,15 @@
   <c-modal-body>
     <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"
       (changeVisibility)="changeVisibility($event)"></app-patient-session-edit>
+  </c-modal-body>
+</c-modal>
+
+<c-modal id="editSessioniteminvoice" [visible]="editSessionItemVisibility" backdrop="static" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Edit </h5>
+    <button (click)="toggleEditSessionItem()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <session-item-edit *ngIf="editSessionItemVisibility"> </session-item-edit>
   </c-modal-body>
 </c-modal>
