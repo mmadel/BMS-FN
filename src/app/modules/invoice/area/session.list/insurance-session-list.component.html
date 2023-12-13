@@ -10,7 +10,8 @@
     <c-col xs="12">
       <c-card>
         <c-card-header>
-          <button class="btn btn-link" (click)="editClient()"><strong>{{client?.lastName}} {{client?.firstName}}</strong></button>
+          <button class="btn btn-link" (click)="editClient()"><strong>{{client?.lastName}}
+              {{client?.firstName}}</strong></button>
         </c-card-header>
         <c-card-body>
           <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true"
@@ -24,38 +25,18 @@
                 <ng-container [ngSwitch]="columnName">
                   <ng-container *ngSwitchCase="'actions'" class="py-2">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                      <button cButton variant="outline" (click)="toggleDetails()" size="sm">
-                        <svg cIcon name="cilDollar"></svg>
-                      </button>
                       <button cButton variant="outline" size="sm">
                         <svg cIcon name="cilPen"></svg>
                       </button>
                     </div>
                   </ng-container>
                   <ng-container *ngIf="editFields">
-                    <ng-container *ngSwitchCase="'units'" class="py-2">
-                      <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'place'" class="py-2">
-                      <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+                    <ng-container *ngSwitchCase="'unit'" class="py-2">
+                      <input cFormControl [value]="tdContent" sizing="sm">
                     </ng-container>
                     <ng-container *ngSwitchCase="'charge'" class="py-2">
-                      <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
+                      <input cFormControl [value]="tdContent" sizing="sm" >
                     </ng-container>
-                    <ng-container *ngSwitchCase="'CPT'" class="py-2">
-                      <input cFormControl [value]="tdContent" sizing="sm" class="w-25">
-                    </ng-container>
-
-                    <ng-container *ngSwitchCase="'DOS'" class="py-2">
-                      {{tdContent}}
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'provider'" class="py-2">
-                      {{tdContent}}
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'dxCase'" class="py-2">
-                      {{tdContent}}
-                    </ng-container>
-
                   </ng-container>
                   <ng-container *ngIf="!editFields">
                     {{tdContent}}
