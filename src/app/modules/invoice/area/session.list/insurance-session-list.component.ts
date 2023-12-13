@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { filter, first, map, Observable } from 'rxjs';
+import { filter, first, map, Observable, tap } from 'rxjs';
+import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
+import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
@@ -18,10 +20,13 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   invoiceCreationVisible: boolean = false;
   clientSessionResponse!: ClientSessionResponse;
   sessionServiceCodeLine: Observable<SessionServiceCodeLine[]>
+  client:Patient
   constructor(private route: ActivatedRoute,
-    private invoiceEmitterService: InvoiceEmitterService) { }
+    private invoiceEmitterService: InvoiceEmitterService
+    , private router: Router
+    , private pateintEmittingService: PateintEmittingService) { }
   ngAfterViewInit(): void {
-   
+
   }
   columns = [
     'dos',
@@ -53,6 +58,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.sessionServiceCodeLine = this.invoiceEmitterService.selectedInvoiceClientSession$.pipe(
       filter((result) => result !== null),
+      tap((result)=>{this.client = result.client}),
       map(result => {
         var lines: SessionServiceCodeLine[] = new Array();
         for (var i = 0; i < result.sessions.length; i++) {
@@ -76,5 +82,9 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
       })
     )
   }
-
+  editClient() {
+    this.pateintEmittingService.selectedPatient$.next(this.client)
+    this.router.navigate(['/patient/profile',this.client.id]);
+	
+  }
 }

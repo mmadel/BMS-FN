@@ -7,4 +7,5 @@ export interface ClientResponse {
     primaryInsurance: string,
     secondaryInsurance?: string;
     sessions?:PatientSession[];
+    data?:Patient
 }

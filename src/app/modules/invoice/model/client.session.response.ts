@@ -1,7 +1,7 @@
+import { Patient } from "../../model/clinical/patient";
 import { PatientSession } from "../../model/clinical/session/patient.session";
 
 export interface ClientSessionResponse{
-    pateintId?:number,
-    pateintName?:string,
-    sessions?:PatientSession[]    
+    sessions?:PatientSession[] 
+    client:Patient   
 }

@@ -52,7 +52,8 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
             clientId: obj.id,
             primaryInsurance: this.getPrimaryInsurance(obj),
             secondaryInsurance: this.getSecondaryInsurance(obj),
-            sessions: obj.sessions
+            sessions: obj.sessions,
+            data: obj
           }
           list.push(clientResponse)
         }
@@ -85,9 +86,8 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
   }
   sendSession(item: any) {
     var clientSessionResponse: ClientSessionResponse = {
-      pateintId: item.clientId,
-      pateintName: item.clientName,
-      sessions: item.sessions
+      sessions: item.sessions,
+      client: item.data
     }
     this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
   }

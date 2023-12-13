@@ -10,7 +10,7 @@
     <c-col xs="12">
       <c-card>
         <c-card-header>
-          <svg cIcon name="cilPen"></svg> &nbsp; <strong>Avram Tarasios</strong>
+          <button class="btn btn-link" (click)="editClient()"><strong>{{client?.lastName}} {{client?.firstName}}</strong></button>
         </c-card-header>
         <c-card-body>
           <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true"
