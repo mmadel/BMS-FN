@@ -1,1 +1,33 @@
-<p>session-item-edit works!</p>
+<c-container [fluid]="true">
+    <c-card class="w-90 mb-2" color="light">
+        <c-card-body>
+            <c-row>
+                <c-col><strong>DOS : </strong> {{selectedSession.dos}}</c-col>
+            </c-row>
+            <c-row>
+                <c-col><strong>CPT : </strong>{{selectedSession.cpt}}</c-col>
+            </c-row>
+        </c-card-body>
+    </c-card>
+    <!-- Place of code-->
+    <c-row *ngIf="itemType === 'place'">
+        <select cSelect aria-label="" cSelect sizing="sm">
+            <option>Dollar Amt</option>
+        </select>
+    </c-row>
+    <!-- Place of CPT-->
+    <c-row *ngIf="itemType === 'cpt'">
+        <label cLabel for="cpt-item">CPT</label>
+        <input cFormControl id="cpt-item" sizing="sm">
+    </c-row>
+    <!-- Place of Unit-->
+    <c-row *ngIf="itemType === 'unit'">
+        <label cLabel for="unit-item">Unit</label>
+        <input cFormControl id="unit-item" type="number" sizing="sm">
+    </c-row>
+    <!-- Place of Charge-->
+    <c-row *ngIf="itemType === 'charge'">
+        <label cLabel for="charge-item">Charge</label>
+        <input cFormControl id="charge-item" type="number" sizing="sm">
+    </c-row>
+</c-container>

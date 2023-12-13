@@ -31,16 +31,16 @@
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="'place'" class="py-2">
-                    <button class="btn btn-link" (click)="editSessionItem()">{{tdContent}}</button>
+                    <button class="btn btn-link" (click)="editSessionItem(item,'place')">{{tdContent}}</button>
                   </ng-container>
                   <ng-container *ngSwitchCase="'cpt'" class="py-2">
-                    <button class="btn btn-link" (click)="editSessionItem()">{{tdContent}}</button>
+                    <button class="btn btn-link" (click)="editSessionItem(item,'cpt')">{{tdContent}}</button>
                   </ng-container>
                   <ng-container *ngSwitchCase="'unit'" class="py-2">
-                    <button class="btn btn-link" (click)="editSessionItem()">{{tdContent}}</button>
+                    <button class="btn btn-link" (click)="editSessionItem(item,'unit')">{{tdContent}}</button>
                   </ng-container>
                   <ng-container *ngSwitchCase="'charge'" class="py-2">
-                    <button class="btn btn-link" (click)="editSessionItem()">{{tdContent}}</button>
+                    <button class="btn btn-link" (click)="editSessionItem(item,'charge')">{{tdContent}}</button>
                   </ng-container>
                   <ng-container *ngSwitchDefault>
                     {{tdContent}}
@@ -87,6 +87,7 @@
     <button (click)="toggleEditSessionItem()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <session-item-edit *ngIf="editSessionItemVisibility"> </session-item-edit>
+    <session-item-edit *ngIf="editSessionItemVisibility" [selectedSession]="selectedSessionToEditItem"
+      [itemType]="sessionItemType"> </session-item-edit>
   </c-modal-body>
 </c-modal>
