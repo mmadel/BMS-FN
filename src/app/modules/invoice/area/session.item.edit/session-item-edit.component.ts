@@ -23,6 +23,9 @@ export class SessionItemEditComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.changedCPT = this.selectedSession.cpt
+    this.changedUnit = this.selectedSession.unit
+    this.changedCharge = this.selectedSession.charge
   }
   edit() {
     if (this.itemType === 'cpt')
