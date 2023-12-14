@@ -58,10 +58,19 @@ export class InvoiceCreationComponent implements OnInit {
   }
   private emitChanges(pateint: Patient) {
     console.log('emitChanges')
-    var clientSessionResponse: ClientSessionResponse = {
-      sessions: pateint.sessions,
-      client: pateint
+    var clientSessionResponse: ClientSessionResponse
+    if (pateint !== null) {
+      clientSessionResponse= {
+        sessions: pateint.sessions,
+        client: pateint
+      }
+    }else
+    clientSessionResponse = {
+      sessions : new Array(),
+      client : {}
+
     }
+
     this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
   }
 
