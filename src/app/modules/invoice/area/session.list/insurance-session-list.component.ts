@@ -72,7 +72,10 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.sessionServiceCodeLine = this.invoiceEmitterService.selectedInvoiceClientSession$.pipe(
       filter((result) => result !== null),
-      tap((result) => { this.client = result.client }),
+      tap((result) => { 
+        this.client = result.client
+        console.log('emit selectedInvoiceClientSession ')
+       }),
       map(result => {
         var lines: SessionServiceCodeLine[] = new Array();
         for (var i = 0; i < result.sessions.length; i++) {

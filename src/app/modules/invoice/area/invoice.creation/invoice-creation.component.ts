@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
+import { PatientService } from 'src/app/modules/patient/service/patient.service';
+import { ClientSessionResponse } from '../../model/client.session.response';
 import { InvoiceRequestCreation } from '../../model/invoice.request.creation';
+import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import { InvoiceService } from '../../service/invoice.service';
 
 @Component({
@@ -10,15 +14,18 @@ import { InvoiceService } from '../../service/invoice.service';
   styleUrls: ['./invoice-creation.component.scss']
 })
 export class InvoiceCreationComponent implements OnInit {
+  @Input() clientId: number
   @Input() patientInsurances: PatientInsurance[]
   @Input() selectedServiceCodeIds: number[];
   @Output() changeVisibility = new EventEmitter<string>()
   filterpatientInsurances: PatientInsurance[]
   constructor(private invoiceService: InvoiceService
-    , private toastr: ToastrService) { }
+    , private toastr: ToastrService
+    , private patientService: PatientService
+    , private invoiceEmitterService: InvoiceEmitterService) { }
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.selectedServiceCodeIds))
+    console.log(this.clientId)
     this.filterpatientInsurances = this.patientInsurances.filter(insuranceCompany => { return !insuranceCompany.isArchived; })
   }
 
@@ -37,8 +44,25 @@ export class InvoiceCreationComponent implements OnInit {
       .subscribe(() => {
         this.toastr.success("Invocie created successfully ")
         this.changeVisibility.emit('close');
+        this.findCleint();
       }, error => {
         this.toastr.error("error in create invoice")
       })
   }
+  private findCleint() {
+    this.invoiceService.findByClient(this.clientId)
+      .subscribe((result) => {
+        console.log('findCleint ' + this.clientId)
+        this.emitChanges(result);
+      })
+  }
+  private emitChanges(pateint: Patient) {
+    console.log('emitChanges')
+    var clientSessionResponse: ClientSessionResponse = {
+      sessions: pateint.sessions,
+      client: pateint
+    }
+    this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
+  }
+
 }

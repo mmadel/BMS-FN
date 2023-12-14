@@ -13,10 +13,14 @@ export class InvoiceService extends BasePaginationService {
 
   private baseUrl = environment.baseURL + 'invoice'
   constructor(httpClient: HttpClient) { super(httpClient) }
-  
+
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {
     var url = this.baseUrl + '/find/clients'
     return this.get(config$, url)
+  }
+  public findByClient(clientId: number) {
+    var url = this.baseUrl + '/find/clientId/' + clientId;
+    return this.httpClient.get(url)
   }
 
   create(invoiceRequestCreation: InvoiceRequestCreation) {

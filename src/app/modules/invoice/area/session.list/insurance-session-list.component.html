@@ -1,4 +1,3 @@
-{{selectedSessionServiceCodeLine | json}}
 <c-container fluid="true">
   <c-row>
     <c-col xs="12">
@@ -66,8 +65,8 @@
   </c-modal-header>
   <c-modal-body>
     <app-invoice-creation [patientInsurances]="client?.patientInsurances" *ngIf="invoiceCreationVisible"
-    [selectedServiceCodeIds]="selectedSessionServiceCodeLine"
-    (changeVisibility)="changeCreateInvoiceVisibility($event)"></app-invoice-creation>
+      [selectedServiceCodeIds]="selectedSessionServiceCodeLine" [clientId]="client?.id"
+      (changeVisibility)="changeCreateInvoiceVisibility($event)"></app-invoice-creation>
   </c-modal-body>
 </c-modal>
 <!-- Edit Session-->
