@@ -1,6 +1,5 @@
-{{patientInsurances | json}}
 <c-container [fluid]="true" class="mt-3">
-    <div class="card border-dark mb-2">
+    <div class="card border-dark mb-2" *ngFor="let patientInsurance of patientInsurances; index as i;">
         <div class="card-body">
             <div style="float: right;">
                 <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
@@ -22,10 +21,10 @@
                 </c-button-group>
             </div>
             <div>
-                <h3><strong>Blue Cross Blue Shield Empire </strong></h3>
-                <h4>Primary</h4>
-                Primary ID : 00000 <br>
-                Payer ID : 32873 <br>
+                <h3><strong>{{patientInsurance.patientInsurancePolicy.payerName}} </strong></h3>
+                <h4>{{patientInsurance.patientInsurancePolicy.responsability}}</h4>
+                Primary ID : {{patientInsurance.patientInsurancePolicy.primaryId}} <br>
+                Payer ID : {{patientInsurance.patientInsurancePolicy.payerId}} <br>
                 Clearinghouse : Availity
             </div>
             <div class="col-6 border border-light mt-3 me-3 bg-light">
@@ -33,17 +32,17 @@
                 <c-row>
                     <c-col xs="12" class="mt-1 mx-1">
                         <c-form-check inline>
-                            <input cFormCheckInput id="radioinline1" name="radioinline" type="radio" />
-                            <label cFormCheckLabel for="radioinline1">
+                            <input cFormCheckInput id="gd{{i}}_dateperservice" type="checkbox" />
+                            <label cFormCheckLabel for="gd{{i}}_dateperservice">
                                 One date of service per claim
                             </label>
                         </c-form-check>
                     </c-col>
                     <c-col xs="6" class="mb-1 mx-1">
-                        <label for="drc" class="control-label">
+                        <label for="gd{{i}}_drc" class="control-label">
                             Delayed Reason Code (EDI only)
                         </label>
-                        <select cSelect id="drc" sizing="sm" style="height: auto;line-height: 14px;">
+                        <select cSelect id="gd{{i}}_drc" sizing="sm" style="height: auto;line-height: 14px;">
                             <option value="1">none</option>
                             <option value="2">option-a</option>
                             <option value="3">option-b</option>

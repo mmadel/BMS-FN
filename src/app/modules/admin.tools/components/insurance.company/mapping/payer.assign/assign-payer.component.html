@@ -7,12 +7,15 @@
     <c-col class="mb-3"><strong>
             Insurance Company Address
         </strong> :
-        {{insuranceCompany.address.address}},{{insuranceCompany.address.city}},{{insuranceCompany.address.city}},{{insuranceCompany.address.state}},{{insuranceCompany.address.zipCode}}</c-col>
+        <span *ngIf="insuranceCompany.address">
+            {{insuranceCompany.address.address}},{{insuranceCompany?.address.city}},{{insuranceCompany?.address.city}},{{insuranceCompany.address.state}},{{insuranceCompany.address.zipCode}}
+        </span>
+    </c-col>
 </c-row>
 <c-row *ngIf="assignedPayer">
     <c-col class="mb-3"><strong>
-            Payer 
-        </strong> : {{assignedPayer.displayName}} , {{assignedPayer.payerId}}</c-col> 
+            Payer
+        </strong> : {{assignedPayer.displayName}} , {{assignedPayer.payerId}}</c-col>
 </c-row>
 <c-row>
     <c-col class=" justify-content-md-center">
