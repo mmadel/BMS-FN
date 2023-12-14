@@ -29,8 +29,9 @@ import {
   NavModule,
   DateRangePickerModule,
   TimePickerModule,
-  ModalModule
+  ModalModule,
 } from '@coreui/angular-pro';
+import { ModelModule } from '../model/model.module';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {
     DateRangePickerModule,
     TimePickerModule,
     IconModule,
-    ModalModule
+    ModalModule,
+    ModelModule
   ]
 })
 export class PostingModule { }

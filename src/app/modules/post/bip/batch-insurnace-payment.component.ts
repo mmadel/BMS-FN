@@ -6,17 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./batch-insurnace-payment.component.scss']
 })
 export class BatchInsurnacePaymentComponent implements OnInit {
-  entity: number = 1;
-  postingLinesVisibility: boolean = false;
+  selectedSearchOption: string = "none";
   constructor() { }
 
   ngOnInit(): void {
   }
-  onEntityChange(value: any) {
-    this.entity = value.target.value;
-  }
 
-  clickApplyPayment(){
-    this.postingLinesVisibility = true;
-  }
 }

@@ -15,7 +15,10 @@
                 <form cForm>
                     <c-row>
                         <c-col class="mb-2" xs="12">
-                            <select aria-label="searchentity" id="searchentity" cSelect sizing="sm">
+                            <select aria-label="searchentity" id="searchentity" cSelect sizing="sm" 
+                            name="searchentity"
+                            [(ngModel)]="selectedSearchOption">
+                                <option value="none" disabled>Select Search Criteria</option>
                                 <option value="1">Client</option>
                                 <option value="1">Insurance Company</option>
                             </select>
@@ -31,7 +34,7 @@
                     </c-row>
                     <c-row>
                         <c-col xs="12" class="text-center">
-                            <button cButton class="me-1" color="primary" style="width: 15%;">
+                            <button cButton class="me-1" color="primary" style="width: 15%;" [disabled]="selectedSearchOption === 'none'">
                                 Search
                             </button>
                         </c-col>
@@ -83,6 +86,3 @@
         </c-card>
     </c-col>
 </c-row>
-
-
-<app-posting-lines *ngIf="postingLinesVisibility"></app-posting-lines>
