@@ -1,8 +1,10 @@
+{{selectedSessionServiceCodeLine | json}}
 <c-container fluid="true">
   <c-row>
     <c-col xs="12">
       <div style="float: right;" class="mb-3">
-        <button cButton color="primary" variant="outline" (click)="createInvoice()">
+        <button cButton color="primary" variant="outline" (click)="createInvoice()"
+          [disabled]='selectedSessionServiceCodeLine?.length === 0 || selectedSessionServiceCodeLine === undefined'>
           Create Invoice
         </button>
       </div>
@@ -16,8 +18,9 @@
         <c-card-body>
           <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true"
             [itemsPerPage]="5" [items]="(sessionServiceCodeLine | async) ?? []"
-            [sorterValue]="{ column: 'provider', state: 'asc' }"
-            [tableProps]="{ hover: true, striped: true,small:true }" [tableBodyProps]="{ align: 'middle' }" header selectable >
+            [sorterValue]="{ column: 'provider', state: 'asc' }" (selectedItemsChange)="onSelectedServiceCode($event)"
+            [tableProps]="{ hover: true, striped: true,small:true }" [tableBodyProps]="{ align: 'middle' }" header
+            selectable>
             <ng-template cTemplateId="tableDetails" let-item="item">
             </ng-template>
             <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
@@ -62,7 +65,9 @@
     <button (click)="toggleCreateInvoice()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <app-invoice-creation [patientInsurances]="client?.patientInsurances"></app-invoice-creation>
+    <app-invoice-creation [patientInsurances]="client?.patientInsurances" *ngIf="invoiceCreationVisible"
+    [selectedServiceCodeIds]="selectedSessionServiceCodeLine"
+    (changeVisibility)="changeCreateInvoiceVisibility($event)"></app-invoice-creation>
   </c-modal-body>
 </c-modal>
 <!-- Edit Session-->

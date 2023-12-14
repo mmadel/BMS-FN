@@ -26,7 +26,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   editSessionItemVisibility: boolean = false;
   selectedSessionToEditItem: SessionServiceCodeLine
   sessionItemType: string;
-  
+  selectedSessionServiceCodeLine: number[]
   constructor(private route: ActivatedRoute,
     private invoiceEmitterService: InvoiceEmitterService
     , private router: Router
@@ -89,7 +89,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
               unit: serviceCode.cptCode.unit,
               charge: serviceCode.cptCode.charge,
               cptId: serviceCode.id,
-              data: session
+              data: session,
+              serviceCodeId: serviceCode.id
             }
             lines.push(line);
           }
@@ -113,8 +114,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     this.selectedSessionToEditItem = item;
     this.editSessionItemVisibility = true;
   }
-  createInvoice(){
-      this.invoiceCreationVisible = true;
+  createInvoice() {
+    this.invoiceCreationVisible = true;
   }
   toggleEditSession() {
     this.editSessionVisibility = !this.editSessionVisibility;
@@ -125,7 +126,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   toggleCreateInvoice() {
     this.invoiceCreationVisible = !this.invoiceCreationVisible
   }
-  
+
   changeVisibility(event: any) {
     if (event === 'close')
       this.editSessionVisibility = false;
@@ -133,5 +134,14 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   changeSessionItemVisibility(event: any) {
     if (event === 'close')
       this.editSessionItemVisibility = false;
+  }
+  onSelectedServiceCode(event: any) {
+    this.selectedSessionServiceCodeLine = event.map((value: SessionServiceCodeLine) => {
+      return value.serviceCodeId;
+    });
+  }
+  changeCreateInvoiceVisibility(event: any) {
+    if (event === 'close')
+      this.invoiceCreationVisible = false;
   }
 }
