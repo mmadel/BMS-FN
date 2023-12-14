@@ -8,9 +8,11 @@ import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insuran
 })
 export class InvoiceCreationComponent implements OnInit {
   @Input() patientInsurances: PatientInsurance[]
+  filterpatientInsurances: PatientInsurance[]
   constructor() { }
 
   ngOnInit(): void {
+    this.filterpatientInsurances = this.patientInsurances.filter(insuranceCompany => { return !insuranceCompany.isArchived; })
   }
 
 }
