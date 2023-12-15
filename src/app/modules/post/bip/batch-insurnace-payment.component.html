@@ -108,9 +108,9 @@
 </c-row>
 <c-row>
     <c-col *ngIf="searchResult === 'client'">
-        <client-payment></client-payment>
+        <client-payment *ngIf="searchResult === 'client'"></client-payment>
     </c-col>
     <c-col *ngIf="searchResult === 'insurance'">
-        <insurance-company-payment></insurance-company-payment>
+        <insurance-company-payment *ngIf="searchResult === 'insurance'"></insurance-company-payment>
     </c-col>
 </c-row>
