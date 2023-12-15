@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, finalize, map, switchMap, tap } from 'rxjs';
+import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { PatientService } from '../../patient/service/patient.service';
 
 @Component({
@@ -10,14 +11,19 @@ import { PatientService } from '../../patient/service/patient.service';
 })
 export class BatchInsurnacePaymentComponent implements OnInit {
   patientClient = new FormControl();
+  insuranceCompanyForm = new FormControl();
   selectedSearchOption: string = "none";
   filteredPatients: any;
+  filteredInsuranceCompany: any;
   isLoading = false;
+  isLoadingInsuranceCompany = false;
 
-  constructor(private patientService: PatientService) {
+  constructor(private patientService: PatientService
+    ,private insuranceCompanyService:InsuranceCompanyService) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
+    this.findInsuranceCompanyByName();
   }
 
   private findPatientByNameAutoComplete() {
@@ -59,5 +65,45 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         error => {
           this.isLoading = false
         });
+  }
+  private findInsuranceCompanyByName(){
+    this.insuranceCompanyForm.valueChanges
+    .pipe(
+      filter(text => {
+        if (text === undefined)
+          return false;
+        if (text.length > 1) {
+          return true
+        } else {
+          this.filteredInsuranceCompany = [];
+          return false;
+        }
+      }),
+      debounceTime(500),
+      tap((value) => {
+        this.filteredInsuranceCompany = [];
+        this.isLoadingInsuranceCompany = true;
+      }),
+      switchMap((value) => {
+        return this.insuranceCompanyService.findByName(value)
+          .pipe(
+            finalize(() => {
+              this.isLoadingInsuranceCompany = false
+            }),
+          )
+      }
+      )
+    )
+    .subscribe(data => {
+      console.log(JSON.stringify(data))
+      if (data == undefined) {
+        this.filteredInsuranceCompany = [];
+      } else {
+        this.filteredInsuranceCompany = data;
+      }
+    },
+      error => {
+        this.isLoadingInsuranceCompany = false
+      });
   }
 }

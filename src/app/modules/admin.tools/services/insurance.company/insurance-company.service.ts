@@ -26,4 +26,8 @@ export class InsuranceCompanyService {
     var url = this.baseUrl + '/map/all'
     return this.httpClient.put(`${url}`, JSON.stringify(isuranceCompanyMappers), { 'headers': headers })
   }
+  public findByName(name:string){
+    var url = this.baseUrl + '/find/name/' + name;
+    return this.httpClient.get(url);
+  }
 }
