@@ -15,26 +15,36 @@
                 <form cForm>
                     <c-row>
                         <c-col class="mb-2" xs="12">
-                            <select aria-label="searchentity" id="searchentity" cSelect sizing="sm" 
-                            name="searchentity"
-                            [(ngModel)]="selectedSearchOption">
+                            <select aria-label="searchentity" id="searchentity" cSelect sizing="sm" name="searchentity"
+                                [(ngModel)]="selectedSearchOption">
                                 <option value="none" disabled>Select Search Criteria</option>
-                                <option value="1">Client</option>
-                                <option value="1">Insurance Company</option>
+                                <option value="client">Client</option>
+                                <option value="insurance">Insurance Company</option>
                             </select>
                         </c-col>
                     </c-row>
                     <c-row>
-                        <c-col class="mb-2" xs="12">
-                            <!-- Auto complete for patient -->
+                        <c-col class="mb-2" xs="12" *ngIf="selectedSearchOption ==='client'">
+                            <input cFormControl name="patientname" [formControl]="patientClient"
+                                placeholder="Patient" class="mb-2" sizing="sm" />
+                            <c-multi-select class="mb-2"  visibleItems="20" *ngIf="!isLoading">
+                                <c-multi-select-option *ngFor="let patients of filteredPatients">
+                                    {{ patients.clientName}}
+                                </c-multi-select-option>
+                            </c-multi-select>
+                            <span align="center" *ngIf="isLoading">
+                                <c-spinner variant="grow"></c-spinner>
+                            </span>
                         </c-col>
-                        <c-col class="mb-2" xs="12">
+                        <c-col class="mb-2" xs="12" *ngIf=" selectedSearchOption ==='insurance'">
                             <!-- Auto complete for insurance company -->
+                            Insurance Company
                         </c-col>
                     </c-row>
                     <c-row>
                         <c-col xs="12" class="text-center">
-                            <button cButton class="me-1" color="primary" style="width: 15%;" [disabled]="selectedSearchOption === 'none'">
+                            <button cButton class="me-1" color="primary" style="width: 15%;"
+                                [disabled]="selectedSearchOption === 'none'">
                                 Search
                             </button>
                         </c-col>

@@ -30,8 +30,11 @@ import {
   DateRangePickerModule,
   TimePickerModule,
   ModalModule,
+  MultiSelectModule,
+  SpinnerModule,
 } from '@coreui/angular-pro';
 import { ModelModule } from '../model/model.module';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,10 @@ import { ModelModule } from '../model/model.module';
     TimePickerModule,
     IconModule,
     ModalModule,
-    ModelModule
+    ModelModule,
+    AutocompleteLibModule,
+    MultiSelectModule,
+    SpinnerModule,
   ]
 })
 export class PostingModule { }
