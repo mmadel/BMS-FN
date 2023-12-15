@@ -17,9 +17,10 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   filteredInsuranceCompany: any;
   isLoading = false;
   isLoadingInsuranceCompany = false;
+  searchResult: string;
 
   constructor(private patientService: PatientService
-    ,private insuranceCompanyService:InsuranceCompanyService) {
+    , private insuranceCompanyService: InsuranceCompanyService) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -66,44 +67,47 @@ export class BatchInsurnacePaymentComponent implements OnInit {
           this.isLoading = false
         });
   }
-  private findInsuranceCompanyByName(){
+  private findInsuranceCompanyByName() {
     this.insuranceCompanyForm.valueChanges
-    .pipe(
-      filter(text => {
-        if (text === undefined)
-          return false;
-        if (text.length > 1) {
-          return true
-        } else {
+      .pipe(
+        filter(text => {
+          if (text === undefined)
+            return false;
+          if (text.length > 1) {
+            return true
+          } else {
+            this.filteredInsuranceCompany = [];
+            return false;
+          }
+        }),
+        debounceTime(500),
+        tap((value) => {
           this.filteredInsuranceCompany = [];
-          return false;
+          this.isLoadingInsuranceCompany = true;
+        }),
+        switchMap((value) => {
+          return this.insuranceCompanyService.findByName(value)
+            .pipe(
+              finalize(() => {
+                this.isLoadingInsuranceCompany = false
+              }),
+            )
         }
-      }),
-      debounceTime(500),
-      tap((value) => {
-        this.filteredInsuranceCompany = [];
-        this.isLoadingInsuranceCompany = true;
-      }),
-      switchMap((value) => {
-        return this.insuranceCompanyService.findByName(value)
-          .pipe(
-            finalize(() => {
-              this.isLoadingInsuranceCompany = false
-            }),
-          )
-      }
+        )
       )
-    )
-    .subscribe(data => {
-      console.log(JSON.stringify(data))
-      if (data == undefined) {
-        this.filteredInsuranceCompany = [];
-      } else {
-        this.filteredInsuranceCompany = data;
-      }
-    },
-      error => {
-        this.isLoadingInsuranceCompany = false
-      });
+      .subscribe(data => {
+        console.log(JSON.stringify(data))
+        if (data == undefined) {
+          this.filteredInsuranceCompany = [];
+        } else {
+          this.filteredInsuranceCompany = data;
+        }
+      },
+        error => {
+          this.isLoadingInsuranceCompany = false
+        });
+  }
+  search() {
+    this.searchResult = this.selectedSearchOption;
   }
 }

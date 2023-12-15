@@ -35,13 +35,17 @@ import {
 } from '@coreui/angular-pro';
 import { ModelModule } from '../model/model.module';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { ClientPaymentComponent } from './bip/client/client-payment.component';
+import { InsuranceCompanyPaymentComponent } from './bip/insurance.company/insurance-company-payment.component';
 
 @NgModule({
   declarations: [
     BatchInsurnacePaymentComponent,
     ElectronicRemittanceAdviceComponent,
     PostingLinesComponent,
-    PostingERAComponent
+    PostingERAComponent,
+    ClientPaymentComponent,
+    InsuranceCompanyPaymentComponent
   ],
   imports: [
     CommonModule,

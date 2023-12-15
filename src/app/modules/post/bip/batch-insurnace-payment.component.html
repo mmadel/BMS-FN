@@ -38,9 +38,9 @@
                             </span>
                         </c-col>
                         <!-- Auto complete for insurance company -->
-                        <c-col class="mb-2" xs="12" *ngIf=" selectedSearchOption ==='insurance'">                            
-                            <input cFormControl name="insurancecompany" [formControl]="insuranceCompanyForm" placeholder="Insurance Company"
-                                class="mb-2" sizing="sm" />
+                        <c-col class="mb-2" xs="12" *ngIf=" selectedSearchOption ==='insurance'">
+                            <input cFormControl name="insurancecompany" [formControl]="insuranceCompanyForm"
+                                placeholder="Insurance Company" class="mb-2" sizing="sm" />
                             <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoadingInsuranceCompany">
                                 <c-multi-select-option *ngFor="let insuranceCompany of filteredInsuranceCompany">
                                     {{ insuranceCompany.displayName}}
@@ -53,7 +53,7 @@
                     </c-row>
                     <c-row>
                         <c-col xs="12" class="text-center">
-                            <button cButton class="me-1" color="primary" style="width: 15%;"
+                            <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()"
                                 [disabled]="selectedSearchOption === 'none'">
                                 Search
                             </button>
@@ -104,5 +104,13 @@
                 </form>
             </c-card-body>
         </c-card>
+    </c-col>
+</c-row>
+<c-row>
+    <c-col *ngIf="searchResult === 'client'">
+        <client-payment></client-payment>
+    </c-col>
+    <c-col *ngIf="searchResult === 'insurance'">
+        <insurance-company-payment></insurance-company-payment>
     </c-col>
 </c-row>
