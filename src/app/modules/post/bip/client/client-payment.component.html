@@ -11,14 +11,28 @@
             <td>
               <ng-container [ngSwitch]="columnName">
   
-                <ng-container *ngSwitchCase="'dob'" class="py-2">
-                  {{item.dob | date:'MMM d, y' }}
+                <ng-container *ngSwitchCase="'dateOfService'" class="py-2">
+                  {{item.dateOfService | date:'MMM d, y' }}
                 </ng-container>
-                <ng-container *ngSwitchCase="'actions'" class="py-2">
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    
-                  </div>
+                <ng-container *ngSwitchCase="'billedValue'" class="py-2">
+                  {{item.billedValue |currency  }}
                 </ng-container>
+                <ng-container *ngSwitchCase="'PmtAmt'" class="py-2 ">
+                  <input cFormControl  sizing="sm" class="w-25">
+              </ng-container>
+              <ng-container *ngSwitchCase="'adjust'" class="py-2">
+                  <input cFormControl  sizing="sm" class="w-25">
+              </ng-container>
+              <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
+                  <select cSelect  sizing="sm" class="w-50">
+                      <option selected>Select</option>
+                      <option value="Resubmit"> Resubmit</option>
+                      <option value="Close Session">Close Session</option>
+                      <option value="Bill To Client">Bill To Client</option>
+                      <option value="Bill To agency">Bill To agency</option>
+                      <option value="Keep current status">Keep current status</option>
+                  </select>
+              </ng-container>
                 <ng-container *ngSwitchDefault>
                   {{tdContent}}
                 </ng-container>

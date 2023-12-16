@@ -16,12 +16,12 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     'dateOfService',
     'cpt',
     'provider',
-    { key: 'billedValue', _style: { width: '15%' }, label: 'Billed' },
-    'pmts',
-    'PmtAmt',
-    'adjust',
-    'balance',
-    'sessionAction'
+    { key: 'billedValue', label: 'Billed' },
+    { key: 'pmts', label: 'Pmts' },
+    { key: 'PmtAmt', label: 'Pmts' },
+    { key: 'adjust', label: 'Adjust' },
+    { key: 'balance', label: 'Balance' ,  _style: { width: '10%' } },
+    { key: 'sessionAction', label: 'Balance' ,  _style: { width: '20%' } },
   ];
   constructor(private postingServiceService: PostingServiceService) { super() }
 
