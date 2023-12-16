@@ -18,7 +18,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     'provider',
     { key: 'billedValue', label: 'Billed' },
     { key: 'pmts', label: 'Pmts' },
-    { key: 'PmtAmt', label: 'Pmts' },
+    { key: 'PmtAmt', label: 'PmtAmt'},
     { key: 'adjust', label: 'Adjust' },
     { key: 'balance', label: 'Balance' ,  _style: { width: '10%' } },
     { key: 'sessionAction', label: 'Balance' ,  _style: { width: '20%' } },
