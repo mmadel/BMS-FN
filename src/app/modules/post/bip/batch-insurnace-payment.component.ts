@@ -17,7 +17,8 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   filteredInsuranceCompany: any;
   isLoading = false;
   isLoadingInsuranceCompany = false;
-  searchResult: string;
+  isSearchDisable: boolean;
+  selectedSearchValue: any;
 
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService) {
@@ -33,7 +34,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         filter(text => {
           if (text === undefined)
             return false;
-          if (text.length > 1) {
+          if (text.length > 0) {
             return true
           } else {
             this.filteredPatients = [];
@@ -73,7 +74,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         filter(text => {
           if (text === undefined)
             return false;
-          if (text.length > 1) {
+          if (text.length > 0) {
             return true
           } else {
             this.filteredInsuranceCompany = [];
@@ -108,6 +109,10 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         });
   }
   search() {
-    this.searchResult = this.selectedSearchOption;
+  }
+  changeValue(event: any) {
+    this.selectedSearchValue = event;
+    var searchValue: boolean = this.selectedSearchOption !== 'none'
+    this.isSearchDisable = searchValue && (this.selectedSearchValue.length !== 0);
   }
 }

@@ -1,3 +1,4 @@
+{{selectedSearchValue |json}}
 <c-row>
     <c-col xs="8" class="mb-2">
         <h1>Batch Insurance Payment</h1>
@@ -28,9 +29,9 @@
                         <c-col class="mb-2" xs="12" *ngIf="selectedSearchOption ==='client'">
                             <input cFormControl name="patientname" [formControl]="patientClient" placeholder="Patient"
                                 class="mb-2" sizing="sm" />
-                            <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoading">
-                                <c-multi-select-option *ngFor="let patients of filteredPatients">
-                                    {{ patients.clientName}}
+                            <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoading" (valueChange)="changeValue($event)">
+                                <c-multi-select-option *ngFor="let patient of filteredPatients" [value]="patient.clientId">
+                                    {{ patient.clientName}}
                                 </c-multi-select-option>
                             </c-multi-select>
                             <span align="center" *ngIf="isLoading">
@@ -41,7 +42,7 @@
                         <c-col class="mb-2" xs="12" *ngIf=" selectedSearchOption ==='insurance'">
                             <input cFormControl name="insurancecompany" [formControl]="insuranceCompanyForm"
                                 placeholder="Insurance Company" class="mb-2" sizing="sm" />
-                            <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoadingInsuranceCompany">
+                            <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoadingInsuranceCompany" (valueChange)="changeValue($event)">
                                 <c-multi-select-option *ngFor="let insuranceCompany of filteredInsuranceCompany">
                                     {{ insuranceCompany.displayName}}
                                 </c-multi-select-option>
@@ -54,7 +55,7 @@
                     <c-row>
                         <c-col xs="12" class="text-center">
                             <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()"
-                                [disabled]="selectedSearchOption === 'none'">
+                                [disabled]="!isSearchDisable">
                                 Search
                             </button>
                         </c-col>
@@ -107,10 +108,10 @@
     </c-col>
 </c-row>
 <c-row>
-    <c-col *ngIf="searchResult === 'client'">
-        <client-payment *ngIf="searchResult === 'client'"></client-payment>
+    <c-col *ngIf="selectedSearchOption === 'client'">
+        <client-payment *ngIf="selectedSearchOption === 'client'"></client-payment>
     </c-col>
-    <c-col *ngIf="searchResult === 'insurance'">
-        <insurance-company-payment *ngIf="searchResult === 'insurance'"></insurance-company-payment>
+    <c-col *ngIf="selectedSearchOption === 'insurance'">
+        <insurance-company-payment *ngIf="selectedSearchOption === 'insurance'"></insurance-company-payment>
     </c-col>
 </c-row>
