@@ -32,6 +32,7 @@ import {
   ModalModule,
   MultiSelectModule,
   SpinnerModule,
+  SmartPaginationModule,
 } from '@coreui/angular-pro';
 import { ModelModule } from '../model/model.module';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
@@ -75,6 +76,7 @@ import { InsuranceCompanyPaymentComponent } from './bip/insurance.company/insura
     AutocompleteLibModule,
     MultiSelectModule,
     SpinnerModule,
+    SmartPaginationModule,
   ]
 })
 export class PostingModule { }

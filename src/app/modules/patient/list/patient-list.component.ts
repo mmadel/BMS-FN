@@ -7,7 +7,6 @@ import { PatientResponse } from '../../model/clinical/patient.response';
 import { ListTemplate } from '../../model/template/list.template';
 import { PateintEmittingService } from '../service/emitting/pateint-emitting.service';
 import { PatientService } from '../service/patient.service';
-import usersData from './_data';
 @Component({
   selector: 'app-patient-list',
   templateUrl: './patient-list.component.html',

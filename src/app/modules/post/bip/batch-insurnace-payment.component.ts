@@ -19,6 +19,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   isLoadingInsuranceCompany = false;
   isSearchDisable: boolean;
   selectedSearchValue: any;
+  renderedComponent:string = '';
 
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService) {
@@ -108,11 +109,9 @@ export class BatchInsurnacePaymentComponent implements OnInit {
           this.isLoadingInsuranceCompany = false
         });
   }
-  search() {
-  }
+
   changeValue(event: any) {
     this.selectedSearchValue = event;
-    var searchValue: boolean = this.selectedSearchOption !== 'none'
-    this.isSearchDisable = searchValue && (this.selectedSearchValue.length !== 0);
+    this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchValue.length !== 0);
   }
 }
