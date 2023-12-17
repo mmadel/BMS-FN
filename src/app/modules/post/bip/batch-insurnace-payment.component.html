@@ -1,4 +1,3 @@
-{{selectedSearchValue |json}}
 <c-row>
     <c-col xs="8" class="mb-2">
         <h1>Batch Insurance Payment</h1>
@@ -91,6 +90,12 @@
                         <c-col xs="12" class="mb-2">
                             <c-date-picker placeholder="Deposit Date"></c-date-picker>
                         </c-col>
+                        <c-col xs="6" class="mb-2">
+                            <strong>Total Payments : </strong> {{totalPayments | currency}}
+                        </c-col>
+                        <c-col xs="6" class="mb-2">
+                            <strong>Total Adjustments : </strong> {{totalAdjustments | currency}}
+                        </c-col>
                         <c-col xs="12" class="text-center">
                             <button cButton variant="outline" class="me-1" color="primary" size="sm">
                                 Apply Payments
@@ -102,6 +107,7 @@
         </c-card>
     </c-col>
 </c-row>
+
 <c-row>
     <c-col *ngIf="selectedSearchOption === 'client' && selectedSearchValue>0">
         <client-payment *ngIf="selectedSearchOption === 'client'  && selectedSearchValue >0"

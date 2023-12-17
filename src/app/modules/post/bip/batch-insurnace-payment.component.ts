@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, finalize, map, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
@@ -19,8 +19,9 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   isLoadingInsuranceCompany = false;
   isSearchDisable: boolean;
   selectedSearchValue: any;
-  renderedComponent:string = '';
-
+  renderedComponent: string = '';
+  totalPayments: number = 0;
+  totalAdjustments: number = 0;
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService) {
   }
