@@ -22,6 +22,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   renderedComponent: string = '';
   totalPayments: number = 0;
   totalAdjustments: number = 0;
+  prevEmittedPayment: number = 0
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService) {
   }
@@ -114,5 +115,17 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   changeValue(event: any) {
     this.selectedSearchValue = event;
     this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchValue.length !== 0);
+  }
+  onChangePayements(event: any[]) {
+    if (event[0] === 0)
+      this.totalPayments = this.totalPayments + event[1];
+    if (event[0] !== 0)
+      this.totalPayments = this.totalPayments - event[0] + event[1];
+  }
+  onChangeAdjustments(event: any[]) {
+    if (event[0] === 0)
+      this.totalAdjustments = this.totalAdjustments + event[1];
+    if (event[0] !== 0)
+      this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
   }
 }

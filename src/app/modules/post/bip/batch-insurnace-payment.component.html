@@ -111,7 +111,8 @@
 <c-row>
     <c-col *ngIf="selectedSearchOption === 'client' && selectedSearchValue>0">
         <client-payment *ngIf="selectedSearchOption === 'client'  && selectedSearchValue >0"
-            [clientId]="selectedSearchValue"></client-payment>
+            [clientId]="selectedSearchValue" (changePayments)="onChangePayements($event)"
+            (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
     </c-col>
     <c-col *ngIf="selectedSearchOption === 'insurance'">
         <insurance-company-payment *ngIf="renderedComponent === 'insurance'"></insurance-company-payment>

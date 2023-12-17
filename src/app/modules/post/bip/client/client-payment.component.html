@@ -21,14 +21,14 @@
               <c-input-group sizing="sm">
                 <span cInputGroupText id="payment">&#36;</span>
                 <input cFormControl aria-describedby="payment" class="w-10" [(ngModel)]="item.payment" type="number"
-                  (input)="onChangePayment($event , item)">
+                  (focusout)="emitPayment($event ,item)">
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'adjust'" class="py-2">
               <c-input-group sizing="sm">
                 <span cInputGroupText id="adjust">&#36;</span>
                 <input cFormControl aria-describedby="adjust" class="w-10" [(ngModel)]="item.adjust" type="number"
-                  (input)="onChangeAdjust($event, item)">
+                (focusout)="emitAdjust($event ,item)">
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'balance'" class="py-2">

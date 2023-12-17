@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
@@ -11,7 +11,10 @@ import { PostingServiceService } from '../../service/posting-service.service';
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
   @Input() clientId: number;
+  @Output() changePayments = new EventEmitter<any[]>()
+  @Output() changeAdjustments = new EventEmitter<any[]>()
   clientPostingPayments$!: Observable<ClientPostingPayments[]>;
+  totalPayment: number = 0;
   columns = [
     'dateOfService',
     'cpt',
@@ -34,16 +37,39 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
       map((response: any) => { return response.records; })
     );
   }
-  onChangePayment(event: any, item: any) {
-    var payment: number = Number(event.target.value);
-    var adjust: number = Number(item.adjust);
-    var billed: number = Number(item.billedValue);
-    item.balance = Number(billed - (payment + adjust));
-  }
   onChangeAdjust(event: any, item: any) {
     var adjust: number = Number(event.target.value);
     var payment: number = Number(item.payment);
     var billed: number = Number(item.billedValue);
-    item.balance = Number(billed - (adjust + item.payment));
+    item.balance = Number(billed - (adjust + payment));
+  }
+  emitPayment(event: any, item: any) {
+    var payment: number = Number(event.target.value);
+    if (item.prevPayment === undefined) {
+      item.prevPayment = payment;
+      this.changePayments.emit([0, payment]);
+    }
+    if (item.prevPayment !== payment) {
+      this.changePayments.emit([item.prevPayment, payment]);
+    }
+    item.prevPayment = payment;
+    var adjust: number = Number(item.adjust);
+    var billed: number = Number(item.billedValue);
+    item.balance = Number(billed - (payment + adjust));
+  }
+  emitAdjust(event: any, item: any) {
+    var adjust: number = Number(event.target.value);
+    if (item.prevAdjust === undefined) {
+      item.prevAdjust = adjust;
+      this.changeAdjustments.emit([0, adjust]);
+    }
+    if (item.prevAdjust !== adjust) {
+      this.changeAdjustments.emit([item.prevAdjust, adjust]);
+    }
+    item.prevAdjust = adjust;
+    var payment: number = Number(item.payment);
+    var billed: number = Number(item.billedValue);
+    item.balance = Number(billed - (payment + adjust));
+
   }
 } 

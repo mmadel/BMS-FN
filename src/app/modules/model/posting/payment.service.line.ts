@@ -7,6 +7,8 @@ export interface PaymentServiceLine{
     billedValue?:number
     previousPayments?:number
     payment?:number
+    prevPayment?:number
     adjust?:number
+    prevAdjust?:number
     balance?:number
 }
