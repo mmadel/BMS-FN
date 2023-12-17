@@ -18,10 +18,10 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     'provider',
     { key: 'billedValue', label: 'Billed' },
     { key: 'previousPayments', label: 'Pmts' },
-    { key: 'payment', label: 'PmtAmt'},
+    { key: 'payment', label: 'PmtAmt' },
     { key: 'adjust', label: 'Adjust' },
-    { key: 'balance', label: 'Balance' ,  _style: { width: '10%' } },
-    { key: 'sessionAction', label: 'Balance' ,  _style: { width: '20%' } },
+    { key: 'balance', label: 'Balance', _style: { width: '10%' } },
+    { key: 'sessionAction', label: 'Balance', _style: { width: '20%' } },
   ];
   constructor(private postingServiceService: PostingServiceService) { super() }
 
@@ -30,17 +30,20 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     this.find();
   }
   private find() {
-    this.clientPostingPayments$ = this.postingServiceService.findClientPayments(this.clientId, this.apiParams$).pipe(
-      tap((response: any) => {
-        this.totalItems$.next(response.number_of_matching_records);
-        if (response.number_of_records) {
-          this.errorMessage$.next('');
-        }
-        this.retry$.next(false);
-        this.loadingData$.next(false);
-      }),
+    this.clientPostingPayments$ = this.postingServiceService.findClientPayments(this.clientId).pipe(
       map((response: any) => { return response.records; })
     );
-
+  }
+  onChangePayment(event: any, item: any) {
+    var payment: number = Number(event.target.value);
+    var adjust: number = Number(item.adjust);
+    var billed: number = Number(item.billedValue);
+    item.balance = Number(billed - (payment + adjust));
+  }
+  onChangeAdjust(event: any, item: any) {
+    var adjust: number = Number(event.target.value);
+    var payment: number = Number(item.payment);
+    var billed: number = Number(item.billedValue);
+    item.balance = Number(billed - (adjust + item.payment));
   }
 } 

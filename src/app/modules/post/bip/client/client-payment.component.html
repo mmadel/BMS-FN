@@ -1,3 +1,4 @@
+<ngx-spinner></ngx-spinner>
 <c-container fluid="true">
   <ng-container *ngIf="props$ | async as props" fluid="true">
     <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
@@ -17,19 +18,21 @@
               {{item.billedValue |currency }}
             </ng-container>
             <ng-container *ngSwitchCase="'payment'" class="py-2 ">
-              <c-input-group  sizing="sm">
+              <c-input-group sizing="sm">
                 <span cInputGroupText id="payment">&#36;</span>
-                <input cFormControl aria-describedby="payment" class="w-10"  [value]="item.payment" type="number">
+                <input cFormControl aria-describedby="payment" class="w-10" [(ngModel)]="item.payment" type="number"
+                  (input)="onChangePayment($event , item)">
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'adjust'" class="py-2">
-              <c-input-group  sizing="sm">
+              <c-input-group sizing="sm">
                 <span cInputGroupText id="adjust">&#36;</span>
-                <input cFormControl aria-describedby="adjust" class="w-10" [value]="item.adjust" type="number">
+                <input cFormControl aria-describedby="adjust" class="w-10" [(ngModel)]="item.adjust" type="number"
+                  (input)="onChangeAdjust($event, item)">
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'balance'" class="py-2">
-              <label>{{item.balance |currency}}</label>
+              <label>{{item.balance | currency}}</label>
             </ng-container>
             <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
               <select cSelect sizing="sm" class="w-50">

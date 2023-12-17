@@ -38,6 +38,7 @@ import { ModelModule } from '../model/model.module';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ClientPaymentComponent } from './bip/client/client-payment.component';
 import { InsuranceCompanyPaymentComponent } from './bip/insurance.company/insurance-company-payment.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { InsuranceCompanyPaymentComponent } from './bip/insurance.company/insura
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
 export class PostingModule { }
