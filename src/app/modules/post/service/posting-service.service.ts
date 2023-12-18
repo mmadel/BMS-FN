@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IItem } from '@coreui/angular-pro/lib/smart-table/smart-table.type';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IApiParams } from '../../model/interface/api.params';
@@ -18,7 +19,7 @@ export class PostingServiceService extends BasePaginationService  {
     return this.httpClient.get(url)
   }
 
-  public createClientPayments( paymentServiceLine:PaymentServiceLine,clientId:number) {
+  public createClientPayments( paymentServiceLine:IItem[],clientId:number) {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create/payments/clientId/' + clientId
     return this.httpClient.post(`${url}`, JSON.stringify(paymentServiceLine), { 'headers': headers })

@@ -74,7 +74,6 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
       filter((result) => result !== null),
       tap((result) => { 
         this.client = result.client
-        console.log('emit selectedInvoiceClientSession ')
        }),
       map(result => {
         var lines: SessionServiceCodeLine[] = new Array();

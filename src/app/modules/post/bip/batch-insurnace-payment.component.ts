@@ -1,10 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, finalize, map, switchMap, tap } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
-import { PaymentServiceLine } from '../../model/posting/payment.service.line';
 import { PatientService } from '../../patient/service/patient.service';
+import { PostingServiceService } from '../service/posting-service.service';
 import { ClientPaymentComponent } from './client/client-payment.component';
 
 @Component({
@@ -19,6 +21,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   patientClient = new FormControl();
   insuranceCompanyForm = new FormControl();
   selectedSearchOption: string = "none";
+  enteredClientName: string;
   filteredPatients: any;
   filteredInsuranceCompany: any;
   isLoading = false;
@@ -35,11 +38,14 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
   invalidServiceCode: any[]
   constructor(private patientService: PatientService
-    , private insuranceCompanyService: InsuranceCompanyService) {
+    , private insuranceCompanyService: InsuranceCompanyService
+    , private postingServiceService: PostingServiceService
+    , private toastr: ToastrService
+    , private router: Router) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
-    this.findInsuranceCompanyByName();
+    this.findInsuranceCompanyByNameAutoComplete();
   }
 
   private findPatientByNameAutoComplete() {
@@ -57,6 +63,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         }),
         debounceTime(500),
         tap((value) => {
+          this.enteredClientName = value;
           this.filteredPatients = [];
           this.isLoading = true;
         }),
@@ -71,7 +78,6 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         )
       )
       .subscribe(data => {
-        console.log(JSON.stringify(data))
         if (data == undefined) {
           this.filteredPatients = [];
         } else {
@@ -82,7 +88,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
           this.isLoading = false
         });
   }
-  private findInsuranceCompanyByName() {
+  private findInsuranceCompanyByNameAutoComplete() {
     this.insuranceCompanyForm.valueChanges
       .pipe(
         filter(text => {
@@ -111,7 +117,6 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         )
       )
       .subscribe(data => {
-        console.log(JSON.stringify(data))
         if (data == undefined) {
           this.filteredInsuranceCompany = [];
         } else {
@@ -141,15 +146,22 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
   }
   applyPayments() {
+    console.log()
     this.invalidServiceCode = [];
-    console.log(JSON.stringify(this.clientPayments.clientPayments.items))
     for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
       var item: any = this.clientPayments.clientPayments.items[i];
       if (item.sessionAction === null)
         this.invalidServiceCode.push(Number(item.serviceCodeId));
     }
     if (this.paymentForm.valid && this.invalidServiceCode.length === 0) {
-
+      var clientId: number = this.filteredPatients[0].clientId;
+      this.postingServiceService.createClientPayments(this.clientPayments.clientPayments.items, clientId)
+        .subscribe((result) => {
+          this.toastr.success("Service lines payments submitted successfully")
+          window.location.reload()
+        }, (error) => {
+          this.toastr.success("Error during submitting Service lines payments.")
+        })
     } else {
       this.notValidForm = true;
     }

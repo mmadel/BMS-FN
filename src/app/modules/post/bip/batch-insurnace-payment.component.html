@@ -67,7 +67,7 @@
             </c-card-header>
 
             <c-card-body>
-                <form cForm #paymentForm (ngSubmit)="applyPayments()">
+                <form cForm #paymentForm="ngForm" (ngSubmit)="applyPayments()" id ="paymentForm" name="paymentForm">
                     <c-row>
                         <c-col xs="12" class="mb-2">
                             <small
