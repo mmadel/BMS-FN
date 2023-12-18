@@ -65,11 +65,13 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
     var result: string = ''
     if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
       for (var i = 0; i < pateint.patientInsurances.length; i++) {
+        console.log(JSON.stringify(pateint.patientInsurances[i].patientInsurancePolicy))
         if (pateint.patientInsurances[i].patientInsurancePolicy.responsability === 'Primary')
-          result = pateint.patientInsurances[i].patientInsurancePolicy.insuranceCompnayName;
+          result = pateint.patientInsurances[i].patientInsurancePolicy.payerName;
       }
     } else
       result = ''
+    console.log(JSON.stringify(result))
     return result;
   }
 
@@ -78,7 +80,7 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
     if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
       for (var i = 0; i < pateint.patientInsurances.length; i++) {
         if (pateint.patientInsurances[i].patientInsurancePolicy.responsability === 'Secondary')
-          result = pateint.patientInsurances[i].patientInsurancePolicy.insuranceCompnayName;
+          result = pateint.patientInsurances[i].patientInsurancePolicy.payerName;
       }
     } else
       result = ''

@@ -142,12 +142,13 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
   applyPayments() {
     this.invalidServiceCode = [];
+    console.log(JSON.stringify(this.clientPayments.clientPayments.items))
     for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
       var item: any = this.clientPayments.clientPayments.items[i];
       if (item.sessionAction === null)
         this.invalidServiceCode.push(Number(item.serviceCodeId));
     }
-    if (this.paymentForm.valid) {
+    if (this.paymentForm.valid && this.invalidServiceCode.length === 0) {
 
     } else {
       this.notValidForm = true;
