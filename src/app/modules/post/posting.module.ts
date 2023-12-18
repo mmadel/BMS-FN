@@ -6,7 +6,6 @@ import { PostingRoutingModule } from './posting-routing.module';
 import {
   BatchInsurnacePaymentComponent,
   ElectronicRemittanceAdviceComponent,
-  PostingLinesComponent,
   PostingERAComponent
 } from './index';
 import {
@@ -44,7 +43,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   declarations: [
     BatchInsurnacePaymentComponent,
     ElectronicRemittanceAdviceComponent,
-    PostingLinesComponent,
     PostingERAComponent,
     ClientPaymentComponent,
     InsuranceCompanyPaymentComponent
