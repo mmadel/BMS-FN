@@ -45,7 +45,8 @@
                                 placeholder="Insurance Company" class="mb-2" sizing="sm" />
                             <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoadingInsuranceCompany"
                                 (valueChange)="changeValue($event)">
-                                <c-multi-select-option *ngFor="let insuranceCompany of filteredInsuranceCompany">
+                                <c-multi-select-option *ngFor="let insuranceCompany of filteredInsuranceCompany"
+                                    [value]="insuranceCompany.id">
                                     {{ insuranceCompany.displayName}}
                                 </c-multi-select-option>
                             </c-multi-select>
@@ -67,7 +68,7 @@
             </c-card-header>
 
             <c-card-body>
-                <form cForm #paymentForm="ngForm" (ngSubmit)="applyPayments()" id ="paymentForm" name="paymentForm">
+                <form cForm #paymentForm="ngForm" (ngSubmit)="applyPayments()" id="paymentForm" name="paymentForm">
                     <c-row>
                         <c-col xs="12" class="mb-2">
                             <small
@@ -132,7 +133,7 @@
                             <strong>Total Adjustments : </strong> {{totalAdjustments | currency}}
                         </c-col>
                         <small *ngIf=" (invalidServiceCode?.length > 0 )" class="form-text text-danger mb-3">
-                             service codes {{invalidServiceCode}} : have no session action
+                            service codes {{invalidServiceCode}} : have no session action
                         </small>
                         <c-col xs="12" class="text-center">
                             <button cButton variant="outline" class="me-1" color="primary" size="sm" type="submit">
@@ -152,7 +153,10 @@
             [clientId]="selectedSearchValue" (changePayments)="onChangePayements($event)"
             (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
     </c-col>
-    <c-col *ngIf="selectedSearchOption === 'insurance'">
-        <insurance-company-payment *ngIf="selectedSearchOption === 'insurance'"></insurance-company-payment>
+    {{selectedSearchOption}}
+    {{selectedSearchValue}}
+    <c-col *ngIf="selectedSearchOption === 'insurance' && selectedSearchValue>0">
+        <insurance-company-payment #insuranceCompanyPayments [insuranceCompanyId]="selectedSearchValue"
+            *ngIf="selectedSearchOption === 'insurance' && selectedSearchValue>0"></insurance-company-payment>
     </c-col>
 </c-row>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'insurance-company-payment',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./insurance-company-payment.component.scss']
 })
 export class InsuranceCompanyPaymentComponent implements OnInit {
-
+  @Input() insuranceCompanyId: number;
   constructor() { }
 
   ngOnInit(): void {
