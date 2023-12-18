@@ -153,6 +153,6 @@
             (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
     </c-col>
     <c-col *ngIf="selectedSearchOption === 'insurance'">
-        <insurance-company-payment *ngIf="renderedComponent === 'insurance'"></insurance-company-payment>
+        <insurance-company-payment *ngIf="selectedSearchOption === 'insurance'"></insurance-company-payment>
     </c-col>
 </c-row>
