@@ -1,7 +1,7 @@
 <ngx-spinner></ngx-spinner>
 <c-container fluid="true">
   <ng-container *ngIf="props$ | async as props" fluid="true">
-    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
+    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" #clientPayments
       [items]="(clientPostingPayments$ | async) ?? []" activePage="1" [itemsPerPage]="props.itemsPerPage"
       (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
       [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
@@ -11,6 +11,9 @@
       <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
         <td>
           <ng-container [ngSwitch]="columnName">
+            <ng-container *ngSwitchCase="'id'" class="py-2">
+              {{item.serviceCodeId}}
+            </ng-container>
             <ng-container *ngSwitchCase="'dateOfService'" class="py-2">
               {{item.dateOfService | date:'MMM d, y' }}
             </ng-container>
@@ -28,20 +31,18 @@
               <c-input-group sizing="sm">
                 <span cInputGroupText id="adjust">&#36;</span>
                 <input cFormControl aria-describedby="adjust" class="w-10" [(ngModel)]="item.adjust" type="number"
-                (focusout)="emitAdjust($event ,item)">
+                  (focusout)="emitAdjust($event ,item)">
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'balance'" class="py-2">
               <label>{{item.balance | currency}}</label>
             </ng-container>
             <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
-              <select cSelect sizing="sm" class="w-50">
-                <option selected>Select</option>
+              <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.sessionAction">
+                <option value=null selected disabled>Select</option>
                 <option value="Resubmit"> Resubmit</option>
-                <option value="Close Session">Close Session</option>
-                <option value="Bill To Client">Bill To Client</option>
-                <option value="Bill To agency">Bill To agency</option>
-                <option value="Keep current status">Keep current status</option>
+                <option value="Close">Close Session</option>
+                <option value="Current_Status">Keep current status</option>
               </select>
             </ng-container>
             <ng-container *ngSwitchDefault>

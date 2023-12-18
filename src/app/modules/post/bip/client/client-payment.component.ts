@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { SmartTableComponent } from '@coreui/angular-pro';
 import { map, Observable, tap } from 'rxjs';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
@@ -13,9 +14,11 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   @Input() clientId: number;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
+  @ViewChild('clientPayments') clientPayments: SmartTableComponent;
   clientPostingPayments$!: Observable<ClientPostingPayments[]>;
   totalPayment: number = 0;
   columns = [
+    { key: 'id' },
     'dateOfService',
     'cpt',
     'provider',
@@ -24,7 +27,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     { key: 'payment', label: 'PmtAmt' },
     { key: 'adjust', label: 'Adjust' },
     { key: 'balance', label: 'Balance', _style: { width: '10%' } },
-    { key: 'sessionAction', label: 'Balance', _style: { width: '20%' } },
+    { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
   constructor(private postingServiceService: PostingServiceService) { super() }
 
@@ -70,6 +73,6 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     var payment: number = Number(item.payment);
     var billed: number = Number(item.billedValue);
     item.balance = Number(billed - (payment + adjust));
-
   }
+
 } 

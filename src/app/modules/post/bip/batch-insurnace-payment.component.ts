@@ -1,8 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, finalize, map, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
+import { PaymentBatch } from '../../model/posting/batch.paymnet';
+import { PaymentServiceLine } from '../../model/posting/payment.service.line';
 import { PatientService } from '../../patient/service/patient.service';
+import { ClientPaymentComponent } from './client/client-payment.component';
 
 @Component({
   selector: 'app-batch-insurnace-payment',
@@ -10,6 +13,9 @@ import { PatientService } from '../../patient/service/patient.service';
   styleUrls: ['./batch-insurnace-payment.component.scss']
 })
 export class BatchInsurnacePaymentComponent implements OnInit {
+  @ViewChild('paymentForm') paymentForm: NgForm;
+  @ViewChild('clientPayments') clientPayments: ClientPaymentComponent;
+  notValidForm: boolean = false
   patientClient = new FormControl();
   insuranceCompanyForm = new FormControl();
   selectedSearchOption: string = "none";
@@ -23,6 +29,11 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   totalPayments: number = 0;
   totalAdjustments: number = 0;
   prevEmittedPayment: number = 0
+  paymentBatch: PaymentBatch = {
+    paymentMethod: null,
+    receivedDate_date: new Date()
+  }
+  invalidServiceCode: any[]
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService) {
   }
@@ -121,11 +132,25 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.totalPayments = this.totalPayments + event[1];
     if (event[0] !== 0)
       this.totalPayments = this.totalPayments - event[0] + event[1];
+    this.paymentBatch.totalAmount = this.totalPayments;
   }
   onChangeAdjustments(event: any[]) {
     if (event[0] === 0)
       this.totalAdjustments = this.totalAdjustments + event[1];
     if (event[0] !== 0)
       this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
+  }
+  applyPayments() {
+    this.invalidServiceCode = [];
+    for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
+      var item: any = this.clientPayments.clientPayments.items[i];
+      if (item.sessionAction === null)
+        this.invalidServiceCode.push(Number(item.serviceCodeId));
+    }
+    if (this.paymentForm.valid) {
+
+    } else {
+      this.notValidForm = true;
+    }
   }
 }
