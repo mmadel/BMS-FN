@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
+import { PaymentServiceLine } from '../../model/posting/payment.service.line';
 import { PatientService } from '../../patient/service/patient.service';
 import { PostingServiceService } from '../service/posting-service.service';
 import { ClientPaymentComponent } from './client/client-payment.component';
@@ -155,7 +157,8 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     }
     if (this.paymentForm.valid && this.invalidServiceCode.length === 0) {
       var clientId: number = this.filteredPatients[0].clientId;
-      this.postingServiceService.createClientPayments(this.clientPayments.clientPayments.items, clientId)
+      var paymentServiceLines: PaymentServiceLine[] = this.convertItemListToPaymentServiceLine()
+      this.postingServiceService.createClientPayments(paymentServiceLines, clientId)
         .subscribe((result) => {
           this.toastr.success("Service lines payments submitted successfully")
           window.location.reload()
@@ -165,5 +168,32 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     } else {
       this.notValidForm = true;
     }
+  }
+  private convertItemListToPaymentServiceLine(): PaymentServiceLine[] {
+    this.paymentBatch.receivedDate = moment(this.paymentBatch.receivedDate_date).unix() * 1000;
+    this.paymentBatch.checkDate = moment(this.paymentBatch.checkDate_date).unix() * 1000;
+    this.paymentBatch.depositDate = moment(this.paymentBatch.depositDate_date).unix() * 1000;
+    var paymentLines: PaymentServiceLine[] = [];
+    for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
+      var item: any = this.clientPayments.clientPayments.items[i];
+      var PaymentServiceLine: PaymentServiceLine = {
+        sessionId: item.sessionId,
+        serviceCodeId: item.serviceCodeId,
+        dateOfService: item.dateOfService,
+        cpt: item.cpt,
+        provider: item.provider,
+        billedValue: item.billedValue,
+        previousPayments: item.previousPayments,
+        payment: item.payment,
+        prevPayment: item.prevPayment,
+        adjust: item.adjust,
+        prevAdjust: item.prevAdjust,
+        balance: item.balance,
+        sessionAction: item.sessionAction,
+        paymentBatch: this.paymentBatch
+      }
+      paymentLines.push(PaymentServiceLine);
+    }
+    return paymentLines;
   }
 }
