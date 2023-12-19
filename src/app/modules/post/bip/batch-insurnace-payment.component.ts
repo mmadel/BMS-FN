@@ -152,6 +152,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
   }
   applyPayments() {
+    console.log(JSON.stringify(this.paymentBatch))
     this.invalidServiceCode = [];
     for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
       var item: any = this.clientPayments.clientPayments.items[i];

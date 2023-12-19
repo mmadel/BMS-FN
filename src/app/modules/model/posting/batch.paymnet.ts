@@ -8,5 +8,5 @@ export interface PaymentBatch {
     checkNumber?: number
     depositDate?: number
     depositDate_date?:Date;
-    insuranceCompany?:string
+    insuranceCompany?:any
 }

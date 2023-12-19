@@ -133,7 +133,7 @@
                                 Insurance Company
                             </small>
                             <ng-autocomplete [data]="insuranceCompanyContainer" [searchKeyword]="'displayName'"
-                                id="paymentinsuranceCompany" name="paymentinsuranceCompany"
+                                [debounceTime]="500" id="paymentinsuranceCompany" name="paymentinsuranceCompany"
                                 placeholder="Insurance Company" [itemTemplate]="itemTemplate"
                                 [(ngModel)]="paymentBatch.insuranceCompany" required
                                 [notFoundTemplate]="notFoundTemplate" #paymentinsuranceCompany="ngModel">
