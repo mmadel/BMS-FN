@@ -1,7 +1,8 @@
+import { SelectedSessionServiceLine } from "../../model/invoice/select.session.service.line"
 
 
 export interface InvoiceRequestCreation{
-    serviceCodeIds?:number[]
+    selectedSessionServiceLines?:SelectedSessionServiceLine[]
     isOneDateServicePerClaim?:boolean
     delayedReason?:string
     patientId?:number

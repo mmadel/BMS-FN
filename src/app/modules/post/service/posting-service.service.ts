@@ -18,6 +18,10 @@ export class PostingServiceService extends BasePaginationService  {
     var url = this.baseUrl + '/find/client/'+clientId
     return this.httpClient.get(url)
   }
+  public findInsuranceCompanyPayments(insuranceCompany:number): Observable<any> {
+    var url = this.baseUrl + '/find/insurance/company/' + insuranceCompany
+    return this.httpClient.get(url)
+  }
 
   public createClientPayments( paymentServiceLine:IItem[],clientId:number) {
     const headers = { 'content-type': 'application/json' }
