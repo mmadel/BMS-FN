@@ -16,7 +16,7 @@
                     <c-row>
                         <c-col class="mb-2" xs="12">
                             <select aria-label="searchentity" id="searchentity" cSelect sizing="sm" name="searchentity"
-                                [(ngModel)]="selectedSearchOption">
+                                [(ngModel)]="selectedSearchOption" (change)="changeSearch()">
                                 <option value="none" disabled>Select Search Criteria</option>
                                 <option value="client">Client</option>
                                 <option value="insurance">Insurance Company</option>
@@ -93,11 +93,11 @@
                                 <option value="1">EFT</option>
                             </select>
                         </c-col>
-                        <c-col xs="6" class="mb-2">
+                        <c-col xs="12" class="mb-2">
                             <c-date-picker placeholder="Received Date"
                                 [(date)]="paymentBatch.receivedDate_date"></c-date-picker>
                         </c-col>
-                        <c-col xs="6" class="mb-2">
+                        <c-col xs="12" class="mb-2">
                             <small
                                 *ngIf="notValidForm   && (checkdate.errors) ||checkdate.invalid && (checkdate.dirty || checkdate.touched)"
                                 class="form-text text-danger">
@@ -126,6 +126,26 @@
                                 required="true" id="depositDate" name="depositDate"
                                 #depositDate="ngModel"></c-date-picker>
                         </c-col>
+                        <c-col xs="12" class="mb-2" *ngIf="insuranceCompanyContainer">
+                            <small
+                                *ngIf="notValidForm   && (paymentinsuranceCompany.errors) ||paymentinsuranceCompany.invalid && (paymentinsuranceCompany.dirty || paymentinsuranceCompany.touched)"
+                                class="form-text text-danger">
+                                Insurance Company
+                            </small>
+                            <ng-autocomplete [data]="insuranceCompanyContainer" [searchKeyword]="'displayName'"
+                                id="paymentinsuranceCompany" name="paymentinsuranceCompany"
+                                placeholder="Insurance Company" [itemTemplate]="itemTemplate"
+                                [(ngModel)]="paymentBatch.insuranceCompany" required
+                                [notFoundTemplate]="notFoundTemplate" #paymentinsuranceCompany="ngModel">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.displayName"></a>
+                            </ng-template>
+
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div [innerHTML]="notFound"></div>
+                            </ng-template>
+                        </c-col>
                         <c-col xs="6" class="mb-2">
                             <strong>Total Payments : </strong> {{totalPayments | currency}}
                         </c-col>
@@ -153,8 +173,6 @@
             [clientId]="selectedSearchValue" (changePayments)="onChangePayements($event)"
             (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
     </c-col>
-    {{selectedSearchOption}}
-    {{selectedSearchValue}}
     <c-col *ngIf="selectedSearchOption === 'insurance' && selectedSearchValue>0">
         <insurance-company-payment #insuranceCompanyPayments [insuranceCompanyId]="selectedSearchValue"
             *ngIf="selectedSearchOption === 'insurance' && selectedSearchValue>0"></insurance-company-payment>

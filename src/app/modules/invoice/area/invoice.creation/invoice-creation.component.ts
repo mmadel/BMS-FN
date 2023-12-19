@@ -34,12 +34,10 @@ export class InvoiceCreationComponent implements OnInit {
       serviceCodeIds: this.selectedServiceCodeIds,
       isOneDateServicePerClaim: false,
       delayedReason: '',
-      invoicedInsuranceCompany: {
-        payerId: Number(patientInsurance.patientInsurancePolicy.payerId),
-        payerName: patientInsurance.patientInsurancePolicy.payerName,
-        PrimaryId: patientInsurance.patientInsurancePolicy.primaryId,
-      }
+      patientId: this.clientId,
+      insuranceCompanyId:patientInsurance.insuranceCompany
     }
+    console.log(JSON.stringify(invoiceRequestCreation))
     this.invoiceService.create(invoiceRequestCreation)
       .subscribe(() => {
         this.toastr.success("Invocie created successfully ")

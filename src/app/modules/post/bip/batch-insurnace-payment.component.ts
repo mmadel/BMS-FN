@@ -5,6 +5,8 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
+import { InsuranceCompanyContainerService } from '../../Insurance/service/insurance-company-container.service';
+import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { PaymentServiceLine } from '../../model/posting/payment.service.line';
 import { PatientService } from '../../patient/service/patient.service';
@@ -39,11 +41,13 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     receivedDate_date: new Date()
   }
   invalidServiceCode: any[]
+  insuranceCompanyContainer: InsuranceCompanyContainer[]
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
     , private postingServiceService: PostingServiceService
     , private toastr: ToastrService
-    , private router: Router) {
+    , private router: Router
+    , private insuranceCompanyContainerService: InsuranceCompanyContainerService) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -194,5 +198,15 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       paymentLines.push(PaymentServiceLine);
     }
     return paymentLines;
+  }
+  changeSearch() {
+    if (this.selectedSearchOption === 'client') {
+      this.insuranceCompanyContainerService.findInsuranceCompanyContianers()
+        .subscribe((reuslt) => {
+          this.insuranceCompanyContainer = reuslt;
+        })
+    }else{
+      this.insuranceCompanyContainer = undefined;
+    }
   }
 }
