@@ -12,6 +12,7 @@ import { PaymentServiceLine } from '../../model/posting/payment.service.line';
 import { PatientService } from '../../patient/service/patient.service';
 import { PostingServiceService } from '../service/posting-service.service';
 import { ClientPaymentComponent } from './client/client-payment.component';
+import { InsuranceCompanyPaymentComponent } from './insurance.company/insurance-company-payment.component';
 
 @Component({
   selector: 'app-batch-insurnace-payment',
@@ -21,6 +22,7 @@ import { ClientPaymentComponent } from './client/client-payment.component';
 export class BatchInsurnacePaymentComponent implements OnInit {
   @ViewChild('paymentForm') paymentForm: NgForm;
   @ViewChild('clientPayments') clientPayments: ClientPaymentComponent;
+  @ViewChild('insuranceCompanyPayments') insuranceCompanyPayments: InsuranceCompanyPaymentComponent;
   notValidForm: boolean = false
   patientClient = new FormControl();
   insuranceCompanyForm = new FormControl();
@@ -52,8 +54,8 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
     this.findInsuranceCompanyByNameAutoComplete();
-  }
 
+  }
   private findPatientByNameAutoComplete() {
     this.patientClient.valueChanges
       .pipe(
@@ -152,26 +154,29 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
   }
   applyPayments() {
-    console.log(JSON.stringify(this.paymentBatch))
-    this.invalidServiceCode = [];
-    for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
-      var item: any = this.clientPayments.clientPayments.items[i];
-      if (item.sessionAction === null)
-        this.invalidServiceCode.push(Number(item.serviceCodeId));
-    }
-    if (this.paymentForm.valid && this.invalidServiceCode.length === 0) {
-      var clientId: number = this.filteredPatients[0].clientId;
-      var paymentServiceLines: PaymentServiceLine[] = this.convertItemListToPaymentServiceLine()
-      this.postingServiceService.createClientPayments(paymentServiceLines, clientId)
-        .subscribe((result) => {
-          this.toastr.success("Service lines payments submitted successfully")
-          window.location.reload()
-        }, (error) => {
-          this.toastr.success("Error during submitting Service lines payments.")
-        })
-    } else {
-      this.notValidForm = true;
-    }
+    this.insuranceCompanyPayments.children.forEach(table => {
+      console.log(JSON.stringify(table.items))
+    })
+
+    // this.invalidServiceCode = [];
+    // for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
+    //   var item: any = this.clientPayments.clientPayments.items[i];
+    //   if (item.sessionAction === null)
+    //     this.invalidServiceCode.push(Number(item.serviceCodeId));
+    // }
+    // if (this.paymentForm.valid && this.invalidServiceCode.length === 0) {
+    //   var clientId: number = this.filteredPatients[0].clientId;
+    //   var paymentServiceLines: PaymentServiceLine[] = this.convertItemListToPaymentServiceLine()
+    //   this.postingServiceService.createClientPayments(paymentServiceLines, clientId)
+    //     .subscribe((result) => {
+    //       this.toastr.success("Service lines payments submitted successfully")
+    //       window.location.reload()
+    //     }, (error) => {
+    //       this.toastr.success("Error during submitting Service lines payments.")
+    //     })
+    // } else {
+    //   this.notValidForm = true;
+    // }
   }
   private convertItemListToPaymentServiceLine(): PaymentServiceLine[] {
     this.paymentBatch.receivedDate = moment(this.paymentBatch.receivedDate_date).unix() * 1000;
@@ -206,7 +211,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         .subscribe((reuslt) => {
           this.insuranceCompanyContainer = reuslt;
         })
-    }else{
+    } else {
       this.insuranceCompanyContainer = undefined;
     }
   }
