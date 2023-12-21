@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { SmartTableComponent } from '@coreui/angular-pro';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
@@ -39,8 +40,6 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     this.initListComponent();
     this.find();
   }
-  ngAfterViewInit(): void {
-  }
 
   find() {
     this.insuranceCompanyPostingPayments$ = this.postingServiceService.findInsuranceCompanyPayments(this.insuranceCompanyId).pipe(
@@ -76,12 +75,19 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     item.balance = Number(billed - (payment + adjust));
   }
   editClient(event: string) {
-    var patientName:string[] =event.split(',');
-    this.patientService.findByFirstAndLast(patientName[1],patientName[0])
+    this.patientService.findById(Number(event))
       .subscribe((result:any) => {
         console.log(JSON.stringify(result))
         this.pateintEmittingService.selectedPatient$.next(result)
         this.router.navigate(['/patient/profile', result.id]);
       })
+  }
+  constructPaymentLines(paymentBatch: PaymentBatch)  {
+    this.children.forEach(ee=>{
+      console.log(JSON.stringify(ee.tableFilterPlaceholder))
+      console.log(JSON.stringify(ee.items))
+      
+    })
+    return false;
   }
 }

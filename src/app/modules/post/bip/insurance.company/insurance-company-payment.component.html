@@ -2,11 +2,11 @@
   <c-card *ngFor="let entry of insuranceCompanyPostingPayments$ | async | keyvalue " class="mb-3">
     <c-card-header>
       
-      <button class="btn btn-link" (click)="editClient(entry.key)"><h4>{{ entry.key }}</h4></button>
+      <button class="btn btn-link" (click)="editClient(entry.key.split(',')[2])"><h4>{{ entry.key.split(',')[1]}} , {{ entry.key.split(',')[0]}}</h4></button>
     </c-card-header>
     <c-card-body>
       <ng-container fluid="true">
-        <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" #itemTable [items]="entry.value"
+        <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" #itemTable [items]="entry.value" [tableFilterPlaceholder]="entry.key"
           activePage="1" (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
           [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
           [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
@@ -41,7 +41,7 @@
                   <label>{{item.balance | currency}}</label>
                 </ng-container>
                 <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
-                  <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.sessionAction">
+                  <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.sessionAction" [disabled]="item.payment === null || item.adjust === null">
                     <option value=null selected disabled>Select</option>
                     <option value="Resubmit"> Resubmit</option>
                     <option value="Close">Close Session</option>

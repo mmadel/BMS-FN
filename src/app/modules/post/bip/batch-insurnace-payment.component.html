@@ -152,9 +152,9 @@
                         <c-col xs="6" class="mb-2">
                             <strong>Total Adjustments : </strong> {{totalAdjustments | currency}}
                         </c-col>
-                        <small *ngIf=" (invalidServiceCode?.length > 0 )" class="form-text text-danger mb-3">
+                        <!-- <small *ngIf=" (invalidServiceCode?.length > 0 )" class="form-text text-danger mb-3">
                             service codes {{invalidServiceCode}} : have no session action
-                        </small>
+                        </small> -->
                         <c-col xs="12" class="text-center">
                             <button cButton variant="outline" class="me-1" color="primary" size="sm" type="submit">
                                 Apply Payments
@@ -174,7 +174,9 @@
             (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
     </c-col>
     <c-col *ngIf="selectedSearchOption === 'insurance' && selectedSearchValue>0">
-        <insurance-company-payment #insuranceCompanyPayments [insuranceCompanyId]="selectedSearchValue"
-            *ngIf="selectedSearchOption === 'insurance' && selectedSearchValue>0"></insurance-company-payment>
+        <insurance-company-payment *ngIf="selectedSearchOption === 'insurance' && selectedSearchValue>0"
+            [insuranceCompanyId]="selectedSearchValue" #insuranceCompanyPayments
+            (changePayments)="onChangePayements($event)"
+            (changeAdjustments)="onChangeAdjustments($event)"></insurance-company-payment>
     </c-col>
 </c-row>

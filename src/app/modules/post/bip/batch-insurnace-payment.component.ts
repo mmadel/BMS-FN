@@ -1,14 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { InsuranceCompanyContainerService } from '../../Insurance/service/insurance-company-container.service';
 import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
-import { PaymentServiceLine } from '../../model/posting/payment.service.line';
 import { PatientService } from '../../patient/service/patient.service';
 import { PostingServiceService } from '../service/posting-service.service';
 import { ClientPaymentComponent } from './client/client-payment.component';
@@ -42,7 +40,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     paymentMethod: null,
     receivedDate_date: new Date()
   }
-  invalidServiceCode: any[]
+
   insuranceCompanyContainer: InsuranceCompanyContainer[]
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
@@ -154,57 +152,27 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
   }
   applyPayments() {
-    this.insuranceCompanyPayments.children.forEach(table => {
-      console.log(JSON.stringify(table.items))
-    })
-
-    // this.invalidServiceCode = [];
-    // for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
-    //   var item: any = this.clientPayments.clientPayments.items[i];
-    //   if (item.sessionAction === null)
-    //     this.invalidServiceCode.push(Number(item.serviceCodeId));
-    // }
-    // if (this.paymentForm.valid && this.invalidServiceCode.length === 0) {
-    //   var clientId: number = this.filteredPatients[0].clientId;
-    //   var paymentServiceLines: PaymentServiceLine[] = this.convertItemListToPaymentServiceLine()
-    //   this.postingServiceService.createClientPayments(paymentServiceLines, clientId)
-    //     .subscribe((result) => {
-    //       this.toastr.success("Service lines payments submitted successfully")
-    //       window.location.reload()
-    //     }, (error) => {
-    //       this.toastr.success("Error during submitting Service lines payments.")
-    //     })
+    if (this.clientPayments !== undefined)
+      this.createClientPayment()
+    if (this.insuranceCompanyPayments !== undefined)
+      this.createInsuranceCompanyPayment();
+  }
+  createClientPayment() {
+    if (this.paymentForm.valid && !this.clientPayments.constructPaymentLines(this.paymentBatch)) {
+      window.location.reload()
+    } else {
+      this.notValidForm = true;
+    }
+  }
+  createInsuranceCompanyPayment() {
+    this.insuranceCompanyPayments.constructPaymentLines(this.paymentBatch)
+    // if (this.paymentForm.valid && !this.insuranceCompanyPayments.constructPaymentLines()) {
+    //  // window.location.reload()
     // } else {
     //   this.notValidForm = true;
     // }
   }
-  private convertItemListToPaymentServiceLine(): PaymentServiceLine[] {
-    this.paymentBatch.receivedDate = moment(this.paymentBatch.receivedDate_date).unix() * 1000;
-    this.paymentBatch.checkDate = moment(this.paymentBatch.checkDate_date).unix() * 1000;
-    this.paymentBatch.depositDate = moment(this.paymentBatch.depositDate_date).unix() * 1000;
-    var paymentLines: PaymentServiceLine[] = [];
-    for (var i = 0; i < this.clientPayments.clientPayments.items.length; i++) {
-      var item: any = this.clientPayments.clientPayments.items[i];
-      var PaymentServiceLine: PaymentServiceLine = {
-        sessionId: item.sessionId,
-        serviceCodeId: item.serviceCodeId,
-        dateOfService: item.dateOfService,
-        cpt: item.cpt,
-        provider: item.provider,
-        billedValue: item.billedValue,
-        previousPayments: item.previousPayments,
-        payment: item.payment,
-        prevPayment: item.prevPayment,
-        adjust: item.adjust,
-        prevAdjust: item.prevAdjust,
-        balance: item.balance,
-        sessionAction: item.sessionAction,
-        paymentBatch: this.paymentBatch
-      }
-      paymentLines.push(PaymentServiceLine);
-    }
-    return paymentLines;
-  }
+
   changeSearch() {
     if (this.selectedSearchOption === 'client') {
       this.insuranceCompanyContainerService.findInsuranceCompanyContianers()

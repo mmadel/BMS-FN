@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SmartTableComponent } from '@coreui/angular-pro';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable, tap } from 'rxjs';
+import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
+import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingServiceService } from '../../service/posting-service.service';
 
@@ -29,7 +32,8 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     { key: 'balance', label: 'Balance', _style: { width: '10%' } },
     { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
-  constructor(private postingServiceService: PostingServiceService) { super() }
+  constructor(private postingServiceService: PostingServiceService
+    , private toastr: ToastrService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -75,4 +79,46 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     item.balance = Number(billed - (payment + adjust));
   }
 
+  constructPaymentLines(paymentBatch: PaymentBatch) {
+    var isValidPayments: boolean = false;
+    var invalidServiceCode: any[] = [];
+    for (var i = 0; i < this.clientPayments.items.length; i++) {
+      var item: any = this.clientPayments.items[i];
+      if (item.sessionAction === null)
+        invalidServiceCode.push(Number(item.serviceCodeId));
+    }
+    var paymentLines: PaymentServiceLine[] = [];
+    for (var i = 0; i < this.clientPayments.items.length; i++) {
+      var item: any = this.clientPayments.items[i];
+      var PaymentServiceLine: PaymentServiceLine = {
+        sessionId: item.sessionId,
+        serviceCodeId: item.serviceCodeId,
+        dateOfService: item.dateOfService,
+        cpt: item.cpt,
+        provider: item.provider,
+        billedValue: item.billedValue,
+        previousPayments: item.previousPayments,
+        payment: item.payment,
+        prevPayment: item.prevPayment,
+        adjust: item.adjust,
+        prevAdjust: item.prevAdjust,
+        balance: item.balance,
+        sessionAction: item.sessionAction,
+        paymentBatch: paymentBatch
+      }
+      paymentLines.push(PaymentServiceLine);
+    }
+    if (!(invalidServiceCode.length > 0)) {
+      this.postingServiceService.createClientPayments(paymentLines, this.clientId)
+        .subscribe((result) => {
+          this.toastr.success("Service lines payments submitted successfully")
+          window.location.reload()
+        }, (error) => {
+          this.toastr.success("Error during submitting Service lines payments.")
+        })
+    } else {
+      isValidPayments = true;
+    }
+    return isValidPayments
+  }
 } 
