@@ -40,7 +40,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     paymentMethod: null,
     receivedDate_date: new Date()
   }
-
+  invalidServiceCode:any[]
   insuranceCompanyContainer: InsuranceCompanyContainer[]
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
@@ -158,9 +158,14 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.createInsuranceCompanyPayment();
   }
   createClientPayment() {
-    if (this.paymentForm.valid && !this.clientPayments.constructPaymentLines(this.paymentBatch)) {
-      window.location.reload()
+    var isValidPaymentLines = this.clientPayments.constructPaymentLines(this.paymentBatch);
+    console.log(this.paymentForm.valid + " "  + (!isValidPaymentLines))
+    if (this.paymentForm.valid && !isValidPaymentLines) {
+      this.invalidServiceCode= []
+     // window.location.reload()
     } else {
+      console.log(JSON.stringify(this.clientPayments.invalidServiceCode))
+      this.invalidServiceCode=this.clientPayments.invalidServiceCode;
       this.notValidForm = true;
     }
   }

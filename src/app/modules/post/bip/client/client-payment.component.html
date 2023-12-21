@@ -38,7 +38,7 @@
               <label>{{item.balance | currency}}</label>
             </ng-container>
             <ng-container *ngSwitchCase="'sessionAction'" class="py-2" >
-              <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.sessionAction" >
+              <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.sessionAction" [disabled]="item.payment === null || item.adjust === null">
                 <option value=null selected disabled>Select</option>
                 <option value="Resubmit"> Resubmit</option>
                 <option value="Close">Close Session</option>
