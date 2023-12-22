@@ -8,18 +8,18 @@
     <hr />
     <div class="d-md-flex justify-content-md-end">
         <button cButton variant="outline" size="sm" [disabled]='selected?.length === 0 || selected === undefined'
-        (click)="assignSelected()">Assign Selected</button>
+            (click)="assignSelected()">Assign Selected</button>
     </div>
     <c-row>
         <c-col>
             <ng-container fluid="true">
-                <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" selectable  
+                <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" selectable
                     (selectedItemsChange)="onSelectedInsuranceCompany($event)"
                     [items]="(isuranceCompanies$ | async) ?? []"
                     [tableProps]="{ hover: true, striped: true, small:true  }" [tableBodyProps]="{ align: 'middle'}"
                     header>
-                    <ng-template cTemplateId="tableDetails" let-item="item">
-                        <div [visible]="this.details_visible[item._id]===true" cCollapse>
+                    <ng-template cTemplateId="tableDetails" let-item="item">                
+                        <div [visible]="this.details_visible[item.id]===true" cCollapse>
                             <c-card class="rounded-0">
                                 <c-card-body>
                                     <assign-payer [insuranceCompany]="item"
