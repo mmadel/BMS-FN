@@ -31,7 +31,8 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   isLoading = false;
   isLoadingInsuranceCompany = false;
   isSearchDisable: boolean;
-  selectedSearchValue: any;
+  selectedSearchPatientValue: any;
+  selectedSearchInsuranceCompanyValue: any;
   renderedComponent: string = '';
   totalPayments: number = 0;
   totalAdjustments: number = 0;
@@ -40,7 +41,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     paymentMethod: null,
     receivedDate_date: new Date()
   }
-  invalidServiceCode:any[]
+  invalidServiceCode: any[]
   insuranceCompanyContainer: InsuranceCompanyContainer[]
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
@@ -134,9 +135,13 @@ export class BatchInsurnacePaymentComponent implements OnInit {
         });
   }
 
-  changeValue(event: any) {
-    this.selectedSearchValue = event;
-    this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchValue.length !== 0);
+  changePatientValue(event: any) {
+    this.selectedSearchPatientValue = event;
+    this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchPatientValue.length !== 0);
+  }
+  changeInsuranceCompanyValue(event: any) {
+    this.selectedSearchInsuranceCompanyValue = event;
+    this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchInsuranceCompanyValue.length !== 0);
   }
   onChangePayements(event: any[]) {
     if (event[0] === 0)
@@ -158,24 +163,24 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.createInsuranceCompanyPayment();
   }
   createClientPayment() {
-    var isValidPaymentLines = this.clientPayments.constructPaymentLines(this.paymentBatch);
-    console.log(this.paymentForm.valid + " "  + (!isValidPaymentLines))
-    if (this.paymentForm.valid && !isValidPaymentLines) {
-      this.invalidServiceCode= []
-     // window.location.reload()
+    var invalidServiceCode: any[] = this.clientPayments.constructPaymentLines(this.paymentBatch);
+    if (this.paymentForm.valid && !(invalidServiceCode.length > 0) && (invalidServiceCode[0] !== -1)) {
+      this.invalidServiceCode = []
+      window.location.reload()
     } else {
-      console.log(JSON.stringify(this.clientPayments.invalidServiceCode))
-      this.invalidServiceCode=this.clientPayments.invalidServiceCode;
+      this.invalidServiceCode = invalidServiceCode;
       this.notValidForm = true;
     }
   }
   createInsuranceCompanyPayment() {
-    this.insuranceCompanyPayments.constructPaymentLines(this.paymentBatch)
-    // if (this.paymentForm.valid && !this.insuranceCompanyPayments.constructPaymentLines()) {
-    //  // window.location.reload()
-    // } else {
-    //   this.notValidForm = true;
-    // }
+    var invalidServiceCode: any[] = this.insuranceCompanyPayments.constructPaymentLines(this.paymentBatch);
+    if (this.paymentForm.valid && !(invalidServiceCode.length > 0) && (invalidServiceCode[0] !== -1)) {
+      this.invalidServiceCode = []
+      window.location.reload()
+    } else {
+      this.invalidServiceCode = invalidServiceCode;
+      this.notValidForm = true;
+    }
   }
 
   changeSearch() {

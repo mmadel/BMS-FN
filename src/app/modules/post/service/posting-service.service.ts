@@ -28,4 +28,10 @@ export class PostingServiceService extends BasePaginationService  {
     var url = this.baseUrl + '/create/payments/clientId/' + clientId
     return this.httpClient.post(`${url}`, JSON.stringify(paymentServiceLine), { 'headers': headers })
   }
+  public createInsuranceCompanyPayments( pateintsPaymentServiceLines:any) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/create/payments/insurance/company'
+    console.log(pateintsPaymentServiceLines)
+    return this.httpClient.post(`${url}`, pateintsPaymentServiceLines, { 'headers': headers })
+  }
 }

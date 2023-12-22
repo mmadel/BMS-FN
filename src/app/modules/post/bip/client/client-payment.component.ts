@@ -7,6 +7,7 @@ import { ClientPostingPayments } from 'src/app/modules/model/posting/client.post
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingServiceService } from '../../service/posting-service.service';
+import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
 
 @Component({
   selector: 'client-payment',
@@ -32,7 +33,6 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     { key: 'balance', label: 'Balance', _style: { width: '10%' } },
     { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
-  invalidServiceCode: any[];
   constructor(private postingServiceService: PostingServiceService
     , private toastr: ToastrService) { super() }
 
@@ -80,49 +80,22 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     item.balance = Number(billed - (payment + adjust));
   }
 
-  constructPaymentLines(paymentBatch: PaymentBatch) {
-    var isValidPayments: boolean = false;
-    this.invalidServiceCode = [];
-    for (var i = 0; i < this.clientPayments.items.length; i++) {
-      var item: any = this.clientPayments.items[i];
-      var isPaymentChanged: boolean = item.payment !== null && item.adjust
-      if (item.sessionAction === null && isPaymentChanged)
-        this.invalidServiceCode.push(Number(item.serviceCodeId));
-    }
-    var paymentLines: PaymentServiceLine[] = [];
-    for (var i = 0; i < this.clientPayments.items.length; i++) {
-      var item: any = this.clientPayments.items[i];
-      var isPaymentChanged: boolean = item.payment !== null && item.adjust
-      if(isPaymentChanged){
-        var PaymentServiceLine: PaymentServiceLine = {
-          sessionId: item.sessionId,
-          serviceCodeId: item.serviceCodeId,
-          dateOfService: item.dateOfService,
-          cpt: item.cpt,
-          provider: item.provider,
-          billedValue: item.billedValue,
-          previousPayments: item.previousPayments,
-          payment: item.payment,
-          prevPayment: item.prevPayment,
-          adjust: item.adjust,
-          prevAdjust: item.prevAdjust,
-          balance: item.balance,
-          sessionAction: item.sessionAction,
-          paymentBatch: paymentBatch
-        }
-        paymentLines.push(PaymentServiceLine);
+  constructPaymentLines(paymentBatch: PaymentBatch): any[] {
+    var invalidServiceCode: any[] = PaymentLinesConstructor.validate(this.clientPayments.items);
+    if (!(invalidServiceCode.length > 0)) {
+      var paymentLines: PaymentServiceLine[] = PaymentLinesConstructor.construct(this.clientPayments.items, paymentBatch)
+      if (paymentLines.length > 0) {
+        this.postingServiceService.createClientPayments(paymentLines, this.clientId)
+          .subscribe((result) => {
+            this.toastr.success("Service lines payments submitted successfully")
+          }, (error) => {
+            this.toastr.error("Error during submitting Service lines payments.")
+          })
+        invalidServiceCode = []
+      } else {
+        invalidServiceCode.push(-1);
       }
     }
-    if (!(this.invalidServiceCode.length > 0)) {
-      this.postingServiceService.createClientPayments(paymentLines, this.clientId)
-        .subscribe((result) => {
-          this.toastr.success("Service lines payments submitted successfully")
-        }, (error) => {
-          this.toastr.success("Error during submitting Service lines payments.")
-        })
-    } else {
-      isValidPayments = true;
-    }
-    return isValidPayments
+    return invalidServiceCode;
   }
 } 
