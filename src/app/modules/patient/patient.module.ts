@@ -114,7 +114,8 @@ import { ViewProfileComponent } from './view.profile/view-profile.component';
     SmartPaginationModule,
   ],
   exports: [
-    PatientSessionEditComponent
+    PatientSessionEditComponent,
+    ViewProfileComponent
   ]
 
 })
