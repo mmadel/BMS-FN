@@ -38,7 +38,7 @@
         <button (click)="toggleAddInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-insurance (changeVisibility)="changeVisibility($event)" [patient]="patient"
+        <app-create-insurance *ngIf="addInsuranceVisibility" (changeVisibility)="changeVisibility($event)" [patient]="patient"
             #createInsuranceComponent></app-create-insurance>
     </c-modal-body>
 </c-modal>
