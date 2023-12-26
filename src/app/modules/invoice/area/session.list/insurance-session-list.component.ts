@@ -28,6 +28,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   selectedSessionToEditItem: SessionServiceCodeLine
   sessionItemType: string;
   selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
+  viewPatientProfileVisibility: boolean = false
   constructor(private route: ActivatedRoute,
     private invoiceEmitterService: InvoiceEmitterService
     , private router: Router
@@ -103,8 +104,9 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     )
   }
   editClient() {
-    this.pateintEmittingService.selectedPatient$.next(this.client)
-    this.router.navigate(['/patient/profile', this.client.id]);
+    // this.pateintEmittingService.selectedPatient$.next(this.client)
+    // this.router.navigate(['/patient/profile', this.client.id]);
+    this.viewPatientProfileVisibility = true;
 
   }
   editSession(event: any) {
@@ -150,5 +152,9 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   changeCreateInvoiceVisibility(event: any) {
     if (event === 'close')
       this.invoiceCreationVisible = false;
+  }
+  toggleViewPatientProfile(){
+    this.viewPatientProfileVisibility = !this.viewPatientProfileVisibility
+
   }
 }
