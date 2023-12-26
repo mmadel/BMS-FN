@@ -1,1 +1,177 @@
-{{selectedPatient |json}}
+<c-container fluid="true" *ngIf="patient">
+    <c-row>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-header>
+                    <div style="float: left;">
+                        <svg cIcon name="cilUser" title="cilUser" size="xxl"></svg>
+                    </div>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <h3>Patient Information</h3>
+                        </c-col>
+                    </c-row>
+                </c-card-header>
+                <c-card-body>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <c-input-group sizing="sm">
+                                <span cInputGroupText>
+                                    <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
+                                </span>
+                                <input cFormControl placeholder="FirstName" name="firstName" required
+                                    [(ngModel)]="patient.firstName" #firstName="ngModel" name="fname" />
+                                <input cFormControl placeholder="MiddleName" [(ngModel)]="patient.middleName"
+                                    name="mname" />
+                                <input cFormControl placeholder="LastName" [(ngModel)]="patient.lastName " required
+                                    [(ngModel)]="patient.lastName" #lastName="ngModel" name="lastname" />
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <c-input-group sizing="sm">
+                                <span cInputGroupText>
+                                    <svg cIcon name="cilUser" title="cilUser"></svg>
+                                </span>
+                                <select aria-label="" cSelect #gender="ngModel" name="gender" required
+                                    [(ngModel)]="patient.gender">
+                                    <option [value]="null">Select Gender</option>
+                                    <option *ngFor="let genderValue of genderKeys(genders)" [ngValue]="genderValue">
+                                        {{genders[genderValue]}}
+                                    </option>
+                                </select>
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <c-input-group sizing="sm">
+                                <span cInputGroupText>
+                                    <svg cIcon name="cilPeople" title="cilPeople"></svg>
+                                </span>
+                                <select aria-label="" cSelect #maritalStatus="ngModel" name="maritalStatus"
+                                    [(ngModel)]="patient.maritalStatus" required>
+                                    <option [value]="null" disabled selected>Select MaritalStatus</option>
+                                    <option *ngFor="let maritalStatusValue of maritalStatusKeys(maritalStatuses)"
+                                        [value]="maritalStatusValue">
+                                        {{maritalStatuses[maritalStatusValue]}}
+                                    </option>
+                                </select>
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <c-input-group sizing="sm">
+                                <span cInputGroupText>
+                                    <svg cIcon name="cilPhone" title="cilPhone"></svg>
+                                </span>
+                                <select cSelect style="max-width: 12%;" #phonetype="ngModel" name="phonetype" required
+                                    [(ngModel)]="patient.phoneType">
+                                    <option [value]=null disabled selected>Select phoneType</option>
+                                    <option *ngFor="let phoneTypevalue of phoneTypesKeys(phoneTypes)"
+                                        [value]="phoneTypevalue">
+                                        {{phoneTypes[phoneTypevalue]}}
+                                    </option>
+                                </select>
+                                <input cFormControl size="sm" placeholder="Phone" [(ngModel)]="patient.phone"
+                                    #phone="ngModel" name="phone" required />
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <c-input-group sizing="sm">
+                                <span cInputGroupText>
+                                    <svg cIcon name="cibMailRu" title="cibMailRu"></svg>
+                                </span>
+                                <input cFormControl placeholder="Email" required [(ngModel)]="patient.email"
+                                    #email="ngModel" name="email" />
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <c-input-group sizing="sm">
+                                    <span cInputGroupText>
+                                        <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
+                                    </span>
+                                    <c-date-picker cFormControl size="sm" [(date)]="patientDOB"
+                                        required="true"></c-date-picker>
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-col class="mb-1">
+                            <c-input-group sizing="sm">
+                                <span cInputGroupText>
+                                    <svg cIcon name="cilDollar" title="cilDollar"></svg>
+                                </span>
+                                <select cSelect aria-label="" cSelect style="max-width: 12%;">
+                                    <option>Dollar Amt</option>
+                                </select>
+                                <input cFormControl placeholder="Copay" [(ngModel)]="patient.copay" #copay="ngModel"
+                                    name="copay" required />
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-header>
+                    <div style="float: left;">
+                        <svg cIcon name="cilAddressBook" title="cilAddressBook" size="xxl"></svg>
+                    </div>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <h3>Address </h3>
+                        </c-col>
+                    </c-row>
+                </c-card-header>
+                <c-card-body>
+                    <c-row>
+                        <c-col xs="12">
+                            <c-input-group class="mb-3">
+                                <select cFormControl cSelect sizing="sm" id="country" name="country" #country="ngModel"
+                                    [(ngModel)]="patient.address.country" required>
+                                    <option [value]="null" disabled selected>Select Country</option>
+                                    <option *ngFor="let country of countries" [value]="country.name">
+                                        {{country.name}}
+                                    </option>
+                                </select>
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="12">
+                            <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #street="ngModel"
+                                name="street" [(ngModel)]="patient.address.first" required />
+                        </c-col>
+                        <c-col xs="12">
+                            <input cFormControl placeholder="City" sizing="sm" class="mb-1" #City="ngModel" name="City"
+                                [(ngModel)]="patient.address.city" required />
+                        </c-col>
+                        <c-col xs="12">
+                            <select cFormControl cSelect sizing="sm" id="state" name="state" required #state="ngModel" class="mb-1"
+                                [(ngModel)]="patient.address.state">
+                                <option [value]="null" disabled selected>Select State</option>
+                                <option *ngFor="let state of states" [value]="state">
+                                    {{state}}
+                                </option>
+                            </select>
+                        </c-col>
+                        <c-col xs="12">
+                            <input zipcode cFormControl id="zipCode" name="zipCode"
+                                [(ngModel)]="patient.address.zipCode" placeholder="ZipCode" sizing="sm"
+                                #zipCode="ngModel" name="zipCode" [(ngModel)]="patient.address.zipCode" required
+                                class="mb-1" />
+                        </c-col>
+                    </c-row>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+</c-container>
