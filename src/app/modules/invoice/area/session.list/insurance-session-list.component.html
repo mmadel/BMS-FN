@@ -92,7 +92,7 @@
       [itemType]="sessionItemType" (changeVisibility)="changeSessionItemVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>
-<c-modal id="viewPatientProfile" [visible]="viewPatientProfileVisibility" size="xl">
+<c-modal id="viewPatientProfile" [visible]="viewPatientProfileVisibility" size="xl" scrollable backdrop="static">
   <c-modal-header>
     <h5 cModalTitle>Patient Profile</h5>
     <button (click)="toggleViewPatientProfile()" cButtonClose></button>

@@ -107,6 +107,8 @@ import {
   cilAppsSettings,cilPhone,cibMailRu,cilBirthdayCake,cilViewColumn,cilEyedropper,cilBrowser,
   cilBank,
   cilMedicalCross,
+  cilInstitution,
+  cilWheelchair
   
   
 } from '@coreui/icons';
@@ -225,7 +227,9 @@ export const iconSubset = {
   cilViewStream,
   cilHouse,
   cilFlagAlt,
-  cilAppsSettings
+  cilAppsSettings,
+  cilInstitution,
+  cilWheelchair
 };
 
 export enum IconSubset {
