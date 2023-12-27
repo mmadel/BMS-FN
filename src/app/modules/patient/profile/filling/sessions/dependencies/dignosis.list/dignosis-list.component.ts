@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { filter } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
+import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 
 @Component({
   selector: 'dignosis-list',
@@ -7,13 +9,27 @@ import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
   styleUrls: ['./dignosis-list.component.scss']
 })
 export class DignosisListComponent implements OnInit {
+  @Input() editMode?: boolean = false;
   diagnosises: CaseDiagnosis[];
-  constructor() { }
+  constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-    this.diagnosises = new Array();
+    if (this.editMode)
+      this.populateList();
+    else
+      this.diagnosises = new Array();
   }
   pushDaignosis(daignosis: CaseDiagnosis) {
     this.diagnosises.push(daignosis);
+  }
+  private populateList(){
+    this.emitPatientSessionService.sessionDaignosies$.pipe(
+      filter((daignosies) => daignosies !== null)
+    ).subscribe((daignosies) => {
+      this.diagnosises = new Array();
+      for (var i = 0; i < daignosies.length; i++) {
+        this.diagnosises.push(daignosies[i])
+      }
+    })
   }
 }

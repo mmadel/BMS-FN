@@ -64,10 +64,8 @@ export class BillingCodeComponent implements OnInit {
       first()
     ).subscribe((selectedBillCode) => {
       this.billingCode = selectedBillCode;
-      //this.filteredDiagnosis = new Array();
-      // this.diagnosisCtrl.setValue(this.billingCode.diagnosisCode.diagnosisCode)
-      // this.filteredDiagnosis.push(this.billingCode.diagnosisCode.diagnosisCode + ',' + this.billingCode.diagnosisCode.diagnosisDescription)
       this.emitPatientSessionService.sessionserviceCodes$.next(selectedBillCode.ServiceCodes)
+      this.emitPatientSessionService.sessionDaignosies$.next(selectedBillCode.diagnosisCode)
     })
   }
   private initializeModel() {
