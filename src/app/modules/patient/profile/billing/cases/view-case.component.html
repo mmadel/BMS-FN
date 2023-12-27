@@ -35,6 +35,11 @@
         <button (click)="toggleAddCaseVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        
+        <case-add-daignosis  #caseAddDaignosisComponent (changeAddCaseVisibility)="changeAddCaseVisibility($event)"></case-add-daignosis>
     </c-modal-body>
+    <c-modal-footer>
+        <div class="col-12 text-center">
+            <button cButton variant="outline" style="width: 15%;"  size="sm" (click)="createCase()">Create Case</button>
+        </div>
+    </c-modal-footer>
 </c-modal>
