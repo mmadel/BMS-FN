@@ -20,9 +20,13 @@ export class DignosisListComponent implements OnInit {
       this.diagnosises = new Array();
   }
   pushDaignosis(daignosis: CaseDiagnosis) {
+    if (this.diagnosises.length === 0)
+      daignosis.primary = true
+    else
+      daignosis.primary = false
     this.diagnosises.push(daignosis);
   }
-  private populateList(){
+  private populateList() {
     this.emitPatientSessionService.sessionDaignosies$.pipe(
       filter((daignosies) => daignosies !== null)
     ).subscribe((daignosies) => {

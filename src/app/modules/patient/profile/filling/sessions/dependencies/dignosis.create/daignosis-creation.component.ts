@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { CaseDiagnosisService } from 'src/app/modules/patient/service/case.diagnosis/case-diagnosis.service';
@@ -66,7 +67,6 @@ export class DaignosisCreationComponent implements OnInit {
     this.diagnosisCode.diagnosisDescription = desrciption;
   }
   pushDaignosis(){
-    console.log(JSON.stringify(this.diagnosisCode))
     this.onCreateDaignosis.emit(this.diagnosisCode);
   }
 }
