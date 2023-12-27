@@ -6,6 +6,6 @@ export interface BillingCode {
     placeOfCode?: string;
     facility?: string;
     caseTitle?:string
-    diagnosisCode?: CaseDiagnosis;
+    diagnosisCode?: CaseDiagnosis[];
     ServiceCodes?: ServiceCode[]
 }

@@ -54,7 +54,7 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
       doctorInfo: this.constructorModelDoctorInfo(),
       clinicInfo: this.constructModelClinicInfo(),
       caseTitle: this.pateintSessionBillingCodeComponent.billingCode.caseTitle,
-      caseDiagnosis: this.constructModelICDCaseDiagnosis(),
+      caseDiagnosis: this.pateintSessionBillingCodeComponent.getDaignosises(),
       serviceCodes: this.pateintSessionBillingCodeComponent.getServiceCodes()
     }
   }
@@ -71,12 +71,6 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
   private constructModelClinicInfo() {
     return {
       clinicName: this.pateintSessionBillingCodeComponent.billingCode.facility
-    }
-  }
-  private constructModelICDCaseDiagnosis() {
-    return {
-      diagnosisCode: this.pateintSessionBillingCodeComponent.billingCode.diagnosisCode.diagnosisCode,
-      diagnosisDescription: this.pateintSessionBillingCodeComponent.billingCode.diagnosisCode.diagnosisDescription
     }
   }
   clear() { }

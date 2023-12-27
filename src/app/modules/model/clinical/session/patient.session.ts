@@ -17,7 +17,7 @@ export interface PatientSession {
     authorization?: string;
     placeOfCode?: string;
     caseTitle?:string
-    caseDiagnosis?: CaseDiagnosis
+    caseDiagnosis?: CaseDiagnosis[]
 
     serviceCodes?: ServiceCode[];
     patientSessionHistory?:PatientSessionHistory[]

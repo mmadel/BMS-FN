@@ -24,73 +24,19 @@ export class BillingCodeComponent implements OnInit {
   notValidForm: boolean = false;
   placeOfCodeKeys = Object.keys;
   placeOfCodes = PlaceOfCode;
-  diagnosisCtrl = new FormControl();
-  isLoading = false;
-  filteredDiagnosis: any;
   unitCount: number;
   chargeCount: number;
   serviceCodeVisibility: boolean
   addDaignosisVisibility: boolean;
   @Input() editMode?: boolean = false
 
-  constructor(private caseDiagnosisService: CaseDiagnosisService, private emitPatientSessionService: EmitPatientSessionService) { }
+  constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
     if (this.editMode)
       this.populateModel();
     else
       this.initializeModel();
-
-    this.selectICD10diagnosis();
-  }
-  selectICD10diagnosis() {
-    this.diagnosisCtrl.valueChanges
-      .pipe(
-        filter(text => {
-          if (text === undefined)
-            return false;
-          if (text.length > 1) {
-            return true
-          } else {
-            this.filteredDiagnosis = [];
-            return false;
-          }
-        }),
-        debounceTime(500),
-        tap((value) => {
-          this.filteredDiagnosis = [];
-          this.isLoading = true;
-        }),
-        switchMap((value) => {
-          return this.caseDiagnosisService.find(value)
-            .pipe(
-              finalize(() => {
-                this.isLoading = false
-              }),
-            )
-        }
-        )
-      )
-      .subscribe(data => {
-        if (data == undefined) {
-          this.filteredDiagnosis = [];
-        } else {
-          var diagnosisResponse: any = data;
-          this.filteredDiagnosis = diagnosisResponse.listOfCodeName;
-        }
-      },
-        error => {
-          this.isLoading = false
-        });
-  }
-  addICD10diagnosis(event: any) {
-    var diagnosis: string = event.target.value
-    var code: string = diagnosis.split(',')[0]
-    var desrciption: string = diagnosis.split(',')[1]
-    this.billingCode.diagnosisCode = {
-      diagnosisCode: code,
-      diagnosisDescription: desrciption
-    }
   }
   toggleserviceCode() {
     this.serviceCodeVisibility = !this.serviceCodeVisibility
@@ -109,15 +55,18 @@ export class BillingCodeComponent implements OnInit {
   getServiceCodes() {
     return this.serviceCodeListComponent.getServiceCodes();
   }
+  getDaignosises(){
+    return this.daignosisListComponent.diagnosises;
+  }
   private populateModel() {
     this.emitPatientSessionService.sessionBillingCode$.pipe(
       filter((selectedBillCode) => selectedBillCode !== null),
       first()
     ).subscribe((selectedBillCode) => {
       this.billingCode = selectedBillCode;
-      this.filteredDiagnosis = new Array();
-      this.diagnosisCtrl.setValue(this.billingCode.diagnosisCode.diagnosisCode)
-      this.filteredDiagnosis.push(this.billingCode.diagnosisCode.diagnosisCode + ',' + this.billingCode.diagnosisCode.diagnosisDescription)
+      //this.filteredDiagnosis = new Array();
+      // this.diagnosisCtrl.setValue(this.billingCode.diagnosisCode.diagnosisCode)
+      // this.filteredDiagnosis.push(this.billingCode.diagnosisCode.diagnosisCode + ',' + this.billingCode.diagnosisCode.diagnosisDescription)
       this.emitPatientSessionService.sessionserviceCodes$.next(selectedBillCode.ServiceCodes)
     })
   }
