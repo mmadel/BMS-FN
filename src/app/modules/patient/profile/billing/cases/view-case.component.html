@@ -35,43 +35,6 @@
         <button (click)="toggleAddCaseVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <c-row>
-            <c-col>
-                <input cFormControl placeholder="Case Name" class="mb-3" [(ngModel)]="case!.title" />
-            </c-col>
-        </c-row>
-        <c-row>
-            <c-col>
-                <c-input-group class="mb-3">
-                    <span cInputGroupText id="basic-addon1">
-                        <svg cIcon name="cilNotes"></svg>
-                    </span>
-                    <input cFormControl name="icd10diagnosis" [formControl]="diagnosisCtrl"
-                        placeholder="Type ICD-10 Code" />
-                </c-input-group>
-            </c-col>
-        </c-row>
-        <c-row>
-            <span align="center" *ngIf="isLoading">
-                <c-spinner variant="grow"></c-spinner>
-            </span>
-            <span *ngIf="!isLoading">
-                <c-col>
-                    <c-multi-select class="mb-2" (valueChange)="addICD10diagnosis($event)" multiple="true"
-                        visibleItems="20" placeholder="Select ICD-10 Code Description">
-                        <c-multi-select-option *ngFor="let option of filteredDiagnosis">
-                            {{ option}}
-                        </c-multi-select-option>
-                    </c-multi-select>
-                </c-col>
-            </span>
-        </c-row>
-        <c-row>
-            <c-col>
-                <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-center">
-                    <button cButton type="submit" (click)="addCase()">Add Case</button>
-                </div>
-            </c-col>
-        </c-row>
+        
     </c-modal-body>
 </c-modal>
