@@ -56,6 +56,8 @@ import { ServiceCodeCreateComponent } from './profile/filling/sessions/dependenc
 import { ServiceCodeListComponent } from './profile/filling/sessions/dependencies/service.code/list/service.code.list.component';
 import { ServiceCodeEditComponent } from './profile/filling/sessions/dependencies/service.code/edit/service.code.edit.component';
 import { ViewProfileComponent } from './view.profile/view-profile.component';
+import { DignosisListComponent } from './profile/filling/sessions/dependencies/dignosis.list/dignosis-list.component';
+import { DaignosisCreationComponent } from './profile/filling/sessions/dependencies/dignosis.create/daignosis-creation.component';
 
 
 @NgModule({
@@ -81,6 +83,8 @@ import { ViewProfileComponent } from './view.profile/view-profile.component';
     ServiceCodeListComponent,
     ServiceCodeEditComponent,
     ViewProfileComponent,
+    DignosisListComponent,
+    DaignosisCreationComponent,
   ],
   imports: [
     CommonModule,

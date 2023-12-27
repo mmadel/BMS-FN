@@ -1,0 +1,26 @@
+<c-row class="mb-1">
+    <c-col>
+        <input cFormControl name="icd10diagnosis" [formControl]="diagnosisCtrl" id="icd10diagnosis"
+            placeholder="Type ICD-10 Code" sizing="sm" />
+    </c-col>
+</c-row>
+<c-row>
+    <span align="center" *ngIf="isLoading">
+        <c-spinner variant="grow"></c-spinner>
+    </span>
+    <span *ngIf="!isLoading">
+        <c-col>
+            <select cSelect class="mb-2" (change)="addICD10diagnosis($event)" visibleItems="20"
+                id="diagnosisValue" name="diagnosisValue"
+                placeholder="Select ICD-10 Code Description">
+                <option selected disabled>Select Diagnosis</option>
+                <option *ngFor="let option of filteredDiagnosis">
+                    {{option}}
+                </option>
+            </select>
+        </c-col>
+    </span>
+</c-row>
+<div class="col-12 text-center">
+    <button cButton variant="outline" style="width: 10%;" (click)="pushDaignosis()">Save</button>
+</div>

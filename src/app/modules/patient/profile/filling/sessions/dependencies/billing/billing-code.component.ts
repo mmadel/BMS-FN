@@ -1,11 +1,13 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { debounceTime, filter, finalize, first, switchMap, tap } from 'rxjs';
+import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { CaseDiagnosisService } from '../../../../../service/case.diagnosis/case-diagnosis.service';
 import { BillingCode } from '../../model/billing.code';
+import { DignosisListComponent } from '../dignosis.list/dignosis-list.component';
 import { ServiceCodeListComponent } from '../service.code/list/service.code.list.component';
 
 
@@ -18,6 +20,7 @@ export class BillingCodeComponent implements OnInit {
   billingCode: BillingCode
   @ViewChild('billingcodeForm') billingcodeForm: NgForm;
   @ViewChild('serviceCodeListComponent') serviceCodeListComponent: ServiceCodeListComponent;
+  @ViewChild('daignosisListComponent') daignosisListComponent: DignosisListComponent;
   notValidForm: boolean = false;
   placeOfCodeKeys = Object.keys;
   placeOfCodes = PlaceOfCode;
@@ -27,6 +30,7 @@ export class BillingCodeComponent implements OnInit {
   unitCount: number;
   chargeCount: number;
   serviceCodeVisibility: boolean
+  addDaignosisVisibility: boolean;
   @Input() editMode?: boolean = false
 
   constructor(private caseDiagnosisService: CaseDiagnosisService, private emitPatientSessionService: EmitPatientSessionService) { }
@@ -91,9 +95,16 @@ export class BillingCodeComponent implements OnInit {
   toggleserviceCode() {
     this.serviceCodeVisibility = !this.serviceCodeVisibility
   }
+  toggleAddDaignosis() {
+    this.addDaignosisVisibility = !this.addDaignosisVisibility
+  }
   getCreatedServiceCode(createdServiceCode: ServiceCode) {
     this.serviceCodeVisibility = false;
     this.serviceCodeListComponent.pushServiceCode(createdServiceCode);
+  }
+  getCreatedDagnosis(createdDaignosis: CaseDiagnosis) {
+    this.addDaignosisVisibility = false
+    this.daignosisListComponent.pushDaignosis(createdDaignosis);
   }
   getServiceCodes() {
     return this.serviceCodeListComponent.getServiceCodes();

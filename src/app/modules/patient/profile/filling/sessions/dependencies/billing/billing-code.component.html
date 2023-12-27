@@ -40,40 +40,34 @@
                     </c-row>
                     <c-row class="mb-1">
                         <c-col>
-                            <input cFormControl name="icd10diagnosis" id="casetitle" placeholder="Case Title" [(ngModel)]="billingCode.caseTitle"
-                                sizing="sm" />
+                            <input cFormControl name="icd10diagnosis" id="casetitle" placeholder="Case Title"
+                                [(ngModel)]="billingCode.caseTitle" sizing="sm" />
                         </c-col>
                     </c-row>
-                    <c-row class="mb-1">
-                        <c-col>
-                            <input cFormControl name="icd10diagnosis" [formControl]="diagnosisCtrl" id="icd10diagnosis"
-                                placeholder="Type ICD-10 Code" sizing="sm" />
-                        </c-col>
-                    </c-row>
-                    <c-row>
-                        <span align="center" *ngIf="isLoading">
-                            <c-spinner variant="grow"></c-spinner>
-                        </span>
-                        <span *ngIf="!isLoading">
-                            <c-col>
-                                <select cSelect class="mb-2" (change)="addICD10diagnosis($event)" visibleItems="20"
-                                    id="diagnosisValue" name="diagnosisValue"
-                                    placeholder="Select ICD-10 Code Description">
-                                    <option selected disabled>Select Diagnosis</option>
-                                    <option *ngFor="let option of filteredDiagnosis">
-                                        {{option}}
-                                    </option>
-                                </select>
-                            </c-col>
-                        </span>
-                    </c-row>
                 </div>
-                <div style="float:right">
-                    <button cButton color="info" variant="outline" size="sm" (click)="toggleserviceCode()">
-                        <svg cIcon name="cilPlus"></svg>
-                    </button>
-                </div>
-                <service-code-list #serviceCodeListComponent [editMode]="editMode"></service-code-list>
+                <c-nav variant="pills">
+                    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink>Case
+                        Dignosis</a>
+                    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Service Lines</a>
+                </c-nav>
+                <c-tab-content #tabContent="cTabContent">
+                    <c-tab-pane class="p-3">
+                        <div style="float:right">
+                            <button cButton color="info" variant="outline" size="sm" (click)="toggleAddDaignosis()">
+                                <svg cIcon name="cilPlus"></svg>
+                            </button>
+                        </div>
+                        <dignosis-list #daignosisListComponent></dignosis-list>
+                    </c-tab-pane>
+                    <c-tab-pane class="p-3">
+                        <div style="float:right">
+                            <button cButton color="info" variant="outline" size="sm" (click)="toggleserviceCode()">
+                                <svg cIcon name="cilPlus"></svg>
+                            </button>
+                        </div>
+                        <service-code-list #serviceCodeListComponent [editMode]="editMode"></service-code-list>
+                    </c-tab-pane>
+                </c-tab-content>
             </c-card-body>
         </c-card>
     </form>
@@ -86,5 +80,15 @@
     <c-modal-body>
         <service-code-creation *ngIf="serviceCodeVisibility"
             (onCreateServiceCode)="getCreatedServiceCode($event)"></service-code-creation>
+    </c-modal-body>
+</c-modal>
+<c-modal id="addDaignosisModal" [visible]="addDaignosisVisibility" backdrop="static" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Add Daignosis</h5>
+        <button (click)="toggleAddDaignosis()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <daignosis-creation *ngIf="addDaignosisVisibility"
+        (onCreateDaignosis)="getCreatedDagnosis($event)"></daignosis-creation>
     </c-modal-body>
 </c-modal>
