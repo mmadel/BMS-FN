@@ -21,5 +21,6 @@ export interface PatientSession {
 
     serviceCodes?: ServiceCode[];
     patientSessionHistory?:PatientSessionHistory[]
+    isCasesAttached?:boolean;
 
 }

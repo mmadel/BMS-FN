@@ -26,8 +26,10 @@ export class DignosisListComponent implements OnInit {
   private populateList() {
     this.emitPatientSessionService.sessionDaignosies$.pipe(
       tap((result) => {
-        if (result === undefined)
+        if (result === undefined || result === null){
           this.diagnosises = new Array();
+        }
+          
       }),
       filter((daignosies) => ( daignosies !== null)),
       filter((daignosies) => ( daignosies !== undefined))

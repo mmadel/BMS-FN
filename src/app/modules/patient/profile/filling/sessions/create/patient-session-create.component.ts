@@ -36,7 +36,6 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
       this.pateintSessionBillingCodeComponent.notValidForm = true;
     if (!(this.pateintSessionShedulingComponent.notValidForm || this.pateintSessionBillingCodeComponent.notValidForm)) {
       this.constructModel();
-      console.log(JSON.stringify(this.patientSession))
       this.patientSessionService.create(this.patientSession)
         .subscribe((result) => {
           this.changeVisibility.emit('close');
@@ -62,7 +61,9 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
       clinicInfo: this.constructModelClinicInfo(),
       caseTitle: this.pateintSessionBillingCodeComponent.billingCode.caseTitle,
       caseDiagnosis: this.pateintSessionBillingCodeComponent.getDaignosises(),
-      serviceCodes: this.pateintSessionBillingCodeComponent.getServiceCodes()
+      serviceCodes: this.pateintSessionBillingCodeComponent.getServiceCodes(),
+      isCasesAttached: this.pateintSessionBillingCodeComponent.billingCode.isCaseAttached === undefined ? false :
+        this.pateintSessionBillingCodeComponent.billingCode.isCaseAttached
     }
   }
 

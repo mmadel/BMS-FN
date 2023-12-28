@@ -43,6 +43,7 @@
                             <ng-autocomplete [data]="patientCases" [searchKeyword]="'title'" id="patientCases" name="patientCases"
                                 placeholder="Cases" [itemTemplate]="itemTemplate"
                                 (selected)='pickCase($event)' (inputCleared)="unPickCase()"
+                                (inputChanged)="change($event)"
                                 [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
                             <ng-template #itemTemplate let-item>

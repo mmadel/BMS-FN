@@ -8,4 +8,5 @@ export interface BillingCode {
     caseTitle?:string
     diagnosisCode?: CaseDiagnosis[];
     ServiceCodes?: ServiceCode[]
+    isCaseAttached?:boolean;
 }
