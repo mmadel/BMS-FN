@@ -157,7 +157,7 @@
             </c-card-header>
             <c-card-body>
                 <c-col xs="12">
-                    <div class="card border mb-2" *ngFor="let insurance of patient.patientInsurances;let i=index;">
+                    <div class="card border mb-1" *ngFor="let insurance of patient.patientInsurances;let i=index;">
                         <div class="card-body" [ngClass]="{'text-bg-light': insurance.isArchived}">
                             <div style="float: right;">
                                 <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
@@ -207,7 +207,7 @@
             <c-card-body>
                 <c-row>
                     <c-col xs="12">
-                        <div class="card border mb-2" *ngFor="let case of patient.cases;let i=index;">
+                        <div class="card border mb-1" *ngFor="let case of patient.cases;let i=index;">
                             <div class="card-body">
                                 <div style="float: right;">
                                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
@@ -219,7 +219,7 @@
                                 </div>
                                 <h4><strong>{{case.title }}</strong></h4>
                                 <h6>ICD-10 Codes</h6>
-                                <ul *ngFor="let code of case.caseDiagnosis">
+                                <ul *ngFor="let code of case.caseDiagnosis" style="margin:0;padding:0">
                                     <li style="list-style-type: none">
                                         {{code.diagnosisCode}} - {{code.diagnosisDescription}}
                                     </li>
