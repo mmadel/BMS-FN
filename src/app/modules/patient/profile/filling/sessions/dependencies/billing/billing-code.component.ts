@@ -67,6 +67,7 @@ export class BillingCodeComponent implements OnInit {
       first()
     ).subscribe((selectedBillCode) => {
       this.billingCode = selectedBillCode;
+      this.selectedCase = selectedBillCode.caseTitle;
       this.emitPatientSessionService.sessionserviceCodes$.next(selectedBillCode.ServiceCodes)
       this.emitPatientSessionService.sessionDaignosies$.next(selectedBillCode.diagnosisCode)
     })

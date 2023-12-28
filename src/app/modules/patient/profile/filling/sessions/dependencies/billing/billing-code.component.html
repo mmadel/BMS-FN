@@ -44,6 +44,7 @@
                                 placeholder="Cases" [itemTemplate]="itemTemplate"
                                 (selected)='pickCase($event)' (inputCleared)="unPickCase()"
                                 (inputChanged)="change($event)"
+                                [ngModel]="selectedCase"
                                 [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
                             <ng-template #itemTemplate let-item>
