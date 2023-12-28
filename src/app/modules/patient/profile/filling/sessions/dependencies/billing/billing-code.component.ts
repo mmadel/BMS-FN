@@ -80,6 +80,7 @@ export class BillingCodeComponent implements OnInit {
   pickCase(pickedCase: PatientCase) {
     this.selectedCase = pickedCase;
     this.billingCode.caseTitle = pickedCase.title;
+    this.emitPatientSessionService.sessionDaignosies$.next(pickedCase.caseDiagnosis)
     this.billingCode.isCaseAttached = true;
   }
   unPickCase() {

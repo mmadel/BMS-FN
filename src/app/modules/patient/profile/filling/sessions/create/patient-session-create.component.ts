@@ -43,7 +43,8 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
             title: this.patientSession.caseTitle,
             caseDiagnosis: this.patientSession.caseDiagnosis
           }
-          this.emitPatientSessionService.createdCase$.next(createdCase)
+          // if (!this.pateintSessionBillingCodeComponent.billingCode.isCaseAttached)
+          //   this.emitPatientSessionService.createdCase$.next(createdCase)
         }, (error) => {
           this.toastr.success("Error during session creation")
         })

@@ -17,47 +17,36 @@ export class ViewCaseComponent implements OnInit {
   @Input() _cases: PatientCase[]
   @ViewChild('caseAddDaignosisComponent') caseAddDaignosisComponent: CaseAddDaignosisComponent;
   addCaseVisibility: boolean = false
-  cases: PatientCase[] = new Array();
 
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-
-    this.emitPatientSessionService.createdCase$.pipe(
-      filter((result) => result !== null)
-    ).subscribe((result) => {
-      console.log(JSON.stringify(result))
-      this.cases.push(result);
-    })
-    if (this._cases !== undefined)
-      this.cases.push(...this._cases)
-
   }
   toggleAddCaseVisibility() {
     this.addCaseVisibility = !this.addCaseVisibility
   }
 
   remove(index: number) {
-    this.cases.splice(index, 1);
+    this._cases.splice(index, 1);
   }
   edit(selectedCase: any) {
     console.log(JSON.stringify(selectedCase))
   }
   public getcases() {
-    if (this.cases.length > 0)
-      return this.cases;
+    if (this._cases.length > 0)
+      return this._cases;
     else
       return null;
   }
   public resetCases() {
-    this.cases = [];
+    this._cases = [];
   }
   changeAddCaseVisibility(event: any) {
     if (event === 'close')
       this.addCaseVisibility = false;
   }
   createCase() {
-    this.cases.push(this.caseAddDaignosisComponent.case)
+    this._cases.push(this.caseAddDaignosisComponent.case)
     this.addCaseVisibility = false
   }
 }
