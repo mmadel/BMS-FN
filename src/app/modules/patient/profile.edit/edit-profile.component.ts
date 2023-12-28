@@ -8,6 +8,7 @@ import { MaritalStatus } from '../../model/enum/marital.status';
 import { PhoneType } from '../../model/enum/phone.type';
 import { Countries } from '../../model/lookups/country-data-store';
 import { States } from '../../model/lookups/state-data-store';
+import { CaseAddDaignosisComponent } from '../profile/billing/cases/add.daignosis/case-add-daignosis.component';
 import { CreateInsuranceComponent } from '../profile/billing/insurance/create/create-insurance.component';
 import { PatientService } from '../service/patient.service';
 
@@ -19,6 +20,10 @@ import { PatientService } from '../service/patient.service';
 export class EditProfileComponent implements OnInit {
   @ViewChild('createInsuranceCompanyEditProfileComponent')
   createInsuranceCompanyEditProfileComponent: CreateInsuranceComponent;
+
+  @ViewChild('createCaseEditProfileComponent')
+  createCaseEditProfileComponent: CaseAddDaignosisComponent;
+  
   @Input() patient: Patient = {}
   genders = Gender;
   genderKeys = Object.values;
@@ -77,5 +82,10 @@ export class EditProfileComponent implements OnInit {
   }
   removeCase(index: number){
     this.patient.cases.splice(index, 1);
+  }
+  createCase(){
+    console.log(this.createCaseEditProfileComponent)
+    this.patient.cases.push(this.createCaseEditProfileComponent.case)
+    this.editProfileAddCaseVisibility = false;
   }
 }

@@ -113,7 +113,7 @@
                     </c-col>
                     <c-col xs="12">
                         <input cFormControl placeholder="Street" sizing="sm" class="mb-1" id="vpstreet" name="vpstreet"
-                        [(ngModel)]="patient.address.first" />
+                            [(ngModel)]="patient.address.first" />
                     </c-col>
                     <c-col xs="12">
                         <input cFormControl sizing="sm" class="mb-1" name="vpCity" [value]="patient.address.city" />
@@ -148,7 +148,8 @@
                     </c-col>
                     <c-col>
                         <div style="float:right">
-                            <button cButton color="info" variant="outline" size="sm" (click)="openAddInsuranceCompany()">
+                            <button cButton color="info" variant="outline" size="sm"
+                                (click)="openAddInsuranceCompany()">
                                 <svg cIcon name="cilPlus"></svg>
                             </button>
                         </div>
@@ -210,9 +211,11 @@
                         <div class="card border mb-1" *ngFor="let case of patient.cases;let i=index;">
                             <div class="card-body">
                                 <div style="float: right;">
-                                    <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                                        
-                                        <button cButton color="info" variant="outline" class="btn-sm" (click)="removeCase(i)" color="info">
+                                    <c-button-group aria-label="Button outlined group with nested dropdown"
+                                        role="group">
+
+                                        <button cButton color="info" variant="outline" class="btn-sm"
+                                            (click)="removeCase(i)" color="info">
                                             <svg cIcon name="cilTrash"></svg>
                                         </button>
                                     </c-button-group>
@@ -242,9 +245,8 @@
         <button (click)="toggleeditProfileAddInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-insurance #createInsuranceCompanyEditProfileComponent *ngIf="editProfileAddInsuranceVisibility" [patient]="patient"
-        (changeVisibility)="changeeditProfileInsurancVisibility($event)"
-        ></app-create-insurance>
+        <app-create-insurance #createInsuranceCompanyEditProfileComponent *ngIf="editProfileAddInsuranceVisibility"
+            [patient]="patient" (changeVisibility)="changeeditProfileInsurancVisibility($event)"></app-create-insurance>
     </c-modal-body>
 </c-modal>
 <c-modal id="editProfileCaseModal" [visible]="editProfileAddCaseVisibility" backdrop="static" size="xl">
@@ -253,6 +255,11 @@
         <button (click)="toggleEditProfileAddCaseVisibilityVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-
+        <case-add-daignosis #createCaseEditProfileComponent *ngIf="editProfileAddCaseVisibility"></case-add-daignosis>
     </c-modal-body>
+    <c-modal-footer>
+        <div class="col-12 text-center">
+            <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Create Case</button>
+        </div>
+    </c-modal-footer>
 </c-modal>
