@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { debounceTime, filter, finalize, first, switchMap, tap } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
+import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
@@ -21,6 +22,7 @@ export class BillingCodeComponent implements OnInit {
   @ViewChild('billingcodeForm') billingcodeForm: NgForm;
   @ViewChild('serviceCodeListComponent') serviceCodeListComponent: ServiceCodeListComponent;
   @ViewChild('daignosisListComponent') daignosisListComponent: DignosisListComponent;
+  @Input() patientCases: PatientCase[];
   notValidForm: boolean = false;
   placeOfCodeKeys = Object.keys;
   placeOfCodes = PlaceOfCode;
@@ -55,7 +57,7 @@ export class BillingCodeComponent implements OnInit {
   getServiceCodes() {
     return this.serviceCodeListComponent.getServiceCodes();
   }
-  getDaignosises(){
+  getDaignosises() {
     return this.daignosisListComponent.diagnosises;
   }
   private populateModel() {
