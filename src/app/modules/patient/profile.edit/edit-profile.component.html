@@ -184,6 +184,39 @@
         </c-card>
     </c-col>
 </c-row>
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <div style="float: left;">
+                    <svg cIcon name="cilWheelchair" title="cilWheelchair" size="xxl"></svg>
+                </div>
+                <c-row>
+                    <c-col class="mb-1">
+                        <h3>Cases</h3>
+                    </c-col>
+                </c-row>
+            </c-card-header>
+            <c-card-body>
+                <c-row>
+                    <c-col xs="12">
+                        <div class="card border mb-2" *ngFor="let case of patient.cases;let i=index;">
+                            <div class="card-body">
+                                <h4><strong>{{case.title }}</strong></h4>
+                                <h6>ICD-10 Codes</h6>
+                                <ul *ngFor="let code of case.caseDiagnosis">
+                                    <li style="list-style-type: none">
+                                        {{code.diagnosisCode}} - {{code.diagnosisDescription}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
 <div class="col-12 text-center">
     <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>
 </div>
