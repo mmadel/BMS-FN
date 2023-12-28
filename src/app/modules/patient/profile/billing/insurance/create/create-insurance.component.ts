@@ -35,29 +35,7 @@ export class CreateInsuranceComponent implements OnInit {
   insurancePlanType = InsurancePlanType;
   informationReleaseKeys = Object.keys;
   informationRelease = InformationRelease;
-  patientInsurance: PatientInsurance = {
-    relation: null,
-    patientRelation: {
-      r_gender: null,
-      r_address: {
-        country: null,
-        state: null
-      }
-    },
-    patientInsurancePolicy: {
-      responsability: null,
-      planType: null
-    },
-    patientInsuranceAdvanced: {
-      acceptAssigment: true,
-      signatureOnFile: true,
-      informationRelease: null
-    },
-    payerAddress: {
-      country: null,
-      state: null
-    }
-  }
+  patientInsurance: PatientInsurance
   payers: Payer[]
   payerNameList: string[];
   payerIdList: string[];
@@ -66,6 +44,7 @@ export class CreateInsuranceComponent implements OnInit {
   constructor(private payerService: PayerService) { }
 
   ngOnInit(): void {
+    this.fillModel();
     this.payerService.findAll()
       .subscribe((result: any) => {
         this.payers = result;
@@ -73,25 +52,62 @@ export class CreateInsuranceComponent implements OnInit {
         this.payerIdList = this.payers.map(a => a.payerId + '');
       })
   }
+  fillModel() {
+    this.patientInsurance = {
+      relation: null,
+      patientRelation: {
+        r_gender: null,
+        r_address: {
+          country: null,
+          state: null
+        }
+      },
+      patientInsurancePolicy: {
+        responsability: null,
+        planType: null
+      },
+      patientInsuranceAdvanced: {
+        acceptAssigment: true,
+        signatureOnFile: true,
+        informationRelease: null
+      },
+      payerAddress: {
+        state: null
+      }
+    }
+  }
   pickPayerName(event: any) {
     this.payers.forEach(element => {
       if (element.displayName === event) {
         this.selectedPayerId = element.payerId + ''
+        this.fillPayerAddress(element);
       }
     });
   }
   unpickPayerName() {
     this.selectedPayerId = '';
+    this.patientInsurance.payerAddress = {}
   }
   pickPayerId(event: any) {
     this.payers.forEach(element => {
       if (element.payerId + '' === event) {
         this.selectedPayerName = element.displayName
+        this.fillPayerAddress(element);
       }
     });
   }
   unpickPayerId() {
     this.selectedPayerName = ''
+    this.patientInsurance.payerAddress = {}
+  }
+  fillPayerAddress(payer: Payer) {
+    this.patientInsurance.payerAddress = {
+      address: payer.address.address,
+      state: payer.address.state,
+      zipCode: payer.address.zipCode,
+      city: payer.address.city
+    }
+
   }
   create() {
     if (this.insuranceCreateForm.valid) {
@@ -117,7 +133,10 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_gender = this.patient.gender;
       this.patientInsurance.patientRelation.r_address = this.patient.address
       this.patientInsurance.patientRelation.r_birthDate = this.patient.birthDate
-
+    } else {
+      this.patientInsurance.patientRelation = {}
+      this.patientInsurance.patientRelation.r_address={}
+      this.patientInsurance.patientRelation.r_birthDate=undefined;
     }
   }
 }

@@ -38,7 +38,7 @@ export class ViewInsuranceComponent implements OnInit {
       return null;
   }
   reset() {
-    this.createInsuranceComponent.insuranceCreateForm.reset();
+    this.createInsuranceComponent?.insuranceCreateForm.reset();
     this.patientInsurances = []
   }
 }

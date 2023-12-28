@@ -5,6 +5,7 @@ import { filter, first, map, Observable, tap } from 'rxjs';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
+import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
 import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { ClientSessionResponse } from '../../model/client.session.response';
@@ -26,7 +27,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   editSessionItemVisibility: boolean = false;
   selectedSessionToEditItem: SessionServiceCodeLine
   sessionItemType: string;
-  selectedSessionServiceCodeLine: number[]
+  selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
+  viewPatientProfileVisibility: boolean = false
   constructor(private route: ActivatedRoute,
     private invoiceEmitterService: InvoiceEmitterService
     , private router: Router
@@ -72,9 +74,9 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.sessionServiceCodeLine = this.invoiceEmitterService.selectedInvoiceClientSession$.pipe(
       filter((result) => result !== null),
-      tap((result) => { 
+      tap((result) => {
         this.client = result.client
-       }),
+      }),
       map(result => {
         var lines: SessionServiceCodeLine[] = new Array();
         for (var i = 0; i < result.sessions.length; i++) {
@@ -102,8 +104,9 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     )
   }
   editClient() {
-    this.pateintEmittingService.selectedPatient$.next(this.client)
-    this.router.navigate(['/patient/profile', this.client.id]);
+    // this.pateintEmittingService.selectedPatient$.next(this.client)
+    // this.router.navigate(['/patient/profile', this.client.id]);
+    this.viewPatientProfileVisibility = true;
 
   }
   editSession(event: any) {
@@ -138,12 +141,20 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
       this.editSessionItemVisibility = false;
   }
   onSelectedServiceCode(event: any) {
-    this.selectedSessionServiceCodeLine = event.map((value: SessionServiceCodeLine) => {
-      return value.serviceCodeId;
+    this.selectedSessionServiceCodeLine = event.map((value: any) => {
+      return {
+        sessionId: value.data.id,
+        serviceLine: value.serviceCodeId
+      }
     });
+    console.log(JSON.stringify(this.selectedSessionServiceCodeLine))
   }
   changeCreateInvoiceVisibility(event: any) {
     if (event === 'close')
       this.invoiceCreationVisible = false;
+  }
+  toggleViewPatientProfile(){
+    this.viewPatientProfileVisibility = !this.viewPatientProfileVisibility
+
   }
 }

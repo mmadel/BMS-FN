@@ -1,1 +1,62 @@
-<p>insurance-company-payment works!</p>
+<c-container fluid="true">
+  <c-card *ngFor="let entry of insuranceCompanyPostingPayments$ | async | keyvalue " class="mb-3">
+    <c-card-header>
+      
+      <button class="btn btn-link" (click)="editClient(entry.key.split(',')[2])"><h4>{{ entry.key.split(',')[1]}} , {{ entry.key.split(',')[0]}}</h4></button>
+    </c-card-header>
+    <c-card-body>
+      <ng-container fluid="true">
+        <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" #itemTable [items]="entry.value" [tableFilterPlaceholder]="entry.key"
+          activePage="1" (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+          [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+           [tableBodyProps]="{ align: 'middle' }"
+          (sorterValueChange)="handleSorterValueChange($event)" header>
+          <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+            <td>
+              <ng-container [ngSwitch]="columnName">
+                <ng-container *ngSwitchCase="'id'" class="py-2">
+                  {{item.serviceCodeId}}
+                </ng-container>
+                <ng-container *ngSwitchCase="'dateOfService'" class="py-2">
+                  {{item.dateOfService | date:'MMM d, y' }}
+                </ng-container>
+                <ng-container *ngSwitchCase="'billedValue'" class="py-2">
+                  {{item.billedValue |currency }}
+                </ng-container>
+                <ng-container *ngSwitchCase="'payment'" class="py-2 ">
+                  <c-input-group sizing="sm">
+                    <span cInputGroupText id="payment">&#36;</span>
+                    <input cFormControl aria-describedby="payment" class="w-10" [(ngModel)]="item.payment" type="number"
+                      (focusout)="emitPayment($event ,item)">
+                  </c-input-group>
+                </ng-container>
+                <ng-container *ngSwitchCase="'adjust'" class="py-2">
+                  <c-input-group sizing="sm">
+                    <span cInputGroupText id="adjust">&#36;</span>
+                    <input cFormControl aria-describedby="adjust" class="w-10" [(ngModel)]="item.adjust" type="number"
+                      (focusout)="emitAdjust($event ,item)">
+                  </c-input-group>
+                </ng-container>
+                <ng-container *ngSwitchCase="'balance'" class="py-2">
+                  <label>{{item.balance | currency}}</label>
+                </ng-container>
+                <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
+                  <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.sessionAction" [disabled]="item.payment === null || item.adjust === null">
+                    <option value=null selected disabled>Select</option>
+                    <option value="Resubmit"> Resubmit</option>
+                    <option value="Close">Close Session</option>
+                    <option value="Current_Status">Keep current status</option>
+                  </select>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  {{tdContent}}
+                </ng-container>
+              </ng-container>
+            </td>
+          </ng-template>
+        </c-smart-table>
+        <c-smart-pagination (activePageChange)="handleActivePageChange($event)"></c-smart-pagination>
+      </ng-container>
+    </c-card-body>
+  </c-card>
+</c-container>

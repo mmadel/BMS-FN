@@ -1,0 +1,26 @@
+<div>
+    <c-row>
+        <c-col>
+            <table cTable hover small>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Primary</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let diagnosis of diagnosises;index as i">
+                        <th scope="row">{{i+1}}</th>
+                        <th>
+                            <input [checked]="diagnosis.primary" cFormCheckInput id="checkTwo" type="checkbox"  disabled/>
+                        </th>
+                        <td>{{diagnosis.diagnosisCode}}</td>
+                        <td>{{diagnosis.diagnosisDescription}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </c-col>
+    </c-row>
+</div>

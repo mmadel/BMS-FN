@@ -32,7 +32,7 @@ export class InsuranceMappingComponent implements OnInit {
     , private insuranceCompanyEmittingService: InsuranceCompanyEmittingService
     , private toastr: ToastrService) { }
   public toggleDetails(item: any) {
-    this.details_visible[item - 1] = !this.details_visible[item - 1];
+    this.details_visible[item] = !this.details_visible[item];
   }
   ngOnInit(): void {
     this.find();

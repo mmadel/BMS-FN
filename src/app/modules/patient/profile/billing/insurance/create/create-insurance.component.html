@@ -351,11 +351,11 @@
             <c-col class="col">
                 <c-card class="mb-3 ustify-content-center">
                     <c-card-header>
-                        <strong>Payor Address</strong>
+                        <strong>Payer Address</strong>
                     </c-card-header>
                     <c-card-body>
                         <c-row>
-                            <c-col xs="12">
+                            <!-- <c-col xs="12">
                                 <small
                                     *ngIf="notValidForm   && (payorcountry.errors) ||  payorcountry.invalid && (payorcountry.dirty || payorcountry.touched)"
                                     class="form-text text-danger">
@@ -363,7 +363,7 @@
                                 </small>
                                 <c-input-group class="mb-1">
                                     <select cFormControl cSelect sizing="sm" id="payor" name="payor"
-                                        #payorcountry="ngModel" [(ngModel)]="patientInsurance.payerAddress.country"
+                                        #payorcountry="ngModel" [(ngModel)]="patientInsurance.payerAddress.city"
                                         required>
                                         <option [value]="null" disabled selected>Select Country</option>
                                         <option *ngFor="let country of countries" [value]="country.name">
@@ -371,33 +371,33 @@
                                         </option>
                                     </select>
                                 </c-input-group>
-                            </c-col>
+                            </c-col> -->
                             <c-col xs="12">
-                                <small
+                                <!-- <small
                                     *ngIf="notValidForm   && (payorstreet.errors) ||  payorstreet.invalid && (payorstreet.dirty || payorstreet.touched)"
                                     class="form-text text-danger">
                                     Payor street is required
-                                </small>
+                                </small> -->
                                 <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #payorstreet="ngModel"
-                                    name="street" [(ngModel)]="patientInsurance.payerAddress.first" required />
+                                    name="street" [(ngModel)]="patientInsurance.payerAddress.address"  />
                             </c-col>
                             <c-col xs="12">
-                                <small
+                                <!-- <small
                                     *ngIf="notValidForm   && (patorCity.errors) || patorCity.invalid && (patorCity.dirty || patorCity.touched)"
                                     class="form-text text-danger">
                                     Payor City is required
-                                </small>
+                                </small> -->
                                 <input cFormControl placeholder="City" sizing="sm" class="mb-1" #patorCity="ngModel"
                                     name="patorCity" [(ngModel)]="patientInsurance.payerAddress.city"
-                                    required /></c-col>
+                                     /></c-col>
                             <c-col xs="6">
                                 <c-col xs="12">
-                                    <small
+                                    <!-- <small
                                         *ngIf="notValidForm   && (payorstate.errors) || payorstate.invalid && (payorstate.dirty || payorstate.touched)"
                                         class="form-text text-danger">
                                         Payor State is required
-                                    </small>
-                                    <select cFormControl cSelect sizing="sm" id="state" name="payorstate" required
+                                    </small> -->
+                                    <select cFormControl cSelect sizing="sm" id="state" name="payorstate" 
                                         #payorstate="ngModel" [(ngModel)]="patientInsurance.payerAddress.state">
                                         <option [value]="null" disabled selected>Select State</option>
                                         <option *ngFor="let state of states" [value]="state">
@@ -407,14 +407,14 @@
                                 </c-col>
                             </c-col>
                             <c-col xs="6">
-                                <small
+                                <!-- <small
                                     *ngIf="notValidForm   && (payorzipCode.errors) || payorzipCode.invalid && (payorzipCode.dirty || payorzipCode.touched)"
                                     class="form-text text-danger">
                                     Payor ZipCode is required
-                                </small>
+                                </small> -->
                                 <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
                                     sizing="sm" #payorzipCode="ngModel" name="payorzipCode"
-                                    [(ngModel)]="patientInsurance.payerAddress.zipCode" required class="mb-1" /></c-col>
+                                    [(ngModel)]="patientInsurance.payerAddress.zipCode"  class="mb-1" /></c-col>
                         </c-row>
                     </c-card-body>
                 </c-card>

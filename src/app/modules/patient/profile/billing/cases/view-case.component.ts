@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
+import { debounceTime, EMPTY, filter, finalize, switchMap, tap } from 'rxjs';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { CaseDiagnosisService } from '../../../service/case.diagnosis/case-diagnosis.service';
+import { EmitPatientSessionService } from '../../../service/session/shared/emit-patient-session.service';
+import { CaseAddDaignosisComponent } from './add.daignosis/case-add-daignosis.component';
 
 @Component({
   selector: 'app-view-case',
@@ -13,89 +15,33 @@ import { CaseDiagnosisService } from '../../../service/case.diagnosis/case-diagn
 })
 export class ViewCaseComponent implements OnInit {
   @Input() _cases: PatientCase[]
+  @ViewChild('caseAddDaignosisComponent') caseAddDaignosisComponent: CaseAddDaignosisComponent;
   addCaseVisibility: boolean = false
-  diagnosisCtrl = new FormControl();
-  filteredDiagnosis: any;
-  isLoading = false;
   cases: PatientCase[] = new Array();
-  case: PatientCase = {
-    caseDiagnosis: []
-  };
-  constructor(private caseDiagnosisService: CaseDiagnosisService) { }
+
+  constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-    if (this._cases !== undefined || this._cases !== undefined)
-      this.cases = this._cases
-    this.diagnosisCtrl.valueChanges
-      .pipe(
-        filter(text => {
-          if (text === undefined)
-            return false;
-          if (text.length > 1) {
-            return true
-          } else {
-            this.filteredDiagnosis = [];
-            return false;
-          }
-        }),
-        debounceTime(500),
-        tap((value) => {
-          this.filteredDiagnosis = [];
-          this.isLoading = true;
-        }),
-        switchMap((value) => {
-          return this.caseDiagnosisService.find(value)
-            .pipe(
-              finalize(() => {
-                this.isLoading = false
-              }),
-            )
-        }
-        )
-      )
-      .subscribe(data => {
-        if (data == undefined) {
-          this.filteredDiagnosis = [];
-        } else {
-          var diagnosisResponse: any = data;
-          this.filteredDiagnosis = diagnosisResponse.listOfCodeName;
-        }
-      },
-        error => {
-          this.isLoading = false
-        });
+
+    this.emitPatientSessionService.createdCase$.pipe(
+      filter((result) => result !== null)
+    ).subscribe((result) => {
+      console.log(JSON.stringify(result))
+      this.cases.push(result);
+    })
+    if (this._cases !== undefined)
+      this.cases.push(...this._cases)
+
   }
   toggleAddCaseVisibility() {
     this.addCaseVisibility = !this.addCaseVisibility
-    this.clear();
   }
-  clear() {
-    this.case = {
-      caseDiagnosis: []
-    };
-    this.diagnosisCtrl.setValue('')
-    this.filteredDiagnosis = []
-  }
-  addCase() {
-    this.cases.push(this.case)
-    this.toggleAddCaseVisibility();
-  }
+
   remove(index: number) {
     this.cases.splice(index, 1);
   }
   edit(selectedCase: any) {
     console.log(JSON.stringify(selectedCase))
-  }
-  addICD10diagnosis(diagnosis: any) {
-    diagnosis.forEach((element: string) => {
-      var code: string = element.split(',')[0]
-      var desrciption: string = element.split(',')[1]
-      const exists: boolean = this.case.caseDiagnosis?.findIndex(element => element.diagnosisCode === code) > -1;
-      this.case.caseDiagnosis.push({
-        diagnosisCode: code,
-        diagnosisDescription: desrciption
-      })
-    });
   }
   public getcases() {
     if (this.cases.length > 0)
@@ -104,7 +50,14 @@ export class ViewCaseComponent implements OnInit {
       return null;
   }
   public resetCases() {
-    this.case = {};
     this.cases = [];
+  }
+  changeAddCaseVisibility(event: any) {
+    if (event === 'close')
+      this.addCaseVisibility = false;
+  }
+  createCase() {
+    this.cases.push(this.caseAddDaignosisComponent.case)
+    this.addCaseVisibility = false
   }
 }

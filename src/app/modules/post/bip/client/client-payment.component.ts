@@ -1,9 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SmartTableComponent } from '@coreui/angular-pro';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable, tap } from 'rxjs';
+import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
+import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingServiceService } from '../../service/posting-service.service';
+import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
 
 @Component({
   selector: 'client-payment',
@@ -29,7 +33,8 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     { key: 'balance', label: 'Balance', _style: { width: '10%' } },
     { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
-  constructor(private postingServiceService: PostingServiceService) { super() }
+  constructor(private postingServiceService: PostingServiceService
+    , private toastr: ToastrService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -75,4 +80,22 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     item.balance = Number(billed - (payment + adjust));
   }
 
+  constructPaymentLines(paymentBatch: PaymentBatch): any[] {
+    var invalidServiceCode: any[] = PaymentLinesConstructor.validate(this.clientPayments.items);
+    if (!(invalidServiceCode.length > 0)) {
+      var paymentLines: PaymentServiceLine[] = PaymentLinesConstructor.construct(this.clientPayments.items, paymentBatch)
+      if (paymentLines.length > 0) {
+        this.postingServiceService.createClientPayments(paymentLines, this.clientId)
+          .subscribe((result) => {
+            this.toastr.success("Service lines payments submitted successfully")
+          }, (error) => {
+            this.toastr.error("Error during submitting Service lines payments.")
+          })
+        invalidServiceCode = []
+      } else {
+        invalidServiceCode.push(-1);
+      }
+    }
+    return invalidServiceCode;
+  }
 } 

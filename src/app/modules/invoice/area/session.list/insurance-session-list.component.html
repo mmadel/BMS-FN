@@ -65,7 +65,7 @@
   </c-modal-header>
   <c-modal-body>
     <app-invoice-creation [patientInsurances]="client?.patientInsurances" *ngIf="invoiceCreationVisible"
-      [selectedServiceCodeIds]="selectedSessionServiceCodeLine" [clientId]="client?.id"
+      [selectedSessionServiceLine]="selectedSessionServiceCodeLine" [clientId]="client?.id"
       (changeVisibility)="changeCreateInvoiceVisibility($event)"></app-invoice-creation>
   </c-modal-body>
 </c-modal>
@@ -90,5 +90,14 @@
   <c-modal-body>
     <session-item-edit *ngIf="editSessionItemVisibility" [selectedSession]="selectedSessionToEditItem"
       [itemType]="sessionItemType" (changeVisibility)="changeSessionItemVisibility($event)"> </session-item-edit>
+  </c-modal-body>
+</c-modal>
+<c-modal id="viewPatientProfile" [visible]="viewPatientProfileVisibility" size="xl" scrollable backdrop="static">
+  <c-modal-header>
+    <h5 cModalTitle>Patient Profile</h5>
+    <button (click)="toggleViewPatientProfile()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <view-patient-profile [patient]="client"></view-patient-profile>
   </c-modal-body>
 </c-modal>

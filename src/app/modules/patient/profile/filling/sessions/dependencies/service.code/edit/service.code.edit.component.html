@@ -5,9 +5,15 @@
             [(ngModel)]="selectedServiceCode.cptCode.serviceCode" sizing="sm" />
     </div>
     <div class="mb-3">
-        <label cLabel for="modifier">Email address</label>
-        <input cFormControl id="modifier" placeholder="Modifier"
-            [(ngModel)]="selectedServiceCode.cptCode.modifier" sizing="sm" />
+        <label cLabel for="modifier">Modifier</label>
+        <c-input-group sizing="sm">
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[4]"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[5]"/>
+        </c-input-group>
     </div>
     <div class="mb-3">
         <label cLabel for="lineNote">Line Note</label>

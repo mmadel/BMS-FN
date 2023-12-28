@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
+import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
 import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { InvoiceRequestCreation } from '../../model/invoice.request.creation';
@@ -16,7 +17,7 @@ import { InvoiceService } from '../../service/invoice.service';
 export class InvoiceCreationComponent implements OnInit {
   @Input() clientId: number
   @Input() patientInsurances: PatientInsurance[]
-  @Input() selectedServiceCodeIds: number[];
+  @Input() selectedSessionServiceLine: SelectedSessionServiceLine[];
   @Output() changeVisibility = new EventEmitter<string>()
   filterpatientInsurances: PatientInsurance[]
   constructor(private invoiceService: InvoiceService
@@ -31,14 +32,11 @@ export class InvoiceCreationComponent implements OnInit {
 
   create(patientInsurance: PatientInsurance) {
     var invoiceRequestCreation: InvoiceRequestCreation = {
-      serviceCodeIds: this.selectedServiceCodeIds,
+      selectedSessionServiceLines: this.selectedSessionServiceLine,
       isOneDateServicePerClaim: false,
       delayedReason: '',
-      invoicedInsuranceCompany: {
-        payerId: Number(patientInsurance.patientInsurancePolicy.payerId),
-        payerName: patientInsurance.patientInsurancePolicy.payerName,
-        PrimaryId: patientInsurance.patientInsurancePolicy.primaryId,
-      }
+      patientId: this.clientId,
+      insuranceCompanyId:patientInsurance.insuranceCompany
     }
     this.invoiceService.create(invoiceRequestCreation)
       .subscribe(() => {
