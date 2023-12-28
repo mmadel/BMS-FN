@@ -55,10 +55,10 @@ import { PatientSessionEditComponent } from './profile/filling/sessions/edit/pat
 import { ServiceCodeCreateComponent } from './profile/filling/sessions/dependencies/service.code/create/service.code.create.component';
 import { ServiceCodeListComponent } from './profile/filling/sessions/dependencies/service.code/list/service.code.list.component';
 import { ServiceCodeEditComponent } from './profile/filling/sessions/dependencies/service.code/edit/service.code.edit.component';
-import { ViewProfileComponent } from './view.profile/view-profile.component';
 import { DignosisListComponent } from './profile/filling/sessions/dependencies/dignosis.list/dignosis-list.component';
 import { DaignosisCreationComponent } from './profile/filling/sessions/dependencies/dignosis.create/daignosis-creation.component';
 import { CaseAddDaignosisComponent } from './profile/billing/cases/add.daignosis/case-add-daignosis.component';
+import { ViewProfileComponent } from './profile.view/view-profile.component';
 
 
 @NgModule({

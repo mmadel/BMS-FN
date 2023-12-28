@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { filter, first, map, Observable, tap } from 'rxjs';
+import { filter, map, Observable, tap } from 'rxjs';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
