@@ -59,6 +59,7 @@ import { DignosisListComponent } from './profile/filling/sessions/dependencies/d
 import { DaignosisCreationComponent } from './profile/filling/sessions/dependencies/dignosis.create/daignosis-creation.component';
 import { CaseAddDaignosisComponent } from './profile/billing/cases/add.daignosis/case-add-daignosis.component';
 import { ViewProfileComponent } from './profile.view/view-profile.component';
+import { EditProfileComponent } from './profile.edit/edit-profile.component';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import { ViewProfileComponent } from './profile.view/view-profile.component';
     DignosisListComponent,
     DaignosisCreationComponent,
     CaseAddDaignosisComponent,
+    EditProfileComponent,
   ],
   imports: [
     CommonModule,
