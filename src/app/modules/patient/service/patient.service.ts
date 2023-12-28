@@ -36,4 +36,8 @@ export class PatientService extends BasePaginationService {
     var url = this.baseUrl + '/find/first/' + first + '/last/' + last;
     return this.httpClient.get(url);
   }
+  public findPatientCases(patientId: number) {
+    var url = this.baseUrl + '/find/cases/patientId/' + patientId
+    return this.httpClient.get(url);
+  }
 }
