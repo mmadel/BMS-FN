@@ -17,6 +17,7 @@ export class DignosisListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     this.populateList();
   }
   pushDaignosis(daignosis: CaseDiagnosis) {
@@ -30,7 +31,6 @@ export class DignosisListComponent implements OnInit, OnDestroy {
   private populateList() {
     this.emitPatientSessionService.sessionDaignosies$.pipe(
       tap((result) => {
-        console.log(result)
         if (result === undefined || result === null){
           this.diagnosises = new Array();
         }
