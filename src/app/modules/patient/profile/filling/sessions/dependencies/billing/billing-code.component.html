@@ -39,9 +39,19 @@
                         </c-col>
                     </c-row>
                     <c-row class="mb-1">
-                        <c-col>
-                            <input cFormControl name="icd10diagnosis" id="casetitle" placeholder="Case Title"
-                                [(ngModel)]="billingCode.caseTitle" sizing="sm" />
+                        <c-col  class="mb-1">
+                            <ng-autocomplete [data]="patientCases" [searchKeyword]="'title'" id="patientCases" name="patientCases"
+                                placeholder="Cases" [itemTemplate]="itemTemplate"
+                                (selected)='pickCase($event)' (inputCleared)="unPickCase()"
+                                [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.title"></a>
+                            </ng-template>
+
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div [innerHTML]="notFound"></div>
+                            </ng-template>
                         </c-col>
                     </c-row>
                 </div>
@@ -57,7 +67,7 @@
                                 <svg cIcon name="cilPlus"></svg>
                             </button>
                         </div>
-                        <dignosis-list #daignosisListComponent [editMode]="editMode"></dignosis-list>
+                        <dignosis-list #daignosisListComponent></dignosis-list>
                     </c-tab-pane>
                     <c-tab-pane class="p-3">
                         <div style="float:right">
@@ -89,6 +99,6 @@
     </c-modal-header>
     <c-modal-body>
         <daignosis-creation *ngIf="addDaignosisVisibility"
-        (onCreateDaignosis)="getCreatedDagnosis($event)"></daignosis-creation>
+            (onCreateDaignosis)="getCreatedDagnosis($event)"></daignosis-creation>
     </c-modal-body>
 </c-modal>

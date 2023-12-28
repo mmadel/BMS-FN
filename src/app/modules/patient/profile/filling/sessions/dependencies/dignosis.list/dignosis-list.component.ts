@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { filter } from 'rxjs';
+import { filter, tap } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 
@@ -14,10 +14,7 @@ export class DignosisListComponent implements OnInit {
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-    if (this.editMode)
-      this.populateList();
-    else
-      this.diagnosises = new Array();
+    this.populateList();
   }
   pushDaignosis(daignosis: CaseDiagnosis) {
     if (this.diagnosises.length === 0)
@@ -28,7 +25,12 @@ export class DignosisListComponent implements OnInit {
   }
   private populateList() {
     this.emitPatientSessionService.sessionDaignosies$.pipe(
-      filter((daignosies) => daignosies !== null)
+      tap((result) => {
+        if (result === undefined)
+          this.diagnosises = new Array();
+      }),
+      filter((daignosies) => ( daignosies !== null)),
+      filter((daignosies) => ( daignosies !== undefined))
     ).subscribe((daignosies) => {
       this.diagnosises = new Array();
       for (var i = 0; i < daignosies.length; i++) {

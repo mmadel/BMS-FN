@@ -31,6 +31,7 @@ export class BillingCodeComponent implements OnInit {
   serviceCodeVisibility: boolean
   addDaignosisVisibility: boolean;
   @Input() editMode?: boolean = false
+  selectedCase: PatientCase;
 
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
@@ -75,5 +76,12 @@ export class BillingCodeComponent implements OnInit {
       placeOfCode: null,
       facility: null,
     }
+  }
+  pickCase(pickedCase: PatientCase) {
+    this.selectedCase = pickedCase;
+    this.emitPatientSessionService.sessionDaignosies$.next(this.selectedCase.caseDiagnosis)
+  }
+  unPickCase() {
+    this.emitPatientSessionService.sessionDaignosies$.next(undefined)
   }
 }
