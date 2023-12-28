@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../../model/clinical/patient';
@@ -8,6 +8,7 @@ import { MaritalStatus } from '../../model/enum/marital.status';
 import { PhoneType } from '../../model/enum/phone.type';
 import { Countries } from '../../model/lookups/country-data-store';
 import { States } from '../../model/lookups/state-data-store';
+import { CreateInsuranceComponent } from '../profile/billing/insurance/create/create-insurance.component';
 import { PatientService } from '../service/patient.service';
 
 @Component({
@@ -16,6 +17,8 @@ import { PatientService } from '../service/patient.service';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
+  @ViewChild('createInsuranceCompanyEditProfileComponent')
+  createInsuranceCompanyEditProfileComponent: CreateInsuranceComponent;
   @Input() patient: Patient = {}
   genders = Gender;
   genderKeys = Object.values;
@@ -27,7 +30,7 @@ export class EditProfileComponent implements OnInit {
   states: string[] = States;
   patientDOB: Date
   @Output() changeEditPorfileVisibility = new EventEmitter<string>()
-  editProfileAddInsuranceVisibility:boolean = false;
+  editProfileAddInsuranceVisibility: boolean = false;
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 
@@ -52,10 +55,17 @@ export class EditProfileComponent implements OnInit {
         this.toastr.success('Patient updated')
       })
   }
-  toggleeditProfileAddInsuranceVisibility(){
+  toggleeditProfileAddInsuranceVisibility() {
     this.editProfileAddInsuranceVisibility = !this.editProfileAddInsuranceVisibility;
   }
-  openAddInsuranceCompany(){
+  openAddInsuranceCompany() {
     this.editProfileAddInsuranceVisibility = true;
+  }
+  changeeditProfileInsurancVisibility(event: any) {
+    if (event === 'close') {
+      this.editProfileAddInsuranceVisibility = false;
+      this.createInsuranceCompanyEditProfileComponent.patientInsurance;
+      this.patient.patientInsurances.push(this.createInsuranceCompanyEditProfileComponent.patientInsurance);
+    }
   }
 }
