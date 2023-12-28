@@ -31,6 +31,7 @@ export class EditProfileComponent implements OnInit {
   patientDOB: Date
   @Output() changeEditPorfileVisibility = new EventEmitter<string>()
   editProfileAddInsuranceVisibility: boolean = false;
+  editProfileAddCaseVisibility: boolean = false;
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 
@@ -58,8 +59,14 @@ export class EditProfileComponent implements OnInit {
   toggleeditProfileAddInsuranceVisibility() {
     this.editProfileAddInsuranceVisibility = !this.editProfileAddInsuranceVisibility;
   }
+  toggleEditProfileAddCaseVisibilityVisibility() {
+    this.editProfileAddCaseVisibility = !this.editProfileAddCaseVisibility;
+  }
   openAddInsuranceCompany() {
     this.editProfileAddInsuranceVisibility = true;
+  }
+  openAddCase(){
+    this.editProfileAddCaseVisibility = true;
   }
   changeeditProfileInsurancVisibility(event: any) {
     if (event === 'close') {

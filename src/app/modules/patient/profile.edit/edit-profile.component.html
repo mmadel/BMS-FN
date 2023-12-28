@@ -195,6 +195,13 @@
                     <c-col class="mb-1">
                         <h3>Cases</h3>
                     </c-col>
+                    <c-col>
+                        <div style="float:right">
+                            <button cButton color="info" variant="outline" size="sm" (click)="openAddCase()">
+                                <svg cIcon name="cilPlus"></svg>
+                            </button>
+                        </div>
+                    </c-col>
                 </c-row>
             </c-card-header>
             <c-card-body>
@@ -228,7 +235,7 @@
 <div class="col-12 text-center">
     <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>
 </div>
-{{editProfileAddInsuranceVisibility}}
+
 <c-modal id="editProfileInsuranceModal" [visible]="editProfileAddInsuranceVisibility" backdrop="static" size="xl">
     <c-modal-header>
         <h5 cModalTitle>Add Insurance</h5>
@@ -238,5 +245,14 @@
         <app-create-insurance #createInsuranceCompanyEditProfileComponent *ngIf="editProfileAddInsuranceVisibility" [patient]="patient"
         (changeVisibility)="changeeditProfileInsurancVisibility($event)"
         ></app-create-insurance>
+    </c-modal-body>
+</c-modal>
+<c-modal id="editProfileCaseModal" [visible]="editProfileAddCaseVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h5 cModalTitle>Add Case</h5>
+        <button (click)="toggleEditProfileAddCaseVisibilityVisibility()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+
     </c-modal-body>
 </c-modal>
