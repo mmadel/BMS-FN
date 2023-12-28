@@ -123,7 +123,8 @@ import { EditProfileComponent } from './profile.edit/edit-profile.component';
   ],
   exports: [
     PatientSessionEditComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    EditProfileComponent
   ]
 
 })

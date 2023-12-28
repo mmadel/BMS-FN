@@ -92,12 +92,11 @@
       [itemType]="sessionItemType" (changeVisibility)="changeSessionItemVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>
-<c-modal id="viewPatientProfile" [visible]="viewPatientProfileVisibility" size="xl" scrollable backdrop="static">
-  <c-modal-header>
-    <h5 cModalTitle>Patient Profile</h5>
+<c-modal id="editPatientProfile" [visible]="editPatientProfileVisibility" size="xl" scrollable backdrop="static">
+  <c-modal-header>k
     <button (click)="toggleViewPatientProfile()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <view-patient-profile [patient]="client"></view-patient-profile>
+    <patient-edit-profile [patient]="client" *ngIf="editPatientProfileVisibility"></patient-edit-profile>
   </c-modal-body>
 </c-modal>
