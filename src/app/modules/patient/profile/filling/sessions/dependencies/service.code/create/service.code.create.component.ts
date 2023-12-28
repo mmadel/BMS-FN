@@ -10,6 +10,7 @@ import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line
 })
 export class ServiceCodeCreateComponent implements OnInit {
   serviceCode: ServiceCode;
+  modifier:string[]=[]
   @Output() onCreateServiceCode = new EventEmitter<ServiceCode>()
   constructor() { }
 
@@ -20,6 +21,7 @@ export class ServiceCodeCreateComponent implements OnInit {
   }
   saveServiceCode() {
     this.serviceCode.type = ServiceLineType.Initial;
+    this.serviceCode.cptCode.modifier =this.modifier.join(".") 
     this.onCreateServiceCode.emit(this.serviceCode);
   }
 

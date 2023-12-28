@@ -9,7 +9,7 @@ import { EmitPatientSessionService } from 'src/app/modules/patient/service/sessi
   styleUrls: ['./service.code.edit.component.scss']
 })
 export class ServiceCodeEditComponent implements OnInit {
-
+  modifier:string[]=[]
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
   selectedServiceCode: ServiceCode;
   @Output() changeVisibility = new EventEmitter<string>()
@@ -18,10 +18,12 @@ export class ServiceCodeEditComponent implements OnInit {
       filter((selectedServiceCode) => selectedServiceCode !== null),
       first()
     ).subscribe((selectedServiceCode) => {
+      this.modifier = selectedServiceCode.cptCode.modifier.split('.')
       this.selectedServiceCode = selectedServiceCode;
     })
   }
   updateServiceCode() {
+    this.selectedServiceCode.cptCode.modifier= this.modifier.join(".") 
     this.changeVisibility.emit('close');
   }
   

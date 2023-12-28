@@ -29,8 +29,8 @@ export class ViewCaseComponent implements OnInit {
       console.log(JSON.stringify(result))
       this.cases.push(result);
     })
-
-    this.cases.push(...this._cases)
+    if (this._cases !== undefined)
+      this.cases.push(...this._cases)
 
   }
   toggleAddCaseVisibility() {

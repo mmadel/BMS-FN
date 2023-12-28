@@ -379,7 +379,7 @@
                                     Payor street is required
                                 </small> -->
                                 <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #payorstreet="ngModel"
-                                    name="street" [(ngModel)]="patientInsurance.payerAddress.address" required />
+                                    name="street" [(ngModel)]="patientInsurance.payerAddress.address"  />
                             </c-col>
                             <c-col xs="12">
                                 <!-- <small
@@ -389,7 +389,7 @@
                                 </small> -->
                                 <input cFormControl placeholder="City" sizing="sm" class="mb-1" #patorCity="ngModel"
                                     name="patorCity" [(ngModel)]="patientInsurance.payerAddress.city"
-                                    required /></c-col>
+                                     /></c-col>
                             <c-col xs="6">
                                 <c-col xs="12">
                                     <!-- <small
@@ -397,7 +397,7 @@
                                         class="form-text text-danger">
                                         Payor State is required
                                     </small> -->
-                                    <select cFormControl cSelect sizing="sm" id="state" name="payorstate" required
+                                    <select cFormControl cSelect sizing="sm" id="state" name="payorstate" 
                                         #payorstate="ngModel" [(ngModel)]="patientInsurance.payerAddress.state">
                                         <option [value]="null" disabled selected>Select State</option>
                                         <option *ngFor="let state of states" [value]="state">
@@ -414,7 +414,7 @@
                                 </small> -->
                                 <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
                                     sizing="sm" #payorzipCode="ngModel" name="payorzipCode"
-                                    [(ngModel)]="patientInsurance.payerAddress.zipCode" required class="mb-1" /></c-col>
+                                    [(ngModel)]="patientInsurance.payerAddress.zipCode"  class="mb-1" /></c-col>
                         </c-row>
                     </c-card-body>
                 </c-card>
