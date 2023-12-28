@@ -97,6 +97,7 @@
     <button (click)="toggleViewPatientProfile()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <patient-edit-profile [patient]="client" *ngIf="editPatientProfileVisibility"></patient-edit-profile>
+    <patient-edit-profile [patient]="client" *ngIf="editPatientProfileVisibility"
+    (changeEditPorfileVisibility)="changeEditPorfileVisibility($event)"></patient-edit-profile>
   </c-modal-body>
 </c-modal>

@@ -153,8 +153,11 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     if (event === 'close')
       this.invoiceCreationVisible = false;
   }
-  toggleViewPatientProfile(){
+  toggleViewPatientProfile() {
     this.editPatientProfileVisibility = !this.editPatientProfileVisibility
-
+  }
+  changeEditPorfileVisibility(event: any) {
+    if (event === 'close')
+      this.editPatientProfileVisibility = false;
   }
 }

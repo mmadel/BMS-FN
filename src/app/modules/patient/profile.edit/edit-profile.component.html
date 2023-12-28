@@ -18,9 +18,9 @@
                             <span cInputGroupText>
                                 <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
                             </span>
-                            <input cFormControl name="firstName" [value]="patient.firstName" name="vpFirstName" />
-                            <input cFormControl [value]="patient.middleName" name="vpmname" />
-                            <input cFormControl [value]="patient.lastName" name="vplastname" />
+                            <input cFormControl name="firstName" [(ngModel)]="patient.firstName" name="vpFirstName" />
+                            <input cFormControl [(ngModel)]="patient.middleName" name="vpmname" />
+                            <input cFormControl [(ngModel)]="patient.lastName" name="vplastname" />
                         </c-input-group>
                     </c-col>
                 </c-row>
@@ -30,7 +30,7 @@
                             <span cInputGroupText>
                                 <svg cIcon name="cilUser" title="cilUser"></svg>
                             </span>
-                            <input cFormControl [value]="genders[patient.gender]" name="vpgeneder" />
+                            <input cFormControl [(ngModel)]="genders[patient.gender]" name="vpgeneder" />
                         </c-input-group>
                     </c-col>
                 </c-row>
@@ -40,7 +40,7 @@
                             <span cInputGroupText>
                                 <svg cIcon name="cilPeople" title="cilPeople"></svg>
                             </span>
-                            <input cFormControl [value]="maritalStatuses[patient.maritalStatus]"
+                            <input cFormControl [(ngModel)]="maritalStatuses[patient.maritalStatus]"
                                 name="vpmaritalStatus" />
                         </c-input-group>
                     </c-col>
@@ -59,7 +59,7 @@
                                     {{phoneTypes[phoneTypevalue]}}
                                 </option>
                             </select>
-                            <input cFormControl size="sm" [value]="patient.phone" name="vpphone" />
+                            <input cFormControl size="sm" [(ngModel)]="patient.phone" name="vpphone" />
                         </c-input-group>
                     </c-col>
                 </c-row>
@@ -69,7 +69,7 @@
                             <span cInputGroupText>
                                 <svg cIcon name="cibMailRu" title="cibMailRu"></svg>
                             </span>
-                            <input cFormControl placeholder="Email" [value]="patient.email" id="vpemail" />
+                            <input cFormControl placeholder="Email" [(ngModel)]="patient.email" id="vpemail" />
                         </c-input-group>
                     </c-col>
                     <c-col class="mb-1">
@@ -113,7 +113,7 @@
                     </c-col>
                     <c-col xs="12">
                         <input cFormControl placeholder="Street" sizing="sm" class="mb-1" id="vpstreet" name="vpstreet"
-                            [value]="patient.address.first" />
+                        [(ngModel)]="patient.address.first" />
                     </c-col>
                     <c-col xs="12">
                         <input cFormControl sizing="sm" class="mb-1" name="vpCity" [value]="patient.address.city" />
@@ -127,7 +127,7 @@
                         </select>
                     </c-col>
                     <c-col xs="12">
-                        <input cFormControl [value]="patient.address.zipCode"  sizing="sm" id="vpzipCode"
+                        <input cFormControl [(ngModel)]="patient.address.zipCode"  sizing="sm" id="vpzipCode"
                             name="vpzipCode" class="mb-1" />
                     </c-col>
                 </c-row>
@@ -135,3 +135,6 @@
         </c-card>
     </c-col>
 </c-row>
+<div class="col-12 text-center">
+    <button cButton variant="outline" style="width: 15%;" (click)="update()">Create Session</button>
+</div>
