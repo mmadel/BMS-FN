@@ -34,12 +34,12 @@
                             <c-row>
                                 <c-col class="mb-1">
                                     <small
-                                        *ngIf="notValidForm   && (firstName.errors) || firstName.invalid && (firstName.dirty || firstName.touched)"
+                                        *ngIf="notValidForm   && (piFirstName.errors) || piFirstName.invalid && (piFirstName.dirty || piFirstName.touched)"
                                         class="form-text text-danger">
                                         First Name is required
                                     </small>
                                     <small
-                                        *ngIf="notValidForm   && (lastName.errors) || lastName.invalid && (lastName.dirty || lastName.touched)"
+                                        *ngIf="notValidForm   && (pilastname.errors) || pilastname.invalid && (pilastname.dirty || pilastname.touched)"
                                         class="form-text text-danger">
                                         Last Name is required
                                     </small>
@@ -47,21 +47,21 @@
                                         <span cInputGroupText>
                                             <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
                                         </span>
-                                        <input cFormControl placeholder="FirstName" name="firstName" required
+                                        <input cFormControl placeholder="piFirstName" name="pifirstName" required
                                             [(ngModel)]="patientInsurance.patientRelation.r_firstName"
-                                            #firstName="ngModel" name="fname" />
-                                        <input cFormControl placeholder="MiddleName"
-                                            [(ngModel)]="patientInsurance.patientRelation.r_middleName" name="mname" />
+                                            #piFirstName="ngModel" name="fname" />
+                                        <input cFormControl placeholder="piMiddleName"
+                                            [(ngModel)]="patientInsurance.patientRelation.r_middleName" name="pimname" />
                                         <input cFormControl placeholder="LastName"
                                             [(ngModel)]="patientInsurance.patientRelation.r_lastName" required
-                                            #lastName="ngModel" name="lastname" />
+                                            #pilastname="ngModel" name="pilastname" />
                                     </c-input-group>
                                 </c-col>
                             </c-row>
                             <c-row>
                                 <c-col class="mb-1">
                                     <small
-                                        *ngIf="notValidForm   && (gender.errors) ||gender.invalid && (gender.dirty || gender.touched)"
+                                        *ngIf="notValidForm   && (pigender.errors) ||pigender.invalid && (pigender.dirty || pigender.touched)"
                                         class="form-text text-danger">
                                         Gender is required
                                     </small>
@@ -69,7 +69,7 @@
                                         <span cInputGroupText>
                                             <svg cIcon name="cilUser" title="cilUser"></svg>
                                         </span>
-                                        <select aria-label="" cSelect #gender="ngModel" name="gender" required
+                                        <select aria-label="" cSelect #pigender="ngModel" name="pigender" required
                                             [(ngModel)]="patientInsurance.patientRelation.r_gender">
                                             <option [value]="null">Select Gender</option>
                                             <option *ngFor="let genderValue of genderKeys(genders)"
@@ -84,7 +84,7 @@
                                 <c-col class="mb-1">
 
                                     <small
-                                        *ngIf="notValidForm   && (phone.errors) || phone.invalid && (phone.dirty || phone.touched)"
+                                        *ngIf="notValidForm   && (piphone.errors) || piphone.invalid && (piphone.dirty || piphone.touched)"
                                         class="form-text text-danger">
                                         Phone is required
                                     </small>
@@ -93,21 +93,21 @@
                                             <svg cIcon name="cilPhone" title="cilPhone"></svg>
                                         </span>
                                         <input cFormControl size="sm" placeholder="Phone"
-                                            [(ngModel)]="patientInsurance.patientRelation.r_phone" #phone="ngModel"
-                                            name="phone" required />
+                                            [(ngModel)]="patientInsurance.patientRelation.r_phone" #piphone="ngModel"
+                                            name="piphone" required />
                                     </c-input-group>
                                 </c-col>
                             </c-row>
                             <c-row>
                                 <c-col xs="12">
                                     <small
-                                        *ngIf="notValidForm   && (country.errors) ||  country.invalid && (country.dirty || country.touched)"
+                                        *ngIf="notValidForm   && (piaddcountry.errors) ||  piaddcountry.invalid && (piaddcountry.dirty || piaddcountry.touched)"
                                         class="form-text text-danger">
                                         country is required
                                     </small>
                                     <c-input-group class="mb-1">
-                                        <select cFormControl cSelect sizing="sm" id="country" name="country"
-                                            #country="ngModel"
+                                        <select cFormControl cSelect sizing="sm" name="piaddcountry"
+                                            #piaddcountry="ngModel"
                                             [(ngModel)]="patientInsurance.patientRelation.r_address.country" required>
                                             <option [value]="null" disabled selected>Select Country</option>
                                             <option *ngFor="let country of countries" [value]="country.name">
@@ -118,32 +118,32 @@
                                 </c-col>
                                 <c-col xs="12">
                                     <small
-                                        *ngIf="notValidForm   && (street.errors) ||  street.invalid && (street.dirty || street.touched)"
+                                        *ngIf="notValidForm   && (piaddstreet.errors) ||  piaddstreet.invalid && (piaddstreet.dirty || piaddstreet.touched)"
                                         class="form-text text-danger">
                                         street is required
                                     </small>
-                                    <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #street="ngModel"
-                                        name="street" [(ngModel)]="patientInsurance.patientRelation.r_address.first"
+                                    <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #piaddstreet="ngModel"
+                                        name="piaddstreet" [(ngModel)]="patientInsurance.patientRelation.r_address.first"
                                         required />
                                 </c-col>
                                 <c-col xs="12">
                                     <small
-                                        *ngIf="notValidForm   && (City.errors) || City.invalid && (City.dirty || City.touched)"
+                                        *ngIf="notValidForm   && (piaddCity.errors) || piaddCity.invalid && (piaddCity.dirty || piaddCity.touched)"
                                         class="form-text text-danger">
                                         City is required
                                     </small>
-                                    <input cFormControl placeholder="City" sizing="sm" class="mb-1" #City="ngModel"
-                                        name="City" [(ngModel)]="patientInsurance.patientRelation.r_address.city"
+                                    <input cFormControl placeholder="City" sizing="sm" class="mb-1" #piaddCity="ngModel"
+                                        name="piaddCity" [(ngModel)]="patientInsurance.patientRelation.r_address.city"
                                         required /></c-col>
                                 <c-col xs="6">
                                     <c-col xs="12">
                                         <small
-                                            *ngIf="notValidForm   && (state.errors) || state.invalid && (state.dirty || state.touched)"
+                                            *ngIf="notValidForm   && (piaddCity.errors) || piaddCity.invalid && (piaddCity.dirty || piaddCity.touched)"
                                             class="form-text text-danger">
                                             State is required
                                         </small>
                                         <select cFormControl cSelect sizing="sm" id="state" name="state" required
-                                            #state="ngModel"
+                                            #piaddCity="ngModel"
                                             [(ngModel)]="patientInsurance.patientRelation.r_address.state">
                                             <option [value]="null" disabled selected>Select State</option>
                                             <option *ngFor="let state of states" [value]="state">
@@ -154,12 +154,12 @@
                                 </c-col>
                                 <c-col xs="6">
                                     <small
-                                        *ngIf="notValidForm   && (zipCode.errors) || zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+                                        *ngIf="notValidForm   && (piaddzipCode.errors) || piaddzipCode.invalid && (piaddzipCode.dirty || piaddzipCode.touched)"
                                         class="form-text text-danger">
                                         ZipCode is required
                                     </small>
                                     <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
-                                        sizing="sm" #zipCode="ngModel" name="zipCode"
+                                        sizing="sm" #piaddzipCode="ngModel" name="zipCode"
                                         [(ngModel)]="patientInsurance.patientRelation.r_address.zipCode" required
                                         class="mb-1" /></c-col>
                             </c-row>
@@ -379,7 +379,7 @@
                                     Payor street is required
                                 </small> -->
                                 <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #payorstreet="ngModel"
-                                    name="street" [(ngModel)]="patientInsurance.payerAddress.address"  />
+                                    name="payorstreet" [(ngModel)]="patientInsurance.payerAddress.address"  />
                             </c-col>
                             <c-col xs="12">
                                 <!-- <small
