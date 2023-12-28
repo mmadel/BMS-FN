@@ -4,7 +4,7 @@ import { CPTCode } from "../cpt.code";
 
 export interface ServiceCode {
     id?:number
-    caseDiagnosis?: CaseDiagnosis[]
+    diagnoses?: string[]
     cptCode?: CPTCode
     type?: ServiceLineType
 }

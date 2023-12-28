@@ -56,6 +56,7 @@ export class BillingCodeComponent implements OnInit {
     this.daignosisListComponent.pushDaignosis(createdDaignosis);
   }
   getServiceCodes() {
+    console.log(JSON.stringify(this.serviceCodeListComponent.getServiceCodes()))
     return this.serviceCodeListComponent.getServiceCodes();
   }
   getDaignosises() {

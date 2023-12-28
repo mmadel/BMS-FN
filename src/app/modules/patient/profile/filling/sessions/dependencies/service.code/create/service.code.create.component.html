@@ -1,38 +1,42 @@
+<small *ngIf="emptyDiagnosisCodes"
+    class="form-text text-danger">
+    Diagnoses List is empty.Can't create service line 
+</small>
 <c-container fluid>
     <div class="mb-3">
         <label cLabel for="serviceCode">Service Code</label>
         <input cFormControl id="serviceCode" placeholder="Service Code" [(ngModel)]="serviceCode.cptCode.serviceCode"
-            sizing="sm" />
+            sizing="sm" [disabled]="emptyDiagnosisCodes"/>
     </div>
     <div class="mb-3">
         <label cLabel for="modifier">Modifier</label>
-        <c-input-group sizing="sm">
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[4]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[5]" />
+        <c-input-group sizing="sm" >
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" [disabled]="emptyDiagnosisCodes"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" [disabled]="emptyDiagnosisCodes"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" [disabled]="emptyDiagnosisCodes"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" [disabled]="emptyDiagnosisCodes"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[4]" [disabled]="emptyDiagnosisCodes"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[5]" [disabled]="emptyDiagnosisCodes"/>
         </c-input-group>
     </div>
     <div class="mb-3">
         <label cLabel for="lineNote">Line Note</label>
-        <textarea cFormControl id="lineNote" rows="1" sizing="sm"></textarea>
+        <textarea cFormControl id="lineNote" rows="1" sizing="sm" [disabled]="emptyDiagnosisCodes"></textarea>
     </div>
-    <c-multi-select class="mb-2" visibleItems="20" placeholder="Select Diagnosis" *ngIf="diagnosisCodes">
+    <c-multi-select class="mb-2" visibleItems="20" placeholder="Select Diagnosis" *ngIf="diagnosisCodes" [(ngModel)]="selectedDiagnosisCodes">
         <c-multi-select-option *ngFor="let diagnosisCode of diagnosisCodes" [value]="diagnosisCode">
             {{ diagnosisCode}}
         </c-multi-select-option>
     </c-multi-select>
     <div class="mb-3">
         <label cLabel for="unit">Unit</label>
-        <input cFormControl id="unit" placeholder="unit" [(ngModel)]="serviceCode.cptCode.unit" sizing="sm" />
+        <input cFormControl id="unit" placeholder="unit" [(ngModel)]="serviceCode.cptCode.unit" sizing="sm" [disabled]="emptyDiagnosisCodes"/>
     </div>
     <div class="mb-3">
         <label cLabel for="charge">Charge</label>
-        <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="serviceCode.cptCode.charge" sizing="sm" />
+        <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="serviceCode.cptCode.charge" sizing="sm" [disabled]="emptyDiagnosisCodes"/>
     </div>
     <div class="col-12 text-center">
-        <button cButton variant="outline" style="width: 10%;" (click)="saveServiceCode()">Save</button>
+        <button cButton variant="outline" style="width: 10%;" (click)="saveServiceCode()" [disabled]="emptyDiagnosisCodes">Save</button>
     </div>
 </c-container>

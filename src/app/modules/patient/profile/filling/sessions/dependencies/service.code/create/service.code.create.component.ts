@@ -14,6 +14,8 @@ export class ServiceCodeCreateComponent implements OnInit {
   serviceCode: ServiceCode;
   modifier: string[] = []
   diagnosisCodes: string[];
+  selectedDiagnosisCodes: string[];
+  emptyDiagnosisCodes: boolean = true;
   @Output() onCreateServiceCode = new EventEmitter<ServiceCode>()
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
@@ -25,12 +27,15 @@ export class ServiceCodeCreateComponent implements OnInit {
       filter(result => result !== null)
     ).subscribe((result) => {
       this.diagnosisCodes = result;
+      if (this.diagnosisCodes.length !== 0)
+        this.emptyDiagnosisCodes = false;
     })
   }
   saveServiceCode() {
     this.serviceCode.type = ServiceLineType.Initial;
     this.serviceCode.cptCode.modifier = this.modifier.join(".")
-    this.onCreateServiceCode.emit(this.serviceCode);
+    this.serviceCode.diagnoses= this.selectedDiagnosisCodes
+    this.onCreateServiceCode.emit(this.serviceCode);    
   }
 
 }
