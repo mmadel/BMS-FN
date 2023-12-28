@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { filter, tap } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
@@ -8,10 +8,13 @@ import { EmitPatientSessionService } from 'src/app/modules/patient/service/sessi
   templateUrl: './dignosis-list.component.html',
   styleUrls: ['./dignosis-list.component.scss']
 })
-export class DignosisListComponent implements OnInit {
+export class DignosisListComponent implements OnInit, OnDestroy {
   @Input() editMode?: boolean = false;
   diagnosises: CaseDiagnosis[];
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
+  ngOnDestroy(): void {
+    
+  }
 
   ngOnInit(): void {
     this.populateList();
@@ -27,6 +30,7 @@ export class DignosisListComponent implements OnInit {
   private populateList() {
     this.emitPatientSessionService.sessionDaignosies$.pipe(
       tap((result) => {
+        console.log(result)
         if (result === undefined || result === null){
           this.diagnosises = new Array();
         }

@@ -78,6 +78,7 @@ export class BillingCodeComponent implements OnInit {
       placeOfCode: null,
       facility: null,
     }
+    this.emitPatientSessionService.sessionDaignosies$.next(undefined)
   }
   pickCase(pickedCase: PatientCase) {
     this.selectedCase = pickedCase;
