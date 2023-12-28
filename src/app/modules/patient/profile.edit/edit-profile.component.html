@@ -135,6 +135,50 @@
         </c-card>
     </c-col>
 </c-row>
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <div style="float: left;">
+                    <svg cIcon name="cilInstitution" title="cilInstitution" size="xxl"></svg>
+                </div>
+                <c-row>
+                    <c-col class="mb-1">
+                        <h3>Insurances</h3>
+                    </c-col>
+                </c-row>
+            </c-card-header>
+            <c-card-body>
+                <c-col xs="12">
+                    <div class="card border mb-2" *ngFor="let insurance of patient.patientInsurances;let i=index;">
+                        <div class="card-body" [ngClass]="{'text-bg-light': insurance.isArchived}">
+                            <div style="float: right;">
+                                <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                    <button cButton variant="outline" class="btn-sm" variant="outline" color="info">
+                                        <svg cIcon name="cilPen"></svg>
+                                    </button>
+                                    <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                        (click)="remove(i)">
+                                        <svg cIcon name="cilTrash"></svg>
+                                    </button>
+                                </c-button-group>
+                                <div class="mt-2">
+                                    <c-form-check>
+                                        <label cFormCheckLabel>archive</label>
+                                        <input cFormCheckInput type="checkbox" name="archive" [(ngModel)]="insurance.isArchived" />
+                                    </c-form-check>
+                                </div>
+                            </div>
+                            <h4><strong>{{insurance.patientInsurancePolicy.payerName }}</strong></h4>
+                            <h6>{{insurance.patientInsurancePolicy.planType}}</h6>
+                            <h6>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h6>
+                        </div>
+                    </div>
+                </c-col>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
 <div class="col-12 text-center">
-    <button cButton variant="outline" style="width: 15%;" (click)="update()">Create Session</button>
+    <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>
 </div>

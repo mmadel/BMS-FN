@@ -40,6 +40,9 @@ export class EditProfileComponent implements OnInit {
   handleModel() {
     this.patient.birthDate = moment(this.patientDOB).unix() * 1000;
   }
+  remove(index: number) {
+    this.patient.patientInsurances.splice(index, 1);
+  }
   update() {
     this.handleModel();
     this.patientService.create(this.patient)
