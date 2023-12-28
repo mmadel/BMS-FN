@@ -27,6 +27,7 @@ export class EditProfileComponent implements OnInit {
   states: string[] = States;
   patientDOB: Date
   @Output() changeEditPorfileVisibility = new EventEmitter<string>()
+  editProfileAddInsuranceVisibility:boolean = false;
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 
@@ -51,5 +52,10 @@ export class EditProfileComponent implements OnInit {
         this.toastr.success('Patient updated')
       })
   }
-
+  toggleeditProfileAddInsuranceVisibility(){
+    this.editProfileAddInsuranceVisibility = !this.editProfileAddInsuranceVisibility;
+  }
+  openAddInsuranceCompany(){
+    this.editProfileAddInsuranceVisibility = true;
+  }
 }
