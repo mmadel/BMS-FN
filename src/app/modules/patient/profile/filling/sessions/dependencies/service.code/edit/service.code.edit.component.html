@@ -7,22 +7,27 @@
     <div class="mb-3">
         <label cLabel for="modifier">Modifier</label>
         <c-input-group sizing="sm">
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[4]"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[5]"/>
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[4]" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[5]" />
         </c-input-group>
     </div>
     <div class="mb-3">
         <label cLabel for="lineNote">Line Note</label>
         <textarea cFormControl id="lineNote" rows="1" sizing="sm"></textarea>
     </div>
+    <c-multi-select multiple class="mb-2" visibleItems="20" placeholder="Select Diagnosis" *ngIf="diagnosisCodes"
+        [(ngModel)]="selectedDiagnosisCodes" [value]="selectedDiagnosisCodes">
+        <c-multi-select-option *ngFor="let diagnosisCode of diagnosisCodes" [value]="diagnosisCode">
+            {{ diagnosisCode}}
+        </c-multi-select-option>
+    </c-multi-select>
     <div class="mb-3">
         <label cLabel for="unit">Unit</label>
-        <input cFormControl id="unit" placeholder="unit" [(ngModel)]="selectedServiceCode.cptCode.unit"
-            sizing="sm" />
+        <input cFormControl id="unit" placeholder="unit" [(ngModel)]="selectedServiceCode.cptCode.unit" sizing="sm" />
     </div>
     <div class="mb-3">
         <label cLabel for="charge">Charge</label>
@@ -30,6 +35,6 @@
             sizing="sm" />
     </div>
     <div class="col-12 text-center">
-        <button cButton variant="outline"  (click)="updateServiceCode()">Save</button>
+        <button cButton variant="outline" (click)="updateServiceCode()">Save</button>
     </div>
 </c-container>
