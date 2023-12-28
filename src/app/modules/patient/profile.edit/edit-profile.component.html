@@ -235,6 +235,46 @@
         </c-card>
     </c-col>
 </c-row>
+<c-row>
+    <c-row>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-header>
+                    <div style="float: left;">
+                        <svg cIcon name="cilCalendar" title="cilCalendar" size="xxl"></svg>
+                    </div>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <h3>Sessions</h3>
+                        </c-col>
+                    </c-row>
+                </c-card-header>
+                <c-card-body>
+                    <c-col xs="12">
+                        <table cTable small hover>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date Of Service</th>
+                                    <th scope="col">Doctor Name</th>
+                                    <th scope="col">actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let session of patient.sessions">
+                                    <td>{{session.serviceDate | date: 'MM/dd/yyyy'}}</td>
+                                    <td>{{session.doctorInfo.doctorLastName}},{{session.doctorInfo.doctorFirstName}}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </c-col>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+</c-row>
 <div class="col-12 text-center">
     <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>
 </div>
