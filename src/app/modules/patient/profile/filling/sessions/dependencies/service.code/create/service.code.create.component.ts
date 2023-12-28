@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { filter } from 'rxjs';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line.type';
+import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 
 
 @Component({
@@ -10,18 +12,24 @@ import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line
 })
 export class ServiceCodeCreateComponent implements OnInit {
   serviceCode: ServiceCode;
-  modifier:string[]=[]
+  modifier: string[] = []
+  diagnosisCodes: string[];
   @Output() onCreateServiceCode = new EventEmitter<ServiceCode>()
-  constructor() { }
+  constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
     this.serviceCode = {
       cptCode: {}
     }
+    this.emitPatientSessionService.diagnosisCodes$.pipe(
+      filter(result => result !== null)
+    ).subscribe((result) => {
+      this.diagnosisCodes = result;
+    })
   }
   saveServiceCode() {
     this.serviceCode.type = ServiceLineType.Initial;
-    this.serviceCode.cptCode.modifier =this.modifier.join(".") 
+    this.serviceCode.cptCode.modifier = this.modifier.join(".")
     this.onCreateServiceCode.emit(this.serviceCode);
   }
 

@@ -22,6 +22,7 @@ export class DignosisListComponent implements OnInit {
     else
       daignosis.primary = false
     this.diagnosises.push(daignosis);
+    this.emitPatientSessionService.diagnosisCodes$.next(this.diagnosises.map(diagnosis=>diagnosis.diagnosisCode))
   }
   private populateList() {
     this.emitPatientSessionService.sessionDaignosies$.pipe(
@@ -38,6 +39,7 @@ export class DignosisListComponent implements OnInit {
       for (var i = 0; i < daignosies.length; i++) {
         this.diagnosises.push(daignosies[i])
       }
+      this.emitPatientSessionService.diagnosisCodes$.next(this.diagnosises.map(diagnosis=>diagnosis.diagnosisCode))
     })
   }
 }

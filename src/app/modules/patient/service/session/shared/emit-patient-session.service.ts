@@ -18,5 +18,6 @@ export class EmitPatientSessionService {
   public sessionDaignosies$: BehaviorSubject<CaseDiagnosis[] | null> = new BehaviorSubject<CaseDiagnosis[] | null>(null);
   public createdCase$: BehaviorSubject<PatientCase | null> = new BehaviorSubject<PatientCase | null>(null);
   public sessionserviceCode$: BehaviorSubject<ServiceCode | null> = new BehaviorSubject<ServiceCode | null>(null);
+  public diagnosisCodes$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
   constructor() { }
 }
