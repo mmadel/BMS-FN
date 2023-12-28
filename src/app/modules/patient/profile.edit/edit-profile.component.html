@@ -202,6 +202,14 @@
                     <c-col xs="12">
                         <div class="card border mb-2" *ngFor="let case of patient.cases;let i=index;">
                             <div class="card-body">
+                                <div style="float: right;">
+                                    <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                        
+                                        <button cButton color="info" variant="outline" class="btn-sm" (click)="removeCase(i)" color="info">
+                                            <svg cIcon name="cilTrash"></svg>
+                                        </button>
+                                    </c-button-group>
+                                </div>
                                 <h4><strong>{{case.title }}</strong></h4>
                                 <h6>ICD-10 Codes</h6>
                                 <ul *ngFor="let code of case.caseDiagnosis">

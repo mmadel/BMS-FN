@@ -68,4 +68,7 @@ export class EditProfileComponent implements OnInit {
       this.patient.patientInsurances.push(this.createInsuranceCompanyEditProfileComponent.patientInsurance);
     }
   }
+  removeCase(index: number){
+    this.patient.cases.splice(index, 1);
+  }
 }
