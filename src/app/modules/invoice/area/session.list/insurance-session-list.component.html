@@ -92,7 +92,8 @@
       [itemType]="sessionItemType" (changeVisibility)="changeSessionItemVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>
-<c-modal id="editPatientProfile" [visible]="editPatientProfileVisibility" [fullscreen]="true" scrollable backdrop="static">
+
+<c-modal id="editPatientProfile" [visible]="editPatientProfileVisibility" [fullscreen]="true"  backdrop="static">
   <c-modal-header>
     <h4>Update Profile</h4>
     <button (click)="toggleViewPatientProfile()" cButtonClose></button>
