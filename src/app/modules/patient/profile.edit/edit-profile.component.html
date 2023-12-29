@@ -323,7 +323,7 @@
 <div class="col-12 text-center">
     <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>
 </div>
-
+<!--Add InsuranceModal -->
 <c-modal id="editProfileInsuranceModal" [visible]="editProfileAddInsuranceVisibility" backdrop="static" size="xl">
     <c-modal-header>
         <h5 cModalTitle>Add Insurance</h5>
@@ -334,6 +334,7 @@
             [patient]="patient" (changeVisibility)="changeeditProfileInsurancVisibility($event)"></app-create-insurance>
     </c-modal-body>
 </c-modal>
+<!--Add caseModal -->
 <c-modal id="editProfileCaseModal" [visible]="editProfileAddCaseVisibility" backdrop="static" size="xl">
     <c-modal-header>
         <h5 cModalTitle>Add Case</h5>
