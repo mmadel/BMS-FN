@@ -160,16 +160,24 @@
                 </c-row>
             </c-card-header>
             <c-card-body>
-                <c-col xs="12">
-                    <div class="card border mb-1" *ngFor="let insurance of patient.patientInsurances;let i=index;">
-                        <div class="card-body" [ngClass]="{'text-bg-light': insurance.isArchived}">
-                            <div style="float: right;">
-                                <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                                    <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                                        (click)="remove(i)">
-                                        <svg cIcon name="cilTrash"></svg>
-                                    </button>
-                                </c-button-group>
+                <table cTable small>
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Plan Type</th>
+                            <th scope="col">Primary Id</th>
+                            <th scope="col">Archive</th>
+                            <th scope="col">actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let insurance of patient.patientInsurances;let i=index;">
+                            <th scope="row">i</th>
+                            <td>{{insurance.patientInsurancePolicy.payerName}}</td>
+                            <td>{{insurance.patientInsurancePolicy.planType}}</td>
+                            <td>{{insurance.patientInsurancePolicy.primaryId}}</td>
+                            <td>
                                 <div class="mt-2">
                                     <c-form-check>
                                         <label cFormCheckLabel>archive</label>
@@ -177,13 +185,18 @@
                                             [(ngModel)]="insurance.isArchived" />
                                     </c-form-check>
                                 </div>
-                            </div>
-                            <h4><strong>{{insurance.patientInsurancePolicy.payerName }}</strong></h4>
-                            <h6>{{insurance.patientInsurancePolicy.planType}}</h6>
-                            <h6>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h6>
-                        </div>
-                    </div>
-                </c-col>
+                            </td>
+                            <td>
+                                <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                    <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                        (click)="remove(i)">
+                                        <svg cIcon name="cilTrash"></svg>
+                                    </button>
+                                </c-button-group>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </c-card-body>
         </c-card>
     </c-col>
@@ -259,8 +272,7 @@
                         <c-container fluid="true">
                             <c-smart-table [activePage]="1" [columns]="columns" [itemsPerPageSelect]="true"
                                 [itemsPerPage]="5" [items]="patient.sessions"
-                                [tableProps]="{ hover: true, striped: true, small:true }"
-                                [tableBodyProps]="{ align: 'middle' }" header pagination>
+                                [tableProps]="{ hover: true, striped: true, small:true }" header>
 
                                 <ng-template cTemplateId="tableDetails" let-item="item">
                                     <div [visible]="this.details_visible[item.id]===true" cCollapse>
