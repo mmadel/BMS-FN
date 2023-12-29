@@ -3,6 +3,7 @@ import { FormControl, NgForm } from '@angular/forms';
 import { debounceTime, filter, finalize, first, switchMap, tap } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
+import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
@@ -32,7 +33,9 @@ export class BillingCodeComponent implements OnInit {
   addDaignosisVisibility: boolean;
   @Input() editMode?: boolean = false
   selectedCase: any;
-
+  @Input() patientSession: PatientSession;
+  populatedServiceCodes?: ServiceCode[]
+  populatedSiagnosisCode?: CaseDiagnosis[];
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
@@ -63,15 +66,18 @@ export class BillingCodeComponent implements OnInit {
     return this.daignosisListComponent.diagnosises;
   }
   private populateModel() {
-    this.emitPatientSessionService.sessionBillingCode$.pipe(
-      filter((selectedBillCode) => selectedBillCode !== null),
-      first()
-    ).subscribe((selectedBillCode) => {
-      this.billingCode = selectedBillCode;
-      this.selectedCase = selectedBillCode.caseTitle;
-      this.emitPatientSessionService.sessionserviceCodes$.next(selectedBillCode.ServiceCodes)
-      this.emitPatientSessionService.sessionDaignosies$.next(selectedBillCode.diagnosisCode)
-    })
+    if (this.patientSession === undefined)
+      this.emitPatientSessionService.sessionBillingCode$.pipe(
+        filter((selectedBillCode) => selectedBillCode !== null),
+        first()
+      ).subscribe((selectedBillCode) => {
+        this.billingCode = selectedBillCode;
+        this.selectedCase = selectedBillCode.caseTitle;
+        this.emitPatientSessionService.sessionserviceCodes$.next(selectedBillCode.ServiceCodes)
+        this.emitPatientSessionService.sessionDaignosies$.next(selectedBillCode.diagnosisCode)
+      })
+    else
+      this.populateBillingCode();
   }
   private initializeModel() {
     this.billingCode = {
@@ -89,7 +95,25 @@ export class BillingCodeComponent implements OnInit {
   unPickCase() {
     this.emitPatientSessionService.sessionDaignosies$.next(undefined)
   }
-  change(caseTitle:string){
+  change(caseTitle: string) {
     this.billingCode.caseTitle = caseTitle;
+  }
+  private populateBillingCode() {
+    this.billingCode = {
+      placeOfCode: this.patientSession.placeOfCode,
+      facility: this.patientSession.clinicInfo.clinicName,
+      diagnosisCode: this.patientSession.caseDiagnosis,
+      ServiceCodes: this.patientSession.serviceCodes,
+      caseTitle: this.patientSession.caseTitle
+    }
+    this.selectedCase = this.billingCode.caseTitle;
+    this.populateServiceCodes()
+    this.diagnosis();
+  }
+  private populateServiceCodes() {
+    this.populatedServiceCodes = this.billingCode.ServiceCodes
+  }
+  private diagnosis() {
+    this.populatedSiagnosisCode = this.billingCode.diagnosisCode;
   }
 }

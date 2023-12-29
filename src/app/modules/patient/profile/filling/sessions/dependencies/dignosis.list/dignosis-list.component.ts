@@ -11,9 +11,10 @@ import { EmitPatientSessionService } from 'src/app/modules/patient/service/sessi
 export class DignosisListComponent implements OnInit, OnDestroy {
   @Input() editMode?: boolean = false;
   diagnosises: CaseDiagnosis[];
+  @Input() selectedDiagnosisCode?: CaseDiagnosis[];
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
   ngOnDestroy(): void {
-    
+
   }
 
   ngOnInit(): void {
@@ -26,24 +27,27 @@ export class DignosisListComponent implements OnInit, OnDestroy {
     else
       daignosis.primary = false
     this.diagnosises.push(daignosis);
-    this.emitPatientSessionService.diagnosisCodes$.next(this.diagnosises.map(diagnosis=>diagnosis.diagnosisCode))
+    this.emitPatientSessionService.diagnosisCodes$.next(this.diagnosises.map(diagnosis => diagnosis.diagnosisCode))
   }
   private populateList() {
-    this.emitPatientSessionService.sessionDaignosies$.pipe(
-      tap((result) => {
-        if (result === undefined || result === null){
-          this.diagnosises = new Array();
+    if (this.selectedDiagnosisCode === undefined)
+      this.emitPatientSessionService.sessionDaignosies$.pipe(
+        tap((result) => {
+          if (result === undefined || result === null) {
+            this.diagnosises = new Array();
+          }
+
+        }),
+        filter((daignosies) => (daignosies !== null)),
+        filter((daignosies) => (daignosies !== undefined))
+      ).subscribe((daignosies) => {
+        this.diagnosises = new Array();
+        for (var i = 0; i < daignosies.length; i++) {
+          this.diagnosises.push(daignosies[i])
         }
-          
-      }),
-      filter((daignosies) => ( daignosies !== null)),
-      filter((daignosies) => ( daignosies !== undefined))
-    ).subscribe((daignosies) => {
-      this.diagnosises = new Array();
-      for (var i = 0; i < daignosies.length; i++) {
-        this.diagnosises.push(daignosies[i])
-      }
-      this.emitPatientSessionService.diagnosisCodes$.next(this.diagnosises.map(diagnosis=>diagnosis.diagnosisCode))
-    })
+        this.emitPatientSessionService.diagnosisCodes$.next(this.diagnosises.map(diagnosis => diagnosis.diagnosisCode))
+      })
+    else
+      this.diagnosises = this.selectedDiagnosisCode
   }
 }

@@ -14,6 +14,7 @@ export class ServiceCodeListComponent implements OnInit {
   chargeCount: number;
   @Input() editMode?: boolean = false;
   editServiceCodeVisibility: boolean = false;
+  @Input() selectedServiceCodes?: ServiceCode[]
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
@@ -48,15 +49,18 @@ export class ServiceCodeListComponent implements OnInit {
     return this.serviceCodes;
   }
   private populateList() {
-    this.emitPatientSessionService.sessionserviceCodes$.pipe(
-      filter((serviceCodes) => serviceCodes !== null)
-    ).subscribe((serviceCodes) => {
-      this.serviceCodes = new Array();
-      for (var i = 0; i < serviceCodes.length; i++) {
-        this.serviceCodes.push(serviceCodes[i])
-      }
-      this.countChargeUnit();
-    })
+    if (this.selectedServiceCodes === undefined)
+      this.emitPatientSessionService.sessionserviceCodes$.pipe(
+        filter((serviceCodes) => serviceCodes !== null)
+      ).subscribe((serviceCodes) => {
+        this.serviceCodes = new Array();
+        for (var i = 0; i < serviceCodes.length; i++) {
+          this.serviceCodes.push(serviceCodes[i])
+        }
+        this.countChargeUnit();
+      })
+    else
+      this.serviceCodes = this.selectedServiceCodes
   }
   toggleEditServiceCode() {
     this.editServiceCodeVisibility = !this.editServiceCodeVisibility;

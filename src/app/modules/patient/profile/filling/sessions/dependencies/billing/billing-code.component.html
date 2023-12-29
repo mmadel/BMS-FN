@@ -39,12 +39,11 @@
                         </c-col>
                     </c-row>
                     <c-row class="mb-1">
-                        <c-col  class="mb-1">
-                            <ng-autocomplete [data]="patientCases" [searchKeyword]="'title'" id="patientCases" name="patientCases"
-                                placeholder="Cases" [itemTemplate]="itemTemplate"
+                        <c-col class="mb-1">
+                            <ng-autocomplete [data]="patientCases" [searchKeyword]="'title'" id="patientCases"
+                                name="patientCases" placeholder="Cases" [itemTemplate]="itemTemplate"
                                 (selected)='pickCase($event)' (inputCleared)="unPickCase()"
-                                (inputChanged)="change($event)"
-                                [ngModel]="selectedCase"
+                                (inputChanged)="change($event)" [ngModel]="selectedCase"
                                 [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
                             <ng-template #itemTemplate let-item>
@@ -69,7 +68,8 @@
                                 <svg cIcon name="cilPlus"></svg>
                             </button>
                         </div>
-                        <dignosis-list #daignosisListComponent></dignosis-list>
+                        <dignosis-list #daignosisListComponent
+                            [selectedDiagnosisCode]="populatedSiagnosisCode"></dignosis-list>
                     </c-tab-pane>
                     <c-tab-pane class="p-3">
                         <div style="float:right">
@@ -77,7 +77,8 @@
                                 <svg cIcon name="cilPlus"></svg>
                             </button>
                         </div>
-                        <service-code-list #serviceCodeListComponent [editMode]="editMode"></service-code-list>
+                        <service-code-list #serviceCodeListComponent [editMode]="editMode"
+                            [selectedServiceCodes]="populatedServiceCodes"></service-code-list>
                     </c-tab-pane>
                 </c-tab-content>
             </c-card-body>

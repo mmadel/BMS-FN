@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../../model/clinical/patient';
+import { PatientSession } from '../../model/clinical/session/patient.session';
 import { Country } from '../../model/common/country';
 import { Gender } from '../../model/enum/geneder';
 import { MaritalStatus } from '../../model/enum/marital.status';
@@ -10,7 +11,10 @@ import { Countries } from '../../model/lookups/country-data-store';
 import { States } from '../../model/lookups/state-data-store';
 import { CaseAddDaignosisComponent } from '../profile/billing/cases/add.daignosis/case-add-daignosis.component';
 import { CreateInsuranceComponent } from '../profile/billing/insurance/create/create-insurance.component';
+import { BillingCodeComponent } from '../profile/filling/sessions/dependencies/billing/billing-code.component';
+import { BillingCode } from '../profile/filling/sessions/model/billing.code';
 import { PatientService } from '../service/patient.service';
+import { SessionScheduling } from '../session/model/session.scheduling';
 
 @Component({
   selector: 'patient-edit-profile',
@@ -18,12 +22,40 @@ import { PatientService } from '../service/patient.service';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
+  columns = [
+    {
+      key: 'serviceDate',
+      label: 'Date Of Service',
+
+    },
+    {
+      key: 'startDate',
+      label: 'Start At',
+
+    },
+    {
+      key: 'endDate',
+      label: 'End At',
+
+    },
+    {
+      key: 'provider',
+      label: 'Provider',
+    },
+    {
+      key: 'show',
+      _style: { width: '5%' },
+      label: '',
+      filter: false,
+      sorter: false,
+    },
+  ];
   @ViewChild('createInsuranceCompanyEditProfileComponent')
   createInsuranceCompanyEditProfileComponent: CreateInsuranceComponent;
 
   @ViewChild('createCaseEditProfileComponent')
   createCaseEditProfileComponent: CaseAddDaignosisComponent;
-  
+
   @Input() patient: Patient = {}
   genders = Gender;
   genderKeys = Object.values;
@@ -37,6 +69,8 @@ export class EditProfileComponent implements OnInit {
   @Output() changeEditPorfileVisibility = new EventEmitter<string>()
   editProfileAddInsuranceVisibility: boolean = false;
   editProfileAddCaseVisibility: boolean = false;
+  details_visible = Object.create({});
+  selectedPateintSession: PatientSession;
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 
@@ -70,7 +104,7 @@ export class EditProfileComponent implements OnInit {
   openAddInsuranceCompany() {
     this.editProfileAddInsuranceVisibility = true;
   }
-  openAddCase(){
+  openAddCase() {
     this.editProfileAddCaseVisibility = true;
   }
   changeeditProfileInsurancVisibility(event: any) {
@@ -80,12 +114,16 @@ export class EditProfileComponent implements OnInit {
       this.patient.patientInsurances.push(this.createInsuranceCompanyEditProfileComponent.patientInsurance);
     }
   }
-  removeCase(index: number){
+  removeCase(index: number) {
     this.patient.cases.splice(index, 1);
   }
-  createCase(){
+  createCase() {
     console.log(this.createCaseEditProfileComponent)
     this.patient.cases.push(this.createCaseEditProfileComponent.case)
     this.editProfileAddCaseVisibility = false;
+  }
+  toggleDetails(item: any) {
+    console.log(item)
+    this.details_visible[item] = !this.details_visible[item];
   }
 }

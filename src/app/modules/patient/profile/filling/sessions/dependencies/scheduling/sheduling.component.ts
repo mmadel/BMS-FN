@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import * as moment from 'moment';
 import { filter } from 'rxjs';
 import { Provider } from 'src/app/modules/model/clinical/provider/provider';
+import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { ProviderService } from 'src/app/modules/providers/service/provider.service';
 import { SessionScheduling } from '../../model/session.scheduling';
@@ -20,6 +22,7 @@ export class ShedulingComponent implements OnInit {
   notValidForm: boolean = false;
   @ViewChild('sessionForm') sessionForm: NgForm;
   @Input() editMode?: boolean = false
+  @Input() patientSession: PatientSession;
   constructor(private providerService: ProviderService, private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
@@ -30,11 +33,15 @@ export class ShedulingComponent implements OnInit {
     this.findProviders();
   }
   private popultaeModel() {
-    this.emitPatientSessionService.sessionScheduling$.pipe(
-      filter((selectedSessionScheduling) => selectedSessionScheduling !== null)
-    ).subscribe((selectedSessionScheduling) => {
-      this.sessionScheduling = selectedSessionScheduling;
-    })
+
+    if (this.patientSession === undefined)
+      this.emitPatientSessionService.sessionScheduling$.pipe(
+        filter((selectedSessionScheduling) => selectedSessionScheduling !== null)
+      ).subscribe((selectedSessionScheduling) => {
+        this.sessionScheduling = selectedSessionScheduling;
+      })
+    else
+      this.populateSessionScheduling()
   }
   private initializeModel() {
     this.sessionScheduling = {}
@@ -50,5 +57,14 @@ export class ShedulingComponent implements OnInit {
           })
         }
       })
+  }
+  private populateSessionScheduling() {
+    this.sessionScheduling = {
+      provider: this.patientSession.doctorInfo.doctorLastName + ',' + this.patientSession.doctorInfo.doctorFirstName,
+      serviceDate: moment.unix(this.patientSession.serviceDate / 1000).toDate(),
+      startTime: moment.unix(this.patientSession.serviceStartTime / 1000).toDate(),
+      endTime: moment.unix(this.patientSession.serviceEndTime / 1000).toDate(),
+    }
+
   }
 }
