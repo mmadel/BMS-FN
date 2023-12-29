@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../../model/clinical/patient';
+import { DoctorInfo } from '../../model/clinical/session/doctor.info';
 import { PatientSession } from '../../model/clinical/session/patient.session';
 import { Country } from '../../model/common/country';
 import { Gender } from '../../model/enum/geneder';
@@ -12,9 +13,9 @@ import { States } from '../../model/lookups/state-data-store';
 import { CaseAddDaignosisComponent } from '../profile/billing/cases/add.daignosis/case-add-daignosis.component';
 import { CreateInsuranceComponent } from '../profile/billing/insurance/create/create-insurance.component';
 import { BillingCodeComponent } from '../profile/filling/sessions/dependencies/billing/billing-code.component';
-import { BillingCode } from '../profile/filling/sessions/model/billing.code';
+import { ShedulingComponent } from '../profile/filling/sessions/dependencies/scheduling/sheduling.component';
 import { PatientService } from '../service/patient.service';
-import { SessionScheduling } from '../session/model/session.scheduling';
+import { PatientSessionService } from '../service/session/patient.session.service';
 
 @Component({
   selector: 'patient-edit-profile',
@@ -56,6 +57,11 @@ export class EditProfileComponent implements OnInit {
   @ViewChild('createCaseEditProfileComponent')
   createCaseEditProfileComponent: CaseAddDaignosisComponent;
 
+  @ViewChild('editProfilePateintSessionShedulingComponent')
+  editProfilePateintSessionShedulingComponent: ShedulingComponent;
+  @ViewChild('editProfilePateintSessionBillingCodeComponent')
+  editProfilePateintSessionBillingCodeComponent: BillingCodeComponent;
+
   @Input() patient: Patient = {}
   genders = Gender;
   genderKeys = Object.values;
@@ -72,7 +78,8 @@ export class EditProfileComponent implements OnInit {
   details_visible = Object.create({});
   selectedPateintSession: PatientSession;
   constructor(private patientService: PatientService
-    , private toastr: ToastrService) { }
+    , private toastr: ToastrService
+    , private patientSessionService: PatientSessionService) { }
 
   ngOnInit(): void {
     this.populateModel();
@@ -125,5 +132,59 @@ export class EditProfileComponent implements OnInit {
   toggleDetails(item: any) {
     console.log(item)
     this.details_visible[item] = !this.details_visible[item];
+  }
+  updateSession(pateintSession: PatientSession) {
+    var updatedPateintSession: PatientSession = this.constructModel(pateintSession);
+    if (!this.editProfilePateintSessionShedulingComponent.sessionForm.valid)
+      this.editProfilePateintSessionShedulingComponent.notValidForm = true;
+    if (!this.editProfilePateintSessionBillingCodeComponent.billingcodeForm.valid)
+      this.editProfilePateintSessionBillingCodeComponent.notValidForm = true;
+    if (!(this.editProfilePateintSessionShedulingComponent.notValidForm || this.editProfilePateintSessionBillingCodeComponent.notValidForm)) {
+      this.patientSessionService.update(updatedPateintSession)
+        .subscribe((result) => {
+          this.details_visible[pateintSession.id] = !this.details_visible[pateintSession.id];
+          this.toastr.success("pateint session updated")
+        }, (error) => {
+          console.log('Error during session udpate')
+          this.toastr.success("Error during session udpate")
+        })
+    }
+    console.log(JSON.stringify(updatedPateintSession));
+  }
+  private constructModel(pateintSession: PatientSession) {
+    return {
+      id: pateintSession.id,
+      serviceDate: moment(this.editProfilePateintSessionShedulingComponent.sessionScheduling.serviceDate).unix() * 1000,
+      serviceStartTime: moment(this.editProfilePateintSessionShedulingComponent.sessionScheduling.startTime).unix() * 1000,
+      serviceEndTime: moment(this.editProfilePateintSessionShedulingComponent.sessionScheduling.endTime).unix() * 1000,
+      placeOfCode: this.editProfilePateintSessionBillingCodeComponent.billingCode.placeOfCode,
+      patientId: this.patient.id,
+      doctorInfo: this.constructorModelDoctorInfo(pateintSession.doctorInfo),
+      clinicInfo: this.constructModelClinicInfo(),
+      caseDiagnosis: this.editProfilePateintSessionBillingCodeComponent.getDaignosises(),
+      serviceCodes: this.editProfilePateintSessionBillingCodeComponent.getServiceCodes(),
+      caseTitle: this.editProfilePateintSessionBillingCodeComponent.billingCode.caseTitle
+    }
+  }
+  private constructorModelDoctorInfo(doctorInfo?: DoctorInfo) {
+    return {
+      doctorId: this.editProfilePateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
+        doctorInfo.doctorId :
+        this.editProfilePateintSessionShedulingComponent.sessionScheduling.provider.model.id,
+      doctorFirstName: this.editProfilePateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
+        doctorInfo.doctorFirstName :
+        this.editProfilePateintSessionShedulingComponent.sessionScheduling.provider.model.firstName,
+      doctorLastName: this.editProfilePateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
+        doctorInfo.doctorLastName :
+        this.editProfilePateintSessionShedulingComponent.sessionScheduling.provider.model.lastName,
+      doctorNPI: this.editProfilePateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
+        doctorInfo.doctorNPI :
+        this.editProfilePateintSessionShedulingComponent.sessionScheduling.provider.model.doctorNPI,
+    }
+  }
+  private constructModelClinicInfo() {
+    return {
+      clinicName: this.editProfilePateintSessionBillingCodeComponent.billingCode.facility
+    }
   }
 }
