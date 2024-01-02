@@ -15,7 +15,7 @@
                 <tbody>
                     <tr *ngFor="let serviceCode of serviceCodes;index as i">
                         <th scope="row">{{i+1}}</th>
-                        <td>{{serviceCode.cptCode.serviceCode +'.' + serviceCode.cptCode.modifier}}</td>
+                        <td>{{serviceCode.cptCode.serviceCode}}</td>
                         <td></td>
                         <td>{{serviceCode.cptCode.unit}}</td>
                         <td>{{serviceCode.cptCode.charge}}</td>

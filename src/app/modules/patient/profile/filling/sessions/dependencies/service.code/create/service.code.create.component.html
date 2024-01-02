@@ -1,42 +1,62 @@
-<small *ngIf="emptyDiagnosisCodes"
-    class="form-text text-danger">
-    Diagnoses List is empty.Can't create service line 
+<small *ngIf="emptyDiagnosisCodes" class="form-text text-danger">
+    Diagnoses List is empty.Can't create service line
 </small>
 <c-container fluid>
     <div class="mb-3">
+        <small *ngIf="validCPT !==undefined && validCPT === 0" class="form-text text-danger mb-3">
+            Empty CPT is not allowed
+        </small>
+        <small *ngIf="validCPT !==undefined && validCPT === 5" class="form-text text-danger mb-3">
+            CPT is with less than five digits is not allowed
+        </small><br />
         <label cLabel for="serviceCode">Service Code</label>
         <input cFormControl id="serviceCode" placeholder="Service Code" [(ngModel)]="serviceCode.cptCode.serviceCode"
-            sizing="sm" [disabled]="emptyDiagnosisCodes"/>
+            sizing="sm" [disabled]="emptyDiagnosisCodes" maxlength="5" />
     </div>
     <div class="mb-3">
-        <label cLabel for="modifier">Modifier</label>
-        <c-input-group sizing="sm" >
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" [disabled]="emptyDiagnosisCodes"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" [disabled]="emptyDiagnosisCodes"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" [disabled]="emptyDiagnosisCodes"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" [disabled]="emptyDiagnosisCodes"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[4]" [disabled]="emptyDiagnosisCodes"/>
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[5]" [disabled]="emptyDiagnosisCodes"/>
+        <small *ngIf="validModifiers?.length > 0" class="form-text text-danger mb-3">
+            modifier value with one digit is not allowed
+        </small><br />
+        <label cLabel for="modifier">Modifier</label> {{validModifiers}}
+        <c-input-group sizing="sm">
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" [disabled]="emptyDiagnosisCodes"
+                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[0] ===false}" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" [disabled]="emptyDiagnosisCodes"
+                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[1] ===false}" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" [disabled]="emptyDiagnosisCodes"
+                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[2] ===false}" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" [disabled]="emptyDiagnosisCodes"
+                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[3] ===false}" />
         </c-input-group>
     </div>
     <div class="mb-3">
         <label cLabel for="lineNote">Line Note</label>
         <textarea cFormControl id="lineNote" rows="1" sizing="sm" [disabled]="emptyDiagnosisCodes"></textarea>
     </div>
-    <c-multi-select multiple class="mb-2" visibleItems="20" placeholder="Select Diagnosis" *ngIf="diagnosisCodes" [(ngModel)]="selectedDiagnosisCodes">
+    <c-multi-select multiple class="mb-2" visibleItems="20" placeholder="Select Diagnosis" *ngIf="diagnosisCodes"
+        [(ngModel)]="selectedDiagnosisCodes">
         <c-multi-select-option *ngFor="let diagnosisCode of diagnosisCodes" [value]="diagnosisCode">
             {{ diagnosisCode}}
         </c-multi-select-option>
     </c-multi-select>
     <div class="mb-3">
+        <small *ngIf="!emptyUnit" class="form-text text-danger mb-3">
+            Empty Unit
+        </small><br />
         <label cLabel for="unit">Unit</label>
-        <input cFormControl id="unit" placeholder="unit" [(ngModel)]="serviceCode.cptCode.unit" sizing="sm" [disabled]="emptyDiagnosisCodes"/>
+        <input cFormControl id="unit" placeholder="unit" [(ngModel)]="serviceCode.cptCode.unit" sizing="sm"
+            [disabled]="emptyDiagnosisCodes" type="number"/>
     </div>
     <div class="mb-3">
+        <small *ngIf="!emptyCharge" class="form-text text-danger mb-3">
+            Empty Charge
+        </small><br />
         <label cLabel for="charge">Charge</label>
-        <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="serviceCode.cptCode.charge" sizing="sm" [disabled]="emptyDiagnosisCodes"/>
+        <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="serviceCode.cptCode.charge" sizing="sm"
+            [disabled]="emptyDiagnosisCodes" type="number"/>
     </div>
     <div class="col-12 text-center">
-        <button cButton variant="outline" style="width: 10%;" (click)="saveServiceCode()" [disabled]="emptyDiagnosisCodes">Save</button>
+        <button cButton variant="outline" style="width: 10%;" (click)="saveServiceCode()"
+            [disabled]="emptyDiagnosisCodes">Save</button>
     </div>
 </c-container>

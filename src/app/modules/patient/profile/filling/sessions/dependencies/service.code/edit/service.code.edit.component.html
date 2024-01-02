@@ -1,18 +1,29 @@
 <c-container fluid>
     <div class="mb-3">
+        <small *ngIf="validCPT !==undefined && validCPT === 0" class="form-text text-danger mb-3">
+            Empty CPT is not allowed
+        </small>
+        <small *ngIf="validCPT !==undefined && validCPT === 5" class="form-text text-danger mb-3">
+            CPT is with less than five digits is not allowed
+        </small><br />
         <label cLabel for="serviceCode">Service Code</label>
         <input cFormControl id="serviceCode" placeholder="Service Code"
-            [(ngModel)]="selectedServiceCode.cptCode.serviceCode" sizing="sm" />
+            [(ngModel)]="selectedServiceCode.cptCode.serviceCode" sizing="sm" maxlength="5" />
     </div>
     <div class="mb-3">
+        <small *ngIf="validModifiers?.length > 0" class="form-text text-danger mb-3">
+            modifier value with one digit is not allowed
+        </small><br />
         <label cLabel for="modifier">Modifier</label>
         <c-input-group sizing="sm">
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[4]" />
-            <input cFormControl maxlength="2" [(ngModel)]="modifier[5]" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]"
+                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[0] ===false}" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]"
+                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[1] ===false}" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]"
+                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[2] ===false}" />
+            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]"
+                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[3] ===false}" />
         </c-input-group>
     </div>
     <div class="mb-3">
@@ -26,10 +37,16 @@
         </c-multi-select-option>
     </c-multi-select>
     <div class="mb-3">
+        <small *ngIf="!emptyUnit" class="form-text text-danger mb-3">
+            Empty Unit
+        </small><br />
         <label cLabel for="unit">Unit</label>
         <input cFormControl id="unit" placeholder="unit" [(ngModel)]="selectedServiceCode.cptCode.unit" sizing="sm" />
     </div>
     <div class="mb-3">
+        <small *ngIf="!emptyCharge" class="form-text text-danger mb-3">
+            Empty Charge
+        </small><br />
         <label cLabel for="charge">Charge</label>
         <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="selectedServiceCode.cptCode.charge"
             sizing="sm" />
