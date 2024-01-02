@@ -24,8 +24,8 @@ export class InvoiceService extends BasePaginationService {
   }
 
   create(invoiceRequestCreation: InvoiceRequestCreation) {
-    const headers = { 'content-type': 'application/json' }
+    const headers = { 'content-type': 'application/json'}
     var url = this.baseUrl + '/create'
-    return this.httpClient.post(`${url}`, JSON.stringify(invoiceRequestCreation), { 'headers': headers })
+    return this.httpClient.post(`${url}`, JSON.stringify(invoiceRequestCreation), { responseType: 'blob', 'headers': headers })
   }
 }

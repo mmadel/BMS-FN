@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
@@ -39,13 +40,24 @@ export class InvoiceCreationComponent implements OnInit {
       insuranceCompanyId:patientInsurance.insuranceCompany
     }
     this.invoiceService.create(invoiceRequestCreation)
-      .subscribe(() => {
+      .subscribe((response) => {
         this.toastr.success("Invocie created successfully ")
         this.changeVisibility.emit('close');
         this.findCleint();
+        this.constructExportedFile(response, 'cms-','pdf')
       }, error => {
+        console.log(JSON.stringify(error))
         this.toastr.error("error in create invoice")
       })
+  }
+  constructExportedFile(response: any, fileName: string, extention:string) {
+    const a = document.createElement('a')
+    const objectUrl = URL.createObjectURL(response)
+    a.href = objectUrl
+    var nameDatePart = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    a.download = fileName + nameDatePart + '.' +extention;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
   }
   private findCleint() {
     this.invoiceService.findByClient(this.clientId)
