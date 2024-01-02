@@ -129,8 +129,8 @@
                                         {{phoneTypes[phoneTypevalue]}}
                                     </option>
                                 </select>
-                                <input cFormControl size="sm" placeholder="Phone" [(ngModel)]="patient.phone"
-                                    #phone="ngModel" name="phone" required />
+                                <input cFormControl size="sm" placeholder="Phone" [ngModel]="patient.phone |phone"
+                                    (ngModelChange)="patient.phone=$event" #phone="ngModel" name="phone" required  maxlength="15"/>
                             </c-input-group>
                         </c-col>
                     </c-row>
