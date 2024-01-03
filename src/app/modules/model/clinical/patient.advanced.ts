@@ -5,8 +5,12 @@ export interface PatientAdvancedInformation {
     id?: number
     pateintAdvancedCondtion?: PateintAdvancedCondtion;
     patientAdvancedDates?: PatientAdvancedDates;
-    unableToWorkStartDate?: Date;
-    unableToWorkEndDate?: Date;
-    hospitalizedStartDate?: Date;
-    hospitalizedEndDate?: Date;
+    unableToWorkStartDate_date?: Date;
+    unableToWorkStartDate?: number;
+    unableToWorkEndDate_date?: Date;
+    unableToWorkEndDate?: number;
+    hospitalizedStartDate_date?: Date;
+    hospitalizedStartDate?: number;
+    hospitalizedEndDate_date?: Date;
+    hospitalizedEndDate?: number;
 }

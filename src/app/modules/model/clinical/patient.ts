@@ -1,4 +1,5 @@
 import { Address } from "../common/address";
+import { PatientAdvancedInformation } from "./patient.advanced";
 import { PatientCase } from "./patient.case";
 import { PatientInsurance } from "./patient.insurance";
 import { ReferringProvider } from "./referring.provider";
@@ -14,7 +15,7 @@ export interface Patient {
     gender?: string;
     address?: Address
     cases?: PatientCase[];
-    sessions?:PatientSession[];
+    sessions?: PatientSession[];
     referringProvider?: ReferringProvider
     patientInsurances?: PatientInsurance[]
     phoneType?: String | null;
@@ -23,4 +24,5 @@ export interface Patient {
     copay?: string
     ssn?: string | null
     externalId?: string | null;
+    patientAdvancedInformation?: PatientAdvancedInformation
 }

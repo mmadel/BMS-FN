@@ -1,6 +1,6 @@
 export interface PateintAdvancedCondtion {
-    employment?: string;
-    autoAccident?: string;
-    otherAccident?: string;
+    employment?: boolean;
+    autoAccident?: boolean;
+    otherAccident?: boolean;
     state?: string;
 }

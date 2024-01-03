@@ -294,7 +294,7 @@
                         <app-auths *ngIf="selectedTab === 1"></app-auths>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=2>
-                        <app-advanced *ngIf="selectedTab === 2"></app-advanced>
+                        <patient-advanced #patientAdvancedComponent *ngIf="selectedTab === 2" [pateint]="patient"></patient-advanced>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=3>
                         <app-filling *ngIf="selectedTab === 3" [pateint]="patient"></app-filling>

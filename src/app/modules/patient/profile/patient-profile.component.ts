@@ -13,6 +13,7 @@ import { Countries } from '../../model/lookups/country-data-store';
 import { States } from '../../model/lookups/state-data-store';
 import { PateintEmittingService } from '../service/emitting/pateint-emitting.service';
 import { PatientService } from '../service/patient.service';
+import { AdvancedComponent } from './advanced/advanced.component';
 import { BillingComponent } from './billing/billing.component';
 
 @Component({
@@ -24,6 +25,7 @@ export class PatientProfileComponent implements OnInit {
   notValidForm: boolean = false;
   @ViewChild('patientCreationForm') patientCreationForm: NgForm;
   @ViewChild('billingComponent') billingComponent: BillingComponent;
+  @ViewChild('patientAdvancedComponent') patientAdvancedComponent: AdvancedComponent;
   patient: Patient = {
     gender: null,
     maritalStatus: null,
@@ -70,11 +72,17 @@ export class PatientProfileComponent implements OnInit {
   create(action?: string) {
     if (this.patientCreationForm.valid) {
       this.patient.birthDate = moment(this.patientDOB).unix() * 1000;
-      this.patient.cases = this.billingComponent?.getCases();
-      this.patient.referringProvider = this.billingComponent.getReferringProvider();
-      this.patient.patientInsurances = this.billingComponent.getInsurances();
-      this.patient.ssn = this.billingComponent.getSSN();
-      this.patient.externalId = this.billingComponent.getExternalId();
+      if (this.billingComponent !== undefined) {
+        this.patient.cases = this.billingComponent.getCases();
+        this.patient.referringProvider = this.billingComponent.getReferringProvider();
+        this.patient.patientInsurances = this.billingComponent.getInsurances();
+        this.patient.ssn = this.billingComponent.getSSN();
+        this.patient.externalId = this.billingComponent.getExternalId();
+      }
+      if (this.patientAdvancedComponent !== undefined) {
+        this.patient.patientAdvancedInformation = this.patientAdvancedComponent.patientAdvancedInformation;
+      }
+      console.log(JSON.stringify(this.patient))
       this.patientService.create(this.patient)
         .subscribe((result) => {
           if (this.isupdated)
