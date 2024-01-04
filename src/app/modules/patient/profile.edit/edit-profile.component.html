@@ -290,34 +290,6 @@
                         <c-smart-table [activePage]="1" [columns]="columns" [itemsPerPageSelect]="true"
                             [itemsPerPage]="5" [items]="patient.sessions"
                             [tableProps]="{ hover: true, striped: true, small:true }" header>
-
-                            <ng-template cTemplateId="tableDetails" let-item="item">
-                                <div [visible]="this.details_visible[item.id]===true" cCollapse>
-                                    <c-card class="rounded-0">
-                                        <c-card-body>
-                                            <c-row>
-                                                <c-col xs="12" class="m-3">
-                                                    <patient-session-sheduling
-                                                        #editProfilePateintSessionShedulingComponent [editMode]="true"
-                                                        [patientSession]="item"></patient-session-sheduling>
-                                                </c-col>
-                                                <c-col xs="12" class="m-3">
-                                                    <patient-session-billing-code
-                                                        #editProfilePateintSessionBillingCodeComponent [editMode]="true"
-                                                        [patientSession]="item"></patient-session-billing-code>
-                                                </c-col>
-                                            </c-row>
-                                        </c-card-body>
-                                        <c-card-footer>
-                                            <div class="col-12 text-center mb-1">
-                                                <button cButton variant="outline" style="width: 15%;"
-                                                    (click)="updateSession(item)">Update
-                                                    Session</button>
-                                            </div>
-                                        </c-card-footer>
-                                    </c-card>
-                                </div>
-                            </ng-template>
                             <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
                                 let-tdContent="tdContent">
                                 <td>
@@ -335,8 +307,8 @@
                                             {{item.doctorInfo.doctorLastName}},{{item.doctorInfo.doctorFirstName}}
                                         </ng-container>
                                         <ng-container *ngSwitchCase="'show'" class="py-2">
-                                            <button (click)="toggleDetails(item['id'])" cButton color="light" size="sm">
-                                                <svg cIcon name="cilChevronCircleDownAlt"></svg>
+                                            <button (click)="openSessionDeatils(item)" cButton  size="sm" class="btn btn-link">
+                                                Details
                                             </button>
                                         </ng-container>
                                         <ng-container *ngSwitchDefault>
@@ -380,4 +352,32 @@
             <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Create Case</button>
         </div>
     </c-modal-footer>
+</c-modal>
+<c-modal id="viewSessionDetailsModal" [visible]="viewSessionDetailsVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h5 cModalTitle>View Session Details</h5>
+        <button (click)="togglesessionDetails()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <c-row>
+            <c-col xs="12">
+                <patient-session-sheduling *ngIf="viewSessionDetailsVisibility"
+                    #editProfilePateintSessionShedulingComponent [editMode]="true"
+                    [patientSession]="selectedPateintSession"></patient-session-sheduling>
+            </c-col>
+            <c-col xs="12">
+                <edit-session-billing-code *ngIf="viewSessionDetailsVisibility"
+                    #editProfilePateintSessionBillingCodeComponent [editMode]="true"
+                    [patientSession]="selectedPateintSession">
+                </edit-session-billing-code>
+            </c-col>
+        </c-row>
+        <c-row>
+            <div class="col-12 text-center mb-1">
+                <button cButton variant="outline" style="width: 15%;"
+                    (click)="updateSession(selectedPateintSession)">Update
+                    Session</button>
+            </div>
+        </c-row>
+    </c-modal-body>
 </c-modal>

@@ -1,0 +1,82 @@
+<c-container [fluid]="true">
+    <form cForm #editSessionBillingcodeForm="ngForm">
+        <c-card class="mb-3">
+            <c-card-header>
+                <h5>Billing And Coding</h5>
+            </c-card-header>
+            <c-card-body>
+                <div class="mb-3">
+                    <c-row class="mb-1">
+                        <c-col>
+                            <select cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="espplaceOfCode"
+                                required="true" name="espplaceOfCode" #espplaceOfCode="ngModel">
+                                <option [value]=null selected disabled>Select Place Code</option>
+                                <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)"
+                                    [ngValue]="placeOfCodevalue">
+                                    {{placeOfCodes[placeOfCodevalue]}}
+                                </option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-1">
+                        <small
+                            *ngIf="notValidForm   && (espfacility.errors) ||  espfacility.invalid && (espfacility.dirty || espfacility.touched)"
+                            class="form-text text-danger">
+                            facility is required
+                        </small>
+                        <c-col>
+                            <select cSelect sizing="sm" [(ngModel)]="billingCode.facility" id="espfacility"
+                                name="espfacility" required="true" #espfacility="ngModel">
+                                <option [value]=null selected disabled>Select Facility</option>
+                                <option [value]="'clinic-a'">clinic-a</option>
+                                <option [value]="'clinic-b'">clinic-b</option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-1">
+                        <c-col class="mb-1">
+                            <ng-autocomplete [data]="patientCases" [searchKeyword]="'title'" id="esppatientCases"
+                                name="esppatientCases" placeholder="Cases" [itemTemplate]="itemTemplate"
+                                (selected)='pickCase($event)' (inputCleared)="unPickCase()"
+                                (inputChanged)="change($event)" [ngModel]="selectedCase"
+                                [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.title"></a>
+                            </ng-template>
+
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div [innerHTML]="notFound"></div>
+                            </ng-template>
+                        </c-col>
+                    </c-row>
+                </div>
+                <c-nav variant="pills">
+                    <a [cTabContent]="esptabContent" [routerLink] [tabPaneIdx]="0" cNavLink>Case
+                        Dignosis</a>
+                    <a [cTabContent]="esptabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Service Lines</a>
+                </c-nav>
+                <c-tab-content #esptabContent="cTabContent">
+                    <c-tab-pane class="p-3">
+                        <div style="float:right">
+                            <button cButton color="info" variant="outline" size="sm" (click)="toggleAddDaignosis()">
+                                <svg cIcon name="cilPlus"></svg>
+                            </button>
+                        </div>
+                        <dignosis-list #espdaignosisListComponent
+                            [selectedDiagnosisCode]="populatedSiagnosisCode"></dignosis-list>
+                    </c-tab-pane>
+                    <c-tab-pane class="p-3">
+                        <div style="float:right">
+                            <button cButton color="info" variant="outline" size="sm" (click)="toggleserviceCode()">
+                                <svg cIcon name="cilPlus"></svg>
+                            </button>
+                        </div>
+                        <session-service-code-list #espserviceCodeListComponent [editMode]="editMode"
+                            [selectedServiceCodes]="populatedServiceCodes"></session-service-code-list>
+                    </c-tab-pane>
+                </c-tab-content>
+            </c-card-body>
+        </c-card>
+    </form>
+</c-container>

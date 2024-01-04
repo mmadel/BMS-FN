@@ -75,6 +75,7 @@ export class EditProfileComponent implements OnInit {
   @Output() changeEditPorfileVisibility = new EventEmitter<string>()
   editProfileAddInsuranceVisibility: boolean = false;
   editProfileAddCaseVisibility: boolean = false;
+  viewSessionDetailsVisibility: boolean = false;
   details_visible = Object.create({});
   selectedPateintSession: PatientSession;
   constructor(private patientService: PatientService
@@ -128,8 +129,12 @@ export class EditProfileComponent implements OnInit {
     this.patient.cases.push(this.createCaseEditProfileComponent.case)
     this.editProfileAddCaseVisibility = false;
   }
-  toggleDetails(item: any) {
-    this.details_visible[item] = !this.details_visible[item];
+  togglesessionDetails() {
+    this.viewSessionDetailsVisibility = !this.viewSessionDetailsVisibility;
+  }
+  openSessionDeatils(item: any) {
+    this.selectedPateintSession = item;
+    this.viewSessionDetailsVisibility = true;
   }
   updateSession(pateintSession: PatientSession) {
     var updatedPateintSession: PatientSession = this.constructModel(pateintSession);

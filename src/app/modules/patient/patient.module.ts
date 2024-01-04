@@ -60,6 +60,8 @@ import { DaignosisCreationComponent } from './profile/filling/sessions/dependenc
 import { CaseAddDaignosisComponent } from './profile/billing/cases/add.daignosis/case-add-daignosis.component';
 import { ViewProfileComponent } from './profile.view/view-profile.component';
 import { EditProfileComponent } from './profile.edit/edit-profile.component';
+import { SessionBillingCodeComponent } from './profile.edit/components/session.billing.code/session-billing-code.component';
+import { SessionServiceCodeListComponent } from './profile.edit/components/session.service.code.list/session-service-code-list.component';
 
 
 @NgModule({
@@ -89,6 +91,8 @@ import { EditProfileComponent } from './profile.edit/edit-profile.component';
     DaignosisCreationComponent,
     CaseAddDaignosisComponent,
     EditProfileComponent,
+    SessionBillingCodeComponent,
+    SessionServiceCodeListComponent,
   ],
   imports: [
     CommonModule,

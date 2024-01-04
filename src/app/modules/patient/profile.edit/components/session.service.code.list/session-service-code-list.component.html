@@ -46,13 +46,3 @@
         </c-col>
     </c-row>
 </div>
-<c-modal id="editServiceCode" [visible]="editServiceCodeVisibility" size="lg">
-    <c-modal-header>
-        <h5 cModalTitle>Edit Service Code<strong>
-            </strong></h5>
-        <button (click)="toggleEditServiceCode()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-        <service-code-update *ngIf="editServiceCodeVisibility" (changeVisibility)="changeVisibility($event)"></service-code-update>
-    </c-modal-body>
-</c-modal> 
