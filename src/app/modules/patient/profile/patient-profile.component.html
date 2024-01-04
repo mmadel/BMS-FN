@@ -231,7 +231,7 @@
                                                 <select cFormControl cSelect sizing="sm" id="state" name="state"
                                                     required #state="ngModel" [(ngModel)]="patient.address.state">
                                                     <option [value]="null" disabled selected>Select State</option>
-                                                    <option *ngFor="let state of states" [value]="state">
+                                                    <option *ngFor="let state of states" [value]="state |state">
                                                         {{state}}
                                                     </option>
                                                 </select>

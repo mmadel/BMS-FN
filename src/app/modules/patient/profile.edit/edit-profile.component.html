@@ -31,7 +31,13 @@
                             <span cInputGroupText>
                                 <svg cIcon name="cilUser" title="cilUser"></svg>
                             </span>
-                            <input cFormControl [(ngModel)]="genders[patient.gender]" name="vpgeneder" />
+                            <select aria-label="" cSelect #vpgeneder="ngModel" name="vpgeneder" required
+                                [(ngModel)]="patient.gender">
+                                <option [value]="null">Select Gender</option>
+                                <option *ngFor="let genderValue of genderKeys(genders)" [ngValue]="genderValue">
+                                    {{genders[genderValue]}}
+                                </option>
+                            </select>
                         </c-input-group>
                     </c-col>
                 </c-row>
@@ -41,8 +47,14 @@
                             <span cInputGroupText>
                                 <svg cIcon name="cilPeople" title="cilPeople"></svg>
                             </span>
-                            <input cFormControl [(ngModel)]="maritalStatuses[patient.maritalStatus]"
-                                name="vpmaritalStatus" />
+                            <select aria-label="" cSelect #vpmaritalStatus="ngModel" name="vpmaritalStatus"
+                                [(ngModel)]="patient.maritalStatus" required>
+                                <option [value]="null" disabled selected>Select MaritalStatus</option>
+                                <option *ngFor="let maritalStatusValue of maritalStatusKeys(maritalStatuses)"
+                                    [value]="maritalStatusValue">
+                                    {{maritalStatuses[maritalStatusValue]}}
+                                </option>
+                            </select>
                         </c-input-group>
                     </c-col>
                 </c-row>
@@ -123,7 +135,7 @@
                     <c-col xs="12">
                         <select cFormControl cSelect sizing="sm" id="vpstate" name="vpstate" #state="ngModel"
                             class="mb-1" [(ngModel)]="patient.address.state">
-                            <option *ngFor="let state of states" [value]="state">
+                            <option *ngFor="let state of states" [value]="state |state">
                                 {{state}}
                             </option>
                         </select>

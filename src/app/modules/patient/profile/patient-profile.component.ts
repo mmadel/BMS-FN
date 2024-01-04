@@ -82,7 +82,6 @@ export class PatientProfileComponent implements OnInit {
       if (this.patientAdvancedComponent !== undefined) {
         this.patient.patientAdvancedInformation = this.patientAdvancedComponent.patientAdvancedInformation;
       }
-      console.log(JSON.stringify(this.patient))
       this.patientService.create(this.patient)
         .subscribe((result) => {
           if (this.isupdated)

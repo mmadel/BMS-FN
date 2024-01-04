@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule, FormModule, GridModule, SharedModule, TableModule, UtilitiesModule } from '@coreui/angular-pro';
 import { ClonePipe } from './pipe/clone.pipe';
 import { PhonePipe } from './pipe/phone/phone.pipe';
+import { StatePipe } from './pipe/state/state.pipe';
 
 const APP_COMMON_DIRECTIVES = [
   ZipCodeDirective
@@ -15,7 +16,8 @@ const APP_COMMON_DIRECTIVES = [
   declarations: [
     APP_COMMON_DIRECTIVES,
     ClonePipe,
-    PhonePipe
+    PhonePipe,
+    StatePipe
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ const APP_COMMON_DIRECTIVES = [
     APP_COMMON_DIRECTIVES,
     ClonePipe,
     PhonePipe,
+    StatePipe,
     ReactiveFormsModule, FormsModule
   ]
 })
