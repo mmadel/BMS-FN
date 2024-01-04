@@ -115,8 +115,8 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientInsurancePolicy.payerName = this.selectedPayerName
       this.patientInsurance.patientInsurancePolicy.payerId = this.selectedPayerId
       this.patientInsurance.isArchived = false;
-      this.patientInsurance.patientRelation.r_address.state=this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
-      this.patientInsurance.payerAddress.state = this.patientInsurance.payerAddress.state.split('-')[0].trim();
+      this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
+      this.patientInsurance.payerAddress.state = this.patientInsurance.payerAddress.state?.split('-')[0].trim();
       this.changeVisibility.emit('close');
       //this.insuranceCreateForm.reset()
     } else {
@@ -137,8 +137,8 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_birthDate = this.patient.birthDate
     } else {
       this.patientInsurance.patientRelation = {}
-      this.patientInsurance.patientRelation.r_address={}
-      this.patientInsurance.patientRelation.r_birthDate=undefined;
+      this.patientInsurance.patientRelation.r_address = {}
+      this.patientInsurance.patientRelation.r_birthDate = undefined;
     }
   }
 }
