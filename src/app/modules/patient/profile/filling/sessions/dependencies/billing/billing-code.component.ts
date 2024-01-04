@@ -1,13 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormControl, NgForm } from '@angular/forms';
-import { debounceTime, filter, finalize, first, switchMap, tap } from 'rxjs';
+import { NgForm } from '@angular/forms';
+import { filter, first } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
-import { CaseDiagnosisService } from '../../../../../service/case.diagnosis/case-diagnosis.service';
 import { BillingCode } from '../../model/billing.code';
 import { DignosisListComponent } from '../dignosis.list/dignosis-list.component';
 import { ServiceCodeListComponent } from '../service.code/list/service.code.list.component';
