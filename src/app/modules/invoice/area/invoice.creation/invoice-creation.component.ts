@@ -27,7 +27,6 @@ export class InvoiceCreationComponent implements OnInit {
     , private invoiceEmitterService: InvoiceEmitterService) { }
 
   ngOnInit(): void {
-    console.log(this.clientId)
     this.filterpatientInsurances = this.patientInsurances.filter(insuranceCompany => { return !insuranceCompany.isArchived; })
   }
 
@@ -46,7 +45,6 @@ export class InvoiceCreationComponent implements OnInit {
         this.findCleint();
         this.constructExportedFile(response, 'cms-','pdf')
       }, error => {
-        console.log(JSON.stringify(error))
         this.toastr.error("error in create invoice")
       })
   }
@@ -62,12 +60,10 @@ export class InvoiceCreationComponent implements OnInit {
   private findCleint() {
     this.invoiceService.findByClient(this.clientId)
       .subscribe((result) => {
-        console.log('findCleint ' + this.clientId)
         this.emitChanges(result);
       })
   }
   private emitChanges(pateint: Patient) {
-    console.log('emitChanges')
     var clientSessionResponse: ClientSessionResponse
     if (pateint !== null) {
       clientSessionResponse= {

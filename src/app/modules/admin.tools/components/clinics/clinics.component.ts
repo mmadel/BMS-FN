@@ -29,9 +29,6 @@ export class ClinicsComponent extends ListTemplate implements OnInit {
     this.initListComponent();
     this.find();
   }
-  ddd(){
-    console.log('################')
-  }
   find() {
     this.clinics$ = this.clinicService.findAll(this.apiParams$).pipe(
       tap((response: any) => {

@@ -125,12 +125,10 @@ export class EditProfileComponent implements OnInit {
     this.patient.cases.splice(index, 1);
   }
   createCase() {
-    console.log(this.createCaseEditProfileComponent)
     this.patient.cases.push(this.createCaseEditProfileComponent.case)
     this.editProfileAddCaseVisibility = false;
   }
   toggleDetails(item: any) {
-    console.log(item)
     this.details_visible[item] = !this.details_visible[item];
   }
   updateSession(pateintSession: PatientSession) {
@@ -145,11 +143,9 @@ export class EditProfileComponent implements OnInit {
           this.details_visible[pateintSession.id] = !this.details_visible[pateintSession.id];
           this.toastr.success("pateint session updated")
         }, (error) => {
-          console.log('Error during session udpate')
           this.toastr.success("Error during session udpate")
         })
     }
-    console.log(JSON.stringify(updatedPateintSession));
   }
   private constructModel(pateintSession: PatientSession) {
     return {

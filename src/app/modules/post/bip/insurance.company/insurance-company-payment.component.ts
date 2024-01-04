@@ -81,7 +81,6 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
   editClient(event: string) {
     this.patientService.findById(Number(event))
       .subscribe((result: any) => {
-        console.log(JSON.stringify(result))
         this.pateintEmittingService.selectedPatient$.next(result)
         this.router.navigate(['/patient/profile', result.id]);
       })

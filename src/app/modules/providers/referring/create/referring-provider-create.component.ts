@@ -17,7 +17,6 @@ export class ReferringProviderCreateComponent implements OnInit {
   ngOnInit(): void {
   }
   create() {
-    console.log(this.referringProvider)
     this.referringProviderService.create(this.referringProvider)
       .subscribe((result) => {
         this.toastr.success("Referring Provider Created")

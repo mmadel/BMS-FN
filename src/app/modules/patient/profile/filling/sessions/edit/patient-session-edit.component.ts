@@ -114,7 +114,6 @@ export class PatientSessionEditComponent implements OnInit {
         }, (error) => {
           this.toastr.success("Error during session udpate")
         })
-    }
-    console.log(JSON.stringify(updatedPateintSession));
+    }    
   }
 }

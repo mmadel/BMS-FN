@@ -31,7 +31,6 @@ export class ViewProfileComponent implements OnInit {
 
   onTabChange($event: number) {
     this.activePane = $event;
-    console.log('onTabChange', $event);
   }
 
   constructor() { }

@@ -31,7 +31,6 @@ export class PostingServiceService extends BasePaginationService  {
   public createInsuranceCompanyPayments( pateintsPaymentServiceLines:any) {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create/payments/insurance/company'
-    console.log(pateintsPaymentServiceLines)
     return this.httpClient.post(`${url}`, pateintsPaymentServiceLines, { 'headers': headers })
   }
 }

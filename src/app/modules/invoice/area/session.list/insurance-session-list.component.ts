@@ -110,7 +110,6 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
 
   }
   editSession(event: any) {
-    console.log(JSON.stringify(event))
     this.editSessionVisibility = true;
     this.emitPatientSessionService.patientSession$.next(event.data);
   }
@@ -147,7 +146,6 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
         serviceLine: value.serviceCodeId
       }
     });
-    console.log(JSON.stringify(this.selectedSessionServiceCodeLine))
   }
   changeCreateInvoiceVisibility(event: any) {
     if (event === 'close')

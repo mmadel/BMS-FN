@@ -30,7 +30,7 @@ export class ViewCaseComponent implements OnInit {
     this._cases.splice(index, 1);
   }
   edit(selectedCase: any) {
-    console.log(JSON.stringify(selectedCase))
+    
   }
   public getcases() {
     if (this._cases.length > 0)

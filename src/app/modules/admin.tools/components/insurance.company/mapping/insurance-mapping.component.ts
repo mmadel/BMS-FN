@@ -45,9 +45,7 @@ export class InsuranceMappingComponent implements OnInit {
   find(){
     this.isuranceCompanies$ = this.insuranceCompanyService.findAll();
   }
-  ddd(event:any){
-    console.log('select all...' )
-  }
+  
   onSelectedInsuranceCompany(event: any) {
     this.selected = event;
   }
