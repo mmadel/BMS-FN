@@ -33,7 +33,7 @@ export class ViewCaseComponent implements OnInit {
     
   }
   public getcases() {
-    if (this._cases.length > 0)
+    if (this._cases !==undefined &&this._cases.length > 0)
       return this._cases;
     else
       return null;

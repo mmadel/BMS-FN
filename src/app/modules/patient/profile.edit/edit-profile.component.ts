@@ -16,6 +16,7 @@ import { BillingCodeComponent } from '../profile/filling/sessions/dependencies/b
 import { ShedulingComponent } from '../profile/filling/sessions/dependencies/scheduling/sheduling.component';
 import { PatientService } from '../service/patient.service';
 import { PatientSessionService } from '../service/session/patient.session.service';
+import { SessionBillingCodeComponent } from './components/session.billing.code/session-billing-code.component';
 
 @Component({
   selector: 'patient-edit-profile',
@@ -60,7 +61,7 @@ export class EditProfileComponent implements OnInit {
   @ViewChild('editProfilePateintSessionShedulingComponent')
   editProfilePateintSessionShedulingComponent: ShedulingComponent;
   @ViewChild('editProfilePateintSessionBillingCodeComponent')
-  editProfilePateintSessionBillingCodeComponent: BillingCodeComponent;
+  editProfilePateintSessionBillingCodeComponent: SessionBillingCodeComponent;
 
   @Input() patient: Patient = {}
   genders = Gender;
@@ -140,12 +141,12 @@ export class EditProfileComponent implements OnInit {
     var updatedPateintSession: PatientSession = this.constructModel(pateintSession);
     if (!this.editProfilePateintSessionShedulingComponent.sessionForm.valid)
       this.editProfilePateintSessionShedulingComponent.notValidForm = true;
-    if (!this.editProfilePateintSessionBillingCodeComponent.billingcodeForm.valid)
+    if (!this.editProfilePateintSessionBillingCodeComponent.editSessionBillingcodeForm.valid)
       this.editProfilePateintSessionBillingCodeComponent.notValidForm = true;
     if (!(this.editProfilePateintSessionShedulingComponent.notValidForm || this.editProfilePateintSessionBillingCodeComponent.notValidForm)) {
       this.patientSessionService.update(updatedPateintSession)
         .subscribe((result) => {
-          this.details_visible[pateintSession.id] = !this.details_visible[pateintSession.id];
+          this.viewSessionDetailsVisibility = false;
           this.toastr.success("pateint session updated")
         }, (error) => {
           this.toastr.success("Error during session udpate")

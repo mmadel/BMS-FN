@@ -63,8 +63,19 @@
                                 <svg cIcon name="cilPlus"></svg>
                             </button>
                         </div>
-                        <dignosis-list #espdaignosisListComponent
-                            [selectedDiagnosisCode]="populatedSiagnosisCode"></dignosis-list>
+                        <br />
+                        <c-row>
+                            <c-col xs="12">
+                                <div class="border border-light">
+                                    <daignosis-creation *ngIf="addDaignosisVisibility"
+                                        (onCreateDaignosis)="getCreatedDagnosis($event)"></daignosis-creation>
+                                </div>
+                            </c-col>
+                            <c-col xs="12">
+                                <dignosis-list #espdaignosisListComponent
+                                    [selectedDiagnosisCode]="populatedSiagnosisCode"></dignosis-list>
+                            </c-col>
+                        </c-row>
                     </c-tab-pane>
                     <c-tab-pane class="p-3">
                         <div style="float:right">
@@ -72,8 +83,19 @@
                                 <svg cIcon name="cilPlus"></svg>
                             </button>
                         </div>
-                        <session-service-code-list #espserviceCodeListComponent [editMode]="editMode"
-                            [selectedServiceCodes]="populatedServiceCodes"></session-service-code-list>
+                        <br />
+                        <c-row>
+                            <c-col xs="12">
+                                <div class="border border-light">
+                                    <service-code-creation *ngIf="serviceCodeVisibility"
+                                        (onCreateServiceCode)="getCreatedServiceCode($event)"></service-code-creation>
+                                </div>
+                            </c-col>
+                            <c-col xs="12">
+                                <session-service-code-list #espserviceCodeListComponent [editMode]="editMode"
+                                    [selectedServiceCodes]="populatedServiceCodes"></session-service-code-list>
+                            </c-col>
+                        </c-row>
                     </c-tab-pane>
                 </c-tab-content>
             </c-card-body>
