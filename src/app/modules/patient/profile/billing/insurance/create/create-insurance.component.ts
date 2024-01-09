@@ -114,6 +114,8 @@ export class CreateInsuranceComponent implements OnInit {
       this.notValidForm = false;
       this.patientInsurance.patientInsurancePolicy.payerName = this.selectedPayerName
       this.patientInsurance.patientInsurancePolicy.payerId = this.selectedPayerId
+      if (this.patientInsurance.patientInsurancePolicy.payerId === undefined)
+        this.patientInsurance.patientInsurancePolicy.insuranceCompnayName = this.selectedPayerName;
       this.patientInsurance.isArchived = false;
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
       this.patientInsurance.payerAddress.state = this.patientInsurance.payerAddress.state?.split('-')[0].trim();

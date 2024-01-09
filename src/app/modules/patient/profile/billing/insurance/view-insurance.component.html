@@ -25,7 +25,20 @@
                         </c-form-check>
                     </div>
                 </div>
-                <h4><strong>{{insurance.patientInsurancePolicy.payerName }}</strong></h4>
+                <h4>
+                    <span *ngIf="insurance.patientInsurancePolicy.insuranceCompnayName">
+                        <strong>{{insurance.patientInsurancePolicy.insuranceCompnayName }}</strong>
+                    </span>
+                    <span
+                        *ngIf="insurance.patientInsurancePolicy.insuranceCompnayName === null && insurance.patientInsurancePolicy.payerName">
+                        <strong>{{insurance.patientInsurancePolicy.payerName }}</strong>
+                    </span>
+                    <span *ngIf="insurance.patientInsurancePolicy.insuranceCompnayName && 
+                        insurance.patientInsurancePolicy.payerName && insurance.patientInsurancePolicy.payerId">
+                        assign to ({{insurance.patientInsurancePolicy.payerName}})
+                    </span>
+                </h4>
+
                 <h6>{{insurance.patientInsurancePolicy.responsability}}</h6>
                 <h6>Plan : {{insurance.patientInsurancePolicy.planType}}</h6>
                 <h6>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h6>
@@ -33,13 +46,13 @@
         </div>
     </c-col>
 </c-row>
-<c-modal id="addInsuranceModal" [visible]="addInsuranceVisibility" backdrop="static" size="lg" >
+<c-modal id="addInsuranceModal" [visible]="addInsuranceVisibility" backdrop="static" size="lg">
     <c-modal-header>
         <h5 cModalTitle>Add Insurance</h5>
         <button (click)="toggleAddInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-insurance *ngIf="addInsuranceVisibility" (changeVisibility)="changeVisibility($event)" [patient]="patient"
-            #createInsuranceComponent></app-create-insurance>
+        <app-create-insurance *ngIf="addInsuranceVisibility" (changeVisibility)="changeVisibility($event)"
+            [patient]="patient" #createInsuranceComponent></app-create-insurance>
     </c-modal-body>
 </c-modal>
