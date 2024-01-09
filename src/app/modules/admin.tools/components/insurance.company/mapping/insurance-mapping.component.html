@@ -17,13 +17,12 @@
                     (selectedItemsChange)="onSelectedInsuranceCompany($event)"
                     [items]="(isuranceCompanies$ | async) ?? []"
                     [tableProps]="{ hover: true, striped: true, small:true  }" [tableBodyProps]="{ align: 'middle'}"
-                    [itemsPerPage]="100"
-                    header>
-                    <ng-template cTemplateId="tableDetails" let-item="item">                
+                    [itemsPerPage]="100" header>
+                    <ng-template cTemplateId="tableDetails" let-item="item">
                         <div [visible]="this.details_visible[item.id]===true" cCollapse>
                             <c-card class="rounded-0">
                                 <c-card-body>
-                                    <assign-payer [insuranceCompany]="item"
+                                    <assign-payer *ngIf="payer" [insuranceCompany]="item" [payer]="payer"
                                         (onMapChanged)="mapInsuranceCompany($event)"></assign-payer>
                                 </c-card-body>
                             </c-card>

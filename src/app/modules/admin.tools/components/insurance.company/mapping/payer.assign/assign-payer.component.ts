@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import { InsuranceCompanyEmittingService } from 'src/app/modules/admin.tools/services/emitting/insurance-company-emitting.service';
 import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
-import { PayerService } from 'src/app/modules/admin.tools/services/payer/payer.service';
 import { IsuranceCompany } from 'src/app/modules/model/admin/insurance.company';
 import { IsuranceCompanyMapper } from 'src/app/modules/model/admin/insurance.company.mapper';
 import { Payer } from 'src/app/modules/model/admin/payer';
@@ -14,26 +12,23 @@ import { Payer } from 'src/app/modules/model/admin/payer';
   styleUrls: ['./assign-payer.component.scss']
 })
 export class AssignPayerComponent implements OnInit {
-  payer!: Payer[];
+
   payerNames: string[];
   payerIds: string[];
   selectedpayerName: string;
   selectedpayerId: string;
   assignedPayer: Payer;
   @Input() insuranceCompany: IsuranceCompany;
+  @Input() payer!: Payer[];
   @Output() onMapChanged = new EventEmitter<string>()
-  constructor(private payerService: PayerService
-    , private insuranceCompanyService: InsuranceCompanyService
+  constructor(private insuranceCompanyService: InsuranceCompanyService
     , private toastr: ToastrService
     , private insuranceCompanyEmittingService: InsuranceCompanyEmittingService) { }
 
   ngOnInit(): void {
-    this.payerService.findAll().subscribe((result: any) => {
-      this.payer = result;
-      this.getAssignedPayer();
-      this.payerNames = this.payer.map(a => a.displayName);
-      this.payerIds = this.payer.map(a => a.payerId.toString());
-    })
+    this.getAssignedPayer();
+    this.payerNames = this.payer.map(a => a.displayName);
+    this.payerIds = this.payer.map(a => a.payerId.toString());
   }
   pickName(event: any) {
     this.payer.forEach(element => {
