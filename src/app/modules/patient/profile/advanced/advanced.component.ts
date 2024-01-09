@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientAdvancedInformation } from 'src/app/modules/model/clinical/patient.advanced';
+import { States } from 'src/app/modules/model/lookups/state-data-store';
 
 @Component({
   selector: 'patient-advanced',
@@ -12,13 +13,15 @@ export class AdvancedComponent implements OnInit {
   @Input() pateint: Patient;
   patientAdvancedInformation: PatientAdvancedInformation = {
     pateintAdvancedCondtion: {
-      employment: null,
-      autoAccident: null,
-      otherAccident: null
+      employment: undefined,
+      autoAccident: undefined,
+      otherAccident: undefined,
+      state: null
     },
     patientAdvancedDates: {}
 
   };
+  states: string[] = States;
   constructor() { }
 
   ngOnInit(): void {
@@ -75,5 +78,15 @@ export class AdvancedComponent implements OnInit {
   changeHospitalizedEndDate(event: Date) {
     this.patientAdvancedInformation.hospitalizedEndDate =
       moment(event).unix() * 1000;
+  }
+  changeEmployment(event: any) {
+    this.patientAdvancedInformation.pateintAdvancedCondtion.employment = event.target.value;
+
+  }
+  changeAutoAccident(event: any) {
+    this.patientAdvancedInformation.pateintAdvancedCondtion.autoAccident = event.target.value;
+  }
+  changeOtherAccident(event: any) {
+    this.patientAdvancedInformation.pateintAdvancedCondtion.otherAccident = event.target.value;
   }
 }
