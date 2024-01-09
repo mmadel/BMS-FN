@@ -36,7 +36,7 @@ export class InvoiceCreationComponent implements OnInit {
       isOneDateServicePerClaim: false,
       delayedReason: '',
       patientId: this.clientId,
-      insuranceCompanyId:patientInsurance.insuranceCompany
+      
     }
     this.invoiceService.create(invoiceRequestCreation)
       .subscribe((response) => {

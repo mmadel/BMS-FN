@@ -55,6 +55,9 @@ export class CreateInsuranceComponent implements OnInit {
   fillModel() {
     this.patientInsurance = {
       relation: null,
+      payer:{
+        address:{}
+      },
       patientRelation: {
         r_gender: null,
         r_address: {
@@ -63,17 +66,14 @@ export class CreateInsuranceComponent implements OnInit {
         }
       },
       patientInsurancePolicy: {
-        responsability: null,
+        responsibility: null,
         planType: null
       },
       patientInsuranceAdvanced: {
         acceptAssigment: true,
         signatureOnFile: true,
         informationRelease: null
-      },
-      payerAddress: {
-        state: null
-      }
+      },  
     }
   }
   pickPayerName(event: any) {
@@ -86,7 +86,7 @@ export class CreateInsuranceComponent implements OnInit {
   }
   unpickPayerName() {
     this.selectedPayerId = '';
-    this.patientInsurance.payerAddress = {}
+    
   }
   pickPayerId(event: any) {
     this.payers.forEach(element => {
@@ -98,10 +98,10 @@ export class CreateInsuranceComponent implements OnInit {
   }
   unpickPayerId() {
     this.selectedPayerName = ''
-    this.patientInsurance.payerAddress = {}
+    
   }
   fillPayerAddress(payer: Payer) {
-    this.patientInsurance.payerAddress = {
+    this.patientInsurance.payer.address = {
       address: payer.address.address,
       state: payer.address.state,
       zipCode: payer.address.zipCode,
@@ -112,13 +112,10 @@ export class CreateInsuranceComponent implements OnInit {
   create() {
     if (this.insuranceCreateForm.valid) {
       this.notValidForm = false;
-      this.patientInsurance.patientInsurancePolicy.payerName = this.selectedPayerName
-      this.patientInsurance.patientInsurancePolicy.payerId = this.selectedPayerId
-      if (this.patientInsurance.patientInsurancePolicy.payerId === undefined)
-        this.patientInsurance.patientInsurancePolicy.insuranceCompnayName = this.selectedPayerName;
+      this.patientInsurance.payer.name = this.selectedPayerName
+      this.patientInsurance.payer.payerId = this.selectedPayerId
       this.patientInsurance.isArchived = false;
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
-      this.patientInsurance.payerAddress.state = this.patientInsurance.payerAddress.state?.split('-')[0].trim();
       this.changeVisibility.emit('close');
       //this.insuranceCreateForm.reset()
     } else {

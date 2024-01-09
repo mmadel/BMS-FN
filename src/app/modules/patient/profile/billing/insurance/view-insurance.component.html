@@ -27,20 +27,10 @@
                     </div>
                 </div>
                 <h4>
-                    <span *ngIf="insurance.patientInsurancePolicy.insuranceCompnayName">
-                        <strong>{{insurance.patientInsurancePolicy.insuranceCompnayName }}</strong>
-                    </span>
-                    <span
-                        *ngIf="insurance.patientInsurancePolicy.insuranceCompnayName === null && insurance.patientInsurancePolicy.payerName">
-                        <strong>{{insurance.patientInsurancePolicy.payerName }}</strong>
-                    </span>
-                    <span *ngIf="insurance.patientInsurancePolicy.insuranceCompnayName && 
-                        insurance.patientInsurancePolicy.payerName && insurance.patientInsurancePolicy.payerId">
-                        assign to ({{insurance.patientInsurancePolicy.payerName}})
-                    </span>
+                   
                 </h4>
 
-                <h6>{{insurance.patientInsurancePolicy.responsability}}</h6>
+                <h6>{{insurance.patientInsurancePolicy.responsibility}}</h6>
                 <h6>Plan : {{insurance.patientInsurancePolicy.planType}}</h6>
                 <h6>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h6>
             </div>

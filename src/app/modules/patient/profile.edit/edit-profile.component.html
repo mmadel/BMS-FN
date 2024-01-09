@@ -186,8 +186,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let insurance of patient.patientInsurances;let i=index;">
-                            <th scope="row">{{i}}</th>
-                            <td>{{insurance.patientInsurancePolicy.payerName}}</td>
+                            <th scope="row">{{i}}</th>                            
                             <td>{{insurance.patientInsurancePolicy.planType}}</td>
                             <td>{{insurance.patientInsurancePolicy.primaryId}}</td>
                             <td>

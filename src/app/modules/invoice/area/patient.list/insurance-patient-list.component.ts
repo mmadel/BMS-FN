@@ -65,8 +65,8 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
     var result: string = ''
     if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
       for (var i = 0; i < pateint.patientInsurances.length; i++) {
-        if (pateint.patientInsurances[i].patientInsurancePolicy.responsability === 'Primary')
-          result = pateint.patientInsurances[i].patientInsurancePolicy.payerName;
+        if (pateint.patientInsurances[i].patientInsurancePolicy.responsibility === 'Primary')
+          result = pateint.patientInsurances[i].payer.name;
       }
     } else
       result = ''
@@ -77,8 +77,8 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
     var result: string;
     if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
       for (var i = 0; i < pateint.patientInsurances.length; i++) {
-        if (pateint.patientInsurances[i].patientInsurancePolicy.responsability === 'Secondary')
-          result = pateint.patientInsurances[i].patientInsurancePolicy.payerName;
+        if (pateint.patientInsurances[i].patientInsurancePolicy.responsibility === 'Secondary')
+          result = pateint.patientInsurances[i].payer.name;
       }
     } else
       result = ''

@@ -1,3 +1,4 @@
+import { Payer } from "../admin/payer";
 import { BasicAddress } from "../common/basic.address";
 import { PatientInsuranceAdvanced } from "./patient.insurance.advanced";
 import { PatientInsurancePolicy } from "./patient.insurance.policy";
@@ -9,8 +10,7 @@ export interface PatientInsurance {
     patientRelation?: PatientRelation;
     patientInsurancePolicy?: PatientInsurancePolicy
     patientInsuranceAdvanced?: PatientInsuranceAdvanced
-    payerAddress?: BasicAddress
     isArchived?:boolean
-    insuranceCompany?:number;
+    payer?:Payer
 
 }

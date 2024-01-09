@@ -1,8 +1,5 @@
 export interface PatientInsurancePolicy {
-    insuranceCompnayName?: string;
-    payerName?:string,
-    payerId?:string,
-    responsability?: string;
+    responsibility?: string;
     planType?: string;
     primaryId?: string
     policyGroup?: string
