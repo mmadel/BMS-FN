@@ -62,6 +62,7 @@ import { ViewProfileComponent } from './profile.view/view-profile.component';
 import { EditProfileComponent } from './profile.edit/edit-profile.component';
 import { SessionBillingCodeComponent } from './profile.edit/components/session.billing.code/session-billing-code.component';
 import { SessionServiceCodeListComponent } from './profile.edit/components/session.service.code.list/session-service-code-list.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -124,6 +125,7 @@ import { SessionServiceCodeListComponent } from './profile.edit/components/sessi
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ],
   exports: [
     PatientSessionEditComponent,

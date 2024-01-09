@@ -19,6 +19,7 @@ import {
 } from './index';
 import { SessionItemEditComponent } from './area/session.item.edit/session-item-edit.component';
 import { ModelModule } from '../model/model.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -57,7 +58,8 @@ import { ModelModule } from '../model/model.module';
     ModalModule,
     SmartPaginationModule,
     PatientModule,
-    ModelModule
+    ModelModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
 export class InvoiceModule { }

@@ -34,6 +34,7 @@ import {
 } from './index';
 import { EditProviderComponent } from './list/settings-modal/box33/edit.provider/edit-provider.component';
 import { ModelModule } from '../model/model.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -70,7 +71,8 @@ import { ModelModule } from '../model/model.module';
     IconModule,
     UtilitiesModule,
     ModalModule,
-    ModelModule
+    ModelModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
 export class InsuranceModule { }
