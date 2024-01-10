@@ -39,8 +39,7 @@
                     <strong>Insurance Card</strong>
                 </c-card-header>
                 <c-card-body>
-
-                    <app-view-insurance #insuranceComponent [patient]="patient"></app-view-insurance>
+                    <app-view-insurance #insuranceComponent *ngIf="patient" [patient]="patient"></app-view-insurance>
                 </c-card-body>
             </c-card>
         </c-col>

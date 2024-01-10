@@ -36,7 +36,6 @@ export class PatientListComponent extends ListTemplate implements OnInit {
 
   }
   edit(event: any) {
-    this.pateintEmittingService.selectedPatient$.next(event.data)
     this.router.navigate(['/patient/profile',event.data.id]);
   }
   view(event: any) {

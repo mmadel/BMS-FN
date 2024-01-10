@@ -37,7 +37,7 @@
             </c-card-header>
             <c-card-body>
 
-                <form cForm #patientCreationForm="ngForm">
+                <form cForm #patientCreationForm="ngForm" *ngIf="patient">
                     <c-row>
                         <c-col class="mb-1">
                             <small
@@ -257,7 +257,7 @@
             </c-card-body>
         </c-card>
     </c-col>
-    <c-col xs="12">
+    <c-col xs="12" *ngIf="patient">
         <c-card class="mb-4">
             <c-card-body>
                 <c-nav variant="tabs">
@@ -288,7 +288,7 @@
                 </c-nav>
                 <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom"
                     (activeTabPaneIdxChange)="onTabChange($event)">
-                    <c-tab-pane tabPaneIdx=0>
+                    <c-tab-pane tabPaneIdx=0>                        
                         <app-billing #billingComponent *ngIf="selectedTab === 0" [patient]="patient"></app-billing>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=1>

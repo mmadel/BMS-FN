@@ -11,7 +11,7 @@ export interface PatientInsurance {
     patientInsurancePolicy?: PatientInsurancePolicy
     patientInsuranceAdvanced?: PatientInsuranceAdvanced
     isArchived?:boolean
-    visibility?:InsuranceCompanyVisibility;
+    visibility?:string;
     insuranceCompany?:string[];
     insuranceCompanyAddress?:BasicAddress;
 

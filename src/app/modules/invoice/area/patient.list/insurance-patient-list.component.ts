@@ -63,24 +63,24 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
   }
   private getPrimaryInsurance(pateint: Patient): string {
     var result: string = ''
-    if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
-      for (var i = 0; i < pateint.patientInsurances.length; i++) {
-        if (pateint.patientInsurances[i].patientInsurancePolicy.responsibility === 'Primary')
-          result = pateint.patientInsurances[i].payer.name;
-      }
-    } else
+    // if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
+    //   for (var i = 0; i < pateint.patientInsurances.length; i++) {
+    //     if (pateint.patientInsurances[i].patientInsurancePolicy.responsibility === 'Primary')
+    //       result = pateint.patientInsurances[i].payer.name;
+    //   }
+    // } else
       result = ''
     return result;
   }
 
   private getSecondaryInsurance(pateint: Patient): string {
     var result: string;
-    if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
-      for (var i = 0; i < pateint.patientInsurances.length; i++) {
-        if (pateint.patientInsurances[i].patientInsurancePolicy.responsibility === 'Secondary')
-          result = pateint.patientInsurances[i].payer.name;
-      }
-    } else
+    // if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
+    //   for (var i = 0; i < pateint.patientInsurances.length; i++) {
+    //     if (pateint.patientInsurances[i].patientInsurancePolicy.responsibility === 'Secondary')
+    //       result = pateint.patientInsurances[i].payer.name;
+    //   }
+    // } else
       result = ''
     return result;
   }

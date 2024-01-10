@@ -26,15 +26,7 @@ export class PatientProfileComponent implements OnInit {
   @ViewChild('patientCreationForm') patientCreationForm: NgForm;
   @ViewChild('billingComponent') billingComponent: BillingComponent;
   @ViewChild('patientAdvancedComponent') patientAdvancedComponent: AdvancedComponent;
-  patient: Patient = {
-    gender: null,
-    maritalStatus: null,
-    address: {
-      country: null,
-      state: null
-    },
-    phoneType: null
-  }
+  patient: Patient
   patientDOB: Date
   genderKeys = Object.values;
   genders = Gender;
@@ -54,16 +46,23 @@ export class PatientProfileComponent implements OnInit {
   ngOnInit(): void {
     var patientId = this.route.snapshot.paramMap.get('id');
     if (patientId) {
-      this.pateintEmittingService.selectedPatient$.pipe(
-        filter((patient) => patient !== null),
-        first()
-      ).subscribe((result) => {
-        this.isupdated = true;
-        this.patient = result
-        this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
-      })
+      this.patientService.findById(Number(patientId))
+        .subscribe((result) => {
+          this.isupdated = true;
+          this.patient = result
+          this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
+        })
     } else {
       this.isupdated = false;
+      this.patient = {
+        gender: null,
+        maritalStatus: null,
+        address: {
+          country: null,
+          state: null
+        },
+        phoneType: null
+      }
     }
   }
   onTabChange(event: any) {

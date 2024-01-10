@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Patient } from '../../model/clinical/patient';
+import { PatientInsurance } from '../../model/clinical/patient.insurance';
 import { IApiParams } from '../../model/interface/api.params';
 import { BasePaginationService } from '../../model/service/base-pagination.service';
 
@@ -17,6 +18,17 @@ export class PatientService extends BasePaginationService {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create'
     return this.httpClient.post(`${url}`, JSON.stringify(patient), { 'headers': headers })
+  }
+
+  createPatientInsurance(patientInsurance: PatientInsurance , patientId:number) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/insurance/company/create/patient/'+patientId
+    return this.httpClient.post(`${url}`, JSON.stringify(patientInsurance), { 'headers': headers })
+  }
+  deletePatientInsurance(id: number, visibility: string) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/insurance/company/delete/' + id + '/visibility/' + visibility
+    return this.httpClient.delete(`${url}`, { 'headers': headers })
   }
 
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {
