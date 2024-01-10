@@ -212,7 +212,7 @@
                     <c-col xs="12">
                         <div class="card border mb-2" *ngFor="let insurance of patient.patientInsurances;let i=index;">
                             <div class="card-body" [ngClass]="{'text-bg-light': insurance.isArchived}">
-                                <h4><strong>{{insurance.patientInsurancePolicy.responsability }}</strong></h4>
+                                <h4><strong>{{insurance.patientInsurancePolicy.responsibility }}</strong></h4>
                                 <h6>{{insurance.patientInsurancePolicy.planType}}</h6>
                                 <h6>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h6>
                             </div>
