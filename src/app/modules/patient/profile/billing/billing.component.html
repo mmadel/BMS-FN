@@ -49,7 +49,7 @@
                     <strong>Diagnosis/Cases</strong>
                 </c-card-header>
                 <c-card-body>
-                    <app-view-case #casesComponent [_cases]="patient.cases"></app-view-case>
+                    <app-view-case #casesComponent [patient]="patient"></app-view-case>
                 </c-card-body>
             </c-card>
         </c-col>
