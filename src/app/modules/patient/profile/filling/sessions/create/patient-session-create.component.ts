@@ -2,7 +2,6 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChil
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from 'src/app/modules/model/clinical/patient';
-import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
@@ -39,14 +38,11 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
       this.patientSessionService.create(this.patientSession)
         .subscribe((result) => {
           this.changeVisibility.emit('close');
-          var createdCase: PatientCase = {
-            title: this.patientSession.caseTitle,
-            caseDiagnosis: this.patientSession.caseDiagnosis
-          }
-          // if (!this.pateintSessionBillingCodeComponent.billingCode.isCaseAttached)
-          //   this.emitPatientSessionService.createdCase$.next(createdCase)
+          this.toastr.success("Patient Session crteated")
+          this.scrollUp();
         }, (error) => {
-          this.toastr.success("Error during session creation")
+          this.toastr.error("Error during session creation")
+          this.scrollUp();
         })
     }
 
@@ -83,4 +79,12 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
     }
   }
   clear() { }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
+  }
 }
