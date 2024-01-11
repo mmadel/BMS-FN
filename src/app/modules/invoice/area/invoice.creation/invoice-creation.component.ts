@@ -31,11 +31,14 @@ export class InvoiceCreationComponent implements OnInit {
   }
 
   create(patientInsurance: PatientInsurance) {
+    console.log(JSON.stringify(patientInsurance))
     var invoiceRequestCreation: InvoiceRequestCreation = {
       selectedSessionServiceLines: this.selectedSessionServiceLine,
       isOneDateServicePerClaim: false,
       delayedReason: '',
       patientId: this.clientId,
+      visibility:patientInsurance.visibility,
+      insuranceCompany:patientInsurance.insuranceCompany
       
     }
     this.invoiceService.create(invoiceRequestCreation)

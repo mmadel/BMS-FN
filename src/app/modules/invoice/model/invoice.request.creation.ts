@@ -6,5 +6,6 @@ export interface InvoiceRequestCreation{
     isOneDateServicePerClaim?:boolean
     delayedReason?:string
     patientId?:number
-    insuranceCompanyId?:number
+    visibility?:string;
+    insuranceCompany?:string[];
 }
