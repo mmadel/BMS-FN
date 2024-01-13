@@ -5,4 +5,5 @@ export interface IsuranceCompany {
     name?: string
     address?: BasicAddress
     payerId?: number;
+    assigner?: string[];
 }

@@ -14,12 +14,6 @@
                     let-tdContent="tdContent">
                     <td>
                         <ng-container [ngSwitch]="columnName">
-                            <ng-container *ngSwitchCase="'payerId'" class="py-2">
-                                <span>{{item.payerId}}</span>
-                                <span *ngIf="!item.payerId">
-                                    <a [routerLink]="'/admin/tools/insurance/company/mapping'"> Assign to Payer
-                                    </a></span>
-                            </ng-container>
                             <ng-container *ngSwitchCase="'actions'" class="py-2">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button cButton variant="outline" size="sm" (click)="openSesstings(item)">

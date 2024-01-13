@@ -17,16 +17,20 @@ export class AssignPayerComponent implements OnInit {
   payerIds: string[];
   selectedpayerName: string;
   selectedpayerId: string;
+  selectedMapperId:number = null;
   assignedPayer: Payer;
   @Input() insuranceCompany: IsuranceCompany;
   @Input() payer!: Payer[];
   @Output() onMapChanged = new EventEmitter<string>()
   constructor(private insuranceCompanyService: InsuranceCompanyService
-    , private toastr: ToastrService
-    , private insuranceCompanyEmittingService: InsuranceCompanyEmittingService) { }
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getAssignedPayer();
+    if(this.insuranceCompany.assigner){
+      this.selectedpayerId = this.insuranceCompany.assigner[0]
+      this.selectedpayerName = this.insuranceCompany.assigner[1];
+      this.selectedMapperId = Number(this.insuranceCompany.assigner[2]);
+    }
     this.payerNames = this.payer.map(a => a.displayName);
     this.payerIds = this.payer.map(a => a.payerId.toString());
   }
@@ -34,14 +38,9 @@ export class AssignPayerComponent implements OnInit {
     this.payer.forEach(element => {
       if (element.displayName === event) {
         this.selectedpayerId = element.payerId.toString();
+        this.assignedPayer = element;
       }
     });
-    this.insuranceCompanyEmittingService.selectedInsuranceCompany$.next(
-      {
-        id: this.insuranceCompany.id,
-        payerId: Number(this.selectedpayerId)
-      }
-    )
   }
   unPickName() {
     this.selectedpayerId = '';
@@ -50,39 +49,23 @@ export class AssignPayerComponent implements OnInit {
     this.payer.forEach(element => {
       if (element.payerId.toString() === event) {
         this.selectedpayerName = element.displayName;
+        this.assignedPayer = element;
       }
     });
-    this.insuranceCompanyEmittingService.selectedInsuranceCompany$.next(
-      {
-        id: this.insuranceCompany.id,
-        payerId: Number(event)
-      }
-    )
   }
   unPickId() {
     this.selectedpayerName = '';
   }
   assign() {
     var isuranceCompanyMapper: IsuranceCompanyMapper = {
+      id:this.selectedMapperId,
       insuranceCompanyId: this.insuranceCompany.id,
-      payerId: Number(this.selectedpayerId)
+      payer: this.assignedPayer
     }
     this.insuranceCompanyService.map(isuranceCompanyMapper)
       .subscribe((result) => {
         this.onMapChanged.emit('mapped');
         this.toastr.success("payer assigned to insurance company")
       })
-  }
-  getAssignedPayer() {
-    if (this.insuranceCompany.payerId) {
-      this.payer.forEach(element => {
-        if (element.payerId.toString() === this.insuranceCompany.payerId.toString()) {
-          this.assignedPayer = {
-            displayName: element.displayName,
-            payerId: element.payerId
-          }
-        }
-      });
-    }
   }
 }

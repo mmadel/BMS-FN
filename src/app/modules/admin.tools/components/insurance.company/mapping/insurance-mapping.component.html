@@ -6,19 +6,14 @@
         </c-col>
     </c-row>
     <hr />
-    <div class="d-md-flex justify-content-md-end">
-        <button cButton variant="outline" size="sm" [disabled]='selected?.length === 0 || selected === undefined'
-            (click)="assignSelected()">Assign Selected</button>
-    </div>
     <c-row>
         <c-col>
             <ng-container fluid="true">
-                <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" selectable
-                    (selectedItemsChange)="onSelectedInsuranceCompany($event)"
+                <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
                     [items]="(isuranceCompanies$ | async) ?? []"
                     [tableProps]="{ hover: true, striped: true, small:true  }" [tableBodyProps]="{ align: 'middle'}"
                     [itemsPerPage]="100" header>
-                    <ng-template cTemplateId="tableDetails" let-item="item">
+                    <!-- <ng-template cTemplateId="tableDetails" let-item="item">
                         <div [visible]="this.details_visible[item.id]===true" cCollapse>
                             <c-card class="rounded-0">
                                 <c-card-body>
@@ -27,17 +22,29 @@
                                 </c-card-body>
                             </c-card>
                         </div>
-                    </ng-template>
+                    </ng-template> -->
                     <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
                         let-tdContent="tdContent">
                         <td>
                             <ng-container [ngSwitch]="columnName">
                                 <ng-container *ngSwitchCase="'mapping'" class="py-2">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button cButton variant="outline" size="sm" (click)="toggleDetails(item['id'])">
+                                        <button cButton variant="outline" size="sm" (click)="toggleDetails(item)">
                                             <svg cIcon name="cilMenu"></svg>
                                         </button>
                                     </div>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'mapped'">
+                                    <span *ngIf="item.assigner">
+                                        <c-badge color="primary">
+                                            mapped
+                                        </c-badge>
+                                    </span>
+                                    <span *ngIf="!item.assigner">
+                                        <c-badge color="warning">
+                                            not-mapped
+                                        </c-badge>
+                                    </span>
                                 </ng-container>
                                 <ng-container *ngSwitchDefault>
                                     {{tdContent}}
@@ -50,3 +57,13 @@
         </c-col>
     </c-row>
 </c-container>
+<c-modal [visible]="isnsuranceMapperVisible" scrollable size="xl" backdrop="static" scrollable>
+    <c-modal-header>
+        <h5 cModalTitle>Mapper</h5>
+        <button (click)="toggleInsuranceMapperSettings()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <assign-payer *ngIf="isnsuranceMapperVisible" [insuranceCompany]="selectedIsuranceCompany" [payer]="payer"
+            (onMapChanged)="mapInsuranceCompany($event)"></assign-payer>
+    </c-modal-body>
+</c-modal>

@@ -28,16 +28,12 @@ export class InsuranceListComponent implements OnInit {
     {
       key: 'name',
       label: 'Name',
-      _style: { width: '40%' }
-    },
-    {
-      key: 'payerId',
-      label: 'Payer Id',
-      _style: { width: '40%' }
+      _style: { width: '40%'}
     },
     {
       key: 'actions',
-      _style: { width: '5%' }
+      label:'Settings',
+      _style: { width: '10%' }
     },
   ];
 

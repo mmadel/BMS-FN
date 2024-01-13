@@ -16,10 +16,14 @@ export class InsuranceCompanyService {
     var url = this.baseUrl + '/find'
     return this.httpClient.get(url)
   }
+  public findInternal(): Observable<any> {
+    var url = this.baseUrl + '/find/internal'
+    return this.httpClient.get(url)
+  }
   map(isuranceCompanyMapper: IsuranceCompanyMapper) {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/map'
-    return this.httpClient.put(`${url}`, JSON.stringify(isuranceCompanyMapper), { 'headers': headers })
+    return this.httpClient.post(`${url}`, JSON.stringify(isuranceCompanyMapper), { 'headers': headers })
   }
   mapAll(isuranceCompanyMappers: IsuranceCompanyMapper[]) {
     const headers = { 'content-type': 'application/json' }

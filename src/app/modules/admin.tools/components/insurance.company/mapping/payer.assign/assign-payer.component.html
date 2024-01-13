@@ -1,22 +1,8 @@
 <ngx-spinner></ngx-spinner>
 <c-row>
     <c-col class="mb-3"><strong>
-            Insurance Company Name
+            Insurance Company
         </strong> : {{insuranceCompany.name}}</c-col>
-</c-row>
-<c-row>
-    <c-col class="mb-3"><strong>
-            Insurance Company Address
-        </strong> :
-        <span *ngIf="insuranceCompany.address">
-            {{insuranceCompany.address.address}},{{insuranceCompany?.address.city}},{{insuranceCompany?.address.city}},{{insuranceCompany.address.state}},{{insuranceCompany.address.zipCode}}
-        </span>
-    </c-col>
-</c-row>
-<c-row *ngIf="assignedPayer">
-    <c-col class="mb-3"><strong>
-            Payer
-        </strong> : {{assignedPayer.displayName}} , {{assignedPayer.payerId}}</c-col>
 </c-row>
 <c-row>
     <c-col class=" justify-content-md-center">

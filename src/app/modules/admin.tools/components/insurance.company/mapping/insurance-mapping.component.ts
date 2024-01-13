@@ -15,11 +15,14 @@ import { PayerService } from '../../../services/payer/payer.service';
 })
 export class InsuranceMappingComponent implements OnInit {
   isuranceCompanies$!: Observable<IsuranceCompany[]>;
-  selected: IsuranceCompany[];
-  changed: IsuranceCompany[] = new Array();
+  selectedIsuranceCompany: IsuranceCompany;
+  isnsuranceMapperVisible: boolean = false;
   columns = [
     {
       key: 'name',
+    },
+    {
+      key: 'mapped',
     },
     {
       key: 'mapping',
@@ -32,23 +35,18 @@ export class InsuranceMappingComponent implements OnInit {
   details_visible = Object.create({});
   payer!: Payer[]
   constructor(private insuranceCompanyService: InsuranceCompanyService
-    , private insuranceCompanyEmittingService: InsuranceCompanyEmittingService
     , private toastr: ToastrService
     , private payerService: PayerService) { }
   public toggleDetails(item: any) {
-    this.details_visible[item] = !this.details_visible[item];
+    this.isnsuranceMapperVisible = true;
+    this.selectedIsuranceCompany = item;
   }
   ngOnInit(): void {
     this.find();
     this.findPayers();
-    this.insuranceCompanyEmittingService.selectedInsuranceCompany$.pipe(
-      filter((result) => result !== null)
-    ).subscribe((result: any) => {
-      this.changed.push(result)
-    })
   }
   find() {
-    this.isuranceCompanies$ = this.insuranceCompanyService.findAll();
+    this.isuranceCompanies$ = this.insuranceCompanyService.findInternal();
   }
   findPayers() {
     this.payerService.findAll().subscribe((result: any) => {
@@ -56,29 +54,13 @@ export class InsuranceMappingComponent implements OnInit {
     })
   }
 
-  onSelectedInsuranceCompany(event: any) {
-    this.selected = event;
-  }
-  assignSelected() {
-    this.selected.forEach(selectedElement => {
-      this.changed.forEach(changedElement => {
-        if (selectedElement.id === changedElement.id)
-          selectedElement.payerId = changedElement.payerId
-      })
-    });
-    var isuranceCompanyMappers: IsuranceCompanyMapper[] = this.selected.map(selectedInsuranceCompany => ({
-      insuranceCompanyId: selectedInsuranceCompany.id,
-      payerId: selectedInsuranceCompany.payerId
-    }));
-    this.insuranceCompanyService.mapAll(isuranceCompanyMappers)
-      .subscribe((result) => {
-        this.find();
-        this.toastr.success("payer assigned to selected insurance companies")
-      })
+  public toggleInsuranceMapperSettings() {
+    this.isnsuranceMapperVisible = !this.isnsuranceMapperVisible
   }
   mapInsuranceCompany(event: any) {
     if (event === 'mapped') {
-      this.ngOnInit();
+      this.isnsuranceMapperVisible = false;
+      this.ngOnInit()
     }
   }
 }
