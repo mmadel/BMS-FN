@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { InsuranceCompanyContainerService } from '../../Insurance/service/insurance-company-container.service';
-import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { PatientService } from '../../patient/service/patient.service';
 import { PostingServiceService } from '../service/posting-service.service';
@@ -42,7 +41,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     receivedDate_date: new Date()
   }
   invalidServiceCode: any[]
-  insuranceCompanyContainer: InsuranceCompanyContainer[]
+  insuranceCompanyContainer: InsuranceCompanyContainerService[]
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
     , private postingServiceService: PostingServiceService

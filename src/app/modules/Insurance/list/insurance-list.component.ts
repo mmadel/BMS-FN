@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { InsuranceCompanyConfiguration } from '../../model/admin/insurance.company.configuration';
-import { InsuranceCompanyContainer } from '../../model/admin/insurance.company.container';
+import { InsuranceCompanyHolder } from '../../model/admin/insurance.company.holder';
 import { BillingProviderConfiguration } from '../model/billing.provider.configuration';
 import { GeneralConfiguration } from '../model/general.configuration';
 import { InsuranceCompanyConfigurationService } from '../service/insurance-company-configuration.service';
@@ -16,17 +16,17 @@ import { GeneralSettingsComponent } from './settings-modal/general/general-setti
   styleUrls: ['./insurance-list.component.scss']
 })
 export class InsuranceListComponent implements OnInit {
-  isuranceCompanyList$!: Observable<InsuranceCompanyContainer[]>;
+  isuranceCompanyList$!: Observable<InsuranceCompanyHolder[]>;
   public isnsuranceSettingsVisible = false;
   @ViewChild('generalSettings') generalSettings: GeneralSettingsComponent;
   @ViewChild('box33Settings') box33Settings: Box33SettingsComponent;
-  selectedInsuranceCompany: InsuranceCompanyContainer;
+  selectedInsuranceCompany: InsuranceCompanyHolder;
   selectedGeneralConfiguration: GeneralConfiguration;
   selectedBillingProviderConfiguration: BillingProviderConfiguration;
   openedInsuranceCompanyConfigurationId: number = null;
   columns = [
     {
-      key: 'displayName',
+      key: 'name',
       label: 'Name',
       _style: { width: '40%' }
     },
@@ -54,8 +54,7 @@ export class InsuranceListComponent implements OnInit {
   }
   public openSesstings(event: any) {
     this.selectedInsuranceCompany = event;
-    this.insuranceCompanyConfigurationService.findInsuranceCompanyConfiguration(this.selectedInsuranceCompany.payerId !== null ?
-      this.selectedInsuranceCompany.payerId : this.selectedInsuranceCompany.insuranceCompanyId)
+    this.insuranceCompanyConfigurationService.findInsuranceCompanyConfiguration(event.id ,event.visibility)
       .subscribe((result: any) => {
         if (result !== null)
           this.openedInsuranceCompanyConfigurationId = result.id;
@@ -67,12 +66,11 @@ export class InsuranceListComponent implements OnInit {
   save() {
     var insuranceCompanyConfiguration: InsuranceCompanyConfiguration = {
       id: this.openedInsuranceCompanyConfigurationId,
-      insuranceCompanyIdentifier: this.selectedInsuranceCompany.payerId === null ?
-        this.selectedInsuranceCompany.insuranceCompanyId : this.selectedInsuranceCompany.payerId,
+      insuranceCompanyId : this.selectedInsuranceCompany.id,
+      visibility: this.selectedInsuranceCompany.visibility,
       box32: this.generalSettings.generalConfiguration.box32,
       box26: this.generalSettings.generalConfiguration.box26,
       billingProvider: this.box33Settings.billingProviderConfiguration.billingProvider,
-      isAssignedToPayer: this.selectedInsuranceCompany.payerId === null ? false : true
     }
     this.insuranceCompanyConfigurationService.configure(insuranceCompanyConfiguration)
       .subscribe((result) => {

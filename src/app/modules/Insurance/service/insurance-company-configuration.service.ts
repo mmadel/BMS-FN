@@ -17,8 +17,8 @@ export class InsuranceCompanyConfigurationService {
     return this.httpClient.post(`${url}`, JSON.stringify(insuranceCompnayConfiguration), { 'headers': headers })
   }
 
-  public findInsuranceCompanyConfiguration(identifier: number) {
-    var url = this.baseUrl + '/find/configuration/identifier/' + identifier
+  public findInsuranceCompanyConfiguration(identifier: number, visibility: string) {
+    var url = this.baseUrl + '/find/configuration/id/' + identifier + '/visibility/' + visibility
     return this.httpClient.get(url)
   }
 }

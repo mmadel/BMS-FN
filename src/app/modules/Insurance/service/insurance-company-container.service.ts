@@ -12,7 +12,7 @@ export class InsuranceCompanyContainerService {
   constructor(private httpClient:HttpClient) { }
   
   public findInsuranceCompanyContianers(): Observable<any> {
-    var url = this.baseUrl + '/container/find'
+    var url = this.baseUrl + '/find'
     return this.httpClient.get(url)
   }
 }
