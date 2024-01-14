@@ -11,13 +11,17 @@ export class InsuranceCompanyService {
   private baseUrl = environment.baseURL + '/insurance/company'
 
   constructor(private httpClient: HttpClient) { }
-  
+
   public findAll(): Observable<any> {
     var url = this.baseUrl + '/find'
     return this.httpClient.get(url)
   }
   public findInternal(): Observable<any> {
     var url = this.baseUrl + '/find/internal'
+    return this.httpClient.get(url)
+  }
+  public findInternalPayerById(id: number) {
+    var url = this.baseUrl + '/find/internal/id/' + id
     return this.httpClient.get(url)
   }
   map(isuranceCompanyMapper: IsuranceCompanyMapper) {
@@ -30,8 +34,8 @@ export class InsuranceCompanyService {
     var url = this.baseUrl + '/map/all'
     return this.httpClient.put(`${url}`, JSON.stringify(isuranceCompanyMappers), { 'headers': headers })
   }
-  public findByName(name:string){
-    var url = this.baseUrl + '/find/name/' + name;
+  public findInternalMapperById(id: string) {
+    var url = this.baseUrl + '/find/internal/mapper/id/' + id
     return this.httpClient.get(url);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { PatientService } from '../../../service/patient.service';
@@ -16,18 +17,19 @@ export class ViewInsuranceComponent implements OnInit {
   addInsuranceVisibility: boolean = false;
   patientInsurances: PatientInsurance[] = new Array();
   constructor(private patientService: PatientService
+    , private insuranceCompanyService :InsuranceCompanyService
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.patientInsurances = this.patient.patientInsurances
+    this.patientInsurances = this.patient.patientInsurances;
   }
   toggleAddInsuranceVisibility() {
     this.addInsuranceVisibility = !this.addInsuranceVisibility;
   }
   changeVisibility(event: any) {
-    var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
-    this.patientInsurances.push(createdInsurance);
     if (event === 'close') {
+      var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
+      this.patientInsurances.push(createdInsurance);
       this.addInsuranceVisibility = false;
     }
   }

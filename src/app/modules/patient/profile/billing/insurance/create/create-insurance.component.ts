@@ -77,7 +77,8 @@ export class CreateInsuranceComponent implements OnInit {
         informationRelease: null
       },
       insuranceCompany: new Array(),
-      insuranceCompanyAddress: {}
+      insuranceCompanyAddress: {},
+      assigner:null
     }
   }
   pickPayerName(event: any) {
@@ -89,7 +90,7 @@ export class CreateInsuranceComponent implements OnInit {
     });
   }
   unpickPayerName() {
-    this.selectedPayerId = '';
+    this.selectedPayerId = undefined;
 
   }
   pickPayerId(event: any) {
@@ -101,7 +102,7 @@ export class CreateInsuranceComponent implements OnInit {
     });
   }
   unpickPayerId() {
-    this.selectedPayerName = ''
+    this.selectedPayerName = undefined
 
   }
   fillPayerAddress(payer: Payer) {
@@ -127,16 +128,20 @@ export class CreateInsuranceComponent implements OnInit {
 
       this.patientInsurance.isArchived = false;
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
+      console.log(this.patientInsurance.visibility)
       this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
-        .subscribe((result) => {
+        .subscribe((result:any) => {
+          console.log(JSON.stringify(result))
+          this.patientInsurance.assigner = result.records.assigner;
+          this.patientInsurance.id = result.records.id;
           this.toastr.success("Patient insurance crteated")
           this.scrollUp();
-          
+          this.changeVisibility.emit('close');
         }, error => {
           console.log(JSON.stringify(error))
           this.toastr.error("Error during creating patient insurance")
         })
-        this.changeVisibility.emit('close');
+        
     } else {
       this.notValidForm = true;
     }

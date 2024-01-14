@@ -6,8 +6,8 @@
                 variant="outline">Add Card</c-button>
         </div>
     </c-col>
-    <c-col xs="12">
-        <div class="card border mb-2" *ngFor="let insurance of patientInsurances;let i=index;">
+    <c-col xs="12" *ngIf="patientInsurances">
+        <div class="card border mb-2"  *ngFor="let insurance of patientInsurances;let i=index;">
             <div class="card-body" [ngClass]="{'text-bg-light': insurance.isArchived}">
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
@@ -27,7 +27,11 @@
                     </div>
                 </div>
                 <h4>
-                    {{insurance.insuranceCompany[0]}}
+                    <strong>{{insurance.insuranceCompany[0]}}</strong>
+                    <span *ngIf="insurance.assigner !==null">
+                        assigned to ({{insurance.assigner[1]}})
+                    </span>
+                    
                 </h4>
                 <h6>{{insurance.patientInsurancePolicy.responsibility}}</h6>
                 <h6>Plan : {{insurance.patientInsurancePolicy.planType}}</h6>

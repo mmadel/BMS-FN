@@ -112,15 +112,15 @@ export class BatchInsurnacePaymentComponent implements OnInit {
           this.filteredInsuranceCompany = [];
           this.isLoadingInsuranceCompany = true;
         }),
-        switchMap((value) => {
-          return this.insuranceCompanyService.findByName(value)
-            .pipe(
-              finalize(() => {
-                this.isLoadingInsuranceCompany = false
-              }),
-            )
-        }
-        )
+        // switchMap((value) => {
+        //   return this.insuranceCompanyService.findByName(value)
+        //     .pipe(
+        //       finalize(() => {
+        //         this.isLoadingInsuranceCompany = false
+        //       }),
+        //     )
+        // }
+        // )
       )
       .subscribe(data => {
         if (data == undefined) {
