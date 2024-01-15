@@ -1,16 +1,17 @@
-import { BasicAddress } from "src/app/modules/model/common/basic.address";
-import { Gender } from "src/app/modules/model/enum/geneder";
-import { PatientAdvancedInformation } from "./patient.advanced.information";
 
-export interface InvoicePatientInformation{
+import { PatientAdvancedInformation } from "src/app/modules/model/clinical/patient.advanced";
+import { Address } from "src/app/modules/model/common/address"
+
+export interface InvoicePatientInformation {
+    id:number,
     firstName: string;
-     lastName: string;
-     dateOfBirth: number;
-     gender: Gender;
-     address: BasicAddress;
-     phone: string;
-     patientAdvancedInformation: PatientAdvancedInformation;
-     ssn: string;
-     externalId: string;
-     box26: string;
+    lastName: string;
+    dateOfBirth: number;
+    gender: string;
+    address: Address;
+    phone: string;
+    patientAdvancedInformation: PatientAdvancedInformation;
+    ssn: string;
+    externalId: string;
+    box26: string;
 }

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { IApiParams } from '../../model/interface/api.params';
 import { BasePaginationService } from '../../model/service/base-pagination.service';
 import { InvoiceRequestCreation } from '../model/invoice.request.creation';
+import { InvoiceRequest } from '../model/temp/invoice.request';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +24,10 @@ export class InvoiceService extends BasePaginationService {
     return this.httpClient.get(url)
   }
 
-  create(invoiceRequestCreation: InvoiceRequestCreation) {
+  create(invoiceRequest: InvoiceRequest) {
     const headers = { 'content-type': 'application/json'}
     var url = this.baseUrl + '/create'
-    return this.httpClient.post(`${url}`, JSON.stringify(invoiceRequestCreation), { responseType: 'blob', 'headers': headers })
+    return this.httpClient.post(`${url}`, JSON.stringify(invoiceRequest), { responseType: 'blob', 'headers': headers })
   }
+  
 }

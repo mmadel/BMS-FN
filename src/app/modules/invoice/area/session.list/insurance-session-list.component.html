@@ -66,7 +66,7 @@
   </c-modal-header>
   <c-modal-body>
     <app-invoice-creation [patientInsurances]="client?.patientInsurances" *ngIf="invoiceCreationVisible"
-      [selectedSessionServiceLine]="selectedSessionServiceCodeLine" [clientId]="client?.id"
+      [selectedSessionServiceLine]="selectedSessionServiceCodeLine" [client]="client"
       (changeVisibility)="changeCreateInvoiceVisibility($event)"></app-invoice-creation>
   </c-modal-body>
 </c-modal>

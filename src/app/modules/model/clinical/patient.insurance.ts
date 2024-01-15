@@ -13,6 +13,7 @@ export interface PatientInsurance {
     visibility?:string;
     insuranceCompany?:string[];
     insuranceCompanyAddress?:BasicAddress;
-    assigner?:string;
+    assigner?:string[];
+    datePerClaim?:boolean;
 
 }

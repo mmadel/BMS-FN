@@ -38,4 +38,8 @@ export class InsuranceCompanyService {
     var url = this.baseUrl + '/find/internal/mapper/id/' + id
     return this.httpClient.get(url);
   }
+  public findInsuranceCompanyConfiguration(id: number, visibility: string) {
+    var url = this.baseUrl + '/find/configuration/id/' + id + '/visibility/' + visibility
+    return this.httpClient.get(url);
+  }
 }

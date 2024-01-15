@@ -36,8 +36,8 @@
                 <c-row>
                     <c-col xs="12" class="mt-1 mx-1">
                         <c-form-check inline>
-                            <input cFormCheckInput id="gd{{i}}_dateperservice" type="checkbox" />
-                            <label cFormCheckLabel for="gd{{i}}_dateperservice">
+                            <input cFormCheckInput id="datePerClaim" type="checkbox" [(ngModel)]="patientInsurance.datePerClaim"/>
+                            <label cFormCheckLabel for="datePerClaim">
                                 One date of service per claim
                             </label>
                         </c-form-check>

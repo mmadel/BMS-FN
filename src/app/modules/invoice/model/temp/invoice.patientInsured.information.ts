@@ -1,3 +1,4 @@
+import { Address } from "src/app/modules/model/common/address";
 import { BasicAddress } from "src/app/modules/model/common/basic.address";
 import { Gender } from "src/app/modules/model/enum/geneder";
 
@@ -7,7 +8,7 @@ export interface InvoicePatientInsuredInformation{
      firstName:string;
      lastName:string;
      dateOfBirth:number;
-     gender: Gender;
-	 address:BasicAddress;
+     gender: string;
+	 address:Address;
      phone:string;
 }
