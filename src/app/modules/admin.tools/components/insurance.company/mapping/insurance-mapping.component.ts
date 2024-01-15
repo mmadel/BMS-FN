@@ -23,6 +23,7 @@ export class InsuranceMappingComponent implements OnInit {
     },
     {
       key: 'mapped',
+      label: 'Status',
     },
     {
       key: 'mapping',
