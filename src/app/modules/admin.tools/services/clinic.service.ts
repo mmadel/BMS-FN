@@ -33,4 +33,8 @@ export class ClinicService extends BasePaginationService {
     var url = this.baseUrl + '/find'
     return this.get(config$, url)
   }
+  public findAllWithoutPagination(){
+    var url = this.baseUrl + '/find/all'
+    return this.httpClient.get(url);
+  }
 }
