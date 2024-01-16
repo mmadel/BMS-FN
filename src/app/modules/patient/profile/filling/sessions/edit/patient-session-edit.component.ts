@@ -56,7 +56,7 @@ export class PatientSessionEditComponent implements OnInit {
   private populateBillingCode(selectedPateintSession: PatientSession) {
     var billingCode: BillingCode = {
       placeOfCode: selectedPateintSession.placeOfCode,
-      facility: selectedPateintSession.clinicInfo.clinicName,
+      facility: selectedPateintSession.clinic,
       diagnosisCode: selectedPateintSession.caseDiagnosis,
       ServiceCodes: selectedPateintSession.serviceCodes,
       caseTitle: selectedPateintSession.caseTitle
@@ -90,6 +90,7 @@ export class PatientSessionEditComponent implements OnInit {
       patientId: this.selectedPateint.id,
       doctorInfo: this.constructorModelDoctorInfo(),
       clinicInfo: this.constructModelClinicInfo(),
+      clinic : this.editPateintSessionBillingCodeComponent.billingCode.facility,
       caseDiagnosis: this.editPateintSessionBillingCodeComponent.getDaignosises(),
       serviceCodes: this.editPateintSessionBillingCodeComponent.getServiceCodes(),
       caseTitle: this.editPateintSessionBillingCodeComponent.billingCode.caseTitle
@@ -97,7 +98,7 @@ export class PatientSessionEditComponent implements OnInit {
   }
   private constructModelClinicInfo() {
     return {
-      clinicName: this.editPateintSessionBillingCodeComponent.billingCode.facility
+      clinicName: 'eee'
     }
   }
   update() {

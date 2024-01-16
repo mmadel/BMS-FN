@@ -14,7 +14,7 @@
                 <div class="mb-3">
                     <c-row class="mb-1">
                         <c-col>
-                            <select cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="placeOfCode"
+                            <select  cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="placeOfCode"
                                 required="true" name="placeOfCode" #placeOfCode="ngModel">
                                 <option [value]=null selected disabled>Select Place Code</option>
                                 <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)"
@@ -31,11 +31,10 @@
                             facility is required
                         </small>
                         <c-col>
-                            <select cSelect sizing="sm" [(ngModel)]="billingCode.facility" id="facility" name="facility"
+                            <select [compareWith]="compareFn" cSelect sizing="sm" [(ngModel)]="billingCode.facility" id="facility" name="facility"
                                 required="true" #facility="ngModel">
                                 <option [value]=null selected disabled>Select Facility</option>
-                                <option *ngFor="let clinic of clinics"
-                                    [ngValue]="clinic">
+                                <option *ngFor="let clinic of clinics" [ngValue]="clinic">
                                     {{clinic.title}}
                                 </option>
                             </select>

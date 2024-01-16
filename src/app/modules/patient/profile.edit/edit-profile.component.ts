@@ -163,6 +163,7 @@ export class EditProfileComponent implements OnInit {
       patientId: this.patient.id,
       doctorInfo: this.constructorModelDoctorInfo(pateintSession.doctorInfo),
       clinicInfo: this.constructModelClinicInfo(),
+      clinic: this.editProfilePateintSessionBillingCodeComponent.billingCode.facility,
       caseDiagnosis: this.editProfilePateintSessionBillingCodeComponent.getDaignosises(),
       serviceCodes: this.editProfilePateintSessionBillingCodeComponent.getServiceCodes(),
       caseTitle: this.editProfilePateintSessionBillingCodeComponent.billingCode.caseTitle
@@ -186,7 +187,7 @@ export class EditProfileComponent implements OnInit {
   }
   private constructModelClinicInfo() {
     return {
-      clinicName: this.editProfilePateintSessionBillingCodeComponent.billingCode.facility
+      clinicName: this.editProfilePateintSessionBillingCodeComponent.billingCode.facility.title
     }
   }
 }

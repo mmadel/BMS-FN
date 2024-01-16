@@ -1,3 +1,4 @@
+import { Clinic } from "../../admin/clinic";
 import { CaseDiagnosis } from "../case.diagnosis"
 import { ClinicInfo } from "./clinic.info";
 import { DoctorInfo } from "./doctor.info";
@@ -10,6 +11,7 @@ export interface PatientSession {
     patientId?:number
     doctorInfo?: DoctorInfo;
     clinicInfo?: ClinicInfo
+    clinic?:Clinic;
     serviceDate?: number;
     serviceStartTime?: number
     serviceEndTime?: number

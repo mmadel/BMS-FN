@@ -38,6 +38,7 @@ export class BillingCodeComponent implements OnInit {
   populatedServiceCodes?: ServiceCode[]
   populatedSiagnosisCode?: CaseDiagnosis[];
   clinics: Clinic[];
+  compareFn = this._compareFn.bind(this);
   constructor(private emitPatientSessionService: EmitPatientSessionService
     , private clinicService: ClinicService) { }
 
@@ -111,7 +112,7 @@ export class BillingCodeComponent implements OnInit {
   private populateBillingCode() {
     this.billingCode = {
       placeOfCode: this.patientSession.placeOfCode,
-      facility: this.patientSession.clinicInfo.clinicName,
+      facility: this.patientSession.clinic,
       diagnosisCode: this.patientSession.caseDiagnosis,
       ServiceCodes: this.patientSession.serviceCodes,
       caseTitle: this.patientSession.caseTitle
@@ -126,4 +127,8 @@ export class BillingCodeComponent implements OnInit {
   private diagnosis() {
     this.populatedSiagnosisCode = this.billingCode.diagnosisCode;
   }
+  _compareFn(a:any, b:any) {
+    console.log(JSON.stringify(a))
+    return a.npi === b.npi;
+ }
 }

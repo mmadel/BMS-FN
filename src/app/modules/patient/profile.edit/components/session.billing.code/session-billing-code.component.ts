@@ -66,7 +66,7 @@ export class SessionBillingCodeComponent implements OnInit {
   private populateBillingCode() {
     this.billingCode = {
       placeOfCode: this.patientSession.placeOfCode,
-      facility: this.patientSession.clinicInfo.clinicName,
+      facility: this.patientSession.clinic,
       diagnosisCode: this.patientSession.caseDiagnosis,
       ServiceCodes: this.patientSession.serviceCodes,
       caseTitle: this.patientSession.caseTitle

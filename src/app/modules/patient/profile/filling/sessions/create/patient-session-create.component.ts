@@ -55,7 +55,7 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
       placeOfCode: this.pateintSessionBillingCodeComponent.billingCode.placeOfCode,
       patientId: this.selectedPateint.id,
       doctorInfo: this.constructorModelDoctorInfo(),
-      clinicInfo: this.constructModelClinicInfo(),
+      clinic: this.pateintSessionBillingCodeComponent.billingCode.facility,
       caseTitle: this.pateintSessionBillingCodeComponent.billingCode.caseTitle,
       caseDiagnosis: this.pateintSessionBillingCodeComponent.getDaignosises(),
       serviceCodes: this.pateintSessionBillingCodeComponent.getServiceCodes(),
@@ -70,12 +70,6 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
       doctorFirstName: this.pateintSessionShedulingComponent.sessionScheduling.provider.model.firstName,
       doctorLastName: this.pateintSessionShedulingComponent.sessionScheduling.provider.model.lastName,
       doctorNPI: this.pateintSessionShedulingComponent.sessionScheduling.provider.model.npi
-    }
-  }
-
-  private constructModelClinicInfo() {
-    return {
-      clinicName: this.pateintSessionBillingCodeComponent.billingCode.facility
     }
   }
   clear() { }
