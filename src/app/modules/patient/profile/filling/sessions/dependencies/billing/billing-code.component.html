@@ -34,8 +34,10 @@
                             <select cSelect sizing="sm" [(ngModel)]="billingCode.facility" id="facility" name="facility"
                                 required="true" #facility="ngModel">
                                 <option [value]=null selected disabled>Select Facility</option>
-                                <option [value]="'clinic-a'">clinic-a</option>
-                                <option [value]="'clinic-b'">clinic-b</option>
+                                <option *ngFor="let clinic of clinics"
+                                    [ngValue]="clinic">
+                                    {{clinic.title}}
+                                </option>
                             </select>
                         </c-col>
                     </c-row>

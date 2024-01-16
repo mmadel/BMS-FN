@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { filter, first } from 'rxjs';
+import { ClinicService } from 'src/app/modules/admin.tools/services/clinic.service';
+import { Clinic } from 'src/app/modules/model/admin/clinic';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
@@ -35,13 +37,23 @@ export class BillingCodeComponent implements OnInit {
   @Input() patientSession: PatientSession;
   populatedServiceCodes?: ServiceCode[]
   populatedSiagnosisCode?: CaseDiagnosis[];
-  constructor(private emitPatientSessionService: EmitPatientSessionService) { }
+  clinics: Clinic[];
+  constructor(private emitPatientSessionService: EmitPatientSessionService
+    , private clinicService: ClinicService) { }
 
   ngOnInit(): void {
     if (this.editMode)
       this.populateModel();
     else
       this.initializeModel();
+
+    this.populateClinics();
+  }
+  populateClinics() {
+    this.clinicService.findAllWithoutPagination()
+      .subscribe((result: any) => {
+        this.clinics = result
+      })
   }
   toggleserviceCode() {
     this.serviceCodeVisibility = !this.serviceCodeVisibility
