@@ -12,7 +12,7 @@ import { InvoiceRequest } from '../model/temp/invoice.request';
 })
 export class InvoiceService extends BasePaginationService {
 
-  private baseUrl = environment.baseURL + 'invoice'
+  private baseUrl = environment.baseURL + '/invoice'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {

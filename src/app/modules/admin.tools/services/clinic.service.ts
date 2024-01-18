@@ -10,7 +10,7 @@ import { BasePaginationService } from '../../model/service/base-pagination.servi
   providedIn: 'root'
 })
 export class ClinicService extends BasePaginationService {
-  private baseUrl = environment.baseURL + 'clinic'
+  private baseUrl = environment.baseURL + '/clinic'
 
   constructor(httpClient: HttpClient) { super(httpClient) }
 

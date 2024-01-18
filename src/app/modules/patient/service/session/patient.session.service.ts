@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PatientSessionService extends BasePaginationService {
-  private baseUrl = environment.baseURL + 'session'
+  private baseUrl = environment.baseURL + '/session'
 
   constructor(httpClient: HttpClient) { super(httpClient) }
 

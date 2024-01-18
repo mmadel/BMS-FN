@@ -10,7 +10,7 @@ import { BasePaginationService } from '../../model/service/base-pagination.servi
   providedIn: 'root'
 })
 export class ReferringProviderService extends BasePaginationService {
-  private baseUrl = environment.baseURL + 'referring/provider'
+  private baseUrl = environment.baseURL + '/referring/provider'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {

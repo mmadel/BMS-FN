@@ -11,7 +11,7 @@ import { BasePaginationService } from '../../model/service/base-pagination.servi
   providedIn: 'root'
 })
 export class PostingServiceService extends BasePaginationService  {
-  private baseUrl = environment.baseURL + 'posting'
+  private baseUrl = environment.baseURL + '/posting'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
   public findClientPayments(clientId:number): Observable<any> {

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PayerService {
-  private baseUrl = environment.baseURL + 'payer'
+  private baseUrl = environment.baseURL + '/payer'
   constructor(private httpClient: HttpClient) { }
   public findAll() {
     var url = this.baseUrl + '/find'

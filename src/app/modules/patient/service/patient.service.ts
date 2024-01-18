@@ -12,7 +12,7 @@ import { BasePaginationService } from '../../model/service/base-pagination.servi
   providedIn: 'root'
 })
 export class PatientService extends BasePaginationService {
-  private baseUrl = environment.baseURL + 'patient'
+  private baseUrl = environment.baseURL + '/patient'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
   create(patient: Patient) {

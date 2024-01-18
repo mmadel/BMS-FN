@@ -7,7 +7,7 @@ import { Organization } from '../../model/admin/organiztion';
   providedIn: 'root'
 })
 export class OrganizationService {
-  private baseUrl = environment.baseURL + 'organization'
+  private baseUrl = environment.baseURL + '/organization'
   constructor(private httpClient: HttpClient) { }
 
   findDefaultOrganization() {

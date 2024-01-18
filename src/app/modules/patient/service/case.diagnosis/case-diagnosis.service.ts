@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CaseDiagnosisService {
-  private baseUrl = environment.baseURL + 'case/diagnosis'
+  private baseUrl = environment.baseURL + '/case/diagnosis'
   constructor(private httpClient: HttpClient) { }
 
   find(term:any){
