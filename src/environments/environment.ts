@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL:"/billing/api/",
+  baseURL:"billing/api/",
 };
 
 /*
