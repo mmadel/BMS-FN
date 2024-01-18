@@ -3,7 +3,7 @@
   <ng-container *ngIf="props$ | async as props" fluid="true">
     <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" #clientPayments
       [items]="(clientPostingPayments$ | async) ?? []" activePage="1" [itemsPerPage]="props.itemsPerPage"
-      (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+      (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20,30,40,50]"
       [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
       [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
       [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"

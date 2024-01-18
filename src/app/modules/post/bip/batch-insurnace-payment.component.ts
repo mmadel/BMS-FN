@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { InsuranceCompanyContainerService } from '../../Insurance/service/insurance-company-container.service';
+import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { PatientService } from '../../patient/service/patient.service';
 import { PostingServiceService } from '../service/posting-service.service';
@@ -41,13 +42,12 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     receivedDate_date: new Date()
   }
   invalidServiceCode: any[]
-  insuranceCompanyContainer: InsuranceCompanyContainerService[]
+  isuranceCompany: IsuranceCompany[]
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
     , private postingServiceService: PostingServiceService
     , private toastr: ToastrService
-    , private router: Router
-    , private insuranceCompanyContainerService: InsuranceCompanyContainerService) {
+    , private router: Router) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -112,20 +112,21 @@ export class BatchInsurnacePaymentComponent implements OnInit {
           this.filteredInsuranceCompany = [];
           this.isLoadingInsuranceCompany = true;
         }),
-        // switchMap((value) => {
-        //   return this.insuranceCompanyService.findByName(value)
-        //     .pipe(
-        //       finalize(() => {
-        //         this.isLoadingInsuranceCompany = false
-        //       }),
-        //     )
-        // }
-        // )
+        switchMap((value) => {
+          return this.insuranceCompanyService.findByName(value)
+            .pipe(
+              finalize(() => {
+                this.isLoadingInsuranceCompany = false
+              }),
+            )
+        }
+        )
       )
       .subscribe(data => {
         if (data == undefined) {
           this.filteredInsuranceCompany = [];
         } else {
+          console.log(JSON.stringify(data))
           this.filteredInsuranceCompany = data;
         }
       },
@@ -184,12 +185,12 @@ export class BatchInsurnacePaymentComponent implements OnInit {
 
   changeSearch() {
     if (this.selectedSearchOption === 'client') {
-      this.insuranceCompanyContainerService.findInsuranceCompanyContianers()
+      this.insuranceCompanyService.findInternal()
         .subscribe((reuslt) => {
-          this.insuranceCompanyContainer = reuslt;
+          this.isuranceCompany = reuslt;
         })
     } else {
-      this.insuranceCompanyContainer = undefined;
+      this.isuranceCompany = undefined;
     }
   }
 }

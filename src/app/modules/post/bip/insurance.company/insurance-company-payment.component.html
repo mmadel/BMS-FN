@@ -7,7 +7,7 @@
     <c-card-body>
       <ng-container fluid="true">
         <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" #itemTable [items]="entry.value" [tableFilterPlaceholder]="entry.key"
-          activePage="1" (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+          activePage="1" (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20,30,40,50]"
           [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
            [tableBodyProps]="{ align: 'middle' }"
           (sorterValueChange)="handleSorterValueChange($event)" header>

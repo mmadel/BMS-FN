@@ -47,7 +47,7 @@
                                 (valueChange)="changeInsuranceCompanyValue($event)">
                                 <c-multi-select-option *ngFor="let insuranceCompany of filteredInsuranceCompany"
                                     [value]="insuranceCompany.id">
-                                    {{ insuranceCompany.displayName}}
+                                    {{ insuranceCompany.name}}
                                 </c-multi-select-option>
                             </c-multi-select>
                             <span align="center" *ngIf="isLoadingInsuranceCompany">
@@ -126,20 +126,20 @@
                                 required="true" id="depositDate" name="depositDate"
                                 #depositDate="ngModel"></c-date-picker>
                         </c-col>
-                        <c-col xs="12" class="mb-2" *ngIf="insuranceCompanyContainer">
+                        <c-col xs="12" class="mb-2" *ngIf="isuranceCompany">
                             <small
                                 *ngIf="notValidForm   && (paymentinsuranceCompany.errors) ||paymentinsuranceCompany.invalid && (paymentinsuranceCompany.dirty || paymentinsuranceCompany.touched)"
                                 class="form-text text-danger">
                                 Insurance Company
                             </small>
-                            <ng-autocomplete [data]="insuranceCompanyContainer" [searchKeyword]="'displayName'"
+                            <ng-autocomplete [data]="isuranceCompany" [searchKeyword]="'name'"
                                 [debounceTime]="500" id="paymentinsuranceCompany" name="paymentinsuranceCompany"
                                 placeholder="Insurance Company" [itemTemplate]="itemTemplate"
                                 [(ngModel)]="paymentBatch.insuranceCompany" required
                                 [notFoundTemplate]="notFoundTemplate" #paymentinsuranceCompany="ngModel">
                             </ng-autocomplete>
                             <ng-template #itemTemplate let-item>
-                                <a [innerHTML]="item.displayName"></a>
+                                <a [innerHTML]="item.name"></a>
                             </ng-template>
 
                             <ng-template #notFoundTemplate let-notFound>

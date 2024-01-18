@@ -16,6 +16,10 @@ export class InsuranceCompanyService {
     var url = this.baseUrl + '/find'
     return this.httpClient.get(url)
   }
+  public findByName(name:string): Observable<any> {
+    var url = this.baseUrl + '/find/name/' + name
+    return this.httpClient.get(url)
+  }
   public findInternal(): Observable<any> {
     var url = this.baseUrl + '/find/internal'
     return this.httpClient.get(url)

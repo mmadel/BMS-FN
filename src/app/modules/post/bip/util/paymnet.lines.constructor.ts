@@ -6,7 +6,7 @@ export class PaymentLinesConstructor {
         var paymentLines: PaymentServiceLine[] = [];
         for (var i = 0; i < items.length; i++) {
             var item: any = items[i];
-            var isPaymentChanged: boolean = item.payment !== null && item.adjust
+            var isPaymentChanged: boolean = item.payment !== null && item.adjust != null
             if (isPaymentChanged) {
                 var PaymentServiceLine: PaymentServiceLine = {
                     sessionId: item.sessionId,
