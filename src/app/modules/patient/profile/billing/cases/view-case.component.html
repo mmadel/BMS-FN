@@ -36,7 +36,7 @@
         <button (click)="toggleAddCaseVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <case-add-daignosis  #caseAddDaignosisComponent (changeAddCaseVisibility)="changeAddCaseVisibility($event)"></case-add-daignosis>
+        <case-add-daignosis *ngIf="addCaseVisibility" #caseAddDaignosisComponent (changeAddCaseVisibility)="changeAddCaseVisibility($event)"></case-add-daignosis>
     </c-modal-body>
     <c-modal-footer>
         <div class="col-12 text-center">
