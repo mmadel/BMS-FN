@@ -83,14 +83,18 @@ export class PatientProfileComponent implements OnInit {
       }
       this.patientService.create(this.patient)
         .subscribe((result:any) => {
-          if (this.isupdated)
+          if (this.isupdated){
             this.toastr.success('Patient Updated');
+            if (action === 'close'){
+              this.reset();
+              this.router.navigate(['/patient/list']);
+            }
+          }
           else{
             this.toastr.success('Patient Created');
             this.router.navigate(['/patient/profile/'+result.records]);
           }
-          if (action === 'close')
-            this.reset();
+            
         }, (error) => {
           this.toastr.error('Error in Patient Created');
         })
