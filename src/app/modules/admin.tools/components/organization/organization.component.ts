@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Organization } from 'src/app/modules/model/admin/organiztion';
 import { OrganizationService } from '../../services/organization.service';
@@ -12,7 +13,8 @@ export class OrganizationComponent implements OnInit {
   @Input() editModel?: boolean = false;
   organization!: Organization;
   @Output() changeVisibility = new EventEmitter<string>()
-  constructor(private organizationService: OrganizationService) { }
+  constructor(private organizationService: OrganizationService
+    ,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.find();
@@ -20,7 +22,8 @@ export class OrganizationComponent implements OnInit {
   edit(){
       this.organizationService.update(this.organization)
       .subscribe((result)=>{
-        this.changeVisibility.emit('close')        
+        this.changeVisibility.emit('close');
+        this.toastr.success('Billing Provider edited successfully')
       })
   }
   find(){
