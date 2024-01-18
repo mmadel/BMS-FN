@@ -82,11 +82,13 @@ export class PatientProfileComponent implements OnInit {
         this.patient.patientAdvancedInformation = this.patientAdvancedComponent.patientAdvancedInformation;
       }
       this.patientService.create(this.patient)
-        .subscribe((result) => {
+        .subscribe((result:any) => {
           if (this.isupdated)
             this.toastr.success('Patient Updated');
-          else
+          else{
             this.toastr.success('Patient Created');
+            this.router.navigate(['/patient/profile/'+result.records]);
+          }
           if (action === 'close')
             this.reset();
         }, (error) => {
@@ -96,12 +98,10 @@ export class PatientProfileComponent implements OnInit {
     } else {
       this.notValidForm = true;
     }
-    if (action === 'close')
-      this.router.navigate(['/patient/list']);
+    
   }
   private reset() {
     this.patientCreationForm.reset();
-    this.billingComponent.resetBilling();
     this.patientDOB = null;
   }
 } 
