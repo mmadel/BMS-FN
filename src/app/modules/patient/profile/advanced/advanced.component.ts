@@ -25,7 +25,8 @@ export class AdvancedComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    if (this.pateint !== undefined && this.pateint.patientAdvancedInformation !== null) {
+    if ((this.pateint !== undefined && this.pateint.patientAdvancedInformation !== null)
+    && (this.pateint.patientAdvancedInformation !== undefined)) {
       this.patientAdvancedInformation = this.pateint.patientAdvancedInformation
       if (this.patientAdvancedInformation.unableToWorkStartDate !== null)
         this.patientAdvancedInformation.unableToWorkStartDate_date = moment.unix(this.patientAdvancedInformation.unableToWorkStartDate / 1000).toDate()
