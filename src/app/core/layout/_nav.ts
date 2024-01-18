@@ -18,11 +18,7 @@ export const navItems: INavData[] = [
       {
         name: 'Patient Profile',
         url: '/patient/profile'
-      },
-      {
-        name: 'Patient Session',
-        url: '/patient/session'
-      },
+      }
     ]
   },
   {
