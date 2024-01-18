@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve  --port 4409 --proxy-config proxy-local.config.json",
+    "start": "ng serve",
+    "startlocal": "ng serve  --port 4409 --proxy-config proxy-local.config.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
