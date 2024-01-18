@@ -68,7 +68,7 @@ export class InsuranceListComponent implements OnInit {
       box26: this.generalSettings.generalConfiguration.box26,
       billingProvider: this.box33Settings.billingProviderConfiguration.billingProvider,
     }
-    this.insuranceCompanyConfigurationService.configure(insuranceCompanyConfiguration)
+    this.insuranceCompanyConfigurationService.updateConfigure(insuranceCompanyConfiguration)
       .subscribe((result) => {
         this.toastr.success("Insurance Company configured successfully")
         this.isnsuranceSettingsVisible = false;

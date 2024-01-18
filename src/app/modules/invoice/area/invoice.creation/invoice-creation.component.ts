@@ -43,8 +43,7 @@ export class InvoiceCreationComponent implements OnInit {
           invoiceRequest.invoiceBillingProviderInformation.city_state_zip = result[2];
           invoiceRequest.invoiceBillingProviderInformation.phone = result[3]
           invoiceRequest.invoiceBillingProviderInformation.taxId = result[4]
-          invoiceRequest.patientInformation.box26 = result[4]
-          console.log(JSON.stringify(invoiceRequest))
+          invoiceRequest.patientInformation.box26 = result[4]          
         }),
         switchMap(() => this.invoiceService.create(invoiceRequest))
       ).subscribe((response) => {
