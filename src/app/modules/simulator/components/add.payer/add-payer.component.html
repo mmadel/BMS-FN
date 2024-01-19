@@ -1,0 +1,41 @@
+<ngx-spinner></ngx-spinner>
+<span *ngIf="!isValid" class="form-text text-danger">
+    check payer inputs
+</span>
+<form cForm (ngSubmit)="create()" #payerCreateForm="ngForm">
+    <div class="mb-3">
+        <label cLabel for="payername">Name</label>
+        <input cFormControl id="payername" placeholder="Payer Name" type="text" sizing="sm" name="payername"
+            [(ngModel)]="payer.name" required />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="payerdisplayname">Display Name</label>
+        <input cFormControl id="payerdisplayname" placeholder="Payer Display Name" type="text" sizing="sm"
+            name="payerdisplayname" [(ngModel)]="payer.displayName" required />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="payerid">Payer Id</label>
+        <input cFormControl id="payerid" placeholder="Payer Id" type="text" sizing="sm" [(ngModel)]="payer.payerId"
+            name="payerid" required />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="payerAddress">Payer Address</label>
+        <c-input-group sizing="sm">
+            <input type="text" class="form-control" placeholder="Address" style="width: 30%;"
+                [(ngModel)]="payer.address.address" required name="payerAddress">
+            <input type="text" class="form-control" placeholder="City" style="width: 10%;"
+                [(ngModel)]="payer.address.city" required name="payercity">
+            <select cFormControl cSelect sizing="sm" name="payerstate" id="payerstate" [(ngModel)]="payer.address.state"
+                required name="payerstate">
+                <option *ngFor="let state of states" [value]="state |state">
+                    {{state}}
+                </option>
+            </select>
+            <input zipcode type="text" class="form-control" placeholder="ZipCode" style="width: 10%;"
+                name="payerzipcode" id="payerzipcode" #zipCode="ngModel" [(ngModel)]="payer.address.zipCode" required>
+        </c-input-group>
+    </div>
+    <div class="d-md-flex justify-content-md-center">
+        <button cButton color="primary" type="submit" variant="outline">Create</button>
+    </div>
+</form>

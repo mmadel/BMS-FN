@@ -1,0 +1,26 @@
+<span *ngIf="payers">
+    <table cTable hover striped>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Payer</th>
+                <th scope="col">Payer ID</th>
+                <th scope="col">Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let payer of payers;index as i">
+                <th scope="row">{{i+1}}</th>
+                <th>
+                    {{payer.name}}
+                </th>
+                <th>
+                    {{payer.payerId}}
+                </th>
+                <th>
+                    {{constructAddress(payer.address)}}
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</span>

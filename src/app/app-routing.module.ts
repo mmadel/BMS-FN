@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 import { DefaultLayoutComponent } from './core';
 
 const routes: Routes = [
@@ -47,7 +48,21 @@ const routes: Routes = [
 
       }
     ]
-  }
+  },
+  {
+    path: '',
+    component: SimulatorLayoutComponent,
+    data: {
+      title: 'Home'
+    },
+    children: [
+      {
+        path: 'simulator',
+        loadChildren: () =>
+          import('./modules/simulator/simulator.module').then((m) => m.SimulatorModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({
