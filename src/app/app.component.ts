@@ -11,7 +11,7 @@ import { Title } from '@angular/platform-browser';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  title = 'BMS-FN';
+  title = 'MediBill';
   constructor(
     private router: Router,
     private titleService: Title,
