@@ -35,7 +35,7 @@ export class InvoiceCreationComponent implements OnInit {
   create(patientInsurance: PatientInsurance) {
     var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
-    this.insuranceCompanyService.findInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
+    this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
       , patientInsurance.visibility).pipe(
         tap((result) => {
           invoiceRequest.invoiceBillingProviderInformation.businessName = result[0];
