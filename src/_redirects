@@ -6,7 +6,7 @@
 /billing/api/payer/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/payer/create  200
 /billing/api/posting/create/payments/clientId/:clientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/create/payments/clientId/:clientId  200
 /billing/api/posting/create/payments/insurance/company   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/create/payments/insurance/company  200
-/billing/api/posting/find/client/:clientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/find/client/:clientId  200
+/billing/api/posting/find/client/:clientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/find/client/:clientId  200
 /billing/api/posting/find/insurance/company/:insuranceCompanyId   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/find/insurance/company/:insuranceCompanyId  200
 /billing/api/clinic/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/clinic/create  200
 /billing/api/clinic/delete/clinicId/:clinicId   https://billing-service-e4526add3402.herokuapp.com/billing/api/clinic/delete/clinicId/:clinicId  200
