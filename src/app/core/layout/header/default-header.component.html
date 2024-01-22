@@ -38,14 +38,14 @@
         </c-header-nav>
 
         <!-- todo: header nav dropdown menus  -->
-        <c-header-nav class="d-none d-lg-flex">
+        <!-- <c-header-nav class="d-none d-lg-flex">
             <ng-container *ngTemplateOutlet="notifyDropdown"></ng-container>
             <ng-container *ngTemplateOutlet="taskDropdown"></ng-container>
             <ng-container *ngTemplateOutlet="messagesDropdown"></ng-container>
-        </c-header-nav>
-        <c-header-nav class="ms-3 me-sm-4">
+        </c-header-nav> -->
+        <!-- <c-header-nav class="ms-3 me-sm-4">
             <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
-        </c-header-nav>
+        </c-header-nav> -->
 
         <!--aside toggler-->
         <button toggle="visible" cHeaderToggler cSidebarToggle="aside1" class="px-md-0 me-md-3 d-none d-sm-block">
@@ -59,10 +59,10 @@
 </ng-container>
 <!--</c-header>-->
 
-<ng-template #userDropdown>
+<!-- <ng-template #userDropdown>
     <c-dropdown alignment="end" variant="nav-item">
         <a href [caret]="false" cDropdownToggle class="py-0">
-            <c-avatar cTextColor="primary" shape="rounded-1" size="md" src="./assets/img/avatars/8.jpg"
+            <c-avatar cTextColor="primary" shape="rounded-1" size="md" src="./assets/img/avatars/11.jpg"
                 status="success">
             </c-avatar>
         </a>
@@ -152,9 +152,9 @@
             <li></li>
         </ul>
     </c-dropdown>
-</ng-template>
+</ng-template> -->
 
-<ng-template #messagesDropdown>
+<!-- <ng-template #messagesDropdown>
     <c-dropdown alignment="end" variant="nav-item">
         <a [caret]="false" cDropdownToggle href>
             <svg cIcon class="my-1 mx-2" name="cilEnvelopeOpen" size="lg"></svg>
@@ -393,4 +393,4 @@
             </a>
         </div>
     </c-dropdown>
-</ng-template>
+</ng-template> -->

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import {
+  InsuranceSessionListComponent,
   InvoicingAreaComponent
 } from './index'
 
@@ -13,12 +14,19 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'list',
+        path: 'client/list',
         component: InvoicingAreaComponent,
         data: {
-          title: 'Insurance List',
+          title: 'Clients',
         },
       },
+      {
+        path: 'session/list',
+        component: InsuranceSessionListComponent,
+        data: {
+          title: 'sessions',
+        },
+      }
     ]
   }
 ];

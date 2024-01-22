@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   PerfectScrollbarModule,
   PERFECT_SCROLLBAR_CONFIG,
@@ -49,10 +48,14 @@ import {
   ProvidersModule,
   InsuranceModule,
   InvoiceModule,
-  PostingModule
+  PostingModule,
+  AdminToolsModule
 } from './modules'
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { LoggingInterceptor } from './modules/logging/logging.interceptor';
+import { ToastrModule } from 'ngx-toastr';
+import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 
 
 const APP_CONTAINERS = [
@@ -67,7 +70,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, SimulatorLayoutComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -86,7 +89,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormModule,
     UtilitiesModule,
     ButtonGroupModule,
-    ReactiveFormsModule,
     SidebarModule,
     SharedModule,
     TabsModule,
@@ -99,19 +101,28 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ProvidersModule,
     InsuranceModule,
     InvoiceModule,
-    PostingModule
+    PostingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AdminToolsModule,
+    ToastrModule.forRoot({      
+      closeButton: true,
+      progressBar: true,
+    }),
   ],
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy,
+      useClass: PathLocationStrategy,
     },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     IconSetService,
-    Title
+    Title,
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

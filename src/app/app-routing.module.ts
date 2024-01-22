@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 import { DefaultLayoutComponent } from './core';
 
 const routes: Routes = [
@@ -35,8 +36,33 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/post/posting.module').then((m) => m.PostingModule)
       },
+      {
+        path: 'tools',
+        loadChildren: () =>
+          import('./modules/tools/tools.module').then((m) => m.ToolsModule)
+      },
+      {
+        path:'admin/tools',
+        loadChildren: () =>
+          import('./modules/admin.tools/admin-tools.module').then((m) => m.AdminToolsModule)
+
+      }
     ]
-  }
+  },
+  {
+    path: '',
+    component: SimulatorLayoutComponent,
+    data: {
+      title: 'Home'
+    },
+    children: [
+      {
+        path: 'simulator',
+        loadChildren: () =>
+          import('./modules/simulator/simulator.module').then((m) => m.SimulatorModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({

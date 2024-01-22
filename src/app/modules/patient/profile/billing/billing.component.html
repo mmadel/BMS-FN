@@ -1,0 +1,57 @@
+<ngx-spinner></ngx-spinner>
+<c-container [fluid]="true" class="mt-3">
+    <c-row>
+        <c-col xs="6" class="mb-3">
+            <c-card>
+                <c-card-header>
+                    <strong>Account & Identifying Number</strong>
+                </c-card-header>
+                <c-card-body>
+                    <c-row>
+                        <c-col xs="12" class="mb-1">
+                            <input class="h-auto" aria-label="SSN" cFormControl placeholder="SSN" sizing="sm"
+                                [(ngModel)]="ssn" />
+                        </c-col>
+                        <c-col xs="12" class="mb-1">
+                            <input class="h-auto" aria-label="External ID" cFormControl placeholder="External ID"
+                                sizing="sm" [(ngModel)]="externalID" />
+                        </c-col>
+                    </c-row>
+                </c-card-body>
+            </c-card>
+        </c-col>
+
+        <c-col xs="6" class="mb-3">
+            <c-card>
+                <c-card-header>
+                    <strong>Referring Provider</strong>
+                </c-card-header>
+                <c-card-body>
+                    <app-view-referring-provider #referringProviderComponent
+                        [referringProvider]="patient.referringProvider"></app-view-referring-provider>
+                </c-card-body>
+            </c-card>
+        </c-col>
+
+        <c-col xs="6" class="mb-3">
+            <c-card>
+                <c-card-header>
+                    <strong>Insurances</strong>
+                </c-card-header>
+                <c-card-body>
+                    <app-view-insurance #insuranceComponent *ngIf="patient" [patient]="patient"></app-view-insurance>
+                </c-card-body>
+            </c-card>
+        </c-col>
+        <c-col xs="6" class="mb-3">
+            <c-card>
+                <c-card-header>
+                    <strong>Diagnosis/Cases</strong>
+                </c-card-header>
+                <c-card-body>
+                    <app-view-case #casesComponent [patient]="patient"></app-view-case>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+</c-container>

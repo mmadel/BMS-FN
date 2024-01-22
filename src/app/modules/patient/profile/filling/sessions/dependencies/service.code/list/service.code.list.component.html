@@ -1,0 +1,59 @@
+<ngx-spinner></ngx-spinner>
+<div>
+    <c-row>
+        <c-col>
+            <table cTable hover small>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">LineNote</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Charge</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let serviceCode of serviceCodes;index as i">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{serviceCode.cptCode.serviceCode}}</td>
+                        <td></td>
+                        <td>{{serviceCode.cptCode.unit}}</td>
+                        <td>{{serviceCode.cptCode.charge}}</td>
+                        <td>
+                            <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                <button cButton color="info" variant="outline"
+                                    (click)="toggleEditServiceLine(serviceCode,i)" size="sm">
+                                    <svg cIcon name="cilPen"></svg>
+                                </button>
+                                <button cButton color="info" variant="outline" (click)="popServiceCode(i)" size="sm">
+                                    <svg cIcon name="cilTrash"></svg>
+                                </button>
+                            </c-button-group>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            Total : {{unitCount}}
+                        </td>
+                        <td>{{chargeCount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </c-col>
+    </c-row>
+</div>
+<c-modal id="editServiceCode" [visible]="editServiceCodeVisibility" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Edit Service Code<strong>
+            </strong></h5>
+        <button (click)="toggleEditServiceCode()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <service-code-update *ngIf="editServiceCodeVisibility" (changeVisibility)="changeVisibility($event)"></service-code-update>
+    </c-modal-body>
+</c-modal> 

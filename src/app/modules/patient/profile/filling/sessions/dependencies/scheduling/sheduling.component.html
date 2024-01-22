@@ -1,0 +1,79 @@
+<ngx-spinner></ngx-spinner>
+<c-container [fluid]="true">
+    <form cForm #sessionForm="ngForm">
+        <c-card class="mb-3">
+            <c-card-header>
+                <h5>Scheduling</h5>
+            </c-card-header>
+            <c-card-body>
+                <c-row [gutter]="0" class="mb-3">
+                    <small
+                        *ngIf="notValidForm   && (providerName.errors) ||  providerName.invalid && (providerName.dirty || providerName.touched)"
+                        class="form-text text-danger">
+                        Provider is required
+                    </small>
+                    <c-col xs="3">
+                        <label cLabel for="provider"><strong>Provider</strong></label>
+                    </c-col>
+                    <c-col>
+                        <ng-autocomplete cFormControl [data]="providers" [searchKeyword]="'name'" id="providerName"
+                            #providerName="ngModel" required style="height: 100px;" name="providerName"
+                            placeholder="Name" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                            [(ngModel)]="sessionScheduling.provider">
+                        </ng-autocomplete>
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.name"></a>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </c-col>
+                </c-row>
+                <c-row [gutter]="0" class="mb-3">
+                    <small
+                        *ngIf="notValidForm   && (serviceDate.errors) ||   serviceDate.invalid && (serviceDate.dirty || serviceDate.touched)"
+                        class="form-text text-danger">
+                        Service Date is required
+                    </small>
+                    <c-col xs="3">
+                        <label cLabel for="serviceDate"><strong>Service Date</strong></label>
+                    </c-col>
+                    <c-col>
+                        <c-date-picker id="serviceDate" id="serviceDate" name="serviceDate" size="sm" placeholder="Service Date" #serviceDate="ngModel"
+                            required="true" [(ngModel)]="sessionScheduling.serviceDate"></c-date-picker>
+                    </c-col>
+                </c-row>
+                <c-row [gutter]="0" class="mb-3">
+                    <small
+                        *ngIf="notValidForm   && (startTime.errors) ||   startTime.invalid && (startTime.dirty || startTime.touched)"
+                        class="form-text text-danger">
+                        startTime is required
+                    </small>
+                    <c-col xs="3">
+                        <label cLabel for="startTime"><strong>Start Time</strong></label>
+                    </c-col>
+                    <c-col>
+                        <c-time-picker id="startTime" name="startTime" locale="en-US" size="sm" placeholder="Start Time"
+                            #startTime="ngModel" required="true"
+                            [(ngModel)]="sessionScheduling.startTime"></c-time-picker>
+                    </c-col>
+                </c-row>
+                <c-row [gutter]="0" class="mb-3">
+                    <small
+                        *ngIf="notValidForm   && (endTime.errors) ||    endTime.invalid && (endTime.dirty || endTime.touched)"
+                        class="form-text text-danger">
+                        endTime is required
+                    </small>
+                    <c-col xs="3">
+                        <label cLabel for="endTime"><strong>End Time</strong></label>
+                    </c-col>
+                    <c-col>
+                        <c-time-picker id="endTime" name="endTime" locale="en-US" size="sm" placeholder="End Time" #endTime="ngModel"
+                            required="true" [(ngModel)]="sessionScheduling.endTime"></c-time-picker>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </form>
+</c-container>

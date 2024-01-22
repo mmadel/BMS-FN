@@ -1,0 +1,186 @@
+<ngx-spinner></ngx-spinner>
+<c-container fluid>
+    <form cForm #providerCreateForm="ngForm" (ngSubmit)="create()">
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="notValidForm   && (npi.errors) || npi.invalid && (npi.dirty || npi.touched)"
+                    class="form-text text-danger">
+                    npi is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="NPI" cFormControl id="npi" name="npi" sizing="sm" required
+                        [ngClass]="{'is-invalid': npi.invalid && (npi.dirty || npi.touched)}" #npi="ngModel"
+                        [(ngModel)]="provider.npi" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small
+                    *ngIf="notValidForm   && (professionAbbr.errors) || professionAbbr.invalid && (professionAbbr.dirty || professionAbbr.touched)"
+                    class="form-text text-danger">
+                    Profession Abbr is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Profession Abbr" cFormControl id="professionAbbr" name="professionAbbr"
+                        sizing="sm" required #professionAbbr="ngModel"
+                        [(ngModel)]="provider.providerInfo.professionAbbr" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small
+                    *ngIf="notValidForm   && (taxonomyCode.errors) ||  taxonomyCode.invalid && (taxonomyCode.dirty || taxonomyCode.touched)"
+                    class="form-text text-danger">
+                    Taxonomy Code is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Taxonomy Code" cFormControl id="taxonomyCode" name="taxonomyCode" sizing="sm"
+                        required #taxonomyCode="ngModel" [(ngModel)]="provider.providerInfo.taxonomyCode" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small
+                    *ngIf="notValidForm   && (credentials.errors) ||   credentials.invalid && (credentials.dirty || credentials.touched)"
+                    class="form-text text-danger">
+                    Credentials is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Credentials" cFormControl id="credentials" name="credentials" sizing="sm"
+                        required #credentials="ngModel" [(ngModel)]="provider.providerInfo.credentials" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="notValidForm   && (group.errors) ||   group.invalid && (group.dirty || group.touched)"
+                    class="form-text text-danger">
+                    Add to group is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Add to group" cFormControl id="group" name="group" sizing="sm" required
+                        #group="ngModel" [(ngModel)]="provider.providerInfo.group" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="notValidForm   && (fname.errors) ||   fname.invalid && (fname.dirty || fname.touched)"
+                    class="form-text text-danger">
+                    First Name is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="First Name" cFormControl id="fname" name="fname" sizing="sm" required
+                        [ngClass]="{'is-invalid': fname.invalid && (fname.dirty || fname.touched)}" #fname="ngModel"
+                        [(ngModel)]="provider.firstName" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="notValidForm   && (lname.errors) ||  lname.invalid && (lname.dirty || lname.touched)"
+                    class="form-text text-danger">
+                    Last Name is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Last Name" cFormControl id="lname" name="lname" sizing="sm" required
+                        [ngClass]="{'is-invalid': lname.invalid && (lname.dirty || lname.touched)}" #lname="ngModel"
+                        [(ngModel)]="provider.lastName" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small
+                    *ngIf="notValidForm   && (address.errors) ||  address.invalid && (address.dirty || address.touched)"
+                    class="form-text text-danger">
+                    Address is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Address" cFormControl id="address" name="address" sizing="sm" required
+                        #address="ngModel" [(ngModel)]="provider.address.first" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small
+                    *ngIf="notValidForm   && (zipCode.errors) || zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+                    class="form-text text-danger">
+                    Zip Code is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Zip Code" cFormControl id="zipCode" name="zipCode" sizing="sm" required
+                        #zipCode="ngModel" [(ngModel)]="provider.address.zipCode" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="notValidForm   && (state.errors) || state.invalid && (state.dirty || state.touched)"
+                    class="form-text text-danger">
+                    state is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="State" cFormControl id="state" name="state" sizing="sm" required
+                        #state="ngModel" [(ngModel)]="provider.address.state" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small
+                    *ngIf="notValidForm   && (license.errors) ||  license.invalid && (license.dirty || license.touched)"
+                    class="form-text text-danger">
+                    License is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="License" cFormControl id="license" name="license" sizing="sm" required
+                        #license="ngModel" [(ngModel)]="provider.providerInfo.license" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <small *ngIf="notValidForm   && (taxId.errors) ||   taxId.invalid && (taxId.dirty || taxId.touched)"
+                    class="form-text text-danger">
+                    TaxId is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Tax Id" cFormControl id="taxId" name="taxId" sizing="sm" required
+                        #taxId="ngModel" [(ngModel)]="provider.providerInfo.taxId" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row>
+            <c-col class="col">
+                <small *ngIf="notValidForm   && (phone.errors) ||  phone.invalid && (phone.dirty || phone.touched)"
+                    class="form-text text-danger">
+                    Phone is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Phone" cFormControl id="phone" name="phone" sizing="sm" required
+                        #phone="ngModel" [(ngModel)]="provider.phone" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <c-row>
+            <c-col class="col">
+                <small *ngIf="notValidForm   && (email.errors) ||  email.invalid && (email.dirty || email.touched)"
+                    class="form-text text-danger">
+                    Email is required
+                </small>
+                <c-input-group class="mb-3" sizing="sm">
+                    <input placeholder="Email" cFormControl id="email" name="email" sizing="sm" required
+                        #email="ngModel" [(ngModel)]="provider.email" />
+                </c-input-group>
+            </c-col>
+        </c-row>
+        <div class="d-md-flex justify-content-md-center">
+            <button cButton color="primary" type="submit" variant="outline">Create</button>
+        </div>
+    </form>
+</c-container>

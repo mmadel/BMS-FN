@@ -1,19 +1,78 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { IconModule } from '@coreui/icons-angular';
 import { InsuranceRoutingModule } from './insurance-routing.module';
 
 import {
-  InsuranceListComponent
-} from './index'
+  AlertModule,
+  BadgeModule,
+  ButtonModule,
+  CardModule,
+  CollapseModule,
+  GridModule,
+  SharedModule,
+  SmartTableModule,
+  TableModule,
+  FormModule,
+  DatePickerModule,
+  DropdownModule,
+  ButtonGroupModule,
+  ListGroupModule,
+  TooltipModule,
+  TabsModule,
+  NavModule,
+  DateRangePickerModule,
+  TimePickerModule,
+  UtilitiesModule,
+  ModalModule
+} from '@coreui/angular-pro';
+import {
+  InsuranceListComponent,
+  GeneralSettingsComponent,
+  Box33SettingsComponent,
+  ClientListSettingsComponent
+} from './index';
+import { EditProviderComponent } from './list/settings-modal/box33/edit.provider/edit-provider.component';
+import { ModelModule } from '../model/model.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+
 
 @NgModule({
   declarations: [
-    InsuranceListComponent
+    InsuranceListComponent,
+    GeneralSettingsComponent,
+    Box33SettingsComponent,
+    ClientListSettingsComponent,
+    EditProviderComponent,
   ],
   imports: [
     CommonModule,
-    InsuranceRoutingModule
+    InsuranceRoutingModule,
+    AlertModule,
+    BadgeModule,
+    ButtonModule,
+    CardModule,
+    CollapseModule,
+    GridModule,
+    SharedModule,
+    SmartTableModule,
+    TableModule,
+    FormModule,
+    DatePickerModule,
+    DropdownModule,
+    ButtonGroupModule,
+    ListGroupModule,
+    TooltipModule,
+    TabsModule,
+    NavModule,
+    DateRangePickerModule,
+    TimePickerModule,
+    IconModule,
+    UtilitiesModule,
+    ModalModule,
+    ModelModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
 export class InsuranceModule { }

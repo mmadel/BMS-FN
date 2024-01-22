@@ -1,0 +1,109 @@
+<ngx-spinner></ngx-spinner>
+<c-container [fluid]="true">
+    <form cForm #billingcodeForm="ngForm">
+        <c-card class="mb-3">
+            <c-card-header>
+                <h5>Billing And Coding</h5>
+            </c-card-header>
+            <c-card-body>
+                <small
+                    *ngIf="notValidForm   && (placeOfCode.errors) ||  placeOfCode.invalid && (placeOfCode.dirty || placeOfCode.touched)"
+                    class="form-text text-danger">
+                    Place Of Code is required
+                </small>
+                <div class="mb-3">
+                    <c-row class="mb-1">
+                        <c-col>
+                            <select  cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="placeOfCode"
+                                required="true" name="placeOfCode" #placeOfCode="ngModel">
+                                <option [value]=null selected disabled>Select Place Code</option>
+                                <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)"
+                                    [ngValue]="placeOfCodevalue">
+                                    {{placeOfCodes[placeOfCodevalue]}}
+                                </option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-1">
+                        <small
+                            *ngIf="notValidForm   && (facility.errors) ||  facility.invalid && (facility.dirty || facility.touched)"
+                            class="form-text text-danger">
+                            facility is required
+                        </small>
+                        <c-col>
+                            <select [compareWith]="compareFn" cSelect sizing="sm" [(ngModel)]="billingCode.facility" id="facility" name="facility"
+                                required="true" #facility="ngModel">
+                                <option [value]=null selected disabled>Select Facility</option>
+                                <option *ngFor="let clinic of clinics" [ngValue]="clinic">
+                                    {{clinic.title}}
+                                </option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row class="mb-1">
+                        <c-col class="mb-1">
+                            <ng-autocomplete [data]="patientCases" [searchKeyword]="'title'" id="patientCases"
+                                name="patientCases" placeholder="Cases" [itemTemplate]="itemTemplate"
+                                (selected)='pickCase($event)' (inputCleared)="unPickCase()"
+                                (inputChanged)="change($event)" [ngModel]="selectedCase"
+                                [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.title"></a>
+                            </ng-template>
+
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div [innerHTML]="notFound"></div>
+                            </ng-template>
+                        </c-col>
+                    </c-row>
+                </div>
+                <c-nav variant="pills">
+                    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink>Case
+                        Dignosis</a>
+                    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Service Lines</a>
+                </c-nav>
+                <c-tab-content #tabContent="cTabContent">
+                    <c-tab-pane class="p-3">
+                        <div style="float:right">
+                            <button cButton color="info" variant="outline" size="sm" (click)="toggleAddDaignosis()">
+                                <svg cIcon name="cilPlus"></svg>
+                            </button>
+                        </div>
+                        <dignosis-list #daignosisListComponent
+                            [selectedDiagnosisCode]="populatedSiagnosisCode"></dignosis-list>
+                    </c-tab-pane>
+                    <c-tab-pane class="p-3">
+                        <div style="float:right">
+                            <button cButton color="info" variant="outline" size="sm" (click)="toggleserviceCode()">
+                                <svg cIcon name="cilPlus"></svg>
+                            </button>
+                        </div>
+                        <service-code-list #serviceCodeListComponent [editMode]="editMode"
+                            [selectedServiceCodes]="populatedServiceCodes"></service-code-list>
+                    </c-tab-pane>
+                </c-tab-content>
+            </c-card-body>
+        </c-card>
+    </form>
+</c-container>
+<c-modal id="serviceCodeModal" [visible]="serviceCodeVisibility" backdrop="static" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Service Code Creation</h5>
+        <button (click)="toggleserviceCode()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <service-code-creation *ngIf="serviceCodeVisibility"
+            (onCreateServiceCode)="getCreatedServiceCode($event)"></service-code-creation>
+    </c-modal-body>
+</c-modal>
+<c-modal id="addDaignosisModal" [visible]="addDaignosisVisibility" backdrop="static" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Add Daignosis</h5>
+        <button (click)="toggleAddDaignosis()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <daignosis-creation *ngIf="addDaignosisVisibility"
+            (onCreateDaignosis)="getCreatedDagnosis($event)"></daignosis-creation>
+    </c-modal-body>
+</c-modal>

@@ -1,1 +1,90 @@
-<p>insurance-list works!</p>
+<ngx-spinner></ngx-spinner>
+<c-row>
+    <c-col xs="12" class="mb-2">
+        <h1>Insurance Companies</h1>
+    </c-col>
+</c-row>
+<hr />
+<c-row>
+    <c-col xs="12">
+        <ng-container fluid="true">
+            <c-smart-table [columns]="columns" [items]="(isuranceCompanyList$ | async) ?? []"
+                [tableProps]="{ hover: true, striped: true, small:true  }" [tableBodyProps]="{ align: 'middle'}" header>
+                <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
+                    let-tdContent="tdContent">
+                    <td>
+                        <ng-container [ngSwitch]="columnName">
+                            <ng-container *ngSwitchCase="'actions'" class="py-2">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button cButton variant="outline" size="sm" (click)="openSesstings(item)">
+                                        <svg cIcon name="cilMenu"></svg>
+                                    </button>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngSwitchDefault>
+                                {{tdContent}}
+                            </ng-container>
+                        </ng-container>
+                    </td>
+                </ng-template>
+            </c-smart-table>
+        </ng-container>
+
+    </c-col>
+</c-row>
+
+<c-modal [visible]="isnsuranceSettingsVisible" scrollable size="xl" backdrop="static">
+    <c-modal-header>
+        <h5 cModalTitle>Insurance Company Settings</h5>
+        <button (click)="toggleInsuranceSettings()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <c-container fluid="true">
+            <c-row>
+                <c-col xs="12">
+                    <c-card class="mb-4">
+                        <c-card-body>
+                            <c-nav variant="tabs" *ngIf="isnsuranceSettingsVisible">
+                                <c-nav-item>
+                                    <a [cTabContent]="tabContent2" [routerLink] [tabPaneIdx]="0" cNavLink>
+                                        <svg cIcon class="me-2" name="cilHome"></svg>
+                                        General
+                                    </a>
+                                </c-nav-item>
+                                <c-nav-item>
+                                    <a [cTabContent]="tabContent2" [routerLink] [tabPaneIdx]=1 cNavLink>
+                                        <svg cIcon class="me-2" name="cil-money"></svg>
+                                        Billing provider preferences (Box 33)
+                                    </a>
+                                </c-nav-item>
+                                <c-nav-item>
+                                    <a [cTabContent]="tabContent2" [routerLink] [tabPaneIdx]=2 cNavLink>
+                                        <svg cIcon class="me-2" name="cilUser"></svg>
+                                        Client List
+                                    </a>
+                                </c-nav-item>
+                            </c-nav>
+                            <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
+                                <c-tab-pane tabPaneIdx=0>
+                                    <app-general-settings *ngIf="isnsuranceSettingsVisible" #generalSettings
+                                        [selectedGeneralConfiguration]="selectedGeneralConfiguration"></app-general-settings>
+                                </c-tab-pane>
+                                <c-tab-pane tabPaneIdx=1>
+                                    <app-box33-settings *ngIf="isnsuranceSettingsVisible" #box33Settings
+                                        [selectedBillingProviderConfiguration]="selectedBillingProviderConfiguration"></app-box33-settings>
+                                </c-tab-pane>
+                                <c-tab-pane tabPaneIdx=2>
+                                    <app-client-list-settings
+                                        *ngIf="isnsuranceSettingsVisible"></app-client-list-settings>
+                                </c-tab-pane>
+                            </c-tab-content>
+                        </c-card-body>
+                    </c-card>
+                </c-col>
+            </c-row>
+        </c-container>
+    </c-modal-body>
+    <c-modal-footer>
+        <button cButton color="primary" size="sm" variant="outline" (click)="save()">Save changes</button>
+    </c-modal-footer>
+</c-modal>

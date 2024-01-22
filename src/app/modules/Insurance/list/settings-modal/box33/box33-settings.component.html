@@ -1,0 +1,32 @@
+<c-container fluid="true" *ngIf="defualtBillingProvider">
+    <c-row>
+        <c-col class="my-3">
+            <c-card>
+                <c-card-body>
+                    <h5 cCardTitle *ngIf="defualtBillingProvider.type === 'Default'">Default Billing Provider</h5>
+                    <h5 cCardTitle *ngIf="defualtBillingProvider.type === 'Other'">Billing Provider</h5>
+                    <h6 cCardSubtitle class="mb-2 text-medium-emphasis">
+                        {{defualtBillingProvider.businessName}}
+                    </h6>
+                    <p cCardText>
+                        {{defualtBillingProvider.organizationData.address}},
+                        {{defualtBillingProvider.organizationData.city}},
+                        {{defualtBillingProvider.organizationData.state}},
+                        {{defualtBillingProvider.organizationData.zipcode}}
+                    </p>
+                    <a cCardLink (click)="onChangeDefualtBillingProvider()">Change</a>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+</c-container>
+<c-modal [visible]="changeProviderVisible" scrollable backdrop="static" size="xl">
+    <c-modal-header>
+        <h5 cModalTitle>Change Billing Provider</h5>
+        <button (click)="toggleChangeProviderVisible()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <edit-provider *ngIf="changeProviderVisible" [organization]="defualtBillingProvider"
+            (changeVisibility)="closeEditProvider($event)"></edit-provider>
+    </c-modal-body>
+</c-modal>

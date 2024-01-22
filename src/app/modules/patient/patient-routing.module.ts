@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   PatientListComponent,
   PatientProfileComponent,
-  PatientSessionComponent
 } from './index'
 const routes: Routes = [
   {
@@ -28,10 +27,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'session',
-        component: PatientSessionComponent,
+        path: 'profile/:id',
+        component: PatientProfileComponent,
         data: {
-          title: 'Patient Session',
+          title: 'Patient Profile',
         },
       }
     ]

@@ -1,0 +1,42 @@
+<ngx-spinner></ngx-spinner>
+<c-container [fluid]="true" class="mt-3">
+    <c-row>
+        <c-col xs="12">
+            <div style="float: right;" class="mb-3">
+                <c-button-group aria-label="Basic outlined" role="group">
+                    <button cButton color="primary" variant="outline" (click)="createSession()">
+                        Create Session
+                    </button>
+                    <button cButton color="primary" variant="outline" (click)="onClickSessionHistory()">
+                        Session History
+                    </button>
+                    <button cButton color="primary" variant="outline" (click)="onClickCMS()">
+                        CMS-1500
+                    </button>
+                    <button cButton color="primary" variant="outline" (click)="onClickAttacment()">
+                        Attachment
+                    </button>
+                </c-button-group>
+            </div>
+        </c-col>
+        <c-col xs="8" *ngIf="sestionFlag === 'cms'">
+            <app-patient-cms></app-patient-cms>
+        </c-col>
+        <c-col xs="12" *ngIf="sestionFlag === 'history'">
+            <app-pateint-session-list #pateintSessionListComponent [pateintId]="pateint.id"></app-pateint-session-list>
+        </c-col>
+    </c-row>
+</c-container>
+<c-modal id="addSession" [visible]="addSessionVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h5 cModalTitle>Add Session to : <strong>
+                {{pateint.lastName}},{{pateint.firstName}}
+            </strong></h5>
+        <button (click)="toggleAddSession()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-patient-session-create *ngIf="addSessionVisibility" #patientSessionComponent
+            [selectedPateint]="pateint"
+            (changeVisibility)="changeVisibility($event)"></app-patient-session-create>
+    </c-modal-body>
+</c-modal>

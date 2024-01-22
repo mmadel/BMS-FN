@@ -1,0 +1,68 @@
+<ngx-spinner></ngx-spinner>
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <div style="float: left;">
+                    <svg cIcon name="cilBank" title="cilBank" size="xxl"></svg>
+                </div>
+                <c-row>
+                    <c-col class="mb-1">
+                        <h3>Billing Provider Information</h3>
+                    </c-col>
+                    <c-col>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button cButton class="my-2" size="sm" color="link"
+                                (click)="onClickEditProviderInformation()">Edit Provider</button>
+                        </div>
+                    </c-col>
+                </c-row>
+            </c-card-header>
+            <c-card-body>
+                <app-organization #organizationComponent></app-organization>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <div style="float: left;">
+                    <svg cIcon name="cilMedicalCross" title="cilMedicalCross" size="xxl"></svg>
+                </div>
+                <c-row>
+                    <c-col class="mb-1">
+                        <h3>Service Facilities</h3>
+                    </c-col>
+                    <c-col>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button cButton class="my-2" size="sm" color="link" (click)="onClickAddFacility()">Add
+                                Facility</button>
+                        </div>
+                    </c-col>
+                </c-row>
+            </c-card-header>
+            <c-card-body>
+                <app-clinics #listclinicsComponent></app-clinics>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+<c-modal id="editProvider" [visible]="editProviderVisibility" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Edit Provider Information</h5>
+        <button (click)="toggleEditProvider()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-organization [editModel]="true" *ngIf="editProviderVisibility"
+            (changeVisibility)="changeProviderVisibility($event)"></app-organization>
+    </c-modal-body>
+</c-modal>
+<c-modal id="addFacility" [visible]="addFacilityVisibility" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Add Facility</h5>
+        <button (click)="toggleAddFacility()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-create-facility  (changeVisibility)="changeAddFacilityVisibility($event)"></app-create-facility>
+    </c-modal-body>
+</c-modal>

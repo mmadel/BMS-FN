@@ -1,0 +1,20 @@
+<ngx-spinner></ngx-spinner>
+<c-row>
+    <c-col xs="12" class="mb-2">
+        <strong>Editing Session Id</strong> : 39393 <br />
+        <strong>Visit Number </strong> : 4 <br />
+    </c-col>
+    <c-col xs="5">
+        <patient-session-sheduling #editPateintSessionShedulingComponent [editMode]="true"></patient-session-sheduling>
+    </c-col>
+    <c-col xs="7">
+        <patient-session-billing-code #editPateintSessionBillingCodeComponent
+            [editMode]="true"></patient-session-billing-code>
+    </c-col>
+    <c-col xs="12">
+        <app-session-history></app-session-history>
+    </c-col>
+</c-row>
+<div class="col-12 text-center">
+    <button cButton variant="outline" style="width: 15%;" (click)="update()">Edit Session</button>
+</div>

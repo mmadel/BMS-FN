@@ -1,0 +1,62 @@
+<ngx-spinner></ngx-spinner>
+<c-container fluid="true">
+    <c-row>
+        <c-col>
+            <input cFormControl placeholder="Case Name" class="mb-3" [(ngModel)]="case.title" id="addcasetitle" name="addcasetitle"/>
+        </c-col>
+    </c-row>
+    
+    <c-row class="mb-1">
+        <c-col>
+            <input cFormControl name="icd10diagnosis" [formControl]="diagnosisCtrl" id="icd10diagnosis"
+                placeholder="Type ICD-10 Code" sizing="sm" />
+        </c-col>
+    </c-row>
+     <c-row>
+        <span align="center" *ngIf="isLoading">
+            <c-spinner variant="grow"></c-spinner>
+        </span>
+        <span *ngIf="!isLoading">
+            <c-col>
+                <select cSelect class="mb-2" (change)="selectICD10diagnosis($event)" visibleItems="20"
+                    id="diagnosisValue" name="diagnosisValue"
+                    placeholder="Select ICD-10 Code Description">
+                    <option selected disabled>Select Diagnosis</option>
+                    <option *ngFor="let option of filteredDiagnosis">
+                        {{option}}
+                    </option>
+                </select>
+            </c-col>
+        </span>
+    </c-row>
+    <div style="float:right">
+        <button cButton color="info" variant="outline" size="sm" (click)="addICD10diagnosis()">
+            <svg cIcon name="cilPlus"></svg>
+        </button>
+    </div>
+    <c-row>
+        <c-col>
+            <table cTable hover small>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Primary</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let diagnosis of case.caseDiagnosis;index as i">
+                        <th scope="row">{{i+1}}</th>
+                        <th>
+                            <input [checked]="diagnosis.primary" cFormCheckInput id="checkTwo" type="checkbox"  disabled/>
+                        </th>
+                        <td>{{diagnosis.diagnosisCode}}</td>
+                        <td>{{diagnosis.diagnosisDescription}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </c-col>
+    </c-row>
+    
+</c-container>

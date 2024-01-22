@@ -1,0 +1,428 @@
+<ngx-spinner></ngx-spinner>
+<c-container fluid>
+    <!--demographics-->
+    <form cForm #insuranceCreateForm="ngForm" (ngSubmit)="create()" (change)="resetError()">
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <c-card class="mb-3 ustify-content-center">
+                    <c-card-header>
+                        <strong>Demographics</strong>
+                    </c-card-header>
+                    <c-card-body>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (relation.errors) ||relation.invalid && (relation.dirty || relation.touched)"
+                                    class="form-text text-danger">
+                                    Relation is required
+                                </small>
+                                <c-input-group sizing="sm">
+                                    <span cInputGroupText>
+                                        <svg cIcon name="cilUser" title="cilUser"></svg>
+                                    </span>
+                                    <select aria-label="" cSelect #relation="ngModel" name="relation" required
+                                        [(ngModel)]="patientInsurance.relation" (change)="changeRelation()">
+                                        <option [value]="null" selected disabled>Select Relation</option>
+                                        <option *ngFor="let relationValue of relationsKeys(relations)"
+                                            [ngValue]="relationValue">
+                                            {{relations[relationValue]}}
+                                        </option>
+                                    </select>
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <span *ngIf="patientInsurance.relation !== null">
+                            <c-row>
+                                <c-col class="mb-1">
+                                    <small
+                                        *ngIf="notValidForm   && (piFirstName.errors) || piFirstName.invalid && (piFirstName.dirty || piFirstName.touched)"
+                                        class="form-text text-danger">
+                                        First Name is required
+                                    </small>
+                                    <small
+                                        *ngIf="notValidForm   && (pilastname.errors) || pilastname.invalid && (pilastname.dirty || pilastname.touched)"
+                                        class="form-text text-danger">
+                                        Last Name is required
+                                    </small>
+                                    <c-input-group sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
+                                        </span>
+                                        <input cFormControl placeholder="piFirstName" name="pifirstName" required
+                                            [(ngModel)]="patientInsurance.patientRelation.r_firstName"
+                                            #piFirstName="ngModel" name="fname" />
+                                        <input cFormControl placeholder="piMiddleName"
+                                            [(ngModel)]="patientInsurance.patientRelation.r_middleName"
+                                            name="pimname" />
+                                        <input cFormControl placeholder="LastName"
+                                            [(ngModel)]="patientInsurance.patientRelation.r_lastName" required
+                                            #pilastname="ngModel" name="pilastname" />
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                            <c-row>
+                                <c-col class="mb-1">
+                                    <small
+                                        *ngIf="notValidForm   && (pigender.errors) ||pigender.invalid && (pigender.dirty || pigender.touched)"
+                                        class="form-text text-danger">
+                                        Gender is required
+                                    </small>
+                                    <c-input-group sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilUser" title="cilUser"></svg>
+                                        </span>
+                                        <select aria-label="" cSelect #pigender="ngModel" name="pigender" required
+                                            [(ngModel)]="patientInsurance.patientRelation.r_gender">
+                                            <option [value]="null">Select Gender</option>
+                                            <option *ngFor="let genderValue of genderKeys(genders)"
+                                                [ngValue]="genderValue">
+                                                {{genders[genderValue]}}
+                                            </option>
+                                        </select>
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                            <c-row>
+                                <c-col class="mb-1">
+
+                                    <small
+                                        *ngIf="notValidForm   && (piphone.errors) || piphone.invalid && (piphone.dirty || piphone.touched)"
+                                        class="form-text text-danger">
+                                        Phone is required
+                                    </small>
+                                    <c-input-group sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilPhone" title="cilPhone"></svg>
+                                        </span>
+                                        <input cFormControl size="sm" placeholder="Phone"
+                                            [(ngModel)]="patientInsurance.patientRelation.r_phone" #piphone="ngModel"
+                                            name="piphone" required />
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                            <c-row>
+                                <c-col xs="12">
+                                    <small
+                                        *ngIf="notValidForm   && (piaddcountry.errors) ||  piaddcountry.invalid && (piaddcountry.dirty || piaddcountry.touched)"
+                                        class="form-text text-danger">
+                                        country is required
+                                    </small>
+                                    <c-input-group class="mb-1">
+                                        <select cFormControl cSelect sizing="sm" name="piaddcountry"
+                                            #piaddcountry="ngModel"
+                                            [(ngModel)]="patientInsurance.patientRelation.r_address.country" required>
+                                            <option [value]="null" disabled selected>Select Country</option>
+                                            <option *ngFor="let country of countries" [value]="country.name">
+                                                {{country.name}}
+                                            </option>
+                                        </select>
+                                    </c-input-group>
+                                </c-col>
+                                <c-col xs="12">
+                                    <small
+                                        *ngIf="notValidForm   && (piaddstreet.errors) ||  piaddstreet.invalid && (piaddstreet.dirty || piaddstreet.touched)"
+                                        class="form-text text-danger">
+                                        street is required
+                                    </small>
+                                    <input cFormControl placeholder="Street" sizing="sm" class="mb-1"
+                                        #piaddstreet="ngModel" name="piaddstreet"
+                                        [(ngModel)]="patientInsurance.patientRelation.r_address.first" required />
+                                </c-col>
+                                <c-col xs="12">
+                                    <small
+                                        *ngIf="notValidForm   && (piaddCity.errors) || piaddCity.invalid && (piaddCity.dirty || piaddCity.touched)"
+                                        class="form-text text-danger">
+                                        City is required
+                                    </small>
+                                    <input cFormControl placeholder="City" sizing="sm" class="mb-1" #piaddCity="ngModel"
+                                        name="piaddCity" [(ngModel)]="patientInsurance.patientRelation.r_address.city"
+                                        required /></c-col>
+                                <c-col xs="6">
+                                    <c-col xs="12">
+                                        <small
+                                            *ngIf="notValidForm   && (piaddCity.errors) || piaddCity.invalid && (piaddCity.dirty || piaddCity.touched)"
+                                            class="form-text text-danger">
+                                            State is required
+                                        </small>
+                                        <select cFormControl cSelect sizing="sm" id="state" name="state" required
+                                            #piaddCity="ngModel"
+                                            [(ngModel)]="patientInsurance.patientRelation.r_address.state">
+                                            <option [value]="null" disabled selected>Select State</option>
+                                            <option *ngFor="let state of states" [value]="state |state ">
+                                                {{state}}
+                                            </option>
+                                        </select>
+                                    </c-col>
+                                </c-col>
+                                <c-col xs="6">
+                                    <small
+                                        *ngIf="notValidForm   && (piaddzipCode.errors) || piaddzipCode.invalid && (piaddzipCode.dirty || piaddzipCode.touched)"
+                                        class="form-text text-danger">
+                                        ZipCode is required
+                                    </small>
+                                    <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
+                                        sizing="sm" #piaddzipCode="ngModel" name="zipCode"
+                                        [(ngModel)]="patientInsurance.patientRelation.r_address.zipCode" required
+                                        class="mb-1" /></c-col>
+                            </c-row>
+                        </span>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        <!--Policy Information-->
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <c-card class="mb-1 ustify-content-center">
+                    <c-card-header>
+                        <strong>Policy Information</strong>
+                    </c-card-header>
+                    <c-card-body>
+                        <c-row [gutter]="0" *ngIf="payers">
+                            <c-col xs="6" class="mb-1">
+                                <ng-autocomplete [data]="payerNameList" [searchKeyword]="" id="payername"
+                                    name="patientname" placeholder="Payer Name" [itemTemplate]="itemTemplate"
+                                    (selected)='pickPayerName($event)' (inputCleared)="unpickPayerName()"
+                                    [(ngModel)]="selectedPayerName" [notFoundTemplate]="notFoundTemplate">
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item"></a>
+                                </ng-template>
+
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                            </c-col>
+                            <c-col xs="6" class="mb-1">
+                                <ng-autocomplete [data]="payerIdList" [searchKeyword]="" id="payerid" name="payerid"
+                                    placeholder="Payer Id" [itemTemplate]="itemTemplate"
+                                    (selected)='pickPayerId($event)' (inputCleared)="unpickPayerId()"
+                                    [(ngModel)]="selectedPayerId" [notFoundTemplate]="notFoundTemplate">
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item"></a>
+                                </ng-template>
+
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <small
+                                *ngIf="notValidForm   && (insuranceRes.errors) ||insuranceRes.invalid && (insuranceRes.dirty || insuranceRes.touched)"
+                                class="form-text text-danger">
+                                insuranceResponsability is required
+                            </small>
+                            <c-col class="mb-1">
+                                <select cSelect #insuranceRes="ngModel" name="insuranceRes" required sizing="sm"
+                                    [(ngModel)]="patientInsurance.patientInsurancePolicy.responsibility">
+                                    <option [value]="null">Select ResponsabilityValues</option>
+                                    <option
+                                        *ngFor="let insuranceResponsabilityValue of insuranceResponsabilityKeys(insuranceResponsability)"
+                                        [ngValue]="insuranceResponsabilityValue">
+                                        {{insuranceResponsability[insuranceResponsabilityValue]}}
+                                    </option>
+                                </select>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (plantype.errors) ||plantype.invalid && (plantype.dirty || plantype.touched)"
+                                    class="form-text text-danger">
+                                    Plan Type is required
+                                </small>
+                                <select aria-label="" cSelect #plantype="ngModel" name="plantype" required sizing="sm"
+                                    [(ngModel)]="patientInsurance.patientInsurancePolicy.planType">
+                                    <option [value]="null">Select Plan Type</option>
+                                    <option *ngFor="let plantype of insurancePlanTypeKeys(insurancePlanType)"
+                                        [ngValue]="plantype">
+                                        {{insurancePlanType[plantype]}}
+                                    </option>
+                                </select>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (primaryid.errors) ||primaryid.invalid && (primaryid.dirty || primaryid.touched)"
+                                    class="form-text text-danger">
+                                    Primary ID is required
+                                </small>
+                                <input cFormControl placeholder="Primary ID" name="primaryid" required sizing="sm"
+                                    [(ngModel)]="patientInsurance.patientInsurancePolicy.primaryId" #primaryid="ngModel"
+                                    name="primaryid" />
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (policygroup.errors) ||policygroup.invalid && (policygroup.dirty || policygroup.touched)"
+                                    class="form-text text-danger">
+                                    Policy/Group is required
+                                </small>
+                                <input cFormControl placeholder="Policy/Group" name="policygroup" required sizing="sm"
+                                    [(ngModel)]="patientInsurance.patientInsurancePolicy.policyGroup"
+                                    #policygroup="ngModel" name="policygroup" />
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (planprogram.errors) ||planprogram.invalid && (planprogram.dirty || planprogram.touched)"
+                                    class="form-text text-danger">
+                                    Plan/Program is required
+                                </small>
+                                <input cFormControl placeholder="Plan/Group" name="planprogram" required sizing="sm"
+                                    [(ngModel)]="patientInsurance.patientInsurancePolicy.plan" #planprogram="ngModel"
+                                    name="planprogram" />
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (employer.errors) ||employer.invalid && (employer.dirty || employer.touched)"
+                                    class="form-text text-danger">
+                                    Employer is required
+                                </small>
+                                <input cFormControl placeholder="Employer" name="employer" required sizing="sm"
+                                    [(ngModel)]="patientInsurance.patientInsurancePolicy.employer" #employer="ngModel"
+                                    name="employer" />
+                            </c-col>
+                        </c-row>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        <!--Advanced -->
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <c-card class="mb-3 ustify-content-center">
+                    <c-card-header>
+                        <strong>Advanced</strong>
+                    </c-card-header>
+                    <c-card-body>
+                        <c-row>
+                            <c-col>
+                                <c-form-check [switch]="true">
+                                    <label cFormCheckLabel>Accept Assignment</label>
+                                    <input cFormCheckInput checked type="checkbox" name="acceptAssigment"
+                                        [(ngModel)]="patientInsurance.patientInsuranceAdvanced.acceptAssigment" />
+                                </c-form-check>
+                            </c-col>
+                        </c-row>
+                        <c-row [gutter]="-1">
+                            <c-col xs="2">
+                                <c-form-check>
+                                    <label cFormCheckLabel for="checkTwo">Signature File</label>
+                                    <input [checked]="true" cFormCheckInput id="checkTwo" type="checkbox"
+                                        name="signatureOnFile"
+                                        [(ngModel)]="patientInsurance.patientInsuranceAdvanced.signatureOnFile" />
+                                </c-form-check>
+                            </c-col>
+                            <c-col xs="10" class="mb-3">
+                                <strong>Check here to indicate that the insured authorized payment of medicalbenefits of
+                                    yours clinic</strong>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <small
+                                *ngIf="notValidForm   && (inforelease.errors) ||inforelease.invalid && (inforelease.dirty || inforelease.touched)"
+                                class="form-text text-danger">
+                                Information Release is required
+                            </small>
+                            <c-col class="mb-3">
+                                <select cSelect #inforelease="ngModel" name="inforelease" required sizing="sm"
+                                    [(ngModel)]="patientInsurance.patientInsuranceAdvanced.informationRelease">
+                                    <option [value]="null" disabled selected>Select Information Release</option>
+                                    <option
+                                        *ngFor="let informationReleasevalue of informationReleaseKeys(informationRelease)"
+                                        [ngValue]="informationReleasevalue">
+                                        {{informationRelease[informationReleasevalue]}}
+                                    </option>
+                                </select>
+                            </c-col>
+                        </c-row>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        <!--payor Address -->
+        <c-row class="justify-content-center">
+            <c-col class="col">
+                <c-card class="mb-3 ustify-content-center">
+                    <c-card-header>
+                        <strong>Payer Address</strong>
+                    </c-card-header>
+                    <c-card-body>
+                        <c-row>
+                            <!-- <c-col xs="12">
+                                <small
+                                    *ngIf="notValidForm   && (payorcountry.errors) ||  payorcountry.invalid && (payorcountry.dirty || payorcountry.touched)"
+                                    class="form-text text-danger">
+                                    Payor country is required
+                                </small>
+                                <c-input-group class="mb-1">
+                                    <select cFormControl cSelect sizing="sm" id="payor" name="payor"
+                                        #payorcountry="ngModel" [(ngModel)]="patientInsurance.payerAddress.city"
+                                        required>
+                                        <option [value]="null" disabled selected>Select Country</option>
+                                        <option *ngFor="let country of countries" [value]="country.name">
+                                            {{country.name}}
+                                        </option>
+                                    </select>
+                                </c-input-group>
+                            </c-col> -->
+                            <c-col xs="12">
+                                <!-- <small
+                                    *ngIf="notValidForm   && (payorstreet.errors) ||  payorstreet.invalid && (payorstreet.dirty || payorstreet.touched)"
+                                    class="form-text text-danger">
+                                    Payor street is required
+                                </small> -->
+                                <input cFormControl placeholder="Street" sizing="sm" class="mb-1" #payorstreet="ngModel"
+                                    name="payorstreet" [(ngModel)]="patientInsurance.insuranceCompanyAddress.address" />
+                            </c-col>
+                            <c-col xs="12">
+                                <!-- <small
+                                    *ngIf="notValidForm   && (patorCity.errors) || patorCity.invalid && (patorCity.dirty || patorCity.touched)"
+                                    class="form-text text-danger">
+                                    Payor City is required
+                                </small> -->
+                                <input cFormControl placeholder="City" sizing="sm" class="mb-1" #patorCity="ngModel"
+                                    name="patorCity" [(ngModel)]="patientInsurance.insuranceCompanyAddress.city" /></c-col>
+                            <c-col xs="6">
+                                <c-col xs="12">
+                                    <!-- <small
+                                        *ngIf="notValidForm   && (payorstate.errors) || payorstate.invalid && (payorstate.dirty || payorstate.touched)"
+                                        class="form-text text-danger">
+                                        Payor State is required
+                                    </small> -->
+                                    <select cFormControl cSelect sizing="sm" id="state" name="payorstate"
+                                        #payorstate="ngModel" [(ngModel)]="patientInsurance.insuranceCompanyAddress.state">
+                                        <option [value]="null" disabled selected>Select State</option>
+                                        <option *ngFor="let state of states" [value]="state |state">
+                                            {{state}}
+                                        </option>
+                                    </select>
+                                </c-col>
+                            </c-col>
+                            <c-col xs="6">
+                                <!-- <small
+                                    *ngIf="notValidForm   && (payorzipCode.errors) || payorzipCode.invalid && (payorzipCode.dirty || payorzipCode.touched)"
+                                    class="form-text text-danger">
+                                    Payor ZipCode is required
+                                </small> -->
+                                <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
+                                    sizing="sm" #payorzipCode="ngModel" name="payorzipCode"
+                                    [(ngModel)]="patientInsurance.insuranceCompanyAddress.zipCode" class="mb-1" /></c-col>
+                        </c-row>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        <div class="d-md-flex justify-content-md-center">
+            <button cButton color="primary" type="submit" variant="outline">Create</button>
+        </div>
+    </form>
+</c-container>

@@ -92,10 +92,37 @@ import {
   cilDisabled,
   cilLibraryBuilding,
   cilMoney,
-  cilSend
+  cilSend,
+  cilTablet,
+  cilNoteAdd,
+  cilRunning,
+  cibSuperuser,
+  cilFindInPage,
+  cibAdobeAcrobatReader,
+  cilAddressBook,
+  cilPlus,
+  cilViewStream,
+  cilHouse,
+  cilFlagAlt,
+  cilAppsSettings,cilPhone,cibMailRu,cilBirthdayCake,cilViewColumn,cilEyedropper,cilBrowser,
+  cilBank,
+  cilMedicalCross,
+  cilInstitution,
+  cilWheelchair,
+  cilExpandDown,
+  cilChevronCircleDownAlt
+  
 } from '@coreui/icons';
 
 export const iconSubset = {
+  cilMedicalCross,
+  cilBank,
+  cilBrowser,
+  cilEyedropper,
+  cilViewColumn,
+  cilBirthdayCake,
+  cibMailRu,
+  cilPhone,
   cibCcAmex,
   cibCcApplePay,
   cibCcMastercard,
@@ -189,7 +216,22 @@ export const iconSubset = {
   cilDisabled,
   cilLibraryBuilding,
   cilMoney,
-  cilSend
+  cilSend,
+  cilTablet,
+  cilNoteAdd,
+  cilRunning,
+  cibSuperuser,
+  cilFindInPage,
+  cibAdobeAcrobatReader,
+  cilAddressBook,
+  cilPlus,
+  cilViewStream,
+  cilHouse,
+  cilFlagAlt,
+  cilAppsSettings,
+  cilInstitution,
+  cilWheelchair,
+  cilExpandDown,cilChevronCircleDownAlt
 };
 
 export enum IconSubset {

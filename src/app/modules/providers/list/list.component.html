@@ -1,1 +1,67 @@
-<p>list works!</p>
+<c-container [fluid]="true">
+    <c-row>
+        <c-col xs="10">
+            <h1>Provider List</h1>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col>
+            <div style="float:right;">
+                <button cButton color="primary" variant="outline" (click)="toggleAddProvider()">Add Provider</button>
+            </div>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col>
+            <ng-container *ngIf="props$ | async as props" fluid="true">
+                <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
+                    [items]="(providers$ | async) ?? []" [itemsPerPage]="props.itemsPerPage"
+                    (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+                    [itemsPerPageSelect]="true"
+                    [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+                    [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+                    [tableProps]="{ hover: true, striped: true, responsive: true }"
+                    [tableBodyProps]="{ align: 'middle' }" (sorterValueChange)="handleSorterValueChange($event)" header>
+                    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
+                        let-tdContent="tdContent">
+                        <td>
+                            <ng-container [ngSwitch]="columnName">
+                                <ng-container *ngSwitchCase="'name'" class="py-2">
+                                    {{item.lastName + ',' + item.firstName}}
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'Prof Abbrv'" class="py-2">
+                                    {{item.providerInfo.professionAbbr}}
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'actions'" class="py-2">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button cButton variant="outline" (click)="remove(item)" size="sm">
+                                            <svg cIcon name="cilTrash"></svg>
+                                        </button>
+                                        <button cButton variant="outline" (click)="edit(item)" size="sm">
+                                            <svg cIcon name="cilPen"></svg>
+                                        </button>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngSwitchDefault>
+                                    {{tdContent}}
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                    </ng-template>
+                </c-smart-table>
+                <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+                    (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+            </ng-container>
+
+        </c-col>
+    </c-row>
+</c-container>
+<c-modal id="editSession" [visible]="addVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h5 cModalTitle>Add Provider</h5>
+        <button (click)="toggleAddProvider()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-create-provider (changeVisibility)="change($event)"></app-create-provider>
+    </c-modal-body>
+</c-modal>

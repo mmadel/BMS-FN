@@ -1,0 +1,60 @@
+<!-- src/app/landing-page/landing-page.component.html -->
+
+<div class="container mt-5" >
+  <div class="row">
+    <div class="col-md-8 mb-3">
+      <h1>Welcome to Clearing House Simulator</h1>
+      <p>This is a simple Clearing House simulator until the integration with Avality is finished</p>
+    </div>
+    <div class="col-md-12">
+      <c-container breakpoint="sm">
+        <c-card class="border border-info">
+          <c-card-body>
+            <c-row>
+              <c-col [sm]="3">
+                <c-card class="mb-4" class="border border-light">
+                  <c-card-body>
+                    <h5 cCardTitle>Add Payer</h5>
+                    <p cCardText>
+                      Add payer with it's payer id , display name and address.
+                    </p>
+                    <button cButton color="primary" (click)="togglepayerCreation()">Create</button>
+                  </c-card-body>
+                </c-card>
+              </c-col>
+              <c-col [sm]="3">
+                <c-card class="mb-4" class="border border-light">
+                  <c-card-body>
+                    <h5 cCardTitle>View Payers</h5>
+                    <p cCardText>
+                      View mocked payers and it's data like payer id and address
+                    </p>
+                    <button cButton color="primary" (click)="togglepayerList()">View</button>
+                  </c-card-body>
+                </c-card>
+              </c-col>
+            </c-row>
+          </c-card-body>
+        </c-card>
+      </c-container>
+  </div>
+</div>
+<c-modal id="create" [visible]="createPayerVisibility" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Create Payer</h5>
+    <button (click)="togglepayerCreation()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <sim-add-payer *ngIf="createPayerVisibility" (changeVisibility)="changeVisibility($event)"></sim-add-payer>
+  </c-modal-body>
+</c-modal>
+
+<c-modal id="create" [visible]="viewPayerVisibility" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Payers</h5>
+    <button (click)="togglepayerList()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <sim-view-payers *ngIf="viewPayerVisibility"></sim-view-payers>
+  </c-modal-body>
+</c-modal>

@@ -18,11 +18,7 @@ export const navItems: INavData[] = [
       {
         name: 'Patient Profile',
         url: '/patient/profile'
-      },
-      {
-        name: 'Patient Session',
-        url: '/patient/session'
-      },
+      }
     ]
   },
   {
@@ -58,7 +54,7 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Invoicing Area',
-        url: '/invoice/list'
+        url: '/invoice/client/list'
       }
     ]
   },
@@ -77,4 +73,46 @@ export const navItems: INavData[] = [
       }
     ]
   },
+  {
+    name: 'Tools',
+    url: '/tools',
+    iconComponent: { name: 'cilAppsSettings' },
+    children: [
+      {
+        name: 'Fee Schedule',
+        url: '/tools/fee-schedule'
+      },
+      {
+        name: 'Cancel Claims',
+        url: '/tools/cancel-claims'
+      },
+      {
+        name: 'Modifier Rules',
+        url: '/tools/modifier-rules'
+      }
+    ]
+  },
+  {
+    name: 'Admin Tools',
+    url: '/admin/tools',
+    iconComponent: { name: 'cibSuperuser' },
+    children:[
+      {
+        name: 'Group Information',
+        url: '/admin/tools/group'
+      },
+      {
+        name: 'Insurances Mapping',
+        url: '/admin/tools/insurance/company/mapping'
+      },
+      {
+        name: 'Session Defaults',
+        url: ''
+      },
+      {
+        name: 'Account Management',
+        url: ''
+      }
+    ]
+  }
 ];

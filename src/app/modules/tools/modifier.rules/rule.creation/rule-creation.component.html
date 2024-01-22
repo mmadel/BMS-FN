@@ -1,0 +1,81 @@
+<c-container [fluid]="true">
+    <c-row>
+        <c-col xs="5">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 130px;">Add Modifier(s)</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+        </c-col>
+        <c-col xs="7">
+            <strong>(separate multiple with a'.' , i.e. GP.KX )</strong>
+        </c-col>
+
+        <c-col xs="5">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 130px;">When CPT is:</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+        </c-col>
+        <c-col xs="7">
+            <strong>Leave blank to match all CPT codes</strong>
+        </c-col>
+    </c-row>
+
+    <hr />
+    <h5>How to Append Modifier</h5>
+    <c-row>
+        <c-col xs="2">
+            <div class="form-check">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Replace
+                </label>
+            </div>
+        </c-col>
+        <c-col xs="10"><strong>Remove any pre-enter modifiers and replace with new modifer</strong></c-col>
+        <c-col xs="2">
+            <div class="form-check">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Append at end
+                </label>
+            </div>
+        </c-col>
+        <c-col xs="10"><strong>Append new modifier to the end of any exsiting modifier</strong></c-col>
+        <c-col xs="2">
+            <div class="form-check">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Append at front
+                </label>
+            </div>
+        </c-col>
+        <c-col xs="10"><strong>Append new modifier to the front of any exsiting modifier</strong></c-col>
+    </c-row>
+    <hr />
+    <h5>Permanet</h5>
+    <c-row>
+        <c-col xs="2">
+            <div class="form-check">
+                <input class="form-check-input" name="permanet"  type="radio" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Yes
+                </label>
+            </div>
+        </c-col>
+        <c-col xs="10"><strong>The modifier will be permanently appended to the CPT code</strong></c-col>
+        <c-col xs="2">
+            <div class="form-check">
+                <input class="form-check-input" name="permanet" type="radio" value="" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                    No
+                </label>
+            </div>
+        </c-col>
+        <c-col xs="10"><strong>Only show up on claims to this payer</strong></c-col>
+    </c-row>
+</c-container>

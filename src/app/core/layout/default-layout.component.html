@@ -7,8 +7,8 @@
 >
   <c-sidebar-brand
     [brandFull]="{
-      src: 'assets/img/brand/coreui-pro-angular-white.svg',
-      width: 190,
+      src: 'assets/img/brand/cob-logo.png',
+      width: 100,
       height: 35,
       alt: 'CoreUI Logo'
     }"
@@ -29,7 +29,7 @@
   <c-sidebar-toggler
     *ngIf="!sidebar1.narrow"
     toggle="unfoldable"
-    cSidebarToggle="sidebar1"
+    cSidebarToggle="sidebar1" 
   ></c-sidebar-toggler>
 </c-sidebar>
 
@@ -42,9 +42,9 @@
   <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky" sidebarId="sidebar1"></app-default-header>
   <!--app-body-->
   <div class="body flex-grow-1 px-3">
-    <c-container breakpoint="lg" class="h-auto">
+    <div class="container-fluid">
       <router-outlet></router-outlet>
-    </c-container>
+    </div>
   </div>
   <!--app footer-->
   <app-default-footer></app-default-footer>

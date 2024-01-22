@@ -1,0 +1,51 @@
+<ngx-spinner></ngx-spinner>
+<ng-container *ngIf="props$ | async as props" fluid="true">
+  <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(clinics$ | async) ?? []"
+    activePage="1" pagination [itemsPerPage]="props.itemsPerPage"
+    (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+    [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+    [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+    [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+    (sorterValueChange)="handleSorterValueChange($event)" header>
+    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+      <td>
+        <ng-container [ngSwitch]="columnName">
+
+          <ng-container *ngSwitchCase="'dob'" class="py-2">
+            {{item.dob | date:'MMM d, y' }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'clinicdata'" class="py-2">
+            {{item.clinicdata.address}},{{item.clinicdata.city}},{{item.clinicdata.state}} {{item.clinicdata.zipCode}}
+          </ng-container>
+          <ng-container *ngSwitchCase="'actions'" class="py-2">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button cButton variant="outline" (click)="onClickDeleteFacility(item)" size="sm">
+                <svg cIcon name="cilTrash"></svg>
+              </button>
+              <button cButton variant="outline" (click)="edit(item)" size="sm">
+                <svg cIcon name="cilPen"></svg>
+              </button>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{tdContent}}
+          </ng-container>
+        </ng-container>
+      </td>
+    </ng-template>
+  </c-smart-table>
+  <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+    (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+</ng-container>
+<c-modal id="deleteFacility" [visible]="deleteFacilityVisibility" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Delete Facility</h5>
+    <button (click)="toggoleDeleteFacility()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    Are you sure you want to delete this facility?
+  </c-modal-body>
+  <c-modal-footer>
+    <button cButton color="primary" (click)="remove()">Delete</button>
+  </c-modal-footer>
+</c-modal>
