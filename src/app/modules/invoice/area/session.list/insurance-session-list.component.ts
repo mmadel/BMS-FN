@@ -134,7 +134,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     this.invoiceCreationVisible = !this.invoiceCreationVisible
   }
 
-  changeVisibility(event: any) {
+  changeSessionEditVisibility(event: any) {
     if (event === 'close')
       this.editSessionVisibility = false;
   }
