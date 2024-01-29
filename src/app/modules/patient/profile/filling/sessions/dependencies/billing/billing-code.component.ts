@@ -128,7 +128,6 @@ export class BillingCodeComponent implements OnInit {
     this.populatedSiagnosisCode = this.billingCode.diagnosisCode;
   }
   _compareFn(a:any, b:any) {
-    console.log(JSON.stringify(a))
     return a.npi === b.npi;
  }
 }

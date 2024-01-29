@@ -31,8 +31,6 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   editPatientProfileVisibility: boolean = false
   constructor(private route: ActivatedRoute,
     private invoiceEmitterService: InvoiceEmitterService
-    , private router: Router
-    , private pateintEmittingService: PateintEmittingService
     , private emitPatientSessionService: EmitPatientSessionService) { }
   ngAfterViewInit(): void {
 
