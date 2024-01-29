@@ -16,7 +16,7 @@ export class AdvancedComponent implements OnInit {
       employment: undefined,
       autoAccident: undefined,
       otherAccident: undefined,
-      state: null
+      state: 'AK'
     },
     patientAdvancedDates: {}
 
