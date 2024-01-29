@@ -26,7 +26,7 @@
                     </c-row>
                     <c-row>
                         <c-col xs="12"><label>Auto Accident</label></c-col>
-                        <c-col xs="8" class="mb-1">
+                        <c-col xs="7" class="mb-1">
                             <c-form-check inline>
                                 <input cFormCheckInput id="autoaccidentyes" [value]="true" name="autoaccident"
                                     [checked]="patientAdvancedInformation.pateintAdvancedCondtion.autoAccident"
@@ -39,6 +39,14 @@
                                     type="radio" (change)="changeAutoAccident($event)" />
                                 <label cFormCheckLabel for="autoaccidentno">No</label>
                             </c-form-check>
+                        </c-col>
+                        <c-col xs="5" class="mb-1">
+                            <select cFormControl cSelect sizing="sm" id="advstate" name="advstate" class="mb-1"
+                                [(ngModel)]="patientAdvancedInformation.pateintAdvancedCondtion.state">
+                                <option *ngFor="let state of states" [value]="state |state">
+                                    {{state |state}}
+                                </option>
+                            </select>
                         </c-col>
                     </c-row>
                     <c-row>
@@ -58,13 +66,6 @@
                             </c-form-check>
                         </c-col>
                     </c-row>
-                    <select cFormControl cSelect sizing="sm" id="advstate" name="advstate" class="mb-1"
-                        [(ngModel)]="patientAdvancedInformation.pateintAdvancedCondtion.state">
-                        <option [value]="null" disabled selected>Select State</option>
-                        <option *ngFor="let state of states" [value]="state |state">
-                            {{state}}
-                        </option>
-                    </select>
                 </c-card-body>
             </c-card>
         </c-col>
