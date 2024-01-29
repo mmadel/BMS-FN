@@ -74,7 +74,7 @@ export class CreateInsuranceComponent implements OnInit {
       patientInsuranceAdvanced: {
         acceptAssigment: true,
         signatureOnFile: true,
-        informationRelease: null
+        informationRelease: 'Signature_on_file'
       },
       insuranceCompany: new Array(),
       insuranceCompanyAddress: {},
