@@ -29,7 +29,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   sessionItemType: string;
   selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
   editPatientProfileVisibility: boolean = false
-  constructor(private route: ActivatedRoute,
+  constructor(
     private invoiceEmitterService: InvoiceEmitterService
     , private emitPatientSessionService: EmitPatientSessionService) { }
   ngAfterViewInit(): void {
