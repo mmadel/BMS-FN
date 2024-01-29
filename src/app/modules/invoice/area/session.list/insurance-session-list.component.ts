@@ -12,6 +12,7 @@ import { EmitPatientSessionService } from 'src/app/modules/patient/service/sessi
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
+import { InvoiceService } from '../../service/invoice.service';
 
 @Component({
   selector: 'app-insurance-session-list',
@@ -33,7 +34,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   constructor(
     private invoiceEmitterService: InvoiceEmitterService
     , private emitPatientSessionService: EmitPatientSessionService
-    ,private patientSessionService:PatientSessionService) { }
+    ,private patientSessionService:PatientSessionService
+    ,private invoiceService:InvoiceService) { }
   ngAfterViewInit(): void {
 
   }
@@ -135,8 +137,17 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   }
 
   changeSessionEditVisibility(event: any) {
-    if (event === 'close')
-      this.editSessionVisibility = false;
+    if (event === 'close'){
+      this.invoiceService.findByClient(this.client.id)
+      .subscribe((returnedClient:any)=>{
+        this.editSessionVisibility = false;
+        var clientSessionResponse: ClientSessionResponse = {
+          sessions: returnedClient.sessions,
+          client: returnedClient
+        }
+        this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
+      }) 
+    }
   }
   changeSessionItemVisibility(event: any) {
     if (event === 'close')
