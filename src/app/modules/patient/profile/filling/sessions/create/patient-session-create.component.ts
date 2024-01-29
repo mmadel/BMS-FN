@@ -20,8 +20,7 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
   patientSession: PatientSession;
   @Output() changeVisibility = new EventEmitter<string>()
   constructor(private patientSessionService: PatientSessionService,
-    private toastr: ToastrService
-    , private emitPatientSessionService: EmitPatientSessionService) { }
+    private toastr: ToastrService) { }
   ngAfterViewInit(): void {
   }
   ngOnInit(): void {

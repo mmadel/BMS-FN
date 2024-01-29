@@ -44,7 +44,17 @@ export class ShedulingComponent implements OnInit {
       this.populateSessionScheduling()
   }
   private initializeModel() {
-    this.sessionScheduling = {}
+    var initStartDate = new Date();
+    initStartDate.setHours(10)
+    initStartDate.setMinutes(0);
+
+    var initEndDate = new Date();
+    initEndDate.setHours(11)
+    initEndDate.setMinutes(0);
+    this.sessionScheduling = {
+      startTime: initStartDate,
+      endTime: initEndDate,
+    }
   }
   private findProviders() {
     this.providerService.findAllWithoutPagination()
