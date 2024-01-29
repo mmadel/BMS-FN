@@ -335,7 +335,6 @@
                             <c-col class="mb-3">
                                 <select cSelect #inforelease="ngModel" name="inforelease" required sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsuranceAdvanced.informationRelease">
-                                    <option [value]="null" disabled selected>Select Information Release</option>
                                     <option
                                         *ngFor="let informationReleasevalue of informationReleaseKeys(informationRelease)"
                                         [ngValue]="informationReleasevalue">
