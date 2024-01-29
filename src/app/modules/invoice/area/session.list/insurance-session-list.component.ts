@@ -7,6 +7,7 @@ import { PatientSession } from 'src/app/modules/model/clinical/session/patient.s
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
 import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
+import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
@@ -31,7 +32,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   editPatientProfileVisibility: boolean = false
   constructor(
     private invoiceEmitterService: InvoiceEmitterService
-    , private emitPatientSessionService: EmitPatientSessionService) { }
+    , private emitPatientSessionService: EmitPatientSessionService
+    ,private patientSessionService:PatientSessionService) { }
   ngAfterViewInit(): void {
 
   }
@@ -108,8 +110,11 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
 
   }
   editSession(event: any) {
-    this.editSessionVisibility = true;
-    this.emitPatientSessionService.patientSession$.next(event.data);
+    this.patientSessionService.findSessionById(event.data.id)
+    .subscribe((result)=>{
+      this.editSessionVisibility = true;
+      this.emitPatientSessionService.patientSession$.next(result.records);
+    })
   }
   editSessionItem(item: any, itemType: string) {
     this.sessionItemType = itemType;
