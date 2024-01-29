@@ -28,4 +28,8 @@ export class PatientSessionService extends BasePaginationService {
     var url = this.baseUrl + '/update'
     return this.httpClient.put(`${url}`, JSON.stringify(patientSession), { 'headers': headers })
   }
+  public findSessionById(sessionId:number): Observable<any> {
+    var url = this.baseUrl + '/find/id/'+sessionId;
+    return this.httpClient.get(url);
+  }
 }
