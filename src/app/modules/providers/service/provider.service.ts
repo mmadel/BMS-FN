@@ -9,13 +9,13 @@ import { BasePaginationService } from '../../model/service/base-pagination.servi
 @Injectable({
   providedIn: 'root'
 })
-export class ProviderService extends BasePaginationService  {
+export class ProviderService extends BasePaginationService {
 
   private baseUrl = environment.baseURL + '/provider'
   constructor(httpClient: HttpClient) { super(httpClient) }
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {
     var url = this.baseUrl + '/find'
-    return this.get(config$,url)
+    return this.get(config$, url)
   }
 
   create(provider: Provider) {
@@ -28,4 +28,8 @@ export class ProviderService extends BasePaginationService  {
     return this.httpClient.get(url);
   }
 
+  public findProviderByNPI(npi: number) {
+    var url = environment.baseURL + '/nppes//find/provider/npi/' + npi;
+    return this.httpClient.get(url);
+  }
 }
