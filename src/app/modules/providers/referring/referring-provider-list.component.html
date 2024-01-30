@@ -61,6 +61,6 @@
         <button (click)="toggleReferringProviderCreation()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-referring-provider-create (changeVisibility)="changeVisibility($event)"></app-referring-provider-create>
+        <app-referring-provider-create  *ngIf="referringProviderCreationVisibility" (changeVisibility)="changeVisibility($event)"></app-referring-provider-create>
     </c-modal-body>
 </c-modal>
