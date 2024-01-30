@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { Provider } from '../../model/clinical/provider/provider';
 import { ProviderService } from '../service/provider.service';
 
@@ -10,17 +11,62 @@ import { ProviderService } from '../service/provider.service';
   styleUrls: ['./create-provider.component.scss']
 })
 export class CreateProviderComponent implements OnInit {
+  npiCtrl = new FormControl();
+  isLoading = false;
   notValidForm: boolean = false
+  npiNotFound: boolean = false
   @ViewChild('providerCreateForm') providerCreateForm: NgForm;
   @Output() changeVisibility = new EventEmitter<string>()
-  provider: Provider = {
-    providerInfo: {},
-    address: {}
-  }
+  provider: Provider;
   constructor(private providerService: ProviderService
     , private toastr: ToastrService) { }
 
+
   ngOnInit(): void {
+    this.initModel();
+    this.npiCtrl.valueChanges
+      .pipe(
+        filter(text => {
+          if (!Number(text)) {
+            return false;
+          }
+          if (text === undefined) {
+
+          }
+          if (text.length > 1) {
+            return true
+          } else {
+            this.initModel();
+            return false;
+          }
+        }),
+        debounceTime(500),
+        tap((value) => {
+          this.initModel();
+          this.isLoading = true;
+        }),
+        switchMap((value) => {
+          return this.providerService.findProviderByNPI(value)
+            .pipe(
+              finalize(() => {
+                this.isLoading = false
+              }),
+            )
+        }
+        )
+      ).subscribe(data => {
+        this.npiNotFound = false;
+        this.provider = data;
+        if (this.provider.npi === null) {
+          this.initModel();
+          this.npiNotFound = true;
+        }
+      },
+        error => {
+          this.isLoading = false
+          this.initModel();
+          this.npiNotFound = true;
+        });
   }
   create() {
     if (this.providerCreateForm.valid) {
@@ -35,6 +81,13 @@ export class CreateProviderComponent implements OnInit {
         })
     } else {
       this.notValidForm = true;
+    }
+  }
+  private initModel() {
+    this.provider = {
+      npi:null,
+      providerInfo: {},
+      address: {}
     }
   }
 }
