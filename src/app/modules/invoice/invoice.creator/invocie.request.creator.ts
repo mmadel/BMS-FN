@@ -21,8 +21,8 @@ export class InvocieRequestCreator {
     private static createPatientInformation(patient: Patient): InvoicePatientInformation {
         var patientInformation: InvoicePatientInformation = {
             id: patient.id,
-            firstName: patient.lastName,
-            lastName: patient.firstName,
+            firstName: patient.firstName,
+            lastName: patient.lastName,
             dateOfBirth: patient.birthDate,
             gender: patient.gender,
             address: patient.address,

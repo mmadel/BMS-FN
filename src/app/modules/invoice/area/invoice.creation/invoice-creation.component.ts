@@ -55,6 +55,29 @@ export class InvoiceCreationComponent implements OnInit {
         this.toastr.error("error in create invoice")
       })
   }
+  createElectronic(patientInsurance: PatientInsurance){
+    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance);
+    invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
+    this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
+      , patientInsurance.visibility).pipe(
+        tap((result) => {
+          invoiceRequest.invoiceBillingProviderInformation.businessName = result[0];
+          invoiceRequest.invoiceBillingProviderInformation.address = result[1];
+          invoiceRequest.invoiceBillingProviderInformation.city_state_zip = result[2];
+          invoiceRequest.invoiceBillingProviderInformation.phone = result[3]
+          invoiceRequest.invoiceBillingProviderInformation.taxId = result[4]
+          invoiceRequest.patientInformation.box26 = result[4]          
+        }),
+        switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
+      ).subscribe((response) => {
+        this.toastr.success("Invocie created successfully ")
+        this.changeVisibility.emit('close');
+        this.findCleint();
+        this.constructExportedFile(response, 'cms-', 'json')
+      }, error => {
+        this.toastr.error("error in create invoice")
+      })
+  }
   constructExportedFile(response: any, fileName: string, extention: string) {
     const a = document.createElement('a')
     const objectUrl = URL.createObjectURL(response)
