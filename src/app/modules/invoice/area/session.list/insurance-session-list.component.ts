@@ -96,7 +96,7 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
               charge: serviceCode.cptCode.charge,
               cptId: serviceCode.id,
               data: session,
-              serviceCodeId: serviceCode.id
+              serviceCode: serviceCode
             }
             lines.push(line);
           }
@@ -156,8 +156,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   onSelectedServiceCode(event: any) {
     this.selectedSessionServiceCodeLine = event.map((value: any) => {
       return {
-        sessionId: value.data.id,
-        serviceLine: value.serviceCodeId
+        sessionId: value.data,
+        serviceLine: value.serviceCode
       }
     });
   }

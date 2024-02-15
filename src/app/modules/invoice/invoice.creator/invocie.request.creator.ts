@@ -52,7 +52,9 @@ export class InvocieRequestCreator {
             name: patientInsurance.insuranceCompany[0],
             address: patientInsurance.insuranceCompanyAddress,
             visibility: patientInsurance.visibility,
-            assigner: patientInsurance.assigner
+            assigner: patientInsurance.assigner,
+            isAssignment: patientInsurance.patientInsuranceAdvanced.acceptAssigment,
+            signature: patientInsurance.patientInsuranceAdvanced.informationRelease
         }
         return invoiceInsuranceCompanyInformation
     }
@@ -67,7 +69,7 @@ export class InvocieRequestCreator {
         }
         return invoiceBillingProviderInformation;
     }
-    private static fillInvoiceRequestConfiguration( patientInsurance: PatientInsurance): InvoiceRequestConfiguration {
+    private static fillInvoiceRequestConfiguration(patientInsurance: PatientInsurance): InvoiceRequestConfiguration {
         var invoiceRequestConfiguration: InvoiceRequestConfiguration = {
             delayedReason: "",
             isOneDateServicePerClaim: patientInsurance.datePerClaim

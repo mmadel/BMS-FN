@@ -1,4 +1,5 @@
 import { PatientSession } from "../../model/clinical/session/patient.session"
+import { ServiceCode } from "../../model/clinical/session/service.code"
 
 export interface SessionServiceCodeLine {
     dos?: string,
@@ -10,5 +11,5 @@ export interface SessionServiceCodeLine {
     charge?: number
     data?:PatientSession
     cptId?:number
-    serviceCodeId?:number
+    serviceCode:ServiceCode
 }

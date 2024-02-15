@@ -1,4 +1,7 @@
+import { PatientSession } from "../clinical/session/patient.session";
+import { ServiceCode } from "../clinical/session/service.code";
+
 export interface SelectedSessionServiceLine{
-    sessionId?:number;
-    serviceLine?:number;
+    sessionId?:PatientSession;
+    serviceLine?:ServiceCode;
 }

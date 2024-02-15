@@ -6,4 +6,6 @@ export interface InvoiceBillingProviderInformation {
     ssn: string;
     taxId: string;
     identifierFlag?: Boolean;
+    npi?:string;
+    taxonomy?:string
 }

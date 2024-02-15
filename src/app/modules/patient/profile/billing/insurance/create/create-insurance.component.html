@@ -337,7 +337,7 @@
                                     [(ngModel)]="patientInsurance.patientInsuranceAdvanced.informationRelease">
                                     <option
                                         *ngFor="let informationReleasevalue of informationReleaseKeys(informationRelease)"
-                                        [ngValue]="informationReleasevalue">
+                                        [ngValue]="informationRelease[informationReleasevalue]">
                                         {{informationRelease[informationReleasevalue]}}
                                     </option>
                                 </select>

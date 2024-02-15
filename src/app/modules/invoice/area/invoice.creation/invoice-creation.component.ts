@@ -43,7 +43,9 @@ export class InvoiceCreationComponent implements OnInit {
           invoiceRequest.invoiceBillingProviderInformation.city_state_zip = result[2];
           invoiceRequest.invoiceBillingProviderInformation.phone = result[3]
           invoiceRequest.invoiceBillingProviderInformation.taxId = result[4]
-          invoiceRequest.patientInformation.box26 = result[4]          
+          invoiceRequest.patientInformation.box26 = result[5]
+          invoiceRequest.invoiceBillingProviderInformation.npi = result[6]
+          invoiceRequest.invoiceBillingProviderInformation.taxonomy = result[7]
         }),
         switchMap(() => this.invoiceService.create(invoiceRequest))
       ).subscribe((response) => {
@@ -66,7 +68,9 @@ export class InvoiceCreationComponent implements OnInit {
           invoiceRequest.invoiceBillingProviderInformation.city_state_zip = result[2];
           invoiceRequest.invoiceBillingProviderInformation.phone = result[3]
           invoiceRequest.invoiceBillingProviderInformation.taxId = result[4]
-          invoiceRequest.patientInformation.box26 = result[4]          
+          invoiceRequest.patientInformation.box26 = result[5]
+          invoiceRequest.invoiceBillingProviderInformation.npi = result[6]
+          invoiceRequest.invoiceBillingProviderInformation.taxonomy = result[7]
         }),
         switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
       ).subscribe((response) => {

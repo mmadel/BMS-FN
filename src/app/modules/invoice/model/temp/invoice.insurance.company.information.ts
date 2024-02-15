@@ -5,4 +5,6 @@ export interface InvoiceInsuranceCompanyInformation{
 	 address:BasicAddress;
      visibility:string;
      assigner:string[];
+     isAssignment:boolean;
+     signature:string
 }
