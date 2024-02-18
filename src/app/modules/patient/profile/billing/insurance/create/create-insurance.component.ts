@@ -25,6 +25,7 @@ export class CreateInsuranceComponent implements OnInit {
   @ViewChild('insuranceCreateForm') insuranceCreateForm: NgForm;
   @Output() changeVisibility = new EventEmitter<string>()
   @Input() patient: Patient;
+  @Input() editPatientInsurance: PatientInsurance;
   notValidForm: boolean = false
   relationsKeys = Object.keys;
   relations = Relation;
@@ -58,28 +59,33 @@ export class CreateInsuranceComponent implements OnInit {
       })
   }
   fillModel() {
-    this.patientInsurance = {
-      relation: null,
-      patientRelation: {
-        r_gender: null,
-        r_address: {
-          country: null,
-          state: null
-        }
-      },
-      patientInsurancePolicy: {
-        responsibility: null,
-        planType: null
-      },
-      patientInsuranceAdvanced: {
-        acceptAssigment: true,
-        signatureOnFile: true,
-        informationRelease: 'Signature_on_file'
-      },
-      insuranceCompany: new Array(),
-      insuranceCompanyAddress: {},
-      assigner:null
+    if (this.editPatientInsurance !== null || this.editPatientInsurance !== undefined) {
+      this.patientInsurance = this.editPatientInsurance
+    } else {
+      this.patientInsurance = {
+        relation: null,
+        patientRelation: {
+          r_gender: null,
+          r_address: {
+            country: null,
+            state: null
+          }
+        },
+        patientInsurancePolicy: {
+          responsibility: null,
+          planType: null
+        },
+        patientInsuranceAdvanced: {
+          acceptAssigment: true,
+          signatureOnFile: true,
+          informationRelease: 'Signature_on_file'
+        },
+        insuranceCompany: new Array(),
+        insuranceCompanyAddress: {},
+        assigner: null
+      }
     }
+
   }
   pickPayerName(event: any) {
     this.payers.forEach(element => {
@@ -118,7 +124,6 @@ export class CreateInsuranceComponent implements OnInit {
     if (this.insuranceCreateForm.valid) {
       this.notValidForm = false;
       this.patientInsurance.insuranceCompany[0] = this.selectedPayerName
-      console.log(this.selectedPayerId)
       if (this.selectedPayerId !== undefined) {
         this.patientInsurance.insuranceCompany[1] = this.selectedPayerId
         this.patientInsurance.visibility = 'External'
@@ -130,7 +135,7 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
       console.log(this.patientInsurance.visibility)
       this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
-        .subscribe((result:any) => {
+        .subscribe((result: any) => {
           console.log(JSON.stringify(result))
           this.patientInsurance.assigner = result.records.assigner;
           this.patientInsurance.id = result.records.id;
@@ -141,7 +146,7 @@ export class CreateInsuranceComponent implements OnInit {
           console.log(JSON.stringify(error))
           this.toastr.error("Error during creating patient insurance")
         })
-        
+
     } else {
       this.notValidForm = true;
     }

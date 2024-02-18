@@ -17,6 +17,7 @@ export class ViewInsuranceComponent implements OnInit {
   addInsuranceVisibility: boolean = false;
   editInsuranceVisibility: boolean = false;
   patientInsurances: PatientInsurance[] = new Array();
+  editPatientInsurance: PatientInsurance;
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 
@@ -34,6 +35,10 @@ export class ViewInsuranceComponent implements OnInit {
     }
   }
   toggleEditInsuranceVisibility() {
+    this.editInsuranceVisibility = !this.editInsuranceVisibility;
+  }
+  edit(patientInsurance: PatientInsurance) {
+    this.editPatientInsurance = patientInsurance;
     this.editInsuranceVisibility = !this.editInsuranceVisibility;
   }
   remove(index: number, toBeDelete: PatientInsurance) {

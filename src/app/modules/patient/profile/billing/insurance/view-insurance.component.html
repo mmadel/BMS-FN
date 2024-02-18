@@ -12,7 +12,7 @@
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                         <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                            (click)="toggleEditInsuranceVisibility()">
+                            (click)="edit(insurance)">
                             <svg cIcon name="cilPen"></svg>
                         </button>
                         <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
@@ -58,6 +58,7 @@
     </c-modal-header>
     <c-modal-body>
         <app-create-insurance *ngIf="editInsuranceVisibility" (changeVisibility)="changeVisibility($event)"
-            [patient]="patient" #createInsuranceComponent></app-create-insurance>
+            [patient]="patient" #createInsuranceComponent
+            [editPatientInsurance]="editPatientInsurance"></app-create-insurance>
     </c-modal-body>
 </c-modal>
