@@ -152,25 +152,6 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <small
-                                *ngIf="notValidForm   && (copay.errors) || copay.invalid && (copay.dirty || copay.touched)"
-                                class="form-text text-danger">
-                                Copay is required
-                            </small>
-                            <c-input-group sizing="sm">
-                                <span cInputGroupText>
-                                    <svg cIcon name="cilDollar" title="cilDollar"></svg>
-                                </span>
-                                <select cSelect aria-label="" cSelect style="max-width: 12%;">
-                                    <option>Dollar Amt</option>
-                                </select>
-                                <input cFormControl placeholder="Copay" [(ngModel)]="patient.copay" #copay="ngModel"
-                                    name="copay" required />
-                            </c-input-group>
-                        </c-col>
-                    </c-row>
-                    <c-row>
-                        <c-col class="mb-1">
                             <c-input-group sizing="sm">
                                 <span cInputGroupText>
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
