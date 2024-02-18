@@ -61,6 +61,15 @@ export class CreateInsuranceComponent implements OnInit {
   fillModel() {
     if (this.editPatientInsurance !== null || this.editPatientInsurance !== undefined) {
       this.patientInsurance = this.editPatientInsurance
+      console.log(JSON.stringify(this.editPatientInsurance))
+      if (this.editPatientInsurance.assigner !== null) {
+        this.selectedPayerId = this.editPatientInsurance.assigner[0]
+        this.selectedPayerName = this.editPatientInsurance.assigner[1]
+      }
+      if (this.editPatientInsurance.visibility === 'External') {
+        this.selectedPayerName = this.editPatientInsurance.insuranceCompany[0];
+        this.selectedPayerId = this.editPatientInsurance.insuranceCompany[2]
+      }
     } else {
       this.patientInsurance = {
         relation: null,

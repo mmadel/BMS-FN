@@ -18,6 +18,7 @@ export class ViewInsuranceComponent implements OnInit {
   editInsuranceVisibility: boolean = false;
   patientInsurances: PatientInsurance[] = new Array();
   editPatientInsurance: PatientInsurance;
+  editModalTitle: string;
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 
@@ -39,6 +40,13 @@ export class ViewInsuranceComponent implements OnInit {
   }
   edit(patientInsurance: PatientInsurance) {
     this.editPatientInsurance = patientInsurance;
+    if (this.editPatientInsurance.visibility === 'External')
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0];
+    if (this.editPatientInsurance.visibility === 'Internal' && this.editPatientInsurance.assigner === null)
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0];
+    if (this.editPatientInsurance.visibility === 'Internal' && this.editPatientInsurance.assigner !== null)
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0] + ' assinged to (' + this.editPatientInsurance.assigner[1] +')';
+
     this.editInsuranceVisibility = !this.editInsuranceVisibility;
   }
   remove(index: number, toBeDelete: PatientInsurance) {

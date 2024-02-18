@@ -29,10 +29,6 @@
                 </div>
                 <h4>
                     <strong>{{insurance.insuranceCompany[0]}}</strong>
-                    <span *ngIf="insurance.assigner !==null">
-                        assigned to ({{insurance.assigner[1]}})
-                    </span>
-
                 </h4>
                 <h6>{{insurance.patientInsurancePolicy.responsibility}}</h6>
                 <h6>Plan : {{insurance.patientInsurancePolicy.planType}}</h6>
@@ -53,7 +49,7 @@
 </c-modal>
 <c-modal id="editInsuranceModal" [visible]="editInsuranceVisibility" backdrop="static" size="lg">
     <c-modal-header>
-        <h5 cModalTitle>Edit Patient Insurance</h5>
+        <h5 cModalTitle>Edit {{editModalTitle}}</h5>
         <button (click)="toggleEditInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
