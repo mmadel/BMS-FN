@@ -33,6 +33,9 @@ export class ViewInsuranceComponent implements OnInit {
       this.addInsuranceVisibility = false;
     }
   }
+  edit(toBeEdit: PatientInsurance){
+    console.log(JSON.stringify(toBeEdit));
+  }
   remove(index: number, toBeDelete: PatientInsurance) {
     this.patientService.deletePatientInsurance(toBeDelete.id, toBeDelete.visibility)
     .subscribe((result) => {

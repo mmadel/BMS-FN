@@ -7,11 +7,12 @@
         </div>
     </c-col>
     <c-col xs="12" *ngIf="patientInsurances">
-        <div class="card border mb-2"  *ngFor="let insurance of patientInsurances;let i=index;">
+        <div class="card border mb-2" *ngFor="let insurance of patientInsurances;let i=index;">
             <div class="card-body" [ngClass]="{'text-bg-light': insurance.isArchived}">
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                        <button cButton variant="outline" class="btn-sm" variant="outline" color="info">
+                        <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                            (click)="edit(insurance)">
                             <svg cIcon name="cilPen"></svg>
                         </button>
                         <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
@@ -31,7 +32,7 @@
                     <span *ngIf="insurance.assigner !==null">
                         assigned to ({{insurance.assigner[1]}})
                     </span>
-                    
+
                 </h4>
                 <h6>{{insurance.patientInsurancePolicy.responsibility}}</h6>
                 <h6>Plan : {{insurance.patientInsurancePolicy.planType}}</h6>
