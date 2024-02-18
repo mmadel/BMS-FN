@@ -15,8 +15,7 @@ import { PatientService } from '../service/patient.service';
 export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<Patient[]>;
   constructor(private paitentService: PatientService
-    , private router: Router
-    , private pateintEmittingService: PateintEmittingService) { super() }
+    , private router: Router) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -34,6 +33,10 @@ export class PatientListComponent extends ListTemplate implements OnInit {
   ];
   remove(event: any) {
 
+  }
+  add(){
+    
+    this.router.navigate(['/patient/profile']);
   }
   edit(event: any) {
     this.router.navigate(['/patient/profile',event.data.id]);
