@@ -15,9 +15,9 @@ export class ViewInsuranceComponent implements OnInit {
   @ViewChild('createInsuranceComponent') createInsuranceComponent: CreateInsuranceComponent;
   @Input() patient: Patient
   addInsuranceVisibility: boolean = false;
+  editInsuranceVisibility: boolean = false;
   patientInsurances: PatientInsurance[] = new Array();
   constructor(private patientService: PatientService
-    , private insuranceCompanyService :InsuranceCompanyService
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -33,19 +33,19 @@ export class ViewInsuranceComponent implements OnInit {
       this.addInsuranceVisibility = false;
     }
   }
-  edit(toBeEdit: PatientInsurance){
-    console.log(JSON.stringify(toBeEdit));
+  toggleEditInsuranceVisibility() {
+    this.editInsuranceVisibility = !this.editInsuranceVisibility;
   }
   remove(index: number, toBeDelete: PatientInsurance) {
     this.patientService.deletePatientInsurance(toBeDelete.id, toBeDelete.visibility)
-    .subscribe((result) => {
-      this.patientInsurances.splice(index, 1);
-      this.toastr.success("Patient insurance deleted")
-      this.scrollUp();
-    }, error => {
-      this.toastr.error("Error during deleting patient insurance delete")
-      this.scrollUp();
-    })
+      .subscribe((result) => {
+        this.patientInsurances.splice(index, 1);
+        this.toastr.success("Patient insurance deleted")
+        this.scrollUp();
+      }, error => {
+        this.toastr.error("Error during deleting patient insurance delete")
+        this.scrollUp();
+      })
   }
   getInsurances() {
     if (this.patientInsurances !== undefined && this.patientInsurances.length > 0)
