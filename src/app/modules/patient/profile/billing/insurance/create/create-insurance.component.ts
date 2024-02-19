@@ -25,6 +25,7 @@ export class CreateInsuranceComponent implements OnInit {
   @ViewChild('insuranceCreateForm') insuranceCreateForm: NgForm;
   @Output() changeVisibility = new EventEmitter<string>()
   @Input() patient: Patient;
+  @Input() mode: string;
   @Input() editPatientInsurance: PatientInsurance;
   notValidForm: boolean = false
   relationsKeys = Object.keys;
@@ -59,42 +60,53 @@ export class CreateInsuranceComponent implements OnInit {
       })
   }
   fillModel() {
-    if (this.editPatientInsurance !== null || this.editPatientInsurance !== undefined) {
-      this.patientInsurance = this.editPatientInsurance
-      console.log(JSON.stringify(this.editPatientInsurance))
-      if (this.editPatientInsurance.assigner !== null) {
-        this.selectedPayerId = this.editPatientInsurance.assigner[0]
-        this.selectedPayerName = this.editPatientInsurance.assigner[1]
-      }
-      if (this.editPatientInsurance.visibility === 'External') {
+    switch (this.mode) {
+      case "create":
+        this.patientInsurance = {
+          relation: null,
+          visibility: "Internal",
+          isArchived: false,
+          patientRelation: {
+            r_gender: null,
+            r_address: {
+              country: null,
+              state: null
+            }
+          },
+          patientInsurancePolicy: {
+            responsibility: null,
+            planType: null
+          },
+          patientInsuranceAdvanced: {
+            acceptAssigment: true,
+            signatureOnFile: true,
+            informationRelease: 'Signature On File'
+          },
+          insuranceCompany: new Array(),
+          insuranceCompanyAddress: {},
+          assigner: null
+        }        
+        break;
+      case "edit":
+        this.patientInsurance = this.editPatientInsurance
+        break;
+    }
+  }
+  populatePayer() {
+    switch (this.editPatientInsurance.visibility) {
+      case "Internal":
+        if (this.editPatientInsurance.assigner !== null) {
+          this.selectedPayerId = this.editPatientInsurance.assigner[0]
+          this.selectedPayerName = this.editPatientInsurance.assigner[1]
+        } else {
+          this.selectedPayerName = this.editPatientInsurance.insuranceCompany[0];
+        }
+        break;
+      case "External":
         this.selectedPayerName = this.editPatientInsurance.insuranceCompany[0];
         this.selectedPayerId = this.editPatientInsurance.insuranceCompany[2]
-      }
-    } else {
-      this.patientInsurance = {
-        relation: null,
-        patientRelation: {
-          r_gender: null,
-          r_address: {
-            country: null,
-            state: null
-          }
-        },
-        patientInsurancePolicy: {
-          responsibility: null,
-          planType: null
-        },
-        patientInsuranceAdvanced: {
-          acceptAssigment: true,
-          signatureOnFile: true,
-          informationRelease: 'Signature_on_file'
-        },
-        insuranceCompany: new Array(),
-        insuranceCompanyAddress: {},
-        assigner: null
-      }
+        break;
     }
-
   }
   pickPayerName(event: any) {
     this.payers.forEach(element => {
@@ -103,10 +115,11 @@ export class CreateInsuranceComponent implements OnInit {
         this.fillPayerAddress(element);
       }
     });
+    this.patientInsurance.visibility = 'External';
   }
   unpickPayerName() {
     this.selectedPayerId = undefined;
-
+    this.patientInsurance.visibility = 'Internal';
   }
   pickPayerId(event: any) {
     this.payers.forEach(element => {
@@ -115,9 +128,11 @@ export class CreateInsuranceComponent implements OnInit {
         this.fillPayerAddress(element);
       }
     });
+    this.patientInsurance.visibility = 'External';
   }
   unpickPayerId() {
     this.selectedPayerName = undefined
+    this.patientInsurance.visibility = 'Internal';
 
   }
   fillPayerAddress(payer: Payer) {
@@ -131,21 +146,21 @@ export class CreateInsuranceComponent implements OnInit {
   }
   create() {
     if (this.insuranceCreateForm.valid) {
-      this.notValidForm = false;
-      this.patientInsurance.insuranceCompany[0] = this.selectedPayerName
-      if (this.selectedPayerId !== undefined) {
-        this.patientInsurance.insuranceCompany[1] = this.selectedPayerId
-        this.patientInsurance.visibility = 'External'
+      if (this.editPatientInsurance === undefined) {
+        switch (this.patientInsurance.visibility) {
+          case "Internal":
+            this.patientInsurance.insuranceCompany[0] = this.selectedPayerName
+            break;
+          case "External":
+            this.patientInsurance.insuranceCompany[0] = this.selectedPayerName
+            this.patientInsurance.insuranceCompany[1] = this.selectedPayerId
+            break;
+        }
       }
-      if (this.selectedPayerId === undefined)
-        this.patientInsurance.visibility = 'Internal'
-
-      this.patientInsurance.isArchived = false;
+      this.notValidForm = false;
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
-      console.log(this.patientInsurance.visibility)
       this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
         .subscribe((result: any) => {
-          console.log(JSON.stringify(result))
           this.patientInsurance.assigner = result.records.assigner;
           this.patientInsurance.id = result.records.id;
           this.toastr.success("Patient insurance crteated")

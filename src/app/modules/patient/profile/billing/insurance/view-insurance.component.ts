@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { PatientService } from '../../../service/patient.service';
@@ -30,9 +29,17 @@ export class ViewInsuranceComponent implements OnInit {
   }
   changeVisibility(event: any) {
     if (event === 'close') {
-      var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
-      this.patientInsurances.push(createdInsurance);
-      this.addInsuranceVisibility = false;
+      switch (this.createInsuranceComponent.mode) {
+        case "create":
+          this.editPatientInsurance = undefined;
+          var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
+          this.patientInsurances.push(createdInsurance);
+          this.addInsuranceVisibility = false;
+          break;
+        case "edit":
+          this.editInsuranceVisibility = false;
+          break;
+      }
     }
   }
   toggleEditInsuranceVisibility() {
@@ -45,7 +52,7 @@ export class ViewInsuranceComponent implements OnInit {
     if (this.editPatientInsurance.visibility === 'Internal' && this.editPatientInsurance.assigner === null)
       this.editModalTitle = this.editPatientInsurance.insuranceCompany[0];
     if (this.editPatientInsurance.visibility === 'Internal' && this.editPatientInsurance.assigner !== null)
-      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0] + ' assinged to (' + this.editPatientInsurance.assigner[1] +')';
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0] + ' assinged to (' + this.editPatientInsurance.assigner[1] + ')';
 
     this.editInsuranceVisibility = !this.editInsuranceVisibility;
   }

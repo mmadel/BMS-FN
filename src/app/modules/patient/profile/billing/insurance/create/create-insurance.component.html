@@ -178,7 +178,7 @@
                         <strong>Policy Information</strong>
                     </c-card-header>
                     <c-card-body>
-                        <c-row [gutter]="0" *ngIf="payers">
+                        <c-row [gutter]="0" *ngIf="payers && editPatientInsurance === undefined">
                             <c-col xs="6" class="mb-1">
                                 <ng-autocomplete [data]="payerNameList" [searchKeyword]="" id="payername"
                                     name="patientname" placeholder="Payer Name" [itemTemplate]="itemTemplate"
@@ -389,7 +389,8 @@
                                     Payor City is required
                                 </small> -->
                                 <input cFormControl placeholder="City" sizing="sm" class="mb-1" #patorCity="ngModel"
-                                    name="patorCity" [(ngModel)]="patientInsurance.insuranceCompanyAddress.city" /></c-col>
+                                    name="patorCity"
+                                    [(ngModel)]="patientInsurance.insuranceCompanyAddress.city" /></c-col>
                             <c-col xs="6">
                                 <c-col xs="12">
                                     <!-- <small
@@ -398,7 +399,8 @@
                                         Payor State is required
                                     </small> -->
                                     <select cFormControl cSelect sizing="sm" id="state" name="payorstate"
-                                        #payorstate="ngModel" [(ngModel)]="patientInsurance.insuranceCompanyAddress.state">
+                                        #payorstate="ngModel"
+                                        [(ngModel)]="patientInsurance.insuranceCompanyAddress.state">
                                         <option [value]="null" disabled selected>Select State</option>
                                         <option *ngFor="let state of states" [value]="state |state">
                                             {{state}}
@@ -414,14 +416,18 @@
                                 </small> -->
                                 <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
                                     sizing="sm" #payorzipCode="ngModel" name="payorzipCode"
-                                    [(ngModel)]="patientInsurance.insuranceCompanyAddress.zipCode" class="mb-1" /></c-col>
+                                    [(ngModel)]="patientInsurance.insuranceCompanyAddress.zipCode"
+                                    class="mb-1" /></c-col>
                         </c-row>
                     </c-card-body>
                 </c-card>
             </c-col>
         </c-row>
         <div class="d-md-flex justify-content-md-center">
-            <button cButton color="primary" type="submit" variant="outline">Create</button>
+            <button cButton color="primary" type="submit" variant="outline">
+                <span *ngIf="mode ==='create'">Create</span>
+                <span *ngIf="mode ==='edit'">Update</span>
+            </button>
         </div>
     </form>
 </c-container>
