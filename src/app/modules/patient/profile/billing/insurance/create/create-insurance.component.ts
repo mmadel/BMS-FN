@@ -85,7 +85,7 @@ export class CreateInsuranceComponent implements OnInit {
           insuranceCompany: new Array(),
           insuranceCompanyAddress: {},
           assigner: null
-        }        
+        }
         break;
       case "edit":
         this.patientInsurance = this.editPatientInsurance
@@ -156,6 +156,8 @@ export class CreateInsuranceComponent implements OnInit {
             this.patientInsurance.insuranceCompany[1] = this.selectedPayerId
             break;
         }
+        if (this.patientInsurance.patientInsurancePolicy.planType !== 'Workers_Compensation_Health_Claim')
+          this.patientInsurance.patientInsurancePolicy.employer = undefined;
       }
       this.notValidForm = false;
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
