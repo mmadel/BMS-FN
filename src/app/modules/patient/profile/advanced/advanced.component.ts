@@ -56,11 +56,6 @@ export class AdvancedComponent implements OnInit {
       moment(event).unix() * 1000;
   }
 
-  changeSameIInes(event: Date) {
-    this.patientAdvancedInformation.patientAdvancedDates.sameIInes =
-      moment(event).unix() * 1000;
-  }
-
   changeUnableToWorkStartDate(event: Date) {
     this.patientAdvancedInformation.unableToWorkStartDate =
       moment(event).unix() * 1000;
