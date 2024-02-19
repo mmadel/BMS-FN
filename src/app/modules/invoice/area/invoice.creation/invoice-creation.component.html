@@ -15,7 +15,8 @@
                             <li><a cDropdownItem (click)="create(patientInsurance)"><svg cIcon
                                         name="cibAdobeAcrobatReader" class="text-danger"></svg>
                                     Print</a></li>
-                            <li><a cDropdownItem (click)="createElectronic(patientInsurance)"><svg cIcon name="cilSend" class="text-success"></svg>
+                            <li><a cDropdownItem (click)="createElectronic(patientInsurance)"><svg cIcon name="cilSend"
+                                        class="text-success"></svg>
                                     Electronic Submission</a>
                             </li>
                         </ul>
@@ -24,12 +25,12 @@
             </div>
             <div>
                 <h3><strong>
-                        {{patientInsurance.insuranceCompany[0]}}
+                        {{constructInsuranceCompnayTitle(patientInsurance)}}
                     </strong></h3>
                 <h4>{{patientInsurance.patientInsurancePolicy.responsibility}}</h4>
                 Primary ID : {{patientInsurance.patientInsurancePolicy.primaryId}} <br>
-                <span *ngIf="patientInsurance.visibility !== 'Internal'">
-                    Payer ID : {{patientInsurance.insuranceCompany[1]}} <br>
+                <span *ngIf="patientInsurance.visibility === 'External'">
+                    Payer ID : {{patientInsurance.insuranceCompany[2]}} <br>
                 </span>
                 <span *ngIf="patientInsurance.visibility === 'Internal' && patientInsurance.assigner !==null">
                     Payer ID : {{patientInsurance.assigner[0]}} <br>
