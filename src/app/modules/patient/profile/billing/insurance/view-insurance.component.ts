@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { PatientService } from '../../../service/patient.service';
@@ -15,9 +14,11 @@ export class ViewInsuranceComponent implements OnInit {
   @ViewChild('createInsuranceComponent') createInsuranceComponent: CreateInsuranceComponent;
   @Input() patient: Patient
   addInsuranceVisibility: boolean = false;
+  editInsuranceVisibility: boolean = false;
   patientInsurances: PatientInsurance[] = new Array();
+  editPatientInsurance: PatientInsurance;
+  editModalTitle: string;
   constructor(private patientService: PatientService
-    , private insuranceCompanyService :InsuranceCompanyService
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -28,21 +29,43 @@ export class ViewInsuranceComponent implements OnInit {
   }
   changeVisibility(event: any) {
     if (event === 'close') {
-      var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
-      this.patientInsurances.push(createdInsurance);
-      this.addInsuranceVisibility = false;
+      switch (this.createInsuranceComponent.mode) {
+        case "create":
+          this.editPatientInsurance = undefined;
+          var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
+          this.patientInsurances.push(createdInsurance);
+          this.addInsuranceVisibility = false;
+          break;
+        case "edit":
+          this.editInsuranceVisibility = false;
+          break;
+      }
     }
+  }
+  toggleEditInsuranceVisibility() {
+    this.editInsuranceVisibility = !this.editInsuranceVisibility;
+  }
+  edit(patientInsurance: PatientInsurance) {
+    this.editPatientInsurance = patientInsurance;
+    if (this.editPatientInsurance.visibility === 'External')
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0];
+    if (this.editPatientInsurance.visibility === 'Internal' && this.editPatientInsurance.assigner === null)
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0];
+    if (this.editPatientInsurance.visibility === 'Internal' && this.editPatientInsurance.assigner !== null)
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0] + ' assinged to (' + this.editPatientInsurance.assigner[1] + ')';
+
+    this.editInsuranceVisibility = !this.editInsuranceVisibility;
   }
   remove(index: number, toBeDelete: PatientInsurance) {
     this.patientService.deletePatientInsurance(toBeDelete.id, toBeDelete.visibility)
-    .subscribe((result) => {
-      this.patientInsurances.splice(index, 1);
-      this.toastr.success("Patient insurance deleted")
-      this.scrollUp();
-    }, error => {
-      this.toastr.error("Error during deleting patient insurance delete")
-      this.scrollUp();
-    })
+      .subscribe((result) => {
+        this.patientInsurances.splice(index, 1);
+        this.toastr.success("Patient insurance deleted")
+        this.scrollUp();
+      }, error => {
+        this.toastr.error("Error during deleting patient insurance delete")
+        this.scrollUp();
+      })
   }
   getInsurances() {
     if (this.patientInsurances !== undefined && this.patientInsurances.length > 0)
