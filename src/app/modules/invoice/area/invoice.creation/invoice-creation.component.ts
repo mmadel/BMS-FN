@@ -31,7 +31,16 @@ export class InvoiceCreationComponent implements OnInit {
   ngOnInit(): void {
     this.filterpatientInsurances = this.patientInsurances.filter(insuranceCompany => { return !insuranceCompany.isArchived; })
   }
-
+  constructInsuranceCompnayTitle(patientInsurance: PatientInsurance): string {
+    var insuranceCompanyTitle: string;
+    if (patientInsurance.visibility === 'External')
+      insuranceCompanyTitle = patientInsurance.insuranceCompany[0];
+    if (patientInsurance.visibility === 'Internal' && patientInsurance.assigner === null)
+      insuranceCompanyTitle = patientInsurance.insuranceCompany[0];
+    if (patientInsurance.visibility === 'Internal' && patientInsurance.assigner !== null)
+      insuranceCompanyTitle = patientInsurance.insuranceCompany[0] + ' assinged to (' + patientInsurance.assigner[1] + ')';
+    return insuranceCompanyTitle;
+  }
   create(patientInsurance: PatientInsurance) {
     var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
@@ -57,7 +66,7 @@ export class InvoiceCreationComponent implements OnInit {
         this.toastr.error("error in create invoice")
       })
   }
-  createElectronic(patientInsurance: PatientInsurance){
+  createElectronic(patientInsurance: PatientInsurance) {
     var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
     this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
