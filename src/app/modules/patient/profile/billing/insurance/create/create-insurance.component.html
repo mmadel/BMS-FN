@@ -32,6 +32,7 @@
                             </c-col>
                         </c-row>
                         <span *ngIf="patientInsurance.relation !== null">
+                            <!-- Name -->
                             <c-row>
                                 <c-col class="mb-1">
                                     <small
@@ -48,18 +49,19 @@
                                         <span cInputGroupText>
                                             <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
                                         </span>
-                                        <input cFormControl placeholder="piFirstName" name="pifirstName" required
+                                        <input cFormControl placeholder="FirstName" name="pifirstName" required
                                             [(ngModel)]="patientInsurance.patientRelation.r_firstName"
                                             #piFirstName="ngModel" name="fname" />
-                                        <input cFormControl placeholder="piMiddleName"
+                                        <input cFormControl placeholder="MiddleName"
                                             [(ngModel)]="patientInsurance.patientRelation.r_middleName"
                                             name="pimname" />
                                         <input cFormControl placeholder="LastName"
                                             [(ngModel)]="patientInsurance.patientRelation.r_lastName" required
-                                            #pilastname="ngModel" name="pilastname" />
+                                            #pilastname="ngModel" name="lastname" />
                                     </c-input-group>
                                 </c-col>
                             </c-row>
+                            <!--Gender-->
                             <c-row>
                                 <c-col class="mb-1">
                                     <small
@@ -82,6 +84,7 @@
                                     </c-input-group>
                                 </c-col>
                             </c-row>
+                            <!--Phone-->
                             <c-row>
                                 <c-col class="mb-1">
 
@@ -100,6 +103,7 @@
                                     </c-input-group>
                                 </c-col>
                             </c-row>
+                            <!--Address-->
                             <c-row>
                                 <c-col xs="12">
                                     <small
@@ -154,7 +158,7 @@
                                         </select>
                                     </c-col>
                                 </c-col>
-                                <c-col xs="6">
+                                <c-col xs="6" class="mb-1">
                                     <small
                                         *ngIf="notValidForm   && (piaddzipCode.errors) || piaddzipCode.invalid && (piaddzipCode.dirty || piaddzipCode.touched)"
                                         class="form-text text-danger">
@@ -164,6 +168,13 @@
                                         sizing="sm" #piaddzipCode="ngModel" name="zipCode"
                                         [(ngModel)]="patientInsurance.patientRelation.r_address.zipCode" required
                                         class="mb-1" /></c-col>
+                            </c-row>
+                            <!--Date Of Birth-->
+                            <c-row>
+                                <c-col class="mb-2">
+                                    <c-date-picker cFormControl size="sm" placeholder="Date of Birth"
+                                        required="true"></c-date-picker>
+                                </c-col>
                             </c-row>
                         </span>
                     </c-card-body>
@@ -377,7 +388,7 @@
                                     </select>
                                 </c-col>
                             </c-col>
-                            <c-col xs="6">                            
+                            <c-col xs="6">
                                 <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
                                     sizing="sm" #payorzipCode="ngModel" name="payorzipCode"
                                     [(ngModel)]="patientInsurance.insuranceCompanyAddress.zipCode"
