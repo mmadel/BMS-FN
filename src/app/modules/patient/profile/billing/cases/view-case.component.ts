@@ -16,6 +16,7 @@ export class ViewCaseComponent implements OnInit {
   @ViewChild('caseAddDaignosisComponent') caseAddDaignosisComponent: CaseAddDaignosisComponent;
   addCaseVisibility: boolean = false
   editCaseVisibility: boolean = false;
+  mode: string;
   _cases: PatientCase[]
   editCase: PatientCase;
   constructor(private emitPatientSessionService: EmitPatientSessionService
@@ -43,7 +44,12 @@ export class ViewCaseComponent implements OnInit {
       })
 
   }
+  add() {
+    this.mode = 'create';
+    this.addCaseVisibility = !this.addCaseVisibility
+  }
   edit(selectedCase: PatientCase) {
+    this.mode = 'edit'
     this.editCase = selectedCase
     this.editCaseVisibility = true
   }
@@ -63,9 +69,17 @@ export class ViewCaseComponent implements OnInit {
   createCase() {
     this.patientService.createPatientCase(this.caseAddDaignosisComponent.case, this.patient.id)
       .subscribe((reuslt) => {
-        this._cases.push(this.caseAddDaignosisComponent.case)
-        this.addCaseVisibility = false
-        this.toastr.success("successfully patient case created.")
+        switch (this.mode) {
+          case 'create':
+            this._cases.push(this.caseAddDaignosisComponent.case)
+            this.addCaseVisibility = false
+            this.toastr.success("successfully patient case created.")
+            break;
+          case 'edit':
+            this.editCaseVisibility = false
+            this.toastr.success("successfully patient case updated.")
+        }
+
         this.scrollUp();
       }, error => {
         this.toastr.error("error during create patient case.")
