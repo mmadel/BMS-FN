@@ -3,5 +3,4 @@ export interface PatientAdvancedDates{
     lastSeenByDoctor?:number;
     accident?:number;
     firstTreatment?:number;
-    sameIInes?:number
 }
