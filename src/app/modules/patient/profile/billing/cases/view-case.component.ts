@@ -15,6 +15,7 @@ export class ViewCaseComponent implements OnInit {
   @Input() patient: Patient;
   @ViewChild('caseAddDaignosisComponent') caseAddDaignosisComponent: CaseAddDaignosisComponent;
   addCaseVisibility: boolean = false
+  editCaseVisibility:boolean = false;
   _cases: PatientCase[]
   constructor(private emitPatientSessionService: EmitPatientSessionService
     , private patientService: PatientService
@@ -26,7 +27,9 @@ export class ViewCaseComponent implements OnInit {
   toggleAddCaseVisibility() {
     this.addCaseVisibility = !this.addCaseVisibility
   }
-
+  toggleEditCaseVisibility() {
+    this.editCaseVisibility = !this.editCaseVisibility
+  }
   remove(index: number, patientCase: PatientCase) {
     this.patientService.deletePatietCase(patientCase.id)
       .subscribe((result) => {
@@ -40,7 +43,7 @@ export class ViewCaseComponent implements OnInit {
 
   }
   edit(selectedCase: any) {
-    console.log(JSON.stringify(selectedCase))
+    this.editCaseVisibility = true
   }
   public getcases() {
     if (this._cases !== undefined && this._cases.length > 0)
