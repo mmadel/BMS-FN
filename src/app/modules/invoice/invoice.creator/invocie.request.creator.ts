@@ -8,11 +8,11 @@ import { InvoiceRequest } from "../model/temp/invoice.request";
 import { InvoiceRequestConfiguration } from "../model/temp/invoice.request.configuration";
 
 export class InvocieRequestCreator {
-    public static create(patient: Patient, patientInsurance: PatientInsurance): InvoiceRequest {
+    public static create(patient: Patient, patientInsurance: PatientInsurance, activePAtientInsurances:number): InvoiceRequest {
         var invoiceRequest: InvoiceRequest = {
             patientInformation: this.createPatientInformation(patient),
             invoicePatientInsuredInformation: this.createInvoicePatientInsuredInformation(patientInsurance),
-            invoiceInsuranceCompanyInformation: this.createInvoiceInsuranceCompanyInformation(patientInsurance),
+            invoiceInsuranceCompanyInformation: this.createInvoiceInsuranceCompanyInformation(patientInsurance,activePAtientInsurances),
             invoiceBillingProviderInformation: this.createInvoiceBillingProviderInformation(),
             invoiceRequestConfiguration: this.fillInvoiceRequestConfiguration(patientInsurance)
         }
@@ -47,7 +47,7 @@ export class InvocieRequestCreator {
         }
         return invoicePatientInsuredInformation;
     }
-    private static createInvoiceInsuranceCompanyInformation(patientInsurance: PatientInsurance): InvoiceInsuranceCompanyInformation {
+    private static createInvoiceInsuranceCompanyInformation(patientInsurance: PatientInsurance , activeCards:number): InvoiceInsuranceCompanyInformation {
         var invoiceInsuranceCompanyInformation: InvoiceInsuranceCompanyInformation = {
             name: patientInsurance.insuranceCompany[0],
             address: patientInsurance.insuranceCompanyAddress,
@@ -55,7 +55,8 @@ export class InvocieRequestCreator {
             assigner: patientInsurance.assigner,
             isAssignment: patientInsurance.patientInsuranceAdvanced.acceptAssigment,
             signature: patientInsurance.patientInsuranceAdvanced.informationRelease,
-            insuranceType:patientInsurance.patientInsurancePolicy.planType
+            insuranceType:patientInsurance.patientInsurancePolicy.planType,
+            numberOfActivePatientInsurances: activeCards
         }
         return invoiceInsuranceCompanyInformation
     }

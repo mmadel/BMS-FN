@@ -42,7 +42,7 @@ export class InvoiceCreationComponent implements OnInit {
     return insuranceCompanyTitle;
   }
   create(patientInsurance: PatientInsurance) {
-    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance);
+    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance,this.filterpatientInsurances.length);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
     this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
       , patientInsurance.visibility).pipe(
@@ -60,7 +60,7 @@ export class InvoiceCreationComponent implements OnInit {
       })
   }
   createElectronic(patientInsurance: PatientInsurance) {
-    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance);
+    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance,this.filterpatientInsurances.length);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
     this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
       , patientInsurance.visibility).pipe(
