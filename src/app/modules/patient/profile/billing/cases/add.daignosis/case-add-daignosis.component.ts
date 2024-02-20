@@ -95,4 +95,7 @@ export class CaseAddDaignosisComponent implements OnInit {
       this.case.caseDiagnosis.push(this.diagnosis);
     this.diagnosis = {}
   }
+  remove(index: number){
+    this.case.caseDiagnosis.splice(index, 1);
+  }
 }
