@@ -2,8 +2,7 @@
 <c-row>
     <c-col xs="12">
         <div style="float: right;" class="mb-2">
-            <c-button cButton color="primary" class="btn-sm" variant="outline" (click)="add()">Add
-                Case</c-button>
+            <c-button cButton color="primary" class="btn-sm" variant="outline" (click)="add()">Create Case</c-button>
         </div>
     </c-col>
     <c-col xs="12">
@@ -34,7 +33,7 @@
 
 <c-modal id="addCaseModal" [visible]="addCaseVisibility" backdrop="static" size="lg">
     <c-modal-header>
-        <h5 cModalTitle>Add Case</h5>
+        <h5 cModalTitle>Create new Case</h5>
         <button (click)="toggleAddCaseVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -43,13 +42,13 @@
     </c-modal-body>
     <c-modal-footer>
         <div class="col-12 text-center">
-            <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Create Case</button>
+            <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Create</button>
         </div>
     </c-modal-footer>
 </c-modal>
 <c-modal id="editCaseModal" [visible]="editCaseVisibility" backdrop="static" size="lg">
     <c-modal-header>
-        <h5 cModalTitle>Edit Case</h5>
+        <h5 cModalTitle>Edit selected Case</h5>
         <button (click)="toggleEditCaseVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -58,7 +57,7 @@
     </c-modal-body>
     <c-modal-footer>
         <div class="col-12 text-center">
-            <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Create Case</button>
+            <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Update</button>
         </div>
     </c-modal-footer>
 </c-modal>
