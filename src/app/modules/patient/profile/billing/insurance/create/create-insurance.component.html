@@ -98,8 +98,8 @@
                                             <svg cIcon name="cilPhone" title="cilPhone"></svg>
                                         </span>
                                         <input cFormControl size="sm" placeholder="Phone"
-                                            [(ngModel)]="patientInsurance.patientRelation.r_phone" #piphone="ngModel"
-                                            name="piphone" required />
+                                            [ngModel]="patientInsurance.patientRelation.r_phone |phone" (ngModelChange)="patientInsurance.patientRelation.r_phone=$event"
+                                            #piphone="ngModel" name="piphone" required maxlength="15"/>
                                     </c-input-group>
                                 </c-col>
                             </c-row>
@@ -172,8 +172,8 @@
                             <!--Date Of Birth-->
                             <c-row>
                                 <c-col class="mb-2">
-                                    <c-date-picker cFormControl size="sm" placeholder="Date of Birth" [(date)]="patientInsurance.patientRelation.dob"
-                                        required="true"></c-date-picker>
+                                    <c-date-picker cFormControl size="sm" placeholder="Date of Birth"
+                                        [(date)]="patientInsurance.patientRelation.dob" required="true"></c-date-picker>
                                 </c-col>
                             </c-row>
                         </span>
