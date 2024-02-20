@@ -15,7 +15,10 @@ export class ViewCaseComponent implements OnInit {
   @Input() patient: Patient;
   @ViewChild('caseAddDaignosisComponent') caseAddDaignosisComponent: CaseAddDaignosisComponent;
   addCaseVisibility: boolean = false
+  editCaseVisibility: boolean = false;
+  mode: string;
   _cases: PatientCase[]
+  editCase: PatientCase;
   constructor(private emitPatientSessionService: EmitPatientSessionService
     , private patientService: PatientService
     , private toastr: ToastrService) { }
@@ -26,7 +29,9 @@ export class ViewCaseComponent implements OnInit {
   toggleAddCaseVisibility() {
     this.addCaseVisibility = !this.addCaseVisibility
   }
-
+  toggleEditCaseVisibility() {
+    this.editCaseVisibility = !this.editCaseVisibility
+  }
   remove(index: number, patientCase: PatientCase) {
     this.patientService.deletePatietCase(patientCase.id)
       .subscribe((result) => {
@@ -39,8 +44,14 @@ export class ViewCaseComponent implements OnInit {
       })
 
   }
-  edit(selectedCase: any) {
-
+  add() {
+    this.mode = 'create';
+    this.addCaseVisibility = !this.addCaseVisibility
+  }
+  edit(selectedCase: PatientCase) {
+    this.mode = 'edit'
+    this.editCase = selectedCase
+    this.editCaseVisibility = true
   }
   public getcases() {
     if (this._cases !== undefined && this._cases.length > 0)
@@ -58,9 +69,17 @@ export class ViewCaseComponent implements OnInit {
   createCase() {
     this.patientService.createPatientCase(this.caseAddDaignosisComponent.case, this.patient.id)
       .subscribe((reuslt) => {
-        this._cases.push(this.caseAddDaignosisComponent.case)
-        this.addCaseVisibility = false
-        this.toastr.success("successfully patient case created.")
+        switch (this.mode) {
+          case 'create':
+            this._cases.push(this.caseAddDaignosisComponent.case)
+            this.addCaseVisibility = false
+            this.toastr.success("successfully patient case created.")
+            break;
+          case 'edit':
+            this.editCaseVisibility = false
+            this.toastr.success("successfully patient case updated.")
+        }
+
         this.scrollUp();
       }, error => {
         this.toastr.error("error during create patient case.")

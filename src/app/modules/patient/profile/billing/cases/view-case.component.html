@@ -2,8 +2,7 @@
 <c-row>
     <c-col xs="12">
         <div style="float: right;" class="mb-2">
-            <c-button cButton color="primary" class="btn-sm" variant="outline" (click)="toggleAddCaseVisibility()">Add
-                Case</c-button>
+            <c-button cButton color="primary" class="btn-sm" variant="outline" (click)="add()">Create Case</c-button>
         </div>
     </c-col>
     <c-col xs="12">
@@ -11,16 +10,17 @@
             <div class="card-body">
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                        <!-- <button cButton color="info" variant="outline" class="btn-sm" (click)="edit(case)">
+                        <button cButton color="info" variant="outline" class="btn-sm" (click)="edit(case)">
                             <svg cIcon name="cilPen"></svg>
-                        </button> -->
-                        <button cButton color="info" variant="outline" class="btn-sm" (click)="remove(i,case)" color="info">
+                        </button>
+                        <button cButton color="info" variant="outline" class="btn-sm" (click)="remove(i,case)"
+                            color="info">
                             <svg cIcon name="cilTrash"></svg>
                         </button>
                     </c-button-group>
                 </div>
                 <h4><strong>{{case.title }}</strong></h4>
-                <h6>ICD-10 Codes</h6> 
+                <h6>ICD-10 Codes</h6>
                 <ul *ngFor="let code of case.caseDiagnosis">
                     <li style="list-style-type: none">
                         {{code.diagnosisCode}} - {{code.diagnosisDescription}}
@@ -30,17 +30,34 @@
         </div>
     </c-col>
 </c-row>
+
 <c-modal id="addCaseModal" [visible]="addCaseVisibility" backdrop="static" size="lg">
     <c-modal-header>
-        <h5 cModalTitle>Add Case</h5>
+        <h5 cModalTitle>Create new Case</h5>
         <button (click)="toggleAddCaseVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <case-add-daignosis *ngIf="addCaseVisibility" #caseAddDaignosisComponent (changeAddCaseVisibility)="changeAddCaseVisibility($event)"></case-add-daignosis>
+        <case-add-daignosis [mode]="mode" *ngIf="addCaseVisibility" #caseAddDaignosisComponent
+            (changeAddCaseVisibility)="changeAddCaseVisibility($event)"></case-add-daignosis>
     </c-modal-body>
     <c-modal-footer>
         <div class="col-12 text-center">
-            <button cButton variant="outline" style="width: 15%;"  size="sm" (click)="createCase()">Create Case</button>
+            <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Create</button>
+        </div>
+    </c-modal-footer>
+</c-modal>
+<c-modal id="editCaseModal" [visible]="editCaseVisibility" backdrop="static" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Edit selected Case</h5>
+        <button (click)="toggleEditCaseVisibility()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <case-add-daignosis [mode]="mode" [editcase]="editCase" *ngIf="editCaseVisibility" #caseAddDaignosisComponent
+            (changeAddCaseVisibility)="changeAddCaseVisibility($event)"></case-add-daignosis>
+    </c-modal-body>
+    <c-modal-footer>
+        <div class="col-12 text-center">
+            <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Update</button>
         </div>
     </c-modal-footer>
 </c-modal>
