@@ -56,7 +56,9 @@ export class CreateInsuranceComponent implements OnInit {
       .subscribe((result: any) => {
         this.payers = result;
         this.payerNameList = this.payers.map(a => a.displayName);
-        this.payerIdList = this.payers.map(a => a.payerId + '');
+        this.payerIdList = this.payers
+          .filter(a => a.payerId !== undefined)
+          .map(a => a.payerId + '')
       })
   }
   fillModel() {
@@ -109,13 +111,19 @@ export class CreateInsuranceComponent implements OnInit {
     }
   }
   pickPayerName(event: any) {
+
     this.payers.forEach(element => {
       if (element.displayName === event) {
-        this.selectedPayerId = element.payerId + ''
+        this.selectedPayerId = element.payerId+'';
         this.fillPayerAddress(element);
+        if (element.payerType === 'Clearing_House')
+          this.patientInsurance.visibility = 'External';
+        else
+          this.patientInsurance.visibility = 'Internal';
       }
+
     });
-    this.patientInsurance.visibility = 'External';
+
   }
   unpickPayerName() {
     this.selectedPayerId = undefined;
@@ -126,9 +134,12 @@ export class CreateInsuranceComponent implements OnInit {
       if (element.payerId + '' === event) {
         this.selectedPayerName = element.displayName
         this.fillPayerAddress(element);
+        if (element.payerType === 'Clearing_House')
+          this.patientInsurance.visibility = 'External';
+        else
+          this.patientInsurance.visibility = 'Internal';
       }
     });
-    this.patientInsurance.visibility = 'External';
   }
   unpickPayerId() {
     this.selectedPayerName = undefined
