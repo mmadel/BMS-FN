@@ -15,8 +15,9 @@ export class ViewCaseComponent implements OnInit {
   @Input() patient: Patient;
   @ViewChild('caseAddDaignosisComponent') caseAddDaignosisComponent: CaseAddDaignosisComponent;
   addCaseVisibility: boolean = false
-  editCaseVisibility:boolean = false;
+  editCaseVisibility: boolean = false;
   _cases: PatientCase[]
+  editCase: PatientCase;
   constructor(private emitPatientSessionService: EmitPatientSessionService
     , private patientService: PatientService
     , private toastr: ToastrService) { }
@@ -42,7 +43,8 @@ export class ViewCaseComponent implements OnInit {
       })
 
   }
-  edit(selectedCase: any) {
+  edit(selectedCase: PatientCase) {
+    this.editCase = selectedCase
     this.editCaseVisibility = true
   }
   public getcases() {

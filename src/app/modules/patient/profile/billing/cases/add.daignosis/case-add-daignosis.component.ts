@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
@@ -17,6 +17,8 @@ export class CaseAddDaignosisComponent implements OnInit {
   filteredDiagnosis: any;
   diagnosisCtrl = new FormControl();
   case: PatientCase;
+  @Input() editcase: PatientCase;
+  @Input() mode: string;
   constructor(private caseDiagnosisService: CaseDiagnosisService
     , private emitPatientSessionService: EmitPatientSessionService) { }
 
@@ -64,11 +66,18 @@ export class CaseAddDaignosisComponent implements OnInit {
   }
 
   initModel() {
-    this.diagnosisCtrl.setValue('')
-    this.filteredDiagnosis = []
-    this.case = {
-      caseDiagnosis: []
-    };
+    switch (this.mode) {
+      case 'create':
+        this.diagnosisCtrl.setValue('')
+        this.filteredDiagnosis = []
+        this.case = {
+          caseDiagnosis: []
+        };
+        break;
+      case 'edit':
+        this.case = this.editcase;
+        break;
+    }
   }
   selectICD10diagnosis(event: any) {
     var diagnosis: string = event.target.value
