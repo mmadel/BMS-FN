@@ -7,4 +7,5 @@ export interface InvoiceInsuranceCompanyInformation{
      assigner:string[];
      isAssignment:boolean;
      signature:string
+     insuranceType:string
 }
