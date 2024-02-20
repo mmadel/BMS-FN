@@ -6,4 +6,5 @@ export interface Payer {
     displayName?: string
     payerId?: string
     address?: BasicAddress
+    payerType?:string;
 }
