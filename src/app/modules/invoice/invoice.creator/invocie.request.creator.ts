@@ -54,7 +54,8 @@ export class InvocieRequestCreator {
             visibility: patientInsurance.visibility,
             assigner: patientInsurance.assigner,
             isAssignment: patientInsurance.patientInsuranceAdvanced.acceptAssigment,
-            signature: patientInsurance.patientInsuranceAdvanced.informationRelease
+            signature: patientInsurance.patientInsuranceAdvanced.informationRelease,
+            insuranceType:patientInsurance.patientInsurancePolicy.planType
         }
         return invoiceInsuranceCompanyInformation
     }
