@@ -9,4 +9,5 @@ export interface InvoiceInsuranceCompanyInformation {
     signature: string
     insuranceType: string
     numberOfActivePatientInsurances: number;
+    policyInformation:string[]
 }
