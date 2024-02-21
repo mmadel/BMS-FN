@@ -10,4 +10,5 @@ export interface InvoiceInsuranceCompanyInformation {
     insuranceType: string
     numberOfActivePatientInsurances: number;
     policyInformation:string[]
+    otherInsurances:any[]
 }
