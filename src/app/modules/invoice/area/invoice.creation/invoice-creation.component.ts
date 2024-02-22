@@ -9,6 +9,7 @@ import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select
 import { InvocieRequestCreator } from '../../invoice.creator/invocie.request.creator';
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { InvoiceRequest } from '../../model/temp/invoice.request';
+import { OtherPatientInsurance } from '../../model/temp/other.patient.insurance';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import { InvoiceService } from '../../service/invoice.service';
 
@@ -42,19 +43,14 @@ export class InvoiceCreationComponent implements OnInit {
     return insuranceCompanyTitle;
   }
   create(patientInsurance: PatientInsurance) {
-    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance);
+    var otherPAtientInsurances: any[] = this.constructOtherInsurances(patientInsurance);
+    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length
+      , otherPAtientInsurances);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
     this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
       , patientInsurance.visibility).pipe(
         tap((result) => {
-          invoiceRequest.invoiceBillingProviderInformation.businessName = result[0];
-          invoiceRequest.invoiceBillingProviderInformation.address = result[1];
-          invoiceRequest.invoiceBillingProviderInformation.city_state_zip = result[2];
-          invoiceRequest.invoiceBillingProviderInformation.phone = result[3]
-          invoiceRequest.invoiceBillingProviderInformation.taxId = result[4]
-          invoiceRequest.patientInformation.box26 = result[5]
-          invoiceRequest.invoiceBillingProviderInformation.npi = result[6]
-          invoiceRequest.invoiceBillingProviderInformation.taxonomy = result[7]
+          this.constructBillingProviderInformation(invoiceRequest, result)
         }),
         switchMap(() => this.invoiceService.create(invoiceRequest))
       ).subscribe((response) => {
@@ -67,19 +63,12 @@ export class InvoiceCreationComponent implements OnInit {
       })
   }
   createElectronic(patientInsurance: PatientInsurance) {
-    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance);
+    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, null);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
     this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
       , patientInsurance.visibility).pipe(
         tap((result) => {
-          invoiceRequest.invoiceBillingProviderInformation.businessName = result[0];
-          invoiceRequest.invoiceBillingProviderInformation.address = result[1];
-          invoiceRequest.invoiceBillingProviderInformation.city_state_zip = result[2];
-          invoiceRequest.invoiceBillingProviderInformation.phone = result[3]
-          invoiceRequest.invoiceBillingProviderInformation.taxId = result[4]
-          invoiceRequest.patientInformation.box26 = result[5]
-          invoiceRequest.invoiceBillingProviderInformation.npi = result[6]
-          invoiceRequest.invoiceBillingProviderInformation.taxonomy = result[7]
+          this.constructBillingProviderInformation(invoiceRequest, result)
         }),
         switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
       ).subscribe((response) => {
@@ -99,6 +88,33 @@ export class InvoiceCreationComponent implements OnInit {
     a.download = fileName + nameDatePart + '.' + extention;
     a.click();
     URL.revokeObjectURL(objectUrl);
+  }
+  private constructBillingProviderInformation(invoiceRequest: InvoiceRequest, result: any) {
+    invoiceRequest.invoiceBillingProviderInformation.businessName = result[0];
+    invoiceRequest.invoiceBillingProviderInformation.address = result[1];
+    invoiceRequest.invoiceBillingProviderInformation.city_state_zip = result[2];
+    invoiceRequest.invoiceBillingProviderInformation.phone = result[3]
+    invoiceRequest.invoiceBillingProviderInformation.taxId = result[4]
+    invoiceRequest.patientInformation.box26 = result[5]
+    invoiceRequest.invoiceBillingProviderInformation.npi = result[6]
+    invoiceRequest.invoiceBillingProviderInformation.taxonomy = result[7]
+  }
+  private constructOtherInsurances(patientInsurance: PatientInsurance): OtherPatientInsurance[] {
+    var result: OtherPatientInsurance[] = new Array();
+    this.filterpatientInsurances.filter(obj => obj.id !== patientInsurance.id)
+      .forEach(element => {
+        var otherPatientInsurance: OtherPatientInsurance;
+        var patientRelationName = element.patientRelation.r_lastName + ',' + element.patientRelation.r_firstName;
+        otherPatientInsurance = {
+          insuredName: patientRelationName,
+          policyGroup: element.patientInsurancePolicy.policyGroup,
+          planName: element.patientInsurancePolicy.plan,
+          responsibility : element.patientInsurancePolicy.responsibility,
+          createdAt: element.createdAt
+        }
+        result.push(otherPatientInsurance);
+      });
+    return result;
   }
   private findCleint() {
     this.invoiceService.findByClient(this.client.id)

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { PayerService } from 'src/app/modules/admin.tools/services/payer/payer.service';
 import { Payer } from 'src/app/modules/model/admin/payer';
@@ -114,7 +115,7 @@ export class CreateInsuranceComponent implements OnInit {
 
     this.payers.forEach(element => {
       if (element.displayName === event) {
-        this.selectedPayerId = element.payerId+'';
+        this.selectedPayerId = element.payerId + '';
         this.fillPayerAddress(element);
         if (element.payerType === 'Clearing_House')
           this.patientInsurance.visibility = 'External';
@@ -172,6 +173,7 @@ export class CreateInsuranceComponent implements OnInit {
       }
       this.notValidForm = false;
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
+      this.patientInsurance.patientRelation.r_birthDate = moment(this.patientInsurance.patientRelation.dob).unix() * 1000;
       this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
         .subscribe((result: any) => {
           this.patientInsurance.assigner = result.records.assigner;
@@ -209,9 +211,13 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_address = this.patient.address
       this.patientInsurance.patientRelation.r_birthDate = this.patient.birthDate
     } else {
-      this.patientInsurance.patientRelation = {}
-      this.patientInsurance.patientRelation.r_address = {}
-      this.patientInsurance.patientRelation.r_birthDate = undefined;
+      this.patientInsurance.patientRelation = {
+        r_gender: null,
+        r_address: {
+          country: null,
+          state: null
+        }
+      }
     }
   }
 }

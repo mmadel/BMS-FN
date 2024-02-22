@@ -32,6 +32,7 @@
                             </c-col>
                         </c-row>
                         <span *ngIf="patientInsurance.relation !== null">
+                            <!-- Name -->
                             <c-row>
                                 <c-col class="mb-1">
                                     <small
@@ -48,18 +49,19 @@
                                         <span cInputGroupText>
                                             <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
                                         </span>
-                                        <input cFormControl placeholder="piFirstName" name="pifirstName" required
+                                        <input cFormControl placeholder="FirstName" name="pifirstName" required
                                             [(ngModel)]="patientInsurance.patientRelation.r_firstName"
                                             #piFirstName="ngModel" name="fname" />
-                                        <input cFormControl placeholder="piMiddleName"
+                                        <input cFormControl placeholder="MiddleName"
                                             [(ngModel)]="patientInsurance.patientRelation.r_middleName"
                                             name="pimname" />
                                         <input cFormControl placeholder="LastName"
                                             [(ngModel)]="patientInsurance.patientRelation.r_lastName" required
-                                            #pilastname="ngModel" name="pilastname" />
+                                            #pilastname="ngModel" name="lastname" />
                                     </c-input-group>
                                 </c-col>
                             </c-row>
+                            <!--Gender-->
                             <c-row>
                                 <c-col class="mb-1">
                                     <small
@@ -82,6 +84,7 @@
                                     </c-input-group>
                                 </c-col>
                             </c-row>
+                            <!--Phone-->
                             <c-row>
                                 <c-col class="mb-1">
 
@@ -95,11 +98,13 @@
                                             <svg cIcon name="cilPhone" title="cilPhone"></svg>
                                         </span>
                                         <input cFormControl size="sm" placeholder="Phone"
-                                            [(ngModel)]="patientInsurance.patientRelation.r_phone" #piphone="ngModel"
-                                            name="piphone" required />
+                                            [ngModel]="patientInsurance.patientRelation.r_phone |phone"
+                                            (ngModelChange)="patientInsurance.patientRelation.r_phone=$event"
+                                            #piphone="ngModel" name="piphone" required maxlength="15" />
                                     </c-input-group>
                                 </c-col>
                             </c-row>
+                            <!--Address-->
                             <c-row>
                                 <c-col xs="12">
                                     <small
@@ -154,7 +159,7 @@
                                         </select>
                                     </c-col>
                                 </c-col>
-                                <c-col xs="6">
+                                <c-col xs="6" class="mb-1">
                                     <small
                                         *ngIf="notValidForm   && (piaddzipCode.errors) || piaddzipCode.invalid && (piaddzipCode.dirty || piaddzipCode.touched)"
                                         class="form-text text-danger">
@@ -164,6 +169,13 @@
                                         sizing="sm" #piaddzipCode="ngModel" name="zipCode"
                                         [(ngModel)]="patientInsurance.patientRelation.r_address.zipCode" required
                                         class="mb-1" /></c-col>
+                            </c-row>
+                            <!--Date Of Birth-->
+                            <c-row>
+                                <c-col class="mb-2">
+                                    <c-date-picker cFormControl size="sm" placeholder="Date of Birth"
+                                        [(date)]="patientInsurance.patientRelation.dob" required="true"></c-date-picker>
+                                </c-col>
                             </c-row>
                         </span>
                     </c-card-body>
@@ -255,6 +267,19 @@
                                     name="primaryid" />
                             </c-col>
                         </c-row>
+                        <c-row *ngIf="patientInsurance.patientInsurancePolicy.planType ==='Workers_Compensation_Health_Claim' ||
+                        patientInsurance.patientInsurancePolicy.planType ==='Automobile_Medical'">
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (claimCasualty.errors) ||primaryid.invalid && (claimCasualty.dirty || claimCasualty.touched)"
+                                    class="form-text text-danger">
+                                    Claim Casualty is required
+                                </small>
+                                <input cFormControl placeholder="Claim Casualty#" name="claimCasualty" required
+                                    sizing="sm" [(ngModel)]="patientInsurance.patientInsurancePolicy.claimCasualty"
+                                    #claimCasualty="ngModel" name="claimCasualty" />
+                            </c-col>
+                        </c-row>
                         <c-row>
                             <c-col class="mb-1">
                                 <small
@@ -262,7 +287,7 @@
                                     class="form-text text-danger">
                                     Policy/Group is required
                                 </small>
-                                <input cFormControl placeholder="Policy/Group" name="policygroup" required sizing="sm"
+                                <input cFormControl placeholder="Policy/Group#" name="policygroup" required sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsurancePolicy.policyGroup"
                                     #policygroup="ngModel" name="policygroup" />
                             </c-col>
@@ -274,7 +299,7 @@
                                     class="form-text text-danger">
                                     Plan/Program is required
                                 </small>
-                                <input cFormControl placeholder="Plan/Group" name="planprogram" required sizing="sm"
+                                <input cFormControl placeholder="Plan/Program" name="planprogram" required sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsurancePolicy.plan" #planprogram="ngModel"
                                     name="planprogram" />
                             </c-col>
@@ -377,7 +402,7 @@
                                     </select>
                                 </c-col>
                             </c-col>
-                            <c-col xs="6">                            
+                            <c-col xs="6">
                                 <input zipcode cFormControl id="zipCode" name="zipCode" placeholder="ZipCode"
                                     sizing="sm" #payorzipCode="ngModel" name="payorzipCode"
                                     [(ngModel)]="patientInsurance.insuranceCompanyAddress.zipCode"

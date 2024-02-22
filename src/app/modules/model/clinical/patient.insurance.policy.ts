@@ -5,4 +5,5 @@ export interface PatientInsurancePolicy {
     policyGroup?: string
     plan?: string
     employer?: string
+    claimCasualty?:string
 }
