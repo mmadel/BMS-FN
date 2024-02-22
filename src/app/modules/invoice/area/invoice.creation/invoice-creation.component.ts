@@ -9,6 +9,7 @@ import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select
 import { InvocieRequestCreator } from '../../invoice.creator/invocie.request.creator';
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { InvoiceRequest } from '../../model/temp/invoice.request';
+import { OtherPatientInsurance } from '../../model/temp/other.patient.insurance';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import { InvoiceService } from '../../service/invoice.service';
 
@@ -98,15 +99,20 @@ export class InvoiceCreationComponent implements OnInit {
     invoiceRequest.invoiceBillingProviderInformation.npi = result[6]
     invoiceRequest.invoiceBillingProviderInformation.taxonomy = result[7]
   }
-  private constructOtherInsurances(patientInsurance: PatientInsurance): any[] {
-    var result: any[] = new Array();
+  private constructOtherInsurances(patientInsurance: PatientInsurance): OtherPatientInsurance[] {
+    var result: OtherPatientInsurance[] = new Array();
     this.filterpatientInsurances.filter(obj => obj.id !== patientInsurance.id)
       .forEach(element => {
+        var otherPatientInsurance: OtherPatientInsurance;
         var patientRelationName = element.patientRelation.r_lastName + ',' + element.patientRelation.r_firstName;
-        var otherInsurance: string[] = [patientRelationName, element.patientInsurancePolicy.policyGroup,
-          element.patientInsurancePolicy.plan,
-          element.patientInsurancePolicy.responsibility]
-        result.push(otherInsurance);
+        otherPatientInsurance = {
+          insuredName: patientRelationName,
+          policyGroup: element.patientInsurancePolicy.policyGroup,
+          planName: element.patientInsurancePolicy.plan,
+          responsibility : element.patientInsurancePolicy.responsibility,
+          createdAt: element.createdAt
+        }
+        result.push(otherPatientInsurance);
       });
     return result;
   }

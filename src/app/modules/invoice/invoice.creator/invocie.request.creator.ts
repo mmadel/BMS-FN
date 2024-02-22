@@ -48,7 +48,7 @@ export class InvocieRequestCreator {
         return invoicePatientInsuredInformation;
     }
     private static createInvoiceInsuranceCompanyInformation(patientInsurance: PatientInsurance, activeCards: number, otherPatientInsurance: any[]): InvoiceInsuranceCompanyInformation {
-        var policyInforamtion: string[] = [patientInsurance.patientInsurancePolicy.policyGroup, patientInsurance.patientInsurancePolicy.plan];
+        var policyInforamtion: string[] = [patientInsurance.patientInsurancePolicy.policyGroup, patientInsurance.patientInsurancePolicy.plan,patientInsurance.patientInsurancePolicy.responsibility ];
         var invoiceInsuranceCompanyInformation: InvoiceInsuranceCompanyInformation = {
             name: patientInsurance.insuranceCompany[0],
             address: patientInsurance.insuranceCompanyAddress,

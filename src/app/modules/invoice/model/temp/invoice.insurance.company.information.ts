@@ -1,4 +1,5 @@
 import { BasicAddress } from "src/app/modules/model/common/basic.address";
+import { OtherPatientInsurance } from "./other.patient.insurance";
 
 export interface InvoiceInsuranceCompanyInformation {
     name: string;
@@ -10,5 +11,5 @@ export interface InvoiceInsuranceCompanyInformation {
     insuranceType: string
     numberOfActivePatientInsurances: number;
     policyInformation:string[]
-    otherInsurances:any[]
+    otherInsurances:OtherPatientInsurance[]
 }
