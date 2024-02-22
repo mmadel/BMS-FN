@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { map, Observable } from 'rxjs';
+import { InvoiceService } from 'src/app/modules/invoice/service/invoice.service';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PatientSessionResponse } from 'src/app/modules/model/clinical/session/patient.session.response';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
@@ -37,7 +38,8 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   patientSessions$!: Observable<PatientSessionResponse[]>;
   constructor(private patientSessionService: PatientSessionService
     , private emitPatientSessionService: EmitPatientSessionService
-    , private router: Router) { super(); }
+    , private router: Router
+    ,private invoiceService :InvoiceService) { super(); }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -73,6 +75,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
 
   }
   correctClaim(selectedPatientSession:any){   
+    this.invoiceService.correctClaim()
     this.router.navigate(['invoice/client/list']); 
   }
   changeVisibility(event: any) {
