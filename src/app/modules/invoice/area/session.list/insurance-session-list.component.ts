@@ -103,7 +103,6 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
               serviceCode: serviceCode,
               isCorrect: serviceCode.isCorrect
             }
-            console.log(JSON.stringify(line))
             lines.push(line);
           }
         }

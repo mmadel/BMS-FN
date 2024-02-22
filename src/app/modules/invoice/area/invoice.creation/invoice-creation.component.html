@@ -65,3 +65,29 @@
         </div>
     </div>
 </c-container>
+<c-modal id="create" [visible]="CorrectClaimVisibility" size="lg" backdrop="static">
+    <c-modal-header>
+        <h5 cModalTitle> Resubmission code and REF</h5>
+        <button (click)="toggleIsCorrect()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <form cForm>
+            <div class="mb-3">
+                <label cLabel for="exampleFormControlInput1">Resubmission codes</label>
+                <select aria-label="Default select example" cSelect sizing="sm" [(ngModel)]="correctCode" name="correctCode">
+                    <option value="7">Corrected claim-7</option>
+                    <option value="8">Void claim-8</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label cLabel for="REF">REF#</label>
+                <input cFormControl id="REF" placeholder="REF Number" sizing="sm" [(ngModel)]="refNumber" name="refNumber"/>
+            </div>
+        </form>
+    </c-modal-body>
+    <c-modal-footer>
+        <div class="col text-center">
+            <button cButton color="primary" variant="outline" (click)="setCorrectClaim()">OK</button>
+        </div>
+    </c-modal-footer>
+</c-modal>
