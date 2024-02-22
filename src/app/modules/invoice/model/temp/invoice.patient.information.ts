@@ -1,5 +1,6 @@
 
 import { PatientAdvancedInformation } from "src/app/modules/model/clinical/patient.advanced";
+import { ReferringProvider } from "src/app/modules/model/clinical/referring.provider";
 import { Address } from "src/app/modules/model/common/address"
 
 export interface InvoicePatientInformation {
@@ -14,4 +15,5 @@ export interface InvoicePatientInformation {
     ssn: string;
     externalId: string;
     box26: string;
+    referringProvider?:ReferringProvider
 }
