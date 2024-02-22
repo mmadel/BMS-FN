@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { ReferringProvider } from 'src/app/modules/model/clinical/referring.provider';
+import { ReferringProviderIdQualifier } from 'src/app/modules/model/enum/referring.provider.id.qualifier';
 import { ProviderService } from '../../service/provider.service';
 import { ReferringProviderService } from '../../service/referring-provider.service';
 
@@ -14,9 +15,11 @@ import { ReferringProviderService } from '../../service/referring-provider.servi
 export class ReferringProviderCreateComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   npiNotFound: boolean = false
-  referringProvider:ReferringProvider;
+  referringProvider: ReferringProvider;
   npiReferringProviderCtrl = new FormControl();
   isLoading = false;
+  idQualifierKeys = Object.keys;
+  idQualifiers = ReferringProviderIdQualifier;
   constructor(private referringProviderService: ReferringProviderService
     , private providerService: ProviderService
     , private toastr: ToastrService) { }
@@ -24,48 +27,49 @@ export class ReferringProviderCreateComponent implements OnInit {
   ngOnInit(): void {
     this.initModel();
     this.npiReferringProviderCtrl.valueChanges
-    .pipe(
-      filter(text => {
-        if (!Number(text)) {
-          return false;
-        }
-        if (text === undefined) {
-          return false;
-        }
-        if (text.length > 1) {
-          return true
-        } else {
+      .pipe(
+        filter(text => {
+          if (!Number(text)) {
+            return false;
+          }
+          if (text === undefined) {
+            return false;
+          }
+          if (text.length > 1) {
+            return true
+          } else {
+            this.initModel();
+            return false;
+          }
+        }),
+        debounceTime(500),
+        tap((value) => {
           this.initModel();
-          return false;
+          this.isLoading = true;
+        }),
+        switchMap((value) => {
+          return this.providerService.findProviderByNPI(value)
+            .pipe(
+              finalize(() => {
+                this.isLoading = false
+              }),
+            )
         }
-      }),
-      debounceTime(500),
-      tap((value) => {
-        this.initModel();
-        this.isLoading = true;
-      }),
-      switchMap((value) => {
-        return this.providerService.findProviderByNPI(value)
-          .pipe(
-            finalize(() => {
-              this.isLoading = false
-            }),
-          )
-      }
-      )
-    ).subscribe(data => {
-      this.npiNotFound = false;
-      this.referringProvider = data;
-      if (this.referringProvider.npi === null) {
-        this.initModel();
-        this.npiNotFound = true;
-      }
-    },
-      error => {
-        this.isLoading = false
-        this.initModel();
-        this.npiNotFound = true;
-      });
+        )
+      ).subscribe(data => {
+        this.npiNotFound = false;
+        this.referringProvider = data;
+        this.referringProvider.referringProviderIdQualifier = null;
+        if (this.referringProvider.npi === null) {
+          this.initModel();
+          this.npiNotFound = true;
+        }
+      },
+        error => {
+          this.isLoading = false
+          this.initModel();
+          this.npiNotFound = true;
+        });
   }
   create() {
     this.referringProviderService.create(this.referringProvider)
@@ -80,7 +84,8 @@ export class ReferringProviderCreateComponent implements OnInit {
   }
   private initModel() {
     this.referringProvider = {
-      npi:null
+      npi: null,
+      referringProviderIdQualifier: null
     }
   }
 }
