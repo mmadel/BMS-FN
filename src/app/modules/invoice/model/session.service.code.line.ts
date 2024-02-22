@@ -12,4 +12,5 @@ export interface SessionServiceCodeLine {
     data?:PatientSession
     cptId?:number
     serviceCode:ServiceCode
+    isCorrect?:boolean
 }

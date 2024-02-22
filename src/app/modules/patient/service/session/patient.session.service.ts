@@ -32,4 +32,9 @@ export class PatientSessionService extends BasePaginationService {
     var url = this.baseUrl + '/find/id/'+sessionId;
     return this.httpClient.get(url);
   }
+  correctClaim(patientSession: PatientSession) {
+    var url = this.baseUrl + '/correct';
+    const headers = { 'content-type': 'application/json' }
+    return this.httpClient.put(`${url}`, JSON.stringify(patientSession), { 'headers': headers })
+  }
 }

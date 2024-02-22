@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
 import { InvoiceService } from 'src/app/modules/invoice/service/invoice.service';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
@@ -39,7 +40,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   constructor(private patientSessionService: PatientSessionService
     , private emitPatientSessionService: EmitPatientSessionService
     , private router: Router
-    ,private invoiceService :InvoiceService) { super(); }
+    , private toastr: ToastrService) { super(); }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -69,17 +70,21 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   toggleEditSession(item: any) {
     this.editSessionVisibility = !this.editSessionVisibility;
   }
-  openEditPateintSession(selectedPatientSession: any){
+  openEditPateintSession(selectedPatientSession: any) {
     this.editSessionVisibility = true;
     this.emitPatientSessionService.patientSession$.next(selectedPatientSession.data);
 
   }
-  correctClaim(selectedPatientSession:any){   
-    this.invoiceService.correctClaim()
-    this.router.navigate(['invoice/client/list']); 
+  correctClaim(selectedPatientSession: any) {
+    this.patientSessionService.correctClaim(selectedPatientSession.data)
+      .subscribe(result => {
+        this.router.navigate(['invoice/client/list']);
+      }, (error) => {
+        this.toastr.error('Error during correcting pateint session');
+      })
   }
   changeVisibility(event: any) {
-    if (event === 'close'){
+    if (event === 'close') {
       this.editSessionVisibility = false;
       this.find();
     }
