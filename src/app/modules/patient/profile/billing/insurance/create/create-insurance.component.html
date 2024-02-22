@@ -98,8 +98,9 @@
                                             <svg cIcon name="cilPhone" title="cilPhone"></svg>
                                         </span>
                                         <input cFormControl size="sm" placeholder="Phone"
-                                            [ngModel]="patientInsurance.patientRelation.r_phone |phone" (ngModelChange)="patientInsurance.patientRelation.r_phone=$event"
-                                            #piphone="ngModel" name="piphone" required maxlength="15"/>
+                                            [ngModel]="patientInsurance.patientRelation.r_phone |phone"
+                                            (ngModelChange)="patientInsurance.patientRelation.r_phone=$event"
+                                            #piphone="ngModel" name="piphone" required maxlength="15" />
                                     </c-input-group>
                                 </c-col>
                             </c-row>
@@ -266,6 +267,19 @@
                                     name="primaryid" />
                             </c-col>
                         </c-row>
+                        <c-row *ngIf="patientInsurance.patientInsurancePolicy.planType ==='Workers_Compensation_Health_Claim' ||
+                        patientInsurance.patientInsurancePolicy.planType ==='Automobile_Medical'">
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (claimCasualty.errors) ||primaryid.invalid && (claimCasualty.dirty || claimCasualty.touched)"
+                                    class="form-text text-danger">
+                                    Claim Casualty is required
+                                </small>
+                                <input cFormControl placeholder="Claim Casualty#" name="claimCasualty" required
+                                    sizing="sm" [(ngModel)]="patientInsurance.patientInsurancePolicy.claimCasualty"
+                                    #claimCasualty="ngModel" name="claimCasualty" />
+                            </c-col>
+                        </c-row>
                         <c-row>
                             <c-col class="mb-1">
                                 <small
@@ -273,7 +287,7 @@
                                     class="form-text text-danger">
                                     Policy/Group is required
                                 </small>
-                                <input cFormControl placeholder="Policy/Group" name="policygroup" required sizing="sm"
+                                <input cFormControl placeholder="Policy/Group#" name="policygroup" required sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsurancePolicy.policyGroup"
                                     #policygroup="ngModel" name="policygroup" />
                             </c-col>
