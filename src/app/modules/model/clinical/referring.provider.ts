@@ -4,4 +4,6 @@ export interface ReferringProvider {
     lastName?: string;
     professionAbbr?:string
     npi?: string;
+    referringProviderId?:string
+    referringProviderIdQualifier?:string
 }
