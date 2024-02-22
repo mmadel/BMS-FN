@@ -36,7 +36,8 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   details_visible = Object.create({});
   patientSessions$!: Observable<PatientSessionResponse[]>;
   constructor(private patientSessionService: PatientSessionService
-    , private emitPatientSessionService: EmitPatientSessionService) { super(); }
+    , private emitPatientSessionService: EmitPatientSessionService
+    , private router: Router) { super(); }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -71,8 +72,8 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     this.emitPatientSessionService.patientSession$.next(selectedPatientSession.data);
 
   }
-  correctClaim(selectedPatientSession:any){
-    console.log(JSON.stringify(selectedPatientSession))
+  correctClaim(selectedPatientSession:any){   
+    this.router.navigate(['invoice/client/list']); 
   }
   changeVisibility(event: any) {
     if (event === 'close'){
