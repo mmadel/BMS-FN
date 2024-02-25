@@ -76,6 +76,9 @@ export class CreateProviderComponent implements OnInit {
       ).subscribe(data => {
         this.npiNotFound = false;
         this.provider = data;
+        this.provider.legacyID = {
+          providerIdQualifier: null
+        }
         if (this.provider.npi === null) {
           this.initModel();
           this.npiNotFound = true;
@@ -88,17 +91,18 @@ export class CreateProviderComponent implements OnInit {
         });
   }
   create() {
-    console.log(this.providerCreateForm.valid)
+
     if (this.providerCreateForm.valid) {
-      this.providerService.create(this.provider)
-        .subscribe((result) => {
-          this.toastr.success("Provider Created")
-          this.changeVisibility.emit('close');
-          this.providerCreateForm.reset();
-          this.notValidForm = false;
-        }, (error) => {
-          this.toastr.error("Error in  Provider Creation")
-        })
+      console.log(JSON.stringify(this.provider))
+      // this.providerService.create(this.provider)
+      //   .subscribe((result) => {
+      //     this.toastr.success("Provider Created")
+      //     this.changeVisibility.emit('close');
+      //     this.providerCreateForm.reset();
+      //     this.notValidForm = false;
+      //   }, (error) => {
+      //     this.toastr.error("Error in  Provider Creation")
+      //   })
     } else {
       this.notValidForm = true;
     }
@@ -118,6 +122,7 @@ export class CreateProviderComponent implements OnInit {
     this.payers.forEach(element => {
       if (element.displayName === event) {
         this.selectedPayerId = element.payerId + '';
+        this.provider.legacyID.payerName = element.displayName;
       }
 
     });
@@ -129,6 +134,7 @@ export class CreateProviderComponent implements OnInit {
     this.payers.forEach(element => {
       if (element.payerId + '' === event) {
         this.selectedPayerName = element.displayName
+        this.provider.legacyID.payerName = element.displayName;
       }
     });
   }
