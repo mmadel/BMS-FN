@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { switchMap, tap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
@@ -23,7 +23,13 @@ export class InvoiceCreationComponent implements OnInit {
   @Input() patientInsurances: PatientInsurance[]
   @Input() selectedSessionServiceLine: SelectedSessionServiceLine[];
   @Output() changeVisibility = new EventEmitter<string>()
+  isCorrectClaim: boolean;
+  CorrectClaimVisibility: boolean;
+  correctCode: string = '7';
+  refNumber?: string;
+  invoiceRequest: InvoiceRequest;
   filterpatientInsurances: PatientInsurance[]
+  patientInsurance: PatientInsurance;
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
     , private invoiceEmitterService: InvoiceEmitterService
@@ -42,40 +48,51 @@ export class InvoiceCreationComponent implements OnInit {
       insuranceCompanyTitle = patientInsurance.insuranceCompany[0] + ' assinged to (' + patientInsurance.assigner[1] + ')';
     return insuranceCompanyTitle;
   }
+
   create(patientInsurance: PatientInsurance) {
+    this.patientInsurance = patientInsurance;
     var otherPAtientInsurances: any[] = this.constructOtherInsurances(patientInsurance);
-    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length
+    this.invoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length
       , otherPAtientInsurances);
+    this.invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
+    this.checkIsCorrectServiceLines(this.selectedSessionServiceLine)
+    if (!this.CorrectClaimVisibility) {
+      this.execute(patientInsurance)
+    }
+  }
+  createElectronic(patientInsurance: PatientInsurance) {
+    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, null);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
+    if (!this.CorrectClaimVisibility) {
+      this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
+        , patientInsurance.visibility).pipe(
+          tap((result) => {
+            this.constructBillingProviderInformation(invoiceRequest, result)
+          }),
+          switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
+        ).subscribe((response) => {
+          this.toastr.success("Invocie created successfully ")
+          this.changeVisibility.emit('close');
+          this.findCleint();
+          this.constructExportedFile(response, 'cms-', 'json')
+        }, error => {
+          this.toastr.error("error in create invoice")
+        })
+    }
+
+  }
+  execute(patientInsurance: PatientInsurance) {
     this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
       , patientInsurance.visibility).pipe(
         tap((result) => {
-          this.constructBillingProviderInformation(invoiceRequest, result)
+          this.constructBillingProviderInformation(this.invoiceRequest, result)
         }),
-        switchMap(() => this.invoiceService.create(invoiceRequest))
+        switchMap(() => this.invoiceService.create(this.invoiceRequest))
       ).subscribe((response) => {
         this.toastr.success("Invocie created successfully ")
         this.changeVisibility.emit('close');
         this.findCleint();
         this.constructExportedFile(response, 'cms-', 'pdf')
-      }, error => {
-        this.toastr.error("error in create invoice")
-      })
-  }
-  createElectronic(patientInsurance: PatientInsurance) {
-    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, null);
-    invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
-    this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
-      , patientInsurance.visibility).pipe(
-        tap((result) => {
-          this.constructBillingProviderInformation(invoiceRequest, result)
-        }),
-        switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
-      ).subscribe((response) => {
-        this.toastr.success("Invocie created successfully ")
-        this.changeVisibility.emit('close');
-        this.findCleint();
-        this.constructExportedFile(response, 'cms-', 'json')
       }, error => {
         this.toastr.error("error in create invoice")
       })
@@ -109,7 +126,7 @@ export class InvoiceCreationComponent implements OnInit {
           insuredName: patientRelationName,
           policyGroup: element.patientInsurancePolicy.policyGroup,
           planName: element.patientInsurancePolicy.plan,
-          responsibility : element.patientInsurancePolicy.responsibility,
+          responsibility: element.patientInsurancePolicy.responsibility,
           createdAt: element.createdAt
         }
         result.push(otherPatientInsurance);
@@ -138,5 +155,22 @@ export class InvoiceCreationComponent implements OnInit {
 
     this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
   }
-
+  private checkIsCorrectServiceLines(selectedSessionServiceLine: SelectedSessionServiceLine[]) {
+    var isCorrect = selectedSessionServiceLine.every(obj => obj.serviceLine.isCorrect);
+    this.isCorrectClaim = isCorrect;
+    if (this.isCorrectClaim)
+      this.CorrectClaimVisibility = true;
+  }
+  toggleIsCorrect() {
+    this.CorrectClaimVisibility = !this.CorrectClaimVisibility;
+  }
+  setCorrectClaim() {
+    this.invoiceRequest.correctClaimInformation = {
+      resubmissionCode: this.correctCode,
+      refNumber: this.refNumber
+    }
+    this.toggleIsCorrect();
+    this.execute(this.patientInsurance)
+  }
 }
+

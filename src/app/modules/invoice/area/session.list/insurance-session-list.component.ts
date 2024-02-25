@@ -34,8 +34,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   constructor(
     private invoiceEmitterService: InvoiceEmitterService
     , private emitPatientSessionService: EmitPatientSessionService
-    ,private patientSessionService:PatientSessionService
-    ,private invoiceService:InvoiceService) { }
+    , private patientSessionService: PatientSessionService
+    , private invoiceService: InvoiceService) { }
   ngAfterViewInit(): void {
 
   }
@@ -58,6 +58,10 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     {
       key: 'charge',
       _style: { width: '8%' },
+    },
+    {
+      key: 'correct',
+      label: 'Correct',
     },
     {
       key: 'actions',
@@ -96,7 +100,8 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
               charge: serviceCode.cptCode.charge,
               cptId: serviceCode.id,
               data: session,
-              serviceCode: serviceCode
+              serviceCode: serviceCode,
+              isCorrect: serviceCode.isCorrect
             }
             lines.push(line);
           }
@@ -113,10 +118,10 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   }
   editSession(event: any) {
     this.patientSessionService.findSessionById(event.data.id)
-    .subscribe((result)=>{
-      this.editSessionVisibility = true;
-      this.emitPatientSessionService.patientSession$.next(result.records);
-    })
+      .subscribe((result) => {
+        this.editSessionVisibility = true;
+        this.emitPatientSessionService.patientSession$.next(result.records);
+      })
   }
   editSessionItem(item: any, itemType: string) {
     this.sessionItemType = itemType;
@@ -137,16 +142,16 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
   }
 
   changeSessionEditVisibility(event: any) {
-    if (event === 'close'){
+    if (event === 'close') {
       this.invoiceService.findByClient(this.client.id)
-      .subscribe((returnedClient:any)=>{
-        this.editSessionVisibility = false;
-        var clientSessionResponse: ClientSessionResponse = {
-          sessions: returnedClient.sessions,
-          client: returnedClient
-        }
-        this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
-      }) 
+        .subscribe((returnedClient: any) => {
+          this.editSessionVisibility = false;
+          var clientSessionResponse: ClientSessionResponse = {
+            sessions: returnedClient.sessions,
+            client: returnedClient
+          }
+          this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
+        })
     }
   }
   changeSessionItemVisibility(event: any) {

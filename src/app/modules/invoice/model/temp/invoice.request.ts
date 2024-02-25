@@ -1,4 +1,5 @@
 import { SelectedSessionServiceLine } from "src/app/modules/model/invoice/select.session.service.line";
+import { CorrectClaimInformation } from "./correct.claim.information";
 import { InvoiceBillingProviderInformation } from "./invoice.billing.provider.information";
 import { InvoiceInsuranceCompanyInformation } from "./invoice.insurance.company.information";
 import { InvoicePatientInformation } from "./invoice.patient.information";
@@ -12,4 +13,5 @@ export interface InvoiceRequest {
     invoiceInsuranceCompanyInformation:InvoiceInsuranceCompanyInformation 
     invoiceBillingProviderInformation:InvoiceBillingProviderInformation ;
     invoiceRequestConfiguration:InvoiceRequestConfiguration
+    correctClaimInformation?:CorrectClaimInformation
 }

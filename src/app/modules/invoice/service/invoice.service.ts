@@ -24,16 +24,20 @@ export class InvoiceService extends BasePaginationService {
     return this.httpClient.get(url)
   }
 
+  correctClaim() {
+    var url = this.baseUrl + '';
+    return this.httpClient.get(url)
+  }
   create(invoiceRequest: InvoiceRequest) {
-    const headers = { 'content-type': 'application/json'}
+    const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create'
     return this.httpClient.post(`${url}`, JSON.stringify(invoiceRequest), { responseType: 'blob', 'headers': headers })
   }
-  
+
   createElectronic(invoiceRequest: InvoiceRequest) {
-    const headers = { 'content-type': 'application/json'}
+    const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create/electronic'
     return this.httpClient.post(`${url}`, JSON.stringify(invoiceRequest), { responseType: 'blob', 'headers': headers })
   }
-  
+
 }

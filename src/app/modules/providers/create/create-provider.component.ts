@@ -2,7 +2,10 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { FormControl, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
+import { PayerService } from '../../admin.tools/services/payer/payer.service';
+import { Payer } from '../../model/admin/payer';
 import { Provider } from '../../model/clinical/provider/provider';
+import { ReferringProviderIdQualifier } from '../../model/enum/referring.provider.id.qualifier';
 import { ProviderService } from '../service/provider.service';
 
 @Component({
@@ -18,12 +21,28 @@ export class CreateProviderComponent implements OnInit {
   @ViewChild('providerCreateForm') providerCreateForm: NgForm;
   @Output() changeVisibility = new EventEmitter<string>()
   provider: Provider;
+  idQualifierKeys = Object.keys;
+  idQualifiers = ReferringProviderIdQualifier;
+  payerNameList: string[];
+  payerIdList: string[];
+  selectedPayerName: string;
+  selectedPayerId: string
+  payers: Payer[]
   constructor(private providerService: ProviderService
-    , private toastr: ToastrService) { }
+    , private toastr: ToastrService
+    , private payerService: PayerService) { }
 
 
   ngOnInit(): void {
     this.initModel();
+    this.payerService.findAll()
+      .subscribe((result: any) => {
+        this.payers = result;
+        this.payerNameList = this.payers.map(a => a.displayName);
+        this.payerIdList = this.payers
+          .filter(a => a.payerId !== undefined)
+          .map(a => a.payerId + '')
+      })
     this.npiCtrl.valueChanges
       .pipe(
         filter(text => {
@@ -57,6 +76,9 @@ export class CreateProviderComponent implements OnInit {
       ).subscribe(data => {
         this.npiNotFound = false;
         this.provider = data;
+        this.provider.legacyID = {
+          providerIdQualifier: null
+        }
         if (this.provider.npi === null) {
           this.initModel();
           this.npiNotFound = true;
@@ -69,7 +91,9 @@ export class CreateProviderComponent implements OnInit {
         });
   }
   create() {
+
     if (this.providerCreateForm.valid) {
+      console.log(JSON.stringify(this.provider))
       this.providerService.create(this.provider)
         .subscribe((result) => {
           this.toastr.success("Provider Created")
@@ -85,9 +109,36 @@ export class CreateProviderComponent implements OnInit {
   }
   private initModel() {
     this.provider = {
-      npi:null,
+      npi: null,
       providerInfo: {},
-      address: {}
+      address: {},
+      legacyID: {
+        providerIdQualifier: null
+      }
     }
+  }
+  pickPayerName(event: any) {
+
+    this.payers.forEach(element => {
+      if (element.displayName === event) {
+        this.selectedPayerId = element.payerId + '';
+        this.provider.legacyID.payerName = element.displayName;
+      }
+
+    });
+  }
+  unpickPayerName() {
+    this.selectedPayerId = undefined;
+  }
+  pickPayerId(event: any) {
+    this.payers.forEach(element => {
+      if (element.payerId + '' === event) {
+        this.selectedPayerName = element.displayName
+        this.provider.legacyID.payerName = element.displayName;
+      }
+    });
+  }
+  unpickPayerId() {
+    this.selectedPayerName = undefined
   }
 }
