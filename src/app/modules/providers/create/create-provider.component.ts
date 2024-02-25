@@ -3,6 +3,7 @@ import { FormControl, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { Provider } from '../../model/clinical/provider/provider';
+import { ReferringProviderIdQualifier } from '../../model/enum/referring.provider.id.qualifier';
 import { ProviderService } from '../service/provider.service';
 
 @Component({
@@ -18,6 +19,8 @@ export class CreateProviderComponent implements OnInit {
   @ViewChild('providerCreateForm') providerCreateForm: NgForm;
   @Output() changeVisibility = new EventEmitter<string>()
   provider: Provider;
+  idQualifierKeys = Object.keys;
+  idQualifiers = ReferringProviderIdQualifier;
   constructor(private providerService: ProviderService
     , private toastr: ToastrService) { }
 
@@ -87,7 +90,10 @@ export class CreateProviderComponent implements OnInit {
     this.provider = {
       npi:null,
       providerInfo: {},
-      address: {}
+      address: {},
+      legacyID:{
+        providerIdQualifier:null
+      }
     }
   }
 }
