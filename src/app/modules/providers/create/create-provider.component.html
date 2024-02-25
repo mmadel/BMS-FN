@@ -290,7 +290,7 @@
                     </c-card-header>
                     <c-card-body>
                         <c-row [gutter]="0">
-                            <c-col xs="6" class="mb-1">
+                            <c-col xs="6" class="mb-3">
                                 <ng-autocomplete [data]="payerNameList" [searchKeyword]="" id="payername"
                                     name="patientname" placeholder="Payer Name" [itemTemplate]="itemTemplate"
                                     (selected)='pickPayerName($event)' (inputCleared)="unpickPayerName()"
@@ -304,7 +304,7 @@
                                     <div [innerHTML]="notFound"></div>
                                 </ng-template>
                             </c-col>
-                            <c-col xs="6" class="mb-1">
+                            <c-col xs="6" class="mb-3">
                                 <ng-autocomplete [data]="payerIdList" [searchKeyword]="" id="payerid" name="payerid"
                                     placeholder="Payer Id" [itemTemplate]="itemTemplate"
                                     (selected)='pickPayerId($event)' (inputCleared)="unpickPayerId()"
