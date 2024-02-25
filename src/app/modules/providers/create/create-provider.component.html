@@ -12,7 +12,6 @@
     </c-nav-item>
 </c-nav>
 <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
-
     <c-tab-pane tabPaneIdx=0>
         <c-row>
             <c-col class="col my-2">
@@ -21,51 +20,82 @@
             </c-col>
         </c-row>
         <!-- provider information-->
-        <c-row>
-            <c-col xs="12">
-                <c-card class="mb-4">
-                    <c-card-header>
-                        <div style="float: left;">
-                            <svg cIcon name="cilUser" title="cilUser" size="xxl"></svg>
-                        </div>
-                        <c-row>
-                            <c-col class="mb-1">
-                                <h3>Provider Information</h3>
-                            </c-col>
-                        </c-row>
-                    </c-card-header>
-                    <c-card-body>
-                        <c-row>
-                            <c-col class="mb-1">
-                                <c-input-group sizing="sm">
-                                    <span cInputGroupText>
-                                        <svg cIcon name="cilUser" title="cilUser"></svg>
-                                    </span>
-                                    <input cFormControl [(ngModel)]="provider.firstName" name="prpFirstName"
-                                        placeholder="First Name" />
-                                    <input cFormControl [(ngModel)]="provider.lastName" name="prlastname"
-                                        placeholder="Last Name" />
-                                </c-input-group>
-                            </c-col>
-                        </c-row>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <span cInputGroupText>
-                                <svg cIcon name="cilPhone" title="cilPhone"></svg>
-                            </span>
-                            <input placeholder="Phone" cFormControl id="phone" name="phone" sizing="sm" required
-                                #phone="ngModel" [(ngModel)]="provider.phone" />
-                        </c-input-group>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <span cInputGroupText>
-                                <svg cIcon name="cibMailRu" title="cibMailRu"></svg>
-                            </span>
-                            <input placeholder="Email" cFormControl id="email" name="email" sizing="sm" required
-                                #email="ngModel" [(ngModel)]="provider.email" />
-                        </c-input-group>
-                    </c-card-body>
-                </c-card>
-            </c-col>
-        </c-row>
+        <form cForm #providerCreateForm="ngForm">
+            <c-row>
+                <c-col xs="12">
+                    <c-card class="mb-4">
+                        <c-card-header>
+                            <div style="float: left;">
+                                <svg cIcon name="cilUser" title="cilUser" size="xxl"></svg>
+                            </div>
+                            <c-row>
+                                <c-col class="mb-1">
+                                    <h3>Provider Information</h3>
+                                </c-col>
+                            </c-row>
+                        </c-card-header>
+                        <c-card-body>
+                            <c-row>
+                                <small
+                                    *ngIf="notValidForm   && (prpFirstName.errors) ||   prpFirstName.invalid && (prpFirstName.dirty || prpFirstName.touched)
+                                    || notValidForm   && (prlastname.errors) ||   prlastname.invalid && (prlastname.dirty || prlastname.touched)"
+                                    class="form-text text-danger">
+                                    <span
+                                        *ngIf="notValidForm   && (prpFirstName.errors) ||   prpFirstName.invalid && (prpFirstName.dirty || prpFirstName.touched)">
+                                        First Name is required</span>
+                                    <span
+                                        *ngIf="notValidForm   && (prlastname.errors) ||   prlastname.invalid && (prlastname.dirty || prlastname.touched)">
+                                        Last Name is required</span>
+                                </small>
+                                <c-col class="mb-1">
+                                    <c-input-group sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilUser" title="cilUser"></svg>
+                                        </span>
+                                        <input cFormControl [(ngModel)]="provider.firstName" name="prpLastName"
+                                            placeholder="First Name" #prpFirstName="ngModel" required />
+                                        <input cFormControl [(ngModel)]="provider.lastName" name="prlastname"
+                                            #prlastname="ngModel" required placeholder="Last Name" />
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                            <c-row>
+                                <small
+                                    *ngIf="notValidForm   && (prophone.errors) ||   prophone.invalid && (prophone.dirty || prophone.touched)"
+                                    class="form-text text-danger">
+                                    Phone required
+                                </small>
+                                <c-col class="mb-1">
+                                    <c-input-group class="mb-3" sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilPhone" title="cilPhone"></svg>
+                                        </span>
+                                        <input placeholder="Phone" cFormControl id="phone" name="prophone" sizing="sm"
+                                            required #prophone="ngModel" [(ngModel)]="provider.phone" />
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                            <c-row>
+                                <small
+                                    *ngIf="notValidForm   && (premail.errors) ||   premail.invalid && (premail.dirty || premail.touched)"
+                                    class="form-text text-danger">
+                                    Emial required
+                                </small>
+                                <c-col class="mb-1">
+                                    <c-input-group class="mb-3" sizing="sm">
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cibMailRu" title="cibMailRu"></svg>
+                                        </span>
+                                        <input placeholder="Email" cFormControl id="premail" name="premail" sizing="sm"
+                                            required #premail="ngModel" [(ngModel)]="provider.email" />
+                                    </c-input-group>
+                                </c-col>
+                            </c-row>
+                        </c-card-body>
+                    </c-card>
+                </c-col>
+            </c-row>
+        </form>
         <!-- Provider Address information-->
         <c-row>
             <c-col xs="12">
@@ -81,18 +111,46 @@
                         </c-row>
                     </c-card-header>
                     <c-card-body>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <input placeholder="Address" cFormControl id="address" name="address" sizing="sm" required
-                                #address="ngModel" [(ngModel)]="provider.address.first" />
-                        </c-input-group>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <input placeholder="State" cFormControl id="state" name="state" sizing="sm" required
-                                #state="ngModel" [(ngModel)]="provider.address.state" />
-                        </c-input-group>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <input placeholder="Zip Code" cFormControl id="zipCode" name="zipCode" sizing="sm" required
-                                #zipCode="ngModel" [(ngModel)]="provider.address.zipCode" />
-                        </c-input-group>
+                        <c-row>
+                            <small
+                                *ngIf="notValidForm   && (proaddress.errors) ||   proaddress.invalid && (proaddress.dirty || proaddress.touched)"
+                                class="form-text text-danger">
+                                Address required
+                            </small>
+                            <c-col class="mb-1">
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <input placeholder="Address" cFormControl id="address" name="proaddress" sizing="sm"
+                                        required #proaddress="ngModel" [(ngModel)]="provider.address.first" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <small
+                                *ngIf="notValidForm   && (prstate.errors) ||   prstate.invalid && (prstate.dirty || prstate.touched)"
+                                class="form-text text-danger">
+                                State required
+                            </small>
+                            <c-col class="mb-1">
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <input placeholder="State" cFormControl id="prstate" name="prstate" sizing="sm"
+                                        required #prstate="ngModel" [(ngModel)]="provider.address.state" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <small
+                                *ngIf="notValidForm   && (przipCode.errors) ||   przipCode.invalid && (przipCode.dirty || przipCode.touched)"
+                                class="form-text text-danger">
+                                zipcode required
+                            </small>
+                            <c-col class="mb-1">
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <input placeholder="Zip Code" cFormControl id="przipCode" name="przipCode" required
+                                        sizing="sm" required #przipCode="ngModel"
+                                        [(ngModel)]="provider.address.zipCode" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
                     </c-card-body>
                 </c-card>
             </c-col>
@@ -112,51 +170,107 @@
                         </c-row>
                     </c-card-header>
                     <c-card-body>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <span cInputGroupText style="width: 10%;">
-                                License
-                            </span>
-                            <input placeholder="License" cFormControl id="license" name="license" sizing="sm" required
-                                #license="ngModel" [(ngModel)]="provider.providerInfo.license" />
-                        </c-input-group>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <span cInputGroupText style="width: 10%;">
-                                Taxonomy
-                            </span>
-                            <input placeholder="Taxonomy Code" cFormControl id="taxonomyCode" name="taxonomyCode"
-                                sizing="sm" required #taxonomyCode="ngModel"
-                                [(ngModel)]="provider.providerInfo.taxonomyCode" />
-                        </c-input-group>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <span cInputGroupText style="width: 10%;">
-                                Tax ID
-                            </span>
-                            <input placeholder="Tax Id" cFormControl id="taxId" name="taxId" sizing="sm" required
-                                #taxId="ngModel" [(ngModel)]="provider.providerInfo.taxId" />
-                        </c-input-group>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <span cInputGroupText style="width: 10%;">
-                                professionAbbr
-                            </span>
-                            <input placeholder="Profession Abbr" cFormControl id="professionAbbr" name="professionAbbr"
-                                sizing="sm" required #professionAbbr="ngModel"
-                                [(ngModel)]="provider.providerInfo.professionAbbr" />
-                        </c-input-group>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <span cInputGroupText style="width: 10%;">
-                                Credentials
-                            </span>
-                            <input placeholder="Credentials" cFormControl id="credentials" name="credentials"
-                                sizing="sm" required #credentials="ngModel"
-                                [(ngModel)]="provider.providerInfo.credentials" />
-                        </c-input-group>
-                        <c-input-group class="mb-3" sizing="sm">
-                            <span cInputGroupText style="width: 10%;">
-                                Group
-                            </span>
-                            <input placeholder="Add to group" cFormControl id="group" name="group" sizing="sm" required
-                                #group="ngModel" [(ngModel)]="provider.providerInfo.group" />
-                        </c-input-group>
+                        <c-row>
+                            <small
+                                *ngIf="notValidForm   && (prlicense.errors) ||   prlicense.invalid && (prlicense.dirty || prlicense.touched)"
+                                class="form-text text-danger">
+                                License required
+                            </small>
+                            <c-col class="mb-1">
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">
+                                        License
+                                    </span>
+                                    <input placeholder="License" cFormControl id="license" name="prlicense" sizing="sm"
+                                        required #prlicense="ngModel" [(ngModel)]="provider.providerInfo.license" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (prtaxonomyCode.errors) ||   prtaxonomyCode.invalid && (prtaxonomyCode.dirty || prtaxonomyCode.touched)"
+                                    class="form-text text-danger">
+                                    Taxonomy Code required
+                                </small>
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">
+                                        Taxonomy
+                                    </span>
+                                    <input placeholder="Taxonomy Code" cFormControl id="prtaxonomyCode"
+                                        name="prtaxonomyCode" sizing="sm" required #prtaxonomyCode="ngModel"
+                                        [(ngModel)]="provider.providerInfo.taxonomyCode" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (prtaxId.errors) ||   prtaxId.invalid && (prtaxId.dirty || prtaxId.touched)"
+                                    class="form-text text-danger">
+                                    Tax ID required
+                                </small>
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">
+                                        Tax ID
+                                    </span>
+                                    <input placeholder="Tax Id" cFormControl id="prtaxId" name="prtaxId" sizing="sm"
+                                        required #prtaxId="ngModel" [(ngModel)]="provider.providerInfo.taxId" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (prprofessionAbbr.errors) ||   prprofessionAbbr.invalid && (prprofessionAbbr.dirty || prprofessionAbbr.touched)"
+                                    class="form-text text-danger">
+                                    professionAbbr required
+                                </small>
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">
+                                        professionAbbr
+                                    </span>
+                                    <input placeholder="Profession Abbr" cFormControl id="prprofessionAbbr"
+                                        name="prprofessionAbbr" sizing="sm" required #prprofessionAbbr="ngModel"
+                                        [(ngModel)]="provider.providerInfo.professionAbbr" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (prcredentials.errors) ||   prcredentials.invalid && (prcredentials.dirty || prcredentials.touched)"
+                                    class="form-text text-danger">
+                                    Credentials required
+                                </small>
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">
+                                        Credentials
+                                    </span>
+                                    <input placeholder="Credentials" cFormControl id="prcredentials"
+                                        name="prcredentials" sizing="sm" required #prcredentials="ngModel"
+                                        [(ngModel)]="provider.providerInfo.credentials" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col class="mb-1">
+                                <small
+                                    *ngIf="notValidForm   && (prgroup.errors) ||   prgroup.invalid && (prgroup.dirty || prgroup.touched)"
+                                    class="form-text text-danger">
+                                    Group required
+                                </small>
+                                <c-input-group class="mb-3" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">
+                                        Group
+                                    </span>
+                                    <input placeholder="Add to group" cFormControl id="prgroup" name="prgroup"
+                                        sizing="sm" required #prgroup="ngModel"
+                                        [(ngModel)]="provider.providerInfo.group" />
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+
                     </c-card-body>
                 </c-card>
             </c-col>
@@ -233,3 +347,6 @@
         </c-row>
     </c-tab-pane>
 </c-tab-content>
+<div class="d-md-flex justify-content-md-center">
+    <button cButton color="primary" (click)="create()" variant="outline">Create</button>
+</div>
