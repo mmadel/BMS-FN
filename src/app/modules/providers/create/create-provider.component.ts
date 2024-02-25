@@ -94,15 +94,15 @@ export class CreateProviderComponent implements OnInit {
 
     if (this.providerCreateForm.valid) {
       console.log(JSON.stringify(this.provider))
-      // this.providerService.create(this.provider)
-      //   .subscribe((result) => {
-      //     this.toastr.success("Provider Created")
-      //     this.changeVisibility.emit('close');
-      //     this.providerCreateForm.reset();
-      //     this.notValidForm = false;
-      //   }, (error) => {
-      //     this.toastr.error("Error in  Provider Creation")
-      //   })
+      this.providerService.create(this.provider)
+        .subscribe((result) => {
+          this.toastr.success("Provider Created")
+          this.changeVisibility.emit('close');
+          this.providerCreateForm.reset();
+          this.notValidForm = false;
+        }, (error) => {
+          this.toastr.error("Error in  Provider Creation")
+        })
     } else {
       this.notValidForm = true;
     }
