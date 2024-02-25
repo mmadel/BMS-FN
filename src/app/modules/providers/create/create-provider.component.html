@@ -175,6 +175,36 @@
                         </c-row>
                     </c-card-header>
                     <c-card-body>
+                        <c-row [gutter]="0">
+                            <c-col xs="6" class="mb-1">
+                                <ng-autocomplete [data]="payerNameList" [searchKeyword]="" id="payername"
+                                    name="patientname" placeholder="Payer Name" [itemTemplate]="itemTemplate"
+                                    (selected)='pickPayerName($event)' (inputCleared)="unpickPayerName()"
+                                    [(ngModel)]="selectedPayerName" [notFoundTemplate]="notFoundTemplate">
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item"></a>
+                                </ng-template>
+
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                            </c-col>
+                            <c-col xs="6" class="mb-1">
+                                <ng-autocomplete [data]="payerIdList" [searchKeyword]="" id="payerid" name="payerid"
+                                    placeholder="Payer Id" [itemTemplate]="itemTemplate"
+                                    (selected)='pickPayerId($event)' (inputCleared)="unpickPayerId()"
+                                    [(ngModel)]="selectedPayerId" [notFoundTemplate]="notFoundTemplate">
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item"></a>
+                                </ng-template>
+
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                            </c-col>
+                        </c-row>
                         <c-row>
                             <c-col class="col mb-3">
                                 <select cSelect sizing="sm" #proIdQualifier="ngModel" name="proIdQualifier" required

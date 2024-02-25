@@ -33,6 +33,7 @@ import { ReferringProviderCreateComponent } from './referring/create/referring-p
 import { ModelModule } from '../model/model.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CreateProviderComponent } from './create/create-provider.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { CreateProviderComponent } from './create/create-provider.component';
     ModalModule,
     ModelModule,
     SmartPaginationModule,
+    AutocompleteLibModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

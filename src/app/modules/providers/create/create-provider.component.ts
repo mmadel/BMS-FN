@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { FormControl, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
+import { PayerService } from '../../admin.tools/services/payer/payer.service';
+import { Payer } from '../../model/admin/payer';
 import { Provider } from '../../model/clinical/provider/provider';
 import { ReferringProviderIdQualifier } from '../../model/enum/referring.provider.id.qualifier';
 import { ProviderService } from '../service/provider.service';
@@ -21,12 +23,26 @@ export class CreateProviderComponent implements OnInit {
   provider: Provider;
   idQualifierKeys = Object.keys;
   idQualifiers = ReferringProviderIdQualifier;
+  payerNameList: string[];
+  payerIdList: string[];
+  selectedPayerName: string;
+  selectedPayerId: string
+  payers: Payer[]
   constructor(private providerService: ProviderService
-    , private toastr: ToastrService) { }
+    , private toastr: ToastrService
+    , private payerService: PayerService) { }
 
 
   ngOnInit(): void {
     this.initModel();
+    this.payerService.findAll()
+      .subscribe((result: any) => {
+        this.payers = result;
+        this.payerNameList = this.payers.map(a => a.displayName);
+        this.payerIdList = this.payers
+          .filter(a => a.payerId !== undefined)
+          .map(a => a.payerId + '')
+      })
     this.npiCtrl.valueChanges
       .pipe(
         filter(text => {
@@ -88,12 +104,34 @@ export class CreateProviderComponent implements OnInit {
   }
   private initModel() {
     this.provider = {
-      npi:null,
+      npi: null,
       providerInfo: {},
       address: {},
-      legacyID:{
-        providerIdQualifier:null
+      legacyID: {
+        providerIdQualifier: null
       }
     }
+  }
+  pickPayerName(event: any) {
+
+    this.payers.forEach(element => {
+      if (element.displayName === event) {
+        this.selectedPayerId = element.payerId + '';
+      }
+
+    });
+  }
+  unpickPayerName() {
+    this.selectedPayerId = undefined;
+  }
+  pickPayerId(event: any) {
+    this.payers.forEach(element => {
+      if (element.payerId + '' === event) {
+        this.selectedPayerName = element.displayName
+      }
+    });
+  }
+  unpickPayerId() {
+    this.selectedPayerName = undefined
   }
 }
