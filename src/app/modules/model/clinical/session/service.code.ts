@@ -7,4 +7,5 @@ export interface ServiceCode {
     cptCode?: CPTCode
     type?: ServiceLineType
     isCorrect?:boolean;
+    lineNote?:string;
 }
