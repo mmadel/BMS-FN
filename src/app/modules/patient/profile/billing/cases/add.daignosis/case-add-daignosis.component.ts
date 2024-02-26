@@ -81,8 +81,10 @@ export class CaseAddDaignosisComponent implements OnInit {
   }
   selectICD10diagnosis(event: any) {
     var diagnosis: string = event.target.value
-    var code: string = diagnosis.split(',')[0]
-    var desrciption: string = diagnosis.split(',')[1]
+    var diagnosisArr = diagnosis.split(',')
+    console.log(diagnosisArr.slice(1))
+    var code: string = diagnosisArr[0]
+    var desrciption: string = diagnosisArr.slice(1).toString();
     this.diagnosis.diagnosisCode = code
     this.diagnosis.diagnosisDescription = desrciption;
   }

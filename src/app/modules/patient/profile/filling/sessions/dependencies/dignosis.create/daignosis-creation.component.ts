@@ -13,7 +13,7 @@ import { BillingCode } from '../../model/billing.code';
 })
 export class DaignosisCreationComponent implements OnInit {
   isLoading = false;
-  diagnosisCode?: CaseDiagnosis={};
+  diagnosisCode?: CaseDiagnosis = {};
   filteredDiagnosis: any;
   diagnosisCtrl = new FormControl();
   @Output() onCreateDaignosis = new EventEmitter<CaseDiagnosis>()
@@ -61,12 +61,13 @@ export class DaignosisCreationComponent implements OnInit {
   }
   addICD10diagnosis(event: any) {
     var diagnosis: string = event.target.value
-    var code: string = diagnosis.split(',')[0]
-    var desrciption: string = diagnosis.split(',')[1]
+    var diagnosisArr = diagnosis.split(',')
+    var code: string = diagnosisArr[0]
+    var desrciption: string = diagnosisArr.slice(1).toString();
     this.diagnosisCode.diagnosisCode = code
     this.diagnosisCode.diagnosisDescription = desrciption;
   }
-  pushDaignosis(){
+  pushDaignosis() {
     this.onCreateDaignosis.emit(this.diagnosisCode);
   }
 }
