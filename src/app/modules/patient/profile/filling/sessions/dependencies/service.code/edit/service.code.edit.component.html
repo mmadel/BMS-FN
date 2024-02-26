@@ -28,7 +28,7 @@
         </c-input-group>
     </div>
     <div class="mb-3">
-        <label cLabel for="lineNote">Line Note</label>
+        <label cLabel for="lineNote" [(ngModel)]="selectedServiceCode.lineNote">Line Note</label>
         <textarea cFormControl id="lineNote" rows="1" sizing="sm"></textarea>
     </div>
     <c-multi-select multiple class="mb-2" visibleItems="20" placeholder="Select Diagnosis" *ngIf="diagnosisCodes"

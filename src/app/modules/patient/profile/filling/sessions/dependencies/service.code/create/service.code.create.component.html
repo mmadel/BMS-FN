@@ -32,7 +32,7 @@
     </div>
     <div class="mb-3">
         <label cLabel for="lineNote">Line Note</label>
-        <textarea cFormControl id="lineNote" rows="1" sizing="sm" [disabled]="emptyDiagnosisCodes"></textarea>
+        <textarea cFormControl id="lineNote" rows="1" sizing="sm" [disabled]="emptyDiagnosisCodes" [(ngModel)]="serviceCode.lineNote"></textarea>
     </div>
     <c-multi-select multiple class="mb-2" visibleItems="20" placeholder="Select Diagnosis" *ngIf="diagnosisCodes"
         [(ngModel)]="selectedDiagnosisCodes">
