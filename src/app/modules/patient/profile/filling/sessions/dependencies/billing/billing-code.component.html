@@ -58,12 +58,12 @@
                         </c-col>
                     </c-row>
                 </div>
-                <c-nav variant="pills">
+                <c-nav variant="tabs">
                     <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink>Case
                         Dignosis</a>
                     <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Service Lines</a>
                 </c-nav>
-                <c-tab-content #tabContent="cTabContent">
+                <c-tab-content #tabContent="cTabContent" (activeTabPaneIdxChange)="onTabChange($event)"  [activeTabPaneIdx]="activePane">
                     <c-tab-pane class="p-3">
                         <div style="float:right">
                             <button cButton color="info" variant="outline" size="sm" (click)="toggleAddDaignosis()">

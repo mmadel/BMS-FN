@@ -39,6 +39,7 @@ export class BillingCodeComponent implements OnInit {
   populatedSiagnosisCode?: CaseDiagnosis[];
   clinics: Clinic[];
   compareFn = this._compareFn.bind(this);
+  activePane = 0;
   constructor(private emitPatientSessionService: EmitPatientSessionService
     , private clinicService: ClinicService) { }
 
@@ -130,4 +131,7 @@ export class BillingCodeComponent implements OnInit {
   _compareFn(a:any, b:any) {
     return a.npi === b.npi;
  }
+ onTabChange($event: number) {
+  this.activePane = $event;
+}
 }
