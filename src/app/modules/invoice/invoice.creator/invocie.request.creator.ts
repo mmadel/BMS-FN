@@ -10,7 +10,7 @@ import { InvoiceRequestConfiguration } from "../model/temp/invoice.request.confi
 export class InvocieRequestCreator {
     public static create(patient: Patient, patientInsurance: PatientInsurance, activePAtientInsurances: number, otherPatientInsurance: any[]): InvoiceRequest {
         var invoiceRequest: InvoiceRequest = {
-            patientInformation: this.createPatientInformation(patient),
+            patientInformation: this.createPatientInformation(patient, patientInsurance.patientInsurancePolicy.primaryId),
             invoicePatientInsuredInformation: this.createInvoicePatientInsuredInformation(patientInsurance),
             invoiceInsuranceCompanyInformation: this.createInvoiceInsuranceCompanyInformation(patientInsurance, activePAtientInsurances, otherPatientInsurance),
             invoiceBillingProviderInformation: this.createInvoiceBillingProviderInformation(),
@@ -18,7 +18,7 @@ export class InvocieRequestCreator {
         }
         return invoiceRequest;
     }
-    private static createPatientInformation(patient: Patient): InvoicePatientInformation {
+    private static createPatientInformation(patient: Patient, insuredPrimaryId: string): InvoicePatientInformation {
         var patientInformation: InvoicePatientInformation = {
             id: patient.id,
             firstName: patient.firstName,
@@ -31,7 +31,8 @@ export class InvocieRequestCreator {
             ssn: patient.ssn,
             externalId: patient.externalId,
             box26: "",
-            referringProvider: patient.referringProvider
+            referringProvider: patient.referringProvider,
+            insuredPrimaryId: insuredPrimaryId
         }
         return patientInformation;
     }

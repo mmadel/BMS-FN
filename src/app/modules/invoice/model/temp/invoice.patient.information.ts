@@ -16,4 +16,5 @@ export interface InvoicePatientInformation {
     externalId: string;
     box26: string;
     referringProvider?:ReferringProvider
+    insuredPrimaryId?:string
 }
