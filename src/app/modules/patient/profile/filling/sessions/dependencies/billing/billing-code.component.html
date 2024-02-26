@@ -14,7 +14,7 @@
                 <div class="mb-3">
                     <c-row class="mb-1">
                         <c-col>
-                            <select  cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="placeOfCode"
+                            <select cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="placeOfCode"
                                 required="true" name="placeOfCode" #placeOfCode="ngModel">
                                 <option [value]=null selected disabled>Select Place Code</option>
                                 <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)"
@@ -31,8 +31,8 @@
                             facility is required
                         </small>
                         <c-col>
-                            <select [compareWith]="compareFn" cSelect sizing="sm" [(ngModel)]="billingCode.facility" id="facility" name="facility"
-                                required="true" #facility="ngModel">
+                            <select [compareWith]="compareFn" cSelect sizing="sm" [(ngModel)]="billingCode.facility"
+                                id="facility" name="facility" required="true" #facility="ngModel">
                                 <option [value]=null selected disabled>Select Facility</option>
                                 <option *ngFor="let clinic of clinics" [ngValue]="clinic">
                                     {{clinic.title}}
@@ -58,31 +58,41 @@
                         </c-col>
                     </c-row>
                 </div>
-                <c-nav variant="tabs">
-                    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink>Case
-                        Dignosis</a>
-                    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Service Lines</a>
-                </c-nav>
-                <c-tab-content #tabContent="cTabContent" (activeTabPaneIdxChange)="onTabChange($event)"  [activeTabPaneIdx]="activePane">
-                    <c-tab-pane class="p-3">
-                        <div style="float:right">
-                            <button cButton color="info" variant="outline" size="sm" (click)="toggleAddDaignosis()">
-                                <svg cIcon name="cilPlus"></svg>
-                            </button>
-                        </div>
-                        <dignosis-list #daignosisListComponent
-                            [selectedDiagnosisCode]="populatedSiagnosisCode"></dignosis-list>
-                    </c-tab-pane>
-                    <c-tab-pane class="p-3">
-                        <div style="float:right">
-                            <button cButton color="info" variant="outline" size="sm" (click)="toggleserviceCode()">
-                                <svg cIcon name="cilPlus"></svg>
-                            </button>
-                        </div>
-                        <service-code-list #serviceCodeListComponent [editMode]="editMode"
-                            [selectedServiceCodes]="populatedServiceCodes"></service-code-list>
-                    </c-tab-pane>
-                </c-tab-content>
+
+                <c-row>
+                    <div class="mb-3">
+                        <c-col xs="12">
+                            <c-card>
+                                <c-card-header>CPT Codes</c-card-header>
+                                <c-card-body>
+                                    <div style="float:right">
+                                        <button cButton color="info" variant="outline" size="sm"
+                                            (click)="toggleAddDaignosis()">
+                                            <svg cIcon name="cilPlus"></svg>
+                                        </button>
+                                    </div>
+                                    <dignosis-list #daignosisListComponent
+                                        [selectedDiagnosisCode]="populatedSiagnosisCode"></dignosis-list>
+                                </c-card-body>
+                            </c-card>
+                        </c-col>
+                    </div>
+                    <c-col xs="12">
+                        <c-card>
+                            <c-card-header>Service Lines</c-card-header>
+                            <c-card-body>
+                                <div style="float:right">
+                                    <button cButton color="info" variant="outline" size="sm"
+                                        (click)="toggleserviceCode()">
+                                        <svg cIcon name="cilPlus"></svg>
+                                    </button>
+                                </div>
+                                <service-code-list #serviceCodeListComponent [editMode]="editMode"
+                                    [selectedServiceCodes]="populatedServiceCodes"></service-code-list>
+                            </c-card-body>
+                        </c-card>
+                    </c-col>
+                </c-row>
             </c-card-body>
         </c-card>
     </form>
