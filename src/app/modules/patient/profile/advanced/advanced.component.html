@@ -132,5 +132,16 @@
                 </c-card-body>
             </c-card>
         </c-col>
+        <c-col xs="12" class="mb-3">
+            <c-card>
+                <c-card-header>
+                    <strong>Additional information</strong>
+                </c-card-header>
+                <c-card-body>
+                    <textarea cFormControl id="exampleFormControlTextarea1" rows="3"
+                    [(ngModel)]="patientAdvancedInformation.additionalInformation"></textarea>
+                </c-card-body>
+            </c-card>
+        </c-col>
     </c-row>
 </c-container>

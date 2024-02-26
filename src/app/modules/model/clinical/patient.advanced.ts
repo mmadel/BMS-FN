@@ -3,6 +3,7 @@ import { PatientAdvancedDates } from "./patient.advanced.dates";
 
 export interface PatientAdvancedInformation {
     id?: number
+    additionalInformation?:string;
     pateintAdvancedCondtion?: PateintAdvancedCondtion;
     patientAdvancedDates?: PatientAdvancedDates;
     unableToWorkStartDate_date?: Date;
