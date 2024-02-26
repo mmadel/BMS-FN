@@ -373,6 +373,19 @@
                 </c-card>
             </c-col>
         </c-row>
+        <c-row class="justify-content-center" *ngIf="editPatientInsurance && editPatientInsurance.assigner">
+            <c-col class="col">
+                <c-card class="mb-3 ustify-content-center">
+                    <c-card-header>
+                        <strong>Assignment</strong>
+                    </c-card-header>
+                    <c-card-body>
+                        <strong>Payer Name : </strong> {{editPatientInsurance.assigner[1]}} <br />
+                        <strong>Payer Id : </strong> {{editPatientInsurance.assigner[0]}}
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
         <!--payor Address -->
         <c-row class="justify-content-center">
             <c-col class="col">
