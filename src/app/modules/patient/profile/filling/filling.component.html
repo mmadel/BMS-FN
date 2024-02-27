@@ -23,7 +23,7 @@
             <app-patient-cms></app-patient-cms>
         </c-col>
         <c-col xs="12" *ngIf="sestionFlag === 'history'">
-            <app-pateint-session-list #pateintSessionListComponent [pateintId]="pateint.id"></app-pateint-session-list>
+            <app-pateint-session-list #pateintSessionListComponent [pateint]="pateint"></app-pateint-session-list>
         </c-col>
     </c-row>
 </c-container>
