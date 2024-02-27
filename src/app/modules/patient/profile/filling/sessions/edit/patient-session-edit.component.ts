@@ -65,6 +65,7 @@ export class PatientSessionEditComponent implements OnInit {
     this.emitPatientSessionService.sessionBillingCode$.next(billingCode)
   }
   private constructorModelDoctorInfo() {
+    console.log(JSON.stringify(this.oldProvider))
     return {
       doctorId: this.editPateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
         this.oldProvider.doctorId :
@@ -78,6 +79,11 @@ export class PatientSessionEditComponent implements OnInit {
       doctorNPI: this.editPateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
         this.oldProvider.doctorNPI :
         this.editPateintSessionShedulingComponent.sessionScheduling.provider.model.doctorNPI,
+      legacyID: {
+        providerId: this.oldProvider.legacyID.providerId,
+        providerIdQualifier: this.oldProvider.legacyID.providerIdQualifier,
+        payerName: this.oldProvider.legacyID.payerName,
+      }
     }
   }
   private constructModel() {
@@ -90,7 +96,7 @@ export class PatientSessionEditComponent implements OnInit {
       patientId: this.selectedPateint.id,
       doctorInfo: this.constructorModelDoctorInfo(),
       clinicInfo: this.constructModelClinicInfo(),
-      clinic : this.editPateintSessionBillingCodeComponent.billingCode.facility,
+      clinic: this.editPateintSessionBillingCodeComponent.billingCode.facility,
       caseDiagnosis: this.editPateintSessionBillingCodeComponent.getDaignosises(),
       serviceCodes: this.editPateintSessionBillingCodeComponent.getServiceCodes(),
       caseTitle: this.editPateintSessionBillingCodeComponent.billingCode.caseTitle
@@ -115,6 +121,6 @@ export class PatientSessionEditComponent implements OnInit {
         }, (error) => {
           this.toastr.success("Error during session udpate")
         })
-    }    
+    }
   }
 }
