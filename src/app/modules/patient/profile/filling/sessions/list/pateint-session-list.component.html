@@ -3,9 +3,8 @@
   <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(patientSessions$ | async) ?? []"
     [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
     [itemsPerPageOptions]="[5,10,20,25,30,40,45,50]" [itemsPerPageSelect]="true"
-    [tableProps]="{ hover: true, striped: true, small:true }"
-    [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
-    [tableBodyProps]="{ align: 'middle' }"
+    [tableProps]="{ hover: true, striped: true, small:true }" [columnFilterValue]="props.columnFilterValue?? []"
+    [sorterValue]="props.sorterValue" [tableBodyProps]="{ align: 'middle' }"
     (sorterValueChange)="handleSorterValueChange($event)" header>
     <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
       <td>
@@ -18,9 +17,15 @@
               <button cButton variant="outline" size="sm" (click)="openEditPateintSession(item)">
                 <svg cIcon name="cilPen"></svg>
               </button>
-              <button cButton variant="outline" size="sm" (click)="correctClaim(item)">
-                <svg cIcon name="cilChevronLeft"></svg>
-              </button>
+              <c-dropdown variant="btn-group">
+                <button cButton cDropdownToggle variant="outline" size="sm">
+                  actions
+                </button>
+                <ul cDropdownMenu>
+                  <li><button cDropdownItem>Enter Payment</button></li>
+                  <li><button cDropdownItem (click)="correctClaim(item)">Correct Claim</button></li>
+                </ul>
+              </c-dropdown>
             </div>
           </ng-container>
           <ng-container *ngSwitchDefault>
@@ -43,4 +48,20 @@
     <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"
       (changeVisibility)="changeVisibility($event)"></app-patient-session-edit>
   </c-modal-body>
+</c-modal>
+<c-modal id="correctRedirectConfiramtion" [visible]="correctRedirectConfiramtionVisibility" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Correct Claim Redirection</h5>
+    <button (click)="toggleCorrectRedirectConfiramtion()" cButtonClose></button>
+  </c-modal-header>
+  <c-card-body>
+    <p class="lead">To view session invoices, please click 'OK' to proceed to the invoice area</p>
+  </c-card-body>
+  <c-card-header>
+    <div class="col-12 text-center">
+      <button cButton variant="outline" style="width: 10%;" class="mx-3"
+        (click)="redirectConfirmation(true)">Ok</button>
+      <button cButton variant="outline" style="width:10%;" (click)="redirectConfirmation(false)">Cancel </button>
+    </div>
+  </c-card-header>
 </c-modal>
