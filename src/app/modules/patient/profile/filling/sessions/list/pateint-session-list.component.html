@@ -31,6 +31,14 @@
           <ng-container *ngSwitchDefault>
             {{tdContent}}
           </ng-container>
+          
+          <ng-container *ngSwitchCase="'correct'">
+            <span *ngIf="item.data.isCorrectSession">
+              <c-badge color="warning">
+                corrected
+              </c-badge>
+            </span>
+          </ng-container>
         </ng-container>
       </td>
     </ng-template>

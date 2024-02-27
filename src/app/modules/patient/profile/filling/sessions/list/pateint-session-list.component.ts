@@ -34,6 +34,10 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
       key: 'doctorName',
     },
     {
+      key: 'correct',
+      label: 'Correct',
+    },
+    {
       key: 'actions',
       label: '',
       _style: { width: '5%' },
@@ -43,7 +47,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   ];
   details_visible = Object.create({});
   patientSessions$!: Observable<PatientSessionResponse[]>;
-  selectedPatientSession : any;
+  selectedPatientSession: any;
   constructor(private patientSessionService: PatientSessionService
     , private emitPatientSessionService: EmitPatientSessionService
     , private router: Router
@@ -101,7 +105,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
       this.find();
     }
   }
-  execute(){
+  execute() {
     this.patientSessionService.correctClaim(this.selectedPatientSession.data)
       .subscribe(result => {
         if (this.correctClaimRedirect) {
