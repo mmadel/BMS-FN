@@ -167,8 +167,8 @@ export class InvoiceCreationComponent implements OnInit {
   }
   setCorrectClaim() {
     this.invoiceRequest.correctClaimInformation = {
-      resubmissionCode: this.correctCode,
-      refNumber: this.refNumber
+      resubmissionCode: !this.avoidCorrectClaimFlag ? this.correctCode : null,
+      refNumber: !this.avoidCorrectClaimFlag ? this.refNumber : null
     }
     this.toggleIsCorrect();
     this.execute(this.patientInsurance)
