@@ -23,7 +23,7 @@
                 </button>
                 <ul cDropdownMenu>
                   <li><button cDropdownItem>Enter Payment</button></li>
-                  <li><button cDropdownItem>Correct Claim</button></li>
+                  <li><button cDropdownItem (click)="correctClaim(item)">Correct Claim</button></li>
                 </ul>
               </c-dropdown>
             </div>
@@ -48,4 +48,20 @@
     <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"
       (changeVisibility)="changeVisibility($event)"></app-patient-session-edit>
   </c-modal-body>
+</c-modal>
+<c-modal id="correctRedirectConfiramtion" [visible]="correctRedirectConfiramtionVisibility" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Correct Claim Redirection</h5>
+    <button (click)="toggleCorrectRedirectConfiramtion()" cButtonClose></button>
+  </c-modal-header>
+  <c-card-body>
+    <p class="lead">To view session invoices, please click 'OK' to proceed to the invoice area</p>
+  </c-card-body>
+  <c-card-header>
+    <div class="col-12 text-center">
+      <button cButton variant="outline" style="width: 10%;" class="mx-3"
+        (click)="redirectConfirmation(true)">Ok</button>
+      <button cButton variant="outline" style="width:10%;" (click)="redirectConfirmation(false)">Cancel </button>
+    </div>
+  </c-card-header>
 </c-modal>

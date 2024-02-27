@@ -19,6 +19,8 @@ import { PatientSessionEditComponent } from '../edit/patient-session-edit.compon
 export class PateintSessionListComponent extends ListTemplate implements OnInit {
   @Input() pateintId: number;
   editSessionVisibility: boolean = false;
+  correctRedirectConfiramtionVisibility: boolean = false;
+  correctClaimRedirect: boolean = false;
   @ViewChild(PatientSessionEditComponent, { static: false }) patientSessionEditComponent: PatientSessionEditComponent;
   columns = [
     {
@@ -70,18 +72,26 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   toggleEditSession(item: any) {
     this.editSessionVisibility = !this.editSessionVisibility;
   }
+  toggleCorrectRedirectConfiramtion() {
+    this.correctRedirectConfiramtionVisibility = !this.correctRedirectConfiramtionVisibility;
+  }
   openEditPateintSession(selectedPatientSession: any) {
     this.editSessionVisibility = true;
     this.emitPatientSessionService.patientSession$.next(selectedPatientSession.data);
 
   }
   correctClaim(selectedPatientSession: any) {
-    this.patientSessionService.correctClaim(selectedPatientSession.data)
-      .subscribe(result => {
-        this.router.navigate(['invoice/client/list']);
-      }, (error) => {
-        this.toastr.error('Error during correcting pateint session');
-      })
+    // this.patientSessionService.correctClaim(selectedPatientSession.data)
+    //   .subscribe(result => {
+    //     this.router.navigate(['invoice/client/list']);
+    //   }, (error) => {
+    //     this.toastr.error('Error during correcting pateint session');
+    //   })
+    this.correctRedirectConfiramtionVisibility = true;
+  }
+  redirectConfirmation(value: boolean) {
+    this.correctClaimRedirect = value;
+    this.correctRedirectConfiramtionVisibility = !this.correctRedirectConfiramtionVisibility;
   }
   changeVisibility(event: any) {
     if (event === 'close') {
