@@ -23,7 +23,7 @@
                 </button>
                 <ul cDropdownMenu>
                   <li><button cDropdownItem>Enter Payment</button></li>
-                  <li><button cDropdownItem (click)="correctClaim(item)">Correct Claim</button></li>
+                  <li><button cDropdownItem (click)="correctClaim(item)" [disabled]="item.data.isCorrectSession">Correct Claim</button></li>
                 </ul>
               </c-dropdown>
             </div>
