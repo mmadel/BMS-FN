@@ -74,7 +74,7 @@
         <form cForm>
             <div class="mb-3">
                 <label cLabel for="exampleFormControlInput1">Resubmission codes</label>
-                <select aria-label="Default select example" cSelect sizing="sm" [(ngModel)]="correctCode"
+                <select aria-label="Default select example" cSelect sizing="sm" [(ngModel)]="correctCode" [disabled]="avoidCorrectClaimFlag"
                     name="correctCode">
                     <option value="7">Corrected claim-7</option>
                     <option value="8">Void claim-8</option>
@@ -82,12 +82,12 @@
             </div>
             <div class="mb-3">
                 <label cLabel for="REF">REF#</label>
-                <input cFormControl id="REF" placeholder="REF Number" sizing="sm" [(ngModel)]="refNumber"
+                <input cFormControl id="REF" placeholder="REF Number" sizing="sm" [(ngModel)]="refNumber" [disabled]="avoidCorrectClaimFlag"
                     name="refNumber" />
             </div>
             <div class="mb-3">
-                <input cFormCheckInput id="checkOne" type="checkbox"/>
-                <label cFormCheckLabel for="checkOne" class="mx-1">Handle claim without correction action</label>
+                <input cFormCheckInput id="avoidcorrect" type="checkbox" [checked]="avoidCorrectClaimFlag" (change)="avoidCorrectClaimFlag = !avoidCorrectClaimFlag"/>
+                <label cFormCheckLabel for="avoidcorrect" class="mx-1">Handle claim without correction action</label>
             </div>
         </form>
     </c-modal-body>

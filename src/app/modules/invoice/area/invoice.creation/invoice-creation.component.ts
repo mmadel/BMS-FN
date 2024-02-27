@@ -30,6 +30,7 @@ export class InvoiceCreationComponent implements OnInit {
   invoiceRequest: InvoiceRequest;
   filterpatientInsurances: PatientInsurance[]
   patientInsurance: PatientInsurance;
+  avoidCorrectClaimFlag: boolean = false;
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
     , private invoiceEmitterService: InvoiceEmitterService
