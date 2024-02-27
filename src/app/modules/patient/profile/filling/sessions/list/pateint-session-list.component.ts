@@ -109,7 +109,8 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     this.patientSessionService.correctClaim(this.selectedPatientSession.data)
       .subscribe(result => {
         if (this.correctClaimRedirect) {
-          var filterServiceCodes: ServiceCode[] = this.selectedPatientSession.data.serviceCodes.filter(serviceLine => serviceLine.type !== 'Invoice')
+          var returned: PatientSession = result;
+          var filterServiceCodes: ServiceCode[] = returned.serviceCodes.filter(serviceLine => serviceLine.type !== 'Invoice')
           filterServiceCodes.forEach(serviceLine => {
             serviceLine.isCorrect = true;
           })
