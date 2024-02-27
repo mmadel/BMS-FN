@@ -30,6 +30,7 @@ export class InvoiceCreationComponent implements OnInit {
   invoiceRequest: InvoiceRequest;
   filterpatientInsurances: PatientInsurance[]
   patientInsurance: PatientInsurance;
+  avoidCorrectClaimFlag: boolean = false;
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
     , private invoiceEmitterService: InvoiceEmitterService
@@ -166,8 +167,8 @@ export class InvoiceCreationComponent implements OnInit {
   }
   setCorrectClaim() {
     this.invoiceRequest.correctClaimInformation = {
-      resubmissionCode: this.correctCode,
-      refNumber: this.refNumber
+      resubmissionCode: !this.avoidCorrectClaimFlag ? this.correctCode : null,
+      refNumber: !this.avoidCorrectClaimFlag ? this.refNumber : null
     }
     this.toggleIsCorrect();
     this.execute(this.patientInsurance)
