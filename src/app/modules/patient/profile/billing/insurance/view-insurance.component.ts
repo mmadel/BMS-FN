@@ -48,11 +48,11 @@ export class ViewInsuranceComponent implements OnInit {
   edit(patientInsurance: PatientInsurance) {
     this.editPatientInsurance = patientInsurance;
     if (this.editPatientInsurance.visibility === 'External')
-      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0];
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0] + ' (' + this.editPatientInsurance.insuranceCompany[2] + ')'
     if (this.editPatientInsurance.visibility === 'Internal' && this.editPatientInsurance.assigner === null)
       this.editModalTitle = this.editPatientInsurance.insuranceCompany[0];
     if (this.editPatientInsurance.visibility === 'Internal' && this.editPatientInsurance.assigner !== null)
-      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0] + ' assinged to (' + this.editPatientInsurance.assigner[1] + ')';
+      this.editModalTitle = this.editPatientInsurance.insuranceCompany[0] + ' assinged to (' + this.editPatientInsurance.assigner[1] + ' - ' + this.editPatientInsurance.assigner[0] + ')';
 
     this.editInsuranceVisibility = !this.editInsuranceVisibility;
   }
