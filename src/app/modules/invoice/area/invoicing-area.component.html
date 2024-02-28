@@ -5,7 +5,32 @@
     </c-col>
 </c-row>
 <hr />
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header ngPreserveWhitespaces>
+                <strong>Patient Sessions Search</strong>
+            </c-card-header>
+            <c-card-body>
+                <p class="text-medium-emphasis small">
+                    The Abiltiy to filter the patient sessions using rendering provider , client name
+                    and date range
+                </p>
+                <form cForm>
+                    <c-row>
+
+                        <c-col xs="12" class="text-center">
+                            <button cButton class="me-1" color="primary" style="width: 15%;">
+                                Search
+                            </button>
+                        </c-col>
+                    </c-row>
+                </form>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
 <c-container fluid="true">
-    <app-insurance-patient-list ></app-insurance-patient-list>
+    <app-insurance-patient-list></app-insurance-patient-list>
     <app-insurance-session-list *ngIf="sessionListVisible"></app-insurance-session-list>
 </c-container>
