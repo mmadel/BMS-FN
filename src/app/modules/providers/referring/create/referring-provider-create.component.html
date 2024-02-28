@@ -29,7 +29,7 @@
                     Last Name is required
                 </small>
                 <c-input-group class="mb-3" sizing="sm">
-                    <span cInputGroupText id="basic-addon1" style="width: 25%;">MiddleName</span>
+                    <span cInputGroupText id="basic-addon1" style="width: 25%;">LastName</span>
                     <input placeholder="Last Name" cFormControl id="lname" name="lname" sizing="sm" required
                         [ngClass]="{'is-invalid': lname.invalid && (lname.dirty || lname.touched)}" #lname="ngModel"
                         [(ngModel)]="referringProvider.lastName" />
@@ -44,7 +44,7 @@
                 <c-input-group class="mb-3" sizing="sm">
                     <span cInputGroupText id="basic-addon1" style="width: 25%;">Profession Abbr</span>
                     <input placeholder="profession Abbr" cFormControl id="professionAbbr" name="professionAbbr"
-                        sizing="sm" required
+                        sizing="sm"
                         [ngClass]="{'is-invalid': professionAbbr.invalid && (professionAbbr.dirty || professionAbbr.touched)}"
                         #professionAbbr="ngModel" [(ngModel)]="referringProvider.professionAbbr" />
                 </c-input-group>
@@ -52,7 +52,7 @@
         </c-row>
         <c-row class="justify-content-center">
             <c-col class="col mb-3">
-                <select cSelect sizing="sm" #IdQualifier="ngModel" name="IdQualifier" required
+                <select cSelect sizing="sm" #IdQualifier="ngModel" name="IdQualifier"
                     [(ngModel)]="referringProvider.referringProviderIdQualifier">
                     <option [value]=null disabled selected>Select Id Type</option>
                     <option *ngFor="let qualifier of idQualifierKeys(idQualifiers)" [value]="idQualifiers[qualifier]">
@@ -68,7 +68,7 @@
                 </small>
                 <c-input-group class="mb-3" sizing="sm">
                     <span cInputGroupText id="basic-addon1" style="width: 15%;">ID</span>
-                    <input placeholder="ID" cFormControl id="refid" name="refid" sizing="sm" required
+                    <input placeholder="ID" cFormControl id="refid" name="refid" sizing="sm"
                         [ngClass]="{'is-invalid': refid.invalid && (refid.dirty || refid.touched)}" #refid="ngModel"
                         [(ngModel)]="referringProvider.referringProviderId" />
                 </c-input-group>
