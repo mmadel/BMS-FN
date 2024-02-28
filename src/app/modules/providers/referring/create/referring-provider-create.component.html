@@ -38,9 +38,6 @@
         </c-row>
         <c-row class="justify-content-center">
             <c-col class="col">
-                <small *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="form-text text-danger">
-                    Profession Abbr is required
-                </small>
                 <c-input-group class="mb-3" sizing="sm">
                     <span cInputGroupText id="basic-addon1" style="width: 25%;">Profession Abbr</span>
                     <input placeholder="profession Abbr" cFormControl id="professionAbbr" name="professionAbbr"
@@ -63,9 +60,6 @@
         </c-row>
         <c-row>
             <c-col class="col mb-3">
-                <small *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="form-text text-danger">
-                    Referring Provider Id is required
-                </small>
                 <c-input-group class="mb-3" sizing="sm">
                     <span cInputGroupText id="basic-addon1" style="width: 15%;">ID</span>
                     <input placeholder="ID" cFormControl id="refid" name="refid" sizing="sm"
