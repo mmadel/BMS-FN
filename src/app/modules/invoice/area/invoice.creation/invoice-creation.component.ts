@@ -77,7 +77,6 @@ export class InvoiceCreationComponent implements OnInit {
         ).subscribe((response) => {
           this.toastr.success("Invocie created successfully ")
           this.changeVisibility.emit('close');
-          this.findCleint();
           this.constructExportedFile(response, 'cms-', 'json')
         }, error => {
           this.toastr.error("error in create invoice")
@@ -95,7 +94,7 @@ export class InvoiceCreationComponent implements OnInit {
       ).subscribe((response) => {
         this.toastr.success("Invocie created successfully ")
         this.changeVisibility.emit('close');
-        this.findCleint();
+        this.invoiceEmitterService.linesInvoiced$.next(true)
         this.constructExportedFile(response, 'cms-', 'pdf')
       }, error => {
         this.toastr.error("error in create invoice")
@@ -137,31 +136,7 @@ export class InvoiceCreationComponent implements OnInit {
       });
     return result;
   }
-  private findCleint() {
-    // this.invoiceService.findByClient(this.client.id)
-    //   .subscribe((result) => {
-    //     this.emitChanges(result.records);
-    //   })
-  }
-  private emitChanges(patientSession: PatientSession[]) {
-    var clientSessionResponse: ClientSessionResponse
-    if (patientSession !== null) {
-      this.patientService.findById(patientSession[0]?.patientId)
-        .subscribe(result => {
-          clientSessionResponse = {
-            sessions: patientSession,
-            client: result
-          }
-          this.invoiceEmitterService.invoicedSession$.next(clientSessionResponse)
-        })
-    } else {
-      clientSessionResponse = {
-        sessions: new Array(),
-        client: {}
-      }
-      this.invoiceEmitterService.invoicedSession$.next(clientSessionResponse)
-    }
-  }
+
   private checkIsCorrectServiceLines(selectedSessionServiceLine: SelectedSessionServiceLine[]) {
     var isCorrect = selectedSessionServiceLine.every(obj => obj.serviceLine.isCorrect);
     this.isCorrectClaim = isCorrect;

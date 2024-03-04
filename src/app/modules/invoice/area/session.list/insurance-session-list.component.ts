@@ -33,13 +33,13 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
   editPatientProfileVisibility: boolean = false
   isfiltered: boolean = false
   filterModel: FilterModel = {};
-  isSearchAllowed:boolean = false;
+  isSearchAllowed: boolean = false;
   constructor(
     private invoiceEmitterService: InvoiceEmitterService
     , private emitPatientSessionService: EmitPatientSessionService
     , private patientSessionService: PatientSessionService
     , private invoiceService: InvoiceService
-    ,private patientService:PatientService) { super() }
+    , private patientService: PatientService) { super() }
   public customRanges = {
     Today: [new Date(), new Date()],
     Yesterday: [
@@ -114,15 +114,19 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
   ngOnInit(): void {
     this.initListComponent();
     this.find();
+    this.invoiceEmitterService.linesInvoiced$.subscribe(result => {
+      if (result)
+        this.find();
+    })
   }
   private find() {
     this.sessionServiceCodeLine = this.invoiceEmitterService.clientId$.pipe(
       filter((result) => result !== null),
       switchMap(clientId => this.patientService.findById(clientId)),
-      tap((client:Patient)=> this.client = client),
-      switchMap((result:Patient) => this.invoiceService.findByClient(this.apiParams$, result.id)),
+      tap((client: Patient) => this.client = client),
+      switchMap((result: Patient) => this.invoiceService.findByClient(this.apiParams$, result.id)),
       tap((response: any) => {
-        this.isSearchAllowed =  response.number_of_records === 0? false:true  
+        this.isSearchAllowed = response.number_of_records === 0 ? false : true
         this.totalItems$.next(response.number_of_records);
         if (response.number_of_records) {
           this.errorMessage$.next('');
