@@ -10,6 +10,8 @@ import { EmitPatientSessionService } from 'src/app/modules/patient/service/sessi
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import { InvoiceService } from '../../service/invoice.service';
+import { CustomDdateRanges } from './constant/custom.date.ranges';
+import { ServiceLinesTableColumns } from './constant/service.lines.table.columns';
 import { FilterModel } from './filter/filter.model';
 import { InvoiceFilter } from './filter/invoice.filter';
 
@@ -40,70 +42,8 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     , private patientSessionService: PatientSessionService
     , private invoiceService: InvoiceService
     , private patientService: PatientService) { super() }
-  public customRanges = {
-    Today: [new Date(), new Date()],
-    Yesterday: [
-      new Date(new Date().setDate(new Date().getDate() - 1)),
-      new Date(new Date().setDate(new Date().getDate() - 1))
-    ],
-    'Last 7 Days': [
-      new Date(new Date().setDate(new Date().getDate() - 6)),
-      new Date(new Date())
-    ],
-    'Last 30 Days': [
-      new Date(new Date().setDate(new Date().getDate() - 29)),
-      new Date(new Date())
-    ],
-    'This Month': [
-      new Date(new Date().setDate(1)),
-      new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
-    ],
-    'Last Month': [
-      new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1),
-      new Date(new Date().getFullYear(), new Date().getMonth(), 0)
-    ],
-    'Clear': [
-      undefined,
-      undefined
-    ]
-  };
-  columns = [
-    {
-      key: 'dos_str',
-      label: 'Date Of Service'
-    },
-    'provider',
-    {
-      key: 'caseTitle',
-      label: 'Case'
-    },
-    {
-      key: 'place',
-      _style: { width: '5%' },
-    },
-    {
-      key: 'cpt',
-      _style: { width: '8%' },
-    },
-    {
-      key: 'unit',
-      _style: { width: '5%' },
-    },
-    {
-      key: 'charge',
-      _style: { width: '8%' },
-    },
-    {
-      key: 'correct',
-      label: 'Correct',
-    },
-    {
-      key: 'actions',
-      label: '',
-      filter: false,
-      sorter: false
-    }
-  ];
+  public customRanges = CustomDdateRanges.dateRnage;
+  columns = ServiceLinesTableColumns.columns;
   toggleDetails() {
     this.editFields = !this.editFields;
   }
@@ -161,6 +101,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
             })
           })
         )
+
     } else {
       this.find();
     }
