@@ -65,7 +65,7 @@
         <c-card-body>
           <ng-container *ngIf="props$ | async as props" fluid="true">
             <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
-              [items]="(sessionServiceCodeLine | async) ?? []" [itemsPerPage]="props.itemsPerPage"
+              [items]="(sessionServiceCodeLines$ | async) ?? []" [itemsPerPage]="props.itemsPerPage"
               (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
               [itemsPerPageSelect]="true" [columnFilterValue]="props.columnFilterValue?? []"
               [sorterValue]="props.sorterValue" [tableProps]="{ hover: true, striped: true, small:true }"
@@ -153,8 +153,9 @@
     <button (click)="toggleModal('session_item')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <session-item-edit *ngIf="editSessionItemVisibility" [selectedSession]="selectedSessionToEditItem"
-      [itemType]="sessionItemType" (changeVisibility)="changeVisibility($event)"> </session-item-edit>
+    <session-item-edit *ngIf="editSessionItemVisibility" [serviceCode]="sessionServiceCodeLine.serviceCode"
+    [itemType] = "itemType"
+      (changeVisibility)="changeVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>
 

@@ -21,17 +21,16 @@ import { InvoiceFilter } from './filter/invoice.filter';
   styleUrls: ['./insurance-session-list.component.scss']
 })
 export class InsuranceSessionListComponent extends ListTemplate implements OnInit {
-  sessionServiceCodeLine: Observable<SessionServiceCodeLine[]>
+  sessionServiceCodeLines$: Observable<SessionServiceCodeLine[]>
   selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
-  selectedSessionToEditItem: SessionServiceCodeLine
+  sessionServiceCodeLine: SessionServiceCodeLine
   clientId: Observable<number>
   client: Patient;
   editSessionVisibility: boolean = false;
   editSessionItemVisibility: boolean = false;
   editPatientProfileVisibility: boolean = false
   createinvoiceVisibility: boolean = false;
-
-  sessionItemType: string;
+  itemType: string;
 
   filterModel: FilterModel = {};
   isSearchAllowed: boolean = false;
@@ -57,7 +56,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     if (invoiceFilter.isValid(this.filterModel)) {
       this.filterModel.startDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchEndDate).unix() * 1000 : undefined
       this.filterModel.endDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchEndDate).unix() * 1000 : undefined
-      this.sessionServiceCodeLine = this.invoiceService.findByClientFilter(this.apiParams$, this.client.id, this.filterModel)
+      this.sessionServiceCodeLines$ = this.invoiceService.findByClientFilter(this.apiParams$, this.client.id, this.filterModel)
         .pipe(
           filter((result) => result !== null),
           tap((response: any) => {
@@ -119,6 +118,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
         this.find();
         break
       case "invoice":
+        console.log('##################')
         this.createinvoiceVisibility = false;
         break;
       case "profile":
@@ -137,8 +137,8 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
           })
         break;
       case "edit_session_item":
-        this.sessionItemType = extra;
-        this.selectedSessionToEditItem = event;
+        this.itemType = extra;
+        this.sessionServiceCodeLine = event;
         this.editSessionItemVisibility = true;
         break;
       case "create_invoice":
@@ -150,7 +150,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     }
   }
   private find() {
-    this.sessionServiceCodeLine = this.invoiceEmitterService.clientId$.pipe(
+    this.sessionServiceCodeLines$ = this.invoiceEmitterService.clientId$.pipe(
       filter((result) => result !== null),
       switchMap(clientId => this.patientService.findById(clientId)),
       tap((client: Patient) => this.client = client),

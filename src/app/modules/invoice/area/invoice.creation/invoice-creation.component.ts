@@ -93,7 +93,7 @@ export class InvoiceCreationComponent implements OnInit {
         switchMap(() => this.invoiceService.create(this.invoiceRequest))
       ).subscribe((response) => {
         this.toastr.success("Invocie created successfully ")
-        this.changeVisibility.emit('close');
+        this.changeVisibility.emit('invoice');
         this.invoiceEmitterService.linesInvoiced$.next(true)
         this.constructExportedFile(response, 'cms-', 'pdf')
       }, error => {
