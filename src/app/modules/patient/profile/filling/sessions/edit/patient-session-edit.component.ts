@@ -121,7 +121,7 @@ export class PatientSessionEditComponent implements OnInit {
     if (!(this.editPateintSessionShedulingComponent.notValidForm || this.editPateintSessionBillingCodeComponent.notValidForm)) {
       this.patientSessionService.update(updatedPateintSession)
         .subscribe((result) => {
-          this.changeVisibility.emit('close');
+          this.changeVisibility.emit('session');
           this.toastr.success("pateint session updated")
         }, (error) => {
           this.toastr.success("Error during session udpate")

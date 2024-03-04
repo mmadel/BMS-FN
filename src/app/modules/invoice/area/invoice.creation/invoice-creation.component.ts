@@ -76,7 +76,7 @@ export class InvoiceCreationComponent implements OnInit {
           switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
         ).subscribe((response) => {
           this.toastr.success("Invocie created successfully ")
-          this.changeVisibility.emit('close');
+          this.changeVisibility.emit('invoice');
           this.constructExportedFile(response, 'cms-', 'json')
         }, error => {
           this.toastr.error("error in create invoice")

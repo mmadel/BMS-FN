@@ -3,7 +3,7 @@
   <c-row>
     <c-col xs="12">
       <div style="float: right;" class="mb-3">
-        <button cButton color="primary" variant="outline" (click)="createInvoice()"
+        <button cButton color="primary" variant="outline" (click)="executeAction('create_invoice')"
           [disabled]='selectedSessionServiceCodeLine?.length === 0 || selectedSessionServiceCodeLine === undefined'>
           Create Invoice
         </button>
@@ -46,7 +46,8 @@
                   [(endDate)]="filterModel.searchEndDate" [ranges]="customRanges"></c-date-range-picker>
               </c-col>
               <c-col xs="12" class="text-center">
-                <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()" [disabled]="!isSearchAllowed">
+                <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()"
+                  [disabled]="!isSearchAllowed">
                   Search
                 </button>
               </c-col>
@@ -58,16 +59,18 @@
     <c-col xs="12">
       <c-card>
         <c-card-header>
-          <button class="btn btn-link" (click)="editClient()" *ngIf="client"><strong>{{client?.lastName + ',' + client?.firstName}}</strong></button>
+          <button class="btn btn-link" (click)="executeAction('edit_patient')" *ngIf="client"><strong>{{client?.lastName
+              + ',' + client?.firstName}}</strong></button>
         </c-card-header>
         <c-card-body>
           <ng-container *ngIf="props$ | async as props" fluid="true">
-            <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(sessionServiceCodeLine | async) ?? []"
-              [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
-              [itemsPerPageOptions]="[5,10,20]" [itemsPerPageSelect]="true"
-              [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
-              [tableProps]="{ hover: true, striped: true, small:true }" [tableBodyProps]="{ align: 'middle' }"
-              (sorterValueChange)="handleSorterValueChange($event)" header selectable  (selectedItemsChange)="onSelectedServiceCode($event)">
+            <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
+              [items]="(sessionServiceCodeLine | async) ?? []" [itemsPerPage]="props.itemsPerPage"
+              (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+              [itemsPerPageSelect]="true" [columnFilterValue]="props.columnFilterValue?? []"
+              [sorterValue]="props.sorterValue" [tableProps]="{ hover: true, striped: true, small:true }"
+              [tableBodyProps]="{ align: 'middle' }" (sorterValueChange)="handleSorterValueChange($event)" header
+              selectable (selectedItemsChange)="onSelectedServiceCode($event)">
               <ng-template cTemplateId="tableDetails" let-item="item">
               </ng-template>
               <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
@@ -76,22 +79,26 @@
                   <ng-container [ngSwitch]="columnName">
                     <ng-container *ngSwitchCase="'actions'" class="py-2">
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button cButton variant="outline" size="sm" (click)="editSession(item)">
+                        <button cButton variant="outline" size="sm" (click)="executeAction('edit_session',item)">
                           <svg cIcon name="cilPen"></svg>
                         </button>
                       </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="'place'" class="py-2">
-                      <button class="btn btn-link" (click)="editSessionItem(item,'place')">{{tdContent}}</button>
+                      <button class="btn btn-link"
+                        (click)="executeAction('edit_session_item',item,'place')">{{tdContent}}</button>
                     </ng-container>
                     <ng-container *ngSwitchCase="'cpt'" class="py-2">
-                      <button class="btn btn-link" (click)="editSessionItem(item,'cpt')">{{tdContent}}</button>
+                      <button class="btn btn-link"
+                        (click)="executeAction('edit_session_item',item,'cpt')">{{tdContent}}</button>
                     </ng-container>
                     <ng-container *ngSwitchCase="'unit'" class="py-2">
-                      <button class="btn btn-link" (click)="editSessionItem(item,'unit')">{{tdContent}}</button>
+                      <button class="btn btn-link"
+                        (click)="executeAction('edit_session_item',item,'unit')">{{tdContent}}</button>
                     </ng-container>
                     <ng-container *ngSwitchCase="'charge'" class="py-2">
-                      <button class="btn btn-link" (click)="editSessionItem(item,'charge')">{{tdContent}}</button>
+                      <button class="btn btn-link"
+                        (click)="executeAction('edit_session_item',item,'charge')">{{tdContent}}</button>
                     </ng-container>
                     <ng-container *ngSwitchDefault>
                       {{tdContent}}
@@ -116,26 +123,26 @@
   </c-row>
 </c-container>
 <!-- Create Invocie-->
-<c-modal [visible]="invoiceCreationVisible" scrollable backdrop="static" size="xl">
+<c-modal [visible]="createinvoiceVisibility" scrollable backdrop="static" size="xl">
   <c-modal-header>
     <h5 cModalTitle>Invoice Creation</h5>
-    <button (click)="toggleCreateInvoice()" cButtonClose></button>
+    <button (click)="toggleModal('invoice_create')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <app-invoice-creation [patientInsurances]="client?.patientInsurances" *ngIf="invoiceCreationVisible"
+    <app-invoice-creation [patientInsurances]="client?.patientInsurances" *ngIf="createinvoiceVisibility"
       [selectedSessionServiceLine]="selectedSessionServiceCodeLine" [client]="client"
-      (changeVisibility)="changeCreateInvoiceVisibility($event)"></app-invoice-creation>
+      (changeVisibility)="changeVisibility($event)"></app-invoice-creation>
   </c-modal-body>
 </c-modal>
 <!-- Edit Session-->
 <c-modal id="editSessioninvoice" [visible]="editSessionVisibility" backdrop="static" size="xl">
   <c-modal-header>
     <h5 cModalTitle>Edit Session</h5>
-    <button (click)="toggleEditSession()" cButtonClose></button>
+    <button (click)="toggleModal('session')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"
-      (changeVisibility)="changeSessionEditVisibility($event)"></app-patient-session-edit>
+      (changeVisibility)="changeVisibility($event)"></app-patient-session-edit>
   </c-modal-body>
 </c-modal>
 
@@ -143,21 +150,21 @@
 <c-modal id="editSessioniteminvoice" [visible]="editSessionItemVisibility" backdrop="static" size="lg">
   <c-modal-header>
     <h5 cModalTitle>Edit </h5>
-    <button (click)="toggleEditSessionItem()" cButtonClose></button>
+    <button (click)="toggleModal('session_item')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <session-item-edit *ngIf="editSessionItemVisibility" [selectedSession]="selectedSessionToEditItem"
-      [itemType]="sessionItemType" (changeVisibility)="changeSessionItemVisibility($event)"> </session-item-edit>
+      [itemType]="sessionItemType" (changeVisibility)="changeVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>
 
 <c-modal id="editPatientProfile" [visible]="editPatientProfileVisibility" size="xl" backdrop="static">
   <c-modal-header>
     <h4>Update Profile</h4>
-    <button (click)="toggleViewPatientProfile()" cButtonClose></button>
+    <button (click)="toggleModal('invoice_create')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <patient-edit-profile [patient]="client" *ngIf="editPatientProfileVisibility"
-      (changeEditPorfileVisibility)="changeEditPorfileVisibility($event)"></patient-edit-profile>
+      (changeEditPorfileVisibility)="changeVisibility($event)"></patient-edit-profile>
   </c-modal-body>
 </c-modal>

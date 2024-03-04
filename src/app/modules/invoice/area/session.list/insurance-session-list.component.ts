@@ -21,19 +21,18 @@ import { InvoiceFilter } from './filter/invoice.filter';
   styleUrls: ['./insurance-session-list.component.scss']
 })
 export class InsuranceSessionListComponent extends ListTemplate implements OnInit {
-  editFields: boolean = false;
-  invoiceCreationVisible: boolean = false;
   sessionServiceCodeLine: Observable<SessionServiceCodeLine[]>
+  selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
+  selectedSessionToEditItem: SessionServiceCodeLine
   clientId: Observable<number>
   client: Patient;
-  filteredSessionServiceCodeLine: Observable<SessionServiceCodeLine[]>
   editSessionVisibility: boolean = false;
   editSessionItemVisibility: boolean = false;
-  selectedSessionToEditItem: SessionServiceCodeLine
-  sessionItemType: string;
-  selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
   editPatientProfileVisibility: boolean = false
-  isfiltered: boolean = false
+  createinvoiceVisibility: boolean = false;
+
+  sessionItemType: string;
+
   filterModel: FilterModel = {};
   isSearchAllowed: boolean = false;
   constructor(
@@ -42,15 +41,9 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     , private patientSessionService: PatientSessionService
     , private invoiceService: InvoiceService
     , private patientService: PatientService) { super() }
-  public customRanges = CustomDdateRanges.dateRnage;
-  columns = ServiceLinesTableColumns.columns;
-  toggleDetails() {
-    this.editFields = !this.editFields;
-  }
 
-  clickOnCreateInvoice() {
-    this.invoiceCreationVisible = true;
-  }
+  customRanges = CustomDdateRanges.dateRnage;
+  columns = ServiceLinesTableColumns.columns;
   ngOnInit(): void {
     this.initListComponent();
     this.find();
@@ -58,27 +51,6 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
       if (result)
         this.find();
     })
-  }
-  private find() {
-    this.sessionServiceCodeLine = this.invoiceEmitterService.clientId$.pipe(
-      filter((result) => result !== null),
-      switchMap(clientId => this.patientService.findById(clientId)),
-      tap((client: Patient) => this.client = client),
-      switchMap((result: Patient) => this.invoiceService.findByClient(this.apiParams$, result.id)),
-      tap((response: any) => {
-        this.isSearchAllowed = response.number_of_records === 0 ? false : true
-        this.totalItems$.next(response.number_of_records);
-        if (response.number_of_records) {
-          this.errorMessage$.next('');
-        }
-      }),
-      map(response => {
-        return response.records.map((element: any) => {
-          element.dos_str = moment.unix(element.dos / 1000).format('MM/DD/YYYY')
-          return element;
-        })
-      })
-    );
   }
   search() {
     var invoiceFilter: InvoiceFilter = new InvoiceFilter();
@@ -106,9 +78,6 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
       this.find();
     }
   }
-  editClient() {
-    this.editPatientProfileVisibility = true;
-  }
   onSelectedServiceCode(event: any) {
     this.selectedSessionServiceCodeLine = event.map((value: any) => {
       return {
@@ -123,51 +92,82 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     if (filter === 'case')
       this.filterModel.sessionCase = undefined;
   }
-  editSession(event: any) {
-    this.patientSessionService.findSessionById(event.data.id)
-      .subscribe((result) => {
-        this.editSessionVisibility = true;
-        this.emitPatientSessionService.patientSession$.next(result.records);
-      })
-  }
-  editSessionItem(item: any, itemType: string) {
-    this.sessionItemType = itemType;
-    this.selectedSessionToEditItem = item;
-    this.editSessionItemVisibility = true;
-  }
-  createInvoice() {
-    this.invoiceCreationVisible = true;
-  }
-  toggleEditSession() {
-    this.editSessionVisibility = !this.editSessionVisibility;
-  }
-  toggleEditSessionItem() {
-    this.editSessionItemVisibility = !this.editSessionItemVisibility;
-  }
-  toggleCreateInvoice() {
-    this.invoiceCreationVisible = !this.invoiceCreationVisible
-  }
-
-  changeSessionEditVisibility(event: any) {
-    if (event === 'close') {
-      this.editSessionVisibility = false;
-      this.find();
+  toggleModal(modal: any) {
+    switch (modal) {
+      case "session":
+        this.editSessionVisibility = !this.editSessionVisibility;
+        break;
+      case "session_item":
+        this.editSessionItemVisibility = !this.editSessionItemVisibility;
+        break;
+      case "invoice_create":
+        this.createinvoiceVisibility = !this.createinvoiceVisibility;
+        break;
+      case "patient_edit":
+        this.editPatientProfileVisibility = !this.editPatientProfileVisibility
+        break;
     }
   }
-  changeSessionItemVisibility(event: any) {
-    if (event === 'close')
-      this.editSessionItemVisibility = false;
-    this.find();
+  changeVisibility(component: any) {
+    switch (component) {
+      case "session":
+        this.editSessionVisibility = false;
+        this.find();
+        break;
+      case "session-item":
+        this.editSessionItemVisibility = false;
+        this.find();
+        break
+      case "invoice":
+        this.createinvoiceVisibility = false;
+        break;
+      case "profile":
+        this.editPatientProfileVisibility = false;
+        break;
+
+    }
   }
-  changeCreateInvoiceVisibility(event: any) {
-    if (event === 'close')
-      this.invoiceCreationVisible = false;
+  executeAction(action: string, event?: any, extra?: any) {
+    switch (action) {
+      case "edit_session":
+        this.patientSessionService.findSessionById(event.data.id)
+          .subscribe((result) => {
+            this.editSessionVisibility = true;
+            this.emitPatientSessionService.patientSession$.next(result.records);
+          })
+        break;
+      case "edit_session_item":
+        this.sessionItemType = extra;
+        this.selectedSessionToEditItem = event;
+        this.editSessionItemVisibility = true;
+        break;
+      case "create_invoice":
+        this.createinvoiceVisibility = true;
+        break;
+      case "edit_patient":
+        this.editPatientProfileVisibility = true;
+        break;
+    }
   }
-  toggleViewPatientProfile() {
-    this.editPatientProfileVisibility = !this.editPatientProfileVisibility
-  }
-  changeEditPorfileVisibility(event: any) {
-    if (event === 'close')
-      this.editPatientProfileVisibility = false;
+  private find() {
+    this.sessionServiceCodeLine = this.invoiceEmitterService.clientId$.pipe(
+      filter((result) => result !== null),
+      switchMap(clientId => this.patientService.findById(clientId)),
+      tap((client: Patient) => this.client = client),
+      switchMap((result: Patient) => this.invoiceService.findByClient(this.apiParams$, result.id)),
+      tap((response: any) => {
+        this.isSearchAllowed = response.number_of_records === 0 ? false : true
+        this.totalItems$.next(response.number_of_records);
+        if (response.number_of_records) {
+          this.errorMessage$.next('');
+        }
+      }),
+      map(response => {
+        return response.records.map((element: any) => {
+          element.dos_str = moment.unix(element.dos / 1000).format('MM/DD/YYYY')
+          return element;
+        })
+      })
+    );
   }
 }

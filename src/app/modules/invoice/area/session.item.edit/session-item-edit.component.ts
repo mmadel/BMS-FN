@@ -42,7 +42,7 @@ export class SessionItemEditComponent implements OnInit {
       this.editCharge();
     this.patientSessionService.update(this.selectedSession.data)
       .subscribe((result) => {
-        this.changeVisibility.emit('close');
+        this.changeVisibility.emit('session-item');
         this.toastr.success("pateint session updated")
         this.patientService.findById(this.selectedSession.data.patientId)
           .subscribe((result) => {

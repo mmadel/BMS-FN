@@ -100,7 +100,7 @@ export class EditProfileComponent implements OnInit {
     this.handleModel();
     this.patientService.create(this.patient)
       .subscribe((result) => {
-        this.changeEditPorfileVisibility.emit('close')
+        this.changeEditPorfileVisibility.emit('profile')
         this.toastr.success('Patient updated')
       })
   }
