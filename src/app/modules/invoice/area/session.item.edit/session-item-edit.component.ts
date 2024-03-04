@@ -41,23 +41,12 @@ export class SessionItemEditComponent implements OnInit {
     if (this.itemType === 'charge')
       this.editCharge();
     this.patientSessionService.update(this.selectedSession.data)
-      .subscribe((result) => {
+      .subscribe(result => {
         this.changeVisibility.emit('session-item');
         this.toastr.success("pateint session updated")
-        this.patientService.findById(this.selectedSession.data.patientId)
-          .subscribe((result) => {
-            this.emitChanges(result);
-          })
       }, (error) => {
-        this.toastr.success("Error during session udpate")
+        this.toastr.error("Error during session udpate")
       })
-  }
-  private emitChanges(pateint: Patient) {
-    var clientSessionResponse: ClientSessionResponse = {
-      sessions: pateint.sessions,
-      client: pateint
-    }
-    this.invoiceEmitterService.invoicedSession$.next(clientSessionResponse)
   }
   private editCPT() {
     for (var i = 0; i < this.selectedSession.data.serviceCodes.length; i++) {

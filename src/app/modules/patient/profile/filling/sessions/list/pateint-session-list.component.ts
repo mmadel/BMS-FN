@@ -100,7 +100,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     this.execute();
   }
   changeVisibility(event: any) {
-    if (event === 'close') {
+    if (event === 'session') {
       this.editSessionVisibility = false;
       this.find();
     }
