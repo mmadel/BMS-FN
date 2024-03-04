@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, debounceTime, distinctUntilChanged, from, Observable, retry, switchMap, throwError } from 'rxjs';
 import { IApiParams } from '../interface/api.params';
@@ -28,6 +28,18 @@ export class BasePaginationService {
       switchMap((config) => this.fetchData(config))
     );
   }
+  post(config$: BehaviorSubject<IApiParams>, url: string, body: string): Observable<any> {
+    this.url = url;
+    return config$.pipe(
+      debounceTime(100),
+      distinctUntilChanged(
+        (previous, current) => {
+          return JSON.stringify(previous) === JSON.stringify(current);
+        }
+      ),
+      switchMap((config) => this.fetchPostData(config, body))
+    );
+  }
   private fetchData(params: IApiParams): Observable<PaginationData> {
     const apiParams = {
       ...params
@@ -36,9 +48,26 @@ export class BasePaginationService {
     const options = Object.keys(httpParams).length
       ? { params: httpParams, ...httpOptions }
       : { params: {}, ...httpOptions };
-
     return this.httpClient
       .get<PaginationData>(this.url, options)
+      .pipe(
+        retry({ count: 1, delay: 100000, resetOnSuccess: true }),
+        catchError(this.handleHttpError)
+      )
+  }
+  private fetchPostData(params: IApiParams, body: string): Observable<PaginationData> {
+    const apiParams = {
+      ...params
+    };
+    const httpParams: HttpParams = new HttpParams({ fromObject: apiParams });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+    const options = Object.keys(httpParams).length
+      ? { params: httpParams, ...httpOptions, headers: headers }
+      : { params: {}, ...httpOptions };
+    return this.httpClient
+      .post<PaginationData>(this.url, body, options)
       .pipe(
         retry({ count: 1, delay: 100000, resetOnSuccess: true }),
         catchError(this.handleHttpError)

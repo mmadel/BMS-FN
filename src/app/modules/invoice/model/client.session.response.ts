@@ -3,5 +3,6 @@ import { PatientSession } from "../../model/clinical/session/patient.session";
 
 export interface ClientSessionResponse{
     sessions?:PatientSession[] 
-    client?:Patient   
+    client?:Patient,
+    isFiltered?:boolean
 }

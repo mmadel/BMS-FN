@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IApiParams } from '../../model/interface/api.params';
 import { BasePaginationService } from '../../model/service/base-pagination.service';
+import { FilterModel } from '../area/session.list/filter/filter.model';
 import { InvoiceRequestCreation } from '../model/invoice.request.creation';
 import { InvoiceRequest } from '../model/temp/invoice.request';
 
@@ -16,12 +17,16 @@ export class InvoiceService extends BasePaginationService {
   constructor(httpClient: HttpClient) { super(httpClient) }
 
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {
-    var url = this.baseUrl + '/find/clients'
+    var url = this.baseUrl + '/find'
     return this.get(config$, url)
   }
-  public findByClient(clientId: number) {
-    var url = this.baseUrl + '/find/clientId/' + clientId;
-    return this.httpClient.get(url)
+  public findByClient(config$: BehaviorSubject<IApiParams>,clientId: number): Observable<any> {
+    var url = this.baseUrl + '/find/patient/' + clientId
+    return this.get(config$, url)
+  }
+  public findByClientFilter(config$: BehaviorSubject<IApiParams>,clientId: number,filterModel: FilterModel): Observable<any> {
+    var url = this.baseUrl + '/find/patient/' + clientId  ;
+    return this.post(config$, url,JSON.stringify(filterModel))
   }
 
   correctClaim() {

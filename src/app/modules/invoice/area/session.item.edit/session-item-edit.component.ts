@@ -57,7 +57,7 @@ export class SessionItemEditComponent implements OnInit {
       sessions: pateint.sessions,
       client: pateint
     }
-    this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
+    this.invoiceEmitterService.invoicedSession$.next(clientSessionResponse)
   }
   private editCPT() {
     for (var i = 0; i < this.selectedSession.data.serviceCodes.length; i++) {

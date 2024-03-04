@@ -23,20 +23,30 @@
           <form cForm>
             <c-row>
               <c-col xs="12" class="mb-2">
-                <input aria-describedby="basic-addon1" aria-label="Username" cFormControl placeholder="Provider"
-                  sizing="sm" />
+                <c-input-group sizing="sm">
+                  <input cFormControl placeholder="Provider" sizing="sm" [(ngModel)]="filterModel.provider"
+                    name="filerProvider" />
+                  <button cButton size="sm" variant="outline" (click)="clearFilter('provider')">
+                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                  </button>
+                </c-input-group>
               </c-col>
               <c-col xs="12" class="mb-2">
-                <input aria-describedby="basic-addon1" aria-label="Username" cFormControl placeholder="Session Case"
-                  sizing="sm" />
+                <c-input-group sizing="sm">
+                  <input cFormControl placeholder="Session Case" sizing="sm" [(ngModel)]="filterModel.sessionCase"
+                    name="filterSessionCase" />
+                  <button cButton size="sm" variant="outline" (click)="clearFilter('case')">
+                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                  </button>
+                </c-input-group>
+
               </c-col>
               <c-col xs="12" class="mb-2">
-                <c-col class="mb-2" xs="12">
-                  <c-date-range-picker [placeholder]="['Start', 'End']"></c-date-range-picker>
-                </c-col>
+                <c-date-range-picker [placeholder]="['Start', 'End']" [(startDate)]="filterModel.searchStartDate"
+                  [(endDate)]="filterModel.searchEndDate" [ranges]="customRanges"></c-date-range-picker>
               </c-col>
               <c-col xs="12" class="text-center">
-                <button cButton class="me-1" color="primary" style="width: 15%;">
+                <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()" [disabled]="!isSearchAllowed">
                   Search
                 </button>
               </c-col>
@@ -48,54 +58,58 @@
     <c-col xs="12">
       <c-card>
         <c-card-header>
-          <button class="btn btn-link" (click)="editClient()"><strong>{{client?.lastName}}
-              {{client?.firstName}}</strong></button>
+          <button class="btn btn-link" (click)="editClient()" *ngIf="client"><strong>{{client?.lastName + ',' + client?.firstName}}</strong></button>
         </c-card-header>
         <c-card-body>
-          <c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true"
-            [itemsPerPage]="5" [items]="(sessionServiceCodeLine | async) ?? []"
-            [sorterValue]="{ column: 'provider', state: 'asc' }" (selectedItemsChange)="onSelectedServiceCode($event)"
-            [tableProps]="{ hover: true, striped: true,small:true }" [tableBodyProps]="{ align: 'middle' }" header
-            selectable>
-            <ng-template cTemplateId="tableDetails" let-item="item">
-            </ng-template>
-            <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
-              <td>
-                <ng-container [ngSwitch]="columnName">
-                  <ng-container *ngSwitchCase="'actions'" class="py-2">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                      <button cButton variant="outline" size="sm" (click)="editSession(item)">
-                        <svg cIcon name="cilPen"></svg>
-                      </button>
-                    </div>
+          <ng-container *ngIf="props$ | async as props" fluid="true">
+            <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(sessionServiceCodeLine | async) ?? []"
+              [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
+              [itemsPerPageOptions]="[5,10,20]" [itemsPerPageSelect]="true"
+              [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+              [tableProps]="{ hover: true, striped: true, small:true }" [tableBodyProps]="{ align: 'middle' }"
+              (sorterValueChange)="handleSorterValueChange($event)" header selectable  (selectedItemsChange)="onSelectedServiceCode($event)">
+              <ng-template cTemplateId="tableDetails" let-item="item">
+              </ng-template>
+              <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
+                let-tdContent="tdContent">
+                <td>
+                  <ng-container [ngSwitch]="columnName">
+                    <ng-container *ngSwitchCase="'actions'" class="py-2">
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <button cButton variant="outline" size="sm" (click)="editSession(item)">
+                          <svg cIcon name="cilPen"></svg>
+                        </button>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'place'" class="py-2">
+                      <button class="btn btn-link" (click)="editSessionItem(item,'place')">{{tdContent}}</button>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'cpt'" class="py-2">
+                      <button class="btn btn-link" (click)="editSessionItem(item,'cpt')">{{tdContent}}</button>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'unit'" class="py-2">
+                      <button class="btn btn-link" (click)="editSessionItem(item,'unit')">{{tdContent}}</button>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'charge'" class="py-2">
+                      <button class="btn btn-link" (click)="editSessionItem(item,'charge')">{{tdContent}}</button>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      {{tdContent}}
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'correct'">
+                      <span *ngIf="item.isCorrect">
+                        <c-badge color="warning">
+                          corrected-void
+                        </c-badge>
+                      </span>
+                    </ng-container>
                   </ng-container>
-                  <ng-container *ngSwitchCase="'place'" class="py-2">
-                    <button class="btn btn-link" (click)="editSessionItem(item,'place')">{{tdContent}}</button>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'cpt'" class="py-2">
-                    <button class="btn btn-link" (click)="editSessionItem(item,'cpt')">{{tdContent}}</button>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'unit'" class="py-2">
-                    <button class="btn btn-link" (click)="editSessionItem(item,'unit')">{{tdContent}}</button>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'charge'" class="py-2">
-                    <button class="btn btn-link" (click)="editSessionItem(item,'charge')">{{tdContent}}</button>
-                  </ng-container>
-                  <ng-container *ngSwitchDefault>
-                    {{tdContent}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'correct'">
-                    <span *ngIf="item.isCorrect">
-                      <c-badge color="warning">
-                        corrected-void
-                      </c-badge>
-                    </span>
-                  </ng-container>
-                </ng-container>
-              </td>
-            </ng-template>
-          </c-smart-table>
-
+                </td>
+              </ng-template>
+            </c-smart-table>
+            <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+              (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+          </ng-container>
         </c-card-body>
       </c-card>
     </c-col>

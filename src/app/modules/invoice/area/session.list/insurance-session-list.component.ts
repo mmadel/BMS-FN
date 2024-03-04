@@ -1,48 +1,82 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { filter, map, Observable, tap } from 'rxjs';
+import { filter, map, Observable, switchMap, tap } from 'rxjs';
 import { Patient } from 'src/app/modules/model/clinical/patient';
-import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
-import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
-import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
+import { ListTemplate } from 'src/app/modules/model/template/list.template';
+import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
-import { ClientSessionResponse } from '../../model/client.session.response';
 import { SessionServiceCodeLine } from '../../model/session.service.code.line';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import { InvoiceService } from '../../service/invoice.service';
+import { FilterModel } from './filter/filter.model';
+import { InvoiceFilter } from './filter/invoice.filter';
 
 @Component({
   selector: 'app-insurance-session-list',
   templateUrl: './insurance-session-list.component.html',
   styleUrls: ['./insurance-session-list.component.scss']
 })
-export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
+export class InsuranceSessionListComponent extends ListTemplate implements OnInit {
   editFields: boolean = false;
   invoiceCreationVisible: boolean = false;
-  clientSessionResponse!: ClientSessionResponse;
   sessionServiceCodeLine: Observable<SessionServiceCodeLine[]>
-  client: Patient
+  clientId: Observable<number>
+  client: Patient;
+  filteredSessionServiceCodeLine: Observable<SessionServiceCodeLine[]>
   editSessionVisibility: boolean = false;
   editSessionItemVisibility: boolean = false;
   selectedSessionToEditItem: SessionServiceCodeLine
   sessionItemType: string;
   selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
   editPatientProfileVisibility: boolean = false
+  isfiltered: boolean = false
+  filterModel: FilterModel = {};
+  isSearchAllowed:boolean = false;
   constructor(
     private invoiceEmitterService: InvoiceEmitterService
     , private emitPatientSessionService: EmitPatientSessionService
     , private patientSessionService: PatientSessionService
-    , private invoiceService: InvoiceService) { }
-  ngAfterViewInit(): void {
-
-  }
+    , private invoiceService: InvoiceService
+    ,private patientService:PatientService) { super() }
+  public customRanges = {
+    Today: [new Date(), new Date()],
+    Yesterday: [
+      new Date(new Date().setDate(new Date().getDate() - 1)),
+      new Date(new Date().setDate(new Date().getDate() - 1))
+    ],
+    'Last 7 Days': [
+      new Date(new Date().setDate(new Date().getDate() - 6)),
+      new Date(new Date())
+    ],
+    'Last 30 Days': [
+      new Date(new Date().setDate(new Date().getDate() - 29)),
+      new Date(new Date())
+    ],
+    'This Month': [
+      new Date(new Date().setDate(1)),
+      new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
+    ],
+    'Last Month': [
+      new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1),
+      new Date(new Date().getFullYear(), new Date().getMonth(), 0)
+    ],
+    'Clear': [
+      undefined,
+      undefined
+    ]
+  };
   columns = [
-    'dos',
+    {
+      key: 'dos_str',
+      label: 'Date Of Service'
+    },
     'provider',
-    'case',
+    {
+      key: 'caseTitle',
+      label: 'Case'
+    },
     {
       key: 'place',
       _style: { width: '5%' },
@@ -78,43 +112,71 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
     this.invoiceCreationVisible = true;
   }
   ngOnInit(): void {
-    this.sessionServiceCodeLine = this.invoiceEmitterService.selectedInvoiceClientSession$.pipe(
+    this.initListComponent();
+    this.find();
+  }
+  private find() {
+    this.sessionServiceCodeLine = this.invoiceEmitterService.clientId$.pipe(
       filter((result) => result !== null),
-      tap((result) => {
-        this.client = result.client
-      }),
-      map(result => {
-        var lines: SessionServiceCodeLine[] = new Array();
-        for (var i = 0; i < result.sessions.length; i++) {
-          var session: PatientSession = result.sessions[i]
-          var line: SessionServiceCodeLine;
-          for (var j = 0; j < session.serviceCodes.length; j++) {
-            var serviceCode: ServiceCode = session.serviceCodes[j]
-            line = {
-              dos: moment.unix(session.serviceDate / 1000).format('MM/DD/YYYY'),
-              provider: session.doctorInfo.doctorFirstName + ',' + session.doctorInfo.doctorLastName,
-              case: session.caseTitle,
-              place: session.placeOfCode.split('_')[1],
-              cpt: serviceCode.cptCode.serviceCode,
-              unit: serviceCode.cptCode.unit,
-              charge: serviceCode.cptCode.charge,
-              cptId: serviceCode.id,
-              data: session,
-              serviceCode: serviceCode,
-              isCorrect: serviceCode.isCorrect
-            }
-            lines.push(line);
-          }
+      switchMap(clientId => this.patientService.findById(clientId)),
+      tap((client:Patient)=> this.client = client),
+      switchMap((result:Patient) => this.invoiceService.findByClient(this.apiParams$, result.id)),
+      tap((response: any) => {
+        this.isSearchAllowed =  response.number_of_records === 0? false:true  
+        this.totalItems$.next(response.number_of_records);
+        if (response.number_of_records) {
+          this.errorMessage$.next('');
         }
-        return lines;
+      }),
+      map(response => {
+        return response.records.map((element: any) => {
+          element.dos_str = moment.unix(element.dos / 1000).format('MM/DD/YYYY')
+          return element;
+        })
       })
-    )
+    );
+  }
+  search() {
+    var invoiceFilter: InvoiceFilter = new InvoiceFilter();
+    if (invoiceFilter.isValid(this.filterModel)) {
+      this.filterModel.startDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchEndDate).unix() * 1000 : undefined
+      this.filterModel.endDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchEndDate).unix() * 1000 : undefined
+      this.sessionServiceCodeLine = this.invoiceService.findByClientFilter(this.apiParams$, this.client.id, this.filterModel)
+        .pipe(
+          filter((result) => result !== null),
+          tap((response: any) => {
+            this.totalItems$.next(response.number_of_records);
+            if (response.number_of_records) {
+              this.errorMessage$.next('');
+            }
+          }),
+          map(response => {
+            return response.records.map((element: any) => {
+              element.dos_str = moment.unix(element.dos / 1000).format('MM/DD/YYYY')
+              return element;
+            })
+          })
+        )
+    } else {
+      this.find();
+    }
   }
   editClient() {
-    // this.pateintEmittingService.selectedPatient$.next(this.client)
-    // this.router.navigate(['/patient/profile', this.client.id]);
     this.editPatientProfileVisibility = true;
-
+  }
+  onSelectedServiceCode(event: any) {
+    this.selectedSessionServiceCodeLine = event.map((value: any) => {
+      return {
+        sessionId: value.data,
+        serviceLine: value.serviceCode
+      }
+    });
+  }
+  clearFilter(filter: string) {
+    if (filter === 'provider')
+      this.filterModel.provider = undefined;
+    if (filter === 'case')
+      this.filterModel.sessionCase = undefined;
   }
   editSession(event: any) {
     this.patientSessionService.findSessionById(event.data.id)
@@ -143,28 +205,14 @@ export class InsuranceSessionListComponent implements OnInit, AfterViewInit {
 
   changeSessionEditVisibility(event: any) {
     if (event === 'close') {
-      this.invoiceService.findByClient(this.client.id)
-        .subscribe((returnedClient: any) => {
-          this.editSessionVisibility = false;
-          var clientSessionResponse: ClientSessionResponse = {
-            sessions: returnedClient.sessions,
-            client: returnedClient
-          }
-          this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
-        })
+      this.editSessionVisibility = false;
+      this.find();
     }
   }
   changeSessionItemVisibility(event: any) {
     if (event === 'close')
       this.editSessionItemVisibility = false;
-  }
-  onSelectedServiceCode(event: any) {
-    this.selectedSessionServiceCodeLine = event.map((value: any) => {
-      return {
-        sessionId: value.data,
-        serviceLine: value.serviceCode
-      }
-    });
+    this.find();
   }
   changeCreateInvoiceVisibility(event: any) {
     if (event === 'close')

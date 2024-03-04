@@ -2,9 +2,10 @@ import { PatientSession } from "../../model/clinical/session/patient.session"
 import { ServiceCode } from "../../model/clinical/session/service.code"
 
 export interface SessionServiceCodeLine {
-    dos?: string,
+    dos?: number,
+    dos_str?: number,
     provider?: string,
-    case?: string,
+    caseTitle?: string,
     place?: string,
     cpt?: string,
     unit?: number,

@@ -5,7 +5,9 @@ import { filter, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
+import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
+import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { InvocieRequestCreator } from '../../invoice.creator/invocie.request.creator';
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { InvoiceRequest } from '../../model/temp/invoice.request';
@@ -34,7 +36,8 @@ export class InvoiceCreationComponent implements OnInit {
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
     , private invoiceEmitterService: InvoiceEmitterService
-    , private insuranceCompanyService: InsuranceCompanyService) { }
+    , private insuranceCompanyService: InsuranceCompanyService
+    , private patientService: PatientService) { }
 
   ngOnInit(): void {
     this.filterpatientInsurances = this.patientInsurances.filter(insuranceCompany => { return !insuranceCompany.isArchived; })
@@ -135,26 +138,29 @@ export class InvoiceCreationComponent implements OnInit {
     return result;
   }
   private findCleint() {
-    this.invoiceService.findByClient(this.client.id)
-      .subscribe((result) => {
-        this.emitChanges(result);
-      })
+    // this.invoiceService.findByClient(this.client.id)
+    //   .subscribe((result) => {
+    //     this.emitChanges(result.records);
+    //   })
   }
-  private emitChanges(pateint: Patient) {
+  private emitChanges(patientSession: PatientSession[]) {
     var clientSessionResponse: ClientSessionResponse
-    if (pateint !== null) {
-      clientSessionResponse = {
-        sessions: pateint.sessions,
-        client: pateint
-      }
-    } else
+    if (patientSession !== null) {
+      this.patientService.findById(patientSession[0]?.patientId)
+        .subscribe(result => {
+          clientSessionResponse = {
+            sessions: patientSession,
+            client: result
+          }
+          this.invoiceEmitterService.invoicedSession$.next(clientSessionResponse)
+        })
+    } else {
       clientSessionResponse = {
         sessions: new Array(),
         client: {}
-
       }
-
-    this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
+      this.invoiceEmitterService.invoicedSession$.next(clientSessionResponse)
+    }
   }
   private checkIsCorrectServiceLines(selectedSessionServiceLine: SelectedSessionServiceLine[]) {
     var isCorrect = selectedSessionServiceLine.every(obj => obj.serviceLine.isCorrect);

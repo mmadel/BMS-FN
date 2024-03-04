@@ -119,9 +119,10 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
           var sessions: PatientSession[] = [this.selectedPatientSession.data];
           var clientSessionResponse: ClientSessionResponse = {
             sessions: sessions,
-            client: this.pateint
+            client: this.pateint,
+            isFiltered:true
           }
-          this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
+          this.invoiceEmitterService.invoicedSession$.next(clientSessionResponse)
           this.router.navigate(['/invoice/session/list/']);
         } else {
           this.toastr.success('Claim has been marked as corrected');
