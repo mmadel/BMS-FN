@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
+import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
+import { FilterModel } from '../../invoice/area/session.list/filter/filter.model';
 import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { PatientService } from '../../patient/service/patient.service';
@@ -20,6 +22,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   @ViewChild('paymentForm') paymentForm: NgForm;
   @ViewChild('clientPayments') clientPayments: ClientPaymentComponent;
   @ViewChild('insuranceCompanyPayments') insuranceCompanyPayments: InsuranceCompanyPaymentComponent;
+  customRanges = CustomDdateRanges.dateRnage;
   notValidForm: boolean = false
   patientClient = new FormControl();
   insuranceCompanyForm = new FormControl();
@@ -43,11 +46,9 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
   invalidServiceCode: any[]
   isuranceCompany: IsuranceCompany[]
+  filterModel: FilterModel = {};
   constructor(private patientService: PatientService
-    , private insuranceCompanyService: InsuranceCompanyService
-    , private postingServiceService: PostingServiceService
-    , private toastr: ToastrService
-    , private router: Router) {
+    , private insuranceCompanyService: InsuranceCompanyService) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();

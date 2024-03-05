@@ -64,6 +64,11 @@
                             </button>
                         </c-col>
                     </c-row>
+                    <c-col xs="11" class="mb-2 " *ngIf="selectedSearchOption !== 'none'">
+                        <c-date-range-picker [placeholder]="['Start', 'End']"
+                            [(startDate)]="filterModel.searchStartDate" [(endDate)]="filterModel.searchEndDate"
+                            [ranges]="customRanges"></c-date-range-picker>
+                    </c-col>
                 </form>
                 <c-col xs="12" class="text-center">
                     <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">
