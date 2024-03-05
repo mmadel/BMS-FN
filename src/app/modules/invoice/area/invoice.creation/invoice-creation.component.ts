@@ -6,11 +6,9 @@ import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/in
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
-import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { InvocieRequestCreator } from '../../invoice.creator/invocie.request.creator';
 import { InvoiceRequest } from '../../model/temp/invoice.request';
 import { OtherPatientInsurance } from '../../model/temp/other.patient.insurance';
-import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import { InvoiceService } from '../../service/invoice.service';
 
 @Component({
@@ -33,7 +31,6 @@ export class InvoiceCreationComponent implements OnInit {
   avoidCorrectClaimFlag: boolean = false;
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
-    , private invoiceEmitterService: InvoiceEmitterService
     , private insuranceCompanyService: InsuranceCompanyService) { }
 
   ngOnInit(): void {
@@ -91,7 +88,6 @@ export class InvoiceCreationComponent implements OnInit {
       ).subscribe((response) => {
         this.toastr.success("Invocie created successfully ")
         this.changeVisibility.emit('invoice');
-        this.invoiceEmitterService.linesInvoiced$.next(true)
         this.constructExportedFile(response, 'cms-', 'pdf')
       }, error => {
         this.toastr.error("error in create invoice")
