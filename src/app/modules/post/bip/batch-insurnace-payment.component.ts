@@ -205,6 +205,6 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.filteredPatients = undefined;
       this.renderComponent = 'none'
     }
-
+    this.postingFilterModel={}
   }
 }

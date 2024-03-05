@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SmartTableComponent } from '@coreui/angular-pro';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { filter, map, Observable, tap } from 'rxjs';
 import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
@@ -42,7 +43,9 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     this.find();
   }
   private find() {
-    this.clientPostingPayments$ = this.postingServiceService.findClientPayments(this.apiParams$,this.filter.entityId).pipe(
+    this.filter.startDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchStartDate).unix() * 1000 : undefined
+    this.filter.endDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchEndDate).unix() * 1000 : undefined
+    this.clientPostingPayments$ = this.postingServiceService.findClientPaymentsFiltered(this.apiParams$, this.filter).pipe(
       filter((result) => result !== null),
       tap((response: any) => {
         this.totalItems$.next(response.number_of_records);
