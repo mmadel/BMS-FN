@@ -180,17 +180,6 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.notValidForm = true;
     }
   }
-
-  changeSearch() {
-    if (this.selectedSearchOption === 'client') {
-      this.insuranceCompanyService.findInternal()
-        .subscribe((reuslt) => {
-          this.isuranceCompany = reuslt;
-        })
-    } else {
-      this.isuranceCompany = undefined;
-    }
-  }
   search() {
     if (this.selectedSearchOption === 'client' && this.postingFilterModel.entityId > 0) {
       this.renderComponent = 'client'
