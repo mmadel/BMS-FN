@@ -10,11 +10,10 @@
             <c-card-header ngPreserveWhitespaces>
                 <strong>Search Criteria</strong> <small>From patient or Insurance Company</small>
             </c-card-header>
-
             <c-card-body>
                 <form cForm>
                     <c-row>
-                        <c-col class="mb-2" xs="12">
+                        <c-col class="mb-2" xs="11">
                             <select aria-label="searchentity" id="searchentity" cSelect sizing="sm" name="searchentity"
                                 [(ngModel)]="selectedSearchOption" (change)="changeSearch()">
                                 <option value="none" disabled>Select Search Criteria</option>
@@ -22,10 +21,15 @@
                                 <option value="insurance">Insurance Company</option>
                             </select>
                         </c-col>
+                        <c-col class="mb-2" xs="1">
+                            <button cButton size="sm" variant="outline" (click)="clear(0)">
+                                <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                            </button>
+                        </c-col>
                     </c-row>
                     <c-row>
                         <!-- Auto complete for patient -->
-                        <c-col class="mb-2" xs="12" *ngIf="selectedSearchOption ==='client'">
+                        <c-col class="mb-2" xs="11" *ngIf="selectedSearchOption ==='client'">
                             <input cFormControl name="patientname" [formControl]="patientClient" placeholder="Patient"
                                 class="mb-2" sizing="sm" />
                             <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoading"
@@ -40,7 +44,7 @@
                             </span>
                         </c-col>
                         <!-- Auto complete for insurance company -->
-                        <c-col class="mb-2" xs="12" *ngIf=" selectedSearchOption ==='insurance'">
+                        <c-col class="mb-2" xs="11" *ngIf=" selectedSearchOption ==='insurance'">
                             <input cFormControl name="insurancecompany" [formControl]="insuranceCompanyForm"
                                 placeholder="Insurance Company" class="mb-2" sizing="sm" />
                             <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoadingInsuranceCompany"
@@ -54,8 +58,18 @@
                                 <c-spinner variant="grow"></c-spinner>
                             </span>
                         </c-col>
+                        <c-col class="mb-2" xs="1" *ngIf="selectedSearchOption !== 'none'">
+                            <button cButton size="sm" variant="outline" (click)="clear(1)">
+                                <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                            </button>
+                        </c-col>
                     </c-row>
                 </form>
+                <c-col xs="12" class="text-center">
+                    <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">
+                        Search
+                    </button>
+                </c-col>
             </c-card-body>
         </c-card>
     </c-col>
@@ -68,7 +82,7 @@
             </c-card-header>
 
             <c-card-body>
-                <form cForm #paymentForm="ngForm"  id="paymentForm" name="paymentForm">
+                <form cForm #paymentForm="ngForm" id="paymentForm" name="paymentForm">
                     <c-row>
                         <c-col xs="12" class="mb-2">
                             <small
@@ -132,8 +146,8 @@
                                 class="form-text text-danger">
                                 Insurance Company
                             </small>
-                            <ng-autocomplete [data]="isuranceCompany" [searchKeyword]="'name'"
-                                [debounceTime]="500" id="paymentinsuranceCompany" name="paymentinsuranceCompany"
+                            <ng-autocomplete [data]="isuranceCompany" [searchKeyword]="'name'" [debounceTime]="500"
+                                id="paymentinsuranceCompany" name="paymentinsuranceCompany"
                                 placeholder="Insurance Company" [itemTemplate]="itemTemplate"
                                 [(ngModel)]="paymentBatch.insuranceCompany" required
                                 [notFoundTemplate]="notFoundTemplate" #paymentinsuranceCompany="ngModel">
@@ -152,14 +166,17 @@
                         <c-col xs="6" class="mb-2">
                             <strong>Total Adjustments : </strong> {{totalAdjustments | currency}}
                         </c-col>
-                        <small *ngIf=" (invalidServiceCode?.length > 0 && invalidServiceCode[0] !==-1)" class="form-text text-danger mb-3">
+                        <small *ngIf=" (invalidServiceCode?.length > 0 && invalidServiceCode[0] !==-1)"
+                            class="form-text text-danger mb-3">
                             service codes {{invalidServiceCode}} : have no session action
                         </small>
-                        <small *ngIf=" (invalidServiceCode?.length > 0 && invalidServiceCode[0] ===-1)" class="form-text text-danger mb-3">
+                        <small *ngIf=" (invalidServiceCode?.length > 0 && invalidServiceCode[0] ===-1)"
+                            class="form-text text-danger mb-3">
                             no service codes to apply payment on it
                         </small>
                         <c-col xs="12" class="text-center">
-                            <button cButton variant="outline" class="me-1" color="primary" size="sm" (click)="applyPayments()">
+                            <button cButton variant="outline" class="me-1" color="primary" size="sm"
+                                (click)="applyPayments()">
                                 Apply Payments
                             </button>
                         </c-col>
@@ -171,14 +188,13 @@
 </c-row>
 
 <c-row>
-    <c-col *ngIf="selectedSearchOption === 'client' && selectedSearchPatientValue>0">
-        <client-payment #clientPayments *ngIf="selectedSearchOption === 'client'  && selectedSearchPatientValue >0"
-            [clientId]="selectedSearchPatientValue" (changePayments)="onChangePayements($event)"
+    <c-col *ngIf="renderComponent ==='client'">
+        <client-payment #clientPayments *ngIf="renderComponent ==='client'" [clientId]="selectedSearchPatientValue"
+            (changePayments)="onChangePayements($event)"
             (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
     </c-col>
-    <c-col *ngIf="selectedSearchOption === 'insurance' && selectedSearchInsuranceCompanyValue>0">
-        bbb
-        <insurance-company-payment *ngIf="selectedSearchOption === 'insurance' && selectedSearchInsuranceCompanyValue>0"
+    <c-col *ngIf="renderComponent ==='insurance'">
+        <insurance-company-payment *ngIf="renderComponent ==='insurance'"
             [insuranceCompanyId]="selectedSearchInsuranceCompanyValue" #insuranceCompanyPayments
             (changePayments)="onChangePayements($event)"
             (changeAdjustments)="onChangeAdjustments($event)"></insurance-company-payment>

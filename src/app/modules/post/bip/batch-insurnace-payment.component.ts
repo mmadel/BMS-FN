@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
-import { InsuranceCompanyContainerService } from '../../Insurance/service/insurance-company-container.service';
 import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { PatientService } from '../../patient/service/patient.service';
@@ -33,6 +32,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   isSearchDisable: boolean;
   selectedSearchPatientValue: any;
   selectedSearchInsuranceCompanyValue: any;
+  renderComponent: string
   renderedComponent: string = '';
   totalPayments: number = 0;
   totalAdjustments: number = 0;
@@ -137,11 +137,10 @@ export class BatchInsurnacePaymentComponent implements OnInit {
 
   changePatientValue(event: any) {
     this.selectedSearchPatientValue = event;
-    this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchPatientValue.length !== 0);
+
   }
   changeInsuranceCompanyValue(event: any) {
     this.selectedSearchInsuranceCompanyValue = event;
-    this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchInsuranceCompanyValue.length !== 0);
   }
   onChangePayements(event: any[]) {
     if (event[0] === 0)
@@ -192,5 +191,20 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     } else {
       this.isuranceCompany = undefined;
     }
+  }
+  search() {
+    if (this.selectedSearchOption === 'client' && this.selectedSearchPatientValue > 0)
+      this.renderComponent = 'client'
+    if (this.selectedSearchOption === 'insurance' && this.selectedSearchInsuranceCompanyValue > 0)
+      this.renderComponent = 'insurance'
+  }
+  clear(filterType: number) {
+    if (filterType === 0)
+      this.selectedSearchOption = 'none';
+    if (filterType === 1) {
+      this.patientClient.setValue(undefined);
+      this.filteredPatients = undefined;
+    }
+
   }
 }
