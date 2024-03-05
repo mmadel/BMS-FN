@@ -186,6 +186,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.postingEmitterService.searchPostingClient$.next(this.postingFilterModel)
     }
     if (this.selectedSearchOption === 'insurance' && this.postingFilterModel.entityId > 0) {
+      this.postingEmitterService.searchPostingInsuranceCompany$.next(this.postingFilterModel)
       this.renderComponent = 'insurance'
     }
   }
