@@ -60,12 +60,5 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
   }
   sendSession(item: any) {
     this.invoiceEmitterService.clientId$.next(item.clientId);
-    this.patienService.findById(item.clientId).subscribe(reuslt => {
-      var clientSessionResponse: ClientSessionResponse = {
-        sessions: item.sessions,
-        client: reuslt
-      }
-      this.invoiceEmitterService.invoicedSession$.next(clientSessionResponse)
-    })
   }
 }
