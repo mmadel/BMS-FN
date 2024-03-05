@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
@@ -9,8 +7,8 @@ import { FilterModel } from '../../invoice/area/session.list/filter/filter.model
 import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { PatientService } from '../../patient/service/patient.service';
-import { PostingServiceService } from '../service/posting-service.service';
 import { ClientPaymentComponent } from './client/client-payment.component';
+import { PostingFilterModel } from './filter/posting.filter.model';
 import { InsuranceCompanyPaymentComponent } from './insurance.company/insurance-company-payment.component';
 
 @Component({
@@ -33,8 +31,6 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   isLoading = false;
   isLoadingInsuranceCompany = false;
   isSearchDisable: boolean;
-  clientId: number;
-  InsuranceCompanyId: number;
   renderComponent: string
   renderedComponent: string = '';
   totalPayments: number = 0;
@@ -46,7 +42,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
   invalidServiceCode: any[]
   isuranceCompany: IsuranceCompany[]
-  filterModel: FilterModel = {};
+  postingFilterModel: PostingFilterModel = {};
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService) {
   }
@@ -137,11 +133,11 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
 
   changePatientValue(event: any) {
-    this.clientId = event;
+    this.postingFilterModel.entityId = event;
 
   }
   changeInsuranceCompanyValue(event: any) {
-    this.InsuranceCompanyId = event;
+    this.postingFilterModel.entityId = event;
   }
   onChangePayements(event: any[]) {
     if (event[0] === 0)
@@ -194,9 +190,9 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     }
   }
   search() {
-    if (this.selectedSearchOption === 'client' && this.clientId > 0)
+    if (this.selectedSearchOption === 'client' && this.postingFilterModel.entityId > 0)
       this.renderComponent = 'client'
-    if (this.selectedSearchOption === 'insurance' && this.InsuranceCompanyId > 0)
+    if (this.selectedSearchOption === 'insurance' && this.postingFilterModel.entityId > 0)
       this.renderComponent = 'insurance'
   }
   clear(filterType: number) {

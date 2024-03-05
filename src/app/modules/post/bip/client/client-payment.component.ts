@@ -7,6 +7,7 @@ import { ClientPostingPayments } from 'src/app/modules/model/posting/client.post
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingServiceService } from '../../service/posting-service.service';
+import { PostingFilterModel } from '../filter/posting.filter.model';
 import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
 
 @Component({
@@ -15,7 +16,7 @@ import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
   styleUrls: ['./client-payment.component.scss']
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
-  @Input() clientId: number;
+  @Input() filter: PostingFilterModel;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   @ViewChild('clientPayments') clientPayments: SmartTableComponent;
@@ -41,7 +42,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     this.find();
   }
   private find() {
-    this.clientPostingPayments$ = this.postingServiceService.findClientPayments(this.apiParams$,this.clientId).pipe(
+    this.clientPostingPayments$ = this.postingServiceService.findClientPayments(this.apiParams$,this.filter.entityId).pipe(
       filter((result) => result !== null),
       tap((response: any) => {
         this.totalItems$.next(response.number_of_records);
@@ -92,7 +93,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     if (!(invalidServiceCode.length > 0)) {
       var paymentLines: PaymentServiceLine[] = PaymentLinesConstructor.construct(this.clientPayments.items, paymentBatch)
       if (paymentLines.length > 0) {
-        this.postingServiceService.createClientPayments(paymentLines, this.clientId)
+        this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
           .subscribe((result) => {
             this.toastr.success("Service lines payments submitted successfully")
           }, (error) => {

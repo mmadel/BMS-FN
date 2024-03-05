@@ -10,6 +10,7 @@ import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
 import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { PostingServiceService } from '../../service/posting-service.service';
+import { PostingFilterModel } from '../filter/posting.filter.model';
 import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
 
 @Component({
@@ -18,7 +19,7 @@ import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
   styleUrls: ['./insurance-company-payment.component.scss']
 })
 export class InsuranceCompanyPaymentComponent extends ListTemplate implements OnInit {
-  @Input() insuranceCompanyId: number;
+  @Input() filter: PostingFilterModel;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   insuranceCompanyPostingPayments$!: Observable<Map<string, ClientPostingPayments[]>>;
@@ -46,7 +47,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
   }
 
   find() {
-    this.insuranceCompanyPostingPayments$ = this.postingServiceService.findInsuranceCompanyPayments(this.insuranceCompanyId).pipe(
+    this.insuranceCompanyPostingPayments$ = this.postingServiceService.findInsuranceCompanyPayments(this.filter.entityId).pipe(
       map((response: any) => { return response.records; }),
     )
   }
