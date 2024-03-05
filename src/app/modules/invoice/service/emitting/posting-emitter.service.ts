@@ -6,6 +6,6 @@ import { PostingFilterModel } from 'src/app/modules/post/bip/filter/posting.filt
   providedIn: 'root'
 })
 export class PostingEmitterService {
-  public searchPosting$: BehaviorSubject<PostingFilterModel | null> = new BehaviorSubject<PostingFilterModel | null>(null);
+  public searchPostingClient$: BehaviorSubject<PostingFilterModel | null> = new BehaviorSubject<PostingFilterModel | null>(null);
   constructor() { }
 }
