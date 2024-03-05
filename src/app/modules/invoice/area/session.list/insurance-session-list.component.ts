@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { filter, map, Observable, switchMap, tap } from 'rxjs';
 import { Patient } from 'src/app/modules/model/clinical/patient';
@@ -39,22 +40,36 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     , private emitPatientSessionService: EmitPatientSessionService
     , private patientSessionService: PatientSessionService
     , private invoiceService: InvoiceService
-    , private patientService: PatientService) { super() }
+    , private patientService: PatientService
+    , private router: Router) {
+    super()
+    var state: any = this.router.getCurrentNavigation().extras.state
+    console.log(state)
+    if (state?.filter) {
+
+      this.filterModel.searchStartDate = new Date(moment.unix(state.startDate / 1000).format('MM/DD/YYYY'));
+      this.filterModel.searchEndDate = new Date(moment.unix(state.endDate / 1000).format('MM/DD/YYYY'));
+      this.client = state.client;
+      this.isSearchAllowed = state?.filter;
+    }
+  }
 
   customRanges = CustomDdateRanges.dateRnage;
   columns = ServiceLinesTableColumns.columns;
   ngOnInit(): void {
     this.initListComponent();
-    this.find();
-    this.invoiceEmitterService.linesInvoiced$.subscribe(result => {
-      if (result)
-        this.find();
-    })
+    //call search in case redirect to component after mark session as correct 
+    if (!this.isSearchAllowed)
+      this.find();
+    else
+      this.search()
+ 
   }
   search() {
+    console.log(JSON.stringify(this.filterModel) + '###############')
     var invoiceFilter: InvoiceFilter = new InvoiceFilter();
     if (invoiceFilter.isValid(this.filterModel)) {
-      this.filterModel.startDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchEndDate).unix() * 1000 : undefined
+      this.filterModel.startDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchStartDate).unix() * 1000 : undefined
       this.filterModel.endDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchEndDate).unix() * 1000 : undefined
       this.sessionServiceCodeLines$ = this.invoiceService.findByClientFilter(this.apiParams$, this.client.id, this.filterModel)
         .pipe(
@@ -118,8 +133,8 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
         this.find();
         break
       case "invoice":
-        console.log('##################')
         this.createinvoiceVisibility = false;
+        this.find()
         break;
       case "profile":
         this.editPatientProfileVisibility = false;

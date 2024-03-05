@@ -8,6 +8,6 @@ import { ClientSessionResponse } from '../../model/client.session.response';
 export class InvoiceEmitterService {
   public invoicedSession$: BehaviorSubject<ClientSessionResponse | null> = new BehaviorSubject<ClientSessionResponse | null>(null);
   public clientId$: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
-  public linesInvoiced$: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(null);
+  public invoiceLinesRendering$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(null);
   constructor() { }
 }
