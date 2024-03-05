@@ -14,9 +14,9 @@ export class PostingServiceService extends BasePaginationService  {
   private baseUrl = environment.baseURL + '/posting'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
-  public findClientPayments(clientId:number): Observable<any> {
-    var url = this.baseUrl + '/find/client/'+clientId
-    return this.httpClient.get(url)
+  public findClientPayments(config$: BehaviorSubject<IApiParams>,clientId:number): Observable<any> {
+    var url = this.baseUrl + '/find/patient/'+clientId
+    return this.get(config$, url)
   }
   public findInsuranceCompanyPayments(insuranceCompany:number): Observable<any> {
     var url = this.baseUrl + '/find/insurance/company/' + insuranceCompany

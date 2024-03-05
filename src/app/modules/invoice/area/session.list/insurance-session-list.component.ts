@@ -66,7 +66,6 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
  
   }
   search() {
-    console.log(JSON.stringify(this.filterModel) + '###############')
     var invoiceFilter: InvoiceFilter = new InvoiceFilter();
     if (invoiceFilter.isValid(this.filterModel)) {
       this.filterModel.startDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchStartDate).unix() * 1000 : undefined

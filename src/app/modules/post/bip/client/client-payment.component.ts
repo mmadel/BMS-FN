@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SmartTableComponent } from '@coreui/angular-pro';
 import { ToastrService } from 'ngx-toastr';
-import { map, Observable, tap } from 'rxjs';
+import { filter, map, Observable, tap } from 'rxjs';
 import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
@@ -41,7 +41,14 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     this.find();
   }
   private find() {
-    this.clientPostingPayments$ = this.postingServiceService.findClientPayments(this.clientId).pipe(
+    this.clientPostingPayments$ = this.postingServiceService.findClientPayments(this.apiParams$,this.clientId).pipe(
+      filter((result) => result !== null),
+      tap((response: any) => {
+        this.totalItems$.next(response.number_of_records);
+        if (response.number_of_records) {
+          this.errorMessage$.next('');
+        }
+      }),
       map((response: any) => { return response.records; })
     );
   }
