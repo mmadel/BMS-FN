@@ -199,8 +199,8 @@
             (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
     </c-col>
     <c-col *ngIf="renderComponent ==='insurance'">
-        <insurance-company-payment *ngIf="renderComponent ==='insurance'" [filter]="postingFilterModel"
-            #insuranceCompanyPayments (changePayments)="onChangePayements($event)"
+        <insurance-company-payment *ngIf="renderComponent ==='insurance'" #insuranceCompanyPayments
+            (changePayments)="onChangePayements($event)"
             (changeAdjustments)="onChangeAdjustments($event)"></insurance-company-payment>
     </c-col>
 </c-row>

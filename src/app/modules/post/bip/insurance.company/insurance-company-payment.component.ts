@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SmartTableComponent } from '@coreui/angular-pro';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
+import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
@@ -19,7 +20,7 @@ import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
   styleUrls: ['./insurance-company-payment.component.scss']
 })
 export class InsuranceCompanyPaymentComponent extends ListTemplate implements OnInit {
-  @Input() filter: PostingFilterModel;
+  filter: PostingFilterModel;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   insuranceCompanyPostingPayments$!: Observable<Map<string, ClientPostingPayments[]>>;
@@ -28,7 +29,8 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     , private patientService: PatientService
     , private pateintEmittingService: PateintEmittingService
     , private router: Router
-    , private toastr: ToastrService) { super() }
+    , private toastr: ToastrService
+    , private postingEmitterService: PostingEmitterService) { super() }
   columns = [
     { key: 'id' },
     'dateOfService',
@@ -43,7 +45,10 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
   ];
   ngOnInit(): void {
     this.initListComponent();
-    this.find();
+    this.postingEmitterService.searchPostingInsuranceCompany$.subscribe((emittedPostingFilter: PostingFilterModel) => {
+      this.filter = emittedPostingFilter;
+      this.find();
+    })
   }
 
   find() {
