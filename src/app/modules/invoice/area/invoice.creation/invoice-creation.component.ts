@@ -1,15 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { filter, switchMap, tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
-import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
 import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { InvocieRequestCreator } from '../../invoice.creator/invocie.request.creator';
-import { ClientSessionResponse } from '../../model/client.session.response';
 import { InvoiceRequest } from '../../model/temp/invoice.request';
 import { OtherPatientInsurance } from '../../model/temp/other.patient.insurance';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
@@ -36,8 +34,7 @@ export class InvoiceCreationComponent implements OnInit {
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
     , private invoiceEmitterService: InvoiceEmitterService
-    , private insuranceCompanyService: InsuranceCompanyService
-    , private patientService: PatientService) { }
+    , private insuranceCompanyService: InsuranceCompanyService) { }
 
   ngOnInit(): void {
     this.filterpatientInsurances = this.patientInsurances.filter(insuranceCompany => { return !insuranceCompany.isArchived; })
