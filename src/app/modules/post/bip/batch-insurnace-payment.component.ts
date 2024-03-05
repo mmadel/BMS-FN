@@ -4,6 +4,7 @@ import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
 import { FilterModel } from '../../invoice/area/session.list/filter/filter.model';
+import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
 import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { PatientService } from '../../patient/service/patient.service';
@@ -44,7 +45,8 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   isuranceCompany: IsuranceCompany[]
   postingFilterModel: PostingFilterModel = {};
   constructor(private patientService: PatientService
-    , private insuranceCompanyService: InsuranceCompanyService) {
+    , private insuranceCompanyService: InsuranceCompanyService
+    , private postingEmitterService: PostingEmitterService) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -190,10 +192,13 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     }
   }
   search() {
-    if (this.selectedSearchOption === 'client' && this.postingFilterModel.entityId > 0)
+    if (this.selectedSearchOption === 'client' && this.postingFilterModel.entityId > 0) {
       this.renderComponent = 'client'
-    if (this.selectedSearchOption === 'insurance' && this.postingFilterModel.entityId > 0)
+      this.postingEmitterService.searchPostingClient$.next(this.postingFilterModel)
+    }
+    if (this.selectedSearchOption === 'insurance' && this.postingFilterModel.entityId > 0) {
       this.renderComponent = 'insurance'
+    }
   }
   clear(filterType: number) {
     if (filterType === 0) {
@@ -205,6 +210,6 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.filteredPatients = undefined;
       this.renderComponent = 'none'
     }
-    this.postingFilterModel={}
+    this.postingFilterModel = {}
   }
 }

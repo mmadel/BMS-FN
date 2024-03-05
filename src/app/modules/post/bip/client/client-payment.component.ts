@@ -3,6 +3,7 @@ import { SmartTableComponent } from '@coreui/angular-pro';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { filter, map, Observable, tap } from 'rxjs';
+import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
@@ -17,7 +18,7 @@ import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
   styleUrls: ['./client-payment.component.scss']
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
-  @Input() filter: PostingFilterModel;
+  filter: PostingFilterModel;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   @ViewChild('clientPayments') clientPayments: SmartTableComponent;
@@ -36,11 +37,15 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
   constructor(private postingServiceService: PostingServiceService
-    , private toastr: ToastrService) { super() }
+    , private toastr: ToastrService
+    , private postingEmitterService: PostingEmitterService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
-    this.find();
+    this.postingEmitterService.searchPostingClient$.subscribe((emittedPostingFilter: PostingFilterModel) => {
+      this.filter = emittedPostingFilter;
+      this.find();
+    })
   }
   private find() {
     this.filter.startDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchStartDate).unix() * 1000 : undefined
