@@ -189,14 +189,13 @@
 
 <c-row>
     <c-col *ngIf="renderComponent ==='client'">
-        <client-payment #clientPayments *ngIf="renderComponent ==='client'" [clientId]="selectedSearchPatientValue"
+        <client-payment #clientPayments *ngIf="renderComponent ==='client'" [clientId]="clientId"
             (changePayments)="onChangePayements($event)"
             (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
     </c-col>
     <c-col *ngIf="renderComponent ==='insurance'">
-        <insurance-company-payment *ngIf="renderComponent ==='insurance'"
-            [insuranceCompanyId]="selectedSearchInsuranceCompanyValue" #insuranceCompanyPayments
-            (changePayments)="onChangePayements($event)"
+        <insurance-company-payment *ngIf="renderComponent ==='insurance'" [insuranceCompanyId]="InsuranceCompanyId"
+            #insuranceCompanyPayments (changePayments)="onChangePayements($event)"
             (changeAdjustments)="onChangeAdjustments($event)"></insurance-company-payment>
     </c-col>
 </c-row>

@@ -30,8 +30,8 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   isLoading = false;
   isLoadingInsuranceCompany = false;
   isSearchDisable: boolean;
-  selectedSearchPatientValue: any;
-  selectedSearchInsuranceCompanyValue: any;
+  clientId: number;
+  InsuranceCompanyId: number;
   renderComponent: string
   renderedComponent: string = '';
   totalPayments: number = 0;
@@ -136,11 +136,11 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
 
   changePatientValue(event: any) {
-    this.selectedSearchPatientValue = event;
+    this.clientId = event;
 
   }
   changeInsuranceCompanyValue(event: any) {
-    this.selectedSearchInsuranceCompanyValue = event;
+    this.InsuranceCompanyId = event;
   }
   onChangePayements(event: any[]) {
     if (event[0] === 0)
@@ -193,17 +193,20 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     }
   }
   search() {
-    if (this.selectedSearchOption === 'client' && this.selectedSearchPatientValue > 0)
+    if (this.selectedSearchOption === 'client' && this.clientId > 0)
       this.renderComponent = 'client'
-    if (this.selectedSearchOption === 'insurance' && this.selectedSearchInsuranceCompanyValue > 0)
+    if (this.selectedSearchOption === 'insurance' && this.InsuranceCompanyId > 0)
       this.renderComponent = 'insurance'
   }
   clear(filterType: number) {
-    if (filterType === 0)
+    if (filterType === 0) {
       this.selectedSearchOption = 'none';
+      this.renderComponent = 'none'
+    }
     if (filterType === 1) {
       this.patientClient.setValue(undefined);
       this.filteredPatients = undefined;
+      this.renderComponent = 'none'
     }
 
   }
