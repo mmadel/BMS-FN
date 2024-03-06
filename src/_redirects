@@ -1,22 +1,28 @@
 /billing/api/invoice/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/invoice/create  200
 /billing/api/invoice/create/electronic   https://billing-service-e4526add3402.herokuapp.com/billing/api/invoice/create/electronic  200
-/billing/api/invoice/find/clientId/:clientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/invoice/find/clientId/:clientId 200
-/billing/api/invoice/find/clients   https://billing-service-e4526add3402.herokuapp.com/billing/api/invoice/find/clients  200
+/billing/api/invoice/find/patient/:patient   https://billing-service-e4526add3402.herokuapp.com/billing/api/invoice/find/patient/:patientId 200
+/billing/api/invoice/find   https://billing-service-e4526add3402.herokuapp.com/billing/api/invoice/find  200
+
 /billing/api/payer/find   https://billing-service-e4526add3402.herokuapp.com/billing/api/payer/find  200
 /billing/api/payer/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/payer/create  200
+
 /billing/api/posting/create/payments/clientId/:clientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/create/payments/clientId/:clientId  200
 /billing/api/posting/create/payments/insurance/company   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/create/payments/insurance/company  200
-/billing/api/posting/find/client/:clientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/find/client/:clientId  200
+/billing/api/posting/find/patient/:patientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/find/patient/:patientId  200
 /billing/api/posting/find/insurance/company/:insuranceCompanyId   https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/find/insurance/company/:insuranceCompanyId  200
+
 /billing/api/clinic/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/clinic/create  200
 /billing/api/clinic/delete/clinicId/:clinicId   https://billing-service-e4526add3402.herokuapp.com/billing/api/clinic/delete/clinicId/:clinicId  200
 /billing/api/clinic/find   https://billing-service-e4526add3402.herokuapp.com/billing/api/clinic/find  200
 /billing/api/clinic/find/all   https://billing-service-e4526add3402.herokuapp.com/billing/api/clinic/find/all  200
 /billing/api/clinic/update   https://billing-service-e4526add3402.herokuapp.com/billing/api/clinic/update  200
+
 /billing/api/organization/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/organization/create  200
 /billing/api/organization/find/default   https://billing-service-e4526add3402.herokuapp.com/billing/api/organization/find/default  200
 /billing/api/organization/update   https://billing-service-e4526add3402.herokuapp.com/billing/api/organization/update  200
+
 /billing/api/case/diagnosis/find/term/:term   https://billing-service-e4526add3402.herokuapp.com/billing/api/case/diagnosis/find/term/:term  200
+
 /billing/api/insurance/company/configure   https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/configure  200
 /billing/api/insurance/company/find   https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/find  200
 /billing/api/insurance/company/find/configuration/id/:id/visibility/:visibility   https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/find/configuration/id/:id/visibility/:visibility  200
@@ -26,26 +32,35 @@
 /billing/api/insurance/company/find/name/:name   https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/find/name/:name  200
 /billing/api/insurance/company/map   https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/map  200
 /billing/api/insurance/company/update/configure   https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/update/configure  200
+
 /billing/api/patient/case/create/patient/:patientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/case/create/patient/:patientId  200
 /billing/api/patient/case/delete/:id   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/case/delete/:id  200
+
 /billing/api/patient/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/create  200
 /billing/api/patient/find   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/find  200
-/billing/api/patient/find/cases/patientId/:patientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/find/cases/patientId/:patientId  200
 /billing/api/patient/find/first/:first/last/:last   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/find/first/:first/last/:last  200
 /billing/api/patient/find/name/:name   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/find/name/:name  200
 /billing/api/patient/find/patientId/:patientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/find/patientId/:patientId  200
+
 /billing/api/patient/insurance/company/create/patient/:patientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/insurance/company/create/patient/:patientId  200
 /billing/api/patient/insurance/company/delete/:id/visibility/:visibility   https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/insurance/company/delete/:id/visibility/:visibility  200
-/billing/api/session/change/status/serviceCode/:serviceCodeId   https://billing-service-e4526add3402.herokuapp.com/billing/api/session/change/status/serviceCode/:serviceCodeId  200
+
 /billing/api/session/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/session/create  200
+/billing/api/session/correct   https://billing-service-e4526add3402.herokuapp.com/billing/api/session/correct  200
 /billing/api/session/find/patientId/:patientId   https://billing-service-e4526add3402.herokuapp.com/billing/api/session/find/patientId/:patientId  200
+/billing/api/session/find/id/:sessionId  https://billing-service-e4526add3402.herokuapp.com/billing/api/session/find/id/:sessionId  200
 /billing/api/session/update   https://billing-service-e4526add3402.herokuapp.com/billing/api/session/update  200
+/billing/api/session/update/items/serviceLineId/:serviceLineId   https://billing-service-e4526add3402.herokuapp.com/session/update/items/serviceLineId/:serviceLineId  200
+
 /billing/api/provider/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/create  200
 /billing/api/provider/find   https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/find  200
 /billing/api/provider/find/all   https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/find/all  200
+
 /billing/api/referring/provider/create   https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/create  200
 /billing/api/referring/provider/find   https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/find  200
 /billing/api/referring/provider/find/all   https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/find/all  200
+
+/billing/api/nppes/find/provider/npi/:npi   https://billing-service-e4526add3402.herokuapp.com/billing/api/nppes/find/provider/npi/:npi  200
 
 
 /*  /index.html   200
