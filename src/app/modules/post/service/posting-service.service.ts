@@ -4,7 +4,6 @@ import { IItem } from '@coreui/angular-pro/lib/smart-table/smart-table.type';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IApiParams } from '../../model/interface/api.params';
-import { PaymentServiceLine } from '../../model/posting/payment.service.line';
 import { BasePaginationService } from '../../model/service/base-pagination.service';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 
