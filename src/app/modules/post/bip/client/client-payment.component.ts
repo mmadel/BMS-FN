@@ -1,12 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SmartTableComponent } from '@coreui/angular-pro';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { map, Observable, tap } from 'rxjs';
+import { filter, map, Observable, tap } from 'rxjs';
+import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingServiceService } from '../../service/posting-service.service';
+import { PostingFilterModel } from '../filter/posting.filter.model';
 import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
 
 @Component({
@@ -15,7 +18,7 @@ import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
   styleUrls: ['./client-payment.component.scss']
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
-  @Input() clientId: number;
+  filter: PostingFilterModel;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   @ViewChild('clientPayments') clientPayments: SmartTableComponent;
@@ -34,14 +37,27 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
   constructor(private postingServiceService: PostingServiceService
-    , private toastr: ToastrService) { super() }
+    , private toastr: ToastrService
+    , private postingEmitterService: PostingEmitterService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
-    this.find();
+    this.postingEmitterService.searchPostingClient$.subscribe((emittedPostingFilter: PostingFilterModel) => {
+      this.filter = emittedPostingFilter;
+      this.find();
+    })
   }
   private find() {
-    this.clientPostingPayments$ = this.postingServiceService.findClientPayments(this.clientId).pipe(
+    this.filter.startDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchStartDate).unix() * 1000 : undefined
+    this.filter.endDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchEndDate).unix() * 1000 : undefined
+    this.clientPostingPayments$ = this.postingServiceService.findClientPaymentsFiltered(this.apiParams$, this.filter).pipe(
+      filter((result) => result !== null),
+      tap((response: any) => {
+        this.totalItems$.next(response.number_of_records);
+        if (response.number_of_records) {
+          this.errorMessage$.next('');
+        }
+      }),
       map((response: any) => { return response.records; })
     );
   }
@@ -85,7 +101,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     if (!(invalidServiceCode.length > 0)) {
       var paymentLines: PaymentServiceLine[] = PaymentLinesConstructor.construct(this.clientPayments.items, paymentBatch)
       if (paymentLines.length > 0) {
-        this.postingServiceService.createClientPayments(paymentLines, this.clientId)
+        this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
           .subscribe((result) => {
             this.toastr.success("Service lines payments submitted successfully")
           }, (error) => {

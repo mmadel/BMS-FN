@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { Provider } from '../../model/clinical/provider/provider';
 import { ListTemplate } from '../../model/template/list.template';
-import usersData from '../../patient/list/_data';
 import { ProviderService } from '../service/provider.service';
 @Component({
   selector: 'app-list',
@@ -10,7 +9,6 @@ import { ProviderService } from '../service/provider.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends ListTemplate implements OnInit {
-  usersData = usersData;
   providers$!: Observable<Provider[]>;
   addVisibility: boolean = false
   columns = [

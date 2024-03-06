@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
-import { InsuranceCompanyContainerService } from '../../Insurance/service/insurance-company-container.service';
+import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
+import { FilterModel } from '../../invoice/area/session.list/filter/filter.model';
+import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
 import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { PatientService } from '../../patient/service/patient.service';
-import { PostingServiceService } from '../service/posting-service.service';
 import { ClientPaymentComponent } from './client/client-payment.component';
+import { PostingFilterModel } from './filter/posting.filter.model';
 import { InsuranceCompanyPaymentComponent } from './insurance.company/insurance-company-payment.component';
 
 @Component({
@@ -21,6 +21,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   @ViewChild('paymentForm') paymentForm: NgForm;
   @ViewChild('clientPayments') clientPayments: ClientPaymentComponent;
   @ViewChild('insuranceCompanyPayments') insuranceCompanyPayments: InsuranceCompanyPaymentComponent;
+  customRanges = CustomDdateRanges.dateRnage;
   notValidForm: boolean = false
   patientClient = new FormControl();
   insuranceCompanyForm = new FormControl();
@@ -31,8 +32,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   isLoading = false;
   isLoadingInsuranceCompany = false;
   isSearchDisable: boolean;
-  selectedSearchPatientValue: any;
-  selectedSearchInsuranceCompanyValue: any;
+  renderComponent: string
   renderedComponent: string = '';
   totalPayments: number = 0;
   totalAdjustments: number = 0;
@@ -43,11 +43,10 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
   invalidServiceCode: any[]
   isuranceCompany: IsuranceCompany[]
+  postingFilterModel: PostingFilterModel = {};
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
-    , private postingServiceService: PostingServiceService
-    , private toastr: ToastrService
-    , private router: Router) {
+    , private postingEmitterService: PostingEmitterService) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -136,12 +135,11 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
 
   changePatientValue(event: any) {
-    this.selectedSearchPatientValue = event;
-    this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchPatientValue.length !== 0);
+    this.postingFilterModel.entityId = event;
+
   }
   changeInsuranceCompanyValue(event: any) {
-    this.selectedSearchInsuranceCompanyValue = event;
-    this.isSearchDisable = this.selectedSearchOption !== 'none' && (this.selectedSearchInsuranceCompanyValue.length !== 0);
+    this.postingFilterModel.entityId = event;
   }
   onChangePayements(event: any[]) {
     if (event[0] === 0)
@@ -182,15 +180,28 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.notValidForm = true;
     }
   }
-
-  changeSearch() {
-    if (this.selectedSearchOption === 'client') {
-      this.insuranceCompanyService.findInternal()
-        .subscribe((reuslt) => {
-          this.isuranceCompany = reuslt;
-        })
-    } else {
-      this.isuranceCompany = undefined;
+  search() {
+    if (this.selectedSearchOption === 'client' && this.postingFilterModel.entityId > 0) {
+      this.renderComponent = 'client'
+      this.postingEmitterService.searchPostingClient$.next(this.postingFilterModel)
     }
+    if (this.selectedSearchOption === 'insurance' && this.postingFilterModel.entityId > 0) {
+      this.postingEmitterService.searchPostingInsuranceCompany$.next(this.postingFilterModel)
+      this.renderComponent = 'insurance'
+    }
+  }
+  clear(filterType: number) {
+    if (filterType === 0) {
+      this.selectedSearchOption = 'none';
+      this.renderComponent = 'none'
+    }
+    if (filterType === 1) {
+      this.patientClient.setValue(undefined);
+      this.insuranceCompanyForm.setValue(undefined)
+      this.filteredPatients = undefined;
+      this.filteredInsuranceCompany = undefined;
+      this.renderComponent = 'none'
+    }
+    this.postingFilterModel = {}
   }
 }

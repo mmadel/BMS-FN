@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SmartTableComponent } from '@coreui/angular-pro';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
+import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
@@ -10,6 +11,7 @@ import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
 import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { PostingServiceService } from '../../service/posting-service.service';
+import { PostingFilterModel } from '../filter/posting.filter.model';
 import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
 
 @Component({
@@ -18,7 +20,7 @@ import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
   styleUrls: ['./insurance-company-payment.component.scss']
 })
 export class InsuranceCompanyPaymentComponent extends ListTemplate implements OnInit {
-  @Input() insuranceCompanyId: number;
+  filter: PostingFilterModel;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   insuranceCompanyPostingPayments$!: Observable<Map<string, ClientPostingPayments[]>>;
@@ -27,7 +29,8 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     , private patientService: PatientService
     , private pateintEmittingService: PateintEmittingService
     , private router: Router
-    , private toastr: ToastrService) { super() }
+    , private toastr: ToastrService
+    , private postingEmitterService: PostingEmitterService) { super() }
   columns = [
     { key: 'id' },
     'dateOfService',
@@ -42,11 +45,14 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
   ];
   ngOnInit(): void {
     this.initListComponent();
-    this.find();
+    this.postingEmitterService.searchPostingInsuranceCompany$.subscribe((emittedPostingFilter: PostingFilterModel) => {
+      this.filter = emittedPostingFilter;
+      this.find();
+    })
   }
 
   find() {
-    this.insuranceCompanyPostingPayments$ = this.postingServiceService.findInsuranceCompanyPayments(this.insuranceCompanyId).pipe(
+    this.insuranceCompanyPostingPayments$ = this.postingServiceService.findInsuranceCompanyPayments(this.filter.entityId).pipe(
       map((response: any) => { return response.records; }),
     )
   }

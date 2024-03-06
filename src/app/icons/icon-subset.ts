@@ -110,11 +110,13 @@ import {
   cilInstitution,
   cilWheelchair,
   cilExpandDown,
-  cilChevronCircleDownAlt
+  cilChevronCircleDownAlt,cilFilter,cilFilterX
   
 } from '@coreui/icons';
 
 export const iconSubset = {
+  cilFilterX,
+  cilFilter,
   cilMedicalCross,
   cilBank,
   cilBrowser,

@@ -100,29 +100,18 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     this.execute();
   }
   changeVisibility(event: any) {
-    if (event === 'close') {
+    if (event === 'session') {
       this.editSessionVisibility = false;
       this.find();
     }
   }
   execute() {
     this.patientSessionService.correctClaim(this.selectedPatientSession.data)
-      .subscribe(result => {
+      .subscribe((result: PatientSession) => {
         if (this.correctClaimRedirect) {
-          var returned: PatientSession = result;
-          var filterServiceCodes: ServiceCode[] = returned.serviceCodes.filter(serviceLine => serviceLine.type !== 'Invoice')
-          filterServiceCodes.forEach(serviceLine => {
-            serviceLine.isCorrect = true;
-          })
-
-          this.selectedPatientSession.data.serviceCodes = filterServiceCodes;
-          var sessions: PatientSession[] = [this.selectedPatientSession.data];
-          var clientSessionResponse: ClientSessionResponse = {
-            sessions: sessions,
-            client: this.pateint
-          }
-          this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
-          this.router.navigate(['/invoice/session/list/']);
+          var invoiceLinesRender: any = { filter: true, startDate: result.serviceDate, endDate: result.serviceDate, client: this.pateint }
+          this.invoiceEmitterService.invoiceLinesRendering$.next(invoiceLinesRender)
+          this.router.navigate(['/invoice/session/list/'], { state: { filter: true, startDate: result.serviceDate, endDate: result.serviceDate, client: this.pateint } });
         } else {
           this.toastr.success('Claim has been marked as corrected');
           this.scrollUp()
@@ -131,6 +120,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
       }, (error) => {
         this.toastr.error('Error during correcting pateint session');
       })
+
     this.correctRedirectConfiramtionVisibility = true;
   }
   scrollUp() {

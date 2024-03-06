@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { ReferringProvider } from '../../model/clinical/referring.provider';
 import { ListTemplate } from '../../model/template/list.template';
-import usersData from '../../patient/list/_data';
 import { ReferringProviderService } from '../service/referring-provider.service';
 @Component({
   selector: 'app-referring-provider-list',

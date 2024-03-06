@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, first, map, Observable, tap } from 'rxjs';
-import { Patient } from 'src/app/modules/model/clinical/patient';
-import { PatientSessionResponse } from 'src/app/modules/model/clinical/session/patient.session.response';
+import { filter, map, Observable, tap } from 'rxjs';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
+import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { ClientResponse } from '../../model/client.response';
 import { ClientSessionResponse } from '../../model/client.session.response';
 import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
@@ -26,7 +25,8 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
     { key: 'actions', _style: { width: '25%' }, label: '' },
   ];
   constructor(private invoiceService: InvoiceService
-    , private invoiceEmitterService: InvoiceEmitterService) { super() }
+    , private invoiceEmitterService: InvoiceEmitterService
+    , private patienService: PatientService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -46,14 +46,11 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
       map((response: any) => {
         var list: ClientResponse[] = new Array()
         for (var i = 0; i < response.records.length; i++) {
-          var obj: Patient = response.records[i];
+          var obj: any = response.records[i];
           var clientResponse: ClientResponse = {
-            clientName: obj.lastName + ',' + obj.firstName,
-            clientId: obj.id,
-            primaryInsurance: this.getPrimaryInsurance(obj),
-            secondaryInsurance: this.getSecondaryInsurance(obj),
-            sessions: obj.sessions,
-            data: obj
+            clientName: obj.patientName,
+            clientId: obj.patientId,
+            sessions: obj.patientSession,
           }
           list.push(clientResponse)
         }
@@ -61,34 +58,7 @@ export class InsurancePatientListComponent extends ListTemplate implements OnIni
       })
     );
   }
-  private getPrimaryInsurance(pateint: Patient): string {
-    var result: string = ''
-    // if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
-    //   for (var i = 0; i < pateint.patientInsurances.length; i++) {
-    //     if (pateint.patientInsurances[i].patientInsurancePolicy.responsibility === 'Primary')
-    //       result = pateint.patientInsurances[i].payer.name;
-    //   }
-    // } else
-      result = ''
-    return result;
-  }
-
-  private getSecondaryInsurance(pateint: Patient): string {
-    var result: string;
-    // if (pateint.patientInsurances !== undefined || pateint.patientInsurances.length > 0) {
-    //   for (var i = 0; i < pateint.patientInsurances.length; i++) {
-    //     if (pateint.patientInsurances[i].patientInsurancePolicy.responsibility === 'Secondary')
-    //       result = pateint.patientInsurances[i].payer.name;
-    //   }
-    // } else
-      result = ''
-    return result;
-  }
   sendSession(item: any) {
-    var clientSessionResponse: ClientSessionResponse = {
-      sessions: item.sessions,
-      client: item.data
-    }
-    this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
+    this.invoiceEmitterService.clientId$.next(item.clientId);
   }
 }

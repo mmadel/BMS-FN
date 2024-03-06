@@ -1,16 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { filter, switchMap, tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/insurance.company/insurance-company.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
 import { InvocieRequestCreator } from '../../invoice.creator/invocie.request.creator';
-import { ClientSessionResponse } from '../../model/client.session.response';
 import { InvoiceRequest } from '../../model/temp/invoice.request';
 import { OtherPatientInsurance } from '../../model/temp/other.patient.insurance';
-import { InvoiceEmitterService } from '../../service/emitting/invoice-emitter.service';
 import { InvoiceService } from '../../service/invoice.service';
 
 @Component({
@@ -33,7 +31,6 @@ export class InvoiceCreationComponent implements OnInit {
   avoidCorrectClaimFlag: boolean = false;
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
-    , private invoiceEmitterService: InvoiceEmitterService
     , private insuranceCompanyService: InsuranceCompanyService) { }
 
   ngOnInit(): void {
@@ -73,8 +70,7 @@ export class InvoiceCreationComponent implements OnInit {
           switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
         ).subscribe((response) => {
           this.toastr.success("Invocie created successfully ")
-          this.changeVisibility.emit('close');
-          this.findCleint();
+          this.changeVisibility.emit('invoice');
           this.constructExportedFile(response, 'cms-', 'json')
         }, error => {
           this.toastr.error("error in create invoice")
@@ -91,8 +87,7 @@ export class InvoiceCreationComponent implements OnInit {
         switchMap(() => this.invoiceService.create(this.invoiceRequest))
       ).subscribe((response) => {
         this.toastr.success("Invocie created successfully ")
-        this.changeVisibility.emit('close');
-        this.findCleint();
+        this.changeVisibility.emit('invoice');
         this.constructExportedFile(response, 'cms-', 'pdf')
       }, error => {
         this.toastr.error("error in create invoice")
@@ -134,28 +129,7 @@ export class InvoiceCreationComponent implements OnInit {
       });
     return result;
   }
-  private findCleint() {
-    this.invoiceService.findByClient(this.client.id)
-      .subscribe((result) => {
-        this.emitChanges(result);
-      })
-  }
-  private emitChanges(pateint: Patient) {
-    var clientSessionResponse: ClientSessionResponse
-    if (pateint !== null) {
-      clientSessionResponse = {
-        sessions: pateint.sessions,
-        client: pateint
-      }
-    } else
-      clientSessionResponse = {
-        sessions: new Array(),
-        client: {}
 
-      }
-
-    this.invoiceEmitterService.selectedInvoiceClientSession$.next(clientSessionResponse)
-  }
   private checkIsCorrectServiceLines(selectedSessionServiceLine: SelectedSessionServiceLine[]) {
     var isCorrect = selectedSessionServiceLine.every(obj => obj.serviceLine.isCorrect);
     this.isCorrectClaim = isCorrect;

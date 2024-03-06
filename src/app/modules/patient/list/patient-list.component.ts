@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { map, Observable, tap } from 'rxjs';
+import { MinimalPatient } from '../../model/clinical/minimal.patient';
 import { Patient } from '../../model/clinical/patient';
 import { PatientResponse } from '../../model/clinical/patient.response';
 import { ListTemplate } from '../../model/template/list.template';
@@ -13,7 +14,7 @@ import { PatientService } from '../service/patient.service';
   styleUrls: ['./patient-list.component.scss']
 })
 export class PatientListComponent extends ListTemplate implements OnInit {
-  patients$!: Observable<Patient[]>;
+  patients$!: Observable<MinimalPatient[]>;
   constructor(private paitentService: PatientService
     , private router: Router) { super() }
 
@@ -39,7 +40,8 @@ export class PatientListComponent extends ListTemplate implements OnInit {
     this.router.navigate(['/patient/profile']);
   }
   edit(event: any) {
-    this.router.navigate(['/patient/profile',event.data.id]);
+    console.log(JSON.stringify(event))
+    this.router.navigate(['/patient/profile',event.id]);
   }
   view(event: any) {
   }
@@ -56,12 +58,12 @@ export class PatientListComponent extends ListTemplate implements OnInit {
       map((response: any) => {
         var list: PatientResponse[] = new Array()
         for (var i = 0; i < response.records.length; i++) {
-          var obj: Patient = response.records[i];
+          var obj: MinimalPatient = response.records[i];
           var patientResponse: PatientResponse = {
-            name: obj.lastName + ',' + obj.firstName,
-            dob: moment.unix(obj.birthDate / 1000).toDate(),
+            id:obj.id,
+            name: obj.name,
+            dob: moment.unix(obj.dateOfBirth / 1000).toDate(),
             email: obj.email,
-            data: obj
           }
           list.push(patientResponse)
         }

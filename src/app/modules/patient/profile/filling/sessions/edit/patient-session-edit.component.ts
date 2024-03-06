@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
 import { Patient } from 'src/app/modules/model/clinical/patient';
+import { LegacyID } from 'src/app/modules/model/clinical/provider/legacy.id';
 import { DoctorInfo } from 'src/app/modules/model/clinical/session/doctor.info';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
@@ -65,7 +66,15 @@ export class PatientSessionEditComponent implements OnInit {
     this.emitPatientSessionService.sessionBillingCode$.next(billingCode)
   }
   private constructorModelDoctorInfo() {
-    console.log(JSON.stringify(this.oldProvider))
+    console.log(JSON.stringify(this.oldProvider.legacyID))
+    var legacyID: LegacyID
+    if (this.oldProvider.legacyID !== null && this.oldProvider.legacyID !== undefined) {
+      legacyID = {
+        providerId: this.oldProvider.legacyID.providerId,
+        providerIdQualifier: this.oldProvider.legacyID.providerIdQualifier,
+        payerName: this.oldProvider.legacyID.payerName,
+      }
+    }
     return {
       doctorId: this.editPateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
         this.oldProvider.doctorId :
@@ -79,11 +88,7 @@ export class PatientSessionEditComponent implements OnInit {
       doctorNPI: this.editPateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
         this.oldProvider.doctorNPI :
         this.editPateintSessionShedulingComponent.sessionScheduling.provider.model.doctorNPI,
-      legacyID: {
-        providerId: this.oldProvider.legacyID.providerId,
-        providerIdQualifier: this.oldProvider.legacyID.providerIdQualifier,
-        payerName: this.oldProvider.legacyID.payerName,
-      }
+      legacyID: legacyID
     }
   }
   private constructModel() {
@@ -116,7 +121,7 @@ export class PatientSessionEditComponent implements OnInit {
     if (!(this.editPateintSessionShedulingComponent.notValidForm || this.editPateintSessionBillingCodeComponent.notValidForm)) {
       this.patientSessionService.update(updatedPateintSession)
         .subscribe((result) => {
-          this.changeVisibility.emit('close');
+          this.changeVisibility.emit('session');
           this.toastr.success("pateint session updated")
         }, (error) => {
           this.toastr.success("Error during session udpate")
