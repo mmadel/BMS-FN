@@ -21,6 +21,6 @@ export class InvoiceFilter {
     private validDateRangeFilterData(searchStartDate: Date, searchEndtDate: Date): boolean {
         var isStartDateSet: boolean = searchStartDate !== undefined && searchStartDate !== null;
         var isEndDateSet = searchEndtDate !== undefined && searchEndtDate !== null;
-        return isStartDateSet && isEndDateSet;
+        return isStartDateSet || isEndDateSet;
     }
 }

@@ -44,7 +44,6 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     , private router: Router) {
     super()
     var state: any = this.router.getCurrentNavigation().extras.state
-    console.log(state)
     if (state?.filter) {
 
       this.filterModel.searchStartDate = new Date(moment.unix(state.startDate / 1000).format('MM/DD/YYYY'));
