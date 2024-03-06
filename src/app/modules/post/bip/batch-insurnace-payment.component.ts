@@ -197,7 +197,9 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     }
     if (filterType === 1) {
       this.patientClient.setValue(undefined);
+      this.insuranceCompanyForm.setValue(undefined)
       this.filteredPatients = undefined;
+      this.filteredInsuranceCompany = undefined;
       this.renderComponent = 'none'
     }
     this.postingFilterModel = {}
