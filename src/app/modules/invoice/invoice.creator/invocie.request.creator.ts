@@ -57,6 +57,7 @@ export class InvocieRequestCreator {
         ];
         var invoiceInsuranceCompanyInformation: InvoiceInsuranceCompanyInformation = {
             name: patientInsurance.insuranceCompany[0],
+            id: Number(patientInsurance.insuranceCompany[1]),
             address: patientInsurance.insuranceCompanyAddress,
             visibility: patientInsurance.visibility,
             assigner: patientInsurance.assigner,
@@ -67,6 +68,7 @@ export class InvocieRequestCreator {
             policyInformation: policyInforamtion,
             otherInsurances: otherPatientInsurance
         }
+        console.log(JSON.stringify(patientInsurance))
         return invoiceInsuranceCompanyInformation
     }
     private static createInvoiceBillingProviderInformation(): InvoiceBillingProviderInformation {
