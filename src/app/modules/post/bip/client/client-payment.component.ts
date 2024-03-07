@@ -48,7 +48,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     })
   }
   private find() {
-    this.filter.startDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchStartDate).unix() * 1000 : undefined
+    this.filter.startDate = this.filter.searchStartDate !== undefined ? moment(this.filter.searchStartDate).unix() * 1000 : undefined
     this.filter.endDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchEndDate).unix() * 1000 : undefined
     this.clientPostingPayments$ = this.postingServiceService.findClientPaymentsFiltered(this.apiParams$, this.filter).pipe(
       filter((result) => result !== null),

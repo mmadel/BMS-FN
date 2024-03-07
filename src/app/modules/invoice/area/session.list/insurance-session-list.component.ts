@@ -57,17 +57,16 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
   columns = ServiceLinesTableColumns.columns;
   ngOnInit(): void {
     this.initListComponent();
-    //call search in case redirect to component after mark session as correct 
     if (!this.isSearchAllowed)
       this.find();
     else
       this.search()
- 
+
   }
   search() {
     var invoiceFilter: InvoiceFilter = new InvoiceFilter();
     if (invoiceFilter.isValid(this.filterModel)) {
-      this.filterModel.startDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchStartDate).unix() * 1000 : undefined
+      this.filterModel.startDate = this.filterModel.searchStartDate !== undefined ? moment(this.filterModel.searchStartDate).unix() * 1000 : undefined
       this.filterModel.endDate = this.filterModel.searchEndDate !== undefined ? moment(this.filterModel.searchEndDate).unix() * 1000 : undefined
       this.sessionServiceCodeLines$ = this.invoiceService.findByClientFilter(this.apiParams$, this.client.id, this.filterModel)
         .pipe(

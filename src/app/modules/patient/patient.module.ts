@@ -63,6 +63,7 @@ import { EditProfileComponent } from './profile.edit/edit-profile.component';
 import { SessionBillingCodeComponent } from './profile.edit/components/session.billing.code/session-billing-code.component';
 import { SessionServiceCodeListComponent } from './profile.edit/components/session.service.code.list/session-service-code-list.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CreateAuthComponent } from './profile/auths/create/create-auth.component';
 
 
 @NgModule({
@@ -94,6 +95,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     EditProfileComponent,
     SessionBillingCodeComponent,
     SessionServiceCodeListComponent,
+    CreateAuthComponent,
   ],
   imports: [
     CommonModule,

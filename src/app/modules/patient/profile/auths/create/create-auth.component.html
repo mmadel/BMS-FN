@@ -1,0 +1,80 @@
+<ngx-spinner></ngx-spinner>
+<form cForm #providerCreateForm="ngForm">
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Auth Number
+                </span>
+                <input cFormControl name="authNumber" required size="sm" #authNumber="ngModel"
+                    [(ngModel)]="patientAuth.authNumber" />
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Ins. Company
+                </span>
+                <c-col sx="12">
+                    <ng-autocomplete [data]="insCpmanyName" [searchKeyword]="" id="inCompanyName" name="inCompanyName" 
+                     [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                    (selected)='pickInsCompany($event)' [(ngModel)]="patientAuth.insCompany">
+                </ng-autocomplete>
+                </c-col>
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Service Code
+                </span>
+                <input cFormControl name="serviceCode" required #serviceCode="ngModel"
+                    [(ngModel)]="patientAuth.serviceCode" />
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm"
+                [(startDate)]="patientAuth.startDate" [(endDate)]="patientAuth.expireDate"></c-date-range-picker>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Visit
+                </span>
+                <input cFormControl name="visit" required #visit="ngModel" [(ngModel)]="patientAuth.visit"
+                    type="number" />
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Remaining
+                </span>
+                <input cFormControl name="remaining" required #remaining="ngModel" [(ngModel)]="patientAuth.remaining"
+                    type="number" />
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <div class="col text-center">
+            <button cButton color="primary" variant="outline" style="width: 15%;" (click)="create()">OK</button>
+        </div>
+    </c-row>
+</form>
