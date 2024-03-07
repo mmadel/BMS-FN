@@ -101,6 +101,6 @@
         <button (click)="toggleCreateAuthVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <create-auth *ngIf="createAutVisibility" ></create-auth>
+        <create-auth *ngIf="createAutVisibility" (changeVisibility)="changeVisibility($event)"></create-auth>
     </c-modal-body>
 </c-modal>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'create-auth',
@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-auth.component.scss']
 })
 export class CreateAuthComponent implements OnInit {
-
+  @Output() changeVisibility = new EventEmitter<string>()
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  create(){
+    this.changeVisibility.emit('close');
+  }
 }

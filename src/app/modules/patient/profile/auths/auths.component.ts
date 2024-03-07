@@ -22,5 +22,8 @@ export class AuthsComponent implements OnInit {
   creatAuth(){
     this.createAutVisibility = true;
   }
-
+  changeVisibility(event:any){
+    if(event === 'close' )
+      this.toggleCreateAuthVisibility();
+  }
 }
