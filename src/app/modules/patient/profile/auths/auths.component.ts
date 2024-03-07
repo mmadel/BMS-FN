@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { AuthService } from '../../service/auth/auth.service';
@@ -9,32 +10,34 @@ import { AuthService } from '../../service/auth/auth.service';
   styleUrls: ['./auths.component.scss']
 })
 export class AuthsComponent implements OnInit {
-  public date = new Date();
-  public calendarDate = Date.now();
-  public startDate?: Date | null = new Date(new Date().setDate(this.date.getDate() + 1));
-  public endDate?: Date | null = new Date(new Date().setDate(this.date.getDate() + 3));
-  createAutVisibility:boolean= false;
-  @Input() patient:Patient;
-  patientAuthorizations : PatientAuthorization[]
-  constructor(private authService:AuthService) { }
+
+  createAutVisibility: boolean = false;
+  @Input() patient: Patient;
+  patientAuthorizations: PatientAuthorization[]
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.calendarDate = Date.now();
     this.find();
   }
-  find(){
-    this.authService.find(this.patient.id).subscribe((result:any)=>{
+  find() {
+    this.authService.find(this.patient.id).subscribe((result: any) => {
+      result.forEach(element => {
+        element.startDate = new Date(moment.unix(element.startDateNumber / 1000).format('MM/DD/YYYY'));
+        element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));
+      });
       this.patientAuthorizations = result
     })
   }
-  toggleCreateAuthVisibility(){
-    this.createAutVisibility =!this.createAutVisibility;
+  toggleCreateAuthVisibility() {
+    this.createAutVisibility = !this.createAutVisibility;
   }
-  creatAuth(){
+  creatAuth() {
     this.createAutVisibility = true;
   }
-  changeVisibility(event:any){
-    if(event === 'close' )
+  changeVisibility(event: any) {
+    if (event === 'close'){
       this.toggleCreateAuthVisibility();
+      this.find()
+    }
   }
 }

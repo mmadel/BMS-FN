@@ -26,70 +26,47 @@
                                 </c-button-group>
                             </div>
                         </c-col>
-                        <c-col xs="12">
-                            <div class="card border-primary mb-2">
-                                <div class="card-body">
-                                    <div style="float: right;">
-                                        <c-button-group aria-label="Button outlined group with nested dropdown"
-                                            role="group">
-                                            <button cButton variant="outline" class="btn-sm">
-                                                <svg cIcon name="cilPen"></svg>
-                                            </button>
-                                            <button cButton variant="outline" class="btn-sm">
-                                                <svg cIcon name="cilTrash"></svg>
-                                            </button>
-                                        </c-button-group>
+                        <span *ngIf="patientAuthorizations">
+                            <c-col xs="12" *ngFor="let patientAuthorization of patientAuthorizations;let i=index;">
+                                <div class="card border-light mb-2">
+                                    <div class="card-body">
+                                        <div style="float: right;">
+                                            <c-button-group aria-label="Button outlined group with nested dropdown"
+                                                role="group">
+                                                <button cButton variant="outline" class="btn-sm">
+                                                    <svg cIcon name="cilPen"></svg>
+                                                </button>
+                                                <button cButton variant="outline" class="btn-sm">
+                                                    <svg cIcon name="cilTrash"></svg>
+                                                </button>
+                                            </c-button-group>
+                                        </div>
+                                        <c-row>
+                                            <c-col xs="6">
+                                                {{patientAuthorization.authNumber}}
+                                            </c-col>
+                                            <c-col xs="6">
+                                                Remaining Visits : <strong>{{patientAuthorization.remaining}}</strong>
+                                                of <strong>{{patientAuthorization.visit}}</strong>
+                                            </c-col>
+                                        </c-row>
+                                        <c-row>
+                                            <c-col xs="12">
+                                                <strong>{{patientAuthorization.insCompany[1]}} </strong>
+                                            </c-col>
+                                        </c-row>
+                                        Service Code : {{patientAuthorization.serviceCode}}
+                                        <c-col xs="6">
+                                            <c-date-range-picker size="sm" disabled="true"
+                                                [placeholder]="['Starts', 'Expires']"
+                                                [(endDate)]="patientAuthorization.expireDate"
+                                                [(startDate)]="patientAuthorization.startDate" cTooltipPlacement="top"
+                                                cTooltip="Starts to Expires date"></c-date-range-picker>
+                                        </c-col>
                                     </div>
-                                    <c-row>
-                                        <c-col xs="6">
-                                            0000
-                                        </c-col>
-                                        <c-col xs="6">
-                                            Remaining Visits : <strong>6</strong> of <strong>10</strong>
-                                        </c-col>
-                                    </c-row>
-                                    Service Code : All <br>
-                                    <c-col xs="6">
-                                        <c-date-range-picker size="sm" disabled="true"
-                                            [placeholder]="['Starts', 'Expires']" [(endDate)]="endDate"
-                                            [(startDate)]="startDate" cTooltipPlacement="top"
-                                            cTooltip="Starts to Expires date"></c-date-range-picker>
-                                    </c-col>
                                 </div>
-                            </div>
-                        </c-col>
-                        <c-col xs="12">
-                            <div class="card border-primary mb-2">
-                                <div class="card-body">
-                                    <div style="float: right;">
-                                        <c-button-group aria-label="Button outlined group with nested dropdown"
-                                            role="group">
-                                            <button cButton variant="outline" class="btn-sm">
-                                                <svg cIcon name="cilPen"></svg>
-                                            </button>
-                                            <button cButton variant="outline" class="btn-sm">
-                                                <svg cIcon name="cilTrash"></svg>
-                                            </button>
-                                        </c-button-group>
-                                    </div>
-                                    <c-row>
-                                        <c-col xs="6">
-                                            0001
-                                        </c-col>
-                                        <c-col xs="6">
-                                            Remaining Visits : <strong>1</strong> of <strong>10</strong>
-                                        </c-col>
-                                    </c-row>
-                                    Service Code : All <br>
-                                    <c-col xs="6">
-                                        <c-date-range-picker size="sm" disabled="true"
-                                            [placeholder]="['Starts', 'Expires']" [(endDate)]="endDate"
-                                            [(startDate)]="startDate" cTooltipPlacement="top"
-                                            cTooltip="Starts to Expires date"></c-date-range-picker>
-                                    </c-col>
-                                </div>
-                            </div>
-                        </c-col>
+                            </c-col>
+                        </span>
                     </c-row>
                 </c-card-body>
             </c-card>
