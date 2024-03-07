@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
+import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 
 @Component({
   selector: 'create-auth',
@@ -9,6 +10,7 @@ import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patien
 })
 export class CreateAuthComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
+  @Input() patientInsurances?: PatientInsurance[];
   patientAuth: PatientAuthorization = {
     insCompany: []
   }

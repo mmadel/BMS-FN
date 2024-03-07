@@ -272,7 +272,7 @@
                         <app-billing #billingComponent *ngIf="selectedTab === 0" [patient]="patient"></app-billing>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=1>
-                        <app-auths *ngIf="selectedTab === 1"></app-auths>
+                        <app-auths *ngIf="selectedTab === 1" [patient]="patient"></app-auths>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=2>
                         <patient-advanced #patientAdvancedComponent *ngIf="selectedTab === 2" [pateint]="patient"></patient-advanced>
