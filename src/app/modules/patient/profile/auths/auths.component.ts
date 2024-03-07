@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { Patient } from 'src/app/modules/model/clinical/patient';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-auths',
@@ -7,25 +10,34 @@ import { Patient } from 'src/app/modules/model/clinical/patient';
   styleUrls: ['./auths.component.scss']
 })
 export class AuthsComponent implements OnInit {
-  public date = new Date();
-  public calendarDate = Date.now();
-  public startDate?: Date | null = new Date(new Date().setDate(this.date.getDate() + 1));
-  public endDate?: Date | null = new Date(new Date().setDate(this.date.getDate() + 3));
-  createAutVisibility:boolean= false;
-  @Input() patient:Patient;
-  constructor() { }
+
+  createAutVisibility: boolean = false;
+  @Input() patient: Patient;
+  patientAuthorizations: PatientAuthorization[]
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.calendarDate = Date.now();
+    this.find();
   }
-  toggleCreateAuthVisibility(){
-    this.createAutVisibility =!this.createAutVisibility;
+  find() {
+    this.authService.find(this.patient.id).subscribe((result: any) => {
+      result.forEach(element => {
+        element.startDate = new Date(moment.unix(element.startDateNumber / 1000).format('MM/DD/YYYY'));
+        element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));
+      });
+      this.patientAuthorizations = result
+    })
   }
-  creatAuth(){
+  toggleCreateAuthVisibility() {
+    this.createAutVisibility = !this.createAutVisibility;
+  }
+  creatAuth() {
     this.createAutVisibility = true;
   }
-  changeVisibility(event:any){
-    if(event === 'close' )
+  changeVisibility(event: any) {
+    if (event === 'close'){
       this.toggleCreateAuthVisibility();
+      this.find()
+    }
   }
 }
