@@ -6,7 +6,8 @@
                 <span cInputGroupText style="width: 14%;">
                     Auth Number
                 </span>
-                <input cFormControl name="authNumber" required size="sm" />
+                <input cFormControl name="authNumber" required size="sm" #authNumber="ngModel"
+                    [(ngModel)]="patientAuth.authNumber" />
             </c-input-group>
         </c-col>
     </c-row>
@@ -16,7 +17,8 @@
                 <span cInputGroupText style="width: 14%;">
                     Ins. Company
                 </span>
-                <input cFormControl name="insCompany" required />
+                <input cFormControl name="insCompany" required #insCompany="ngModel"
+                    [(ngModel)]="patientAuth.insCompany[1]" />
             </c-input-group>
         </c-col>
     </c-row>
@@ -26,13 +28,26 @@
                 <span cInputGroupText style="width: 14%;">
                     Service Code
                 </span>
-                <input cFormControl name="serviceCode" required />
+                <input cFormControl name="serviceCode" required #serviceCode="ngModel"
+                    [(ngModel)]="patientAuth.serviceCode" />
             </c-input-group>
         </c-col>
     </c-row>
     <c-row>
         <c-col class="mb-1">
-            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm"></c-date-range-picker>
+            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm"
+                [(startDate)]="patientAuth.startDate" [(endDate)]="patientAuth.expireDate"></c-date-range-picker>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Visit
+                </span>
+                <input cFormControl name="visit" required #visit="ngModel" [(ngModel)]="patientAuth.visit"
+                    type="number" />
+            </c-input-group>
         </c-col>
     </c-row>
     <c-row>
@@ -41,7 +56,8 @@
                 <span cInputGroupText style="width: 14%;">
                     Remaining
                 </span>
-                <input cFormControl name="remaining" required />
+                <input cFormControl name="remaining" required #remaining="ngModel" [(ngModel)]="patientAuth.remaining"
+                    type="number" />
             </c-input-group>
         </c-col>
     </c-row>

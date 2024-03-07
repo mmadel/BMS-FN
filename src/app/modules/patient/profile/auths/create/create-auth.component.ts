@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 
 @Component({
   selector: 'create-auth',
@@ -7,6 +8,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class CreateAuthComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
+  patientAuth:PatientAuthorization={
+    insCompany : []
+  }
   constructor() { }
 
   ngOnInit(): void {
