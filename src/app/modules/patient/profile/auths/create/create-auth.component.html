@@ -1,20 +1,53 @@
 <ngx-spinner></ngx-spinner>
 <form cForm #providerCreateForm="ngForm">
     <c-row>
-        <c-col xs="12">
-            <c-card class="mb-4">
-                <c-card-body>
-                    <c-row>
-                        Fields
-                    </c-row>
-                    <c-row>
-                        <div class="col text-center">
-                            <button cButton color="primary" variant="outline" style="width: 15%;"
-                                (click)="create()">OK</button>
-                        </div>
-                    </c-row>
-                </c-card-body>
-            </c-card>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Auth Number
+                </span>
+                <input cFormControl name="authNumber" required size="sm" />
+            </c-input-group>
         </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Ins. Company
+                </span>
+                <input cFormControl name="insCompany" required />
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Service Code
+                </span>
+                <input cFormControl name="serviceCode" required />
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm"></c-date-range-picker>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col class="mb-1">
+            <c-input-group sizing="sm">
+                <span cInputGroupText style="width: 14%;">
+                    Remaining
+                </span>
+                <input cFormControl name="remaining" required />
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <div class="col text-center">
+            <button cButton color="primary" variant="outline" style="width: 15%;" (click)="create()">OK</button>
+        </div>
     </c-row>
 </form>
