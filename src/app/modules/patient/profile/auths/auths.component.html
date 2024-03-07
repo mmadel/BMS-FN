@@ -103,6 +103,6 @@
     </c-modal-header>
     <c-modal-body>
         <create-auth *ngIf="createAutVisibility" (changeVisibility)="changeVisibility($event)"
-            [patientInsurances]="patient.patientInsurances"></create-auth>
+            [patientInsurances]="patient.patientInsurances" [patientId]="patient.id"></create-auth>
     </c-modal-body>
 </c-modal>

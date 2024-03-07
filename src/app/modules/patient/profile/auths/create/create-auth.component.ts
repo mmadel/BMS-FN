@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
+import { AuthService } from '../../../service/auth/auth.service';
 
 @Component({
   selector: 'create-auth',
@@ -11,21 +13,31 @@ import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insuran
 export class CreateAuthComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   @Input() patientInsurances?: PatientInsurance[];
+  @Input() patientId: number
   selectedInsuranceCompany: string[];
   patientAuth: PatientAuthorization = {
     insCompany: []
   }
   insCpmanyName: string[];
-  constructor() { }
+  constructor(private authService: AuthService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.insCpmanyName = this.patientInsurances.map(inComp => inComp.insuranceCompany[0]);
   }
 
   create() {
+    this.patientAuth.patientId = this.patientId;
+    this.patientAuth.insCompany = this.selectedInsuranceCompany;
     this.patientAuth.startDateNumber = this.patientAuth.startDate !== undefined ? moment(this.patientAuth.startDate).unix() * 1000 : undefined
     this.patientAuth.expireDateNumber = this.patientAuth.expireDate !== undefined ? moment(this.patientAuth.expireDate).unix() * 1000 : undefined
-    this.changeVisibility.emit('close');
+    this.authService.create(this.patientAuth).subscribe(result => {
+      this.toastr.success('Patient Authorization created');
+      this.changeVisibility.emit('close');
+      this.scrollUp();
+    }, (error) => {
+      this.toastr.error('Error  during Add Patient Authorization');
+    })
   }
   pickInsCompany(selectedInsCompany) {
     this.patientInsurances.forEach(patientInsurance => {
@@ -33,6 +45,14 @@ export class CreateAuthComponent implements OnInit {
         this.selectedInsuranceCompany = patientInsurance.insuranceCompany;
       }
     })
-    console.log(this.selectedInsuranceCompany)
+   
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

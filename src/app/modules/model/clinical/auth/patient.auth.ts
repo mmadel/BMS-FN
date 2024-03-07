@@ -8,4 +8,5 @@ export interface PatientAuthorization{
     expireDateNumber?:number
     visit?:number
     remaining?:number
+    patientId?:number
 }
