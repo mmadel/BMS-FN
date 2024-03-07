@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { Patient } from 'src/app/modules/model/clinical/patient';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-auths',
@@ -13,10 +15,17 @@ export class AuthsComponent implements OnInit {
   public endDate?: Date | null = new Date(new Date().setDate(this.date.getDate() + 3));
   createAutVisibility:boolean= false;
   @Input() patient:Patient;
-  constructor() { }
+  patientAuthorizations : PatientAuthorization[]
+  constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
     this.calendarDate = Date.now();
+    this.find();
+  }
+  find(){
+    this.authService.find(this.patient.id).subscribe((result:any)=>{
+      this.patientAuthorizations = result
+    })
   }
   toggleCreateAuthVisibility(){
     this.createAutVisibility =!this.createAutVisibility;
