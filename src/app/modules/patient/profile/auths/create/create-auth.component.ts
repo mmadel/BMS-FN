@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import * as moment from 'moment';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 
 @Component({
@@ -8,15 +9,17 @@ import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patien
 })
 export class CreateAuthComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
-  patientAuth:PatientAuthorization={
-    insCompany : []
+  patientAuth: PatientAuthorization = {
+    insCompany: []
   }
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  create(){
+  create() {
+    this.patientAuth.startDateNumber = this.patientAuth.startDate !== undefined ? moment(this.patientAuth.startDate).unix() * 1000 : undefined
+    this.patientAuth.expireDateNumber = this.patientAuth.expireDate !== undefined ? moment(this.patientAuth.expireDate).unix() * 1000 : undefined
     this.changeVisibility.emit('close');
   }
 }
