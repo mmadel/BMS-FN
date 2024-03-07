@@ -1,1 +1,20 @@
-<p>create-auth works!</p>
+<ngx-spinner></ngx-spinner>
+<form cForm #providerCreateForm="ngForm">
+    <c-row>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-body>
+                    <c-row>
+                        Fields
+                    </c-row>
+                    <c-row>
+                        <div class="col text-center">
+                            <button cButton color="primary" variant="outline" style="width: 15%;"
+                                (click)="create()">OK</button>
+                        </div>
+                    </c-row>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+</form>
