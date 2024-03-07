@@ -17,8 +17,19 @@
                 <span cInputGroupText style="width: 14%;">
                     Ins. Company
                 </span>
-                <input cFormControl name="insCompany" required #insCompany="ngModel"
-                    [(ngModel)]="patientAuth.insCompany[1]" />
+                <c-col sx="12">
+                    <ng-autocomplete [data]="insCpmanyName" [searchKeyword]="" id="inCompanyName" name="inCompanyName" 
+                     [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                    (selected)='pickInsCompany($event)' [(ngModel)]="patientAuth.insCompany">
+                </ng-autocomplete>
+                </c-col>
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
             </c-input-group>
         </c-col>
     </c-row>
