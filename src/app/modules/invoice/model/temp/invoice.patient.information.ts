@@ -17,4 +17,5 @@ export interface InvoicePatientInformation {
     box26: string;
     referringProvider?:ReferringProvider
     insuredPrimaryId?:string
+    authorizationDates?:Array<number[]>
 }

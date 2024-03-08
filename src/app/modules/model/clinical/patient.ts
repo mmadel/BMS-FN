@@ -26,4 +26,5 @@ export interface Patient {
     externalId?: string | null;
     patientAdvancedInformation?: PatientAdvancedInformation
     authTurnOff?:boolean;
+    authorizationDates?:Array<number[]>
 }
