@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { filter, map, tap } from 'rxjs';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { AuthService } from '../../service/auth/auth.service';
@@ -20,13 +21,16 @@ export class AuthsComponent implements OnInit {
     this.find();
   }
   find() {
-    this.authService.find(this.patient.id).subscribe((result: any) => {
-      result.forEach(element => {
-        element.startDate = new Date(moment.unix(element.startDateNumber / 1000).format('MM/DD/YYYY'));
-        element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));
-      });
-      this.patientAuthorizations = result
-    })
+    this.authService.find(this.patient.id)
+      .subscribe((result: any) => {
+        var notExpiredList: PatientAuthorization[] = result.filter((auth: any) => !auth.isExpired);
+        console.log(notExpiredList)
+        notExpiredList.forEach(element => {
+            element.startDate = new Date(moment.unix(element.startDateNumber / 1000).format('MM/DD/YYYY'));
+            element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));
+          });
+        this.patientAuthorizations = notExpiredList
+      })
   }
   toggleCreateAuthVisibility() {
     this.createAutVisibility = !this.createAutVisibility;
@@ -35,7 +39,7 @@ export class AuthsComponent implements OnInit {
     this.createAutVisibility = true;
   }
   changeVisibility(event: any) {
-    if (event === 'close'){
+    if (event === 'close') {
       this.toggleCreateAuthVisibility();
       this.find()
     }
