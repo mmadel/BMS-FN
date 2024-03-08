@@ -18,7 +18,8 @@
                                             Actions
                                         </button>
                                         <ul cDropdownMenu variant="outline">
-                                            <li><a cDropdownItem [routerLink]="[]">View Expired</a></li>
+                                            <li><a cDropdownItem (click)="viewExpire()" *ngIf="!renderdAuthExpire">View Expired</a></li>
+                                            <li><a cDropdownItem (click)="hideExpire()" *ngIf="renderdAuthExpire">Hide Expired</a></li>
                                             <li cDropdownDivider></li>
                                             <li><a cDropdownItem [routerLink]="[]">Turn Off</a></li>
                                         </ul>
@@ -27,7 +28,7 @@
                             </div>
                         </c-col>
                         <span *ngIf="patientAuthorizations">
-                            <c-col xs="12" *ngFor="let patientAuthorization of patientAuthorizations;let i=index;">
+                            <c-col xs="12" *ngFor="let patientAuthorization of renderList;let i=index;">
                                 <div class="card border-light mb-2">
                                     <div class="card-body">
                                         <div style="float: right;">
