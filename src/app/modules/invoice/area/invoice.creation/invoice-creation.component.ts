@@ -72,9 +72,10 @@ export class InvoiceCreationComponent implements OnInit {
           this.toastr.success("Invocie created successfully ")
           this.changeVisibility.emit('invoice');
           this.constructExportedFile(response, 'cms-', 'json')
-        }, error => {
-          this.toastr.error("error in create invoice")
-        })
+        },
+          (error) => {
+            this.toastr.error(error.error.message, 'Error In Creation');
+          })
     }
 
   }
@@ -89,8 +90,9 @@ export class InvoiceCreationComponent implements OnInit {
         this.toastr.success("Invocie created successfully ")
         this.changeVisibility.emit('invoice');
         this.constructExportedFile(response, 'cms-', 'pdf')
-      }, error => {
-        this.toastr.error("error in create invoice")
+      }, (error) => {
+        
+        this.toastr.error('Over Lapping Patient Authorization', 'Error In Creation');
       })
   }
   constructExportedFile(response: any, fileName: string, extention: string) {
