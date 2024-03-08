@@ -3,8 +3,18 @@
     <c-row>
         <c-col xs="6" class="mb-3">
             <c-card>
-                <c-card-header>
+                <c-card-header>                
                     <strong>Authorization Watch</strong>
+                    <span *ngIf="flagAuth">
+                        <p class="text-medium-emphasis small">
+                            Authorization is turned OFF
+                        </p>
+                    </span>
+                    <span *ngIf="!flagAuth">
+                        <p class="text-medium-emphasis small">
+                            Authorization is turned ON
+                        </p>
+                    </span>
                 </c-card-header>
                 <c-card-body>
                     <c-row>
@@ -32,7 +42,7 @@
                         </c-col>
                         <span *ngIf="patientAuthorizations">
                             <c-col xs="12" *ngFor="let patientAuthorization of renderList;let i=index;">
-                                <div class="card border-light mb-2">
+                                <div class="card border-light mb-2" [ngClass]="{'text-bg-light': patientAuthorization.isExpired}">
                                     <div class="card-body">
                                         <div style="float: right;">
                                             <c-button-group aria-label="Button outlined group with nested dropdown"

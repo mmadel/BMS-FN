@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { filter, map, tap } from 'rxjs';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { AuthService } from '../../service/auth/auth.service';
@@ -16,7 +15,7 @@ export class AuthsComponent implements OnInit {
 
   createAutVisibility: boolean = false;
   renderdAuthExpire:boolean = false;
-  flagAuth:boolean = false;
+  flagAuth:boolean ;
   @Input() patient: Patient;
   patientAuthorizations: PatientAuthorization[]
   renderList: PatientAuthorization[];
@@ -28,14 +27,15 @@ export class AuthsComponent implements OnInit {
     this.find();
   }
   find() {
+    this.flagAuth= this.patient.authTurnOff
     this.authService.find(this.patient.id)
       .subscribe((result: any) => {
         result.forEach(element => {
           element.startDate = new Date(moment.unix(element.startDateNumber / 1000).format('MM/DD/YYYY'));
-          element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));
+          element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));      
         });
         this.patientAuthorizations = result;
-        this.renderList = this.patientAuthorizations.filter((reuslt:any) => reuslt.isExpired);
+        this.renderList = this.patientAuthorizations.filter((reuslt:any) => !reuslt.isExpired);
       })
   }
   toggleCreateAuthVisibility() {
@@ -56,7 +56,7 @@ export class AuthsComponent implements OnInit {
   }
   hideExpire(){
     this.renderdAuthExpire = !this.renderdAuthExpire ; 
-    this.renderList = this.patientAuthorizations.filter((reuslt:any) => reuslt.isExpired);
+    this.renderList = this.patientAuthorizations.filter((reuslt:any) => !reuslt.isExpired);
   }
   turnOff(){
     this.flagAuth = !this.flagAuth
