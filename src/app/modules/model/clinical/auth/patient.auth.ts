@@ -1,4 +1,5 @@
 export interface PatientAuthorization{
+    id?:number
     authNumber?:string
     insCompany?:string[],
     serviceCode?:string,
