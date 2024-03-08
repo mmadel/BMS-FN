@@ -74,7 +74,15 @@ export class AuthsComponent implements OnInit {
       this.scrollUp()
     })
   }
-  scrollUp() {
+  delete(event:any){
+    this.authService.delete(event.id)
+    .subscribe(result=>{
+      this.find()
+      this.toastr.success('Patient Authorization Deleted successfully');
+      this.scrollUp()
+    })
+  }
+  private scrollUp() {
     (function smoothscroll() {
       var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
       if (currentScroll > 0) {

@@ -19,4 +19,8 @@ export class AuthService {
     var url = this.baseUrl + '/find/patientId/' + patientId
     return this.httpClient.get(url)
   }
+  delete(authId: number) {
+    var url = this.baseUrl + '/delete/auth/' + authId
+    return this.httpClient.delete(url)
+  }
 }
