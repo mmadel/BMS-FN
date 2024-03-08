@@ -103,7 +103,7 @@
         <button (click)="toggleUpdateAuthVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <!-- <create-auth *ngIf="createAutVisibility" (changeVisibility)="changeVisibility($event)"
-            [patientInsurances]="patient.patientInsurances" [patientId]="patient.id"></create-auth> -->
+        <create-auth *ngIf="updateAutVisibility" (changeVisibility)="changeUpdateVisibility($event)"
+            [patientInsurances]="patient.patientInsurances" [patientId]="patient.id" [updatedModel]="toBeUpdateModel" ></create-auth>
     </c-modal-body>
 </c-modal>

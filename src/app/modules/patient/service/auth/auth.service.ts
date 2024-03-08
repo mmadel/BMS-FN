@@ -15,6 +15,11 @@ export class AuthService {
     var url = this.baseUrl + '/create'
     return this.httpClient.post(`${url}`, JSON.stringify(patientAuthorization), { 'headers': headers })
   }
+  update(patientAuthorization: PatientAuthorization) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/update'
+    return this.httpClient.put(`${url}`, JSON.stringify(patientAuthorization), { 'headers': headers })
+  }
   find(patientId: number) {
     var url = this.baseUrl + '/find/patientId/' + patientId
     return this.httpClient.get(url)

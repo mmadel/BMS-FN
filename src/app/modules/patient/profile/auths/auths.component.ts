@@ -20,6 +20,7 @@ export class AuthsComponent implements OnInit {
   @Input() patient: Patient;
   patientAuthorizations: PatientAuthorization[]
   renderList: PatientAuthorization[];
+  toBeUpdateModel:PatientAuthorization;
   constructor(private authService: AuthService
     , private patientService: PatientService
     , private toastr: ToastrService) { }
@@ -48,13 +49,19 @@ export class AuthsComponent implements OnInit {
   creatAuth() {
     this.createAutVisibility = true;
   }
-  updateAuth(event: PatientAuthorization) {
-    console.log(JSON.stringify(event))
+  updateAuth(model: PatientAuthorization) {
+    this.toBeUpdateModel = model;
     this.updateAutVisibility = true;
   }
   changeVisibility(event: any) {
     if (event === 'close') {
       this.toggleCreateAuthVisibility();
+      this.find()
+    }
+  }
+  changeUpdateVisibility(event: any) {
+    if (event === 'close') {
+      this.toggleUpdateAuthVisibility();
       this.find()
     }
   }

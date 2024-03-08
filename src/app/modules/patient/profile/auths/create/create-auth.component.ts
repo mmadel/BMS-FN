@@ -14,6 +14,7 @@ export class CreateAuthComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   @Input() patientInsurances?: PatientInsurance[];
   @Input() patientId: number
+  @Input() updatedModel: PatientInsurance
   selectedInsuranceCompany: string[];
   patientAuth: PatientAuthorization = {
     insCompany: []
@@ -23,9 +24,14 @@ export class CreateAuthComponent implements OnInit {
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    if (this.updatedModel !== undefined)
+      this.fillModel();
     this.insCpmanyName = this.patientInsurances.map(inComp => inComp.insuranceCompany[0]);
   }
-
+  fillModel() {
+    this.patientAuth = this.updatedModel;
+    this.pickInsCompany(this.patientAuth.insCompany[1])
+  }
   create() {
     this.patientAuth.patientId = this.patientId;
     this.patientAuth.insCompany = this.selectedInsuranceCompany;
@@ -39,13 +45,20 @@ export class CreateAuthComponent implements OnInit {
       this.toastr.error('Error  during Add Patient Authorization');
     })
   }
+  update() {
+    this.authService.update(this.patientAuth).subscribe(result => {
+      this.toastr.success('Patient Authorization created');
+      this.changeVisibility.emit('close');
+      this.scrollUp();
+    })
+  }
   pickInsCompany(selectedInsCompany) {
     this.patientInsurances.forEach(patientInsurance => {
       if (patientInsurance.insuranceCompany[0] === selectedInsCompany) {
         this.selectedInsuranceCompany = patientInsurance.insuranceCompany;
       }
     })
-   
+
   }
   scrollUp() {
     (function smoothscroll() {
