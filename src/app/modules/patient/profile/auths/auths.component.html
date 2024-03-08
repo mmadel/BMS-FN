@@ -18,10 +18,13 @@
                                             Actions
                                         </button>
                                         <ul cDropdownMenu variant="outline">
-                                            <li><a cDropdownItem (click)="viewExpire()" *ngIf="!renderdAuthExpire">View Expired</a></li>
-                                            <li><a cDropdownItem (click)="hideExpire()" *ngIf="renderdAuthExpire">Hide Expired</a></li>
+                                            <li><a cDropdownItem (click)="viewExpire()" *ngIf="!renderdAuthExpire">View
+                                                    Expired</a></li>
+                                            <li><a cDropdownItem (click)="hideExpire()" *ngIf="renderdAuthExpire">Hide
+                                                    Expired</a></li>
                                             <li cDropdownDivider></li>
-                                            <li><a cDropdownItem [routerLink]="[]">Turn Off</a></li>
+                                            <li><a cDropdownItem (click)="turnOff()" *ngIf="!flagAuth">Turn Off</a></li>
+                                            <li><a cDropdownItem (click)="turnOn()" *ngIf="flagAuth">Turn On</a></li>
                                         </ul>
                                     </c-dropdown>
                                 </c-button-group>

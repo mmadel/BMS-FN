@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { filter, map, tap } from 'rxjs';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { AuthService } from '../../service/auth/auth.service';
+import { PatientService } from '../../service/patient.service';
 
 @Component({
   selector: 'app-auths',
@@ -14,10 +16,13 @@ export class AuthsComponent implements OnInit {
 
   createAutVisibility: boolean = false;
   renderdAuthExpire:boolean = false;
+  flagAuth:boolean = false;
   @Input() patient: Patient;
   patientAuthorizations: PatientAuthorization[]
   renderList: PatientAuthorization[];
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService 
+    , private patientService:PatientService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.find();
@@ -52,5 +57,29 @@ export class AuthsComponent implements OnInit {
   hideExpire(){
     this.renderdAuthExpire = !this.renderdAuthExpire ; 
     this.renderList = this.patientAuthorizations.filter((reuslt:any) => reuslt.isExpired);
+  }
+  turnOff(){
+    this.flagAuth = !this.flagAuth
+    this.patientService.turnOffPatientAuth(this.patient.id)
+    .subscribe(result=>{
+      this.toastr.success('Patient Authorization Turned Off');
+      this.scrollUp()
+    })
+  }
+  turnOn(){
+    this.flagAuth = !this.flagAuth
+    this.patientService.turnOnPatientAuth(this.patient.id)
+    .subscribe(result=>{
+      this.toastr.success('Patient Authorization Turned On');
+      this.scrollUp()
+    })
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

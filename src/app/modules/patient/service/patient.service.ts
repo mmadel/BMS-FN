@@ -36,9 +36,9 @@ export class PatientService extends BasePaginationService {
     var url = this.baseUrl + '/case/create/patient/' + patientId;
     return this.httpClient.post(`${url}`, JSON.stringify(patientCase), { 'headers': headers })
   }
-  deletePatietCase(patientId:number){
+  deletePatietCase(patientId: number) {
     const headers = { 'content-type': 'application/json' }
-    var url = this.baseUrl + '/case/delete/' + patientId ;
+    var url = this.baseUrl + '/case/delete/' + patientId;
     return this.httpClient.delete(`${url}`, { 'headers': headers })
   }
 
@@ -61,6 +61,15 @@ export class PatientService extends BasePaginationService {
   }
   public findPatientCases(patientId: number) {
     var url = this.baseUrl + '/find/cases/patientId/' + patientId
+    return this.httpClient.get(url);
+  }
+
+  public turnOffPatientAuth(patientId: number) {
+    var url = this.baseUrl + '/auth/off/patientId/' + patientId
+    return this.httpClient.get(url);
+  }
+  public turnOnPatientAuth(patientId: number) {
+    var url = this.baseUrl + '/auth/on/patientId/' + patientId
     return this.httpClient.get(url);
   }
 }
