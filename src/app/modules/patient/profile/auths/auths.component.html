@@ -47,7 +47,7 @@
                                         <div style="float: right;">
                                             <c-button-group aria-label="Button outlined group with nested dropdown"
                                                 role="group">
-                                                <button cButton variant="outline" class="btn-sm">
+                                                <button cButton variant="outline" class="btn-sm" (click)="updateAuth(patientAuthorization)">
                                                     <svg cIcon name="cilPen"></svg>
                                                 </button>
                                                 <button cButton variant="outline" class="btn-sm" (click)="delete(patientAuthorization)">
@@ -95,5 +95,15 @@
     <c-modal-body>
         <create-auth *ngIf="createAutVisibility" (changeVisibility)="changeVisibility($event)"
             [patientInsurances]="patient.patientInsurances" [patientId]="patient.id"></create-auth>
+    </c-modal-body>
+</c-modal>
+<c-modal id="updateAuth" [visible]="updateAutVisibility" backdrop="static" size="lg">
+    <c-modal-header>
+        <h5 cModalTitle>Update Authorization</h5>
+        <button (click)="toggleUpdateAuthVisibility()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <!-- <create-auth *ngIf="createAutVisibility" (changeVisibility)="changeVisibility($event)"
+            [patientInsurances]="patient.patientInsurances" [patientId]="patient.id"></create-auth> -->
     </c-modal-body>
 </c-modal>

@@ -14,35 +14,43 @@ import { PatientService } from '../../service/patient.service';
 export class AuthsComponent implements OnInit {
 
   createAutVisibility: boolean = false;
-  renderdAuthExpire:boolean = false;
-  flagAuth:boolean ;
+  updateAutVisibility: boolean = false;
+  renderdAuthExpire: boolean = false;
+  flagAuth: boolean;
   @Input() patient: Patient;
   patientAuthorizations: PatientAuthorization[]
   renderList: PatientAuthorization[];
-  constructor(private authService: AuthService 
-    , private patientService:PatientService
+  constructor(private authService: AuthService
+    , private patientService: PatientService
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.find();
   }
   find() {
-    this.flagAuth= this.patient.authTurnOff
+    this.flagAuth = this.patient.authTurnOff
     this.authService.find(this.patient.id)
       .subscribe((result: any) => {
         result.forEach(element => {
           element.startDate = new Date(moment.unix(element.startDateNumber / 1000).format('MM/DD/YYYY'));
-          element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));      
+          element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));
         });
         this.patientAuthorizations = result;
-        this.renderList = this.patientAuthorizations.filter((reuslt:any) => !reuslt.isExpired);
+        this.renderList = this.patientAuthorizations.filter((reuslt: any) => !reuslt.isExpired);
       })
   }
   toggleCreateAuthVisibility() {
     this.createAutVisibility = !this.createAutVisibility;
   }
+  toggleUpdateAuthVisibility() {
+    this.updateAutVisibility = !this.updateAutVisibility;
+  }
   creatAuth() {
     this.createAutVisibility = true;
+  }
+  updateAuth(event: PatientAuthorization) {
+    console.log(JSON.stringify(event))
+    this.updateAutVisibility = true;
   }
   changeVisibility(event: any) {
     if (event === 'close') {
@@ -51,36 +59,36 @@ export class AuthsComponent implements OnInit {
     }
   }
   viewExpire() {
-    this.renderdAuthExpire = !this.renderdAuthExpire ; 
+    this.renderdAuthExpire = !this.renderdAuthExpire;
     this.renderList = this.patientAuthorizations
   }
-  hideExpire(){
-    this.renderdAuthExpire = !this.renderdAuthExpire ; 
-    this.renderList = this.patientAuthorizations.filter((reuslt:any) => !reuslt.isExpired);
+  hideExpire() {
+    this.renderdAuthExpire = !this.renderdAuthExpire;
+    this.renderList = this.patientAuthorizations.filter((reuslt: any) => !reuslt.isExpired);
   }
-  turnOff(){
+  turnOff() {
     this.flagAuth = !this.flagAuth
     this.patientService.turnOffPatientAuth(this.patient.id)
-    .subscribe(result=>{
-      this.toastr.success('Patient Authorization Turned Off');
-      this.scrollUp()
-    })
+      .subscribe(result => {
+        this.toastr.success('Patient Authorization Turned Off');
+        this.scrollUp()
+      })
   }
-  turnOn(){
+  turnOn() {
     this.flagAuth = !this.flagAuth
     this.patientService.turnOnPatientAuth(this.patient.id)
-    .subscribe(result=>{
-      this.toastr.success('Patient Authorization Turned On');
-      this.scrollUp()
-    })
+      .subscribe(result => {
+        this.toastr.success('Patient Authorization Turned On');
+        this.scrollUp()
+      })
   }
-  delete(event:any){
+  delete(event: any) {
     this.authService.delete(event.id)
-    .subscribe(result=>{
-      this.find()
-      this.toastr.success('Patient Authorization Deleted successfully');
-      this.scrollUp()
-    })
+      .subscribe(result => {
+        this.find()
+        this.toastr.success('Patient Authorization Deleted successfully');
+        this.scrollUp()
+      })
   }
   private scrollUp() {
     (function smoothscroll() {
