@@ -28,4 +28,8 @@ export class AuthService {
     var url = this.baseUrl + '/delete/auth/' + authId
     return this.httpClient.delete(url)
   }
+  selectAuthorization(patientId: number, authId: number) {
+    var url = this.baseUrl + '/select/patient/' + patientId + '/authorization/' + authId
+    return this.httpClient.put(url, null)
+  }
 }
