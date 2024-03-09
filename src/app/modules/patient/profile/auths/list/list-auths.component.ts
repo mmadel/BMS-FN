@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { AuthService } from '../../../service/auth/auth.service';
 
@@ -9,19 +10,22 @@ import { AuthService } from '../../../service/auth/auth.service';
 })
 export class ListAuthsComponent implements OnInit {
   @Input() patientId: number
-  patientAuthorization:PatientAuthorization[]
+  @Output() changeEditPorfileVisibility = new EventEmitter<string>()
+  patientAuthorization: PatientAuthorization[]
   selectedPatientAuthorization: PatientAuthorization;
-  constructor(private authService:AuthService) { }
+  constructor(private authService: AuthService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.authService.find(this.patientId).subscribe((result:any)=>{
+    this.authService.find(this.patientId).subscribe((result: any) => {
       this.patientAuthorization = result;
     })
   }
-  selectAuthorization(){
-
+  selectAuthorization() {
+    this.changeEditPorfileVisibility.emit('auth')
+    console.log(JSON.stringify(this.selectedPatientAuthorization))
   }
-  checkedAuth(event:any){
+  checkedAuth(event: any) {
     this.selectedPatientAuthorization = event;
   }
 }

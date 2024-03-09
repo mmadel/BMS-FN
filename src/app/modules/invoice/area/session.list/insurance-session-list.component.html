@@ -83,7 +83,7 @@
                           Edit session
                         </button>
                         <button cButton variant="outline" class="btn btn-link" size="sm"
-                        (click)="executeAction('auth',item)">
+                          (click)="executeAction('auth',item)">
                           View authorization
                         </button>
                       </div>
@@ -179,6 +179,7 @@
     <button (click)="toggleModal('auth')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <list-auths [patientId]="client?.id" *ngIf="viewAuthorizationVisibility"></list-auths>
+    <list-auths [patientId]="client?.id" *ngIf="viewAuthorizationVisibility"
+      (changeEditPorfileVisibility)="changeVisibility($event)"></list-auths>
   </c-modal-body>
 </c-modal>
