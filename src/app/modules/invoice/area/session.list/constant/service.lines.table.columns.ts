@@ -31,7 +31,7 @@ export class ServiceLinesTableColumns {
         },
         {
             key: 'actions',
-            label: '',
+            label: 'Actions',
             filter: false,
             sorter: false
         }

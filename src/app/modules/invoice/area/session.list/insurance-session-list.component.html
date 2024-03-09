@@ -78,8 +78,12 @@
                   <ng-container [ngSwitch]="columnName">
                     <ng-container *ngSwitchCase="'actions'" class="py-2">
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button cButton variant="outline" size="sm" (click)="executeAction('edit_session',item)">
-                          <svg cIcon name="cilPen"></svg>
+                        <button cButton variant="outline" class="btn btn-link" size="sm"
+                          (click)="executeAction('edit_session',item)">
+                          Edit session
+                        </button>
+                        <button cButton variant="outline" class="btn btn-link" size="sm">
+                          View authorization
                         </button>
                       </div>
                     </ng-container>
@@ -153,8 +157,7 @@
   </c-modal-header>
   <c-modal-body>
     <session-item-edit *ngIf="editSessionItemVisibility" [serviceCode]="sessionServiceCodeLine.serviceCode"
-    [itemType] = "itemType"
-      (changeVisibility)="changeVisibility($event)"> </session-item-edit>
+      [itemType]="itemType" (changeVisibility)="changeVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>
 
