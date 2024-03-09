@@ -82,7 +82,8 @@
                           (click)="executeAction('edit_session',item)">
                           Edit session
                         </button>
-                        <button cButton variant="outline" class="btn btn-link" size="sm">
+                        <button cButton variant="outline" class="btn btn-link" size="sm"
+                        (click)="executeAction('auth',item)">
                           View authorization
                         </button>
                       </div>
@@ -169,5 +170,15 @@
   <c-modal-body>
     <patient-edit-profile [patient]="client" *ngIf="editPatientProfileVisibility"
       (changeEditPorfileVisibility)="changeVisibility($event)"></patient-edit-profile>
+  </c-modal-body>
+</c-modal>
+
+<c-modal id="vieAuth" [visible]="viewAuthorizationVisibility" size="xl" backdrop="static">
+  <c-modal-header>
+    <h4>View Authorization</h4>
+    <button (click)="toggleModal('auth')" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    
   </c-modal-body>
 </c-modal>

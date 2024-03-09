@@ -31,6 +31,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
   editSessionItemVisibility: boolean = false;
   editPatientProfileVisibility: boolean = false
   createinvoiceVisibility: boolean = false;
+  viewAuthorizationVisibility: boolean = false;
   itemType: string;
 
   filterModel: FilterModel = {};
@@ -117,6 +118,9 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
       case "patient_edit":
         this.editPatientProfileVisibility = !this.editPatientProfileVisibility
         break;
+      case "auth":
+        this.viewAuthorizationVisibility = !this.viewAuthorizationVisibility
+        break;
     }
   }
   changeVisibility(component: any) {
@@ -135,6 +139,9 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
         break;
       case "profile":
         this.editPatientProfileVisibility = false;
+        break;
+      case "auth":
+        this.viewAuthorizationVisibility = false;
         break;
 
     }
@@ -158,6 +165,9 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
         break;
       case "edit_patient":
         this.editPatientProfileVisibility = true;
+        break;
+      case "auth":
+        this.viewAuthorizationVisibility = true;
         break;
     }
   }
