@@ -23,7 +23,11 @@ export class ListAuthsComponent implements OnInit {
   }
   selectAuthorization() {
     this.changeEditPorfileVisibility.emit('auth')
-    console.log(JSON.stringify(this.selectedPatientAuthorization))
+    this.authService.selectAuthorization(this.patientId ,this.selectedPatientAuthorization.id)
+    .subscribe(result=>{
+      this.changeEditPorfileVisibility.emit('auth')
+      this.toastr.success('Authorization selected successfully')
+    })
   }
   changeAuth(event: any) {
     this.selectedPatientAuthorization = event;
