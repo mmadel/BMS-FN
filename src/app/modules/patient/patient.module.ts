@@ -134,7 +134,8 @@ import { ListAuthsComponent } from './profile/auths/list/list-auths.component';
   exports: [
     PatientSessionEditComponent,
     ViewProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ListAuthsComponent
   ]
 
 })
