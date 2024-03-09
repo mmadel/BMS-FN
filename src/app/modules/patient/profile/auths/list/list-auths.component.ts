@@ -25,7 +25,7 @@ export class ListAuthsComponent implements OnInit {
     this.changeEditPorfileVisibility.emit('auth')
     console.log(JSON.stringify(this.selectedPatientAuthorization))
   }
-  checkedAuth(event: any) {
+  changeAuth(event: any) {
     this.selectedPatientAuthorization = event;
   }
 }

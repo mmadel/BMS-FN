@@ -19,7 +19,7 @@
             <td>{{auth.remaining}}</td>
             <td>{{auth.startDateNumber| date:'MMM d, y' }}</td>
             <td>{{auth.expireDateNumber| date:'MMM d, y' }}</td>
-            <td> <input cFormCheckInput type="radio" name="selectAuth" (change)="checkedAuth(auth)"/></td>
+            <td> <input cFormCheckInput type="radio" name="selectAuth" (change)="changeAuth(auth)" [checked]="auth.selected"/></td>
         </tr>
     </tbody>
 </table>
