@@ -1,0 +1,28 @@
+<ngx-spinner></ngx-spinner>
+<table cTable hover *ngIf="patientAuthorization">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Auth-Number</th>
+            <th scope="col">Visits</th>
+            <th scope="col">Remaining</th>
+            <th scope="col">StartDate</th>
+            <th scope="col">ExpireDate</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let auth of patientAuthorization;index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{auth.authNumber}}</td>
+            <td>{{auth.visit}}</td>
+            <td>{{auth.remaining}}</td>
+            <td>{{auth.startDateNumber| date:'MMM d, y' }}</td>
+            <td>{{auth.expireDateNumber| date:'MMM d, y' }}</td>
+            <td> <input cFormCheckInput type="radio" name="selectAuth" (change)="changeAuth(auth)" [checked]="auth.selected"/></td>
+        </tr>
+    </tbody>
+</table>
+<div class="col text-center">
+    <button cButton color="primary" variant="outline" (click)="selectAuthorization()">Done</button>
+</div>

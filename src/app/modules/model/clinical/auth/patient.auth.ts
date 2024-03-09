@@ -11,4 +11,5 @@ export interface PatientAuthorization{
     remaining?:number
     patientId?:number
     isExpired?:boolean
+    selected?:boolean
 }

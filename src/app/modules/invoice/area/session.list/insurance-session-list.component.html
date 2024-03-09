@@ -78,8 +78,13 @@
                   <ng-container [ngSwitch]="columnName">
                     <ng-container *ngSwitchCase="'actions'" class="py-2">
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button cButton variant="outline" size="sm" (click)="executeAction('edit_session',item)">
-                          <svg cIcon name="cilPen"></svg>
+                        <button cButton variant="outline" class="btn btn-link" size="sm"
+                          (click)="executeAction('edit_session',item)">
+                          Edit session
+                        </button>
+                        <button cButton variant="outline" class="btn btn-link" size="sm"
+                          (click)="executeAction('auth',item)">
+                          View authorization
                         </button>
                       </div>
                     </ng-container>
@@ -153,8 +158,7 @@
   </c-modal-header>
   <c-modal-body>
     <session-item-edit *ngIf="editSessionItemVisibility" [serviceCode]="sessionServiceCodeLine.serviceCode"
-    [itemType] = "itemType"
-      (changeVisibility)="changeVisibility($event)"> </session-item-edit>
+      [itemType]="itemType" (changeVisibility)="changeVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>
 
@@ -166,5 +170,16 @@
   <c-modal-body>
     <patient-edit-profile [patient]="client" *ngIf="editPatientProfileVisibility"
       (changeEditPorfileVisibility)="changeVisibility($event)"></patient-edit-profile>
+  </c-modal-body>
+</c-modal>
+
+<c-modal id="vieAuth" [visible]="viewAuthorizationVisibility" size="xl" backdrop="static">
+  <c-modal-header>
+    <h4>View Authorizations</h4>
+    <button (click)="toggleModal('auth')" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <list-auths [patientId]="client?.id" *ngIf="viewAuthorizationVisibility"
+      (changeEditPorfileVisibility)="changeVisibility($event)"></list-auths>
   </c-modal-body>
 </c-modal>
