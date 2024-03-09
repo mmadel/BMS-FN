@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'list-auths',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-auths.component.scss']
 })
 export class ListAuthsComponent implements OnInit {
-
+  @Input() patientId: number
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.patientId)
   }
 
 }

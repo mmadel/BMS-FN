@@ -179,6 +179,6 @@
     <button (click)="toggleModal('auth')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <list-auths></list-auths>
+    <list-auths [patientId]="client?.id" *ngIf="viewAuthorizationVisibility"></list-auths>
   </c-modal-body>
 </c-modal>
