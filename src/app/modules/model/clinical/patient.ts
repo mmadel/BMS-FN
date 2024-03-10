@@ -1,3 +1,4 @@
+import { AuthorizationInformation } from "../../invoice/model/temp/authorization.information";
 import { Address } from "../common/address";
 import { PatientAdvancedInformation } from "./patient.advanced";
 import { PatientCase } from "./patient.case";
@@ -25,6 +26,5 @@ export interface Patient {
     ssn?: string | null
     externalId?: string | null;
     patientAdvancedInformation?: PatientAdvancedInformation
-    authTurnOff?:boolean;
-    authorizationDates?:Array<number[]>
+    authorizationInformation?: AuthorizationInformation;
 }

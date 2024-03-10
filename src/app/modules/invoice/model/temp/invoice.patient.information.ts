@@ -2,6 +2,7 @@
 import { PatientAdvancedInformation } from "src/app/modules/model/clinical/patient.advanced";
 import { ReferringProvider } from "src/app/modules/model/clinical/referring.provider";
 import { Address } from "src/app/modules/model/common/address"
+import { AuthorizationInformation } from "./authorization.information";
 
 export interface InvoicePatientInformation {
     id:number,
@@ -17,5 +18,5 @@ export interface InvoicePatientInformation {
     box26: string;
     referringProvider?:ReferringProvider
     insuredPrimaryId?:string
-    authorizationDates?:Array<number[]>
+    authorizationInformation: AuthorizationInformation;
 }

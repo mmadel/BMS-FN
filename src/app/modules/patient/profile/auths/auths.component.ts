@@ -29,7 +29,7 @@ export class AuthsComponent implements OnInit {
     this.find();
   }
   find() {
-    this.flagAuth = this.patient.authTurnOff
+    this.flagAuth = this.patient.authorizationInformation.turning
     this.authService.find(this.patient.id)
       .subscribe((result: any) => {
         result.forEach(element => {

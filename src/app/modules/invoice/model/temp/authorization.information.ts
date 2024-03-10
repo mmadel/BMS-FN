@@ -1,4 +1,4 @@
 export interface AuthorizationInformation{
-    metaData?:Array<number[]>
+    authorizationsMetaData?:Array<number[]>
     turning?:boolean;
 }
