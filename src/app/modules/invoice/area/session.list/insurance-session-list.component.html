@@ -78,13 +78,13 @@
                   <ng-container [ngSwitch]="columnName">
                     <ng-container *ngSwitchCase="'actions'" class="py-2">
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button cButton variant="outline" class="btn btn-link" size="sm"
-                          (click)="executeAction('edit_session',item)">
-                          Edit session
-                        </button>
-                        <button cButton variant="outline" class="btn btn-link" size="sm"
+                        <button cButton variant="outline" class="btn btn-link" size="sm"  cTooltip=" View Authorizations"
                           (click)="executeAction('auth',item)">
-                          View authorization
+                          <svg cIcon name="cilMedicalCross"></svg>
+                        </button>
+                        <button cButton variant="outline" class="btn btn-link" size="sm"   cTooltip=" Edit Session"
+                          (click)="executeAction('edit_session',item)">
+                          <svg cIcon name="cilPen"></svg>
                         </button>
                       </div>
                     </ng-container>
