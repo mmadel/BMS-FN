@@ -69,7 +69,6 @@ export class InvocieRequestCreator {
             policyInformation: policyInforamtion,
             otherInsurances: otherPatientInsurance
         }
-        console.log(JSON.stringify(patientInsurance))
         return invoiceInsuranceCompanyInformation
     }
     private static createInvoiceBillingProviderInformation(): InvoiceBillingProviderInformation {

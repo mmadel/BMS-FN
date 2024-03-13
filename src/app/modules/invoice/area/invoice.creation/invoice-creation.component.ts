@@ -90,10 +90,10 @@ export class InvoiceCreationComponent implements OnInit {
         this.toastr.success("Invocie created successfully ")
         this.changeVisibility.emit('invoice');
         this.constructExportedFile(response, 'cms-', 'pdf')
-      }, (error) => {
-        
-        this.toastr.error('Over Lapping Patient Authorization', 'Error In Creation');
-      })
+      },  async (error) => {
+        const message = JSON.parse(await error.error.text()).message;
+        this.toastr.error(message)
+      });
   }
   constructExportedFile(response: any, fileName: string, extention: string) {
     const a = document.createElement('a')
