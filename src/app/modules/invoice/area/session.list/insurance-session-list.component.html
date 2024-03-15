@@ -179,7 +179,7 @@
     <button (click)="toggleModal('auth')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <list-auths [patientId]="client?.id" *ngIf="viewAuthorizationVisibility"
+    <list-auths [sessionId]="sessionId" [patientId]="client?.id" *ngIf="viewAuthorizationVisibility"
       (changeEditPorfileVisibility)="changeVisibility($event)"></list-auths>
   </c-modal-body>
 </c-modal>

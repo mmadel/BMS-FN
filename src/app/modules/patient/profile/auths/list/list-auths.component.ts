@@ -9,6 +9,7 @@ import { AuthService } from '../../../service/auth/auth.service';
   styleUrls: ['./list-auths.component.scss']
 })
 export class ListAuthsComponent implements OnInit {
+  @Input() sessionId: number
   @Input() patientId: number
   @Output() changeEditPorfileVisibility = new EventEmitter<string>()
   patientAuthorization: PatientAuthorization[]
@@ -17,19 +18,20 @@ export class ListAuthsComponent implements OnInit {
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.authService.find(this.patientId).subscribe((result: any) => {
+    this.authService.findBySession(this.patientId,this.sessionId).subscribe((result: any) => {
       this.patientAuthorization = result;
     })
   }
   selectAuthorization() {
     this.changeEditPorfileVisibility.emit('auth')
-    this.authService.selectAuthorization(this.patientId ,this.selectedPatientAuthorization.id)
+    this.authService.selectAuthorization(this.sessionId ,this.selectedPatientAuthorization.id)
     .subscribe(result=>{
       this.changeEditPorfileVisibility.emit('auth')
       this.toastr.success('Authorization selected successfully')
     })
   }
   changeAuth(event: any) {
+    console.log(JSON.stringify(event))
     this.selectedPatientAuthorization = event;
   }
 }

@@ -40,7 +40,6 @@ export class PatientListComponent extends ListTemplate implements OnInit {
     this.router.navigate(['/patient/profile']);
   }
   edit(event: any) {
-    console.log(JSON.stringify(event))
     this.router.navigate(['/patient/profile',event.id]);
   }
   view(event: any) {

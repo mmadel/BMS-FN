@@ -33,7 +33,6 @@ export class CreateAuthComponent implements OnInit {
     this.pickInsCompany(this.patientAuth.insCompany[1])
   }
   create() {
-    this.patientAuth.patientId = this.patientId;
     this.patientAuth.insCompany = this.selectedInsuranceCompany;
     this.patientAuth.startDateNumber = this.patientAuth.startDate !== undefined ? moment(this.patientAuth.startDate).unix() * 1000 : undefined
     this.patientAuth.expireDateNumber = this.patientAuth.expireDate !== undefined ? moment(this.patientAuth.expireDate).unix() * 1000 : undefined

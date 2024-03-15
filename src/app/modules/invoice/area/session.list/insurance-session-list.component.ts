@@ -25,6 +25,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
   sessionServiceCodeLines$: Observable<SessionServiceCodeLine[]>
   selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
   sessionServiceCodeLine: SessionServiceCodeLine
+  sessionId:number;
   clientId: Observable<number>
   client: Patient;
   editSessionVisibility: boolean = false;
@@ -168,6 +169,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
         break;
       case "auth":
         this.viewAuthorizationVisibility = true;
+        this.sessionId = event.data.id
         break;
     }
   }
