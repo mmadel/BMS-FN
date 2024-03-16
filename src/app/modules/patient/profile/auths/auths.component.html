@@ -3,9 +3,9 @@
     <c-row>
         <c-col xs="6" class="mb-3">
             <c-card>
-                <c-card-header>                
+                <c-card-header>              
                     <strong>Authorization Watch</strong>
-                    <span *ngIf="flagAuth">
+                    <span *ngIf="!patient.authorizationWatching">
                         <p class="text-medium-emphasis small">
                             Authorization is turned OFF
                         </p>
@@ -13,7 +13,7 @@
                             Authorization has to be selected manually for any submission after turned off
                         </p>
                     </span>
-                    <span *ngIf="!flagAuth">
+                    <span *ngIf="patient.authorizationWatching">
                         <p class="text-medium-emphasis small">
                             Authorization is turned ON
                         </p>
