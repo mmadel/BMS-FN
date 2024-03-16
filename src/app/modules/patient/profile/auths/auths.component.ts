@@ -16,11 +16,11 @@ export class AuthsComponent implements OnInit {
   createAutVisibility: boolean = false;
   updateAutVisibility: boolean = false;
   renderdAuthExpire: boolean = false;
-  flagAuth: boolean;
   @Input() patient: Patient;
+  patientAuthorization: boolean
   patientAuthorizations: PatientAuthorization[]
   renderList: PatientAuthorization[];
-  toBeUpdateModel:PatientAuthorization;
+  toBeUpdateModel: PatientAuthorization;
   constructor(private authService: AuthService
     , private patientService: PatientService
     , private toastr: ToastrService) { }
@@ -31,6 +31,7 @@ export class AuthsComponent implements OnInit {
   find() {
     this.authService.find(this.patient.id)
       .subscribe((result: any) => {
+        this.patientAuthorization = result.authorizationWatching
         result.forEach(element => {
           element.startDate = new Date(moment.unix(element.startDateNumber / 1000).format('MM/DD/YYYY'));
           element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));
@@ -73,7 +74,7 @@ export class AuthsComponent implements OnInit {
     this.renderList = this.patientAuthorizations.filter((reuslt: any) => !reuslt.isExpired);
   }
   turnOff() {
-    this.flagAuth = !this.flagAuth
+    this.patientAuthorization = false
     this.patientService.turnOffPatientAuth(this.patient.id)
       .subscribe(result => {
         this.toastr.success('Patient Authorization Turned Off');
@@ -81,7 +82,7 @@ export class AuthsComponent implements OnInit {
       })
   }
   turnOn() {
-    this.flagAuth = !this.flagAuth
+    this.patientAuthorization = true;
     this.patientService.turnOnPatientAuth(this.patient.id)
       .subscribe(result => {
         this.toastr.success('Patient Authorization Turned On');

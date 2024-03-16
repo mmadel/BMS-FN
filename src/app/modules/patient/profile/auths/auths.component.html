@@ -5,7 +5,7 @@
             <c-card>
                 <c-card-header>              
                     <strong>Authorization Watch</strong>
-                    <span *ngIf="!patient.authorizationWatching">
+                    <span *ngIf="!patientAuthorization">
                         <p class="text-medium-emphasis small">
                             Authorization is turned OFF
                         </p>
@@ -13,7 +13,7 @@
                             Authorization has to be selected manually for any submission after turned off
                         </p>
                     </span>
-                    <span *ngIf="patient.authorizationWatching">
+                    <span *ngIf="patientAuthorization">
                         <p class="text-medium-emphasis small">
                             Authorization is turned ON
                         </p>
@@ -36,8 +36,8 @@
                                             <li><a cDropdownItem (click)="hideExpire()" *ngIf="renderdAuthExpire">Hide
                                                     Expired</a></li>
                                             <li cDropdownDivider></li>
-                                            <li><a cDropdownItem (click)="turnOff()" *ngIf="!flagAuth">Turn Off</a></li>
-                                            <li><a cDropdownItem (click)="turnOn()" *ngIf="flagAuth">Turn On</a></li>
+                                            <li><a cDropdownItem (click)="turnOn()" *ngIf="!patientAuthorization">Turn On</a></li>
+                                            <li><a cDropdownItem (click)="turnOff()" *ngIf="patientAuthorization">Turn Off</a></li>
                                         </ul>
                                     </c-dropdown>
                                 </c-button-group>
