@@ -33,6 +33,8 @@ export class InvocieRequestCreator {
             box26: "",
             referringProvider: patient.referringProvider,
             insuredPrimaryId: insuredPrimaryId,
+            authorizationWatching: patient.authorizationWatching
+
         }
         return patientInformation;
     }

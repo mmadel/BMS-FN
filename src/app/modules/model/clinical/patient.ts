@@ -26,5 +26,5 @@ export interface Patient {
     ssn?: string | null
     externalId?: string | null;
     patientAdvancedInformation?: PatientAdvancedInformation
-    authorizationInformation?: AuthorizationInformation;
+    authorizationWatching?:boolean;
 }
