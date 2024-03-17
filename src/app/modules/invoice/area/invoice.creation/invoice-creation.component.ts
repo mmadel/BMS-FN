@@ -91,8 +91,12 @@ export class InvoiceCreationComponent implements OnInit {
         this.changeVisibility.emit('invoice');
         this.constructExportedFile(response, 'cms-', 'pdf')
       },  async (error) => {
-        const message = JSON.parse(await error.error.text()).message;
-        this.toastr.error(message)
+        const message:string = JSON.parse(await error.error.text()).message;
+        var vaal:string[] = message.split('.')
+        var dosReg:string[] = vaal[1].split(':');
+        var dosAsNumber:string = dosReg[1]
+        var dos:string = ' ' + moment.unix(Number(dosAsNumber) / 1000).format('MM/DD/YYYY');
+        this.toastr.error(message.replace(dosAsNumber, dos));
       });
   }
   constructExportedFile(response: any, fileName: string, extention: string) {
