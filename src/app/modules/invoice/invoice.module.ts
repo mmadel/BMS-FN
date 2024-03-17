@@ -8,7 +8,8 @@ import {
   BadgeModule, ButtonGroupModule, ButtonModule,
   CardModule,
   CollapseModule, DatePickerModule, DateRangePickerModule, DropdownModule, FormModule, GridModule, ListGroupModule, ModalModule, NavModule, SharedModule, SmartPaginationModule, SmartTableModule,
-  TableModule, TabsModule, TimePickerModule, TooltipModule, UtilitiesModule
+  TableModule, TabsModule, TimePickerModule, TooltipModule, UtilitiesModule,
+  CalloutModule
 } from '@coreui/angular-pro';
 
 import { PatientModule } from '../patient';
@@ -59,6 +60,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SmartPaginationModule,
     PatientModule,
     ModelModule,
+    CalloutModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

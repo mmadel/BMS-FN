@@ -90,13 +90,17 @@ export class InvoiceCreationComponent implements OnInit {
         this.toastr.success("Invocie created successfully ")
         this.changeVisibility.emit('invoice');
         this.constructExportedFile(response, 'cms-', 'pdf')
-      },  async (error) => {
-        const message:string = JSON.parse(await error.error.text()).message;
-        var vaal:string[] = message.split('.')
-        var dosReg:string[] = vaal[1].split(':');
-        var dosAsNumber:string = dosReg[1]
-        var dos:string = ' ' + moment.unix(Number(dosAsNumber) / 1000).format('MM/DD/YYYY');
-        this.toastr.error(message.replace(dosAsNumber, dos));
+      }, async (error) => {
+        const message: string = JSON.parse(await error.error.text()).message;
+        var vaal: string[] = message.split('.')
+        var dosReg: string[] = vaal[1].split(':');
+        var dosAsNumber: string = dosReg[1]
+        var dos: string = ' ' + moment.unix(Number(dosAsNumber) / 1000).format('MM/DD/YYYY');
+
+        this.toastr.error(message.replace(dosAsNumber, dos), 'Submission Error', {
+          disableTimeOut: true,
+          closeButton:false
+        })
       });
   }
   constructExportedFile(response: any, fileName: string, extention: string) {
@@ -152,6 +156,8 @@ export class InvoiceCreationComponent implements OnInit {
     }
     this.toggleIsCorrect();
     this.execute(this.patientInsurance)
+  }
+  scrollUp() {
   }
 }
 

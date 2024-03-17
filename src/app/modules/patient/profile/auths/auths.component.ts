@@ -17,7 +17,7 @@ export class AuthsComponent implements OnInit {
   updateAutVisibility: boolean = false;
   renderdAuthExpire: boolean = false;
   @Input() patient: Patient;
-  patientAuthorization: boolean
+  patientAuthorization: boolean;
   patientAuthorizations: PatientAuthorization[]
   renderList: PatientAuthorization[];
   toBeUpdateModel: PatientAuthorization;
@@ -26,12 +26,12 @@ export class AuthsComponent implements OnInit {
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.find();
+    this.find(); 
   }
   find() {
+    this.patientAuthorization = this.patient.authorizationWatching;
     this.authService.find(this.patient.id)
       .subscribe((result: any) => {
-        this.patientAuthorization = result.authorizationWatching
         result.forEach(element => {
           element.startDate = new Date(moment.unix(element.startDateNumber / 1000).format('MM/DD/YYYY'));
           element.expireDate = new Date(moment.unix(element.expireDateNumber / 1000).format('MM/DD/YYYY'));
