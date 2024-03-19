@@ -1,5 +1,6 @@
 import { Patient } from "../../model/clinical/patient";
 import { PatientInsurance } from "../../model/clinical/patient.insurance";
+import { AuthorizationWatching } from "../../model/enum/authorization.watching";
 import { InvoiceBillingProviderInformation } from "../model/temp/invoice.billing.provider.information";
 import { InvoiceInsuranceCompanyInformation } from "../model/temp/invoice.insurance.company.information";
 import { InvoicePatientInformation } from "../model/temp/invoice.patient.information";
@@ -33,7 +34,9 @@ export class InvocieRequestCreator {
             box26: "",
             referringProvider: patient.referringProvider,
             insuredPrimaryId: insuredPrimaryId,
-            authorizationWatching: patient.authorizationWatching
+            authorizationWatching: patient.authorizationWatching,
+            patientAuthorizationWatching: patient.authorizationWatching ?
+                AuthorizationWatching.TurnOn : AuthorizationWatching.TurnOff
 
         }
         return patientInformation;

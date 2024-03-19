@@ -6,6 +6,7 @@
             <th scope="col">Auth-Number</th>
             <th scope="col">Remaining</th>
             <th scope="col">Visits</th>
+            <th scope="col">Insurance Company</th>
             <th scope="col">StartDate</th>
             <th scope="col">ExpireDate</th>
             <th scope="col"></th>
@@ -17,6 +18,7 @@
             <td>{{auth.authNumber}}</td>
             <td>{{auth.remaining}}</td>
             <td>{{auth.visit}}</td>
+            <td>{{auth.insCompany[1]}}</td>
             <td>{{auth.startDateNumber| date:'MM/dd/y' }}</td>
             <td>{{auth.expireDateNumber| date:'MM/dd/y' }}</td>
             <td> <input cFormCheckInput type="radio" name="selectAuth" (change)="changeAuth(auth)"
