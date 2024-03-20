@@ -1,10 +1,11 @@
 export interface SessionHistory {
     submissionId?: number
     insuranceCompany?: string
-    submitDate?: Date
+    submitDate?: number
+    dateOfService?: number
     client?: string
     provider?: string
-    dateOfService: Date
     submissionType?:string;
+    numberOfServiceLines?:number
     claimStatus?:string
 }

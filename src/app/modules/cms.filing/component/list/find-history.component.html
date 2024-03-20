@@ -81,15 +81,13 @@
                     <div [visible]="this.details_visible[item._id]===true" cCollapse>
                         <c-card class="rounded-0">
                             <c-card-body>
-                                <h5>{{item['name']}}</h5>
-                                <p class="text-muted">User since: {{item['registered']}}</p>
+                                    <strong>Date Of Service : </strong> {{(item.dateOfService |date :'MM/dd/YYYY')}}
+                            <br/>
+                            <strong>Service Lines ({{(item.numberOfServiceLines)}})</strong>
                             </c-card-body>
                             <c-card-footer>
-                                <button cButton color="info" size="sm">
-                                    User Settings
-                                </button>
-                                <button cButton class="ms-1" color="danger" size="sm">
-                                    Delete
+                                <button cButton  size="sm" variant="ghost">
+                                    Open Session
                                 </button>
                             </c-card-footer>
                         </c-card>
