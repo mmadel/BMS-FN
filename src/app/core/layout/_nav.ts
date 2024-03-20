@@ -55,6 +55,12 @@ export const navItems: INavData[] = [
     ]
   },
   {
+    name : 'CMS Filing',
+    url: '/cms/filing',
+    iconComponent: { name: 'cilHistory' },
+  },
+
+  {
     name: 'Posting',
     url: '/posting',
     iconComponent: { name: 'cil-send' },
