@@ -2,7 +2,7 @@ export interface SessionHistory {
     submissionId?: number
     insuranceCompany?: string
     submitDate?: Date
-    clinet?: string
+    client?: string
     provider?: string
     dateOfService: Date
 }

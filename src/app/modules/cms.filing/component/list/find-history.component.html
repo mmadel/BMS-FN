@@ -69,7 +69,7 @@
     </c-col>
     <c-col xs="12">
         <ng-container *ngIf="props$ | async as props" fluid="true">
-            <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
+            <c-smart-table [columnSorter]="{resetable: true }" 
               [items]="(sessionServiceCodeLines$ | async) ?? []" [itemsPerPage]="props.itemsPerPage"
               (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
               [itemsPerPageSelect]="true" [columnFilterValue]="props.columnFilterValue?? []"
@@ -83,13 +83,6 @@
                   <ng-container [ngSwitch]="columnName">
                     <ng-container *ngSwitchDefault>
                       {{tdContent}}
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'correct'">
-                      <span *ngIf="item.isCorrect">
-                        <c-badge color="warning">
-                          corrected-void
-                        </c-badge>
-                      </span>
                     </ng-container>
                   </ng-container>
                 </td>
