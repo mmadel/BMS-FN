@@ -2,12 +2,72 @@
 <c-row>
     <c-col xs="12">
         <c-card class="mb-4">
-          <c-card-header ngPreserveWhitespaces>
-            <strong>Session History Search</strong>
-          </c-card-header>
-          <c-card-body>
-            
-          </c-card-body>
+            <c-card-header ngPreserveWhitespaces>
+                <strong>Session History Search</strong>
+            </c-card-header>
+            <c-card-body>
+                <form cForm>
+                    <c-row>
+                        <c-col xs="12" class="mb-2">
+                            <c-input-group sizing="sm">
+                                <input cFormControl placeholder="Service Code" sizing="sm" name="search_service_code" />
+                                <button cButton size="sm" variant="outline">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="12" class="mb-2">
+                            <c-input-group sizing="sm">
+                                <input cFormControl placeholder="Insurance Name" sizing="sm"
+                                    name="search_insuranceName" />
+                                <button cButton size="sm" variant="outline">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="12" class="mb-2">
+                            <c-input-group sizing="sm">
+                                <input cFormControl placeholder="Client Name" sizing="sm" name="search_clientName" />
+                                <button cButton size="sm" variant="outline">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="12" class="mb-2">
+                            <c-input-group sizing="sm">
+                                <input cFormControl placeholder="Provider Name" sizing="sm"
+                                    name="search_providerName" />
+                                <button cButton size="sm" variant="outline">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="12" class="mb-2">
+                            <c-input-group sizing="sm">
+                                <input cFormControl placeholder="Claim ID" sizing="sm" name="search_claimID" />
+                                <button cButton size="sm" variant="outline">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
+                        </c-col>
+                        <c-col xs="12" class="mb-2">
+                            <c-date-range-picker [placeholder]="['DOS From', 'DOS To']"></c-date-range-picker>
+                        </c-col>
+                        <c-col xs="12" class="mb-2">
+                            <c-date-range-picker
+                                [placeholder]="['Claim Submit From', 'Claim Submit To']"></c-date-range-picker>
+                        </c-col>
+                        <c-col xs="12" class="text-center">
+                            <button cButton class="me-1" color="primary" style="width: 15%;">
+                              Search
+                            </button>
+                          </c-col>
+                    </c-row>
+                </form>
+            </c-card-body>
         </c-card>
-      </c-col>
+    </c-col>
+    <c-col xs="12">
+        ddd
+    </c-col>
 </c-row>
