@@ -32,6 +32,12 @@ const routes: Routes = [
           import('./modules/invoice/invoice.module').then((m) => m.InvoiceModule)
       },
       {
+        path: 'cms/filing',
+        loadChildren: () =>
+          import('./modules/cms.filing/cms-filing.module').then((m) => m.CmsFilingModule)
+      },
+
+      {
         path: 'posting',
         loadChildren: () =>
           import('./modules/post/posting.module').then((m) => m.PostingModule)
