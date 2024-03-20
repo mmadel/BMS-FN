@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CmsFilingRoutingModule } from './cms-filing-routing.module';
 import { FindHistoryComponent } from './component/list/find-history.component';
-import { AlertModule, BadgeModule, ButtonModule, CardModule, CollapseModule, GridModule, SharedModule, SmartTableModule, TableModule, FormModule, DatePickerModule, DropdownModule, ButtonGroupModule, ListGroupModule, TooltipModule, TabsModule, NavModule, DateRangePickerModule, TimePickerModule, ModalModule, MultiSelectModule, SpinnerModule, SmartPaginationModule } from '@coreui/angular-pro';
+import { CalloutModule,AlertModule, BadgeModule, ButtonModule, CardModule, CollapseModule, GridModule, SharedModule, SmartTableModule, TableModule, FormModule, DatePickerModule, DropdownModule, ButtonGroupModule, ListGroupModule, TooltipModule, TabsModule, NavModule, DateRangePickerModule, TimePickerModule, ModalModule, MultiSelectModule, SpinnerModule, SmartPaginationModule } from '@coreui/angular-pro';
 import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -44,6 +44,7 @@ import { ModelModule } from '../model/model.module';
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    CalloutModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

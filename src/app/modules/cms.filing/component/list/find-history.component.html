@@ -59,9 +59,9 @@
                         </c-col>
                         <c-col xs="12" class="text-center">
                             <button cButton class="me-1" color="primary" style="width: 15%;">
-                              Search
+                                Search
                             </button>
-                          </c-col>
+                        </c-col>
                     </c-row>
                 </form>
             </c-card-body>
@@ -69,27 +69,26 @@
     </c-col>
     <c-col xs="12">
         <ng-container *ngIf="props$ | async as props" fluid="true">
-            <c-smart-table [columnSorter]="{resetable: true }" 
-              [items]="(sessionServiceCodeLines$ | async) ?? []" [itemsPerPage]="props.itemsPerPage"
-              (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
-              [itemsPerPageSelect]="true" [columnFilterValue]="props.columnFilterValue?? []"
-              [sorterValue]="props.sorterValue" [tableProps]="{ hover: true, striped: true, small:true }"
-              [tableBodyProps]="{ align: 'middle' }" header>
-              <ng-template cTemplateId="tableDetails" let-item="item">
-              </ng-template>
-              <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
-                let-tdContent="tdContent">
-                <td>
-                  <ng-container [ngSwitch]="columnName">
-                    <ng-container *ngSwitchDefault>
-                      {{tdContent}}
-                    </ng-container>
-                  </ng-container>
-                </td>
-              </ng-template>
+            <c-smart-table [columnSorter]="{resetable: true }" [items]="(SessionsHistory$ | async) ?? []"
+                [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
+                [itemsPerPageOptions]="[5,10,20]" [itemsPerPageSelect]="true"
+                [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+                [tableProps]="{ hover: true, striped: true, small:true }" [tableBodyProps]="{ align: 'middle' }" header>
+                <ng-template cTemplateId="tableDetails" let-item="item">
+                </ng-template>
+                <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
+                    let-tdContent="tdContent">
+                    <td>
+                        <ng-container [ngSwitch]="columnName">
+                            <ng-container *ngSwitchDefault>
+                                {{tdContent}}                                
+                            </ng-container>
+                        </ng-container>
+                    </td>
+                </ng-template>
             </c-smart-table>
             <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
-              (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
-          </ng-container>
+                (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+        </ng-container>
     </c-col>
 </c-row>
