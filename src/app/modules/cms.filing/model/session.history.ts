@@ -5,4 +5,6 @@ export interface SessionHistory {
     client?: string
     provider?: string
     dateOfService: Date
+    submissionType?:string;
+    claimStatus?:string
 }
