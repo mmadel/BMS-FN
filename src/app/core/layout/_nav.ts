@@ -58,6 +58,12 @@ export const navItems: INavData[] = [
     name : 'CMS Filing',
     url: '/cms/filing',
     iconComponent: { name: 'cilHistory' },
+    children: [
+      {
+        name: 'Show Sessions History',
+        url: '/cms/filing/list'
+      }
+    ]
   },
 
   {
