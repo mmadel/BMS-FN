@@ -9,10 +9,12 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModelModule } from '../model/model.module';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { SessionHistoryItemComponent } from './component/item/session-history-item.component';
 
 @NgModule({
   declarations: [
-    FindHistoryComponent
+    FindHistoryComponent,
+    SessionHistoryItemComponent
   ],
   imports: [
     CommonModule,
