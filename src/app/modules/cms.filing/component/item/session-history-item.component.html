@@ -12,9 +12,23 @@
     <c-col xs="9">
         <div class="fs-5" style="margin-left: -2%;"><strong>Submission ID : </strong> {{item.submissionId}}</div>
         <div class="fs-6"><strong>To : </strong> {{item.insuranceCompany}}</div>
-        <div class="fs-6"style="margin-left: -1%;"><strong>Submit Date : </strong> {{item.submitDate | date:'MM/dd/yyy'}}</div>
+        <div class="fs-6" style="margin-left: -1%;"><strong>Submit Date : </strong> {{item.submitDate |
+            date:'MM/dd/yyy'}}</div>
         <div class="fs-6" style="margin-left: -1%;"><strong>Client : </strong>{{item.client}}</div>
         <div class="fs-6" style="margin-left: -1%;"><strong>Provider : </strong>{{item.provider}}</div>
     </c-col>
-    <c-col xs="2">dd</c-col>
+    <c-col xs="2">
+        <div class="overflow-auto" style="max-width: 260px; max-height: 300px;">
+            <ul cListGroup>
+                <li cListGroupItem [active]="true" style="line-height:30%">
+                    <div class="fs-6">Service Dates</div>
+                </li>
+                <li cListGroupItem style="line-height:30%">Dapibus ac facilisis in</li>
+                <li cListGroupItem style="line-height:30%">Morbi leo risus</li>
+                <li cListGroupItem style="line-height:30%">Porta ac consectetur ac</li>
+                <li cListGroupItem style="line-height:30%">Vestibulum at eros</li>
+                <li cListGroupItem style="line-height:30%">Vestibulum at eros</li>
+            </ul>
+        </div>
+    </c-col>
 </c-row>
