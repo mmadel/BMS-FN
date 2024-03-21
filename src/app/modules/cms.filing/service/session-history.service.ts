@@ -12,8 +12,8 @@ export class SessionHistoryService extends BasePaginationService {
   private baseUrl = environment.baseURL + '/session/history'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
-  find(): Observable<any> {
-    var url = this.baseUrl + '/find';
+  find(offset: number, limit: number) {
+    var url = this.baseUrl + '/find?offset=' + offset + '&limit=' + limit;
     return this.httpClient.get(url)
   }
 }

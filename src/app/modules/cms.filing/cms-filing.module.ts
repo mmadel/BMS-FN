@@ -8,7 +8,7 @@ import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModelModule } from '../model/model.module';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { ModelModule } from '../model/model.module';
     SpinnerModule,
     SmartPaginationModule,
     CalloutModule,
+    MatPaginatorModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

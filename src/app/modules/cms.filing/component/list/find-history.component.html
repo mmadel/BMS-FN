@@ -68,66 +68,19 @@
         </c-card>
     </c-col>
     <c-col xs="12">
-        <ng-container *ngIf="props$ | async as props" fluid="true">
-            <c-smart-table [columnSorter]="{resetable: true }" [items]="(SessionsHistory$ | async) ?? []"
-                [columns]="columns" [itemsPerPage]="props.itemsPerPage"
-                (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
-                [itemsPerPageSelect]="true" [columnFilterValue]="props.columnFilterValue?? []"
-                [sorterValue]="props.sorterValue" [tableProps]="{  small:true }" [tableBodyProps]="{ align: 'middle' }"
-                header>
-                <ng-template cTemplateId="tableDetails" let-item="item">
-                </ng-template>
-                <ng-template cTemplateId="tableDetails" let-item="item">
-                    <div [visible]="this.details_visible[item._id]===true" cCollapse>
-                        <c-card class="rounded-0">
-                            <c-card-body>
-                                    <strong>Date Of Service : </strong> {{(item.dateOfService |date :'MM/dd/YYYY')}}
-                            <br/>
-                            <strong>Service Lines ({{(item.numberOfServiceLines)}})</strong>
-                            </c-card-body>
-                            <c-card-footer>
-                                <button cButton  size="sm" variant="ghost">
-                                    Open Session
-                                </button>
-                            </c-card-footer>
-                        </c-card>
-                    </div>
-                </ng-template>
-                <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
-                    let-tdContent="tdContent">
-                    <td>
-                        <ng-container [ngSwitch]="columnName">
-                            <ng-container *ngSwitchCase="'claimStatus'">
-                                <c-badge [color]="getClaimStatus(tdContent)">
-                                    {{(item[columnName])}}
-                                </c-badge>
-                            </ng-container>
-                            <ng-container *ngSwitchDefault>
-                                {{tdContent}}
-                            </ng-container>
-                            <ng-container *ngSwitchCase="'show'" class="py-2">
-                                <button (click)="toggleDetails(item['_id'])" cButton color="primary" size="sm"
-                                    variant="outline">
-                                    Batch Details
-                                </button>
-                            </ng-container>
-                            <ng-container *ngSwitchCase="'actions'" class="py-2">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button cButton color="primary" size="sm" variant="outline">
-                                        <svg cIcon name="cilSettings"></svg>
-                                    </button>
-                                    <button cButton color="danger" size="sm" variant="outline">
-                                        <svg cIcon name="cibAdobeAcrobatReader"></svg>
-                                    </button>
-                                </div>
-                            </ng-container>
-                        </ng-container>
-
-                    </td>
-                </ng-template>
-            </c-smart-table>
-            <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
-                (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
-        </ng-container>
+        <c-card>
+            <c-card-body>
+                <div *ngFor="let sessionsHistory of sessionsHistorys">
+                    <c-callout color="primary">
+                        New to or unfamiliar with flexbox? Read this CSS Tricks flexbox guide for background,
+                        terminology,
+                        guidelines, and code snippets.
+                    </c-callout>
+                </div>
+                <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+                    aria-label="Select page" (page)="onPageChange($event)">
+                </mat-paginator>
+            </c-card-body>
+        </c-card>
     </c-col>
 </c-row>
