@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-session-history-item',
+  selector: 'session-history-item',
   templateUrl: './session-history-item.component.html',
   styleUrls: ['./session-history-item.component.scss']
 })

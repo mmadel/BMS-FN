@@ -72,9 +72,7 @@
             <c-card-body>
                 <div *ngFor="let sessionsHistory of sessionsHistorys">
                     <c-callout color="primary">
-                        New to or unfamiliar with flexbox? Read this CSS Tricks flexbox guide for background,
-                        terminology,
-                        guidelines, and code snippets.
+                        <session-history-item></session-history-item>
                     </c-callout>
                 </div>
                 <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
