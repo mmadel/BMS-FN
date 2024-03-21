@@ -72,7 +72,7 @@
             <c-card-body>
                 <div *ngFor="let sessionsHistory of sessionsHistorys">
                     <c-callout color="primary">
-                        <session-history-item></session-history-item>
+                        <session-history-item [item]="sessionsHistory"></session-history-item>
                     </c-callout>
                 </div>
                 <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"

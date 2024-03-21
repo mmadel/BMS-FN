@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SessionHistory } from '../../model/session.history';
 
 @Component({
   selector: 'session-history-item',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./session-history-item.component.scss']
 })
 export class SessionHistoryItemComponent implements OnInit {
-
+  @Input() item: SessionHistory;
   constructor() { }
 
   ngOnInit(): void {
