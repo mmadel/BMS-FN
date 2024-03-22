@@ -71,7 +71,7 @@
         <c-card>
             <c-card-body>
                 <div *ngFor="let sessionsHistory of sessionsHistorys">
-                    <c-callout color="primary">
+                    <c-callout [color]="getColor(sessionsHistory.submissionStatus)">
                         <session-history-item [item]="sessionsHistory"></session-history-item>
                     </c-callout>
                 </div>

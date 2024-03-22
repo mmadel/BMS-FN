@@ -6,6 +6,6 @@ export interface SessionHistory {
     client?: string
     provider?: string
     numberOfServiceLines?:number
-    claimStatus?:string
     submissionType?:string
+    submissionStatus?:string
 }
