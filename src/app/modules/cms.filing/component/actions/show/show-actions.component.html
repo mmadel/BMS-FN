@@ -1,1 +1,6 @@
-<p>show-actions works!</p>
+<div class="list-group">
+    <button type="button" class="list-group-item list-group-item-action"
+        *ngFor="let action of actionItems; let i = index">
+        <div class="fs-6" style="margin-left: -2%;">{{action}}</div>
+    </button>
+</div>
