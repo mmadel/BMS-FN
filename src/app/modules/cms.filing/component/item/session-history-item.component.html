@@ -1,0 +1,37 @@
+<c-row class="n5">
+    <c-col xs="1">
+        <c-button-group aria-label="Basic example" role="group" size="sm" [vertical]="true">
+            <button cButton color="primary" variant="outline">
+                <svg cIcon name="cilSettings"></svg>
+            </button>
+            <button cButton color="danger" variant="outline">
+                <svg cIcon name="cibAdobeAcrobatReader"></svg>
+            </button>
+        </c-button-group>
+    </c-col>
+    <c-col xs="9">
+        <div class="fs-5" style="margin-left: -2%;"><strong>Submission ID : </strong> {{item.submissionId}}</div>
+        <div class="fs-6"><strong>To : </strong> {{item.insuranceCompany}}</div>
+        <div class="fs-6" style="margin-left: -1%;"><strong>Submit Date : </strong> {{item.submitDate |
+            date:'MM/dd/yyy'}}</div>
+        <div class="fs-6" style="margin-left: -1%;"><strong>Client : </strong>{{item.client}}</div>
+        <div class="fs-6" style="margin-left: -1%;"><strong>Provider : </strong>{{item.provider}}</div>
+    </c-col>
+    <c-col xs="2">
+        <div class="overflow-auto" style="max-width: 260px; max-height: 100px;">
+            <ul cListGroup>
+                <li cListGroupItem [active]="true" style="line-height:30%">
+                    <div class="fs-6">Service Dates</div>
+                </li>
+                <button cListGroupItem class="d-flex justify-content-between align-items-center">
+                    2024/12/03
+                    <c-badge color="info" shape="rounded-pill">14</c-badge>
+                </button>
+                <button cListGroupItem class="d-flex justify-content-between align-items-center">
+                    2024/12/03
+                    <c-badge color="info" shape="rounded-pill">3</c-badge>
+                </button>
+            </ul>
+        </div>
+    </c-col>
+</c-row>

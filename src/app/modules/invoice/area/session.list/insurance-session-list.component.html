@@ -78,10 +78,6 @@
                   <ng-container [ngSwitch]="columnName">
                     <ng-container *ngSwitchCase="'actions'" class="py-2">
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button cButton variant="outline" class="btn btn-link" size="sm" cTooltip=" unassign Authorization"
-                          (click)="executeAction('',item)">
-                          <svg cIcon name="cilTrash"></svg>
-                        </button>
                         <button cButton variant="outline" class="btn btn-link" size="sm" cTooltip=" assign Authorization"
                           (click)="executeAction('auth',item)">
                           <svg cIcon name="cilBookmark"></svg>
