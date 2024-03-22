@@ -8,9 +8,13 @@ import { SessionHistory } from '../../model/session.history';
 })
 export class SessionHistoryItemComponent implements OnInit {
   @Input() item: SessionHistory;
+  showActionVisibility: boolean = false
   constructor() { }
 
   ngOnInit(): void {
+  }
+  toggleActionsModal() {
+    this.showActionVisibility = !this.showActionVisibility
   }
 
 }

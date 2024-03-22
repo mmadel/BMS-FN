@@ -1,7 +1,7 @@
 <c-row class="n5">
     <c-col xs="1">
         <c-button-group aria-label="Basic example" role="group" size="sm" [vertical]="true">
-            <button cButton color="primary" variant="outline">
+            <button cButton color="primary" variant="outline" (click)="toggleActionsModal()">
                 <svg cIcon name="cilSettings"></svg>
             </button>
             <button cButton color="danger" variant="outline">
@@ -35,3 +35,11 @@
         </div>
     </c-col>
 </c-row>
+<c-modal id="showActions" [visible]="showActionVisibility" size="lg">
+    <c-modal-header>
+        <h2>Actions</h2>        
+    </c-modal-header>
+    <c-modal-body>
+        <show-actions [submissionType]="item.submissionType"></show-actions>
+    </c-modal-body>
+</c-modal>

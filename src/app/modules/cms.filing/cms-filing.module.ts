@@ -10,11 +10,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModelModule } from '../model/model.module';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { SessionHistoryItemComponent } from './component/item/session-history-item.component';
+import { ShowActionsComponent } from './component/actions/show/show-actions.component';
 
 @NgModule({
   declarations: [
     FindHistoryComponent,
-    SessionHistoryItemComponent
+    SessionHistoryItemComponent,
+    ShowActionsComponent
   ],
   imports: [
     CommonModule,
