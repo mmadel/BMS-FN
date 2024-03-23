@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SessionHistoryAction } from '../../../model/session.history.actions';
 
 @Component({
@@ -8,6 +8,7 @@ import { SessionHistoryAction } from '../../../model/session.history.actions';
 })
 export class ShowActionsComponent implements OnInit {
   @Input() submissionType: string
+  @Output() changeVisibility = new EventEmitter<string>()
   actionItems: SessionHistoryAction[];
   constructor() { }
 
@@ -47,6 +48,6 @@ export class ShowActionsComponent implements OnInit {
     }
   }
   executeAction(action:string){
-
+    this.changeVisibility.emit('close');
   }
 }

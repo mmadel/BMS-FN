@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SessionHistory } from '../../model/session.history';
 
 @Component({
@@ -18,5 +18,9 @@ export class SessionHistoryItemComponent implements OnInit {
   }
   openSession(sessionId: number) {
     console.log(sessionId)
+  }
+  changeVisibility(event: any) {
+    if (event === 'close')
+      this.showActionVisibility = false
   }
 }
