@@ -32,7 +32,7 @@ export class FindHistoryComponent implements OnInit {
   }
   getColor(status: string): string {
     switch (status) {
-      case 'Submit':
+      case 'Success':
         return 'light';
       case 'Pending':
         return 'primary';

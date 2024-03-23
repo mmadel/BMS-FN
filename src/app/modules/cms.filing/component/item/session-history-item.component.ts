@@ -16,5 +16,7 @@ export class SessionHistoryItemComponent implements OnInit {
   toggleActionsModal() {
     this.showActionVisibility = !this.showActionVisibility
   }
-
+  openSession(sessionId: number) {
+    console.log(sessionId)
+  }
 }
