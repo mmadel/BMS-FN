@@ -11,12 +11,14 @@ import { ModelModule } from '../model/model.module';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { SessionHistoryItemComponent } from './component/item/session-history-item.component';
 import { ShowActionsComponent } from './component/actions/show/show-actions.component';
+import { CorrectClaimActionComponent } from './component/actions/correct.claim/correct-claim-action.component';
 
 @NgModule({
   declarations: [
     FindHistoryComponent,
     SessionHistoryItemComponent,
-    ShowActionsComponent
+    ShowActionsComponent,
+    CorrectClaimActionComponent
   ],
   imports: [
     CommonModule,
