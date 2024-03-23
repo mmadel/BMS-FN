@@ -9,6 +9,7 @@ import { SessionHistory } from '../../model/session.history';
 export class SessionHistoryItemComponent implements OnInit {
   @Input() item: SessionHistory;
   showActionVisibility: boolean = false
+  showCorrectClaimActionVisibility: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
@@ -20,7 +21,8 @@ export class SessionHistoryItemComponent implements OnInit {
     console.log(sessionId)
   }
   changeVisibility(event: any) {
-    if (event === 'close')
-      this.showActionVisibility = false
+    this.showActionVisibility = false
+    if (event === 'correct_claim')
+      this.showCorrectClaimActionVisibility = true;
   }
 }

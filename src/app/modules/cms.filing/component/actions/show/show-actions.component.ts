@@ -10,6 +10,7 @@ export class ShowActionsComponent implements OnInit {
   @Input() submissionType: string
   @Output() changeVisibility = new EventEmitter<string>()
   actionItems: SessionHistoryAction[];
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -18,7 +19,7 @@ export class ShowActionsComponent implements OnInit {
         this.actionItems = [];
         this.actionItems.push({
           title: 'Create Correct claim',
-          action: 'correct'
+          action: 'correct_claim'
         });
         this.actionItems.push({
           title: 'Submit electronically',
@@ -47,7 +48,7 @@ export class ShowActionsComponent implements OnInit {
         break;
     }
   }
-  executeAction(action:string){
-    this.changeVisibility.emit('close');
+  executeAction(action: string) {
+    this.changeVisibility.emit(action);
   }
 }
