@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { SessionHistoryAction } from '../../../model/session.history.actions';
 
 @Component({
   selector: 'show-actions',
@@ -7,24 +8,45 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ShowActionsComponent implements OnInit {
   @Input() submissionType: string
-  actionItems: string[];
+  actionItems: SessionHistoryAction[];
   constructor() { }
 
   ngOnInit(): void {
     switch (this.submissionType) {
       case 'Print':
         this.actionItems = [];
-        this.actionItems.push('Create Correct claim');
-        this.actionItems.push('Submit electronically');
+        this.actionItems.push({
+          title: 'Create Correct claim',
+          action: 'correct'
+        });
+        this.actionItems.push({
+          title: 'Submit electronically',
+          action: 'submit_electronically'
+        });
         break;
       case 'Electronic':
         this.actionItems = [];
-        this.actionItems.push('View status message');
-        this.actionItems.push('View EDI File');
-        this.actionItems.push('Resend');
-        this.actionItems.push('Correct Claim');
+
+        this.actionItems.push({
+          title: 'View status message',
+          action: 'View status message'
+        });
+        this.actionItems.push({
+          title: 'View EDI File',
+          action: 'View status message'
+        });
+        this.actionItems.push({
+          title: 'Resend',
+          action: 'Resend'
+        });
+        this.actionItems.push({
+          title: 'Correct Claim',
+          action: 'Correct Claim'
+        });
         break;
     }
   }
+  executeAction(action:string){
 
+  }
 }
