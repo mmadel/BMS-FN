@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SessionHistoryCount } from '../../../model/session.history.count';
 
 @Component({
   selector: 'correct-claim-action',
@@ -6,10 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./correct-claim-action.component.scss']
 })
 export class CorrectClaimActionComponent implements OnInit {
-  cards: { id: number, name: string }[] = [
-    { "id": 1, "name": "Session Selection" },
-    { "id": 2, "name": "Confirmation" },
-  ];
+  @Input() sessionCounts?: SessionHistoryCount[]
   counter: number;
   progressValue: number;
   constructor() { }
@@ -32,7 +30,7 @@ export class CorrectClaimActionComponent implements OnInit {
   calculatePercentage(index: number, action: string) {
     if (action === 'back')
       index--;
-    this.progressValue = Math.round(((index / this.cards.length) / 100) * 10000);
+    this.progressValue = Math.round(((index / 2) / 100) * 10000);
   }
-  
+
 }

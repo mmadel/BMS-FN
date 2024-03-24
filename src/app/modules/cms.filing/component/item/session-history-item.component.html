@@ -46,6 +46,6 @@
         <button (click)="close('correct_claim')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <correct-claim-action *ngIf="showCorrectClaimActionVisibility"></correct-claim-action>
+        <correct-claim-action *ngIf="showCorrectClaimActionVisibility" [sessionCounts]="item.sessionCounts"></correct-claim-action>
     </c-modal-body>
 </c-modal>
