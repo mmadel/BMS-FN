@@ -40,12 +40,12 @@
         <show-actions [submissionType]="item.submissionType" (changeVisibility)="changeVisibility($event)"></show-actions>
     </c-modal-body>
 </c-modal>
-<c-modal id="showCorrectClaimActions" [visible]="showCorrectClaimActionVisibility" size="lg" backdrop="static">
+<c-modal id="showCorrectClaimActions" [visible]="showCorrectClaimActionVisibility" size="xl" backdrop="static">
     <c-modal-header>
         <h2>Correct Claim</h2>
         <button (click)="close('correct_claim')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <correct-claim-action></correct-claim-action>
+        <correct-claim-action *ngIf="showCorrectClaimActionVisibility"></correct-claim-action>
     </c-modal-body>
 </c-modal>

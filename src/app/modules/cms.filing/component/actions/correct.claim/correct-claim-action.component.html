@@ -1,14 +1,10 @@
-<c-progress class="mb-3">
-    <c-progress-bar animated #progressBar [value]="progressValue">{{progressValue}}%</c-progress-bar>
-</c-progress>
 <c-row class="justify-content-center">
     <c-col xs="12">
-        <c-card *ngIf="counter === 1 " class="mb-3 ustify-content-center">
-            <c-card-header>
-                <h3>{{cards[0].name}}</h3>
+        <c-card *ngIf="counter === 1 " >
+            <c-card-header style="max-height: 10%;">
+                <p class="fs-5">Select Sessions</p>
             </c-card-header>
             <c-card-body>
-                SELECT SESSION
             </c-card-body>
             <c-card-footer>
                 <button cButton (click)="next('select')" size="sm" color="primary" variant="outline" class="auto me-1">
@@ -19,22 +15,21 @@
     </c-col>
 </c-row>
 <c-row class="justify-content-center">
-    <c-col xs="12">
-        <c-card *ngIf="counter === 2 " class="mb-3">
+    <c-card *ngIf="counter === 2 " class="mb-3 ustify-content-center">
+        <c-card-header>
+            <p class="fs-5">Confirmation</p>
+        </c-card-header>
+        <c-card-body>
+            <p class="lead">To view session invoices, please click 'View' to proceed to the invoice area</p>
+        </c-card-body>
+        <c-card-footer>
+            <button cButton (click)="back()" size="sm" color="primary" variant="outline" class="auto me-1">
+                Back
+            </button>
+            <button cButton (click)="next('confirm')" size="sm" color="primary" variant="outline"
+                class="auto me-1">View Invoices</button>
+            <button cButton size="sm" color="primary" variant="outline" class="auto me-1">Correct & Close</button>
 
-            <c-card-header>
-                <h3>{{cards[1].name}}</h3>
-            </c-card-header>
-            <c-card-body>
-                CONFIRAMTION
-            </c-card-body>
-            <c-card-footer>
-                <button cButton (click)="back()" size="sm" color="primary" variant="outline" class="auto me-1">
-                    Back
-                </button>
-                <button cButton (click)="next('confirm')" size="sm" color="primary" variant="outline"
-                    class="auto me-1">next</button>
-            </c-card-footer>
-        </c-card>
-    </c-col>
+        </c-card-footer>
+    </c-card>
 </c-row>
