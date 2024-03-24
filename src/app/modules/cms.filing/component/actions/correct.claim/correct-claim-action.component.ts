@@ -1,4 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { InvoiceEmitterService } from 'src/app/modules/invoice/service/emitting/invoice-emitter.service';
+import { Patient } from 'src/app/modules/model/clinical/patient';
+import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { SessionHistoryCount } from '../../../model/session.history.count';
 
@@ -9,11 +14,16 @@ import { SessionHistoryCount } from '../../../model/session.history.count';
 })
 export class CorrectClaimActionComponent implements OnInit {
   @Input() sessionCounts?: SessionHistoryCount[]
+  @Input() patient: Patient;
   @Output() changeVisibility = new EventEmitter<string>()
   counter: number;
   progressValue: number;
   selectedSessionId: number
-  constructor(private patientSessionService: PatientSessionService) { }
+  selectePatientSession: PatientSession
+  constructor(private patientSessionService: PatientSessionService
+    , private router: Router
+    , private invoiceEmitterService: InvoiceEmitterService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.counter = 1;
@@ -45,15 +55,29 @@ export class CorrectClaimActionComponent implements OnInit {
     switch (action) {
       case 'redirect':
         console.log('redirect')
+        var invoiceLinesRender: any = { filter: true, startDate: this.selectePatientSession.serviceDate, endDate: this.selectePatientSession.serviceDate, client: this.patient }
+        this.invoiceEmitterService.invoiceLinesRendering$.next(invoiceLinesRender)
+        this.router.navigate(['/invoice/session/list/'], { state: { filter: true, startDate: this.selectePatientSession.serviceDate, endDate: this.selectePatientSession.serviceDate, client: this.patient } });
         break;
       case 'close':
         console.log('close')
+        this.toastr.success('Claim has been marked as corrected');
+        this.scrollUp()
         break;
     }
   }
   private findSession() {
     this.patientSessionService.findSessionById(this.selectedSessionId).subscribe(result => {
       console.log(JSON.stringify(result.records))
+      this.selectePatientSession = result.records
     })
+  }
+  private scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

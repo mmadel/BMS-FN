@@ -14,7 +14,8 @@
         <div class="fs-6"><strong>To : </strong> {{item.insuranceCompany}}</div>
         <div class="fs-6" style="margin-left: -1%;"><strong>Submit Date : </strong> {{item.submitDate |
             date:'MM/dd/yyy'}}</div>
-        <div class="fs-6" style="margin-left: -1%;"><strong>Client : </strong>{{item.client}}</div>
+        <div class="fs-6" style="margin-left: -1%;"><strong>Client :
+            </strong>{{item.client.lastName}},{{item.client.firstName}}</div>
         <div class="fs-6" style="margin-left: -1%;"><strong>Provider : </strong>{{item.provider}}</div>
     </c-col>
     <c-col xs="2">
@@ -48,6 +49,7 @@
     </c-modal-header>
     <c-modal-body>
         <correct-claim-action *ngIf="showCorrectClaimActionVisibility" [sessionCounts]="item.sessionCounts"
-            (changeVisibility)="changeCorrectClaimActionVisibility($event)"></correct-claim-action>
+            (changeVisibility)="changeCorrectClaimActionVisibility($event)"
+            [patient]="item.client"></correct-claim-action>
     </c-modal-body>
 </c-modal>
