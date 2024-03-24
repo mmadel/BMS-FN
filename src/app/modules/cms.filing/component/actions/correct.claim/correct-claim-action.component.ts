@@ -28,6 +28,10 @@ export class CorrectClaimActionComponent implements OnInit {
   ngOnInit(): void {
     this.counter = 1;
     this.progressValue = 0;
+    if (this.sessionCounts.length === 1) {
+      this.selectedSessionId = this.sessionCounts[0].sessionId;
+      this.findSession();
+    }
   }
   next(patientModel: string) {
     this.proceedToNextStep();

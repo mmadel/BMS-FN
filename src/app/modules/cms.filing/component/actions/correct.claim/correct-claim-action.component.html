@@ -1,32 +1,57 @@
-<c-row class="justify-content-center">
-    <c-col xs="12">
-        <c-card *ngIf="counter === 1 ">
-            <c-card-header style="max-height: 10%;">
-                <p class="fs-5">Select Sessions</p>
+<span *ngIf="sessionCounts.length >1">
+    <c-row class="justify-content-center">
+        <c-col xs="12">
+            <c-card *ngIf="counter === 1 ">
+                <c-card-header style="max-height: 10%;">
+                    <p class="fs-5">Select Sessions</p>
+                </c-card-header>
+                <c-card-body>
+                    <c-form-check *ngFor="let sessionCount of sessionCounts">
+                        <input cFormCheckInput type="radio" [value]="sessionCount.sessionId" name="flexRadioDefault"
+                            (change)="selectSession($event)" />
+                        <label cFormCheckLabel><strong>Session DOS : {{sessionCount.dateOfService |date
+                                :'MM/dd/YYYY'}}</strong></label>
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let line of sessionCount.serviceLine">
+                                Service Code : {{line.cptCode.serviceCode}} <br />
+                                Unit : {{line.cptCode.unit}} , charge ; {{line.cptCode.charge}}
+                            </li>
+                        </ul>
+                    </c-form-check>
+                </c-card-body>
+                <c-card-footer>
+                    <button cButton (click)="next('select')" size="sm" color="primary" variant="outline"
+                        class="auto me-1">
+                        next
+                    </button>
+                </c-card-footer>
+            </c-card>
+        </c-col>
+    </c-row>
+    <c-row class="justify-content-center">
+        <c-card *ngIf="counter === 2 " class="mb-3 ustify-content-center">
+            <c-card-header>
+                <p class="fs-5">Confirmation</p>
             </c-card-header>
             <c-card-body>
-                <c-form-check *ngFor="let sessionCount of sessionCounts">
-                    <input cFormCheckInput type="radio" [value]="sessionCount.sessionId" name="flexRadioDefault" (change)="selectSession($event)"/>
-                    <label cFormCheckLabel><strong>Session DOS : {{sessionCount.dateOfService |date
-                            :'MM/dd/YYYY'}}</strong></label>
-                    <ul class="list-group">
-                        <li class="list-group-item" *ngFor="let line of sessionCount.serviceLine">
-                            Service Code : {{line.cptCode.serviceCode}} <br />
-                            Unit : {{line.cptCode.unit}} , charge ; {{line.cptCode.charge}}
-                        </li>
-                    </ul>
-                </c-form-check>
+                <p class="lead">To view session invoices, please click 'View' to proceed to the invoice area</p>
             </c-card-body>
             <c-card-footer>
-                <button cButton (click)="next('select')" size="sm" color="primary" variant="outline" class="auto me-1">
-                    next
+                <button cButton (click)="back()" size="sm" color="primary" variant="outline" class="auto me-1">
+                    Back
                 </button>
+                <button cButton (click)="correct('redirect')" size="sm" color="primary" variant="outline"
+                    class="auto me-1">View
+                    Invoices</button>
+                <button cButton size="sm" (click)="correct('close')" color="primary" variant="outline"
+                    class="auto me-1">Correct & Close</button>
+
             </c-card-footer>
         </c-card>
-    </c-col>
-</c-row>
-<c-row class="justify-content-center">
-    <c-card *ngIf="counter === 2 " class="mb-3 ustify-content-center">
+    </c-row>
+</span>
+<span *ngIf="sessionCounts.length ===1">
+    <c-card>
         <c-card-header>
             <p class="fs-5">Confirmation</p>
         </c-card-header>
@@ -34,13 +59,11 @@
             <p class="lead">To view session invoices, please click 'View' to proceed to the invoice area</p>
         </c-card-body>
         <c-card-footer>
-            <button cButton (click)="back()" size="sm" color="primary" variant="outline" class="auto me-1">
-                Back
-            </button>
-            <button cButton (click)="correct('redirect')" size="sm" color="primary" variant="outline" class="auto me-1">View
+            <button cButton (click)="correct('redirect')" size="sm" color="primary" variant="outline"
+                class="auto me-1">View
                 Invoices</button>
-            <button cButton size="sm" (click)="correct('close')" color="primary" variant="outline" class="auto me-1">Correct & Close</button>
-
+            <button cButton size="sm" (click)="correct('close')" color="primary" variant="outline"
+                class="auto me-1">Correct & Close</button>
         </c-card-footer>
     </c-card>
-</c-row>
+</span>
