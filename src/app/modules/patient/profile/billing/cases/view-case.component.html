@@ -19,8 +19,8 @@
                         </button>
                     </c-button-group>
                 </div>
-                <h4><strong>{{case.title }}</strong></h4>
-                <h6>ICD-10 Codes</h6>
+                <h1><strong>{{case.title }}</strong></h1>
+                <h3>ICD-10 Codes</h3>
                 <ul *ngFor="let code of case.caseDiagnosis">
                     <li style="list-style-type: none">
                         {{code.diagnosisCode}} - {{code.diagnosisDescription}}
