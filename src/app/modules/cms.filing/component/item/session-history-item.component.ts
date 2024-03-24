@@ -26,9 +26,12 @@ export class SessionHistoryItemComponent implements OnInit {
       this.showCorrectClaimActionVisibility = true;
   }
   close(action: string) {
-    if (action === 'correct_claim'){
+    if (action === 'correct_claim') {
       this.showCorrectClaimActionVisibility = false;
     }
-      
+  }
+  changeCorrectClaimActionVisibility(event: any) {
+    if (event === 'close')
+      this.showCorrectClaimActionVisibility = false;
   }
 }

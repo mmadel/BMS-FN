@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SessionHistoryCount } from '../../../model/session.history.count';
 
 @Component({
@@ -8,6 +8,7 @@ import { SessionHistoryCount } from '../../../model/session.history.count';
 })
 export class CorrectClaimActionComponent implements OnInit {
   @Input() sessionCounts?: SessionHistoryCount[]
+  @Output() changeVisibility = new EventEmitter<string>()
   counter: number;
   progressValue: number;
   constructor() { }
@@ -32,8 +33,18 @@ export class CorrectClaimActionComponent implements OnInit {
       index--;
     this.progressValue = Math.round(((index / 2) / 100) * 10000);
   }
-  selectSession(event:any){
+  selectSession(event: any) {
     console.log(event.target.value)
   }
-
+  correct(action: string) {
+    this.changeVisibility.emit('close');
+    switch (action) {
+      case 'redirect':
+        console.log('redirect')
+        break;
+      case 'close':
+        console.log('close')
+        break;
+    }
+  }
 }
