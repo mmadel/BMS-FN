@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { SessionHistoryCount } from '../../../model/session.history.count';
 
 @Component({
@@ -11,7 +12,8 @@ export class CorrectClaimActionComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   counter: number;
   progressValue: number;
-  constructor() { }
+  selectedSessionId: number
+  constructor(private patientSessionService: PatientSessionService) { }
 
   ngOnInit(): void {
     this.counter = 1;
@@ -27,6 +29,7 @@ export class CorrectClaimActionComponent implements OnInit {
   proceedToNextStep() {
     this.calculatePercentage(this.counter, 'next');
     this.counter++;
+    this.findSession();
   }
   calculatePercentage(index: number, action: string) {
     if (action === 'back')
@@ -35,6 +38,7 @@ export class CorrectClaimActionComponent implements OnInit {
   }
   selectSession(event: any) {
     console.log(event.target.value)
+    this.selectedSessionId = event.target.value;
   }
   correct(action: string) {
     this.changeVisibility.emit('close');
@@ -46,5 +50,10 @@ export class CorrectClaimActionComponent implements OnInit {
         console.log('close')
         break;
     }
+  }
+  private findSession() {
+    this.patientSessionService.findSessionById(this.selectedSessionId).subscribe(result => {
+      console.log(JSON.stringify(result.records))
+    })
   }
 }
