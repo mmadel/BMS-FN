@@ -32,5 +32,8 @@ export class CorrectClaimActionComponent implements OnInit {
       index--;
     this.progressValue = Math.round(((index / 2) / 100) * 10000);
   }
+  selectSession(event:any){
+    console.log(event.target.value)
+  }
 
 }

@@ -6,7 +6,7 @@
             </c-card-header>
             <c-card-body>
                 <c-form-check *ngFor="let sessionCount of sessionCounts">
-                    <input cFormCheckInput type="radio" value="one" name="flexRadioDefault" />
+                    <input cFormCheckInput type="radio" [value]="sessionCount.sessionId" name="flexRadioDefault" (change)="selectSession($event)"/>
                     <label cFormCheckLabel><strong>Session DOS : {{sessionCount.dateOfService |date
                             :'MM/dd/YYYY'}}</strong></label>
                     <ul class="list-group">
