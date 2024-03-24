@@ -52,19 +52,23 @@ export class CorrectClaimActionComponent implements OnInit {
   }
   correct(action: string) {
     this.changeVisibility.emit('close');
-    switch (action) {
-      case 'redirect':
-        console.log('redirect')
-        var invoiceLinesRender: any = { filter: true, startDate: this.selectePatientSession.serviceDate, endDate: this.selectePatientSession.serviceDate, client: this.patient }
-        this.invoiceEmitterService.invoiceLinesRendering$.next(invoiceLinesRender)
-        this.router.navigate(['/invoice/session/list/'], { state: { filter: true, startDate: this.selectePatientSession.serviceDate, endDate: this.selectePatientSession.serviceDate, client: this.patient } });
-        break;
-      case 'close':
-        console.log('close')
-        this.toastr.success('Claim has been marked as corrected');
-        this.scrollUp()
-        break;
-    }
+    this.patientSessionService.correctClaim(this.selectePatientSession).subscribe(result => {
+      switch (action) {
+        case 'redirect':
+          console.log('redirect')
+          var invoiceLinesRender: any = { filter: true, startDate: this.selectePatientSession.serviceDate, endDate: this.selectePatientSession.serviceDate, client: this.patient }
+          this.invoiceEmitterService.invoiceLinesRendering$.next(invoiceLinesRender)
+          this.router.navigate(['/invoice/session/list/'], { state: { filter: true, startDate: this.selectePatientSession.serviceDate, endDate: this.selectePatientSession.serviceDate, client: this.patient } });
+          break;
+        case 'close':
+          console.log('close')
+          this.toastr.success('Claim has been marked as corrected');
+          this.scrollUp()
+          break;
+      }
+    }, (error) => {
+      this.toastr.error('Error during correcting pateint session');
+    })
   }
   private findSession() {
     this.patientSessionService.findSessionById(this.selectedSessionId).subscribe(result => {
