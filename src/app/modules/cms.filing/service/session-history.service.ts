@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IApiParams } from '../../model/interface/api.params';
 import { BasePaginationService } from '../../model/service/base-pagination.service';
 import { SessionHistoryCriteria } from '../model/session.history.criteria';
 
@@ -18,7 +17,7 @@ export class SessionHistoryService extends BasePaginationService {
     var url = this.baseUrl + '/find?offset=' + offset + '&limit=' + limit;
     return this.httpClient.get(url)
   }
-  search(offset: number, limit: number, sessionHistoryCriteria: SessionHistoryCriteria) {
+  search(offset: number, limit: number, sessionHistoryCriteria: SessionHistoryCriteria): Observable<any> {
     var url = this.baseUrl + '/search?offset=' + offset + '&limit=' + limit;
     return this.httpClient.post(url, JSON.stringify(sessionHistoryCriteria))
   }
