@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { SessionHistory } from '../../model/session.history';
 import { SessionHistoryCriteria } from '../../model/session.history.criteria';
@@ -49,7 +50,11 @@ export class FindHistoryComponent implements OnInit {
   search() {
     var validFilter: SessionHistoryFilter = new SessionHistoryFilter();
     if (validFilter.isValid(this.sessionHistoryCriteria)) {
+      this.sessionHistoryCriteria.dosStart = this.sessionHistoryCriteria.dosStart_Date !== undefined ? moment(this.sessionHistoryCriteria.dosStart_Date).unix() * 1000 : undefined
+      this.sessionHistoryCriteria.dosEnd = this.sessionHistoryCriteria.dosEnd_Date !== undefined ? moment(this.sessionHistoryCriteria.dosEnd_Date).unix() * 1000 : undefined
 
+      this.sessionHistoryCriteria.submitStart = this.sessionHistoryCriteria.submitStart_Date !== undefined ? moment(this.sessionHistoryCriteria.submitStart_Date).unix() * 1000 : undefined
+      this.sessionHistoryCriteria.submitEnd = this.sessionHistoryCriteria.submitEnd_Date !== undefined ? moment(this.sessionHistoryCriteria.submitEnd_Date).unix() * 1000 : undefined
     }
   }
 }
