@@ -43,4 +43,7 @@ export class FindHistoryComponent implements OnInit {
     }
     return '';
   }
+  search(){
+    
+  }
 }
