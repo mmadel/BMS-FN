@@ -3,8 +3,8 @@ export interface sessionHistoryCriteria{
     client?:string,
     provider?:string,
     claimId?:string,
-    dosStart?:number,
-    dosEnd?:number,
-    submitStart?:number
-    submitEnd?:number
+    dosStart?:Date,
+    dosEnd?:Date,
+    submitStart?:Date
+    submitEnd?:Date
 }
