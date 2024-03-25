@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { SessionHistory } from '../../model/session.history';
+import { SessionHistoryCriteria } from '../../model/session.history.criteria';
 import { SessionHistoryService } from '../../service/session-history.service';
+import { SessionHistoryFilter } from '../../util/session.history.filter';
 
 @Component({
   selector: 'app-find-history',
@@ -14,6 +16,7 @@ export class FindHistoryComponent implements OnInit {
   pageSize: number = 5;
   pageIndex: number = 0;
   totalItems = 0;
+  sessionHistoryCriteria: SessionHistoryCriteria
   constructor(private sessionHistoryService: SessionHistoryService) { }
   ngOnInit(): void {
     this.find()
@@ -43,7 +46,10 @@ export class FindHistoryComponent implements OnInit {
     }
     return '';
   }
-  search(){
-    
+  search() {
+    var validFilter: SessionHistoryFilter = new SessionHistoryFilter();
+    if (validFilter.isValid(this.sessionHistoryCriteria)) {
+
+    }
   }
 }

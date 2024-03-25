@@ -1,4 +1,4 @@
-export interface sessionHistoryCriteria{
+export interface SessionHistoryCriteria{
     insuranceCompany?:string,
     client?:string,
     provider?:string,

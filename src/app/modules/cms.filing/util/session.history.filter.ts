@@ -1,7 +1,8 @@
-import { sessionHistoryCriteria } from "../model/session.history.criteria";
+import { SessionHistoryCriteria } from "../model/session.history.criteria";
 
-export class sessionHistoryFilter {
-    public isValid(criteria: sessionHistoryCriteria): boolean {
+
+export class SessionHistoryFilter {
+    public isValid(criteria: SessionHistoryCriteria): boolean {
         var isValidProvider: boolean = this.validProvider(criteria.provider);
         var isValidClient: boolean = this.validClient(criteria.client);
         var isValidInsuranceCompany: boolean = this.validInsuranceCompany(criteria.insuranceCompany);
