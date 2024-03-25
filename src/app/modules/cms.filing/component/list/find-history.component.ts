@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { SessionHistory } from '../../model/session.history';
 import { SessionHistoryCriteria } from '../../model/session.history.criteria';
 import { SessionHistoryService } from '../../service/session-history.service';
@@ -18,7 +19,8 @@ export class FindHistoryComponent implements OnInit {
   pageIndex: number = 0;
   totalItems = 0;
   sessionHistoryCriteria: SessionHistoryCriteria
-  constructor(private sessionHistoryService: SessionHistoryService) { }
+  constructor(private sessionHistoryService: SessionHistoryService) {
+  }
   ngOnInit(): void {
     this.find()
   }
