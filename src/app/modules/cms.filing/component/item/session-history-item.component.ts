@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import * as moment from 'moment';
+import { InvoiceService } from 'src/app/modules/invoice/service/invoice.service';
 import { SessionHistory } from '../../model/session.history';
 
 @Component({
@@ -10,7 +12,7 @@ export class SessionHistoryItemComponent implements OnInit {
   @Input() item: SessionHistory;
   showActionVisibility: boolean = false
   showCorrectClaimActionVisibility: boolean = false;
-  constructor() { }
+  constructor(private invoiceService: InvoiceService) { }
 
   ngOnInit(): void {
   }
@@ -34,4 +36,21 @@ export class SessionHistoryItemComponent implements OnInit {
     if (event === 'close')
       this.showCorrectClaimActionVisibility = false;
   }
+  downloadCMS() {
+    this.invoiceService.downloadCMS(this.item.submissionId).subscribe(result => {
+      this.constructExportedFile(result,'cms-','pdf')
+    }, error => {
+      console.log('Error during downloading CMS document');
+    })
+  }
+  constructExportedFile(response: any, fileName: string, extention: string) {
+    const a = document.createElement('a')
+    const objectUrl = URL.createObjectURL(response)
+    a.href = objectUrl
+    var nameDatePart = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    a.download = fileName + nameDatePart + '.' + extention;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
+  }
 }
+

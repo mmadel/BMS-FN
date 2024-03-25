@@ -20,13 +20,13 @@ export class InvoiceService extends BasePaginationService {
     var url = this.baseUrl + '/find'
     return this.get(config$, url)
   }
-  public findByClient(config$: BehaviorSubject<IApiParams>,clientId: number): Observable<any> {
+  public findByClient(config$: BehaviorSubject<IApiParams>, clientId: number): Observable<any> {
     var url = this.baseUrl + '/find/patient/' + clientId
     return this.get(config$, url)
   }
-  public findByClientFilter(config$: BehaviorSubject<IApiParams>,clientId: number,filterModel: FilterModel): Observable<any> {
-    var url = this.baseUrl + '/find/patient/' + clientId  ;
-    return this.post(config$, url,JSON.stringify(filterModel))
+  public findByClientFilter(config$: BehaviorSubject<IApiParams>, clientId: number, filterModel: FilterModel): Observable<any> {
+    var url = this.baseUrl + '/find/patient/' + clientId;
+    return this.post(config$, url, JSON.stringify(filterModel))
   }
 
   correctClaim() {
@@ -44,5 +44,8 @@ export class InvoiceService extends BasePaginationService {
     var url = this.baseUrl + '/create/electronic'
     return this.httpClient.post(`${url}`, JSON.stringify(invoiceRequest), { responseType: 'blob', 'headers': headers })
   }
-
+  downloadCMS(invoiceId: number) {
+    var url = this.baseUrl + '/download/cms/invoice/' + invoiceId
+    return this.httpClient.post(`${url}`, null, { responseType: 'blob' });
+  }
 }
