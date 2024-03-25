@@ -17,8 +17,9 @@ export class SessionHistoryService extends BasePaginationService {
     var url = this.baseUrl + '/find?offset=' + offset + '&limit=' + limit;
     return this.httpClient.get(url)
   }
-  search(offset: number, limit: number, sessionHistoryCriteria: SessionHistoryCriteria): Observable<any> {
+  search(offset: number, limit: number, sessionHistoryCriteria: SessionHistoryCriteria) {
+    const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/search?offset=' + offset + '&limit=' + limit;
-    return this.httpClient.post(url, JSON.stringify(sessionHistoryCriteria))
+    return this.httpClient.post(url, JSON.stringify(sessionHistoryCriteria), { 'headers': headers })
   }
 }

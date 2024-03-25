@@ -16,7 +16,7 @@ export class FindHistoryComponent implements OnInit {
   pageSize: number = 5;
   pageIndex: number = 0;
   totalItems = 0;
-  sessionHistoryCriteria: SessionHistoryCriteria
+  sessionHistoryCriteria: SessionHistoryCriteria = {}
   constructor(private sessionHistoryService: SessionHistoryService) {
   }
   ngOnInit(): void {
@@ -55,6 +55,13 @@ export class FindHistoryComponent implements OnInit {
 
       this.sessionHistoryCriteria.submitStart = this.sessionHistoryCriteria.submitStart_Date !== undefined ? moment(this.sessionHistoryCriteria.submitStart_Date).unix() * 1000 : undefined
       this.sessionHistoryCriteria.submitEnd = this.sessionHistoryCriteria.submitEnd_Date !== undefined ? moment(this.sessionHistoryCriteria.submitEnd_Date).unix() * 1000 : undefined
+
+      this.sessionHistoryService.search(this.pageIndex, this.pageSize, this.sessionHistoryCriteria)
+        .subscribe((result: any) => {
+          console.log(JSON.stringify(result))
+          this.sessionsHistorys = result.records.records;
+          this.totalItems = result.records.number_of_records;
+        })
     }
   }
 }
