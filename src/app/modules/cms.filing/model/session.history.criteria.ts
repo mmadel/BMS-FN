@@ -12,4 +12,5 @@ export interface SessionHistoryCriteria{
     dosEnd?:number,
     submitStart?:number
     submitEnd?:number
+    selectedStatus?: string[];
 }

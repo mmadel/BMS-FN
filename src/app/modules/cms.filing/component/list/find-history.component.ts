@@ -18,7 +18,15 @@ export class FindHistoryComponent implements OnInit {
   pageIndex: number = 0;
   totalItems = 0;
   customRanges = CustomDdateRanges.dateRnage;
-  sessionHistoryCriteria: SessionHistoryCriteria = {}
+  sessionHistoryCriteria: SessionHistoryCriteria = {
+    selectedStatus: []
+  }
+  status = [
+    { id: 1, name: 'print', checked: false },
+    { id: 2, name: 'pending', checked: false },
+    { id: 3, name: 'ack', checked: false },
+    { id: 3, name: 'error', checked: false }
+  ];
   constructor(private sessionHistoryService: SessionHistoryService) {
   }
   ngOnInit(): void {
@@ -81,6 +89,18 @@ export class FindHistoryComponent implements OnInit {
       case 'claim_id':
         this.sessionHistoryCriteria.claimId = undefined;
         break;
+    }
+  }
+  onCheckboxChange(item: any) {
+    if (item.checked) {      
+      this.sessionHistoryCriteria.selectedStatus.push(item.name);
+      console.log(this.sessionHistoryCriteria.selectedStatus)
+    } else {
+      const index = this.sessionHistoryCriteria.selectedStatus.indexOf(item.name);
+      if (index > -1) {
+        this.sessionHistoryCriteria.selectedStatus.splice(index, 1);
+      }
+      console.log(this.sessionHistoryCriteria.selectedStatus)
     }
   }
 }

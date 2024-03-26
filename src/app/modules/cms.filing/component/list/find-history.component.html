@@ -64,23 +64,28 @@
                                 [ranges]="customRanges"></c-date-range-picker>
                         </c-col>
                         <c-col xs="12" class="mb-2">
+                            {{this.sessionHistoryCriteria.selectedStatus}}---
                             <div class="grey">
-                                <input type="checkbox" name="optionsRadios" id="checkOtherprint" value="print">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherprint" [(ngModel)]="status[0].checked" 
+                                (change)="onCheckboxChange(status[0])">
                                 <label for="checkOtherprint"></label>
                             </div>
                             <div class="show text-secondary" >Print & Mail</div>
                             <div class="blue">
-                                <input type="checkbox" name="optionsRadios" id="checkOtherpending" value="pending">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherpending" [(ngModel)]="status[1].checked"
+                                (change)="onCheckboxChange(status[1])">
                                 <label for="checkOtherpending"></label>
                             </div>
                             <div class="show text-primary">Awaiting Acknowledgement</div>
                             <div class="green">
-                                <input type="checkbox" name="optionsRadios" id="checkOtherack" value="ack">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherack" [(ngModel)]="status[2].checked"
+                                (change)="onCheckboxChange(status[2])">
                                 <label for="checkOtherack"></label>
                             </div>
                             <div class="show text-success">Acknowledgement Received</div>
                             <div class="red">
-                                <input type="checkbox" name="optionsRadios" id="checkOthererror" value="error">
+                                <input type="checkbox" name="optionsRadios" id="checkOthererror" [(ngModel)]="status[3].checked"
+                                (change)="onCheckboxChange(status[3])">
                                 <label for="checkOthererror"></label>
                             </div>
                             <div class="show text-danger">Error</div>
