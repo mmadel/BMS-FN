@@ -35,6 +35,7 @@ import {
   TimePickerModule,
   ModalModule
 } from '@coreui/angular-pro';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {
     DateRangePickerModule,
     TimePickerModule,
     IconModule,
-    ModalModule
+    ModalModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
 export class ToolsModule { }
