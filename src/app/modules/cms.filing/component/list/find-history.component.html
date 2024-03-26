@@ -18,9 +18,9 @@
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <c-input-group sizing="sm">
-                                <input cFormControl placeholder="Insurance Name" sizing="sm" name="search_insuranceName"
+                                <input cFormControl placeholder="Insurance Company" sizing="sm" name="search_insuranceName"
                                     [(ngModel)]="sessionHistoryCriteria.insuranceCompany" />
-                                <button cButton size="sm" variant="outline">
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('insurance_company')">
                                     <svg cIcon name="cilFilter" title="cilFilterX"></svg>
                                 </button>
                             </c-input-group>
@@ -29,7 +29,7 @@
                             <c-input-group sizing="sm">
                                 <input cFormControl placeholder="Client Name" sizing="sm" name="search_clientName"
                                     [(ngModel)]="sessionHistoryCriteria.client" />
-                                <button cButton size="sm" variant="outline">
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('client')">
                                     <svg cIcon name="cilFilter" title="cilFilterX"></svg>
                                 </button>
                             </c-input-group>
@@ -38,7 +38,7 @@
                             <c-input-group sizing="sm">
                                 <input cFormControl placeholder="Provider Name" sizing="sm" name="search_providerName"
                                     [(ngModel)]="sessionHistoryCriteria.provider" />
-                                <button cButton size="sm" variant="outline">
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('provider')">
                                     <svg cIcon name="cilFilter" title="cilFilterX"></svg>
                                 </button>
                             </c-input-group>
@@ -46,7 +46,7 @@
                         <c-col xs="12" class="mb-2">
                             <c-input-group sizing="sm">
                                 <input cFormControl placeholder="Claim ID" sizing="sm" name="search_claimID" />
-                                <button cButton size="sm" variant="outline">
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('claim_id')">
                                     <svg cIcon name="cilFilter" title="cilFilterX"></svg>
                                 </button>
                             </c-input-group>
@@ -54,12 +54,12 @@
                         <c-col xs="12" class="mb-2">
                             <c-date-range-picker [placeholder]="['DOS From', 'DOS To']"
                                 [(startDate)]="sessionHistoryCriteria.dosStart_Date"
-                                [(endDate)]="sessionHistoryCriteria.dosEnd_Date"></c-date-range-picker>
+                                [(endDate)]="sessionHistoryCriteria.dosEnd_Date" [ranges]="customRanges"></c-date-range-picker>
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <c-date-range-picker [placeholder]="['Claim Submit From', 'Claim Submit To']"
                                 [(startDate)]="sessionHistoryCriteria.submitStart_Date"
-                                [(endDate)]="sessionHistoryCriteria.submitEnd_Date"></c-date-range-picker>
+                                [(endDate)]="sessionHistoryCriteria.submitEnd_Date" [ranges]="customRanges"></c-date-range-picker>
                         </c-col>
                         <c-col xs="12" class="text-center">
                             <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
+import { CustomDdateRanges } from 'src/app/modules/invoice/area/session.list/constant/custom.date.ranges';
 import { SessionHistory } from '../../model/session.history';
 import { SessionHistoryCriteria } from '../../model/session.history.criteria';
 import { SessionHistoryService } from '../../service/session-history.service';
@@ -16,6 +17,7 @@ export class FindHistoryComponent implements OnInit {
   pageSize: number = 5;
   pageIndex: number = 0;
   totalItems = 0;
+  customRanges = CustomDdateRanges.dateRnage;
   sessionHistoryCriteria: SessionHistoryCriteria = {}
   constructor(private sessionHistoryService: SessionHistoryService) {
   }
@@ -58,10 +60,27 @@ export class FindHistoryComponent implements OnInit {
 
       this.sessionHistoryService.search(this.pageIndex, this.pageSize, this.sessionHistoryCriteria)
         .subscribe((result: any) => {
-          console.log(JSON.stringify(result))
           this.sessionsHistorys = result.records.records;
           this.totalItems = result.records.number_of_records;
         })
+    } else {
+      this.find();
+    }
+  }
+  clearFilter(filter: string) {
+    switch (filter) {
+      case 'insurance_company':
+        this.sessionHistoryCriteria.insuranceCompany = undefined;
+        break;
+      case 'client':
+        this.sessionHistoryCriteria.client = undefined;
+        break;
+      case 'provider':
+        this.sessionHistoryCriteria.provider = undefined;
+        break;
+      case 'claim_id':
+        this.sessionHistoryCriteria.claimId = undefined;
+        break;
     }
   }
 }

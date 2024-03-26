@@ -7,7 +7,7 @@ export class SessionHistoryFilter {
         var isValidClient: boolean = this.validClient(criteria.client);
         var isValidInsuranceCompany: boolean = this.validInsuranceCompany(criteria.insuranceCompany);
         var isValidDateOfServiceRange: boolean = this.validDateOfServiceRange(criteria.dosStart_Date, criteria.dosEnd_Date);
-        var isValidSubmitDateRange: boolean = this.validSubmitDateRange(criteria.dosStart_Date, criteria.dosEnd_Date);
+        var isValidSubmitDateRange: boolean = this.validSubmitDateRange(criteria.submitStart_Date, criteria.submitEnd_Date);
         return isValidProvider || isValidClient || isValidInsuranceCompany || isValidDateOfServiceRange || isValidSubmitDateRange;
     }
     private validProvider(provider: string): boolean {
