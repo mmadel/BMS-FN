@@ -36,13 +36,15 @@ import {
   ModalModule
 } from '@coreui/angular-pro';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FindLinesComponent } from './fee.schedule/find.lines/find-lines.component';
 
 @NgModule({
   declarations: [
     FeeScheduleComponent,
     CancelClaimComponent,
     ModifierRuleComponent,
-    RuleCreationComponent
+    RuleCreationComponent,
+    FindLinesComponent
   ],
   imports: [
     CommonModule,
