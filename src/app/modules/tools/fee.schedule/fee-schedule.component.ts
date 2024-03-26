@@ -9,27 +9,32 @@ import usersData from './_data'
 })
 export class FeeScheduleComponent implements OnInit {
   feeSchedules: FeeSchedule[]
+  feeLinesVisible: boolean = false;
+  selectedFeeSceduleId:number;
   constructor(private feeScheduleService: FeeScheduleService) { }
 
   ngOnInit(): void {
     this.find();
   }
-
+  togglefeeLinesVisible() {
+    this.feeLinesVisible = !this.feeLinesVisible
+  }
   private find() {
     this.feeScheduleService.find().subscribe((result: any) => {
       this.feeSchedules = result
     })
   }
-  showStatus(defaultFee:boolean){
+  showStatus(defaultFee: boolean) {
 
   }
-  edit(){
+  edit() {
 
   }
-  delete(){
+  delete() {
 
   }
-  showLines(){
-    
+  showLines(id:number) {
+    this.selectedFeeSceduleId = id
+    this.feeLinesVisible = true;
   }
 }

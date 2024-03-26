@@ -41,7 +41,7 @@
                     </td>
                     <td>
                         <c-button-group aria-label="Basic example" role="group" size="sm">
-                            <button cButton variant="outline" (click)="showLines()" size="sm">
+                            <button cButton variant="outline" (click)="showLines(fee.id)" size="sm">
                                 <svg cIcon name="cilFindInPage"></svg>
                             </button>
                             <button cButton variant="outline" (click)="edit()" size="sm">
@@ -57,3 +57,12 @@
         </table>
     </c-col>
 </c-row>
+<c-modal [visible]="feeLinesVisible" scrollable size="xl" backdrop="static">
+    <c-modal-header>
+        <h2 cModalTitle>Fee Schedule Details</h2>
+        <button (click)="togglefeeLinesVisible()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <find-lines [feeScheduleId]="selectedFeeSceduleId" *ngIf="feeLinesVisible"></find-lines>
+    </c-modal-body>
+</c-modal>
