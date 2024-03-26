@@ -6,7 +6,7 @@
 </c-row>
 <hr />
 <c-row>
-    <!-- <c-col xs="12">
+    <c-col xs="12">
         <div style="float: right;">
             <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                 <c-dropdown variant="btn-group">
@@ -14,15 +14,15 @@
                         Actions
                     </button>
                     <ul cDropdownMenu>
-                        <li><a cDropdownItem [routerLink]="[]">Import Fees</a></li>
-                        <li><a cDropdownItem [routerLink]="[]">Export Fees</a></li>
+                        <li><a cDropdownItem [routerLink]="[]">Creat Fee Schedule</a></li>
                         <li cDropdownDivider></li>
-                        <li><a cDropdownItem [routerLink]="[]">Export Template</a></li>
+                        <li><a cDropdownItem [routerLink]="[]">Import Fee Schedule</a></li>
+                        <li><a cDropdownItem [routerLink]="[]">Export Fee Schedule</a></li>
                     </ul>
                 </c-dropdown>
             </c-button-group>
         </div>
-    </c-col> -->
+    </c-col>
     <c-col xs="12">
         <table cTable *ngIf="feeSchedules">
             <thead>
