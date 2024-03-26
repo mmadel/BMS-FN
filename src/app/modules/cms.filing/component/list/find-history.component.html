@@ -18,26 +18,27 @@
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <c-input-group sizing="sm">
-                                <input cFormControl placeholder="Insurance Name" sizing="sm"
-                                    name="search_insuranceName" />
-                                <button cButton size="sm" variant="outline">
+                                <input cFormControl placeholder="Insurance Company" sizing="sm"
+                                    name="search_insuranceName" [(ngModel)]="sessionHistoryCriteria.insuranceCompany" />
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('insurance_company')">
                                     <svg cIcon name="cilFilter" title="cilFilterX"></svg>
                                 </button>
                             </c-input-group>
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <c-input-group sizing="sm">
-                                <input cFormControl placeholder="Client Name" sizing="sm" name="search_clientName" />
-                                <button cButton size="sm" variant="outline">
+                                <input cFormControl placeholder="Client Name" sizing="sm" name="search_clientName"
+                                    [(ngModel)]="sessionHistoryCriteria.client" />
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('client')">
                                     <svg cIcon name="cilFilter" title="cilFilterX"></svg>
                                 </button>
                             </c-input-group>
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <c-input-group sizing="sm">
-                                <input cFormControl placeholder="Provider Name" sizing="sm"
-                                    name="search_providerName" />
-                                <button cButton size="sm" variant="outline">
+                                <input cFormControl placeholder="Provider Name" sizing="sm" name="search_providerName"
+                                    [(ngModel)]="sessionHistoryCriteria.provider" />
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('provider')">
                                     <svg cIcon name="cilFilter" title="cilFilterX"></svg>
                                 </button>
                             </c-input-group>
@@ -45,20 +46,67 @@
                         <c-col xs="12" class="mb-2">
                             <c-input-group sizing="sm">
                                 <input cFormControl placeholder="Claim ID" sizing="sm" name="search_claimID" />
-                                <button cButton size="sm" variant="outline">
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('claim_id')">
                                     <svg cIcon name="cilFilter" title="cilFilterX"></svg>
                                 </button>
                             </c-input-group>
                         </c-col>
                         <c-col xs="12" class="mb-2">
-                            <c-date-range-picker [placeholder]="['DOS From', 'DOS To']"></c-date-range-picker>
+                            <c-date-range-picker [placeholder]="['DOS From', 'DOS To']"
+                                [(startDate)]="sessionHistoryCriteria.dosStart_Date"
+                                [(endDate)]="sessionHistoryCriteria.dosEnd_Date"
+                                [ranges]="customRanges"></c-date-range-picker>
                         </c-col>
                         <c-col xs="12" class="mb-2">
-                            <c-date-range-picker
-                                [placeholder]="['Claim Submit From', 'Claim Submit To']"></c-date-range-picker>
+                            <c-date-range-picker [placeholder]="['Claim Submit From', 'Claim Submit To']"
+                                [(startDate)]="sessionHistoryCriteria.submitStart_Date"
+                                [(endDate)]="sessionHistoryCriteria.submitEnd_Date"
+                                [ranges]="customRanges"></c-date-range-picker>
                         </c-col>
+                        <c-col xs="12" class="mb-2">
+                            <div class="grey">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherprint" [(ngModel)]="status[0].checked" 
+                                (change)="onCheckboxChange(status[0])">
+                                <label for="checkOtherprint"></label>
+                            </div>
+                            <div class="show text-secondary" >Print & Mail</div>
+                            <div class="blue">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherpending" [(ngModel)]="status[1].checked"
+                                (change)="onCheckboxChange(status[1])">
+                                <label for="checkOtherpending"></label>
+                            </div>
+                            <div class="show text-primary">Awaiting Acknowledgement</div>
+                            <div class="green">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherack" [(ngModel)]="status[2].checked"
+                                (change)="onCheckboxChange(status[2])">
+                                <label for="checkOtherack"></label>
+                            </div>
+                            <div class="show text-success">Acknowledgement Received</div>
+                            <div class="red">
+                                <input type="checkbox" name="optionsRadios" id="checkOthererror" [(ngModel)]="status[3].checked"
+                                (change)="onCheckboxChange(status[3])">
+                                <label for="checkOthererror"></label>
+                            </div>
+                            <div class="show text-danger">Error</div>
+                        </c-col>
+                        <!-- <c-col xs="12" class="mb-2">
+                            <div class="bd-example-border-utils">
+                                <div class="bd-example">
+                                    <span class="border border-primary"></span> <span
+                                        style="display: inline-block;width: 4rem;margin: 0.25rem;">Print & Mail</span>
+                                    <span class="border border-secondary"></span> <span
+                                        style="display: inline-block;width: 4rem;margin: 0.25rem;">Awaiting
+                                        Acknowledgement</span>
+                                    <span class="border border-success"></span> <span
+                                        style="display: inline-block;width: 4rem;margin: 0.25rem;">Acknowledgement
+                                        Received</span>
+                                    <span class="border border-danger"></span> <span
+                                        style="display: inline-block;width: 4rem;margin: 0.25rem;">Error</span>
+                                </div>
+                            </div>
+                        </c-col> -->
                         <c-col xs="12" class="text-center">
-                            <button cButton class="me-1" color="primary" style="width: 15%;">
+                            <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">
                                 Search
                             </button>
                         </c-col>
