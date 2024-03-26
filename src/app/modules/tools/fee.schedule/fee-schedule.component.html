@@ -34,7 +34,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let fee of feeSchedules;index as i">
-                    <th scope="row">1</th>
+                    <th scope="row">{{i+1}}</th>
                     <td>
                         <c-badge *ngIf="fee.defaultFee" color="primary" shape="rounded-pill">Active</c-badge>
                         <c-badge *ngIf="!fee.defaultFee" color="info" shape="rounded-pill">In-Active</c-badge>
