@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { FeeSchedule } from '../model/fee.schedule';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class FeeScheduleService {
   private baseUrl = environment.baseURL + '/fee/schedule'
   constructor(private httpClient: HttpClient) { }
 
-  create(feeSchdeuleModel: FeeSchdeuleModel) {
+  create(feeSchdeuleModel: FeeSchedule) {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create'
     return
