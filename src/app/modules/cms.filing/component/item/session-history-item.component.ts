@@ -38,7 +38,7 @@ export class SessionHistoryItemComponent implements OnInit {
   }
   downloadCMS() {
     this.invoiceService.downloadCMS(this.item.submissionId).subscribe(result => {
-      this.constructExportedFile(result,'cms-','pdf')
+      this.constructExportedFile(result, 'cms-', 'pdf')
     }, error => {
       console.log('Error during downloading CMS document');
     })
@@ -51,6 +51,19 @@ export class SessionHistoryItemComponent implements OnInit {
     a.download = fileName + nameDatePart + '.' + extention;
     a.click();
     URL.revokeObjectURL(objectUrl);
+  }
+  getColor(status: string): string {
+    switch (status) {
+      case 'Success':
+        return '#ebedef';
+      case 'Pending':
+        return '321fdb';
+      case 'acknowledge':
+        return '#2eb85c';
+      case 'error':
+        return '#e55353';
+    }
+    return '';
   }
 }
 

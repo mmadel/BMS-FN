@@ -5,7 +5,7 @@
                 <svg cIcon name="cilSettings"></svg>
             </button>
             <button cButton color="danger" variant="outline" (click)="downloadCMS()">
-                <svg cIcon name="cibAdobeAcrobatReader" ></svg>
+                <svg cIcon name="cibAdobeAcrobatReader"></svg>
             </button>
         </c-button-group>
     </c-col>
@@ -21,7 +21,8 @@
     <c-col xs="2">
         <div class="overflow-auto" style="max-width: 260px; max-height: 100px;">
             <ul cListGroup>
-                <li cListGroupItem [active]="true" style="line-height:30%">
+                <li cListGroupItem [active]="true" style="line-height:30%"
+                    [ngStyle]="{'background-color': getColor(item.submissionStatus), 'border-color': getColor(item.submissionStatus), 'color':'black'} ">
                     <div class="fs-6">Service Dates</div>
                 </li>
                 <button *ngFor="let session of item.sessionCounts" cListGroupItem
