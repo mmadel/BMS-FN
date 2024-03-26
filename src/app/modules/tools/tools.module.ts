@@ -33,7 +33,8 @@ import {
   NavModule,
   DateRangePickerModule,
   TimePickerModule,
-  ModalModule
+  ModalModule,
+  SmartPaginationModule
 } from '@coreui/angular-pro';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FindLinesComponent } from './fee.schedule/find.lines/find-lines.component';
@@ -70,6 +71,7 @@ import { FindLinesComponent } from './fee.schedule/find.lines/find-lines.compone
     TimePickerModule,
     IconModule,
     ModalModule,
+    SmartPaginationModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

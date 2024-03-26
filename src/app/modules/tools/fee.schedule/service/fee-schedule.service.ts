@@ -1,29 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { IApiParams } from 'src/app/modules/model/interface/api.params';
+import { BasePaginationService } from 'src/app/modules/model/service/base-pagination.service';
 import { environment } from 'src/environments/environment';
 import { FeeSchedule } from '../model/fee.schedule';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FeeScheduleService {
+export class FeeScheduleService extends BasePaginationService {
   private baseUrl = environment.baseURL + '/fee/schedule'
-  constructor(private httpClient: HttpClient) { }
+  constructor(httpClient: HttpClient) { super(httpClient) }
 
   create(feeSchdeuleModel: FeeSchedule) {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create'
-    return
-    this.httpClient.post(`${url}`, JSON.stringify(feeSchdeuleModel), { responseType: 'blob', 'headers': headers })
+    return this.httpClient.post(`${url}`, JSON.stringify(feeSchdeuleModel), { 'headers': headers })
   }
   find() {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/find'
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
-  findById(id:number) {
+  findById(id: number) {
     const headers = { 'content-type': 'application/json' }
-    var url = this.baseUrl + '/find/id/'+id
+    var url = this.baseUrl + '/find/id/' + id
     return this.httpClient.get(`${url}`, { 'headers': headers })
+  }
+  public findAll(config$: BehaviorSubject<IApiParams>, feeId: number): Observable<any> {
+    var url = this.baseUrl + '/find/lines/fee/' + feeId
+    return this.get(config$, url)
   }
 }
