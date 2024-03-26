@@ -8,7 +8,8 @@ export class SessionHistoryFilter {
         var isValidInsuranceCompany: boolean = this.validInsuranceCompany(criteria.insuranceCompany);
         var isValidDateOfServiceRange: boolean = this.validDateOfServiceRange(criteria.dosStart_Date, criteria.dosEnd_Date);
         var isValidSubmitDateRange: boolean = this.validSubmitDateRange(criteria.submitStart_Date, criteria.submitEnd_Date);
-        return isValidProvider || isValidClient || isValidInsuranceCompany || isValidDateOfServiceRange || isValidSubmitDateRange;
+        var isValidStatus: boolean = this.validStatus(criteria.selectedStatus)
+        return isValidProvider || isValidClient || isValidInsuranceCompany || isValidDateOfServiceRange || isValidSubmitDateRange || isValidStatus;
     }
     private validProvider(provider: string): boolean {
         return provider !== undefined && provider !== null && provider !== '';
@@ -30,5 +31,8 @@ export class SessionHistoryFilter {
         var isEndDateSet = submitEnd !== undefined && submitEnd !== null;
         return isStartDateSet || isEndDateSet;
 
+    }
+    private validStatus(selectedStatus: string[]): boolean {
+        return selectedStatus !== undefined && selectedStatus !== null && selectedStatus.length > 0;
     }
 }

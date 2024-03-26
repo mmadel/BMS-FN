@@ -64,7 +64,6 @@
                                 [ranges]="customRanges"></c-date-range-picker>
                         </c-col>
                         <c-col xs="12" class="mb-2">
-                            {{this.sessionHistoryCriteria.selectedStatus}}---
                             <div class="grey">
                                 <input type="checkbox" name="optionsRadios" id="checkOtherprint" [(ngModel)]="status[0].checked" 
                                 (change)="onCheckboxChange(status[0])">

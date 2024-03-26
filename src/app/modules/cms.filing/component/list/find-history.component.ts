@@ -22,9 +22,9 @@ export class FindHistoryComponent implements OnInit {
     selectedStatus: []
   }
   status = [
-    { id: 1, name: 'print', checked: false },
-    { id: 2, name: 'pending', checked: false },
-    { id: 3, name: 'ack', checked: false },
+    { id: 1, name: 'Success', checked: false },
+    { id: 2, name: 'Pending', checked: false },
+    { id: 3, name: 'acknowledge', checked: false },
     { id: 3, name: 'error', checked: false }
   ];
   constructor(private sessionHistoryService: SessionHistoryService) {
@@ -65,7 +65,8 @@ export class FindHistoryComponent implements OnInit {
 
       this.sessionHistoryCriteria.submitStart = this.sessionHistoryCriteria.submitStart_Date !== undefined ? moment(this.sessionHistoryCriteria.submitStart_Date).unix() * 1000 : undefined
       this.sessionHistoryCriteria.submitEnd = this.sessionHistoryCriteria.submitEnd_Date !== undefined ? moment(this.sessionHistoryCriteria.submitEnd_Date).unix() * 1000 : undefined
-
+      if (this.sessionHistoryCriteria.selectedStatus !== null && this.sessionHistoryCriteria.selectedStatus.length === 0)
+        this.sessionHistoryCriteria.selectedStatus = null
       this.sessionHistoryService.search(this.pageIndex, this.pageSize, this.sessionHistoryCriteria)
         .subscribe((result: any) => {
           this.sessionsHistorys = result.records.records;
@@ -92,15 +93,15 @@ export class FindHistoryComponent implements OnInit {
     }
   }
   onCheckboxChange(item: any) {
-    if (item.checked) {      
+    if (this.sessionHistoryCriteria.selectedStatus === null)
+      this.sessionHistoryCriteria.selectedStatus = []
+    if (item.checked) {
       this.sessionHistoryCriteria.selectedStatus.push(item.name);
-      console.log(this.sessionHistoryCriteria.selectedStatus)
     } else {
       const index = this.sessionHistoryCriteria.selectedStatus.indexOf(item.name);
       if (index > -1) {
         this.sessionHistoryCriteria.selectedStatus.splice(index, 1);
       }
-      console.log(this.sessionHistoryCriteria.selectedStatus)
     }
   }
 }
