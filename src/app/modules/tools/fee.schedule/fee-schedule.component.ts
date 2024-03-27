@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { FeeSchedule } from './model/fee.schedule';
 import { FeeScheduleService } from './service/fee-schedule.service';
 import usersData from './_data'
@@ -10,8 +11,9 @@ import usersData from './_data'
 export class FeeScheduleComponent implements OnInit {
   feeSchedules: FeeSchedule[]
   feeLinesVisible: boolean = false;
-  selectedFeeSceduleId:number;
-  constructor(private feeScheduleService: FeeScheduleService) { }
+  selectedFeeSceduleId: number;
+  constructor(private feeScheduleService: FeeScheduleService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.find();
@@ -30,10 +32,13 @@ export class FeeScheduleComponent implements OnInit {
   edit() {
 
   }
-  delete() {
-
+  delete(id: number) {
+    this.feeScheduleService.deleteById(id).subscribe(result => {
+      this.find();
+      this.toastr.success("Fee Schedule deleted.")
+    })
   }
-  showLines(id:number) {
+  showLines(id: number) {
     this.selectedFeeSceduleId = id
     this.feeLinesVisible = true;
   }

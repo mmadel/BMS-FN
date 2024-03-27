@@ -44,8 +44,6 @@ export class FindLinesComponent extends ListTemplate implements OnInit {
           if (response.number_of_records) {
             this.errorMessage$.next('');
           }
-          this.retry$.next(false);
-          this.loadingData$.next(false);
         }),
         map((response: any) => {
           return response.records;

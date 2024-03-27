@@ -32,4 +32,8 @@ export class FeeScheduleService extends BasePaginationService {
     var url = this.baseUrl + '/find/lines/fee/' + feeId
     return this.get(config$, url)
   }
+  public deleteById(id: number) {
+    var url = this.baseUrl + '/delete/id/' + id
+    return this.httpClient.delete(`${url}`,)
+  }
 }
