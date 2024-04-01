@@ -24,6 +24,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   @Input() pateint: Patient;
   editSessionVisibility: boolean = false;
   correctRedirectConfiramtionVisibility: boolean = false;
+  enterPaymentVisibility: boolean = false;
   correctClaimRedirect: boolean = false;
   @ViewChild(PatientSessionEditComponent, { static: false }) patientSessionEditComponent: PatientSessionEditComponent;
   columns = [
@@ -85,6 +86,9 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   toggleCorrectRedirectConfiramtion() {
     this.correctRedirectConfiramtionVisibility = !this.correctRedirectConfiramtionVisibility;
   }
+  toggleEnterPaymnet() {
+    this.enterPaymentVisibility = !this.enterPaymentVisibility;
+  }
   openEditPateintSession(selectedPatientSession: any) {
     this.editSessionVisibility = true;
     this.emitPatientSessionService.patientSession$.next(selectedPatientSession.data);
@@ -93,6 +97,9 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   correctClaim(selectedPatientSession: any) {
     this.selectedPatientSession = selectedPatientSession;
     this.correctRedirectConfiramtionVisibility = true;
+  }
+  enterPayment(selectedPatientSession: any){
+    this.enterPaymentVisibility = true
   }
   redirectConfirmation(value: boolean) {
     this.correctClaimRedirect = value;
