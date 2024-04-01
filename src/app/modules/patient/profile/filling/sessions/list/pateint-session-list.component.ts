@@ -99,6 +99,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     this.correctRedirectConfiramtionVisibility = true;
   }
   enterPayment(selectedPatientSession: any){
+    this.selectedPatientSession = selectedPatientSession;
     this.enterPaymentVisibility = true
   }
   redirectConfirmation(value: boolean) {

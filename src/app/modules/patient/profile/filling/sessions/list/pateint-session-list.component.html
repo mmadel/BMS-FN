@@ -80,7 +80,7 @@
     <button (click)="toggleEnterPaymnet()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <enter-payment></enter-payment>
+    <enter-payment *ngIf="enterPaymentVisibility" [session]="selectedPatientSession"></enter-payment>
   </c-modal-body>
   <c-modal-footer>
 
