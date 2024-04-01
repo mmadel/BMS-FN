@@ -51,7 +51,67 @@
                 <strong>New Paymnet/Adjustment</strong>
             </c-card-header>
             <c-card-body>
+                <c-container fluid>
+                    <form cForm #referringProviderCreateForm="ngForm">
+                        <c-row class="justify-content-center">
+                            <c-col class="col">
+                                <c-input-group class="mb-1" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;max-height: 30px">Type</span>
+                                    <select cFormControl cCol cSelect id="pmtType" style="max-height: 30px;">
+                                        <option value="1">Select Type</option>
+                                        <option value="2">Client</option>
+                                        <option value="3">Insurance Company</option>
+                                    </select>
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row class="justify-content-center">
+                            <c-col class="col">
+                                <c-input-group class="mb-1" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;max-height: 30px">Method</span>
+                                    <select cFormControl cCol cSelect id="pmtType" style="max-height: 30px;">
+                                        <option value="1">Select Method</option>
+                                        <option value="1">Check</option>
+                                        <option value="2">Cash</option>
+                                        <option value="2">Credit</option>
+                                    </select>
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row class="justify-content-center">
+                            <c-col class="col">
+                                <c-input-group class="mb-1" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">Check #</span>
+                                    <input cFormControl id="checkNumber" sizing="sm">
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row class="justify-content-center">
+                            <c-col class="col mb-1" xs="12">
+                                <c-date-picker placeholder="Select Post Date" closeOnSelect id="pmtPostDate"
+                                    size="sm"></c-date-picker>
+                            </c-col>
+                            <c-col class="col mb-1" xs="12">
+                                <c-date-picker placeholder="Select Check Date" closeOnSelect id="pmtCheckDate"
+                                    size="sm"></c-date-picker>
+                            </c-col>
+                            <c-col class="col mb-3" xs="12">
+                                <c-date-picker placeholder="Select Deposit Date" closeOnSelect id="pmtDepositDate"
+                                    size="sm"></c-date-picker>
+                            </c-col>
+                        </c-row>
+                    </form>
+                </c-container>
+                <c-container fluid>
+                    <c-card>
+                        <c-card-header>
+                            Payment And Adjustment Entry
+                        </c-card-header>
+                        <c-card-body>
 
+                        </c-card-body>
+                    </c-card>
+                </c-container>
             </c-card-body>
         </c-card>
     </c-col>
