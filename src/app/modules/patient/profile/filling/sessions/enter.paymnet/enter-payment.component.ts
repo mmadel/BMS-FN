@@ -21,14 +21,11 @@ export class EnterPaymentComponent implements OnInit {
   totalAdj: number
   totalBalance: number
   columns = [
-    'Service',
-    'Charge',
-    'Balance',
-    { key: 'pmt', label: 'New Pmt' },
-    { key: 'adj', label: 'New Adj' },
-    { key: 'payment', label: 'PmtAmt' },
-    { key: 'Pmt Description', label: 'Balance', _style: { width: '10%' } },
-    { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
+    { key: 'balance', label: 'balance' },
+    { key: 'payment', label: 'New Pmt' },
+    { key: 'adjust', label: 'New Adj' },
+    { key: 'pmt_description', label: 'Pmt Description' },
+    { key: 'sessionAction', label: 'Session Actions', },
   ];
   serviceLinePaymentRequest: ServiceLinePaymentRequest = {
     serviceLinePaymentType: null,
@@ -77,7 +74,10 @@ export class EnterPaymentComponent implements OnInit {
     for (const obj of this.session.data.serviceCodes) {
       var serviceLinePayment: ServiceLinePayment = {
         charge: obj.cptCode.charge,
-        unit: obj.cptCode.unit
+        unit: obj.cptCode.unit,
+        balance:3,
+        payment:40,
+        adjust:44
       }
       this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
     }

@@ -110,9 +110,48 @@
                             Payment And Adjustment Entry
                         </c-card-header>
                         <c-card-body *ngIf="serviceLinePaymentRequest.serviceLinePaymentType != null">
-                            <c-smart-table [itemsPerPage]="20" [items]="this.serviceLinePaymentRequest.serviceLinePayments"
+                            <c-smart-table [itemsPerPage]="20"
+                                [items]="this.serviceLinePaymentRequest.serviceLinePayments" [columns]="columns"
                                 [tableProps]="{ hover: true, striped: true, responsive: true }" header pagination
                                 selectable (selectedItemsChange)="onSelectedItemsChange($event)" #table="cSmartTable">
+                                <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
+                                    let-tdContent="tdContent">
+                                    <td>
+                                        <ng-container [ngSwitch]="columnName">
+                                            <ng-container *ngSwitchCase="'payment'" class="py-2 ">
+                                                <c-input-group sizing="sm" style="width: 60%;">
+                                                    <span cInputGroupText id="payment">&#36;</span>
+                                                    <input cFormControl aria-describedby="payment" class="w-2"
+                                                        [(ngModel)]="item.payment" type="number">
+                                                </c-input-group>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'adjust'" class="py-2 ">
+                                                <c-input-group sizing="sm" style="width: 60%;">
+                                                    <span cInputGroupText id="payment">&#36;</span>
+                                                    <input cFormControl aria-describedby="payment" class="w-2"
+                                                        [(ngModel)]="item.payment" type="number">
+                                                </c-input-group>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'pmt_description'" class="py-2 "
+                                                style="width: 60%;">
+                                                <input cFormControl aria-describedby="payment" class="w-2" sizing="sm">
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
+                                                <select cSelect sizing="sm"  style="max-height: 30px"
+                                                    [(ngModel)]="item.sessionAction"
+                                                    [disabled]="item.payment === null || item.adjust === null">
+                                                    <option value=null selected disabled>Select</option>
+                                                    <option value="Resubmit"> Resubmit</option>
+                                                    <option value="Close">Close Session</option>
+                                                    <option value="Current_Status">Keep current status</option>
+                                                </select>
+                                            </ng-container>
+                                            <ng-container *ngSwitchDefault>
+                                                {{tdContent}}
+                                            </ng-container>
+                                        </ng-container>
+                                    </td>
+                                </ng-template>
                             </c-smart-table>
                         </c-card-body>
                     </c-card>
