@@ -11,6 +11,6 @@ export class EnterPaymentService {
 
   public find(serviceLinesIds:number[]){
     var url = this.baseUrl + '/find/' + serviceLinesIds;
-    this.httpClient.get
+    return this.httpClient.get(url);
   }
 }
