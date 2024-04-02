@@ -41,7 +41,7 @@
                     </table>
                 </div>
                 <hr>
-                <strong>Total Balance:  {{totalBalance}}</strong> 
+                <strong>Total Balance: {{totalBalance}}</strong>
             </c-card-body>
         </c-card>
     </c-col>
@@ -57,10 +57,12 @@
                             <c-col class="col">
                                 <c-input-group class="mb-1" sizing="sm">
                                     <span cInputGroupText style="width: 10%;max-height: 30px">Type</span>
-                                    <select cFormControl cCol cSelect id="pmtType" style="max-height: 30px;">
-                                        <option value="1">Select Type</option>
-                                        <option value="2">Client</option>
-                                        <option value="3">Insurance Company</option>
+                                    <select cFormControl cCol cSelect id="pmtType" style="max-height: 30px;"
+                                        (change)="onChangeType()"
+                                        [(ngModel)]="serviceLinePaymentRequest.serviceLinePaymentType" name="pmtType">
+                                        <option value="null" disabled>Select Type</option>
+                                        <option value="Client">Client</option>
+                                        <option value="Insurance_Company">Insurance Company</option>
                                     </select>
                                 </c-input-group>
                             </c-col>
@@ -107,8 +109,11 @@
                         <c-card-header>
                             Payment And Adjustment Entry
                         </c-card-header>
-                        <c-card-body>
-
+                        <c-card-body *ngIf="serviceLinePaymentRequest.serviceLinePaymentType != null">
+                            <c-smart-table [itemsPerPage]="20" [items]="this.serviceLinePaymentRequest.serviceLinePayments"
+                                [tableProps]="{ hover: true, striped: true, responsive: true }" header pagination
+                                selectable (selectedItemsChange)="onSelectedItemsChange($event)" #table="cSmartTable">
+                            </c-smart-table>
                         </c-card-body>
                     </c-card>
                 </c-container>

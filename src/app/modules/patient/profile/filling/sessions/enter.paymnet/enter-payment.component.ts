@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
+import { ServiceLinePayment } from '../model/service.line.payment';
+import { ServiceLinePaymentRequest } from '../model/service.line.payment.request';
 
 @Component({
   selector: 'enter-payment',
@@ -18,6 +20,20 @@ export class EnterPaymentComponent implements OnInit {
   totalPmt: number;
   totalAdj: number
   totalBalance: number
+  columns = [
+    'Service',
+    'Charge',
+    'Balance',
+    { key: 'pmt', label: 'New Pmt' },
+    { key: 'adj', label: 'New Adj' },
+    { key: 'payment', label: 'PmtAmt' },
+    { key: 'Pmt Description', label: 'Balance', _style: { width: '10%' } },
+    { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
+  ];
+  serviceLinePaymentRequest: ServiceLinePaymentRequest = {
+    serviceLinePaymentType: null,
+    serviceLinePayments: []
+  }
   constructor(private enterPaymentService: EnterPaymentService) { }
 
   ngOnInit(): void {
@@ -56,5 +72,17 @@ export class EnterPaymentComponent implements OnInit {
       this.populateDate();
       this.calculateNumbers(result);
     })
+  }
+  onChangeType() {
+    for (const obj of this.session.data.serviceCodes) {
+      var serviceLinePayment: ServiceLinePayment = {
+        charge: obj.cptCode.charge,
+        unit: obj.cptCode.unit
+      }
+      this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
+    }
+  }
+  onSelectedItemsChange(event: any) {
+
   }
 }
