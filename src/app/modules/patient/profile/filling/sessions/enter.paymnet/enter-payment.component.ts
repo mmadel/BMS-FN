@@ -80,17 +80,32 @@ export class EnterPaymentComponent implements OnInit {
       var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === obj.id);
       var serviceLinePayment: ServiceLinePayment = {
         charge: obj.cptCode.charge,
-        balance: _rslt?.balance,
+        balance: this.calculateBalance(_rslt?.payment, _rslt?.adjust, obj.cptCode.charge),
         payment: _rslt?.payment,
-        adjust: _rslt?.payment,
+        adjust: _rslt?.adjust,
         service: obj.cptCode.serviceCode + '.' + obj.cptCode.modifier,
         unit: obj.cptCode.unit
       }
       this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
     }
   }
+  calculateBalance(payment: number, adjust: number, charge: number): number {
+    var balance: number;
+    console.log(payment + ' ' + adjust + ' ' + charge)
+    // if (payment !== undefined)
+    //   balance = charge - (payment + 0)
+    // if (adjust !== undefined)
+    //   balance = charge - (0 + adjust)
+    // if ((payment !== undefined && adjust !== undefined))
+    //   balance = charge - (payment + adjust)
+    // else
+    //   balance = charge;
+    return charge - ((payment === undefined ? 0 : payment) + (adjust === undefined ? 0 : adjust))
+  }
+  changePaymnet(item: any) {
+    item.balance = this.calculateBalance(item.payment, item.adjust, item.charge)
+  }
   changeToServiceLine(item: any) {
-    console.log(JSON.stringify(item))
     this.totalUnits = item.unit;
     this.totalCharge = item.charge;
     this.totalPmt = item.payment
@@ -99,5 +114,8 @@ export class EnterPaymentComponent implements OnInit {
   }
   changeToAllServiceLines() {
     this.calculateNumbers();
+  }
+  submit() {
+    console.log(JSON.stringify(this.serviceLinesPayments.items))
   }
 }

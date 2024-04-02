@@ -117,23 +117,24 @@
                                     #table="cSmartTable">
                                     <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
                                         let-tdContent="tdContent">
-                                        <td (mouseover)="changeToServiceLine(item)" (mouseleave)="changeToAllServiceLines()">
+                                        <td (mouseover)="changeToServiceLine(item)"
+                                            (mouseleave)="changeToAllServiceLines()">
                                             <ng-container [ngSwitch]="columnName">
                                                 <ng-container *ngSwitchCase="'payment'" class="py-2 ">
                                                     <input cFormControl aria-describedby="payment" sizing="sm"
-                                                        [(ngModel)]="item.payment" type="number">
+                                                        [(ngModel)]="item.payment" type="number" (ngModelChange)="changePaymnet(item)">
                                                 </ng-container>
                                                 <ng-container *ngSwitchCase="'adjust'" class="py-2 ">
-                                                    <input cFormControl aria-describedby="payment" sizing="sm"
-                                                        [(ngModel)]="item.adjust" type="number">
+                                                    <input cFormControl aria-describedby="adjust" sizing="sm"
+                                                        [(ngModel)]="item.adjust" type="number" (ngModelChange)="changePaymnet(item)">
                                                 </ng-container>
                                                 <ng-container *ngSwitchCase="'pmt_description'" class="py-2 ">
                                                     <input cFormControl aria-describedby="payment" sizing="sm">
                                                 </ng-container>
                                                 <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
                                                     <select cSelect sizing="sm" style="max-height: 30px"
-                                                        [(ngModel)]="item.serviceLinePaymentAction"
-                                                        [disabled]="item.payment === undefined || item.adjust === undefined">
+                                                        [(ngModel)]="item.serviceLinePaymentAction" [disabled]="(item.payment === undefined || item.adjust === undefined)
+                                                        || (item.payment === null || item.adjust === null)">
                                                         <option value="undefined" selected disabled>Select</option>
                                                         <option value="Resubmit"> Resubmit</option>
                                                         <option value="Close">Close Session</option>
@@ -156,3 +157,8 @@
         </c-card>
     </c-col>
 </c-row>
+<hr>
+<div class="mx-3 my-3 text-center">
+    <button cButton color="primary" size="sm" variant="outline" style="width: 20%;"
+    (click)="submit()">Submit</button>
+</div>
