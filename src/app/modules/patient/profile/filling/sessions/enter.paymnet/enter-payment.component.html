@@ -117,7 +117,7 @@
                                     #table="cSmartTable">
                                     <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
                                         let-tdContent="tdContent">
-                                        <td>
+                                        <td (mouseover)="changeToServiceLine(item)" (mouseleave)="changeToAllServiceLines()">
                                             <ng-container [ngSwitch]="columnName">
                                                 <ng-container *ngSwitchCase="'payment'" class="py-2 ">
                                                     <input cFormControl aria-describedby="payment" sizing="sm"

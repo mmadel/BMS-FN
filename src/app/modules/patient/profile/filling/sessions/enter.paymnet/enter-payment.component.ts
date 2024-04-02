@@ -21,7 +21,7 @@ export class EnterPaymentComponent implements OnInit {
   totalCharge: number
   totalPmt: number;
   totalAdj: number
-  totalBalance: number  
+  totalBalance: number
   columns = [
     { key: 'service', label: 'Service', _style: { width: '20%' } },
     { key: 'charge', label: 'Charge' },
@@ -29,7 +29,7 @@ export class EnterPaymentComponent implements OnInit {
     { key: 'payment', label: 'New Pmt' },
     { key: 'adjust', label: 'New Adj' },
     { key: 'pmt_description', label: 'Pmt Description' },
-    { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' }},
+    { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
   serviceLinePaymentRequest: ServiceLinePaymentRequest = {
     serviceLinePaymentType: null,
@@ -41,7 +41,7 @@ export class EnterPaymentComponent implements OnInit {
   ngOnInit(): void {
     this.fetchPayment();
   }
-  private populateDate() {
+  private populateData() {
     this.DOS = moment.unix(this.session.data.serviceDate / 1000).format('MM/DD/YYYY')
     this.client = this.session.data.patientName;
     this.provider = this.session.data.doctorInfo.doctorLastName + ',' + this.session.data.doctorInfo.doctorFirstName
@@ -58,7 +58,6 @@ export class EnterPaymentComponent implements OnInit {
       this.totalUnits += obj.cptCode.unit;
       this.totalCharge += obj.cptCode.charge;
       if (_rslt !== undefined) {
-        console.log(JSON.stringify(_rslt))
         this.totalPmt += _rslt.payment
         this.totalAdj += _rslt.adjust;
         this.totalBalance += _rslt.balance
@@ -72,7 +71,7 @@ export class EnterPaymentComponent implements OnInit {
     }
     this.enterPaymentService.find(serviceLinesIds).subscribe((result: any) => {
       this.serviceLinesPaymnet = result
-      this.populateDate();
+      this.populateData();
       this.calculateNumbers();
     })
   }
@@ -84,9 +83,21 @@ export class EnterPaymentComponent implements OnInit {
         balance: _rslt?.balance,
         payment: _rslt?.payment,
         adjust: _rslt?.payment,
-        service: obj.cptCode.serviceCode + '.' + obj.cptCode.modifier
+        service: obj.cptCode.serviceCode + '.' + obj.cptCode.modifier,
+        unit: obj.cptCode.unit
       }
       this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
     }
+  }
+  changeToServiceLine(item: any) {
+    console.log(JSON.stringify(item))
+    this.totalUnits = item.unit;
+    this.totalCharge = item.charge;
+    this.totalPmt = item.payment
+    this.totalAdj = item.adjust
+    this.totalBalance = item.balance;
+  }
+  changeToAllServiceLines() {
+    this.calculateNumbers();
   }
 }
