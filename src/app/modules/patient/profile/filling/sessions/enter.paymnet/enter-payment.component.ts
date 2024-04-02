@@ -21,16 +21,19 @@ export class EnterPaymentComponent implements OnInit {
   totalAdj: number
   totalBalance: number
   columns = [
+    { key: 'service', label: 'Service', _style: { width: '20%' } },
+    { key: 'charge', label: 'Charge' },
     { key: 'balance', label: 'balance' },
     { key: 'payment', label: 'New Pmt' },
     { key: 'adjust', label: 'New Adj' },
     { key: 'pmt_description', label: 'Pmt Description' },
-    { key: 'sessionAction', label: 'Session Actions', },
+    { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' }},
   ];
   serviceLinePaymentRequest: ServiceLinePaymentRequest = {
     serviceLinePaymentType: null,
     serviceLinePayments: []
   }
+  serviceLinesPaymnet: any
   constructor(private enterPaymentService: EnterPaymentService) { }
 
   ngOnInit(): void {
@@ -41,7 +44,7 @@ export class EnterPaymentComponent implements OnInit {
     this.client = this.session.data.patientName;
     this.provider = this.session.data.doctorInfo.doctorLastName + ',' + this.session.data.doctorInfo.doctorFirstName
   }
-  private calculateNumbers(paymnet: any) {
+  private calculateNumbers() {
     this.totalUnits = 0;
     this.totalCharge = 0;
     this.totalPmt = 0;
@@ -49,7 +52,7 @@ export class EnterPaymentComponent implements OnInit {
     this.totalBalance = 0
 
     for (const obj of this.session.data.serviceCodes) {
-      var _rslt = paymnet.find((pmnts: any) => pmnts.serviceLineId === obj.id);
+      var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === obj.id);
       this.totalUnits += obj.cptCode.unit;
       this.totalCharge += obj.cptCode.charge;
       if (_rslt !== undefined) {
@@ -66,18 +69,20 @@ export class EnterPaymentComponent implements OnInit {
       serviceLinesIds.push(obj.id)
     }
     this.enterPaymentService.find(serviceLinesIds).subscribe((result: any) => {
+      this.serviceLinesPaymnet = result
       this.populateDate();
-      this.calculateNumbers(result);
+      this.calculateNumbers();
     })
   }
   onChangeType() {
     for (const obj of this.session.data.serviceCodes) {
+      var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === obj.id);
       var serviceLinePayment: ServiceLinePayment = {
         charge: obj.cptCode.charge,
-        unit: obj.cptCode.unit,
-        balance:3,
-        payment:40,
-        adjust:44
+        balance: _rslt?.balance,
+        payment: _rslt?.payment,
+        adjust: _rslt?.payment,
+        service: obj.cptCode.serviceCode + '.' + obj.cptCode.modifier
       }
       this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
     }
