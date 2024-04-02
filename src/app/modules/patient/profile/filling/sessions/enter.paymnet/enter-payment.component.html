@@ -111,10 +111,9 @@
                         </c-card-header>
                         <c-container fluid>
                             <c-card-body *ngIf="serviceLinePaymentRequest.serviceLinePaymentType != null">
-                                <c-smart-table [itemsPerPage]="20"
-                                    [items]="this.serviceLinePaymentRequest.serviceLinePayments" [columns]="columns"
+                                <c-smart-table [itemsPerPage]="20" #serviceLinesPayments
+                                    [items]="serviceLinePaymentRequest.serviceLinePayments" [columns]="columns"
                                     [tableProps]="{ hover: true, striped: true, responsive: true }" header pagination
-                                    selectable (selectedItemsChange)="onSelectedItemsChange($event)"
                                     #table="cSmartTable">
                                     <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
                                         let-tdContent="tdContent">
@@ -126,16 +125,16 @@
                                                 </ng-container>
                                                 <ng-container *ngSwitchCase="'adjust'" class="py-2 ">
                                                     <input cFormControl aria-describedby="payment" sizing="sm"
-                                                        [(ngModel)]="item.payment" type="number">
+                                                        [(ngModel)]="item.adjust" type="number">
                                                 </ng-container>
                                                 <ng-container *ngSwitchCase="'pmt_description'" class="py-2 ">
                                                     <input cFormControl aria-describedby="payment" sizing="sm">
                                                 </ng-container>
                                                 <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
                                                     <select cSelect sizing="sm" style="max-height: 30px"
-                                                        [(ngModel)]="item.sessionAction"
-                                                        [disabled]="item.payment === null || item.adjust === null">
-                                                        <option value=null selected disabled>Select</option>
+                                                        [(ngModel)]="item.serviceLinePaymentAction"
+                                                        [disabled]="item.payment === undefined || item.adjust === undefined">
+                                                        <option value="undefined" selected disabled>Select</option>
                                                         <option value="Resubmit"> Resubmit</option>
                                                         <option value="Close">Close Session</option>
                                                         <option value="Current_Status">Keep current status</option>

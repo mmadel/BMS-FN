@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { SmartTableComponent } from '@coreui/angular-pro';
 import * as moment from 'moment';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
@@ -12,6 +13,7 @@ import { ServiceLinePaymentRequest } from '../model/service.line.payment.request
 })
 export class EnterPaymentComponent implements OnInit {
   @Input() session: any;
+  @ViewChild('serviceLinesPayments') serviceLinesPayments: SmartTableComponent;
   DOS: string;
   client: string;
   provider: string;
@@ -19,7 +21,7 @@ export class EnterPaymentComponent implements OnInit {
   totalCharge: number
   totalPmt: number;
   totalAdj: number
-  totalBalance: number
+  totalBalance: number  
   columns = [
     { key: 'service', label: 'Service', _style: { width: '20%' } },
     { key: 'charge', label: 'Charge' },
@@ -86,8 +88,5 @@ export class EnterPaymentComponent implements OnInit {
       }
       this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
     }
-  }
-  onSelectedItemsChange(event: any) {
-
   }
 }
