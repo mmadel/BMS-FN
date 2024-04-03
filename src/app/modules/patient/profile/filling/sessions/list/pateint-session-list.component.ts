@@ -3,13 +3,10 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
-import { ClientSessionResponse } from 'src/app/modules/invoice/model/client.session.response';
 import { InvoiceEmitterService } from 'src/app/modules/invoice/service/emitting/invoice-emitter.service';
-import { InvoiceService } from 'src/app/modules/invoice/service/invoice.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PatientSessionResponse } from 'src/app/modules/model/clinical/session/patient.session.response';
-import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
@@ -98,7 +95,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
     this.selectedPatientSession = selectedPatientSession;
     this.correctRedirectConfiramtionVisibility = true;
   }
-  enterPayment(selectedPatientSession: any){
+  enterPayment(selectedPatientSession: any) {
     this.selectedPatientSession = selectedPatientSession;
     this.enterPaymentVisibility = true
   }
@@ -138,5 +135,10 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
         window.scrollTo(0, 0);
       }
     })();
+  }
+  changeEnterPaymentVisibility(event: any) {
+    if (event === 'close') {
+      this.enterPaymentVisibility = false
+    }
   }
 }

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SmartTableComponent } from '@coreui/angular-pro';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
 import { ServiceLinePayment } from '../model/service.line.payment';
@@ -13,6 +14,7 @@ import { ServiceLinePaymentRequest } from '../model/service.line.payment.request
 })
 export class EnterPaymentComponent implements OnInit {
   @Input() session: any;
+  @Output() changeVisibility = new EventEmitter<string>()
   @ViewChild('serviceLinesPayments') serviceLinesPayments: SmartTableComponent;
   DOS: string;
   client: string;
@@ -22,6 +24,7 @@ export class EnterPaymentComponent implements OnInit {
   totalPmt: number;
   totalAdj: number
   totalBalance: number
+  validity: any = [true]
   columns = [
     { key: 'service', label: 'Service', _style: { width: '20%' } },
     { key: 'charge', label: 'Charge' },
@@ -33,10 +36,12 @@ export class EnterPaymentComponent implements OnInit {
   ];
   serviceLinePaymentRequest: ServiceLinePaymentRequest = {
     serviceLinePaymentType: null,
+    paymentMethod: null,
     serviceLinePayments: []
   }
   serviceLinesPaymnet: any
-  constructor(private enterPaymentService: EnterPaymentService) { }
+  constructor(private enterPaymentService: EnterPaymentService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.fetchPayment();
@@ -60,7 +65,9 @@ export class EnterPaymentComponent implements OnInit {
       if (_rslt !== undefined) {
         this.totalPmt += _rslt.payment
         this.totalAdj += _rslt.adjust;
-        this.totalBalance += _rslt.balance
+        this.totalBalance += this.calculateBalance(_rslt.payment, _rslt.adjust, obj.cptCode.charge)
+      } else {
+        this.totalBalance += this.calculateBalance(undefined, undefined, obj.cptCode.charge)
       }
     }
   }
@@ -80,42 +87,94 @@ export class EnterPaymentComponent implements OnInit {
       var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === obj.id);
       var serviceLinePayment: ServiceLinePayment = {
         charge: obj.cptCode.charge,
-        balance: this.calculateBalance(_rslt?.payment, _rslt?.adjust, obj.cptCode.charge),
-        payment: _rslt?.payment,
-        adjust: _rslt?.adjust,
+        balance: _rslt.balance,
         service: obj.cptCode.serviceCode + '.' + obj.cptCode.modifier,
-        unit: obj.cptCode.unit
+        unit: obj.cptCode.unit,
+        serviceLineId: obj.id
       }
       this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
     }
   }
-  calculateBalance(payment: number, adjust: number, charge: number): number {
-    var balance: number;
-    console.log(payment + ' ' + adjust + ' ' + charge)
-    // if (payment !== undefined)
-    //   balance = charge - (payment + 0)
-    // if (adjust !== undefined)
-    //   balance = charge - (0 + adjust)
-    // if ((payment !== undefined && adjust !== undefined))
-    //   balance = charge - (payment + adjust)
-    // else
-    //   balance = charge;
-    return charge - ((payment === undefined ? 0 : payment) + (adjust === undefined ? 0 : adjust))
+  private calculateBalance(payment: number, adjust: number, charge: number): number {
+
+    return charge - ((payment === undefined || null ? 0 : payment) + (adjust === undefined || null ? 0 : adjust))
   }
   changePaymnet(item: any) {
-    item.balance = this.calculateBalance(item.payment, item.adjust, item.charge)
+    var balance: number = item.balance === item.charge ? item.charge : item.balance
+    if ((item.payment === null || item.adjust === null) || item.payment === 0 || item.adjust === 0) {
+      var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
+      balance = _rslt.balance
+    }
+    item.balance = this.calculateBalance(item.payment, item.adjust, balance)
   }
   changeToServiceLine(item: any) {
+    var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     this.totalUnits = item.unit;
     this.totalCharge = item.charge;
-    this.totalPmt = item.payment
-    this.totalAdj = item.adjust
-    this.totalBalance = item.balance;
+    this.totalPmt = _rslt.payment
+    this.totalAdj = _rslt.adjust
+    this.totalBalance = _rslt.balance;
   }
   changeToAllServiceLines() {
     this.calculateNumbers();
   }
   submit() {
-    console.log(JSON.stringify(this.serviceLinesPayments.items))
+    this.validate();
+    if (this.validity[0]) {
+      this.constructRequest();
+      this.enterPaymentService.create(this.serviceLinePaymentRequest).subscribe((result) => {
+        this.changeVisibility.emit('close');
+        this.toastr.success("Payment done.!")
+      })
+    }
+  }
+  private validate() {
+    if (this.serviceLinePaymentRequest.serviceLinePaymentType === null) {
+      this.validity[0] = false
+      this.validity[1] = 'select Type'
+    }
+    else if (this.serviceLinePaymentRequest.paymentMethod === null) {
+      this.validity[0] = false
+      this.validity[1] = 'select method'
+    } else {
+      var filledServiceLines: any = this.serviceLinesPayments.items.filter((item: any) => {
+        return (item.payment !== undefined && item.adjust !== undefined) && (item.payment !== null && item.adjust !== null)
+      })
+      console.log(filledServiceLines)
+      for (let item of filledServiceLines) {
+        if (item.serviceLinePaymentAction === undefined
+          || item.serviceLinePaymentAction === null
+          || item.serviceLinePaymentAction === '') {
+          this.validity[0] = false
+          this.validity[1] = 'select action'
+          break;
+        } else {
+          this.validity[0] = true
+          this.validity[1] = ''
+        }
+      }
+    }
+  }
+  private constructRequest() {
+    var filteredList: any = this.serviceLinesPayments.items.filter((item: any) => {
+      return item.payment !== undefined || null && item.adjust !== undefined || null
+    })
+    this.serviceLinePaymentRequest.receivedDate =
+      this.serviceLinePaymentRequest.receivedDate_date !== undefined ?
+        moment(this.serviceLinePaymentRequest.receivedDate_date).unix() * 1000 : undefined
+
+    this.serviceLinePaymentRequest.checkDate =
+      this.serviceLinePaymentRequest.checkDate_date !== undefined ?
+        moment(this.serviceLinePaymentRequest.checkDate_date).unix() * 1000 : undefined
+
+    this.serviceLinePaymentRequest.depositDate =
+      this.serviceLinePaymentRequest.depositDate_date !== undefined ?
+        moment(this.serviceLinePaymentRequest.depositDate_date).unix() * 1000 : undefined
+
+    this.serviceLinePaymentRequest.authtDate =
+      this.serviceLinePaymentRequest.authtDate_date !== undefined ?
+        moment(this.serviceLinePaymentRequest.authtDate_date).unix() * 1000 : undefined
+
+    this.serviceLinePaymentRequest.serviceLinePayments = filteredList
   }
 }

@@ -35,7 +35,8 @@ import {
   ModalModule,
   MultiSelectModule,
   SpinnerModule,
-  SmartPaginationModule
+  SmartPaginationModule,
+  CalloutModule
 } from '@coreui/angular-pro';
 
 import { IconModule } from '@coreui/icons-angular';
@@ -131,6 +132,7 @@ import { EnterPaymentComponent } from './profile/filling/sessions/enter.paymnet/
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    CalloutModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ],
   exports: [

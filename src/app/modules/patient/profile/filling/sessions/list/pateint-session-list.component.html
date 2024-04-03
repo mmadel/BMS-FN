@@ -74,12 +74,13 @@
     </div>
   </c-card-header>
 </c-modal>
-<c-modal id="enterPayment" [visible]="enterPaymentVisibility" size="xl">
+<c-modal id="enterPayment" [visible]="enterPaymentVisibility" size="xl" backdrop="static">
   <c-modal-header>
     <h2 cModalTitle>Enter Payment</h2>
     <button (click)="toggleEnterPaymnet()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <enter-payment *ngIf="enterPaymentVisibility" [session]="selectedPatientSession"></enter-payment>
+    <enter-payment *ngIf="enterPaymentVisibility" [session]="selectedPatientSession"
+    (changeVisibility)="changeEnterPaymentVisibility($event)"></enter-payment>
   </c-modal-body>
 </c-modal>
