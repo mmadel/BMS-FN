@@ -19,8 +19,8 @@ import { InsuranceCompanyPaymentComponent } from '../bip/insurance.company/insur
 })
 export class BatchTemplateComponent implements OnInit {
 
-  @Input() batchType:string
-  @Input() title:string
+  @Input() batchType: string
+  @Input() title: string
   @ViewChild('paymentForm') paymentForm: NgForm;
   @ViewChild('clientPayments') clientPayments: ClientPaymentComponent;
   @ViewChild('insuranceCompanyPayments') insuranceCompanyPayments: InsuranceCompanyPaymentComponent;
@@ -53,7 +53,8 @@ export class BatchTemplateComponent implements OnInit {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
-    this.findInsuranceCompanyByNameAutoComplete();
+    if (this.batchType === 'bip')
+      this.findInsuranceCompanyByNameAutoComplete();
 
   }
   private findPatientByNameAutoComplete() {
