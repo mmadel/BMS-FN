@@ -76,6 +76,10 @@ export const navItems: INavData[] = [
         url: '/posting/bip'
       },
       {
+        name: 'Batch Client Payment',
+        url: '/posting/bcp'
+      },
+      {
         name: 'ERA',
         url: '/posting/era'
       }
