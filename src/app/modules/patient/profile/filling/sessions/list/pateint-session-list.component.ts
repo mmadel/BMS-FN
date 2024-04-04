@@ -3,13 +3,10 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
-import { ClientSessionResponse } from 'src/app/modules/invoice/model/client.session.response';
 import { InvoiceEmitterService } from 'src/app/modules/invoice/service/emitting/invoice-emitter.service';
-import { InvoiceService } from 'src/app/modules/invoice/service/invoice.service';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PatientSessionResponse } from 'src/app/modules/model/clinical/session/patient.session.response';
-import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
@@ -24,6 +21,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   @Input() pateint: Patient;
   editSessionVisibility: boolean = false;
   correctRedirectConfiramtionVisibility: boolean = false;
+  enterPaymentVisibility: boolean = false;
   correctClaimRedirect: boolean = false;
   @ViewChild(PatientSessionEditComponent, { static: false }) patientSessionEditComponent: PatientSessionEditComponent;
   columns = [
@@ -85,6 +83,9 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   toggleCorrectRedirectConfiramtion() {
     this.correctRedirectConfiramtionVisibility = !this.correctRedirectConfiramtionVisibility;
   }
+  toggleEnterPaymnet() {
+    this.enterPaymentVisibility = !this.enterPaymentVisibility;
+  }
   openEditPateintSession(selectedPatientSession: any) {
     this.editSessionVisibility = true;
     this.emitPatientSessionService.patientSession$.next(selectedPatientSession.data);
@@ -93,6 +94,10 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   correctClaim(selectedPatientSession: any) {
     this.selectedPatientSession = selectedPatientSession;
     this.correctRedirectConfiramtionVisibility = true;
+  }
+  enterPayment(selectedPatientSession: any) {
+    this.selectedPatientSession = selectedPatientSession;
+    this.enterPaymentVisibility = true
   }
   redirectConfirmation(value: boolean) {
     this.correctClaimRedirect = value;
@@ -130,5 +135,10 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
         window.scrollTo(0, 0);
       }
     })();
+  }
+  changeEnterPaymentVisibility(event: any) {
+    if (event === 'close') {
+      this.enterPaymentVisibility = false
+    }
   }
 }

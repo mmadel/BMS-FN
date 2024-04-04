@@ -1,0 +1,183 @@
+<ngx-spinner></ngx-spinner>
+<c-callout color="danger" *ngIf="!validity[0]" class="mt-3">
+    {{validity[1]}}
+</c-callout>
+<c-row>
+    <c-col xs="4">
+        <c-card>
+            <c-card-header>
+                <strong>Session Information</strong>
+            </c-card-header>
+            <c-card-body>
+                <div class="table-responsive">
+                    <table class="table  table-borderless test">
+                        <tbody>
+                            <tr>
+                                <td><strong>DOS:</strong></td>
+                                <td>{{DOS}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Client:</strong></td>
+                                <td>{{client}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Provider:</strong></td>
+                                <td>{{provider}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Units:</strong></td>
+                                <td>{{totalUnits}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Charge:</strong></td>
+                                <td>{{totalCharge}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Pmts:</strong></td>
+                                <td>{{totalPmt}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Adjs:</strong></td>
+                                <td>{{totalAdj}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <strong>Total Balance: {{totalBalance}}</strong>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="8">
+        <c-card>
+            <c-card-header>
+                <strong>New Paymnet/Adjustment</strong>
+            </c-card-header>
+            <c-card-body>
+                <c-container fluid>
+                    <form cForm #referringProviderCreateForm="ngForm">
+                        <c-row class="justify-content-center">
+                            <c-col class="col">
+                                <c-input-group class="mb-1" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;max-height: 30px">Type</span>
+                                    <select cFormControl cCol cSelect id="pmtType" style="max-height: 30px;"
+                                        (change)="onChangeType()"
+                                        [(ngModel)]="serviceLinePaymentRequest.serviceLinePaymentType" name="pmtType">
+                                        <option value="null" disabled>Select Type</option>
+                                        <option value="Client">Client</option>
+                                        <option value="InsuranceCompany">Insurance Company</option>
+                                    </select>
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row class="justify-content-center">
+                            <c-col class="col">
+                                <c-input-group class="mb-1" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;max-height: 30px">Method</span>
+                                    <select cFormControl cCol cSelect id="pmtMethod" style="max-height: 30px;"
+                                        [(ngModel)]="serviceLinePaymentRequest.paymentMethod" name="pmtMethod">
+                                        <option value="null" disabled>Select Method</option>
+                                        <option value="check">Check</option>
+                                        <option value="cash">Cash</option>
+                                        <option value="credit">Credit</option>
+                                    </select>
+                                </c-input-group>
+                            </c-col>
+                        </c-row>
+                        <c-row class="justify-content-center">
+                            <c-col class="col" xs="12" *ngIf="serviceLinePaymentRequest.paymentMethod === 'check'">
+                                <c-input-group class="mb-1" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">Check #</span>
+                                    <input cFormControl id="checkNumber" sizing="sm">
+                                </c-input-group>
+                            </c-col>
+                            <c-col class="col" xs="12" *ngIf="serviceLinePaymentRequest.paymentMethod === 'credit'">
+                                <c-input-group class="mb-1" sizing="sm">
+                                    <span cInputGroupText style="width: 10%;">Auth #</span>
+                                    <input cFormControl id="authNumber" sizing="sm">
+                                </c-input-group>
+                            </c-col>
+                            <c-col class="col mb-1" xs="12" *ngIf="serviceLinePaymentRequest.paymentMethod === 'check'
+                            || serviceLinePaymentRequest.paymentMethod === 'cash'
+                            || serviceLinePaymentRequest.paymentMethod === 'credit'">
+                                <c-date-picker placeholder="Select Post Date" closeOnSelect id="pmtPostDate"
+                                    [(date)]="serviceLinePaymentRequest.receivedDate_date" size="sm"></c-date-picker>
+                            </c-col>
+                            <c-col class="col mb-1" xs="12"
+                                *ngIf="serviceLinePaymentRequest.paymentMethod === 'check' ">
+                                <c-date-picker placeholder="Select Check Date" closeOnSelect id="pmtCheckDate"
+                                    [(date)]="serviceLinePaymentRequest.checkDate_date" size="sm"></c-date-picker>
+                            </c-col>
+                            <c-col class="col mb-1" xs="12" *ngIf="serviceLinePaymentRequest.paymentMethod === 'check'
+                            || serviceLinePaymentRequest.paymentMethod === 'cash'
+                            || serviceLinePaymentRequest.paymentMethod === 'credit'">
+                                <c-date-picker placeholder="Select Deposit Date" closeOnSelect id="pmtDepositDate"
+                                    [(date)]="serviceLinePaymentRequest.depositDate_date" size="sm"></c-date-picker>
+                            </c-col>
+                            <c-col class="col mb-1" xs="12"
+                                *ngIf="serviceLinePaymentRequest.paymentMethod === 'credit'">
+                                <c-date-picker placeholder=" Select Auth Date" closeOnSelect id="authtDate"
+                                    [(date)]="serviceLinePaymentRequest.authtDate_date" size="sm"></c-date-picker>
+                            </c-col>
+                        </c-row>
+                    </form>
+                </c-container>
+                <c-container fluid>
+                    <c-card>
+                        <c-card-header>
+                            Payment And Adjustment Entry
+                        </c-card-header>
+                        <c-container fluid>
+                            <c-card-body *ngIf="serviceLinePaymentRequest.serviceLinePaymentType != null">
+                                <c-smart-table [itemsPerPage]="20" #serviceLinesPayments
+                                    [items]="serviceLinePaymentRequest.serviceLinePayments" [columns]="columns"
+                                    [tableProps]="{ hover: true, striped: true, responsive: true }" header pagination
+                                    #table="cSmartTable">
+                                    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
+                                        let-tdContent="tdContent">
+                                        <td (mouseover)="changeToServiceLine(item)"
+                                            (mouseleave)="changeToAllServiceLines()">
+                                            <ng-container [ngSwitch]="columnName">
+                                                <ng-container *ngSwitchCase="'payment'" class="py-2 ">
+                                                    <input cFormControl aria-describedby="payment" sizing="sm"
+                                                        [(ngModel)]="item.payment" type="number"
+                                                        (ngModelChange)="changePaymnet(item)">
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="'adjust'" class="py-2 ">
+                                                    <input cFormControl aria-describedby="adjust" sizing="sm"
+                                                        [(ngModel)]="item.adjust" type="number"
+                                                        (ngModelChange)="changePaymnet(item)">
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="'pmt_description'" class="py-2 ">
+                                                    <input cFormControl aria-describedby="payment" sizing="sm">
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
+                                                    <select cSelect sizing="sm" style="max-height: 30px"
+                                                        [(ngModel)]="item.serviceLinePaymentAction" [disabled]="(item.payment === undefined || item.adjust === undefined)
+                                                        || (item.payment === null || item.adjust === null)">
+                                                        <option value="undefined" selected disabled>Select</option>
+                                                        <option value="Resubmit"> Resubmit</option>
+                                                        <option value="Close">Close Session</option>
+                                                        <option value="Current_Status">Keep current status</option>
+                                                    </select>
+                                                </ng-container>
+                                                <ng-container *ngSwitchDefault>
+                                                    {{tdContent}}
+                                                </ng-container>
+                                            </ng-container>
+                                        </td>
+                                    </ng-template>
+                                </c-smart-table>
+                            </c-card-body>
+                        </c-container>
+
+                    </c-card>
+                </c-container>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+<hr>
+<div class="mx-3 my-3 text-center">
+    <button cButton color="primary" size="sm" variant="outline" style="width: 20%;" (click)="submit()">Submit</button>
+</div>

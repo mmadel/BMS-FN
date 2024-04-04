@@ -2,10 +2,11 @@ import { ServiceLineType } from "../../enum/session/service.line.type";
 import { CPTCode } from "../cpt.code";
 
 export interface ServiceCode {
-    id?:number
+    id?: number
     diagnoses?: string[]
     cptCode?: CPTCode
     type?: ServiceLineType
-    isCorrect?:boolean;
-    lineNote?:string;
+    isCorrect?: boolean;
+    lineNote?: string;
+    payments?: number;
 }

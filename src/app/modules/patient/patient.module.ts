@@ -35,7 +35,8 @@ import {
   ModalModule,
   MultiSelectModule,
   SpinnerModule,
-  SmartPaginationModule
+  SmartPaginationModule,
+  CalloutModule
 } from '@coreui/angular-pro';
 
 import { IconModule } from '@coreui/icons-angular';
@@ -65,6 +66,7 @@ import { SessionServiceCodeListComponent } from './profile.edit/components/sessi
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CreateAuthComponent } from './profile/auths/create/create-auth.component';
 import { ListAuthsComponent } from './profile/auths/list/list-auths.component';
+import { EnterPaymentComponent } from './profile/filling/sessions/enter.paymnet/enter-payment.component';
 
 
 @NgModule({
@@ -98,6 +100,7 @@ import { ListAuthsComponent } from './profile/auths/list/list-auths.component';
     SessionServiceCodeListComponent,
     CreateAuthComponent,
     ListAuthsComponent,
+    EnterPaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -129,6 +132,7 @@ import { ListAuthsComponent } from './profile/auths/list/list-auths.component';
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    CalloutModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ],
   exports: [

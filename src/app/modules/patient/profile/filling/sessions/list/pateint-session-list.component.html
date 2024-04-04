@@ -22,8 +22,9 @@
                   actions
                 </button>
                 <ul cDropdownMenu>
-                  <li><button cDropdownItem>Enter Payment</button></li>
-                  <li><button cDropdownItem (click)="correctClaim(item)" [disabled]="item.data.isCorrectSession">Correct Claim</button></li>
+                  <li><button cDropdownItem (click)="enterPayment(item)">Enter Payment</button></li>
+                  <li><button cDropdownItem (click)="correctClaim(item)" [disabled]="item.data.isCorrectSession">Correct
+                      Claim</button></li>
                 </ul>
               </c-dropdown>
             </div>
@@ -31,7 +32,7 @@
           <ng-container *ngSwitchDefault>
             {{tdContent}}
           </ng-container>
-          
+
           <ng-container *ngSwitchCase="'correct'">
             <span *ngIf="item.data.isCorrectSession">
               <c-badge color="warning">
@@ -72,4 +73,14 @@
       <button cButton variant="outline" style="width:10%;" (click)="redirectConfirmation(false)">Cancel </button>
     </div>
   </c-card-header>
+</c-modal>
+<c-modal id="enterPayment" [visible]="enterPaymentVisibility" size="xl" backdrop="static">
+  <c-modal-header>
+    <h2 cModalTitle>Enter Payment</h2>
+    <button (click)="toggleEnterPaymnet()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <enter-payment *ngIf="enterPaymentVisibility" [session]="selectedPatientSession"
+    (changeVisibility)="changeEnterPaymentVisibility($event)"></enter-payment>
+  </c-modal-body>
 </c-modal>
