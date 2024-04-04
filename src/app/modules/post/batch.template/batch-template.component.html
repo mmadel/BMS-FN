@@ -18,7 +18,7 @@
                                 [(ngModel)]="selectedSearchOption">
                                 <option value="none" disabled>Select Search Criteria</option>
                                 <option value="client">Client</option>
-                                <option value="insurance">Insurance Company</option>
+                                <option value="insurance" *ngIf="batchType==='bip'">Insurance Company</option>
                             </select>
                         </c-col>
                         <c-col class="mb-2" xs="1">
