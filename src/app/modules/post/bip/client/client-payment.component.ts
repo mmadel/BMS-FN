@@ -8,6 +8,8 @@ import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
+import { ServiceLinePaymentRequest } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment.request';
+import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
 import { PostingServiceService } from '../../service/posting-service.service';
 import { PostingFilterModel } from '../filter/posting.filter.model';
 import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
@@ -24,6 +26,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   @ViewChild('clientPayments') clientPayments: SmartTableComponent;
   clientPostingPayments$!: Observable<ClientPostingPayments[]>;
   totalPayment: number = 0;
+  serviceLinesPaymnet: any
   columns = [
     { key: 'id' },
     'dateOfService',
@@ -34,11 +37,12 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     { key: 'payment', label: 'PmtAmt' },
     { key: 'adjust', label: 'Adjust' },
     { key: 'balance', label: 'Balance', _style: { width: '10%' } },
-    { key: 'sessionAction', label: 'Session Actions', _style: { width: '20%' } },
+    { key: 'serviceLinePaymentAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
   constructor(private postingServiceService: PostingServiceService
     , private toastr: ToastrService
-    , private postingEmitterService: PostingEmitterService) { super() }
+    , private postingEmitterService: PostingEmitterService
+    , private enterPaymentService: EnterPaymentService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -58,50 +62,30 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
           this.errorMessage$.next('');
         }
       }),
-      map((response: any) => { return response.records; })
+      map((response: any) => {
+        this.serviceLinesPaymnet = response.records
+        return response.records;
+      })
     );
   }
-  onChangeAdjust(event: any, item: any) {
-    var adjust: number = Number(event.target.value);
-    var payment: number = Number(item.payment);
-    var billed: number = Number(item.billedValue);
-    item.balance = Number(billed - (adjust + payment));
+
+  changePaymnet(item: any) {
+    var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
+    var balance: number = _rslt.balance
+    item.balance = this.calculateBalance(item.payment, item.adjust, balance)
   }
-  emitPayment(event: any, item: any) {
-    var payment: number = Number(event.target.value);
-    if (item.prevPayment === undefined) {
-      item.prevPayment = payment;
-      this.changePayments.emit([0, payment]);
-    }
-    if (item.prevPayment !== payment) {
-      this.changePayments.emit([item.prevPayment, payment]);
-    }
-    item.prevPayment = payment;
-    var adjust: number = Number(item.adjust);
-    var billed: number = Number(item.billedValue);
-    item.balance = Number(billed - (payment + adjust));
-  }
-  emitAdjust(event: any, item: any) {
-    var adjust: number = Number(event.target.value);
-    if (item.prevAdjust === undefined) {
-      item.prevAdjust = adjust;
-      this.changeAdjustments.emit([0, adjust]);
-    }
-    if (item.prevAdjust !== adjust) {
-      this.changeAdjustments.emit([item.prevAdjust, adjust]);
-    }
-    item.prevAdjust = adjust;
-    var payment: number = Number(item.payment);
-    var billed: number = Number(item.billedValue);
-    item.balance = Number(billed - (payment + adjust));
+  private calculateBalance(payment: number, adjust: number, charge: number): number {
+
+    return charge - ((payment === undefined || null ? 0 : payment) + (adjust === undefined || null ? 0 : adjust))
   }
 
   constructPaymentLines(paymentBatch: PaymentBatch): any[] {
-    var invalidServiceCode: any[] = PaymentLinesConstructor.validate(this.clientPayments.items);
+    var invalidServiceCode: any[] = this.validate(this.clientPayments.items);
     if (!(invalidServiceCode.length > 0)) {
       var paymentLines: PaymentServiceLine[] = PaymentLinesConstructor.construct(this.clientPayments.items, paymentBatch)
       if (paymentLines.length > 0) {
-        this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
+        this.enterPaymentService.create(this.constructRequest(paymentBatch))
+        // this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
           .subscribe((result) => {
             this.toastr.success("Service lines payments submitted successfully")
           }, (error) => {
@@ -113,5 +97,37 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
       }
     }
     return invalidServiceCode;
+  }
+  private validate(items: any[]): any[] {
+    var invalidServiceCode: any[] = [];
+    for (var i = 0; i < items.length; i++) {
+      var item: any = items[i];
+      var isPaymentChanged: boolean = item.payment !== null && item.adjust
+      if (item.serviceLinePaymentAction === null && isPaymentChanged)
+        invalidServiceCode.push(Number(item.serviceLineId));
+    }
+    return invalidServiceCode
+  }
+  private constructRequest(paymentBatch: PaymentBatch): ServiceLinePaymentRequest {
+    var serviceLinePaymentRequest: ServiceLinePaymentRequest = {};
+    var filteredList: any = this.clientPayments.items.filter((item: any) => {
+      return (item.payment !== null && item.adjust !== null)
+    })
+    serviceLinePaymentRequest.serviceLinePaymentType = 'Client'
+    serviceLinePaymentRequest.receivedDate =
+      paymentBatch.receivedDate_date !== undefined ?
+        moment(paymentBatch.receivedDate_date).unix() * 1000 : undefined
+
+    serviceLinePaymentRequest.checkDate =
+      paymentBatch.checkDate_date !== undefined ?
+        moment(paymentBatch.checkDate_date).unix() * 1000 : undefined
+
+    serviceLinePaymentRequest.depositDate =
+      paymentBatch.depositDate_date !== undefined ?
+        moment(paymentBatch.depositDate_date).unix() * 1000 : undefined
+
+    serviceLinePaymentRequest.paymentMethod = paymentBatch.paymentMethod
+    serviceLinePaymentRequest.serviceLinePayments = filteredList;
+    return serviceLinePaymentRequest;
   }
 } 

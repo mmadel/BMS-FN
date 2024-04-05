@@ -195,12 +195,10 @@
 
 <c-row>
     <c-col *ngIf="renderComponent ==='client'">
-        <client-payment #clientPayments *ngIf="renderComponent ==='client'" (changePayments)="onChangePayements($event)"
-            (changeAdjustments)="onChangeAdjustments($event)"></client-payment>
+        <client-payment #clientPayments *ngIf="renderComponent ==='client'"></client-payment>
     </c-col>
     <c-col *ngIf="renderComponent ==='insurance'">
         <insurance-company-payment *ngIf="renderComponent ==='insurance'" #insuranceCompanyPayments
-            (changePayments)="onChangePayements($event)"
-            (changeAdjustments)="onChangeAdjustments($event)"></insurance-company-payment>
+           ></insurance-company-payment>
     </c-col>
 </c-row>

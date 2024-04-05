@@ -2,7 +2,7 @@ import { PaymentBatch } from "./batch.paymnet"
 
 export interface PaymentServiceLine {
     sessionId?: number
-    serviceCodeId?: number
+    serviceLineId?: number
     dateOfService?: number
     cpt?: string
     provider?: string
@@ -13,6 +13,6 @@ export interface PaymentServiceLine {
     adjust?: number
     prevAdjust?: number
     balance?: number
-    sessionAction?: string
+    serviceLinePaymentAction?: string
     paymentBatch?:PaymentBatch
 }

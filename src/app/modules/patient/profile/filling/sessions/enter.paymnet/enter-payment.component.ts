@@ -96,15 +96,11 @@ export class EnterPaymentComponent implements OnInit {
     }
   }
   private calculateBalance(payment: number, adjust: number, charge: number): number {
-
     return charge - ((payment === undefined || null ? 0 : payment) + (adjust === undefined || null ? 0 : adjust))
   }
   changePaymnet(item: any) {
-    var balance: number = item.balance === item.charge ? item.charge : item.balance
-    if ((item.payment === null || item.adjust === null) || item.payment === 0 || item.adjust === 0) {
-      var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
-      balance = _rslt.balance
-    }
+    var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
+    var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
   }
   changeToServiceLine(item: any) {
@@ -122,6 +118,7 @@ export class EnterPaymentComponent implements OnInit {
     this.validate();
     if (this.validity[0]) {
       this.constructRequest();
+      console.log(JSON.stringify(this.serviceLinePaymentRequest))
       this.enterPaymentService.create(this.serviceLinePaymentRequest).subscribe((result) => {
         this.changeVisibility.emit('close');
         this.toastr.success("Payment done.!")
@@ -140,7 +137,6 @@ export class EnterPaymentComponent implements OnInit {
       var filledServiceLines: any = this.serviceLinesPayments.items.filter((item: any) => {
         return (item.payment !== undefined && item.adjust !== undefined) && (item.payment !== null && item.adjust !== null)
       })
-      console.log(filledServiceLines)
       for (let item of filledServiceLines) {
         if (item.serviceLinePaymentAction === undefined
           || item.serviceLinePaymentAction === null
