@@ -15,10 +15,10 @@
                     <c-row>
                         <c-col class="mb-2" xs="11">
                             <select aria-label="searchentity" id="searchentity" cSelect sizing="sm" name="searchentity"
-                                [(ngModel)]="selectedSearchOption">
+                                *ngIf="batchType==='bip'" [(ngModel)]="selectedSearchOption">
                                 <option value="none" disabled>Select Search Criteria</option>
                                 <option value="client">Client</option>
-                                <option value="insurance" *ngIf="batchType==='bip'">Insurance Company</option>
+                                <option value="insurance">Insurance Company</option>
                             </select>
                         </c-col>
                         <c-col class="mb-2" xs="1">
@@ -29,7 +29,7 @@
                     </c-row>
                     <c-row>
                         <!-- Auto complete for patient -->
-                        <c-col class="mb-2" xs="11" *ngIf="selectedSearchOption ==='client'">
+                        <c-col class="mb-2" xs="11" *ngIf="selectedSearchOption ==='client' || batchType==='bcp'">
                             <input cFormControl name="patientname" [formControl]="patientClient" placeholder="Patient"
                                 class="mb-2" sizing="sm" />
                             <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoading"
@@ -64,7 +64,7 @@
                             </button>
                         </c-col>
                     </c-row>
-                    <c-col xs="11" class="mb-2 " *ngIf="selectedSearchOption === 'client'">
+                    <c-col xs="11" class="mb-2 " *ngIf="selectedSearchOption === 'client' || batchType==='bcp'">
                         <c-date-range-picker [placeholder]="['Start', 'End']"
                             [(startDate)]="postingFilterModel.searchStartDate"
                             [(endDate)]="postingFilterModel.searchEndDate"
@@ -198,7 +198,7 @@
         <client-payment #clientPayments *ngIf="renderComponent ==='client'"></client-payment>
     </c-col>
     <c-col *ngIf="renderComponent ==='insurance'">
-        <insurance-company-payment *ngIf="renderComponent ==='insurance'" #insuranceCompanyPayments
-           ></insurance-company-payment>
+        <insurance-company-payment *ngIf="renderComponent ==='insurance'"
+            #insuranceCompanyPayments></insurance-company-payment>
     </c-col>
 </c-row>
