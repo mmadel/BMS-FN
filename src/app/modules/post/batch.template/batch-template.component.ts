@@ -55,6 +55,9 @@ export class BatchTemplateComponent implements OnInit {
     this.findPatientByNameAutoComplete();
     if (this.batchType === 'bip')
       this.findInsuranceCompanyByNameAutoComplete();
+    if(this.batchType === 'bcp'){
+      this.selectedSearchOption = 'client'
+    }
 
   }
   private findPatientByNameAutoComplete() {
@@ -185,6 +188,7 @@ export class BatchTemplateComponent implements OnInit {
     }
   }
   search() {
+    console.log(this.selectedSearchOption)
     if (this.selectedSearchOption === 'client' && this.postingFilterModel.entityId > 0) {
       this.renderComponent = 'client'
       this.postingEmitterService.searchPostingClient$.next(this.postingFilterModel)
