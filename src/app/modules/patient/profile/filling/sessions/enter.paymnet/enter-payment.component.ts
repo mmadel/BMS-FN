@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { SmartTableComponent } from '@coreui/angular-pro';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
 import { ServiceLinePayment } from '../model/service.line.payment';
 import { ServiceLinePaymentRequest } from '../model/service.line.payment.request';
@@ -118,7 +117,6 @@ export class EnterPaymentComponent implements OnInit {
     this.validate();
     if (this.validity[0]) {
       this.constructRequest();
-      console.log(JSON.stringify(this.serviceLinePaymentRequest))
       this.enterPaymentService.create(this.serviceLinePaymentRequest).subscribe((result) => {
         this.changeVisibility.emit('close');
         this.toastr.success("Payment done.!")
