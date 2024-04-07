@@ -9,6 +9,7 @@ import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { BatchSessionServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/batch.session.service.line.payment';
+import { ServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment';
 import { ServiceLinePaymentRequest } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment.request';
 import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
 import { PatientService } from 'src/app/modules/patient/service/patient.service';
@@ -87,48 +88,41 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
   constructPaymentLines(paymentBatch: PaymentBatch) {
     var pateintsPaymentServiceLines = {}
     var totalInvalidServiceCode: any[] = []
+    var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.constructRequest(paymentBatch);
+    var serviceLinePayment: ServiceLinePayment[] = []
     for (var i = 0; i < this.children.length; i++) {
       var patient: string = this.children.get(i).tableFilterPlaceholder;
       var paymentServiceLine: any[] = this.children.get(i).items
       var invalidServiceCode: any[] = PaymentLinesConstructor.validate(paymentServiceLine);
       var patientId: number = Number(patient.split(',')[2])
-      console.log(JSON.stringify(invalidServiceCode))
-      if (!(invalidServiceCode.length > 0)) {
-        this.enterPaymentService.create(this.constructRequest(paymentBatch,paymentServiceLine))
-          // this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
-          .subscribe((result) => {
-            this.toastr.success("Service lines payments submitted successfully")
-          }, (error) => {
-            this.toastr.error("Error during submitting Service lines payments.")
-          })
-        invalidServiceCode = []
-      }
+      serviceLinePayment.push(...paymentServiceLine);
     }
-    return invalidServiceCode;
+    var filteredList: any = serviceLinePayment.filter((item: any) => {
+      return (item.payment !== null && item.adjust !== null)
+    })
+    serviceLinePaymentRequest.serviceLinePayments = filteredList
+    return serviceLinePaymentRequest;
   }
-    
-  
-  private constructRequest(paymentBatch: PaymentBatch, paymentServiceLine: any[]): ServiceLinePaymentRequest {
-  var serviceLinePaymentRequest: ServiceLinePaymentRequest = {};
-  var filteredList: any = paymentServiceLine.filter((item: any) => {
-    return (item.payment !== null && item.adjust !== null)
-  })
-  serviceLinePaymentRequest.serviceLinePaymentType = 'Client'
-  serviceLinePaymentRequest.receivedDate =
-    paymentBatch.receivedDate_date !== undefined ?
-      moment(paymentBatch.receivedDate_date).unix() * 1000 : undefined
 
-  serviceLinePaymentRequest.checkDate =
-    paymentBatch.checkDate_date !== undefined ?
-      moment(paymentBatch.checkDate_date).unix() * 1000 : undefined
 
-  serviceLinePaymentRequest.depositDate =
-    paymentBatch.depositDate_date !== undefined ?
-      moment(paymentBatch.depositDate_date).unix() * 1000 : undefined
+  private constructRequest(paymentBatch: PaymentBatch): ServiceLinePaymentRequest {
+    var serviceLinePaymentRequest: ServiceLinePaymentRequest = {};
 
-  serviceLinePaymentRequest.paymentMethod = paymentBatch.paymentMethod
-  serviceLinePaymentRequest.serviceLinePayments = filteredList;
-  return serviceLinePaymentRequest;
+    serviceLinePaymentRequest.serviceLinePaymentType = 'Client'
+    serviceLinePaymentRequest.receivedDate =
+      paymentBatch.receivedDate_date !== undefined ?
+        moment(paymentBatch.receivedDate_date).unix() * 1000 : undefined
 
-}
+    serviceLinePaymentRequest.checkDate =
+      paymentBatch.checkDate_date !== undefined ?
+        moment(paymentBatch.checkDate_date).unix() * 1000 : undefined
+
+    serviceLinePaymentRequest.depositDate =
+      paymentBatch.depositDate_date !== undefined ?
+        moment(paymentBatch.depositDate_date).unix() * 1000 : undefined
+
+    serviceLinePaymentRequest.paymentMethod = paymentBatch.paymentMethod
+    return serviceLinePaymentRequest;
+
+  }
 }

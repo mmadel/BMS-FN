@@ -2,7 +2,7 @@
   <c-card *ngFor="let entry of insuranceCompanyPostingPayments$ | async | keyvalue " class="mb-3">
     <c-card-header>
       
-      <button class="btn btn-link" (click)="editClient(entry.key.split(',')[2])"><h4>{{ entry.key.split(',')[1]}} , {{ entry.key.split(',')[0]}}</h4></button>
+      <button class="btn btn-link" (click)="editClient(entry.key.split(',')[2])"><h2>{{ entry.key.split(',')[0]}}  {{ entry.key.split(',')[1]}}</h2></button>
     </c-card-header>
     <c-card-body>
       <ng-container fluid="true">

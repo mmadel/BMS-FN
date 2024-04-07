@@ -82,17 +82,10 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     return charge - ((payment === undefined || null ? 0 : payment) + (adjust === undefined || null ? 0 : adjust))
   }
 
-  constructPaymentLines(paymentBatch: PaymentBatch): any[] {
+  constructPaymentLines(paymentBatch: PaymentBatch): any {
     var invalidServiceCode: any[] = this.validate(this.clientPayments.items);
     if (!(invalidServiceCode.length > 0)) {
-        this.enterPaymentService.create(this.constructRequest(paymentBatch))
-          // this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
-          .subscribe((result) => {
-            this.toastr.success("Service lines payments submitted successfully")
-          }, (error) => {
-            this.toastr.error("Error during submitting Service lines payments.")
-          })
-        invalidServiceCode = []
+        return this.constructRequest(paymentBatch);
     }
     return invalidServiceCode;
   }

@@ -1,12 +1,15 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
 import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
 import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
+import { ServiceLinePaymentRequest } from '../../patient/profile/filling/sessions/model/service.line.payment.request';
 import { PatientService } from '../../patient/service/patient.service';
+import { EnterPaymentService } from '../../patient/service/session/payment/enter-payment.service';
 import { ClientPaymentComponent } from '../bip/client/client-payment.component';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 import { InsuranceCompanyPaymentComponent } from '../bip/insurance.company/insurance-company-payment.component';
@@ -49,13 +52,15 @@ export class BatchTemplateComponent implements OnInit {
   postingFilterModel: PostingFilterModel = {};
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
-    , private postingEmitterService: PostingEmitterService) {
+    , private postingEmitterService: PostingEmitterService
+    , private enterPaymentService: EnterPaymentService
+    , private toastr: ToastrService) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
     if (this.batchType === 'bip')
       this.findInsuranceCompanyByNameAutoComplete();
-    if(this.batchType === 'bcp'){
+    if (this.batchType === 'bcp') {
       this.selectedSearchOption = 'client'
     }
 
@@ -168,22 +173,36 @@ export class BatchTemplateComponent implements OnInit {
       this.createInsuranceCompanyPayment();
   }
   createClientPayment() {
-    var invalidServiceCode: any[] = this.clientPayments.constructPaymentLines(this.paymentBatch);
-    if (this.paymentForm.valid && !(invalidServiceCode.length > 0) && (invalidServiceCode[0] !== -1)) {
-      this.invalidServiceCode = []
-  //    window.location.reload()
+    var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.clientPayments.constructPaymentLines(this.paymentBatch);
+    if (this.paymentForm.valid) {
+      this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
+        this.toastr.success('client payment done.');
+        this.renderComponent = undefined;
+        this.paymentForm.reset();
+        this.scrollUp();
+        this.clear(0)
+      }, error => {
+        this.toastr.error('error during client payment.');
+        this.scrollUp();
+      })
     } else {
-      this.invalidServiceCode = invalidServiceCode;
       this.notValidForm = true;
     }
   }
   createInsuranceCompanyPayment() {
-    var invalidServiceCode: any[] = this.insuranceCompanyPayments.constructPaymentLines(this.paymentBatch);
-    if (this.paymentForm.valid && !(invalidServiceCode.length > 0) && (invalidServiceCode[0] !== -1)) {
-      this.invalidServiceCode = []
-      //window.location.reload()
+    var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.insuranceCompanyPayments.constructPaymentLines(this.paymentBatch);
+    if (this.paymentForm.valid) {
+      this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
+        this.toastr.success('Insurance company payment done.');
+        this.renderComponent = undefined;
+        this.paymentForm.reset();
+        this.clear(1)
+        this.scrollUp();
+      }, error => {
+        this.toastr.error('error during Insurance company  payment.');
+        this.scrollUp();
+      })
     } else {
-      this.invalidServiceCode = invalidServiceCode;
       this.notValidForm = true;
     }
   }
@@ -211,5 +230,13 @@ export class BatchTemplateComponent implements OnInit {
       this.renderComponent = 'none'
     }
     this.postingFilterModel = {}
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }
