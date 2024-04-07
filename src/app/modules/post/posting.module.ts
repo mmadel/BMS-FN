@@ -40,6 +40,7 @@ import { InsuranceCompanyPaymentComponent } from './bip/insurance.company/insura
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BatchClientPaymentComponent } from './bcp/batch-client-payment.component';
 import { BatchTemplateComponent } from './batch.template/batch-template.component';
+import { ClientBalanceComponent } from './client.balance/client-balance.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { BatchTemplateComponent } from './batch.template/batch-template.componen
     ClientPaymentComponent,
     InsuranceCompanyPaymentComponent,
     BatchClientPaymentComponent,
-    BatchTemplateComponent
+    BatchTemplateComponent,
+    ClientBalanceComponent
   ],
   imports: [
     CommonModule,
