@@ -38,6 +38,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ClientPaymentComponent } from './bip/client/client-payment.component';
 import { InsuranceCompanyPaymentComponent } from './bip/insurance.company/insurance-company-payment.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BatchClientPaymentComponent } from './bcp/batch-client-payment.component';
+import { BatchTemplateComponent } from './batch.template/batch-template.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ElectronicRemittanceAdviceComponent,
     PostingERAComponent,
     ClientPaymentComponent,
-    InsuranceCompanyPaymentComponent
+    InsuranceCompanyPaymentComponent,
+    BatchClientPaymentComponent,
+    BatchTemplateComponent
   ],
   imports: [
     CommonModule,

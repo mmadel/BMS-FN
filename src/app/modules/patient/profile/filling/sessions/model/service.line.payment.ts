@@ -1,3 +1,5 @@
+import { BatchServiceLineData } from "./batch.service.line.data";
+
 export interface ServiceLinePayment{
     id?:number,
     balance?:number;
@@ -8,4 +10,5 @@ export interface ServiceLinePayment{
     service?:string
     charge?:number
     unit?:number
+    batchServiceLineData?:BatchServiceLineData
 }

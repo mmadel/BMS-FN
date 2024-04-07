@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { SmartTableComponent } from '@coreui/angular-pro';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
 import { ServiceLinePayment } from '../model/service.line.payment';
 import { ServiceLinePaymentRequest } from '../model/service.line.payment.request';
@@ -14,6 +13,7 @@ import { ServiceLinePaymentRequest } from '../model/service.line.payment.request
 })
 export class EnterPaymentComponent implements OnInit {
   @Input() session: any;
+  @Input() insuranceCompanies: any
   @Output() changeVisibility = new EventEmitter<string>()
   @ViewChild('serviceLinesPayments') serviceLinesPayments: SmartTableComponent;
   DOS: string;
@@ -40,6 +40,7 @@ export class EnterPaymentComponent implements OnInit {
     serviceLinePayments: []
   }
   serviceLinesPaymnet: any
+  selectedInsuranceCompany: number = null
   constructor(private enterPaymentService: EnterPaymentService
     , private toastr: ToastrService) { }
 
@@ -96,15 +97,11 @@ export class EnterPaymentComponent implements OnInit {
     }
   }
   private calculateBalance(payment: number, adjust: number, charge: number): number {
-
     return charge - ((payment === undefined || null ? 0 : payment) + (adjust === undefined || null ? 0 : adjust))
   }
   changePaymnet(item: any) {
-    var balance: number = item.balance === item.charge ? item.charge : item.balance
-    if ((item.payment === null || item.adjust === null) || item.payment === 0 || item.adjust === 0) {
-      var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
-      balance = _rslt.balance
-    }
+    var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
+    var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
   }
   changeToServiceLine(item: any) {
@@ -124,7 +121,8 @@ export class EnterPaymentComponent implements OnInit {
       this.constructRequest();
       this.enterPaymentService.create(this.serviceLinePaymentRequest).subscribe((result) => {
         this.changeVisibility.emit('close');
-        this.toastr.success("Payment done.!")
+        this.toastr.success("Session Payment done.!")
+        this.scrollUp();
       })
     }
   }
@@ -140,7 +138,6 @@ export class EnterPaymentComponent implements OnInit {
       var filledServiceLines: any = this.serviceLinesPayments.items.filter((item: any) => {
         return (item.payment !== undefined && item.adjust !== undefined) && (item.payment !== null && item.adjust !== null)
       })
-      console.log(filledServiceLines)
       for (let item of filledServiceLines) {
         if (item.serviceLinePaymentAction === undefined
           || item.serviceLinePaymentAction === null
@@ -174,7 +171,18 @@ export class EnterPaymentComponent implements OnInit {
     this.serviceLinePaymentRequest.authtDate =
       this.serviceLinePaymentRequest.authtDate_date !== undefined ?
         moment(this.serviceLinePaymentRequest.authtDate_date).unix() * 1000 : undefined
-
+    if (this.serviceLinePaymentRequest.serviceLinePaymentType === 'Client')
+      this.serviceLinePaymentRequest.paymentEntityId = this.session.data.patientId;
+    if (this.serviceLinePaymentRequest.serviceLinePaymentType === 'InsuranceCompany')
+      this.serviceLinePaymentRequest.paymentEntityId = this.selectedInsuranceCompany
     this.serviceLinePaymentRequest.serviceLinePayments = filteredList
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

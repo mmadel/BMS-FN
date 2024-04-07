@@ -46,13 +46,15 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   details_visible = Object.create({});
   patientSessions$!: Observable<PatientSessionResponse[]>;
   selectedPatientSession: any;
+  insuranceCompanies:any
   constructor(private patientSessionService: PatientSessionService
     , private emitPatientSessionService: EmitPatientSessionService
     , private router: Router
     , private toastr: ToastrService
     , private invoiceEmitterService: InvoiceEmitterService) { super(); }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
+    this.insuranceCompanies = this.pateint.patientInsurances.map(inComp => inComp.insuranceCompany)
     this.initListComponent();
     this.find();
   }

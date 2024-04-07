@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BatchClientPaymentComponent } from './bcp/batch-client-payment.component';
 
 import {
   BatchInsurnacePaymentComponent,
@@ -13,12 +14,19 @@ const routes: Routes = [
     data: {
       title: 'Posting',
     },
-    children :[
+    children: [
       {
         path: 'bip',
         component: BatchInsurnacePaymentComponent,
         data: {
           title: 'Batch Insurnace Payment',
+        },
+      },
+      {
+        path: 'bcp',
+        component: BatchClientPaymentComponent,
+        data: {
+          title: 'Batch Client Payment',
         },
       },
       {

@@ -70,6 +70,19 @@
                                 </c-input-group>
                             </c-col>
                         </c-row>
+                        <c-row class="justify-content-center"
+                            *ngIf="serviceLinePaymentRequest.serviceLinePaymentType === 'InsuranceCompany'">
+                            <c-col class="col">                                
+                                <select cFormControl cCol cSelect id="insCompEntity" style="max-height: 30px;"
+                                    sizing="sm" class="mb-1" [(ngModel)]="selectedInsuranceCompany"
+                                    name="insCompEntity">
+                                    <option value="null">Select Insurance Company</option>
+                                    <option *ngFor="let obj of insuranceCompanies" [ngValue]="obj[1]">
+                                        {{obj[0]}}
+                                    </option>
+                                </select>
+                            </c-col>
+                        </c-row>
                         <c-row class="justify-content-center">
                             <c-col class="col">
                                 <c-input-group class="mb-1" sizing="sm">

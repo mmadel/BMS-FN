@@ -10,7 +10,7 @@ export class PaymentLinesConstructor {
             if (isPaymentChanged) {
                 var PaymentServiceLine: PaymentServiceLine = {
                     sessionId: item.sessionId,
-                    serviceCodeId: item.serviceCodeId,
+                    serviceLineId: item.serviceCodeId,
                     dateOfService: item.dateOfService,
                     cpt: item.cpt,
                     provider: item.provider,
@@ -21,7 +21,7 @@ export class PaymentLinesConstructor {
                     adjust: item.adjust,
                     prevAdjust: item.prevAdjust,
                     balance: item.balance,
-                    sessionAction: item.sessionAction,
+                    serviceLinePaymentAction: item.sessionAction,
                     paymentBatch: paymentBatch
                 }
                 paymentLines.push(PaymentServiceLine);
