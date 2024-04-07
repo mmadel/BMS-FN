@@ -7,6 +7,7 @@ import { CustomDdateRanges } from '../../invoice/area/session.list/constant/cust
 import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
 import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
+import { ServiceLinePayment } from '../../patient/profile/filling/sessions/model/service.line.payment';
 import { ServiceLinePaymentRequest } from '../../patient/profile/filling/sessions/model/service.line.payment.request';
 import { PatientService } from '../../patient/service/patient.service';
 import { EnterPaymentService } from '../../patient/service/session/payment/enter-payment.service';
@@ -148,7 +149,7 @@ export class BatchTemplateComponent implements OnInit {
 
   changePatientValue(event: any) {
     this.postingFilterModel.entityId = event;
-    
+
 
   }
   changeInsuranceCompanyValue(event: any) {
@@ -176,37 +177,57 @@ export class BatchTemplateComponent implements OnInit {
   }
   createClientPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.clientPayments.constructPaymentLines(this.paymentBatch);
-    if (this.paymentForm.valid) {
-      this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
-        this.toastr.success('client payment done.');
-        this.renderComponent = undefined;
-        this.paymentForm.reset();
-        this.scrollUp();
-        this.clear(0)
-      }, error => {
-        this.toastr.error('error during client payment.');
-        this.scrollUp();
-      })
-    } else {
-      this.notValidForm = true;
+    var validateTotalPayment:boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
+    if(validateTotalPayment){
+      if (this.paymentForm.valid) {
+        this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
+          this.toastr.success('client payment done.');
+          this.renderComponent = undefined;
+          this.paymentForm.reset();
+          this.scrollUp();
+          this.clear(0)
+        }, error => {
+          this.toastr.error('error during client payment.');
+          this.scrollUp();
+        })
+      } else {
+        this.notValidForm = true;
+      }
+    }else{
+      this.toastr.error('Total payment not matched');
+      this.scrollUp();
     }
   }
   createInsuranceCompanyPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.insuranceCompanyPayments.constructPaymentLines(this.paymentBatch);
-    if (this.paymentForm.valid) {
-      this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
-        this.toastr.success('Insurance company payment done.');
-        this.renderComponent = undefined;
-        this.paymentForm.reset();
-        this.clear(1)
-        this.scrollUp();
-      }, error => {
-        this.toastr.error('error during Insurance company  payment.');
-        this.scrollUp();
-      })
-    } else {
-      this.notValidForm = true;
+    var validateTotalPayment:boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
+    if(validateTotalPayment){
+      if (this.paymentForm.valid) {
+        this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
+          this.toastr.success('Insurance company payment done.');
+          this.renderComponent = undefined;
+          this.paymentForm.reset();
+          this.clear(1)
+          this.scrollUp();
+        }, error => {
+          this.toastr.error('error during Insurance company  payment.');
+          this.scrollUp();
+        })
+      } else {
+        this.notValidForm = true;
+      }
+    }else{
+      this.toastr.error('Total payment not matched');
+      this.scrollUp();
     }
+ 
+  }
+  private validateTotalPayments(serviceLinePayments: ServiceLinePayment[]): boolean {
+    var totalPayments = 0
+    for (var i = 0; i < serviceLinePayments.length; i++) {
+      totalPayments = totalPayments + serviceLinePayments[i].payment
+    }
+    return totalPayments === this.paymentBatch.totalAmount;
   }
   search() {
     console.log(this.selectedSearchOption)
