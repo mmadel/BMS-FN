@@ -1,1 +1,52 @@
-<p>client-balance works!</p>
+<ngx-spinner></ngx-spinner>
+<c-row>
+    <c-col xs="8" class="mb-2">
+        <h1>Client Balance Statement</h1>
+    </c-col>
+</c-row>
+<hr />
+<c-row>
+    <c-col>
+        <c-card class="mb-4">
+            <c-card-header ngPreserveWhitespaces>
+                <strong>Search Criteria</strong>
+            </c-card-header>
+            <c-card-body>
+                <form cForm>
+                    <c-row>
+                        <c-col class="mb-2" xs="11">
+                            <input cFormControl name="patientname" [formControl]="patientClient" placeholder="Patient"
+                                class="mb-2" sizing="sm" />
+                            <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoading"
+                                (valueChange)="changePatientValue($event)">
+                                <c-multi-select-option *ngFor="let patient of filteredPatients"
+                                    [value]="patient.clientId">
+                                    {{ patient.clientName}}
+                                </c-multi-select-option>
+                            </c-multi-select>
+                            <span align="center" *ngIf="isLoading">
+                                <c-spinner variant="grow"></c-spinner>
+                            </span>
+                        </c-col>
+                        <c-col class="mb-2" xs="1" *ngIf="selectedSearchOption !== 'none'">
+                            <button cButton size="sm" variant="outline" (click)="clear(1)">
+                                <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                            </button>
+                        </c-col>
+                    </c-row>
+                    <c-col xs="11" class="mb-2 ">
+                        <c-date-range-picker [placeholder]="['Start', 'End']"
+                            [(startDate)]="postingFilterModel.searchStartDate"
+                            [(endDate)]="postingFilterModel.searchEndDate"
+                            [ranges]="customRanges"></c-date-range-picker>
+                    </c-col>
+                </form>
+                <c-col xs="12" class="text-center">
+                    <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">
+                        Search
+                    </button>
+                </c-col>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
