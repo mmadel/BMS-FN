@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-pending-insurance',
+  selector: 'pending-insurance',
   templateUrl: './pending-insurance.component.html',
   styleUrls: ['./pending-insurance.component.scss']
 })

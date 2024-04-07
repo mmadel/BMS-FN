@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-finalize-charge',
+  selector: 'finalize-charge',
   templateUrl: './finalize-charge.component.html',
   styleUrls: ['./finalize-charge.component.scss']
 })
