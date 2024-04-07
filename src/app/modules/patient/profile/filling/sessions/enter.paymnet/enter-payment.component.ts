@@ -13,6 +13,7 @@ import { ServiceLinePaymentRequest } from '../model/service.line.payment.request
 })
 export class EnterPaymentComponent implements OnInit {
   @Input() session: any;
+  @Input() insuranceCompanies: any
   @Output() changeVisibility = new EventEmitter<string>()
   @ViewChild('serviceLinesPayments') serviceLinesPayments: SmartTableComponent;
   DOS: string;
@@ -39,6 +40,7 @@ export class EnterPaymentComponent implements OnInit {
     serviceLinePayments: []
   }
   serviceLinesPaymnet: any
+  selectedInsuranceCompany: number = null
   constructor(private enterPaymentService: EnterPaymentService
     , private toastr: ToastrService) { }
 
@@ -119,7 +121,8 @@ export class EnterPaymentComponent implements OnInit {
       this.constructRequest();
       this.enterPaymentService.create(this.serviceLinePaymentRequest).subscribe((result) => {
         this.changeVisibility.emit('close');
-        this.toastr.success("Payment done.!")
+        this.toastr.success("Session Payment done.!")
+        this.scrollUp();
       })
     }
   }
@@ -168,7 +171,18 @@ export class EnterPaymentComponent implements OnInit {
     this.serviceLinePaymentRequest.authtDate =
       this.serviceLinePaymentRequest.authtDate_date !== undefined ?
         moment(this.serviceLinePaymentRequest.authtDate_date).unix() * 1000 : undefined
-
+    if (this.serviceLinePaymentRequest.serviceLinePaymentType === 'Client')
+      this.serviceLinePaymentRequest.paymentEntityId = this.session.data.patientId;
+    if (this.serviceLinePaymentRequest.serviceLinePaymentType === 'InsuranceCompany')
+      this.serviceLinePaymentRequest.paymentEntityId = this.selectedInsuranceCompany
     this.serviceLinePaymentRequest.serviceLinePayments = filteredList
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

@@ -81,6 +81,7 @@
   </c-modal-header>
   <c-modal-body>
     <enter-payment *ngIf="enterPaymentVisibility" [session]="selectedPatientSession"
-    (changeVisibility)="changeEnterPaymentVisibility($event)"></enter-payment>
+      [insuranceCompanies]="insuranceCompanies"
+      (changeVisibility)="changeEnterPaymentVisibility($event)"></enter-payment>
   </c-modal-body>
 </c-modal>
