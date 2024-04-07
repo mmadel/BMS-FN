@@ -41,6 +41,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BatchClientPaymentComponent } from './bcp/batch-client-payment.component';
 import { BatchTemplateComponent } from './batch.template/batch-template.component';
 import { ClientBalanceComponent } from './client.balance/client-balance.component';
+import { FinalizeChargeComponent } from './client.balance/finalize.charge/finalize-charge.component';
+import { PendingInsuranceComponent } from './client.balance/pending.insurance/pending-insurance.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { ClientBalanceComponent } from './client.balance/client-balance.componen
     InsuranceCompanyPaymentComponent,
     BatchClientPaymentComponent,
     BatchTemplateComponent,
-    ClientBalanceComponent
+    ClientBalanceComponent,
+    FinalizeChargeComponent,
+    PendingInsuranceComponent
   ],
   imports: [
     CommonModule,
