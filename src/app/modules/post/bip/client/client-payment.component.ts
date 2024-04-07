@@ -5,16 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { filter, map, Observable, tap } from 'rxjs';
 import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
-import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
-import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { BatchSessionServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/batch.session.service.line.payment';
-import { ServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment';
 import { ServiceLinePaymentRequest } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment.request';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
 import { PostingServiceService } from '../../service/posting-service.service';
 import { PostingFilterModel } from '../filter/posting.filter.model';
-import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
 
 @Component({
   selector: 'client-payment',
@@ -29,9 +25,10 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   serviceLinePayments$!: Observable<BatchSessionServiceLinePayment[]>;
   totalPayment: number = 0;
   serviceLinesPaymnet: any
+  @Input() entityPaymentId: number;
   columns = [
     { key: 'id' },
-    {key:'dos' ,label: 'DateOfService' },
+    { key: 'dos', label: 'DateOfService' },
     'cpt',
     'provider',
     { key: 'charge', label: 'Billed' },
@@ -85,7 +82,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   constructPaymentLines(paymentBatch: PaymentBatch): any {
     var invalidServiceCode: any[] = this.validate(this.clientPayments.items);
     if (!(invalidServiceCode.length > 0)) {
-        return this.constructRequest(paymentBatch);
+      return this.constructRequest(paymentBatch);
     }
     return invalidServiceCode;
   }
@@ -105,6 +102,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
       return (item.payment !== null && item.adjust !== null)
     })
     serviceLinePaymentRequest.serviceLinePaymentType = 'Client'
+    serviceLinePaymentRequest.paymentEntityId = this.entityPaymentId;
     serviceLinePaymentRequest.receivedDate =
       paymentBatch.receivedDate_date !== undefined ?
         moment(paymentBatch.receivedDate_date).unix() * 1000 : undefined

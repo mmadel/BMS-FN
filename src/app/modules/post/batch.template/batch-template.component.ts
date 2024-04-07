@@ -148,10 +148,12 @@ export class BatchTemplateComponent implements OnInit {
 
   changePatientValue(event: any) {
     this.postingFilterModel.entityId = event;
+    
 
   }
   changeInsuranceCompanyValue(event: any) {
     this.postingFilterModel.entityId = event;
+    console.log(this.postingFilterModel.entityId)
   }
   // onChangePayements(event: any[]) {
   //   if (event[0] === 0)

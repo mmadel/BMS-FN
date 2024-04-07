@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { SmartTableComponent } from '@coreui/angular-pro';
 import * as moment from 'moment';
@@ -6,7 +6,6 @@ import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
 import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
-import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { BatchSessionServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/batch.session.service.line.payment';
 import { ServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment';
@@ -49,6 +48,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     { key: 'serviceLinePaymentAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
   serviceLinesPaymnet: any = []
+  @Input() entityPaymentId: number;
   ngOnInit(): void {
     this.initListComponent();
     this.postingEmitterService.searchPostingInsuranceCompany$.subscribe((emittedPostingFilter: PostingFilterModel) => {
@@ -109,6 +109,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = {};
 
     serviceLinePaymentRequest.serviceLinePaymentType = 'InsuranceCompany'
+    serviceLinePaymentRequest.paymentEntityId = this.entityPaymentId;
     serviceLinePaymentRequest.receivedDate =
       paymentBatch.receivedDate_date !== undefined ?
         moment(paymentBatch.receivedDate_date).unix() * 1000 : undefined

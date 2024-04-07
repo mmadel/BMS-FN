@@ -1,3 +1,4 @@
+<ngx-spinner></ngx-spinner>
 <c-row>
     <c-col xs="8" class="mb-2">
         <h1>{{title}}</h1>
@@ -195,10 +196,11 @@
 
 <c-row>
     <c-col *ngIf="renderComponent ==='client'">
-        <client-payment #clientPayments *ngIf="renderComponent ==='client'"></client-payment>
+        <client-payment #clientPayments *ngIf="renderComponent ==='client'"
+            [entityPaymentId]="postingFilterModel.entityId"></client-payment>
     </c-col>
     <c-col *ngIf="renderComponent ==='insurance'">
         <insurance-company-payment *ngIf="renderComponent ==='insurance'"
-            #insuranceCompanyPayments></insurance-company-payment>
+            [entityPaymentId]="postingFilterModel.entityId" #insuranceCompanyPayments></insurance-company-payment>
     </c-col>
 </c-row>
