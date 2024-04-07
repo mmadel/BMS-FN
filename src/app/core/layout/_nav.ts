@@ -80,6 +80,10 @@ export const navItems: INavData[] = [
         url: '/posting/bcp'
       },
       {
+        name: 'Client Blance',
+        url: '/posting/balance'
+      },
+      {
         name: 'ERA',
         url: '/posting/era'
       }
