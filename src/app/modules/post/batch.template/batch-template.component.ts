@@ -181,7 +181,7 @@ export class BatchTemplateComponent implements OnInit {
     var invalidServiceCode: any[] = this.insuranceCompanyPayments.constructPaymentLines(this.paymentBatch);
     if (this.paymentForm.valid && !(invalidServiceCode.length > 0) && (invalidServiceCode[0] !== -1)) {
       this.invalidServiceCode = []
-      window.location.reload()
+      //window.location.reload()
     } else {
       this.invalidServiceCode = invalidServiceCode;
       this.notValidForm = true;

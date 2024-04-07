@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { SmartTableComponent } from '@coreui/angular-pro';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
 import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
@@ -8,8 +9,10 @@ import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { BatchSessionServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/batch.session.service.line.payment';
+import { ServiceLinePaymentRequest } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment.request';
 import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
 import { PatientService } from 'src/app/modules/patient/service/patient.service';
+import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
 import { PostingServiceService } from '../../service/posting-service.service';
 import { PostingFilterModel } from '../filter/posting.filter.model';
 import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
@@ -30,7 +33,8 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     , private pateintEmittingService: PateintEmittingService
     , private router: Router
     , private toastr: ToastrService
-    , private postingEmitterService: PostingEmitterService) { super() }
+    , private postingEmitterService: PostingEmitterService
+    , private enterPaymentService: EnterPaymentService) { super() }
   columns = [
     { key: 'id' },
     { key: 'dos', label: 'DateOfService' },
@@ -88,32 +92,43 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
       var paymentServiceLine: any[] = this.children.get(i).items
       var invalidServiceCode: any[] = PaymentLinesConstructor.validate(paymentServiceLine);
       var patientId: number = Number(patient.split(',')[2])
+      console.log(JSON.stringify(invalidServiceCode))
       if (!(invalidServiceCode.length > 0)) {
-        var paymentLines: PaymentServiceLine[] = PaymentLinesConstructor.construct(paymentServiceLine, paymentBatch)
-        if (paymentLines.length > 0) {
-          pateintsPaymentServiceLines[patientId] = paymentLines
-        }
-      } else {
-        for (var i = 0; i < invalidServiceCode.length; i++) {
-          totalInvalidServiceCode.push(invalidServiceCode[i])
-        }
-      }
-    }
-    if (totalInvalidServiceCode.length === 0) {
-      //submit
-      if (Object.keys(pateintsPaymentServiceLines).length > 0) {
-        this.postingServiceService.createInsuranceCompanyPayments(pateintsPaymentServiceLines)
+        this.enterPaymentService.create(this.constructRequest(paymentBatch,paymentServiceLine))
+          // this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
           .subscribe((result) => {
             this.toastr.success("Service lines payments submitted successfully")
           }, (error) => {
             this.toastr.error("Error during submitting Service lines payments.")
           })
-        totalInvalidServiceCode = [];
-      } else {
-        totalInvalidServiceCode.push(-1);
+        invalidServiceCode = []
       }
-
     }
-    return totalInvalidServiceCode;
+    return invalidServiceCode;
   }
+    
+  
+  private constructRequest(paymentBatch: PaymentBatch, paymentServiceLine: any[]): ServiceLinePaymentRequest {
+  var serviceLinePaymentRequest: ServiceLinePaymentRequest = {};
+  var filteredList: any = paymentServiceLine.filter((item: any) => {
+    return (item.payment !== null && item.adjust !== null)
+  })
+  serviceLinePaymentRequest.serviceLinePaymentType = 'Client'
+  serviceLinePaymentRequest.receivedDate =
+    paymentBatch.receivedDate_date !== undefined ?
+      moment(paymentBatch.receivedDate_date).unix() * 1000 : undefined
+
+  serviceLinePaymentRequest.checkDate =
+    paymentBatch.checkDate_date !== undefined ?
+      moment(paymentBatch.checkDate_date).unix() * 1000 : undefined
+
+  serviceLinePaymentRequest.depositDate =
+    paymentBatch.depositDate_date !== undefined ?
+      moment(paymentBatch.depositDate_date).unix() * 1000 : undefined
+
+  serviceLinePaymentRequest.paymentMethod = paymentBatch.paymentMethod
+  serviceLinePaymentRequest.serviceLinePayments = filteredList;
+  return serviceLinePaymentRequest;
+
+}
 }
