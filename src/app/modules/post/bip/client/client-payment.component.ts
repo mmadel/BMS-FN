@@ -8,6 +8,8 @@ import { PaymentBatch } from 'src/app/modules/model/posting/batch.paymnet';
 import { ClientPostingPayments } from 'src/app/modules/model/posting/client.posting.payments';
 import { PaymentServiceLine } from 'src/app/modules/model/posting/payment.service.line';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
+import { BatchSessionServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/batch.session.service.line.payment';
+import { ServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment';
 import { ServiceLinePaymentRequest } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment.request';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
 import { PostingServiceService } from '../../service/posting-service.service';
@@ -24,16 +26,16 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   @ViewChild('clientPayments') clientPayments: SmartTableComponent;
-  clientPostingPayments$!: Observable<ClientPostingPayments[]>;
+  serviceLinePayments$!: Observable<BatchSessionServiceLinePayment[]>;
   totalPayment: number = 0;
   serviceLinesPaymnet: any
   columns = [
     { key: 'id' },
-    'dateOfService',
+    {key:'dos' ,label: 'DateOfService' },
     'cpt',
     'provider',
-    { key: 'billedValue', label: 'Billed' },
-    { key: 'previousPayments', label: 'Pmts' },
+    { key: 'charge', label: 'Billed' },
+    { key: 'previousPayment', label: 'Pmts' },
     { key: 'payment', label: 'PmtAmt' },
     { key: 'adjust', label: 'Adjust' },
     { key: 'balance', label: 'Balance', _style: { width: '10%' } },
@@ -54,7 +56,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   private find() {
     this.filter.startDate = this.filter.searchStartDate !== undefined ? moment(this.filter.searchStartDate).unix() * 1000 : undefined
     this.filter.endDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchEndDate).unix() * 1000 : undefined
-    this.clientPostingPayments$ = this.postingServiceService.findClientPaymentsFiltered(this.apiParams$, this.filter).pipe(
+    this.serviceLinePayments$ = this.postingServiceService.findClientPaymentsFiltered(this.apiParams$, this.filter).pipe(
       filter((result) => result !== null),
       tap((response: any) => {
         this.totalItems$.next(response.number_of_records);
@@ -64,12 +66,13 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
       }),
       map((response: any) => {
         this.serviceLinesPaymnet = response.records
-        return response.records;
+        return response.records
       })
     );
   }
 
   changePaymnet(item: any) {
+    console.log(JSON.stringify(item))
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
@@ -85,7 +88,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
       var paymentLines: PaymentServiceLine[] = PaymentLinesConstructor.construct(this.clientPayments.items, paymentBatch)
       if (paymentLines.length > 0) {
         this.enterPaymentService.create(this.constructRequest(paymentBatch))
-        // this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
+          // this.postingServiceService.createClientPayments(paymentLines, this.filter.entityId)
           .subscribe((result) => {
             this.toastr.success("Service lines payments submitted successfully")
           }, (error) => {

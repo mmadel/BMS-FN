@@ -15,10 +15,10 @@
             <td>
               <ng-container [ngSwitch]="columnName">
                 <ng-container *ngSwitchCase="'id'" class="py-2">
-                  {{item.serviceCodeId}}
+                  {{item.serviceLineId}}
                 </ng-container>
-                <ng-container *ngSwitchCase="'dateOfService'" class="py-2">
-                  {{item.dateOfService | date:'MMM d, y' }}
+                <ng-container *ngSwitchCase="'dos'" class="py-2">
+                  {{item.dos | date:'MMM d, y' }}
                 </ng-container>
                 <ng-container *ngSwitchCase="'billedValue'" class="py-2">
                   {{item.billedValue |currency }}
@@ -27,21 +27,21 @@
                   <c-input-group sizing="sm">
                     <span cInputGroupText id="payment">&#36;</span>
                     <input cFormControl aria-describedby="payment" class="w-10" [(ngModel)]="item.payment" type="number"
-                      (focusout)="emitPayment($event ,item)">
+                      (focusout)="changePaymnet(item)">
                   </c-input-group>
                 </ng-container>
                 <ng-container *ngSwitchCase="'adjust'" class="py-2">
                   <c-input-group sizing="sm">
                     <span cInputGroupText id="adjust">&#36;</span>
                     <input cFormControl aria-describedby="adjust" class="w-10" [(ngModel)]="item.adjust" type="number"
-                      (focusout)="emitAdjust($event ,item)">
+                      (focusout)="changePaymnet(item)">
                   </c-input-group>
                 </ng-container>
                 <ng-container *ngSwitchCase="'balance'" class="py-2">
                   <label>{{item.balance | currency}}</label>
                 </ng-container>
-                <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
-                  <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.sessionAction" [disabled]="item.payment === null || item.adjust === null">
+                <ng-container *ngSwitchCase="'serviceLinePaymentAction'" class="py-2">
+                  <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction" [disabled]="item.payment === null || item.adjust === null">
                     <option value=null selected disabled>Select</option>
                     <option value="Resubmit"> Resubmit</option>
                     <option value="Close">Close Session</option>

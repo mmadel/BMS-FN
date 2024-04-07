@@ -1,10 +1,10 @@
 <ngx-spinner></ngx-spinner>
 <c-container fluid="true">
   <ng-container *ngIf="props$ | async as props" fluid="true">
-    <c-smart-table  [columns]="columns" #clientPayments
-      [items]="(clientPostingPayments$ | async) ?? []" activePage="1" [itemsPerPage]="props.itemsPerPage"
-      (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20,30,40,50]"
-      [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+    <c-smart-table [columns]="columns" #clientPayments [items]="(serviceLinePayments$ | async) ?? []" activePage="1"
+      [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
+      [itemsPerPageOptions]="[5,10,20,30,40,50]" [itemsPerPageSelect]="true"
+      [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
       [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
       [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
       (sorterValueChange)="handleSorterValueChange($event)" header>
@@ -14,8 +14,8 @@
             <ng-container *ngSwitchCase="'id'" class="py-2">
               {{item.serviceLineId}}
             </ng-container>
-            <ng-container *ngSwitchCase="'dateOfService'" class="py-2">
-              {{item.dateOfService | date:'MMM d, y' }}
+            <ng-container *ngSwitchCase="'dos'" class="py-2">
+              {{item.dos | date:'MMM d, y' }}
             </ng-container>
             <ng-container *ngSwitchCase="'billedValue'" class="py-2">
               {{item.billedValue |currency }}
@@ -23,22 +23,23 @@
             <ng-container *ngSwitchCase="'payment'" class="py-2 ">
               <c-input-group sizing="sm">
                 <span cInputGroupText id="payment">&#36;</span>
-                <input cFormControl aria-describedby="payment" class="w-10" [(ngModel)]="item.payment" type="number" 
-                (ngModelChange)="changePaymnet(item)">
+                <input cFormControl #pymentAmt aria-describedby="payment" class="w-10" type="number"
+                  (focusout)="changePaymnet(item)" [(ngModel)]="item.payment">
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'adjust'" class="py-2">
               <c-input-group sizing="sm">
                 <span cInputGroupText id="adjust">&#36;</span>
-                <input cFormControl aria-describedby="adjust" class="w-10" [(ngModel)]="item.adjust" type="number"
-                  (ngModelChange)="changePaymnet(item)">
+                <input cFormControl #adjustAmt aria-describedby="adjust" class="w-10" type="number"
+                  (focusout)="changePaymnet(item)" [(ngModel)]="item.adjust">
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'balance'" class="py-2">
               <label>{{item.balance | currency}}</label>
             </ng-container>
-            <ng-container *ngSwitchCase="'serviceLinePaymentAction'" class="py-2" >
-              <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction" [disabled]="item.payment === null || item.adjust === null">
+            <ng-container *ngSwitchCase="'serviceLinePaymentAction'" class="py-2">
+              <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction"
+                [disabled]="item.payment === null || item.adjust === null">
                 <option value=null selected disabled>Select</option>
                 <option value="Resubmit"> Resubmit</option>
                 <option value="Close">Close Session</option>
