@@ -42,7 +42,8 @@
                     </c-col>
                 </form>
                 <c-col xs="12" class="text-center">
-                    <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">
+                    <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()"
+                        [disabled]="postingFilterModel.entityId ===undefined">
                         Search
                     </button>
                 </c-col>
