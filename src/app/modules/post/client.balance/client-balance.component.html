@@ -6,7 +6,7 @@
 </c-row>
 <hr />
 <c-row>
-    <c-col>
+    <c-col xs="12">
         <c-card class="mb-4">
             <c-card-header ngPreserveWhitespaces>
                 <strong>Search Criteria</strong>
@@ -52,6 +52,20 @@
     </c-col>
 </c-row>
 <c-row *ngIf="searchFlag">
+    <c-col xs="4" class="mb-3">
+        <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+            <c-dropdown variant="btn-group">
+              <button cButton cDropdownToggle>
+                Actions
+              </button>
+              <ul cDropdownMenu variant="outline" >
+                <li><a cDropdownItem [routerLink]="[]">Export PDF</a></li>
+                <li cDropdownDivider></li>
+                <li><a cDropdownItem [routerLink]="[]">Settings</a></li>
+              </ul>
+            </c-dropdown>
+          </c-button-group>
+    </c-col>
     <c-col xs="12" class="mb-3">
         <finalize-charge *ngIf="searchFlag" #finalizeCharge></finalize-charge>
     </c-col>
