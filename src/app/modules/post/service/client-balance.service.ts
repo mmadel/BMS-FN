@@ -18,5 +18,11 @@ export class ClientBalanceService extends BasePaginationService {
     var url = this.baseUrl + '/find/awaiting/patient/' + clientId;
     return this.post(config$, url, JSON.stringify(filterModel))
   }
+  public findfinalize(config$: BehaviorSubject<IApiParams>, clientId: number, filterModel: PostingFilterModel): Observable<any> {
+    
+    var url = this.baseUrl + '/find/finalized/patient/' + clientId;
+    console.log('########################## ' +  url)
+    return this.post(config$, url, JSON.stringify(filterModel))
+  }
 
 }

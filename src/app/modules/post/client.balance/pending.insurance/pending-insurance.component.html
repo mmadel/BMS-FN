@@ -7,7 +7,7 @@
       </c-col>
     </c-row>
     <ng-container *ngIf="props$ | async as props" fluid="true">
-      <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
+      <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" #pending
         [items]="(pendingClientBalance$ | async) ?? []" [itemsPerPage]="props.itemsPerPage"
         (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20,25,30,40,45,50]"
         [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, small:true }"

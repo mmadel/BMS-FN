@@ -1,6 +1,45 @@
 <ngx-spinner></ngx-spinner>
-<c-row>
-    <c-col xs="8" class="mb-2">
+<c-card>
+  <c-card-body>
+    <c-row>
+      <c-col xs="8" class="mb-2">
         <h2>Finalize Charge</h2>
-    </c-col>
-</c-row>
+      </c-col>
+    </c-row>
+    <ng-container *ngIf="props$ | async as props" fluid="true">
+      <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" #finalize
+        [items]="(finalizeClientBalance$ | async) ?? []" [itemsPerPage]="props.itemsPerPage"
+        (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20,25,30,40,45,50]"
+        [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, small:true }"
+        [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+        [tableBodyProps]="{ align: 'middle' }" (sorterValueChange)="handleSorterValueChange($event)" header>
+        <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+          <td>
+            <ng-container [ngSwitch]="columnName">
+              <ng-container *ngSwitchCase="'dos'" class="py-2">
+                {{tdContent| date:'MMM d, y, h:mm a'}}
+              </ng-container>
+              <ng-container *ngSwitchCase="'actions'" class="py-2">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button cButton variant="outline" size="sm">
+                    <svg cIcon name="cilPen"></svg>
+                  </button>
+                  <c-dropdown variant="btn-group">
+                    <button cButton cDropdownToggle variant="outline" size="sm">
+                      actions
+                    </button>
+                  </c-dropdown>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                {{tdContent}}
+              </ng-container>
+            </ng-container>
+          </td>
+        </ng-template>
+      </c-smart-table>
+      <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+        (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+    </ng-container>
+  </c-card-body>
+</c-card>

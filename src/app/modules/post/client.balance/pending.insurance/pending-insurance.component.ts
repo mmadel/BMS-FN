@@ -13,7 +13,7 @@ import { ClientBalanceService } from '../../service/client-balance.service';
   styleUrls: ['./pending-insurance.component.scss']
 })
 export class PendingInsuranceComponent extends ListTemplate implements OnInit {
-  filter: PostingFilterModel;
+  pendinfFilter: PostingFilterModel;
   pendingClientBalance$!: Observable<ClientBalance[]>;
   columns = [
     {
@@ -49,13 +49,12 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
   ngOnInit(): void {
     this.initListComponent();
     this.postingEmitterService.searchPostingInsuranceCompany$.subscribe((emittedPostingFilter: PostingFilterModel) => {
-      this.filter = emittedPostingFilter;
+      this.pendinfFilter = emittedPostingFilter;
       this.find();
     })
-    this.find();
   }
   private find() {
-    this.pendingClientBalance$ = this.clientBalanceService.findAwaiting(this.apiParams$, this.filter.entityId, this.filter)
+    this.pendingClientBalance$ = this.clientBalanceService.findAwaiting(this.apiParams$, this.pendinfFilter.entityId, this.pendinfFilter)
       .pipe(
         filter((result) => result !== null),
         tap((response: any) => {

@@ -53,12 +53,10 @@
 </c-row>
 <c-row *ngIf="searchFlag">
     <c-col xs="12">
-        <finalize-charge [postingFilterModel]="postingFilterModel" *ngIf="searchFlag"></finalize-charge>
+        <finalize-charge *ngIf="searchFlag" #finalizeCharge></finalize-charge>
     </c-col>
-</c-row>
-
-<c-row>
     <c-col xs="12">
-        <pending-insurance *ngIf="searchFlag"></pending-insurance>
+        <pending-insurance *ngIf="searchFlag" #pendingInsurance></pending-insurance>
     </c-col>
+
 </c-row>
