@@ -10,12 +10,12 @@ import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ClientBalanceService extends BasePaginationService  {
+export class ClientBalanceService extends BasePaginationService {
   private baseUrl = environment.baseURL + '/client/balance'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
-  public findAwaiting(config$: BehaviorSubject<IApiParams>, filterModel: FilterModel): Observable<any> {
-    var url = this.baseUrl + '/find';
+  public findAwaiting(config$: BehaviorSubject<IApiParams>, clientId: number, filterModel: FilterModel): Observable<any> {
+    var url = this.baseUrl + '/find/awaiting/patient/' + clientId;
     return this.post(config$, url, JSON.stringify(filterModel))
   }
 
