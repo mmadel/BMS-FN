@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PostingFilterModel } from '../../bip/filter/posting.filter.model';
 
 @Component({
   selector: 'finalize-charge',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./finalize-charge.component.scss']
 })
 export class FinalizeChargeComponent implements OnInit {
-
+  @Input() postingFilterModel: PostingFilterModel;
   constructor() { }
 
   ngOnInit(): void {
