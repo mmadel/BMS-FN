@@ -1,16 +1,73 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import { filter, map, Observable, tap } from 'rxjs';
+import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
+import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingFilterModel } from '../../bip/filter/posting.filter.model';
+import { ClientBalance } from '../../model/client.balance';
+import { ClientBalanceService } from '../../service/client-balance.service';
 
 @Component({
   selector: 'pending-insurance',
   templateUrl: './pending-insurance.component.html',
   styleUrls: ['./pending-insurance.component.scss']
 })
-export class PendingInsuranceComponent implements OnInit {
-  @Input() postingFilterModel: PostingFilterModel;
-  constructor() { }
+export class PendingInsuranceComponent extends ListTemplate implements OnInit {
+  filter: PostingFilterModel;
+  pendingClientBalance$!: Observable<ClientBalance[]>;
+  columns = [
+    {
+      key: 'dos', label: 'DOS'
+    },
+    {
+      key: 'serviceCode', label: 'Service'
+    },
+    {
+      key: 'provider', label: 'Provider'
+    },
+    {
+      key: 'charge', label: 'Charge'
+    },
+    {
+      key: 'insCompanyPayment', label: 'Ins'
+    },
+    {
+      key: 'clientPayment', label: 'Client'
+    },
+    {
+      key: 'adjustPayment', label: 'Adj'
+    },
+    {
+      key: 'balance', label: 'Balance'
+    },
+  ]
+  constructor(private clientBalanceService: ClientBalanceService
+    , private postingEmitterService: PostingEmitterService) {
+    super()
+  }
 
   ngOnInit(): void {
+    this.initListComponent();
+    this.postingEmitterService.searchPostingInsuranceCompany$.subscribe((emittedPostingFilter: PostingFilterModel) => {
+      this.filter = emittedPostingFilter;
+      this.find();
+    })
+    this.find();
+  }
+  private find() {
+    this.pendingClientBalance$ = this.clientBalanceService.findAwaiting(this.apiParams$, this.filter.entityId, this.filter)
+      .pipe(
+        filter((result) => result !== null),
+        tap((response: any) => {
+          this.totalItems$.next(response.number_of_records);
+          if (response.number_of_records) {
+            this.errorMessage$.next('');
+          }
+        }),
+        map(response => {
+          return response.records;
+        })
+      )
   }
 
 }

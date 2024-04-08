@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
+import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
 import { PatientService } from '../../patient/service/patient.service';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 
@@ -18,7 +20,9 @@ export class ClientBalanceComponent implements OnInit {
   customRanges = CustomDdateRanges.dateRnage;
   enteredClientName: string;
   selectedSearchOption: string = "none";
-  constructor(private patientService: PatientService) { }
+  searchFlag: boolean = false;
+  constructor(private patientService: PatientService
+    , private postingEmitterService: PostingEmitterService) { }
 
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -66,11 +70,19 @@ export class ClientBalanceComponent implements OnInit {
           this.isLoading = false
         });
   }
-  search(){
+  search() {
+    this.searchFlag = true;
+    if (this.postingFilterModel.searchStartDate !== undefined)
+      this.postingFilterModel.startDate = moment(this.postingFilterModel.searchStartDate).unix() * 1000
 
+    if (this.postingFilterModel.searchEndDate !== undefined)
+      this.postingFilterModel.endDate = moment(this.postingFilterModel.searchEndDate).unix() * 1000
+
+    console.log(JSON.stringify(this.postingFilterModel))
+    this.postingEmitterService.searchPostingInsuranceCompany$.next(this.postingFilterModel)
   }
-  
+
   clear(filterType: number) {
-    
+    this.searchFlag = false;
   }
 }

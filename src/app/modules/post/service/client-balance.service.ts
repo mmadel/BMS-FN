@@ -14,7 +14,7 @@ export class ClientBalanceService extends BasePaginationService {
   private baseUrl = environment.baseURL + '/client/balance'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
-  public findAwaiting(config$: BehaviorSubject<IApiParams>, clientId: number, filterModel: FilterModel): Observable<any> {
+  public findAwaiting(config$: BehaviorSubject<IApiParams>, clientId: number, filterModel: PostingFilterModel): Observable<any> {
     var url = this.baseUrl + '/find/awaiting/patient/' + clientId;
     return this.post(config$, url, JSON.stringify(filterModel))
   }
