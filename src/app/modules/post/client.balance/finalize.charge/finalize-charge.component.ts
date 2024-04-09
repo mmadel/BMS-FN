@@ -67,5 +67,7 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
         })
       )
   }
-
-}
+  onselect(event:any){
+      console.log(JSON.stringify(event))
+  }
+} 

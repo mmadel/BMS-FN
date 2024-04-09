@@ -12,7 +12,8 @@
         (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20,25,30,40,45,50]"
         [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, small:true }"
         [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
-        [tableBodyProps]="{ align: 'middle' }" (sorterValueChange)="handleSorterValueChange($event)" header>
+        [tableBodyProps]="{ align: 'middle' }" (sorterValueChange)="handleSorterValueChange($event)"
+        selectable (selectedItemsChange)="onselect($event)" header>
         <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
           <td>
             <ng-container [ngSwitch]="columnName">
