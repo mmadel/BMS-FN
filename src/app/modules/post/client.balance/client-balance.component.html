@@ -59,7 +59,7 @@
                 Actions
               </button>
               <ul cDropdownMenu variant="outline" >
-                <li><a cDropdownItem [routerLink]="[]">Export PDF</a></li>
+                <li><a cDropdownItem (click)="export()">Export PDF</a></li>
                 <li cDropdownDivider></li>
                 <li><a cDropdownItem [routerLink]="[]">Settings</a></li>
               </ul>

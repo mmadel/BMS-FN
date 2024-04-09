@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
@@ -6,6 +6,10 @@ import { CustomDdateRanges } from '../../invoice/area/session.list/constant/cust
 import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
 import { PatientService } from '../../patient/service/patient.service';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
+import { ClientBalanceInvoice } from '../model/clinet.balance.invoice';
+import { ClientBalanceService } from '../service/client-balance.service';
+import { FinalizeChargeComponent } from './finalize.charge/finalize-charge.component';
+import { PendingInsuranceComponent } from './pending.insurance/pending-insurance.component';
 
 @Component({
   selector: 'app-client-balance',
@@ -21,8 +25,11 @@ export class ClientBalanceComponent implements OnInit {
   enteredClientName: string;
   selectedSearchOption: string = "none";
   searchFlag: boolean = false;
+  @ViewChild('pendingInsurance') pendingInsuranceComponent: PendingInsuranceComponent;
+  @ViewChild('finalizeCharge') finalizeChargeComponent: FinalizeChargeComponent;
   constructor(private patientService: PatientService
-    , private postingEmitterService: PostingEmitterService) { }
+    , private postingEmitterService: PostingEmitterService
+    , private clientBalanceService: ClientBalanceService) { }
 
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -84,5 +91,26 @@ export class ClientBalanceComponent implements OnInit {
 
   clear(filterType: number) {
     this.searchFlag = false;
+  }
+  export() {
+    var clientBalanceInvoice: ClientBalanceInvoice = {
+      pendingClientBalance: this.pendingInsuranceComponent.selectedPendingClientBalance,
+      finalizedClientBalance: this.finalizeChargeComponent.selectedfinalizeClientBalance
+    }
+    this.clientBalanceService.export(clientBalanceInvoice).subscribe(result => {
+      this.constructExportedFile(result, 'invoice-', 'pdf')
+      console.log('exported');
+    }, error => {
+      console.log('error during exporting');
+    })
+  }
+  constructExportedFile(response: any, fileName: string, extention: string) {
+    const a = document.createElement('a')
+    const objectUrl = URL.createObjectURL(response)
+    a.href = objectUrl
+    var nameDatePart = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    a.download = fileName + nameDatePart + '.' + extention;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
   }
 }

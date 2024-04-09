@@ -15,6 +15,7 @@ import { ClientBalanceService } from '../../service/client-balance.service';
 export class PendingInsuranceComponent extends ListTemplate implements OnInit {
   pendinfFilter: PostingFilterModel;
   pendingClientBalance$!: Observable<ClientBalance[]>;
+  selectedPendingClientBalance: ClientBalance[]
   columns = [
     {
       key: 'dos', label: 'DOS'
@@ -68,7 +69,8 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
         })
       )
   }
-  onselect(event:any){
-    console.log(JSON.stringify(event))
-}
+  onselect(event: any) {
+    this.selectedPendingClientBalance = []
+    this.selectedPendingClientBalance.push(...event)
+  }
 }

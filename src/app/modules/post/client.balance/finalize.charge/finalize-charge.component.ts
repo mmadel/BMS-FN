@@ -14,6 +14,7 @@ import { ClientBalanceService } from '../../service/client-balance.service';
 export class FinalizeChargeComponent extends ListTemplate implements OnInit {
   finalizeFilter: PostingFilterModel;
   finalizeClientBalance$!: Observable<ClientBalance[]>;
+  selectedfinalizeClientBalance: ClientBalance[]
   columns = [
     {
       key: 'dos', label: 'DOS'
@@ -67,7 +68,8 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
         })
       )
   }
-  onselect(event:any){
-      console.log(JSON.stringify(event))
+  onselect(event: any) {
+    this.selectedfinalizeClientBalance = []
+    this.selectedfinalizeClientBalance.push(...event)
   }
 } 
