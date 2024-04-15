@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientBalanceSettings } from '../../model/settings/client.balance.settings';
+import { ClientBalanceService } from '../../service/client-balance.service';
 
 @Component({
   selector: 'client-balance-settings',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-balance-settings.component.scss']
 })
 export class ClientBalanceSettingsComponent implements OnInit {
+  clientBalanceSettings:ClientBalanceSettings
 
-  constructor() { }
+  constructor(private clientBalanceService:ClientBalanceService) { }
 
   ngOnInit(): void {
+    this.clientBalanceService.findClientBalanceSettings().subscribe(result=>{
+      this.clientBalanceSettings = result;
+    })
   }
   save(){
     

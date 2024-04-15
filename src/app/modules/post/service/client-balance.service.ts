@@ -29,5 +29,8 @@ export class ClientBalanceService extends BasePaginationService {
     var url = this.baseUrl + '/pdf';
     return this.httpClient.post(`${url}`, JSON.stringify(clientBalanceInvoice), { responseType: 'blob', 'headers': headers })
   }
-
+  public findClientBalanceSettings(){
+    var url = this.baseUrl + '/settings/find/';
+    return this.httpClient.get(url)
+  }
 }

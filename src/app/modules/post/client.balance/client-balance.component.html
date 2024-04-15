@@ -79,6 +79,6 @@
         <button (click)="toggleSettingsVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <client-balance-settings></client-balance-settings>
+        <client-balance-settings *ngIf="settingsVisible"></client-balance-settings>
     </c-modal-body>
 </c-modal>
