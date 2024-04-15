@@ -43,6 +43,7 @@ import { BatchTemplateComponent } from './batch.template/batch-template.componen
 import { ClientBalanceComponent } from './client.balance/client-balance.component';
 import { FinalizeChargeComponent } from './client.balance/finalize.charge/finalize-charge.component';
 import { PendingInsuranceComponent } from './client.balance/pending.insurance/pending-insurance.component';
+import { ClientBalanceSettingsComponent } from './client.balance/settings/client-balance-settings.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { PendingInsuranceComponent } from './client.balance/pending.insurance/pe
     BatchTemplateComponent,
     ClientBalanceComponent,
     FinalizeChargeComponent,
-    PendingInsuranceComponent
+    PendingInsuranceComponent,
+    ClientBalanceSettingsComponent
   ],
   imports: [
     CommonModule,
