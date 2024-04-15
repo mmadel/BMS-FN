@@ -11,5 +11,8 @@ export class ClientBalanceSettingsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  save(){
+    
+  }
 
 }
