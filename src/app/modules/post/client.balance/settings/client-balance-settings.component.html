@@ -5,6 +5,130 @@
                 <strong>Printing Options</strong>
             </c-card-header>
             <c-card-body>
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Show Tax ID</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="staxidy" [value]="true" name="staxidy"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="staxidy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="staxidn" [value]="false" name="staxidn"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="autoaccidentno">No</label>
+                                </c-form-check>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show NPI</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="npiy" [value]="true" name="npiy"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="npiy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="npin" [value]="false" name="npin"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="npin">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show Rendring Provider</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="rprovidery" [value]="true" name="rprovidery"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="rprovidery">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="rprovidern" [value]="false" name="rprovidern"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="rprovidern">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show ICD-10 Daignosis</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="icdy" [value]="true" name="icdy"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="icdy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="icdn" [value]="false" name="icdn"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="icdn">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show Patient birthdate</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="pdoby" [value]="true" name="pdoby"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="pdoby">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="pdobn" [value]="false" name="pdobn"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="pdobn">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show Locations</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="locy" [value]="true" name="locy"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="locy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="locn" [value]="false" name="locn"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="locn">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td  style="width: 28%;">
+                                <strong>Show Place Of Service</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="pocy" [value]="true" name="pocy"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="pocy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="pocn" [value]="false" name="pocn"
+                                        [checked]="" type="radio" />
+                                    <label cFormCheckLabel for="pocn">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </c-card-body>
         </c-card>
     </c-col>
