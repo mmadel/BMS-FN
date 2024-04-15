@@ -7,6 +7,7 @@ import { IApiParams } from '../../model/interface/api.params';
 import { BasePaginationService } from '../../model/service/base-pagination.service';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 import { ClientBalanceInvoice } from '../model/clinet.balance.invoice';
+import { ClientBalanceSettings } from '../model/settings/client.balance.settings';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,12 @@ export class ClientBalanceService extends BasePaginationService {
     return this.httpClient.post(`${url}`, JSON.stringify(clientBalanceInvoice), { responseType: 'blob', 'headers': headers })
   }
   public findClientBalanceSettings(){
-    var url = this.baseUrl + '/settings/find/';
+    var url = this.baseUrl + '/settings/find';
     return this.httpClient.get(url)
+  }
+  public updateClientBalanceSettings(clientBalanceSettings:ClientBalanceSettings){
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/settings/create';
+    return this.httpClient.post(`${url}` , JSON.stringify(clientBalanceSettings),{'headers': headers })
   }
 }

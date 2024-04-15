@@ -119,4 +119,7 @@ export class ClientBalanceComponent implements OnInit {
   openSettings(){
     this.settingsVisible = true;
   }
+  changeClientBalanceSettings(event:any){ 
+    this.settingsVisible = false;
+  }
 }

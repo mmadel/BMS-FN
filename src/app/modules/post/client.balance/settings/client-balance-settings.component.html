@@ -13,14 +13,16 @@
                             </td>
                             <td>
                                 <c-form-check inline sizing="xl">
-                                    <input cFormCheckInput id="staxidy" [value]="true" name="staxidy"
-                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.taxID" type="radio" />
+                                    <input cFormCheckInput id="staxidy" [value]="true" name="staxid"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.taxID" type="radio" 
+                                        (change)="changeTaxID($event)"/>
                                     <label cFormCheckLabel for="staxidy">Yes</label>
                                 </c-form-check>
                                 <c-form-check inline>
-                                    <input cFormCheckInput id="staxidn" [value]="false" name="staxidn"
-                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.taxID" type="radio" />
-                                    <label cFormCheckLabel for="autoaccidentno">No</label>
+                                    <input cFormCheckInput id="staxidn" [value]="false" name="staxid"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.taxID" type="radio" 
+                                        (change)="changeTaxID($event)"/>
+                                    <label cFormCheckLabel for="staxidn">No</label>
                                 </c-form-check>
                             </td>
 
@@ -31,13 +33,15 @@
                             </td>
                             <td>
                                 <c-form-check inline sizing="xl">
-                                    <input cFormCheckInput id="npiy" [value]="true" name="npiy"
-                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.npi" type="radio" />
+                                    <input cFormCheckInput id="npiy" [value]="true" name="npi"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.npi" type="radio" 
+                                        (change)="changeNPI($event)"/>
                                     <label cFormCheckLabel for="npiy">Yes</label>
                                 </c-form-check>
                                 <c-form-check inline>
-                                    <input cFormCheckInput id="npin" [value]="false" name="npin"
-                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.npi" type="radio" />
+                                    <input cFormCheckInput id="npin" [value]="false" name="npi"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.npi" type="radio" 
+                                        (change)="changeNPI($event)"/>
                                     <label cFormCheckLabel for="npin">No</label>
                                 </c-form-check>
                             </td>
@@ -48,13 +52,15 @@
                             </td>
                             <td>
                                 <c-form-check inline sizing="xl">
-                                    <input cFormCheckInput id="rprovidery" [value]="true" name="rprovidery"
-                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.renderingProvider" type="radio" />
+                                    <input cFormCheckInput id="rprovidery" [value]="true" name="rprovider"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.renderingProvider" type="radio" 
+                                        (change)="changeRendringProvider($event)"/>
                                     <label cFormCheckLabel for="rprovidery">Yes</label>
                                 </c-form-check>
                                 <c-form-check inline>
-                                    <input cFormCheckInput id="rprovidern" [value]="false" name="rprovidern"
-                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.renderingProvider" type="radio" />
+                                    <input cFormCheckInput id="rprovidern" [value]="false" name="rprovider"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.renderingProvider" type="radio" 
+                                        (change)="changeRendringProvider($event)"/>
                                     <label cFormCheckLabel for="rprovidern">No</label>
                                 </c-form-check>
                             </td>
@@ -65,13 +71,15 @@
                             </td>
                             <td>
                                 <c-form-check inline sizing="xl">
-                                    <input cFormCheckInput id="icdy" [value]="true" name="icdy"
-                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.icdCodes" type="radio" />
+                                    <input cFormCheckInput id="icdy" [value]="true" name="icd"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.icdCodes" type="radio" 
+                                        (change)="changeICD10($event)"/>
                                     <label cFormCheckLabel for="icdy">Yes</label>
                                 </c-form-check>
                                 <c-form-check inline>
-                                    <input cFormCheckInput id="icdn" [value]="false" name="icdn"
-                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.icdCodes" type="radio" />
+                                    <input cFormCheckInput id="icdn" [value]="false" name="icd"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.icdCodes" type="radio" 
+                                        (change)="changeICD10($event)"/>
                                     <label cFormCheckLabel for="icdn">No</label>
                                 </c-form-check>
                             </td>
@@ -82,13 +90,15 @@
                             </td>
                             <td>
                                 <c-form-check inline sizing="xl">
-                                    <input cFormCheckInput id="pdoby" [value]="true" name="pdoby"
-                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.patientDOB" type="radio" />
+                                    <input cFormCheckInput id="pdoby" [value]="true" name="pdob"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.patientDOB" type="radio" 
+                                        (change)="changePatientDateOfBirth($event)"/>
                                     <label cFormCheckLabel for="pdoby">Yes</label>
                                 </c-form-check>
                                 <c-form-check inline>
-                                    <input cFormCheckInput id="pdobn" [value]="false" name="pdobn"
-                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.patientDOB" type="radio" />
+                                    <input cFormCheckInput id="pdobn" [value]="false" name="pdob"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.patientDOB" type="radio" 
+                                        (change)="changePatientDateOfBirth($event)"/>
                                     <label cFormCheckLabel for="pdobn">No</label>
                                 </c-form-check>
                             </td>
@@ -99,13 +109,15 @@
                             </td>
                             <td>
                                 <c-form-check inline sizing="xl">
-                                    <input cFormCheckInput id="locy" [value]="true" name="locy"
-                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.location" type="radio" />
+                                    <input cFormCheckInput id="locy" [value]="true" name="loc"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.location" type="radio" 
+                                        (change)="changeLocation($event)"/>
                                     <label cFormCheckLabel for="locy">Yes</label>
                                 </c-form-check>
                                 <c-form-check inline>
-                                    <input cFormCheckInput id="locn" [value]="false" name="locn"
-                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.location" type="radio" />
+                                    <input cFormCheckInput id="locn" [value]="false" name="loc"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.location" type="radio" 
+                                        (change)="changeLocation($event)"/>
                                     <label cFormCheckLabel for="locn">No</label>
                                 </c-form-check>
                             </td>
@@ -116,13 +128,15 @@
                             </td>
                             <td>
                                 <c-form-check inline sizing="lg">
-                                    <input cFormCheckInput id="pocy" [value]="true" name="pocy"
-                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.poc" type="radio" />
+                                    <input cFormCheckInput id="pocy" [value]="true" name="poc"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.poc" type="radio" 
+                                        (change)="changePOS($event)"/>
                                     <label cFormCheckLabel for="pocy">Yes</label>
                                 </c-form-check>
                                 <c-form-check inline>
-                                    <input cFormCheckInput id="pocn" [value]="false" name="pocn"
-                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.poc" type="radio" />
+                                    <input cFormCheckInput id="pocn" [value]="false" name="poc"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.poc" type="radio" 
+                                        (change)="changePOS($event)"/>
                                     <label cFormCheckLabel for="pocn">No</label>
                                 </c-form-check>
                             </td>
