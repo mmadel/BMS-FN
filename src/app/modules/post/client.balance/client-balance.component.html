@@ -55,16 +55,16 @@
     <c-col xs="4" class="mb-3">
         <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
             <c-dropdown variant="btn-group">
-              <button cButton cDropdownToggle>
-                Actions
-              </button>
-              <ul cDropdownMenu variant="outline" >
-                <li><a cDropdownItem (click)="export()">Export PDF</a></li>
-                <li cDropdownDivider></li>
-                <li><a cDropdownItem [routerLink]="[]">Settings</a></li>
-              </ul>
+                <button cButton cDropdownToggle>
+                    Actions
+                </button>
+                <ul cDropdownMenu variant="outline">
+                    <li><a cDropdownItem (click)="export()">Export PDF</a></li>
+                    <li cDropdownDivider></li>
+                    <li><a cDropdownItem (click)="openSettings()">Settings</a></li>
+                </ul>
             </c-dropdown>
-          </c-button-group>
+        </c-button-group>
     </c-col>
     <c-col xs="12" class="mb-3">
         <finalize-charge *ngIf="searchFlag" #finalizeCharge></finalize-charge>
@@ -72,5 +72,13 @@
     <c-col xs="12">
         <pending-insurance *ngIf="searchFlag" #pendingInsurance></pending-insurance>
     </c-col>
-
 </c-row>
+<c-modal [visible]="settingsVisible" scrollable size="xl" backdrop="static">
+    <c-modal-header>
+        <h2 cModalTitle>Client Balance Settings</h2>
+        <button (click)="toggleSettingsVisible()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        dddd
+    </c-modal-body>
+</c-modal>

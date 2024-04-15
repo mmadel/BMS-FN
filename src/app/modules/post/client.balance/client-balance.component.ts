@@ -25,6 +25,7 @@ export class ClientBalanceComponent implements OnInit {
   enteredClientName: string;
   selectedSearchOption: string = "none";
   searchFlag: boolean = false;
+  settingsVisible: boolean = false;
   @ViewChild('pendingInsurance') pendingInsuranceComponent: PendingInsuranceComponent;
   @ViewChild('finalizeCharge') finalizeChargeComponent: FinalizeChargeComponent;
   constructor(private patientService: PatientService
@@ -111,5 +112,11 @@ export class ClientBalanceComponent implements OnInit {
     a.download = fileName + nameDatePart + '.' + extention;
     a.click();
     URL.revokeObjectURL(objectUrl);
+  }
+  toggleSettingsVisible() {
+    this.settingsVisible = !this.settingsVisible
+  }
+  openSettings(){
+    this.settingsVisible = true;
   }
 }
