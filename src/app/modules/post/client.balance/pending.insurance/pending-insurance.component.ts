@@ -1,11 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import * as moment from 'moment';
+import { Component, OnInit } from '@angular/core';
 import { filter, map, Observable, tap } from 'rxjs';
 import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingFilterModel } from '../../bip/filter/posting.filter.model';
 import { ClientBalance } from '../../model/client.balance';
-import { ClientBalanceStatement } from '../../model/client.balance.statement';
 import { ClientBalanceService } from '../../service/client-balance.service';
 
 @Component({
