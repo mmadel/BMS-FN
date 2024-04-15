@@ -4,6 +4,7 @@ import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingFilterModel } from '../../bip/filter/posting.filter.model';
 import { ClientBalance } from '../../model/client.balance';
+import { ClientBalanceStatement } from '../../model/client.balance.statement';
 import { ClientBalanceService } from '../../service/client-balance.service';
 
 @Component({
@@ -41,7 +42,7 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
       key: 'balance', label: 'Balance'
     },
   ]
-  constructor(private djdjdjd: ClientBalanceService
+  constructor(private clientBalanceService: ClientBalanceService
     , private postingEmitterService: PostingEmitterService) {
     super()
   }
@@ -54,7 +55,7 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
     })
   }
   private find() {
-    this.finalizeClientBalance$ = this.djdjdjd.findfinalize(this.apiParams$, this.finalizeFilter.entityId, this.finalizeFilter)
+    this.finalizeClientBalance$ = this.clientBalanceService.findfinalize(this.apiParams$, this.finalizeFilter.entityId, this.finalizeFilter)
       .pipe(
         filter((result) => result !== null),
         tap((response: any) => {

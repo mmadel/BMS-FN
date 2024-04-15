@@ -85,7 +85,6 @@ export class ClientBalanceComponent implements OnInit {
     if (this.postingFilterModel.searchEndDate !== undefined)
       this.postingFilterModel.endDate = moment(this.postingFilterModel.searchEndDate).unix() * 1000
 
-    console.log(JSON.stringify(this.postingFilterModel))
     this.postingEmitterService.searchPostingInsuranceCompany$.next(this.postingFilterModel)
   }
 

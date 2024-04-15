@@ -7,4 +7,6 @@ export interface ClientBalance {
     clientPayment?:number,
     adjustPayment?:number,
     balance?:number,
+    placeOfCode?:string;
+    units?:number
 }

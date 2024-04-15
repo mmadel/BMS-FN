@@ -1,15 +1,9 @@
 import { ClientBalance } from "./client.balance"
+import { ClientBalanceAccount } from "./client.balance.account"
 
 export interface ClientBalanceInvoice {
-    providerName?: string
-    providerAddress?: string
-    invoiceDate?: number
-    invoiceNumber?: string
-
-    clientName?:string
-    clientAddress?:string
-    clinicName?:string
-
+   
+    clientBalanceAccounts?:ClientBalanceAccount[]
     finalizedClientBalance?:ClientBalance[]
     pendingClientBalance?:ClientBalance[]
 }

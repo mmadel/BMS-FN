@@ -5,6 +5,7 @@ import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PostingFilterModel } from '../../bip/filter/posting.filter.model';
 import { ClientBalance } from '../../model/client.balance';
+import { ClientBalanceStatement } from '../../model/client.balance.statement';
 import { ClientBalanceService } from '../../service/client-balance.service';
 
 @Component({
