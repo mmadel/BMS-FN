@@ -140,15 +140,15 @@
             <c-card-body>
                 <c-input-group class="mb-1" sizing="sm">
                     <span cInputGroupText>Line 1</span>
-                    <input cFormControl id="line1" />
+                    <input cFormControl id="line1" [(ngModel)]="clientBalanceSettings?.patientBalanceBillingProviderSettings.lineOne"/>
                 </c-input-group>
                 <c-input-group class="mb-1" sizing="sm">
                     <span cInputGroupText>Line 2</span>
-                    <input cFormControl id="line2" />
+                    <input cFormControl id="line2" [(ngModel)]="clientBalanceSettings?.patientBalanceBillingProviderSettings.lineTwo"/>
                 </c-input-group>
                 <c-input-group class="mb-1" sizing="sm">
                     <span cInputGroupText>Line 3</span>
-                    <input cFormControl id="line3" />
+                    <input cFormControl id="line3" [(ngModel)]="clientBalanceSettings?.patientBalanceBillingProviderSettings.lineThree"/>
                 </c-input-group>
             </c-card-body>
         </c-card>
