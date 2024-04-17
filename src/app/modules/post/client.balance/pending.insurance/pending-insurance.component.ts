@@ -40,7 +40,13 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
     {
       key: 'balance', label: 'Balance'
     },
+    {
+      key: 'actions', label: 'Actions'
+    },
   ]
+  sessionVisible:boolean
+  enterPaymentVisible:boolean;
+  selectedSession:any
   constructor(private clientBalanceService: ClientBalanceService
     , private postingEmitterService: PostingEmitterService) {
     super()
@@ -71,5 +77,20 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
   onselect(event: any) {
     this.selectedPendingClientBalance = []
     this.selectedPendingClientBalance.push(...event)
+  }
+  toggleOpenSessionVisible(){
+    this.sessionVisible = !this.sessionVisible ;
+  }
+  toggleOpenEnterPaymentVisible(){
+    this.enterPaymentVisible=!this.enterPaymentVisible; 
+  }
+  changeEnterPaymentVisibility(event: any) {
+    if (event === 'close') {
+      this.enterPaymentVisible = false
+    }
+  }
+  openEnterSession(item:any){
+    this.selectedSession = item;
+    this.enterPaymentVisible = true;
   }
 }

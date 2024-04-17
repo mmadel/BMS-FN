@@ -139,7 +139,8 @@ import { EnterPaymentComponent } from './profile/filling/sessions/enter.paymnet/
     PatientSessionEditComponent,
     ViewProfileComponent,
     EditProfileComponent,
-    ListAuthsComponent
+    ListAuthsComponent,
+    EnterPaymentComponent
   ]
 
 })

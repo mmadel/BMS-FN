@@ -15,6 +15,9 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
   finalizeFilter: PostingFilterModel;
   finalizeClientBalance$!: Observable<ClientBalance[]>;
   selectedfinalizeClientBalance: ClientBalance[]
+  sessionVisible:boolean
+  enterPaymentVisible:boolean;
+  selectedSession:any
   columns = [
     {
       key: 'dos', label: 'DOS'
@@ -40,6 +43,9 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
     {
       key: 'balance', label: 'Balance'
     },
+    {
+      key: 'actions', label: 'Actions'
+    },
   ]
   constructor(private clientBalanceService: ClientBalanceService
     , private postingEmitterService: PostingEmitterService) {
@@ -63,7 +69,7 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
             this.errorMessage$.next('');
           }
         }),
-        map(response => {
+        map(response => {          
           return response.records;
         })
       )
@@ -71,5 +77,20 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
   onselect(event: any) {
     this.selectedfinalizeClientBalance = []
     this.selectedfinalizeClientBalance.push(...event)
+  }
+  toggleOpenSessionVisible(){
+    this.sessionVisible = !this.sessionVisible ;
+  }
+  toggleOpenEnterPaymentVisible(){    
+    this.enterPaymentVisible=!this.enterPaymentVisible; 
+  }
+  changeEnterPaymentVisibility(event: any) {
+    if (event === 'close') {
+      this.enterPaymentVisible = false
+    }
+  }
+  openEnterSession(item:any){
+    this.selectedSession = item;
+    this.enterPaymentVisible = true;
   }
 } 

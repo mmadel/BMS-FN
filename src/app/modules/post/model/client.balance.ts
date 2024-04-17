@@ -1,3 +1,5 @@
+import { PatientSession } from "../../model/clinical/session/patient.session";
+
 export interface ClientBalance {
     dos?:number;
     serviceCode?:string,
@@ -9,4 +11,5 @@ export interface ClientBalance {
     balance?:number,
     placeOfCode?:string;
     units?:number
+    patientSession?:PatientSession
 }

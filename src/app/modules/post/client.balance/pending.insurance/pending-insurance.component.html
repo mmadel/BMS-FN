@@ -12,8 +12,8 @@
         (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20,25,30,40,45,50]"
         [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, small:true }"
         [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
-        [tableBodyProps]="{ align: 'middle' }" (sorterValueChange)="handleSorterValueChange($event)"
-        selectable (selectedItemsChange)="onselect($event)" header>
+        [tableBodyProps]="{ align: 'middle' }" (sorterValueChange)="handleSorterValueChange($event)" selectable
+        (selectedItemsChange)="onselect($event)" header>
         <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
           <td>
             <ng-container [ngSwitch]="columnName">
@@ -22,12 +22,12 @@
               </ng-container>
               <ng-container *ngSwitchCase="'actions'" class="py-2">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button cButton variant="outline" size="sm">
+                  <!-- <button cButton variant="outline" size="sm">
                     <svg cIcon name="cilPen"></svg>
-                  </button>
+                  </button> -->
                   <c-dropdown variant="btn-group">
-                    <button cButton cDropdownToggle variant="outline" size="sm">
-                      actions
+                    <button cButton variant="outline" size="sm" (click)="openEnterSession(item)">
+                      <svg cIcon name="cilDollar"></svg>
                     </button>
                   </c-dropdown>
                 </div>
@@ -44,3 +44,23 @@
     </ng-container>
   </c-card-body>
 </c-card>
+<c-modal [visible]="sessionVisible" scrollable size="xl" backdrop="static" id="openSession">
+  <c-modal-header>
+    <h2 cModalTitle>Patient Session</h2>
+    <button (click)="toggleOpenSessionVisible()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    Open Session
+  </c-modal-body>
+</c-modal>
+
+<c-modal [visible]="enterPaymentVisible" scrollable size="xl" backdrop="static" id="openEnterPaymenr">
+  <c-modal-header>
+    <h2 cModalTitle>Session Enter Payment</h2>
+    <button (click)="toggleOpenEnterPaymentVisible()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <enter-payment *ngIf="enterPaymentVisible" [session]="selectedSession"
+    (changeVisibility)="changeEnterPaymentVisibility($event)"></enter-payment>
+  </c-modal-body>
+</c-modal>

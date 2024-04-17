@@ -25,6 +25,7 @@ export class EnterPaymentComponent implements OnInit {
   totalAdj: number
   totalBalance: number
   validity: any = [true]
+  sessionData:any
   columns = [
     { key: 'service', label: 'Service', _style: { width: '20%' } },
     { key: 'charge', label: 'Charge' },
@@ -46,12 +47,16 @@ export class EnterPaymentComponent implements OnInit {
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getSessionData();
     this.fetchPayment();
   }
+  private getSessionData(){
+    this.sessionData = this.session.data === undefined?this.session.patientSession:this.session.data
+  }
   private populateData() {
-    this.DOS = moment.unix(this.session.data.serviceDate / 1000).format('MM/DD/YYYY')
-    this.client = this.session.data.patientName;
-    this.provider = this.session.data.doctorInfo.doctorLastName + ',' + this.session.data.doctorInfo.doctorFirstName
+    this.DOS = moment.unix(this.sessionData.serviceDate / 1000).format('MM/DD/YYYY')
+    this.client = this.sessionData.patientName;
+    this.provider = this.sessionData.doctorInfo.doctorLastName + ',' + this.sessionData.doctorInfo.doctorFirstName
   }
   private calculateNumbers() {
     this.totalUnits = 0;
@@ -60,7 +65,7 @@ export class EnterPaymentComponent implements OnInit {
     this.totalAdj = 0;
     this.totalBalance = 0
 
-    for (const obj of this.session.data.serviceCodes) {
+    for (const obj of this.sessionData.serviceCodes) {
       var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === obj.id);
       this.totalUnits += obj.cptCode.unit;
       this.totalCharge += obj.cptCode.charge;
@@ -75,7 +80,9 @@ export class EnterPaymentComponent implements OnInit {
   }
   private fetchPayment() {
     var serviceLinesIds: number[] = new Array()
-    for (const obj of this.session.data.serviceCodes) {
+    console.log(JSON.stringify(this.sessionData))
+    console.log(JSON.stringify(this.sessionData.serviceCodes))
+    for (const obj of this.sessionData.serviceCodes) {
       serviceLinesIds.push(obj.id)
     }
     this.enterPaymentService.find(serviceLinesIds).subscribe((result: any) => {
@@ -85,7 +92,7 @@ export class EnterPaymentComponent implements OnInit {
     })
   }
   onChangeType() {
-    for (const obj of this.session.data.serviceCodes) {
+    for (const obj of this.sessionData.serviceCodes) {
       var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === obj.id);
       var serviceLinePayment: ServiceLinePayment = {
         charge: obj.cptCode.charge,
@@ -174,7 +181,7 @@ export class EnterPaymentComponent implements OnInit {
       this.serviceLinePaymentRequest.authtDate_date !== undefined ?
         moment(this.serviceLinePaymentRequest.authtDate_date).unix() * 1000 : undefined
     if (this.serviceLinePaymentRequest.serviceLinePaymentType === 'Client')
-      this.serviceLinePaymentRequest.paymentEntityId = this.session.data.patientId;
+      this.serviceLinePaymentRequest.paymentEntityId = this.sessionData.patientId;
     if (this.serviceLinePaymentRequest.serviceLinePaymentType === 'InsuranceCompany')
       this.serviceLinePaymentRequest.paymentEntityId = this.selectedInsuranceCompany
     this.serviceLinePaymentRequest.serviceLinePayments = filteredList

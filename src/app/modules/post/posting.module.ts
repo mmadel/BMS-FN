@@ -44,6 +44,7 @@ import { ClientBalanceComponent } from './client.balance/client-balance.componen
 import { FinalizeChargeComponent } from './client.balance/finalize.charge/finalize-charge.component';
 import { PendingInsuranceComponent } from './client.balance/pending.insurance/pending-insurance.component';
 import { ClientBalanceSettingsComponent } from './client.balance/settings/client-balance-settings.component';
+import { PatientModule } from '../patient';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { ClientBalanceSettingsComponent } from './client.balance/settings/client
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    PatientModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
