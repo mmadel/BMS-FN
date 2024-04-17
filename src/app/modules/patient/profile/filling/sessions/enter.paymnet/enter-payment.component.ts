@@ -41,6 +41,7 @@ export class EnterPaymentComponent implements OnInit {
   }
   serviceLinesPaymnet: any
   selectedInsuranceCompany: number = null
+  serviceLinesActions: string[];
   constructor(private enterPaymentService: EnterPaymentService
     , private toastr: ToastrService) { }
 
@@ -91,7 +92,8 @@ export class EnterPaymentComponent implements OnInit {
         balance: _rslt.balance,
         service: obj.cptCode.serviceCode + '.' + obj.cptCode.modifier,
         unit: obj.cptCode.unit,
-        serviceLineId: obj.id
+        serviceLineId: obj.id,
+        type:obj.type
       }
       this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
     }
@@ -184,5 +186,25 @@ export class EnterPaymentComponent implements OnInit {
         window.scrollTo(0, 0);
       }
     })();
+  }
+  generateServiceLineAction(serviceLinetype: string):string[] {
+    var serviceLinesActions:string[]= new Array();
+    switch (serviceLinetype) {
+      case 'Initial':
+        serviceLinesActions.push('Close')
+        serviceLinesActions.push('Current_Status')
+        break;
+      case 'Invoice':
+        serviceLinesActions.push('Resubmit')
+        serviceLinesActions.push('Close')
+        serviceLinesActions.push('Current_Status')
+        break;
+      case 'Close':
+        serviceLinesActions.push('Resubmit')
+        serviceLinesActions.push('Reopen')
+        serviceLinesActions.push('Current_Status')
+        break;
+    }
+    return serviceLinesActions;
   }
 }

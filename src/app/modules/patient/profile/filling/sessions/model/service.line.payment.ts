@@ -10,5 +10,6 @@ export interface ServiceLinePayment{
     service?:string
     charge?:number
     unit?:number
+    type?:string
     batchServiceLineData?:BatchServiceLineData
 }
