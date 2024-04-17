@@ -22,9 +22,11 @@ export class ClientBalanceSettingsComponent implements OnInit {
   save() {
     this.clientBalanceService.updateClientBalanceSettings(this.clientBalanceSettings)
       .subscribe(result => {
+        this.scrollUp();
         this.changeVisibility.emit('close');
         this.toastr.success("Settings updated.")
       }, error => {
+        this.scrollUp();
         this.toastr.error("Error during updating.")
       })
   }
@@ -50,5 +52,13 @@ export class ClientBalanceSettingsComponent implements OnInit {
   }
   changePOS(event: any) {
     this.clientBalanceSettings.patientBalanceAccountSettings.poc = event.target.value;
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

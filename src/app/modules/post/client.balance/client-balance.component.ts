@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
 import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
@@ -30,7 +31,8 @@ export class ClientBalanceComponent implements OnInit {
   @ViewChild('finalizeCharge') finalizeChargeComponent: FinalizeChargeComponent;
   constructor(private patientService: PatientService
     , private postingEmitterService: PostingEmitterService
-    , private clientBalanceService: ClientBalanceService) { }
+    , private clientBalanceService: ClientBalanceService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -97,12 +99,17 @@ export class ClientBalanceComponent implements OnInit {
       pendingClientBalance: this.pendingInsuranceComponent.selectedPendingClientBalance,
       finalizedClientBalance: this.finalizeChargeComponent.selectedfinalizeClientBalance
     }
-    this.clientBalanceService.export(clientBalanceInvoice).subscribe(result => {
-      this.constructExportedFile(result, 'invoice-', 'pdf')
-      console.log('exported');
-    }, error => {
-      console.log('error during exporting');
-    })
+    if(clientBalanceInvoice.finalizedClientBalance !==undefined &&
+      clientBalanceInvoice.pendingClientBalance !==undefined){
+        this.clientBalanceService.export(clientBalanceInvoice).subscribe(result => {
+          this.constructExportedFile(result, 'invoice-', 'pdf')
+        }, error => {
+          console.log('error during exporting');
+        })
+      }else{
+          this.toastr.error("Select atleast One row ")
+          this.scrollUp()
+      }
   }
   constructExportedFile(response: any, fileName: string, extention: string) {
     const a = document.createElement('a')
@@ -121,5 +128,13 @@ export class ClientBalanceComponent implements OnInit {
   }
   changeClientBalanceSettings(event:any){ 
     this.settingsVisible = false;
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }
