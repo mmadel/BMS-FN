@@ -59,7 +59,7 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
       this.find();
     })
   }
-  private find() {
+  public find() {
     this.finalizeClientBalance$ = this.clientBalanceService.findfinalize(this.apiParams$, this.finalizeFilter.entityId, this.finalizeFilter)
       .pipe(
         filter((result) => result !== null),
@@ -87,6 +87,8 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
   changeEnterPaymentVisibility(event: any) {
     if (event === 'close') {
       this.enterPaymentVisible = false
+      this.find();
+      this.clientBalanceService.clientPaymentUpdated$.next(0);
     }
   }
   openEnterSession(item:any){

@@ -36,6 +36,14 @@ export class ClientBalanceComponent implements OnInit {
 
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
+    this.clientBalanceService.clientPaymentUpdated$.pipe(
+      filter(result => result !== null),
+    ).subscribe(result => {
+      if (result === 0)
+        this.pendingInsuranceComponent.find()
+        if(result === 1)
+        this.finalizeChargeComponent.find()
+    })
   }
   changePatientValue(event: any) {
     this.postingFilterModel.entityId = event;
@@ -99,17 +107,17 @@ export class ClientBalanceComponent implements OnInit {
       pendingClientBalance: this.pendingInsuranceComponent.selectedPendingClientBalance,
       finalizedClientBalance: this.finalizeChargeComponent.selectedfinalizeClientBalance
     }
-    if(clientBalanceInvoice.finalizedClientBalance !==undefined &&
-      clientBalanceInvoice.pendingClientBalance !==undefined){
-        this.clientBalanceService.export(clientBalanceInvoice).subscribe(result => {
-          this.constructExportedFile(result, 'invoice-', 'pdf')
-        }, error => {
-          console.log('error during exporting');
-        })
-      }else{
-          this.toastr.error("Select atleast One row ")
-          this.scrollUp()
-      }
+    if (clientBalanceInvoice.finalizedClientBalance !== undefined &&
+      clientBalanceInvoice.pendingClientBalance !== undefined) {
+      this.clientBalanceService.export(clientBalanceInvoice).subscribe(result => {
+        this.constructExportedFile(result, 'invoice-', 'pdf')
+      }, error => {
+        console.log('error during exporting');
+      })
+    } else {
+      this.toastr.error("Select atleast One row ")
+      this.scrollUp()
+    }
   }
   constructExportedFile(response: any, fileName: string, extention: string) {
     const a = document.createElement('a')
@@ -123,10 +131,10 @@ export class ClientBalanceComponent implements OnInit {
   toggleSettingsVisible() {
     this.settingsVisible = !this.settingsVisible
   }
-  openSettings(){
+  openSettings() {
     this.settingsVisible = true;
   }
-  changeClientBalanceSettings(event:any){ 
+  changeClientBalanceSettings(event: any) {
     this.settingsVisible = false;
   }
   scrollUp() {

@@ -59,7 +59,7 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
       this.find();
     })
   }
-  private find() {
+  public find() {
     this.pendingClientBalance$ = this.clientBalanceService.findAwaiting(this.apiParams$, this.pendinfFilter.entityId, this.pendinfFilter)
       .pipe(
         filter((result) => result !== null),
@@ -87,6 +87,8 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
   changeEnterPaymentVisibility(event: any) {
     if (event === 'close') {
       this.enterPaymentVisible = false
+      this.find();
+      this.clientBalanceService.clientPaymentUpdated$.next(1);
     }
   }
   openEnterSession(item:any){

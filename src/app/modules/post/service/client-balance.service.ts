@@ -13,6 +13,7 @@ import { ClientBalanceSettings } from '../model/settings/client.balance.settings
   providedIn: 'root'
 })
 export class ClientBalanceService extends BasePaginationService {
+  public clientPaymentUpdated$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
   private baseUrl = environment.baseURL + '/client/balance'
   constructor(httpClient: HttpClient) { super(httpClient) }
 
