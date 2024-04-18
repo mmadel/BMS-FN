@@ -51,6 +51,7 @@ export class BatchTemplateComponent implements OnInit {
   invalidServiceCode: any[]
   isuranceCompany: IsuranceCompany[]
   postingFilterModel: PostingFilterModel = {};
+  clientConfrimVisible:boolean;
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
     , private postingEmitterService: PostingEmitterService
@@ -65,6 +66,9 @@ export class BatchTemplateComponent implements OnInit {
       this.selectedSearchOption = 'client'
     }
 
+  }
+  toggleClientConfrimVisible(){
+    this.clientConfrimVisible = !this.clientConfrimVisible;
   }
   private findPatientByNameAutoComplete() {
     this.patientClient.valueChanges
@@ -170,10 +174,11 @@ export class BatchTemplateComponent implements OnInit {
   //     this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
   // }
   applyPayments() {
-    if (this.clientPayments !== undefined)
-      this.createClientPayment()
-    if (this.insuranceCompanyPayments !== undefined)
-      this.createInsuranceCompanyPayment();
+    this.clientConfrimVisible = true;
+    // if (this.clientPayments !== undefined)
+    //   this.createClientPayment()
+    // if (this.insuranceCompanyPayments !== undefined)
+    //   this.createInsuranceCompanyPayment();
   }
   createClientPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.clientPayments.constructPaymentLines(this.paymentBatch);
