@@ -41,7 +41,7 @@ export class ClientBalanceComponent implements OnInit {
     ).subscribe(result => {
       if (result === 0)
         this.pendingInsuranceComponent.find()
-        if(result === 1)
+      if (result === 1)
         this.finalizeChargeComponent.find()
     })
   }
@@ -107,8 +107,10 @@ export class ClientBalanceComponent implements OnInit {
       pendingClientBalance: this.pendingInsuranceComponent.selectedPendingClientBalance,
       finalizedClientBalance: this.finalizeChargeComponent.selectedfinalizeClientBalance
     }
-    if (clientBalanceInvoice.finalizedClientBalance !== undefined &&
-      clientBalanceInvoice.pendingClientBalance !== undefined) {
+    if ((clientBalanceInvoice.finalizedClientBalance !== undefined &&
+      clientBalanceInvoice.finalizedClientBalance.length > 0) ||
+      clientBalanceInvoice.pendingClientBalance !== undefined
+      && clientBalanceInvoice.pendingClientBalance.length > 0) {
       this.clientBalanceService.export(clientBalanceInvoice).subscribe(result => {
         this.constructExportedFile(result, 'invoice-', 'pdf')
       }, error => {
