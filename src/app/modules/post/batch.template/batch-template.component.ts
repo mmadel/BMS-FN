@@ -51,7 +51,7 @@ export class BatchTemplateComponent implements OnInit {
   invalidServiceCode: any[]
   isuranceCompany: IsuranceCompany[]
   postingFilterModel: PostingFilterModel = {};
-  clientConfrimVisible:boolean;
+  clientConfrimVisible: boolean;
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
     , private postingEmitterService: PostingEmitterService
@@ -67,7 +67,7 @@ export class BatchTemplateComponent implements OnInit {
     }
 
   }
-  toggleClientConfrimVisible(){
+  toggleClientConfrimVisible() {
     this.clientConfrimVisible = !this.clientConfrimVisible;
   }
   private findPatientByNameAutoComplete() {
@@ -174,16 +174,18 @@ export class BatchTemplateComponent implements OnInit {
   //     this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
   // }
   applyPayments() {
-    this.clientConfrimVisible = true;
-    // if (this.clientPayments !== undefined)
-    //   this.createClientPayment()
-    // if (this.insuranceCompanyPayments !== undefined)
-    //   this.createInsuranceCompanyPayment();
+    if (this.clientPayments !== undefined) {
+      this.createClientPayment()
+      this.clientConfrimVisible = true;
+    }
+    if (this.insuranceCompanyPayments !== undefined) {
+      this.createInsuranceCompanyPayment();
+    }
   }
   createClientPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.clientPayments.constructPaymentLines(this.paymentBatch);
-    var validateTotalPayment:boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
-    if(validateTotalPayment){
+    var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
+    if (validateTotalPayment) {
       if (this.paymentForm.valid) {
         this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
           this.toastr.success('client payment done.');
@@ -198,15 +200,15 @@ export class BatchTemplateComponent implements OnInit {
       } else {
         this.notValidForm = true;
       }
-    }else{
+    } else {
       this.toastr.error('Total payment not matched');
       this.scrollUp();
     }
   }
   createInsuranceCompanyPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.insuranceCompanyPayments.constructPaymentLines(this.paymentBatch);
-    var validateTotalPayment:boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
-    if(validateTotalPayment){
+    var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
+    if (validateTotalPayment) {
       if (this.paymentForm.valid) {
         this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
           this.toastr.success('Insurance company payment done.');
@@ -221,11 +223,11 @@ export class BatchTemplateComponent implements OnInit {
       } else {
         this.notValidForm = true;
       }
-    }else{
+    } else {
       this.toastr.error('Total payment not matched');
       this.scrollUp();
     }
- 
+
   }
   private validateTotalPayments(serviceLinePayments: ServiceLinePayment[]): boolean {
     var totalPayments = 0
