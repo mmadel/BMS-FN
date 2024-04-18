@@ -166,8 +166,8 @@
                                                 </ng-container>
                                                 <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
                                                     <select cSelect sizing="sm" style="max-height: 30px"
-                                                        [(ngModel)]="item.serviceLinePaymentAction" [disabled]="(item.payment === undefined || item.adjust === undefined)
-                                                        || (item.payment === null || item.adjust === null)">
+                                                        [(ngModel)]="item.serviceLinePaymentAction" [disabled]="(item.payment === undefined || item.payment === undefined)
+                                                        || (item.adjust === null || item.adjust === null)">
                                                         <option value="undefined" selected disabled>Select</option>
                                                         <option
                                                             *ngFor="let action of generateServiceLineAction(item.type)"
