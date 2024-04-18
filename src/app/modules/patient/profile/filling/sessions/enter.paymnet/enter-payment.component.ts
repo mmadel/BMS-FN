@@ -25,7 +25,7 @@ export class EnterPaymentComponent implements OnInit {
   totalAdj: number
   totalBalance: number
   validity: any = [true]
-  sessionData:any
+  sessionData: any
   columns = [
     { key: 'service', label: 'Service', _style: { width: '20%' } },
     { key: 'charge', label: 'Charge' },
@@ -50,8 +50,9 @@ export class EnterPaymentComponent implements OnInit {
     this.getSessionData();
     this.fetchPayment();
   }
-  private getSessionData(){
-    this.sessionData = this.session.data === undefined?this.session.patientSession:this.session.data
+  private getSessionData() {
+    console.log(JSON.stringify(this.session))
+    this.sessionData = this.session.data === undefined ? this.session.records : this.session.data
   }
   private populateData() {
     this.DOS = moment.unix(this.sessionData.serviceDate / 1000).format('MM/DD/YYYY')
@@ -80,8 +81,6 @@ export class EnterPaymentComponent implements OnInit {
   }
   private fetchPayment() {
     var serviceLinesIds: number[] = new Array()
-    console.log(JSON.stringify(this.sessionData))
-    console.log(JSON.stringify(this.sessionData.serviceCodes))
     for (const obj of this.sessionData.serviceCodes) {
       serviceLinesIds.push(obj.id)
     }
@@ -100,7 +99,7 @@ export class EnterPaymentComponent implements OnInit {
         service: obj.cptCode.serviceCode + '.' + obj.cptCode.modifier,
         unit: obj.cptCode.unit,
         serviceLineId: obj.id,
-        type:obj.type
+        type: obj.type
       }
       this.serviceLinePaymentRequest.serviceLinePayments.push(serviceLinePayment);
     }
@@ -194,8 +193,8 @@ export class EnterPaymentComponent implements OnInit {
       }
     })();
   }
-  generateServiceLineAction(serviceLinetype: string):string[] {
-    var serviceLinesActions:string[]= new Array();
+  generateServiceLineAction(serviceLinetype: string): string[] {
+    var serviceLinesActions: string[] = new Array();
     switch (serviceLinetype) {
       case 'Initial':
         serviceLinesActions.push('Close')

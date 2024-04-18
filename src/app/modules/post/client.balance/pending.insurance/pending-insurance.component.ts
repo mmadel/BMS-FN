@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { filter, map, Observable, tap } from 'rxjs';
 import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
+import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { PostingFilterModel } from '../../bip/filter/posting.filter.model';
 import { ClientBalance } from '../../model/client.balance';
 import { ClientBalanceService } from '../../service/client-balance.service';
@@ -44,11 +45,12 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
       key: 'actions', label: 'Actions'
     },
   ]
-  sessionVisible:boolean
-  enterPaymentVisible:boolean;
-  selectedSession:any
-  constructor(private clientBalanceService: ClientBalanceService
-    , private postingEmitterService: PostingEmitterService) {
+  sessionVisible: boolean
+  enterPaymentVisible: boolean;
+  selectedSession: any
+  constructor(private clientBalanceService: ClientBalanceService,
+    private postingEmitterService: PostingEmitterService,
+    private patientSession: PatientSessionService) {
     super()
   }
 
@@ -78,11 +80,11 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
     this.selectedPendingClientBalance = []
     this.selectedPendingClientBalance.push(...event)
   }
-  toggleOpenSessionVisible(){
-    this.sessionVisible = !this.sessionVisible ;
+  toggleOpenSessionVisible() {
+    this.sessionVisible = !this.sessionVisible;
   }
-  toggleOpenEnterPaymentVisible(){
-    this.enterPaymentVisible=!this.enterPaymentVisible; 
+  toggleOpenEnterPaymentVisible() {
+    this.enterPaymentVisible = !this.enterPaymentVisible;
   }
   changeEnterPaymentVisibility(event: any) {
     if (event === 'close') {
@@ -91,8 +93,11 @@ export class PendingInsuranceComponent extends ListTemplate implements OnInit {
       this.clientBalanceService.clientPaymentUpdated$.next(1);
     }
   }
-  openEnterSession(item:any){
-    this.selectedSession = item;
-    this.enterPaymentVisible = true;
+  openEnterSession(item: any) {
+    this.patientSession.findSessionById(item.sessionId)
+      .subscribe(result => {
+        this.selectedSession = result;
+        this.enterPaymentVisible = true;
+      })
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { filter, map, Observable, tap } from 'rxjs';
 import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
+import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { PostingFilterModel } from '../../bip/filter/posting.filter.model';
 import { ClientBalance } from '../../model/client.balance';
 import { ClientBalanceService } from '../../service/client-balance.service';
@@ -47,8 +48,10 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
       key: 'actions', label: 'Actions'
     },
   ]
-  constructor(private clientBalanceService: ClientBalanceService
-    , private postingEmitterService: PostingEmitterService) {
+  constructor(private clientBalanceService: ClientBalanceService,
+     private postingEmitterService: PostingEmitterService,
+     private patientSession:PatientSessionService
+    ) {
     super()
   }
 
@@ -92,7 +95,10 @@ export class FinalizeChargeComponent extends ListTemplate implements OnInit {
     }
   }
   openEnterSession(item:any){
-    this.selectedSession = item;
-    this.enterPaymentVisible = true;
+    this.patientSession.findSessionById(item.sessionId)
+    .subscribe(result=>{
+      this.selectedSession = result;
+      this.enterPaymentVisible = true;
+    })
   }
 } 
