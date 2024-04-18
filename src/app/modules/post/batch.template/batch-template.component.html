@@ -210,12 +210,12 @@
         <button (click)="toggleClientConfrimVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <p class="lead">
+        <p>
             Batch Cleint Payments has been submitted successfully. You can print,mail or print Receipt.
           </p>
         <div class="text-center">
             <c-button-group>
-                <button class="btn btn-outline-danger  p-6 rounded-2 mx-1">
+                <button class="btn btn-outline-danger  p-6 rounded-2 mx-1" (click)="export()">
                     <svg cIcon name="cibAdobeAcrobatReader" size="3xl"> </svg>
                 </button>
                 <button class="btn btn-outline-primary  p-6 rounded-2 mx-1">
