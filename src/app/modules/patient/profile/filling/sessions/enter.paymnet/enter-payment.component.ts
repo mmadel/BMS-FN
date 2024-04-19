@@ -51,7 +51,6 @@ export class EnterPaymentComponent implements OnInit {
     this.fetchPayment();
   }
   private getSessionData() {
-    console.log(JSON.stringify(this.session))
     this.sessionData = this.session.data === undefined ? this.session.records : this.session.data
   }
   private populateData() {
@@ -111,7 +110,6 @@ export class EnterPaymentComponent implements OnInit {
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
-    console.log('### ' + item.adjust)
   }
   changeToServiceLine(item: any) {
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
