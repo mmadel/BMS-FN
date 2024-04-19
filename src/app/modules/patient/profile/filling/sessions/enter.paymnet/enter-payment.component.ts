@@ -111,6 +111,7 @@ export class EnterPaymentComponent implements OnInit {
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
+    console.log('### ' + item.adjust)
   }
   changeToServiceLine(item: any) {
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
