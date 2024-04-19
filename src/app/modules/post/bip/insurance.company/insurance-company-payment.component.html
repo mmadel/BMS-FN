@@ -19,7 +19,7 @@
                   {{item.serviceLineId}}
                 </ng-container>
                 <ng-container *ngSwitchCase="'dos'" class="py-2">
-                  {{item.dos | date:'MMM d, y' }}
+                  {{item.dos | date:'MM/dd/YYYY' }}
                 </ng-container>
                 <ng-container *ngSwitchCase="'billedValue'" class="py-2">
                   {{item.billedValue |currency }}
