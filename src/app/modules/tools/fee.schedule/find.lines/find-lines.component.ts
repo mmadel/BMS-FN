@@ -37,7 +37,7 @@ export class FindLinesComponent extends ListTemplate implements OnInit {
     this.find();
   }
   private find() {
-    this.feeScheduleLines$ = this.feeScheduleService.findAll(this.apiParams$, this.feeScheduleId)
+    this.feeScheduleLines$ = this.feeScheduleService.findAll(this.feeScheduleId)
       .pipe(
         tap((response: any) => {
           this.totalItems$.next(response.number_of_matching_records);
@@ -46,7 +46,7 @@ export class FindLinesComponent extends ListTemplate implements OnInit {
           }
         }),
         map((response: any) => {
-          return response.records;
+          return response;
         })
       )
   }

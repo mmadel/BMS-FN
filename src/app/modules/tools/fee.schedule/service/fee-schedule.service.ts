@@ -28,9 +28,9 @@ export class FeeScheduleService extends BasePaginationService {
     var url = this.baseUrl + '/find/id/' + id
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
-  public findAll(config$: BehaviorSubject<IApiParams>, feeId: number): Observable<any> {
+  public findAll(feeId: number): Observable<any> {
     var url = this.baseUrl + '/find/lines/fee/' + feeId
-    return this.get(config$, url)
+    return this.httpClient.get(url)
   }
   public deleteById(id: number) {
     var url = this.baseUrl + '/delete/id/' + id
