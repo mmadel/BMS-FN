@@ -14,10 +14,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BasePaginationService {
-  url: string;
   constructor(public httpClient: HttpClient) { }
   get(config$: BehaviorSubject<IApiParams>, url: string): Observable<any> {
-    this.url = url;
     return config$.pipe(
       debounceTime(100),
       distinctUntilChanged(
@@ -25,11 +23,10 @@ export class BasePaginationService {
           return JSON.stringify(previous) === JSON.stringify(current);
         }
       ),
-      switchMap((config) => this.fetchData(config))
+      switchMap((config) => this.fetchData(config, url))
     );
   }
   post(config$: BehaviorSubject<IApiParams>, url: string, body: string): Observable<any> {
-    this.url = url;
     return config$.pipe(
       debounceTime(100),
       distinctUntilChanged(
@@ -37,10 +34,10 @@ export class BasePaginationService {
           return JSON.stringify(previous) === JSON.stringify(current);
         }
       ),
-      switchMap((config) => this.fetchPostData(config, body))
+      switchMap((config) => this.fetchPostData(config,url, body))
     );
   }
-  private fetchData(params: IApiParams): Observable<PaginationData> {
+  private fetchData(params: IApiParams, url: string): Observable<PaginationData> {
     const apiParams = {
       ...params
     };
@@ -49,13 +46,13 @@ export class BasePaginationService {
       ? { params: httpParams, ...httpOptions }
       : { params: {}, ...httpOptions };
     return this.httpClient
-      .get<PaginationData>(this.url, options)
+      .get<PaginationData>(url, options)
       .pipe(
         retry({ count: 1, delay: 100000, resetOnSuccess: true }),
         catchError(this.handleHttpError)
       )
   }
-  private fetchPostData(params: IApiParams, body: string): Observable<PaginationData> {
+  private fetchPostData(params: IApiParams, url: string, body: string): Observable<PaginationData> {
     const apiParams = {
       ...params
     };
@@ -67,7 +64,7 @@ export class BasePaginationService {
       ? { params: httpParams, ...httpOptions, headers: headers }
       : { params: {}, ...httpOptions };
     return this.httpClient
-      .post<PaginationData>(this.url, body, options)
+      .post<PaginationData>(url, body, options)
       .pipe(
         retry({ count: 1, delay: 100000, resetOnSuccess: true }),
         catchError(this.handleHttpError)

@@ -1,0 +1,174 @@
+<c-row>
+    <c-col xs="7">
+        <c-card>
+            <c-card-header>
+                <strong>Printing Options</strong>
+            </c-card-header>
+            <c-card-body>
+                <table class="table table-sm" *ngIf="clientBalanceSettings">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Show Tax ID</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="staxidy" [value]="true" name="staxid"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.taxID" type="radio" 
+                                        (change)="changeTaxID($event)"/>
+                                    <label cFormCheckLabel for="staxidy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="staxidn" [value]="false" name="staxid"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.taxID" type="radio" 
+                                        (change)="changeTaxID($event)"/>
+                                    <label cFormCheckLabel for="staxidn">No</label>
+                                </c-form-check>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show NPI</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="npiy" [value]="true" name="npi"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.npi" type="radio" 
+                                        (change)="changeNPI($event)"/>
+                                    <label cFormCheckLabel for="npiy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="npin" [value]="false" name="npi"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.npi" type="radio" 
+                                        (change)="changeNPI($event)"/>
+                                    <label cFormCheckLabel for="npin">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show Rendring Provider</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="rprovidery" [value]="true" name="rprovider"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.renderingProvider" type="radio" 
+                                        (change)="changeRendringProvider($event)"/>
+                                    <label cFormCheckLabel for="rprovidery">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="rprovidern" [value]="false" name="rprovider"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.renderingProvider" type="radio" 
+                                        (change)="changeRendringProvider($event)"/>
+                                    <label cFormCheckLabel for="rprovidern">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show ICD-10 Daignosis</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="icdy" [value]="true" name="icd"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.icdCodes" type="radio" 
+                                        (change)="changeICD10($event)"/>
+                                    <label cFormCheckLabel for="icdy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="icdn" [value]="false" name="icd"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.icdCodes" type="radio" 
+                                        (change)="changeICD10($event)"/>
+                                    <label cFormCheckLabel for="icdn">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show Patient birthdate</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="pdoby" [value]="true" name="pdob"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.patientDOB" type="radio" 
+                                        (change)="changePatientDateOfBirth($event)"/>
+                                    <label cFormCheckLabel for="pdoby">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="pdobn" [value]="false" name="pdob"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.patientDOB" type="radio" 
+                                        (change)="changePatientDateOfBirth($event)"/>
+                                    <label cFormCheckLabel for="pdobn">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Show Locations</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="xl">
+                                    <input cFormCheckInput id="locy" [value]="true" name="loc"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.location" type="radio" 
+                                        (change)="changeLocation($event)"/>
+                                    <label cFormCheckLabel for="locy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="locn" [value]="false" name="loc"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.location" type="radio" 
+                                        (change)="changeLocation($event)"/>
+                                    <label cFormCheckLabel for="locn">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td  style="width: 28%;">
+                                <strong>Show Place Of Service</strong>
+                            </td>
+                            <td>
+                                <c-form-check inline sizing="lg">
+                                    <input cFormCheckInput id="pocy" [value]="true" name="poc"
+                                        [checked]="clientBalanceSettings.patientBalanceAccountSettings.poc" type="radio" 
+                                        (change)="changePOS($event)"/>
+                                    <label cFormCheckLabel for="pocy">Yes</label>
+                                </c-form-check>
+                                <c-form-check inline>
+                                    <input cFormCheckInput id="pocn" [value]="false" name="poc"
+                                        [checked]="!clientBalanceSettings.patientBalanceAccountSettings.poc" type="radio" 
+                                        (change)="changePOS($event)"/>
+                                    <label cFormCheckLabel for="pocn">No</label>
+                                </c-form-check>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="5">
+        <c-card>
+            <c-card-header>
+                <strong>Remit Address</strong>
+            </c-card-header>
+            <c-card-body>
+                <c-input-group class="mb-1" sizing="sm">
+                    <span cInputGroupText>Line 1</span>
+                    <input cFormControl id="line1" [(ngModel)]="clientBalanceSettings?.patientBalanceBillingProviderSettings.lineOne"/>
+                </c-input-group>
+                <c-input-group class="mb-1" sizing="sm">
+                    <span cInputGroupText>Line 2</span>
+                    <input cFormControl id="line2" [(ngModel)]="clientBalanceSettings?.patientBalanceBillingProviderSettings.lineTwo"/>
+                </c-input-group>
+                <c-input-group class="mb-1" sizing="sm">
+                    <span cInputGroupText>Line 3</span>
+                    <input cFormControl id="line3" [(ngModel)]="clientBalanceSettings?.patientBalanceBillingProviderSettings.lineThree"/>
+                </c-input-group>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+<hr />
+<div class="mx-3 my-3 text-center">
+    <button cButton color="primary" size="sm" variant="outline" style="width: 20%;" (click)="save()">Save</button>
+</div>

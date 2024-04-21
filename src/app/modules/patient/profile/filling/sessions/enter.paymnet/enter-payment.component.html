@@ -72,7 +72,7 @@
                         </c-row>
                         <c-row class="justify-content-center"
                             *ngIf="serviceLinePaymentRequest.serviceLinePaymentType === 'InsuranceCompany'">
-                            <c-col class="col">                                
+                            <c-col class="col">
                                 <select cFormControl cCol cSelect id="insCompEntity" style="max-height: 30px;"
                                     sizing="sm" class="mb-1" [(ngModel)]="selectedInsuranceCompany"
                                     name="insCompEntity">
@@ -101,7 +101,7 @@
                             <c-col class="col" xs="12" *ngIf="serviceLinePaymentRequest.paymentMethod === 'check'">
                                 <c-input-group class="mb-1" sizing="sm">
                                     <span cInputGroupText style="width: 10%;">Check #</span>
-                                    <input cFormControl id="checkNumber" sizing="sm">
+                                    <input cFormControl id="checkNumber">
                                 </c-input-group>
                             </c-col>
                             <c-col class="col" xs="12" *ngIf="serviceLinePaymentRequest.paymentMethod === 'credit'">
@@ -166,12 +166,14 @@
                                                 </ng-container>
                                                 <ng-container *ngSwitchCase="'sessionAction'" class="py-2">
                                                     <select cSelect sizing="sm" style="max-height: 30px"
-                                                        [(ngModel)]="item.serviceLinePaymentAction" [disabled]="(item.payment === undefined || item.adjust === undefined)
-                                                        || (item.payment === null || item.adjust === null)">
+                                                        [(ngModel)]="item.serviceLinePaymentAction" [disabled]="(item.payment === undefined || item.payment===null)
+                                                        && (item.adjust === undefined || item.adjust === null)">
                                                         <option value="undefined" selected disabled>Select</option>
-                                                        <option value="Resubmit"> Resubmit</option>
-                                                        <option value="Close">Close Session</option>
-                                                        <option value="Current_Status">Keep current status</option>
+                                                        <option
+                                                            *ngFor="let action of generateServiceLineAction(item.type)"
+                                                            [value]="action">
+                                                            {{action}}
+                                                        </option>
                                                     </select>
                                                 </ng-container>
                                                 <ng-container *ngSwitchDefault>

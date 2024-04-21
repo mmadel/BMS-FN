@@ -110,7 +110,7 @@ import {
   cilInstitution,
   cilWheelchair,
   cilExpandDown,
-  cilChevronCircleDownAlt,cilFilter,cilFilterX,cilHistory,cibIfixit
+  cilChevronCircleDownAlt,cilFilter,cilFilterX,cilHistory,cibIfixit, cibGmail
   
 } from '@coreui/icons';
 
@@ -235,7 +235,7 @@ export const iconSubset = {
   cilAppsSettings,
   cilInstitution,
   cilWheelchair,
-  cilExpandDown,cilChevronCircleDownAlt
+  cilExpandDown,cilChevronCircleDownAlt,cibGmail
 };
 
 export enum IconSubset {

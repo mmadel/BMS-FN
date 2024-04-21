@@ -129,7 +129,7 @@ export class BillingCodeComponent implements OnInit {
     this.populatedSiagnosisCode = this.billingCode.diagnosisCode;
   }
   _compareFn(a:any, b:any) {
-    return a.npi === b.npi;
+    return a.id === b.id;
  }
  onTabChange($event: number) {
   this.activePane = $event;

@@ -204,3 +204,28 @@
             [entityPaymentId]="postingFilterModel.entityId" #insuranceCompanyPayments></insurance-company-payment>
     </c-col>
 </c-row>
+<c-modal [visible]="clientConfrimVisible" backdrop="static" id="clientConfrimVisible" >
+    <c-modal-header>
+        <h2 cModalTitle>Print Receipt</h2>
+        <button (click)="toggleClientConfrimVisible()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <p>
+            Batch Cleint Payments has been submitted successfully. You can print,mail or print Receipt.
+          </p>
+        <div class="text-center">
+            <c-button-group>
+                <button class="btn btn-outline-danger  p-6 rounded-2 mx-1" (click)="export()">
+                    <svg cIcon name="cibAdobeAcrobatReader" size="3xl"> </svg>
+                </button>
+                <button class="btn btn-outline-primary  p-6 rounded-2 mx-1">
+                    <svg cIcon name="cibGmail" size="3xl"> </svg>
+                </button>
+                <button class="btn btn btn-outline-info  p-6 rounded-2 mx-1">
+                    <svg cIcon name="cilPrint" size="3xl"> </svg>
+                </button>
+            </c-button-group>
+        </div>
+
+    </c-modal-body>
+</c-modal>

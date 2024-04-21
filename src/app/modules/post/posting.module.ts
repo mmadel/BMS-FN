@@ -40,6 +40,11 @@ import { InsuranceCompanyPaymentComponent } from './bip/insurance.company/insura
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BatchClientPaymentComponent } from './bcp/batch-client-payment.component';
 import { BatchTemplateComponent } from './batch.template/batch-template.component';
+import { ClientBalanceComponent } from './client.balance/client-balance.component';
+import { FinalizeChargeComponent } from './client.balance/finalize.charge/finalize-charge.component';
+import { PendingInsuranceComponent } from './client.balance/pending.insurance/pending-insurance.component';
+import { ClientBalanceSettingsComponent } from './client.balance/settings/client-balance-settings.component';
+import { PatientModule } from '../patient';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,11 @@ import { BatchTemplateComponent } from './batch.template/batch-template.componen
     ClientPaymentComponent,
     InsuranceCompanyPaymentComponent,
     BatchClientPaymentComponent,
-    BatchTemplateComponent
+    BatchTemplateComponent,
+    ClientBalanceComponent,
+    FinalizeChargeComponent,
+    PendingInsuranceComponent,
+    ClientBalanceSettingsComponent
   ],
   imports: [
     CommonModule,
@@ -80,6 +89,7 @@ import { BatchTemplateComponent } from './batch.template/batch-template.componen
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    PatientModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

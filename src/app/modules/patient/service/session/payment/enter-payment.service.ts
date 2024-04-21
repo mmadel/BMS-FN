@@ -19,6 +19,12 @@ export class EnterPaymentService {
     var url = this.baseUrl + '/create';
     return this.httpClient.post( url, JSON.stringify(serviceLinePaymentRequest),{ 'headers': headers })
   }
+  
+  public exportReceipt(clientBalanceInvoice: any){
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/pdf';
+    return this.httpClient.post(`${url}`, JSON.stringify(clientBalanceInvoice), { responseType: 'blob', 'headers': headers })
+  }
 
 
 }

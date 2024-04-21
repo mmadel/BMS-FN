@@ -66,7 +66,6 @@ export class PatientSessionEditComponent implements OnInit {
     this.emitPatientSessionService.sessionBillingCode$.next(billingCode)
   }
   private constructorModelDoctorInfo() {
-    console.log(JSON.stringify(this.oldProvider.legacyID))
     var legacyID: LegacyID
     if (this.oldProvider.legacyID !== null && this.oldProvider.legacyID !== undefined) {
       legacyID = {
@@ -75,6 +74,7 @@ export class PatientSessionEditComponent implements OnInit {
         payerName: this.oldProvider.legacyID.payerName,
       }
     }
+    console.log(JSON.stringify(this.editPateintSessionShedulingComponent.sessionScheduling.provider.model))
     return {
       doctorId: this.editPateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
         this.oldProvider.doctorId :
@@ -87,7 +87,7 @@ export class PatientSessionEditComponent implements OnInit {
         this.editPateintSessionShedulingComponent.sessionScheduling.provider.model.lastName,
       doctorNPI: this.editPateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
         this.oldProvider.doctorNPI :
-        this.editPateintSessionShedulingComponent.sessionScheduling.provider.model.doctorNPI,
+        this.editPateintSessionShedulingComponent.sessionScheduling.provider.model.npi,
       legacyID: legacyID
     }
   }
@@ -124,7 +124,7 @@ export class PatientSessionEditComponent implements OnInit {
           this.changeVisibility.emit('session');
           this.toastr.success("pateint session updated")
         }, (error) => {
-          this.toastr.success("Error during session udpate")
+          this.toastr.error("Error during session udpate")
         })
     }
   }
