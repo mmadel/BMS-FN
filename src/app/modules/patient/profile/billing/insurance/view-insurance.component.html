@@ -27,12 +27,12 @@
                         </c-form-check>
                     </div>
                 </div>
-                <h4>
+                <h2>
                     <strong>{{insurance.insuranceCompany[0]}}</strong>
-                </h4>
-                <h6>{{insurance.patientInsurancePolicy.responsibility}}</h6>
-                <h6>Plan : {{insurance.patientInsurancePolicy.planType}}</h6>
-                <h6>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h6>
+                </h2>
+                <h3>{{insurance.patientInsurancePolicy.responsibility}}</h3>
+                <h3>Plan : {{insurance.patientInsurancePolicy.planType}}</h3>
+                <h3>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h3>
             </div>
         </div>
     </c-col>
@@ -49,7 +49,7 @@
 </c-modal>
 <c-modal id="editInsuranceModal" [visible]="editInsuranceVisibility" backdrop="static" size="lg">
     <c-modal-header>
-        <h5 cModalTitle>Edit {{editModalTitle}}</h5>
+        <h2 cModalTitle>Edit {{editModalTitle}}</h2>
         <button (click)="toggleEditInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
