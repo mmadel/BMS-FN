@@ -104,7 +104,7 @@
     </c-modal-header>
     <c-modal-body>
         <service-code-creation *ngIf="serviceCodeVisibility"
-            (onCreateServiceCode)="getCreatedServiceCode($event)"></service-code-creation>
+            (onCreateServiceCode)="getCreatedServiceCode($event)" ></service-code-creation>
     </c-modal-body>
 </c-modal>
 <c-modal id="addDaignosisModal" [visible]="addDaignosisVisibility" backdrop="static" size="lg">

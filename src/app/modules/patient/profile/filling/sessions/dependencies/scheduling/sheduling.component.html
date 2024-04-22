@@ -20,6 +20,7 @@
                             <ng-autocomplete cFormControl [data]="providers" [searchKeyword]="'name'" id="providerName"
                                 #providerName="ngModel" required style="height: 100px;" name="providerName"
                                 placeholder="Name" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                (selected)='pickProvider($event)'
                                 [(ngModel)]="sessionScheduling.provider">
                             </ng-autocomplete>
                             <ng-template #itemTemplate let-item>

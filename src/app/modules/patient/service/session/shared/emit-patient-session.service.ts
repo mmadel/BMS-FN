@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Provider } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
@@ -19,5 +19,6 @@ export class EmitPatientSessionService {
   public createdCase$: BehaviorSubject<PatientCase | null> = new BehaviorSubject<PatientCase | null>(null);
   public sessionserviceCode$: BehaviorSubject<ServiceCode | null> = new BehaviorSubject<ServiceCode | null>(null);
   public diagnosisCodes$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
+  public selectedProvider$: BehaviorSubject<Provider | null> = new BehaviorSubject<Provider | null>(null);
   constructor() { }
 }

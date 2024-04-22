@@ -77,4 +77,8 @@ export class ShedulingComponent implements OnInit {
     }
 
   }
+  pickProvider(event:any){
+    console.log('From')
+    this.emitPatientSessionService.selectedProvider$.next(event)
+  }
 }

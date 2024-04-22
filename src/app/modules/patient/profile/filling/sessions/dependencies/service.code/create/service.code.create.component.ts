@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
+import { DoctorInfo } from 'src/app/modules/model/clinical/session/doctor.info';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line.type';
-import { ModelModule } from 'src/app/modules/model/model.module';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { FeeScheduleLine } from 'src/app/modules/tools/fee.schedule/model/fee.schedule.line';
 import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/fee-schedule.service';
@@ -15,6 +15,7 @@ import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/f
   styleUrls: ['./service.code.create.component.scss']
 })
 export class ServiceCodeCreateComponent implements OnInit {
+  doctorNPI: string
   isLoading = false;
   feeScheduleLine: FeeScheduleLine;
   serviceCode: ServiceCode;
@@ -42,6 +43,11 @@ export class ServiceCodeCreateComponent implements OnInit {
       this.diagnosisCodes = result;
       if (this.diagnosisCodes.length !== 0)
         this.emptyDiagnosisCodes = false;
+    })
+    this.emitPatientSessionService.selectedProvider$.pipe(
+      tap(result=>console.log(result))
+    ).subscribe((result: any) => {
+      this.doctorNPI = result.model.npi
     })
   }
   saveServiceCode() {
@@ -109,7 +115,7 @@ export class ServiceCodeCreateComponent implements OnInit {
           this.isLoading = true;
         }),
         switchMap((value) => {
-          return this.feeScheduleService.findByCpt(value)
+          return this.feeScheduleService.findByCpt(this.doctorNPI, value)
             .pipe(
               finalize(() => {
                 this.isLoading = false
@@ -133,6 +139,7 @@ export class ServiceCodeCreateComponent implements OnInit {
   calculateCharge() {
     if (this.feeScheduleLine.cptCode !== null) {
       this.serviceCode.cptCode.unit = this.feeScheduleLine.perUnit;
+      this.serviceCode.cptCode.charge = this.feeScheduleLine.chargeAmount
       switch (this.feeScheduleLine.rateType) {
         case 'Per_Unit':
           this.serviceCode.cptCode.charge = this.feeScheduleLine.perUnit * this.feeScheduleLine.chargeAmount;
