@@ -29,9 +29,9 @@
 </c-container>
 <c-modal id="addSession" [visible]="addSessionVisibility" backdrop="static" size="xl">
     <c-modal-header>
-        <h5 cModalTitle>Add Session to : <strong>
+        <h2 cModalTitle>Add Session to : <strong>
                 {{pateint.lastName}},{{pateint.firstName}}
-            </strong></h5>
+            </strong></h2>
         <button (click)="toggleAddSession()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
