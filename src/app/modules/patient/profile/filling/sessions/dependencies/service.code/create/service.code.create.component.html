@@ -12,9 +12,9 @@
         </small><br />
         <label cLabel for="serviceCode">Service Code</label>
       
-
+        <!-- [disabled]="emptyDiagnosisCodes" -->
         <input cFormControl name="serviceCode" [formControl]="feeCtrl" id="serviceCode" sizing="sm"
-            [disabled]="emptyDiagnosisCodes" maxlength="5" sizing="sm" />
+        maxlength="5" sizing="sm" />
     </div>
     <div class="mb-3">
         <small *ngIf="validModifiers?.length > 0" class="form-text text-danger mb-3">

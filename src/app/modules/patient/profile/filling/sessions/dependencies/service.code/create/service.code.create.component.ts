@@ -16,7 +16,7 @@ import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/f
 })
 export class ServiceCodeCreateComponent implements OnInit {
   isLoading = false;
-  feeScheduleLine:FeeScheduleLine;
+  feeScheduleLine: FeeScheduleLine;
   serviceCode: ServiceCode;
   modifier: string[] = []
   diagnosisCodes: string[];
@@ -32,7 +32,7 @@ export class ServiceCodeCreateComponent implements OnInit {
     private feeScheduleService: FeeScheduleService) { }
 
   ngOnInit(): void {
-    this.dd()
+    this.feathcFeeSchdule()
     this.serviceCode = {
       cptCode: {}
     }
@@ -90,7 +90,7 @@ export class ServiceCodeCreateComponent implements OnInit {
       this.emptyCharge = true;
     return this.emptyCharge;
   }
-  private dd(){
+  private feathcFeeSchdule() {
     this.feeCtrl.valueChanges
       .pipe(
         filter(text => {
@@ -109,7 +109,6 @@ export class ServiceCodeCreateComponent implements OnInit {
           this.isLoading = true;
         }),
         switchMap((value) => {
-          console.log('######### ' + value)
           return this.feeScheduleService.findByCpt(value)
             .pipe(
               finalize(() => {
@@ -123,12 +122,28 @@ export class ServiceCodeCreateComponent implements OnInit {
         if (data == undefined) {
           this.feeScheduleLine = {};
         } else {
-          var diagnosisResponse: any = data;
           this.feeScheduleLine = data;
+          this.calculateCharge();
         }
       },
         error => {
           this.isLoading = false
         });
+  }
+  calculateCharge() {
+    if (this.feeScheduleLine.cptCode !== null) {
+      this.serviceCode.cptCode.unit = this.feeScheduleLine.perUnit;
+      switch (this.feeScheduleLine.rateType) {
+        case 'Per_Unit':
+          this.serviceCode.cptCode.charge = this.feeScheduleLine.perUnit * this.feeScheduleLine.chargeAmount;
+          break;
+        case 'Fixed':
+          this.serviceCode.cptCode.charge = this.feeScheduleLine.chargeAmount;
+          break;
+      }
+    } else {
+      this.serviceCode.cptCode.unit = undefined;
+      this.serviceCode.cptCode.charge = undefined
+    }
   }
 }
