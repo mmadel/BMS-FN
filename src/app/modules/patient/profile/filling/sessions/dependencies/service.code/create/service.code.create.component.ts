@@ -1,9 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { filter } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line.type';
 import { ModelModule } from 'src/app/modules/model/model.module';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { FeeScheduleLine } from 'src/app/modules/tools/fee.schedule/model/fee.schedule.line';
 import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/fee-schedule.service';
 
 
@@ -13,6 +15,8 @@ import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/f
   styleUrls: ['./service.code.create.component.scss']
 })
 export class ServiceCodeCreateComponent implements OnInit {
+  isLoading = false;
+  feeScheduleLine:FeeScheduleLine;
   serviceCode: ServiceCode;
   modifier: string[] = []
   diagnosisCodes: string[];
@@ -22,14 +26,13 @@ export class ServiceCodeCreateComponent implements OnInit {
   validCPT: any = ''
   emptyUnit: boolean = true;
   emptyCharge: boolean = true;
+  feeCtrl = new FormControl();
   @Output() onCreateServiceCode = new EventEmitter<ServiceCode>()
   constructor(private emitPatientSessionService: EmitPatientSessionService,
     private feeScheduleService: FeeScheduleService) { }
 
   ngOnInit(): void {
-    this.feeScheduleService.findDefault().subscribe(result=>{
-      console.log(JSON.stringify(result))
-    })
+    this.dd()
     this.serviceCode = {
       cptCode: {}
     }
@@ -86,5 +89,46 @@ export class ServiceCodeCreateComponent implements OnInit {
     else
       this.emptyCharge = true;
     return this.emptyCharge;
+  }
+  private dd(){
+    this.feeCtrl.valueChanges
+      .pipe(
+        filter(text => {
+          if (text === undefined)
+            return false;
+          if (text.length > 1) {
+            return true
+          } else {
+            this.feeScheduleLine = {};
+            return false;
+          }
+        }),
+        debounceTime(500),
+        tap((value) => {
+          this.feeScheduleLine = {};
+          this.isLoading = true;
+        }),
+        switchMap((value) => {
+          console.log('######### ' + value)
+          return this.feeScheduleService.findByCpt(value)
+            .pipe(
+              finalize(() => {
+                this.isLoading = false
+              }),
+            )
+        }
+        )
+      )
+      .subscribe(data => {
+        if (data == undefined) {
+          this.feeScheduleLine = {};
+        } else {
+          var diagnosisResponse: any = data;
+          this.feeScheduleLine = data;
+        }
+      },
+        error => {
+          this.isLoading = false
+        });
   }
 }

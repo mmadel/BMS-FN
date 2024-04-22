@@ -23,9 +23,9 @@ export class FeeScheduleService extends BasePaginationService {
     var url = this.baseUrl + '/find'
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
-  findDefault() {
+  findByCpt(cpt: string) {
     const headers = { 'content-type': 'application/json' }
-    var url = this.baseUrl + '/find/default'
+    var url = this.baseUrl + '/find/cpt/' + cpt
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
   findById(id: number) {

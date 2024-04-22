@@ -11,8 +11,10 @@
             CPT is with less than five digits is not allowed
         </small><br />
         <label cLabel for="serviceCode">Service Code</label>
-        <input cFormControl id="serviceCode" placeholder="Service Code" [(ngModel)]="serviceCode.cptCode.serviceCode"
-            sizing="sm" [disabled]="emptyDiagnosisCodes" maxlength="5" />
+      
+
+        <input cFormControl name="serviceCode" [formControl]="feeCtrl" id="serviceCode" sizing="sm"
+            [disabled]="emptyDiagnosisCodes" maxlength="5" sizing="sm" />
     </div>
     <div class="mb-3">
         <small *ngIf="validModifiers?.length > 0" class="form-text text-danger mb-3">
@@ -32,7 +34,8 @@
     </div>
     <div class="mb-3">
         <label cLabel for="lineNote">Line Note</label>
-        <textarea cFormControl id="lineNote" rows="1" sizing="sm" [disabled]="emptyDiagnosisCodes" [(ngModel)]="serviceCode.lineNote"></textarea>
+        <textarea cFormControl id="lineNote" rows="1" sizing="sm" [disabled]="emptyDiagnosisCodes"
+            [(ngModel)]="serviceCode.lineNote"></textarea>
     </div>
     <c-multi-select multiple class="mb-2" visibleItems="20" placeholder="Select Diagnosis" *ngIf="diagnosisCodes"
         [(ngModel)]="selectedDiagnosisCodes">
@@ -46,7 +49,7 @@
         </small><br />
         <label cLabel for="unit">Unit</label>
         <input cFormControl id="unit" placeholder="unit" [(ngModel)]="serviceCode.cptCode.unit" sizing="sm"
-            [disabled]="emptyDiagnosisCodes" type="number"/>
+            [disabled]="emptyDiagnosisCodes" type="number" />
     </div>
     <div class="mb-3">
         <small *ngIf="!emptyCharge" class="form-text text-danger mb-3">
@@ -54,7 +57,7 @@
         </small><br />
         <label cLabel for="charge">Charge</label>
         <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="serviceCode.cptCode.charge" sizing="sm"
-            [disabled]="emptyDiagnosisCodes" type="number"/>
+            [disabled]="emptyDiagnosisCodes" type="number" />
     </div>
     <div class="col-12 text-center">
         <button cButton variant="outline" style="width: 10%;" (click)="saveServiceCode()"
