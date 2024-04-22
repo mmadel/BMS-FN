@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { FeeScheduleLine } from '../model/fee.schedule.line';
 import { FeeScheduleService } from '../service/fee-schedule.service';
@@ -9,46 +9,40 @@ import { FeeScheduleService } from '../service/fee-schedule.service';
   templateUrl: './find-lines.component.html',
   styleUrls: ['./find-lines.component.scss']
 })
-export class FindLinesComponent extends ListTemplate implements OnInit {
+export class FindLinesComponent implements OnInit {
 
-  constructor(private feeScheduleService: FeeScheduleService) { super() }
-  feeScheduleLines$!: Observable<FeeScheduleLine[]>;
+
+  feeScheduleLines!: FeeScheduleLine[];
   @Input() feeScheduleId: number;
-  columns = [
-    {
-      key: 'cptCode',
-      _style: { width: '10%' }
-    },
-    {
-      key: 'rateType',
-      _style: { width: '10%' }
-    },
-    {
-      key: 'perUnit',
-      _style: { width: '10%' }
-    },
-    {
-      key: 'chargeAmount',
-      _style: { width: '10%' }
-    }
-  ];
+  showAddFeeScheduleLine: boolean = false;
+  addNewFeeScheduleLine: FeeScheduleLine = {
+    rateType: 'Per_Unit'
+  };
   ngOnInit(): void {
-    this.initListComponent();
     this.find();
   }
-  private find() {
-    this.feeScheduleLines$ = this.feeScheduleService.findAll(this.feeScheduleId)
-      .pipe(
-        tap((response: any) => {
-          this.totalItems$.next(response.number_of_matching_records);
-          if (response.number_of_records) {
-            this.errorMessage$.next('');
-          }
-        }),
-        map((response: any) => {
-          return response;
-        })
-      )
-  }
+  constructor(private feeScheduleService: FeeScheduleService) {
 
+  }
+  showAddLine() {
+    this.showAddFeeScheduleLine = true;
+  }
+  addLine() {
+    this.showAddFeeScheduleLine = false;
+    this.feeScheduleLines.push(this.addNewFeeScheduleLine)
+    this.addNewFeeScheduleLine = {
+      rateType: 'Per_Unit'
+    };
+  }
+  private find() {
+    this.feeScheduleService.findAll(this.feeScheduleId).subscribe(result => {
+      this.feeScheduleLines = result;
+    })
+  }
+  delete(id: number) {
+    this.feeScheduleLines.splice(id, 1);
+  }
+  edit() {
+
+  }
 }
