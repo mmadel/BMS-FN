@@ -6,5 +6,5 @@ export interface FeeSchedule{
     defaultFee?:boolean,
     feeLines?:FeeScheduleLine[]
     provider?:any;
-    planType?:any
+    insurance?:any
 }

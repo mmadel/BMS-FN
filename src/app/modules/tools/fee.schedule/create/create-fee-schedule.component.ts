@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FeeSchedule } from '../model/fee.schedule';
 import { FeeScheduleLine } from '../model/fee.schedule.line';
+import { FeeScheduleMetaData } from '../model/fee.schedule.meta.data';
 import { FeeScheduleService } from '../service/fee-schedule.service';
 
 @Component({
@@ -13,13 +14,14 @@ export class CreateFeeScheduleComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   feeScheduleLines: FeeScheduleLine[] = [];
   editfeeScheduleLine: FeeScheduleLine;
+  feeScheduleMetaData: FeeScheduleMetaData;
   @Input() editfeeSchedules: FeeSchedule;
   mode: string = 'create';
   lineMode: string = 'create';
   valid: boolean = true;
   feeSchedules: FeeSchedule = {
     provider: 'default',
-    planType: 'default'
+    insurance: 'default'
   };
   addNewFeeScheduleLine: FeeScheduleLine = {
     rateType: 'Per_Unit'
@@ -28,6 +30,7 @@ export class CreateFeeScheduleComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.findMetaData();
     if (this.editfeeSchedules === undefined)
       this.mode = 'create'
     else {
@@ -53,12 +56,12 @@ export class CreateFeeScheduleComponent implements OnInit {
   }
   create() {
     this.validate();
-    if(this.valid){
+    if (this.valid) {
       this.feeSchedules.feeLines = this.feeScheduleLines;
       this.feeSchedules.defaultFee = false;
       this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
         this.scrollUp();
-  
+
         if (this.mode === 'create') {
           this.changeVisibility.emit('close_create')
           this.toastr.success('Fee Schdule Created.')
@@ -90,9 +93,14 @@ export class CreateFeeScheduleComponent implements OnInit {
   }
   validate() {
     console.log(JSON.stringify(this.feeSchedules))
-    if (this.feeSchedules.provider !== 'default' && this.feeSchedules.planType !== 'default')
+    if (this.feeSchedules.provider !== 'default' && this.feeSchedules.insurance !== 'default')
       this.valid = true
     else
       this.valid = false;
+  }
+  findMetaData() {
+    this.feeScheduleService.findMetaData().subscribe((result: any) => {
+      this.feeScheduleMetaData = result;
+    })
   }
 }

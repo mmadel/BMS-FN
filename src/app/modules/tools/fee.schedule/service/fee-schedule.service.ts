@@ -41,4 +41,9 @@ export class FeeScheduleService extends BasePaginationService {
     var url = this.baseUrl + '/delete/id/' + id
     return this.httpClient.delete(`${url}`,)
   }
+  findMetaData() {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/find/meta-data'
+    return this.httpClient.get(`${url}`, { 'headers': headers })
+  }
 }

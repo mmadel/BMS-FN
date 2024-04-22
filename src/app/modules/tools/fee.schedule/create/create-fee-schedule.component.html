@@ -10,9 +10,12 @@
                     <label cLabel for="feeProvider">Provider</label>
                 </c-col>
                 <c-col xs="10">
-                    <select cSelect sizing="sm" style="height: 32px;" id="feeProvider"
+                    <select cSelect sizing="sm" style="height: 32px;" id="feeProvider" *ngIf="feeScheduleMetaData"
                         [(ngModel)]="feeSchedules.provider">
                         <option value="default">Default</option>
+                        <option *ngFor="let provider of feeScheduleMetaData.providers" [ngValue]="provider">
+                            {{provider.lastName}},{{provider.firstName}}
+                        </option>
                     </select>
                 </c-col>
             </c-row>
@@ -21,15 +24,18 @@
                     <label cLabel for="feePlanType">Plan Type</label>
                 </c-col>
                 <c-col xs="10">
-                    <select cSelect sizing="sm" style="height: 32px;" id="feePlanType"
-                        [(ngModel)]="feeSchedules.planType">
+                    <select cSelect sizing="sm" style="height: 32px;" id="feePlanType" *ngIf="feeScheduleMetaData"
+                        [(ngModel)]="feeSchedules.insurance">
                         <option value="default">Default</option>
+                        <option *ngFor="let insurance of feeScheduleMetaData.insurances" [ngValue]="insurance">
+                            {{insurance.name}}
+                        </option>
                     </select>
                 </c-col>
             </c-row>
             <c-row [gutter]="6" class="align-items-center mb-2">
                 <c-col xs="1">
-                    <label cLabel for="feePlanType">Schdule Name</label>
+                    <label cLabel for="feePlanType">Name</label>
                 </c-col>
                 <c-col xs="10">
                     <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="feeSchedules.name">
