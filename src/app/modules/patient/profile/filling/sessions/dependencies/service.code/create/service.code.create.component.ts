@@ -4,6 +4,7 @@ import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code
 import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line.type';
 import { ModelModule } from 'src/app/modules/model/model.module';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/fee-schedule.service';
 
 
 @Component({
@@ -22,9 +23,13 @@ export class ServiceCodeCreateComponent implements OnInit {
   emptyUnit: boolean = true;
   emptyCharge: boolean = true;
   @Output() onCreateServiceCode = new EventEmitter<ServiceCode>()
-  constructor(private emitPatientSessionService: EmitPatientSessionService) { }
+  constructor(private emitPatientSessionService: EmitPatientSessionService,
+    private feeScheduleService: FeeScheduleService) { }
 
   ngOnInit(): void {
+    this.feeScheduleService.findDefault().subscribe(result=>{
+      console.log(JSON.stringify(result))
+    })
     this.serviceCode = {
       cptCode: {}
     }
@@ -49,7 +54,7 @@ export class ServiceCodeCreateComponent implements OnInit {
     }
   }
   private validatModifier() {
-    this.validModifiers  = new Array();
+    this.validModifiers = new Array();
     for (let i = 0; i < this.modifier.length; i++) {
       var mod: string = this.modifier[i];
       if (mod !== undefined && (mod.length > 0 && mod.length < 2))

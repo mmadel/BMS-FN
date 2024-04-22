@@ -42,8 +42,7 @@ export class BillingCodeComponent implements OnInit {
   compareFn = this._compareFn.bind(this);
   activePane = 0;
   constructor(private emitPatientSessionService: EmitPatientSessionService,
-    private clinicService: ClinicService,
-    private feeScheduleService: FeeScheduleService) { }
+    private clinicService: ClinicService) { }
 
 
   ngOnInit(): void {
