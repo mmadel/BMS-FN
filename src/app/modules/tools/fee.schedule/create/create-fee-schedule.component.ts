@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FeeSchedule } from '../model/fee.schedule';
 import { FeeScheduleLine } from '../model/fee.schedule.line';
@@ -12,6 +12,7 @@ import { FeeScheduleService } from '../service/fee-schedule.service';
 export class CreateFeeScheduleComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   feeScheduleLines: FeeScheduleLine[] = [];
+  @Input() editfeeSchedules: FeeSchedule;
   feeSchedules: FeeSchedule = {
     provider: 'default',
     planType: 'default'
@@ -23,6 +24,13 @@ export class CreateFeeScheduleComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.fillModel();
+  }
+  fillModel() {
+    if (this.editfeeSchedules !==undefined){
+      this.feeSchedules = this.editfeeSchedules;
+      this.feeScheduleLines = this.editfeeSchedules.feeLines;
+    }
   }
   addLine() {
     this.feeScheduleLines.push(this.addNewFeeScheduleLine)
@@ -32,7 +40,7 @@ export class CreateFeeScheduleComponent implements OnInit {
   }
   create() {
     this.feeSchedules.feeLines = this.feeScheduleLines;
-      this.feeSchedules.defaultFee = false;
+    this.feeSchedules.defaultFee = false;
     this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
       this.scrollUp();
       this.toastr.success('Fee Schdule Created.')

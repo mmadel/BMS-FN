@@ -44,7 +44,7 @@
                             <button cButton variant="outline" (click)="showLines(fee.id)" size="sm">
                                 <svg cIcon name="cilFindInPage"></svg>
                             </button>
-                            <button cButton variant="outline" (click)="edit()" size="sm">
+                            <button cButton variant="outline" (click)="editFeeSchdule(fee.id)" size="sm">
                                 <svg cIcon name="cilPen"></svg>
                             </button>
                             <button cButton variant="outline" (click)="delete(fee.id)" size="sm">
@@ -73,5 +73,15 @@
     </c-modal-header>
     <c-modal-body>
         <create-fee-schedule *ngIf="addFeeScheduleVisible" (changeVisibility)="changeVisibility($event)"></create-fee-schedule>
+    </c-modal-body>
+</c-modal>
+<c-modal [visible]="editFeeScheduleVisible" scrollable size="xl" backdrop="static">
+    <c-modal-header>
+        <h2 cModalTitle>Edit FeeSchedule</h2>
+        <button (click)="toggleEditFeeScheduleVisible()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <create-fee-schedule *ngIf="editFeeScheduleVisible" (changeVisibility)="changeVisibility($event)"
+        [editfeeSchedules]="selectedFeeScedule"></create-fee-schedule>
     </c-modal-body>
 </c-modal>

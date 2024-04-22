@@ -12,7 +12,9 @@ export class FeeScheduleComponent implements OnInit {
   feeSchedules: FeeSchedule[]
   feeLinesVisible: boolean = false;
   addFeeScheduleVisible: boolean = false;
+  editFeeScheduleVisible: boolean = false;
   selectedFeeSceduleId: number;
+  selectedFeeScedule: FeeSchedule
   constructor(private feeScheduleService: FeeScheduleService
     , private toastr: ToastrService) { }
 
@@ -25,19 +27,21 @@ export class FeeScheduleComponent implements OnInit {
   toggleFeeScheduleVisible() {
     this.addFeeScheduleVisible = !this.addFeeScheduleVisible
   }
+  toggleEditFeeScheduleVisible() {
+    this.editFeeScheduleVisible = !this.editFeeScheduleVisible
+  }
   createFeeSchdule() {
     this.addFeeScheduleVisible = true;
+  }
+  editFeeSchdule(feeId: number) {
+    this.selectedFeeScedule = this.feeSchedules.find(fee => fee.id === feeId);
+    this.editFeeScheduleVisible = true;
+    
   }
   private find() {
     this.feeScheduleService.find().subscribe((result: any) => {
       this.feeSchedules = result
     })
-  }
-  showStatus(defaultFee: boolean) {
-
-  }
-  edit() {
-
   }
   delete(id: number) {
     this.feeScheduleService.deleteById(id).subscribe(result => {
@@ -51,7 +55,7 @@ export class FeeScheduleComponent implements OnInit {
   }
   changeVisibility(event: any) {
     console.log(event)
-    if (event === 'close'){
+    if (event === 'close') {
       this.addFeeScheduleVisible = false;
       this.find();
     }
