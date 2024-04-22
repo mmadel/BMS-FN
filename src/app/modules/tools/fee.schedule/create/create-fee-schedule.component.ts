@@ -15,7 +15,8 @@ export class CreateFeeScheduleComponent implements OnInit {
   editfeeScheduleLine: FeeScheduleLine;
   @Input() editfeeSchedules: FeeSchedule;
   mode: string = 'create';
-  lineMode: string;
+  lineMode: string = 'create';
+  valid: boolean = true;
   feeSchedules: FeeSchedule = {
     provider: 'default',
     planType: 'default'
@@ -51,23 +52,26 @@ export class CreateFeeScheduleComponent implements OnInit {
     };
   }
   create() {
-    this.feeSchedules.feeLines = this.feeScheduleLines;
-    this.feeSchedules.defaultFee = false;
-    this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
-      this.scrollUp();
-
-      if (this.mode === 'create') {
-        this.changeVisibility.emit('close_create')
-        this.toastr.success('Fee Schdule Created.')
-      }
-      if (this.mode === 'update') {
-        this.changeVisibility.emit('close_update')
-        this.toastr.success('Fee Schdule Updated.')
-      }
-    }, error => {
-      this.toastr.error('Erro during creating Fee Schdule')
-      console.log('error ' + error)
-    })
+    this.validate();
+    if(this.valid){
+      this.feeSchedules.feeLines = this.feeScheduleLines;
+      this.feeSchedules.defaultFee = false;
+      this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
+        this.scrollUp();
+  
+        if (this.mode === 'create') {
+          this.changeVisibility.emit('close_create')
+          this.toastr.success('Fee Schdule Created.')
+        }
+        if (this.mode === 'update') {
+          this.changeVisibility.emit('close_update')
+          this.toastr.success('Fee Schdule Updated.')
+        }
+      }, error => {
+        this.toastr.error('Erro during creating Fee Schdule')
+        console.log('error ' + error)
+      })
+    }
   }
   scrollUp() {
     (function smoothscroll() {
@@ -83,5 +87,12 @@ export class CreateFeeScheduleComponent implements OnInit {
   editLine(cptCode: string) {
     this.lineMode = 'update'
     this.addNewFeeScheduleLine = this.feeScheduleLines.find(line => line.cptCode === cptCode);
+  }
+  validate() {
+    console.log(JSON.stringify(this.feeSchedules))
+    if (this.feeSchedules.provider !== 'default' && this.feeSchedules.planType !== 'default')
+      this.valid = true
+    else
+      this.valid = false;
   }
 }

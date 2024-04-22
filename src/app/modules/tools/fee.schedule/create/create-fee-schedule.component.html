@@ -1,4 +1,7 @@
 <ngx-spinner></ngx-spinner>
+<c-callout color="danger" *ngIf="!valid" class="mt-3">
+    Select provider and Insurance Company.Only one default Fee Schdule
+</c-callout>
 <c-container fluid="true">
     <c-row class="mb-2">
         <c-col xs="12">
@@ -29,8 +32,7 @@
                     <label cLabel for="feePlanType">Schdule Name</label>
                 </c-col>
                 <c-col xs="10">
-                    <input cFormControl sizing="sm" name="cptCode"
-                        [(ngModel)]="feeSchedules.name">
+                    <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="feeSchedules.name">
                 </c-col>
             </c-row>
         </c-col>

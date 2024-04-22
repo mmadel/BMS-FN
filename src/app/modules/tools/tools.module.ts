@@ -34,7 +34,8 @@ import {
   DateRangePickerModule,
   TimePickerModule,
   ModalModule,
-  SmartPaginationModule} from '@coreui/angular-pro';
+  SmartPaginationModule,
+  CalloutModule} from '@coreui/angular-pro';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 import { CreateFeeScheduleComponent } from './fee.schedule/create/create-fee-schedule.component';
@@ -73,6 +74,7 @@ import { CreateFeeScheduleComponent } from './fee.schedule/create/create-fee-sch
     ModalModule,
     SmartPaginationModule,
     FormsModule,
+    CalloutModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
