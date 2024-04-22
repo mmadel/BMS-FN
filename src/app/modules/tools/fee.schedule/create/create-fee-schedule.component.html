@@ -87,7 +87,7 @@
                                     <td>{{line.chargeAmount}}</td>
                                     <td>
                                         <c-button-group aria-label="Basic example" role="group" size="sm">
-                                            <button cButton variant="outline" size="sm">
+                                            <button cButton variant="outline" size="sm" (click)="editLine(line.cptCode)">
                                                 <svg cIcon name="cilPen"></svg>
                                             </button>
                                             <button cButton variant="outline" size="sm" (click)="deleteLine(i)">

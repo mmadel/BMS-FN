@@ -12,6 +12,7 @@ import { FeeScheduleService } from '../service/fee-schedule.service';
 export class CreateFeeScheduleComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   feeScheduleLines: FeeScheduleLine[] = [];
+  editfeeScheduleLine: FeeScheduleLine;
   @Input() editfeeSchedules: FeeSchedule;
   mode: string = 'create';
   feeSchedules: FeeSchedule = {
@@ -71,5 +72,8 @@ export class CreateFeeScheduleComponent implements OnInit {
   }
   deleteLine(id: number) {
     this.feeScheduleLines.splice(id, 1);
+  }
+  editLine(cptCode: string){
+    this.addNewFeeScheduleLine = this.feeScheduleLines.find(line => line.cptCode === cptCode);
   }
 }
