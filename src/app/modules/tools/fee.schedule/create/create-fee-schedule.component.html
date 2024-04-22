@@ -7,19 +7,30 @@
                     <label cLabel for="feeProvider">Provider</label>
                 </c-col>
                 <c-col xs="10">
-                    <select cSelect sizing="sm" style="height: 32px;" id="feeProvider" [(ngModel)]="feeSchedules.provider">
+                    <select cSelect sizing="sm" style="height: 32px;" id="feeProvider"
+                        [(ngModel)]="feeSchedules.provider">
                         <option value="default">Default</option>
                     </select>
                 </c-col>
             </c-row>
-            <c-row [gutter]="6" class="align-items-center">
+            <c-row [gutter]="6" class="align-items-center mb-2">
                 <c-col xs="1">
                     <label cLabel for="feePlanType">Plan Type</label>
                 </c-col>
                 <c-col xs="10">
-                    <select cSelect sizing="sm" style="height: 32px;" id="feePlanType" [(ngModel)]="feeSchedules.planType">
+                    <select cSelect sizing="sm" style="height: 32px;" id="feePlanType"
+                        [(ngModel)]="feeSchedules.planType">
                         <option value="default">Default</option>
                     </select>
+                </c-col>
+            </c-row>
+            <c-row [gutter]="6" class="align-items-center mb-2">
+                <c-col xs="1">
+                    <label cLabel for="feePlanType">Schdule Name</label>
+                </c-col>
+                <c-col xs="10">
+                    <input cFormControl sizing="sm" name="cptCode"
+                        [(ngModel)]="feeSchedules.name">
                 </c-col>
             </c-row>
         </c-col>
@@ -83,7 +94,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                                 <tr *ngFor="let line of feeScheduleLines;index as i">
                                     <th scope="row">{{i+1}}</th>
                                     <td>{{line.cptCode}}</td>
@@ -92,7 +103,8 @@
                                     <td>{{line.chargeAmount}}</td>
                                     <td>
                                         <c-button-group aria-label="Basic example" role="group" size="sm">
-                                            <button cButton variant="outline" size="sm" (click)="editLine(line.cptCode)">
+                                            <button cButton variant="outline" size="sm"
+                                                (click)="editLine(line.cptCode)">
                                                 <svg cIcon name="cilPen"></svg>
                                             </button>
                                             <button cButton variant="outline" size="sm" (click)="deleteLine(i)">

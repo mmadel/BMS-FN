@@ -28,6 +28,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Active</th>
                     <th scope="col" style="width: 10%;">Actions</th>
                 </tr>
@@ -35,9 +36,14 @@
             <tbody>
                 <tr *ngFor="let fee of feeSchedules;index as i">
                     <th scope="row">{{i+1}}</th>
+                    <td>{{fee.name}}</td>
                     <td>
-                        <c-badge *ngIf="fee.defaultFee" color="primary" shape="rounded-pill">Active</c-badge>
-                        <c-badge *ngIf="!fee.defaultFee" color="info" shape="rounded-pill">In-Active</c-badge>
+                        <!-- <c-badge *ngIf="fee.defaultFee" color="primary" shape="rounded-pill">Active</c-badge>
+                        <c-badge *ngIf="!fee.defaultFee" color="info" shape="rounded-pill">In-Active</c-badge> -->
+                        <c-form-check [switch]="true">
+                            <input cFormCheckInput type="checkbox" [(ngModel)]="fee.defaultFee"
+                                [disabled]="disableSetDefault" (change)="checkValue(fee)" />
+                        </c-form-check>
                     </td>
                     <td>
                         <c-button-group aria-label="Basic example" role="group" size="sm">
@@ -60,7 +66,8 @@
         <button (click)="toggleFeeScheduleVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <create-fee-schedule *ngIf="addFeeScheduleVisible" (changeVisibility)="changeVisibility($event)"></create-fee-schedule>
+        <create-fee-schedule *ngIf="addFeeScheduleVisible"
+            (changeVisibility)="changeVisibility($event)"></create-fee-schedule>
     </c-modal-body>
 </c-modal>
 <c-modal [visible]="editFeeScheduleVisible" scrollable size="xl" backdrop="static">
@@ -70,6 +77,6 @@
     </c-modal-header>
     <c-modal-body>
         <create-fee-schedule *ngIf="editFeeScheduleVisible" (changeVisibility)="changeVisibility($event)"
-        [editfeeSchedules]="selectedFeeScedule"></create-fee-schedule>
+            [editfeeSchedules]="selectedFeeScedule"></create-fee-schedule>
     </c-modal-body>
 </c-modal>
