@@ -9,6 +9,7 @@ import { PatientSession } from 'src/app/modules/model/clinical/session/patient.s
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/fee-schedule.service';
 import { BillingCode } from '../../model/billing.code';
 import { DignosisListComponent } from '../dignosis.list/dignosis-list.component';
 import { ServiceCodeListComponent } from '../service.code/list/service.code.list.component';
@@ -40,8 +41,10 @@ export class BillingCodeComponent implements OnInit {
   clinics: Clinic[];
   compareFn = this._compareFn.bind(this);
   activePane = 0;
-  constructor(private emitPatientSessionService: EmitPatientSessionService
-    , private clinicService: ClinicService) { }
+  constructor(private emitPatientSessionService: EmitPatientSessionService,
+    private clinicService: ClinicService,
+    private feeScheduleService: FeeScheduleService) { }
+
 
   ngOnInit(): void {
     if (this.editMode)
@@ -128,10 +131,10 @@ export class BillingCodeComponent implements OnInit {
   private diagnosis() {
     this.populatedSiagnosisCode = this.billingCode.diagnosisCode;
   }
-  _compareFn(a:any, b:any) {
+  _compareFn(a: any, b: any) {
     return a.id === b.id;
- }
- onTabChange($event: number) {
-  this.activePane = $event;
-}
+  }
+  onTabChange($event: number) {
+    this.activePane = $event;
+  }
 }
