@@ -13,6 +13,7 @@ export class CreateFeeScheduleComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   feeScheduleLines: FeeScheduleLine[] = [];
   @Input() editfeeSchedules: FeeSchedule;
+  mode: string = 'create';
   feeSchedules: FeeSchedule = {
     provider: 'default',
     planType: 'default'
@@ -24,13 +25,16 @@ export class CreateFeeScheduleComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.fillModel();
+    if (this.editfeeSchedules === undefined)
+      this.mode = 'create'
+    else {
+      this.mode = 'update'
+      this.fillModel();
+    }
   }
   fillModel() {
-    if (this.editfeeSchedules !==undefined){
-      this.feeSchedules = this.editfeeSchedules;
-      this.feeScheduleLines = this.editfeeSchedules.feeLines;
-    }
+    this.feeSchedules = this.editfeeSchedules;
+    this.feeScheduleLines = this.editfeeSchedules.feeLines;
   }
   addLine() {
     this.feeScheduleLines.push(this.addNewFeeScheduleLine)
@@ -43,8 +47,15 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.feeSchedules.defaultFee = false;
     this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
       this.scrollUp();
-      this.toastr.success('Fee Schdule Created.')
-      this.changeVisibility.emit('close')
+      
+      if (this.mode === 'create'){
+        this.changeVisibility.emit('close_create')
+        this.toastr.success('Fee Schdule Created.')
+      }
+      if (this.mode === 'update'){
+        this.changeVisibility.emit('close_update')
+        this.toastr.success('Fee Schdule Updated.')
+      }
     }, error => {
       this.toastr.error('Erro during creating Fee Schdule')
       console.log('error ' + error)

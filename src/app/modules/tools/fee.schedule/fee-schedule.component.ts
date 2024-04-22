@@ -36,7 +36,7 @@ export class FeeScheduleComponent implements OnInit {
   editFeeSchdule(feeId: number) {
     this.selectedFeeScedule = this.feeSchedules.find(fee => fee.id === feeId);
     this.editFeeScheduleVisible = true;
-    
+
   }
   private find() {
     this.feeScheduleService.find().subscribe((result: any) => {
@@ -54,10 +54,10 @@ export class FeeScheduleComponent implements OnInit {
     this.feeLinesVisible = true;
   }
   changeVisibility(event: any) {
-    console.log(event)
-    if (event === 'close') {
+    if (event === 'close_create')
       this.addFeeScheduleVisible = false;
-      this.find();
-    }
+    if (event === 'close_update')
+      this.editFeeScheduleVisible = false;
+    this.find();
   }
 }

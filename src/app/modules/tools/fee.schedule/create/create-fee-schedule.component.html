@@ -106,7 +106,8 @@
     </c-col>
     <div class="col text-center my-3">
         <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;">
-            Create
+            <span *ngIf="mode ==='create'"> Create</span>
+            <span *ngIf="mode ==='update'"> Update</span>
         </button>
     </div>
 </c-container>
