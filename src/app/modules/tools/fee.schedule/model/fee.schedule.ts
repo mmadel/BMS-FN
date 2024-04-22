@@ -4,4 +4,6 @@ export interface FeeSchedule{
     id?:number,
     defaultFee?:boolean,
     feeLines?:FeeScheduleLine[]
+    provider?:any;
+    planType?:any
 }
