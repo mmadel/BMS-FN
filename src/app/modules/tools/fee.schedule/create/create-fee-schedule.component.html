@@ -1,1 +1,37 @@
-<p>create-fee-schedule works!</p>
+<ngx-spinner></ngx-spinner>
+<c-container fluid="true">
+    <c-row class="mb-2">
+        <c-col xs="12">
+            <c-row [gutter]="6" class="align-items-center mb-2">
+                <c-col xs="1">
+                    <label cLabel for="feeProvider">Provider</label>
+                </c-col>
+                <c-col xs="10">
+                    <select cSelect sizing="sm" style="height: 32px;" id="feeProvider">
+                        <option value="Per_Unit">Default</option>
+                    </select>
+                </c-col>
+            </c-row>
+            <c-row [gutter]="6" class="align-items-center">
+                <c-col xs="1">
+                    <label cLabel for="feePlanType">Plan Type</label>
+                </c-col>
+                <c-col xs="10">
+                    <select cSelect sizing="sm" style="height: 32px;" id="feePlanType">
+                        <option value="Per_Unit">Default</option>
+                    </select>
+                </c-col>
+            </c-row>
+        </c-col>
+    </c-row>
+    <c-col xs="12">
+        <c-card>
+            <c-card-header>
+                Fee Schedule Lines
+            </c-card-header>
+            <c-card-body>
+                
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-container>
