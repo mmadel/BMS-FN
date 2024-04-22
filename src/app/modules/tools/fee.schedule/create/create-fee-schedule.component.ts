@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FeeScheduleLine } from '../model/fee.schedule.line';
 
 @Component({
@@ -7,6 +7,7 @@ import { FeeScheduleLine } from '../model/fee.schedule.line';
   styleUrls: ['./create-fee-schedule.component.scss']
 })
 export class CreateFeeScheduleComponent implements OnInit {
+  @Output() changeVisibility = new EventEmitter<string>()
   feeScheduleLines: FeeScheduleLine[] = [];
   addNewFeeScheduleLine: FeeScheduleLine = {
     rateType: 'Per_Unit'
@@ -20,5 +21,8 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.addNewFeeScheduleLine = {
       rateType: 'Per_Unit'
     };
+  }
+  create(){
+    this.changeVisibility.emit('close')
   }
 }

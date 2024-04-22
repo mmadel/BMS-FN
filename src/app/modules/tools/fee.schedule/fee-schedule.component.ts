@@ -25,7 +25,7 @@ export class FeeScheduleComponent implements OnInit {
   toggleFeeScheduleVisible() {
     this.addFeeScheduleVisible = !this.addFeeScheduleVisible
   }
-  createFeeSchdule(){
+  createFeeSchdule() {
     this.addFeeScheduleVisible = true;
   }
   private find() {
@@ -48,5 +48,10 @@ export class FeeScheduleComponent implements OnInit {
   showLines(id: number) {
     this.selectedFeeSceduleId = id
     this.feeLinesVisible = true;
+  }
+  changeVisibility(event: any) {
+    console.log(event)
+    if (event === 'close')
+      this.addFeeScheduleVisible = false;
   }
 }

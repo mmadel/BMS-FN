@@ -72,6 +72,6 @@
         <button (click)="toggleFeeScheduleVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <create-fee-schedule *ngIf="addFeeScheduleVisible"></create-fee-schedule>
+        <create-fee-schedule *ngIf="addFeeScheduleVisible" (changeVisibility)="changeVisibility($event)"></create-fee-schedule>
     </c-modal-body>
 </c-modal>
