@@ -15,6 +15,7 @@ export class CreateFeeScheduleComponent implements OnInit {
   editfeeScheduleLine: FeeScheduleLine;
   @Input() editfeeSchedules: FeeSchedule;
   mode: string = 'create';
+  lineMode: string;
   feeSchedules: FeeSchedule = {
     provider: 'default',
     planType: 'default'
@@ -38,7 +39,13 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.feeScheduleLines = this.editfeeSchedules.feeLines;
   }
   addLine() {
-    this.feeScheduleLines.push(this.addNewFeeScheduleLine)
+    if (this.lineMode === 'update') {
+      let indexToUpdate = this.feeScheduleLines.findIndex(item => item.cptCode === this.addNewFeeScheduleLine.cptCode);
+      this.feeScheduleLines[indexToUpdate] = this.addNewFeeScheduleLine;
+      this.lineMode = 'create'
+    } else {
+      this.feeScheduleLines.push(this.addNewFeeScheduleLine)
+    }
     this.addNewFeeScheduleLine = {
       rateType: 'Per_Unit'
     };
@@ -48,12 +55,12 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.feeSchedules.defaultFee = false;
     this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
       this.scrollUp();
-      
-      if (this.mode === 'create'){
+
+      if (this.mode === 'create') {
         this.changeVisibility.emit('close_create')
         this.toastr.success('Fee Schdule Created.')
       }
-      if (this.mode === 'update'){
+      if (this.mode === 'update') {
         this.changeVisibility.emit('close_update')
         this.toastr.success('Fee Schdule Updated.')
       }
@@ -73,7 +80,8 @@ export class CreateFeeScheduleComponent implements OnInit {
   deleteLine(id: number) {
     this.feeScheduleLines.splice(id, 1);
   }
-  editLine(cptCode: string){
+  editLine(cptCode: string) {
+    this.lineMode = 'update'
     this.addNewFeeScheduleLine = this.feeScheduleLines.find(line => line.cptCode === cptCode);
   }
 }

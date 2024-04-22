@@ -57,7 +57,12 @@
                             <div class="row">
                                 <div class="col text-center">
                                     <button cButton color="info" variant="outline" size="sm" (click)="addLine()">
-                                        Add
+                                        <span *ngIf="lineMode ==='update'">
+                                            edit
+                                        </span>
+                                        <span *ngIf="lineMode ==='create'">
+                                            Add
+                                        </span>
                                     </button>
                                 </div>
                             </div>
