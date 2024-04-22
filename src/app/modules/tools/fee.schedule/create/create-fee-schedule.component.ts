@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { FeeSchedule } from '../model/fee.schedule';
 import { FeeScheduleLine } from '../model/fee.schedule.line';
+import { FeeScheduleService } from '../service/fee-schedule.service';
 
 @Component({
   selector: 'create-fee-schedule',
@@ -10,14 +12,15 @@ import { FeeScheduleLine } from '../model/fee.schedule.line';
 export class CreateFeeScheduleComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   feeScheduleLines: FeeScheduleLine[] = [];
-  feeSchedules: FeeSchedule ={
-    provider:'default',
-    planType:'default'
+  feeSchedules: FeeSchedule = {
+    provider: 'default',
+    planType: 'default'
   };
   addNewFeeScheduleLine: FeeScheduleLine = {
     rateType: 'Per_Unit'
   };
-  constructor() { }
+  constructor(private feeScheduleService: FeeScheduleService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -27,10 +30,24 @@ export class CreateFeeScheduleComponent implements OnInit {
       rateType: 'Per_Unit'
     };
   }
-  create(){
-    this.feeSchedules.feeLines= this.feeScheduleLines; 
-    this.feeSchedules.defaultFee = false;
-    this.changeVisibility.emit('close')
-    console.log(JSON.stringify(this.feeSchedules))
+  create() {
+    this.feeSchedules.feeLines = this.feeScheduleLines;
+      this.feeSchedules.defaultFee = false;
+    this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
+      this.scrollUp();
+      this.toastr.success('Fee Schdule Created.')
+      this.changeVisibility.emit('close')
+    }, error => {
+      this.toastr.error('Erro during creating Fee Schdule')
+      console.log('error ' + error)
+    })
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

@@ -51,7 +51,9 @@ export class FeeScheduleComponent implements OnInit {
   }
   changeVisibility(event: any) {
     console.log(event)
-    if (event === 'close')
+    if (event === 'close'){
       this.addFeeScheduleVisible = false;
+      this.find();
+    }
   }
 }
