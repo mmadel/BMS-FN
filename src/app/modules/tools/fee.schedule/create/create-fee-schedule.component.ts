@@ -69,4 +69,7 @@ export class CreateFeeScheduleComponent implements OnInit {
       }
     })();
   }
+  deleteLine(id: number) {
+    this.feeScheduleLines.splice(id, 1);
+  }
 }
