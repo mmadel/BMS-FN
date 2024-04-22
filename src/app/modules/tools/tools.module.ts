@@ -36,7 +36,6 @@ import {
   ModalModule,
   SmartPaginationModule} from '@coreui/angular-pro';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { FindLinesComponent } from './fee.schedule/find.lines/find-lines.component';
 import { FormsModule } from '@angular/forms';
 import { CreateFeeScheduleComponent } from './fee.schedule/create/create-fee-schedule.component';
 
@@ -46,7 +45,6 @@ import { CreateFeeScheduleComponent } from './fee.schedule/create/create-fee-sch
     CancelClaimComponent,
     ModifierRuleComponent,
     RuleCreationComponent,
-    FindLinesComponent,
     CreateFeeScheduleComponent
   ],
   imports: [
