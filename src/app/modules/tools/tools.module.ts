@@ -38,6 +38,7 @@ import {
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FindLinesComponent } from './fee.schedule/find.lines/find-lines.component';
 import { FormsModule } from '@angular/forms';
+import { CreateFeeScheduleComponent } from './fee.schedule/create/create-fee-schedule.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FormsModule } from '@angular/forms';
     CancelClaimComponent,
     ModifierRuleComponent,
     RuleCreationComponent,
-    FindLinesComponent
+    FindLinesComponent,
+    CreateFeeScheduleComponent
   ],
   imports: [
     CommonModule,

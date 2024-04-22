@@ -11,6 +11,7 @@ import usersData from './_data'
 export class FeeScheduleComponent implements OnInit {
   feeSchedules: FeeSchedule[]
   feeLinesVisible: boolean = false;
+  addFeeScheduleVisible: boolean = false;
   selectedFeeSceduleId: number;
   constructor(private feeScheduleService: FeeScheduleService
     , private toastr: ToastrService) { }
@@ -20,6 +21,12 @@ export class FeeScheduleComponent implements OnInit {
   }
   togglefeeLinesVisible() {
     this.feeLinesVisible = !this.feeLinesVisible
+  }
+  toggleFeeScheduleVisible() {
+    this.addFeeScheduleVisible = !this.addFeeScheduleVisible
+  }
+  createFeeSchdule(){
+    this.addFeeScheduleVisible = true;
   }
   private find() {
     this.feeScheduleService.find().subscribe((result: any) => {
