@@ -41,7 +41,7 @@
                         <!-- <c-badge *ngIf="fee.defaultFee" color="primary" shape="rounded-pill">Active</c-badge>
                         <c-badge *ngIf="!fee.defaultFee" color="info" shape="rounded-pill">In-Active</c-badge> -->
                         <c-form-check [switch]="true">
-                            <input cFormCheckInput type="checkbox" [(ngModel)]="fee.defaultFee"
+                            <input cFormCheckInput type="checkbox" [(ngModel)]="fee.active"
                                 [disabled]="disableSetDefault" (change)="checkValue(fee)" />
                         </c-form-check>
                     </td>

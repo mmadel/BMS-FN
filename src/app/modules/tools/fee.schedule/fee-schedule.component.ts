@@ -13,7 +13,7 @@ export class FeeScheduleComponent implements OnInit {
   feeLinesVisible: boolean = false;
   addFeeScheduleVisible: boolean = false;
   editFeeScheduleVisible: boolean = false;
-  disableSetDefault?:boolean = false
+  disableSetDefault?: boolean = false
   selectedFeeSceduleId: number;
   selectedFeeScedule: FeeSchedule
   constructor(private feeScheduleService: FeeScheduleService
@@ -62,20 +62,10 @@ export class FeeScheduleComponent implements OnInit {
     this.find();
   }
   checkValue(value: FeeSchedule) {
-    var hasDefaultValue: any;
-    if (value.defaultFee) {
-      hasDefaultValue = this.feeSchedules.find(e => e.defaultFee)
-    } else {
-      hasDefaultValue = undefined;
-    }
-    if (hasDefaultValue === undefined) {
-      this.feeScheduleService.create(value).subscribe(result => {
-        this.toastr.success("Fee Schdule set As default");
-      }, error => {
+    this.feeScheduleService.create(value).subscribe(result => {
+      this.toastr.success("Fee Schdule set Active");
+    }, error => {
 
-      })
-    } else {
-      this.toastr.warning("Can't set multiple default")
-    }
+    })
   }
 }
