@@ -10,14 +10,15 @@
 </c-row>
 <hr />
 
-<c-smart-table [columnSorter]="true" [columns]="columns" [items]="usersData"
+<span *ngIf="modifierRules">
+  <c-smart-table [columnSorter]="true" [columns]="columns" [items]="modifierRules"
   [sorterValue]="{ column: 'name', state: 'asc' }" [tableProps]="{ hover: true, striped: true, responsive: true }"
   [tableBodyProps]="{ align: 'middle' }" header>
 
   <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
     <td>
       <ng-container [ngSwitch]="columnName">
-        <ng-container *ngSwitchCase="'delete'" class="py-2">
+        <ng-container *ngSwitchCase="'actions'" class="py-2">
           <c-button-group aria-label="Basic example" role="group" size="sm">
             <button cButton variant="outline" (click)="edit()" size="sm">
               <svg cIcon name="cilPen"></svg>
@@ -34,6 +35,7 @@
     </td>
   </ng-template>
 </c-smart-table>
+</span>
 
 <c-modal [visible]="addRuleVisible" (visibleChange)="handleAddRuleChange($event)" scrollable size="xl">
   <c-modal-header>
