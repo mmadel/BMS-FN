@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModifierRule } from '../model/modifier.rule';
 
 @Component({
   selector: 'app-rule-creation',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rule-creation.component.scss']
 })
 export class RuleCreationComponent implements OnInit {
-  modiferValue:string=""
+  modifierRule: ModifierRule={
+  };
   constructor() { }
 
   ngOnInit(): void {
