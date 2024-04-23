@@ -14,7 +14,7 @@
       
         <!-- [disabled]="emptyDiagnosisCodes" -->
         <input cFormControl name="serviceCode" [formControl]="feeCtrl" id="serviceCode" sizing="sm"
-        maxlength="5" sizing="sm" />
+        maxlength="5" sizing="sm" [(ngModel)]="serviceCode.cptCode.serviceCode"/>
     </div>
     <div class="mb-3">
         <small *ngIf="validModifiers?.length > 0" class="form-text text-danger mb-3">

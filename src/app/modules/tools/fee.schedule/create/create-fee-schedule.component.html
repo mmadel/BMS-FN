@@ -13,9 +13,9 @@
                     <select cSelect sizing="sm" style="height: 32px;" id="feeProvider" *ngIf="feeScheduleMetaData"
                         [(ngModel)]="feeSchedules.provider">
                         <option value="default">Default</option>
-                        <option *ngFor="let provider of feeScheduleMetaData.providers" [ngValue]="provider">
-                            {{provider.lastName}},{{provider.firstName}}
-                        </option>
+                            <option *ngFor="let provider of feeScheduleMetaData.providers" [value]="provider">
+                                {{provider.lastName}},{{provider.firstName}}
+                            </option>
                     </select>
                 </c-col>
             </c-row>
@@ -27,7 +27,7 @@
                     <select cSelect sizing="sm" style="height: 32px;" id="feePlanType" *ngIf="feeScheduleMetaData"
                         [(ngModel)]="feeSchedules.insurance">
                         <option value="default">Default</option>
-                        <option *ngFor="let insurance of feeScheduleMetaData.insurances" [ngValue]="insurance">
+                        <option *ngFor="let insurance of feeScheduleMetaData.insurances" [value]="insurance">
                             {{insurance.name}}
                         </option>
                     </select>

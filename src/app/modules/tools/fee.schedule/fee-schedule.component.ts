@@ -13,7 +13,6 @@ export class FeeScheduleComponent implements OnInit {
   feeLinesVisible: boolean = false;
   addFeeScheduleVisible: boolean = false;
   editFeeScheduleVisible: boolean = false;
-  disableSetDefault?: boolean = false
   selectedFeeSceduleId: number;
   selectedFeeScedule: FeeSchedule
   constructor(private feeScheduleService: FeeScheduleService

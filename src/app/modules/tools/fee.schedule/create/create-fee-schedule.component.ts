@@ -40,6 +40,10 @@ export class CreateFeeScheduleComponent implements OnInit {
   }
   fillModel() {
     this.feeSchedules = this.editfeeSchedules;
+    if (this.editfeeSchedules.provider === null)
+      this.feeSchedules.provider = 'default'
+    if (this.editfeeSchedules.insurance === null)
+      this.feeSchedules.insurance = 'default'
     this.feeScheduleLines = this.editfeeSchedules.feeLines;
   }
   addLine() {
@@ -58,7 +62,6 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.validate();
     if (this.valid) {
       this.feeSchedules.feeLines = this.feeScheduleLines;
-      this.feeSchedules.defaultFee = false;
       this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
         this.scrollUp();
 
@@ -92,7 +95,6 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.addNewFeeScheduleLine = this.feeScheduleLines.find(line => line.cptCode === cptCode);
   }
   validate() {
-    console.log(JSON.stringify(this.feeSchedules))
     if (this.feeSchedules.provider !== 'default' && this.feeSchedules.insurance !== 'default')
       this.valid = true
     else
