@@ -49,7 +49,7 @@
         </small><br />
         <label cLabel for="unit">Unit</label>
         <input cFormControl id="unit" placeholder="unit" [(ngModel)]="serviceCode.cptCode.unit" sizing="sm"
-            [disabled]="emptyDiagnosisCodes" type="number" />
+            [disabled]="emptyDiagnosisCodes" type="number" (keyup)="calculateCharge()"/>
     </div>
     <div class="mb-3">
         <small *ngIf="!emptyCharge" class="form-text text-danger mb-3">

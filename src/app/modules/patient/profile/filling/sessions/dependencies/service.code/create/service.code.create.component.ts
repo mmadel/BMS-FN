@@ -45,7 +45,6 @@ export class ServiceCodeCreateComponent implements OnInit {
         this.emptyDiagnosisCodes = false;
     })
     this.emitPatientSessionService.selectedProvider$.pipe(
-      tap(result=>console.log(result))
     ).subscribe((result: any) => {
       this.doctorNPI = result.model.npi
     })
@@ -129,28 +128,23 @@ export class ServiceCodeCreateComponent implements OnInit {
           this.feeScheduleLine = {};
         } else {
           this.feeScheduleLine = data;
-          this.calculateCharge();
         }
       },
         error => {
           this.isLoading = false
         });
   }
+  
   calculateCharge() {
     if (this.feeScheduleLine.cptCode !== null) {
-      this.serviceCode.cptCode.unit = this.feeScheduleLine.perUnit;
-      this.serviceCode.cptCode.charge = this.feeScheduleLine.chargeAmount
       switch (this.feeScheduleLine.rateType) {
         case 'Per_Unit':
-          this.serviceCode.cptCode.charge = this.feeScheduleLine.perUnit * this.feeScheduleLine.chargeAmount;
+          this.serviceCode.cptCode.charge = this.serviceCode.cptCode.unit * this.feeScheduleLine.chargeAmount;
           break;
         case 'Fixed':
           this.serviceCode.cptCode.charge = this.feeScheduleLine.chargeAmount;
           break;
       }
-    } else {
-      this.serviceCode.cptCode.unit = undefined;
-      this.serviceCode.cptCode.charge = undefined
     }
   }
 }
