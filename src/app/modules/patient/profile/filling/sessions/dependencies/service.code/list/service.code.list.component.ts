@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { filter, tap } from 'rxjs';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
@@ -9,12 +9,14 @@ import { EmitPatientSessionService } from 'src/app/modules/patient/service/sessi
   styleUrls: ['./service.code.list.component.scss']
 })
 export class ServiceCodeListComponent implements OnInit {
+  @Output() refresh = new EventEmitter<string>()
   serviceCodes: ServiceCode[];
   unitCount: number;
   chargeCount: number;
   @Input() editMode?: boolean = false;
   editServiceCodeVisibility: boolean = false;
   @Input() selectedServiceCodes?: ServiceCode[]
+  selectedItems: any[] = [];
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
@@ -22,6 +24,12 @@ export class ServiceCodeListComponent implements OnInit {
       this.populateList();
     else
       this.serviceCodes = new Array();
+
+    this.emitPatientSessionService.refresh$.pipe(
+      filter(result => result !== null)
+    ).subscribe(result => {
+      this.emitPatientSessionService.sessionserviceCodes$.next(result);
+    })
   }
   toggleEditServiceLine(serviceCode: ServiceCode, index: number) {
     this.emitPatientSessionService.sessionserviceCode$.next(serviceCode)
@@ -70,5 +78,14 @@ export class ServiceCodeListComponent implements OnInit {
       this.editServiceCodeVisibility = false;
       this.countChargeUnit();
     }
+  }
+  selectRow(item: any) {
+    const index = this.selectedItems.indexOf(item);
+    if (index === -1) {
+      this.selectedItems.push(item);
+    } else {
+      this.selectedItems.splice(index, 1);
+    }
+    console.log(JSON.stringify(this.selectedItems))
   }
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { environment } from 'src/environments/environment';
 import { ModifierRule } from '../model/modifier.rule';
 
@@ -32,5 +33,10 @@ export class ModifierRuleService {
   public findInsuranceCompanies() {
     var url = this.baseUrl + '/meta-data/insurance-companies'
     return this.httpClient.get(`${url}`,)
+  }
+  fireDefault(serviceCode: ServiceCode[]) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/fire-default'
+    return this.httpClient.post(`${url}`, JSON.stringify(serviceCode), { 'headers': headers })
   }
 }
