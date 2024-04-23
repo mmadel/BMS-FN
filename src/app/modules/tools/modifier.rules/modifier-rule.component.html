@@ -26,6 +26,12 @@
               {{tdContent}}
             </span>
           </ng-container>
+          <ng-container *ngSwitchCase="'active'" class="py-2">
+            <c-form-check [switch]="true">
+              <input cFormCheckInput type="checkbox" [(ngModel)]="item.active"
+                  [disabled]="item.insurance===null" (change)="checkValue(item)" />
+          </c-form-check>
+          </ng-container>
           <ng-container *ngSwitchCase="'actions'" class="py-2">
             <c-button-group aria-label="Basic example" role="group" size="sm">
               <button cButton variant="outline" (click)="edit(item.id)" size="sm">

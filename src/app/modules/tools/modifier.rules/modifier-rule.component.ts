@@ -14,9 +14,11 @@ export class ModifierRuleComponent implements OnInit {
   modifierRule: ModifierRule;
 
   columns = [
+    'name',
     'modifier',
     'cptCode',
     'appender',
+    'active',
     {
       key: 'actions',
       label: '',
@@ -67,5 +69,12 @@ export class ModifierRuleComponent implements OnInit {
     if (event === 'close_update')
       this.editRuleVisible = false;
     this.find();
+  }
+  checkValue(value: ModifierRule) {
+    this.modifierRuleService.create(value).subscribe(result => {
+      this.toastr.success("Fee Schdule set Active");
+    }, error => {
+
+    })
   }
 }
