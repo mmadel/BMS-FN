@@ -12,29 +12,37 @@
 
 <span *ngIf="modifierRules">
   <c-smart-table [columnSorter]="true" [columns]="columns" [items]="modifierRules"
-  [sorterValue]="{ column: 'name', state: 'asc' }" [tableProps]="{ hover: true, striped: true, responsive: true }"
-  [tableBodyProps]="{ align: 'middle' }" header>
+    [sorterValue]="{ column: 'name', state: 'asc' }" [tableProps]="{ hover: true, striped: true, responsive: true }"
+    [tableBodyProps]="{ align: 'middle' }" header>
 
-  <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
-    <td>
-      <ng-container [ngSwitch]="columnName">
-        <ng-container *ngSwitchCase="'actions'" class="py-2">
-          <c-button-group aria-label="Basic example" role="group" size="sm">
-            <button cButton variant="outline" (click)="edit()" size="sm">
-              <svg cIcon name="cilPen"></svg>
-            </button>
-            <button cButton variant="outline" (click)="delete()" size="sm">
-              <svg cIcon name="cilTrash"></svg>
-            </button>
-          </c-button-group>
+    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+      <td>
+        <ng-container [ngSwitch]="columnName">
+          <ng-container *ngSwitchCase="'cptCode'" class="py-2">
+            <span *ngIf="item.cptCode === null">
+              All CPT
+            </span>
+            <span *ngIf="item.cptCode !== null">
+              {{tdContent}}
+            </span>
+          </ng-container>
+          <ng-container *ngSwitchCase="'actions'" class="py-2">
+            <c-button-group aria-label="Basic example" role="group" size="sm">
+              <button cButton variant="outline" (click)="edit()" size="sm">
+                <svg cIcon name="cilPen"></svg>
+              </button>
+              <button cButton variant="outline" (click)="delete()" size="sm">
+                <svg cIcon name="cilTrash"></svg>
+              </button>
+            </c-button-group>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{tdContent}}
+          </ng-container>
         </ng-container>
-        <ng-container *ngSwitchDefault>
-          {{tdContent}}
-        </ng-container>
-      </ng-container>
-    </td>
-  </ng-template>
-</c-smart-table>
+      </td>
+    </ng-template>
+  </c-smart-table>
 </span>
 
 <c-modal [visible]="addRuleVisible" (visibleChange)="handleAddRuleChange($event)" scrollable size="xl">
@@ -43,6 +51,6 @@
     <button (click)="toggleAddRule()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <app-rule-creation></app-rule-creation>
+    <app-rule-creation (changeVisibility)="changeVisibility($event)"></app-rule-creation>
   </c-modal-body>
 </c-modal>
