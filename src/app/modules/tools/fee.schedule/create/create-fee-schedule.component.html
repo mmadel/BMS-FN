@@ -67,9 +67,13 @@
                                         <option value="Fixed">Fixed</option>
                                     </select>
                                 </div>
-                                <div class="col">
+                                <div class="col" *ngIf="addNewFeeScheduleLine.rateType ==='Per_Unit'">
                                     <input type="number" cFormControl sizing="sm" sizing="sm" placeholder="Unit"
-                                        [(ngModel)]="addNewFeeScheduleLine.perUnit">
+                                        disabled="true" value="1">
+                                </div>
+                                <div class="col" *ngIf="addNewFeeScheduleLine.rateType ==='Fixed'">
+                                    <input cFormControl sizing="sm" sizing="sm" placeholder="Unit" disabled="true"
+                                        value="any">
                                 </div>
                                 <div class="col">
                                     <input type="number" cFormControl sizing="sm" sizing="sm"
