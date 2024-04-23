@@ -34,10 +34,10 @@
           </ng-container>
           <ng-container *ngSwitchCase="'actions'" class="py-2">
             <c-button-group aria-label="Basic example" role="group" size="sm">
-              <button cButton variant="outline" (click)="edit(item.id)" size="sm">
+              <button cButton variant="outline" (click)="edit(item.id)" size="sm" [disabled]="item.insurance===null" >
                 <svg cIcon name="cilPen"></svg>
               </button>
-              <button cButton variant="outline" (click)="delete(item.id)" size="sm">
+              <button cButton variant="outline" (click)="delete(item.id)" size="sm" [disabled]="item.insurance===null" >
                 <svg cIcon name="cilTrash"></svg>
               </button>
             </c-button-group>

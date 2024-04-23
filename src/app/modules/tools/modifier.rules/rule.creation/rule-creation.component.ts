@@ -20,6 +20,7 @@ export class RuleCreationComponent implements OnInit {
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
   insuranceCompanies: InsuranceCompanyHolder[]
+  valid: boolean = true;
   ngOnInit(): void {
     this.findMetaData();
     if (this.editModifierRule === undefined)
@@ -33,19 +34,22 @@ export class RuleCreationComponent implements OnInit {
     this.modifierRule = this.editModifierRule;
   }
   create() {
-    this.modifierRuleService.create(this.modifierRule).subscribe(result => {
-      
-      if (this.mode === 'create') {
-        this.toastr.success('Modifier Rule Created.')
-      this.changeVisibility.emit('close_create')
-      }
-      if (this.mode === 'update') {
-        this.changeVisibility.emit('close_update')
-        this.toastr.success('Modifier Rule Updated.')
-      }
-    }, error => {
-      this.toastr.error('Erro during creating modifier rule')
-    })
+    this.validate();
+    if (this.valid) {
+      this.modifierRuleService.create(this.modifierRule).subscribe(result => {
+
+        if (this.mode === 'create') {
+          this.toastr.success('Modifier Rule Created.')
+          this.changeVisibility.emit('close_create')
+        }
+        if (this.mode === 'update') {
+          this.changeVisibility.emit('close_update')
+          this.toastr.success('Modifier Rule Updated.')
+        }
+      }, error => {
+        this.toastr.error('Erro during creating modifier rule')
+      })
+    }
   }
   _compareFn(a: any, b: any) {
     return a?.id === b?.id;
@@ -54,5 +58,11 @@ export class RuleCreationComponent implements OnInit {
     this.modifierRuleService.findInsuranceCompanies().subscribe((result: any) => {
       this.insuranceCompanies = result;
     })
+  }
+  validate() {
+    if (this.modifierRule.insurance !== null)
+      this.valid = true
+    else
+      this.valid = false;
   }
 }

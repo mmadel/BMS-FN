@@ -1,7 +1,11 @@
 <c-container [fluid]="true">
+    <ngx-spinner></ngx-spinner>
+    <c-callout color="danger" *ngIf="!valid" class="mt-3">
+        Select Insurance Company.
+    </c-callout>
     <c-row>
         <c-col xs="5">
-            <c-input-group class="mb-3">
+            <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Add Modifier(s)</span>
                 <input aria-describedby="basic-addon3" cFormControl id="basic-url"
                     [ngModel]="modifierRule.modifier| modifier" (ngModelChange)="modifierRule.modifier=$event"
@@ -13,7 +17,7 @@
         </c-col>
 
         <c-col xs="5">
-            <c-input-group class="mb-3">
+            <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">When CPT is:</span>
                 <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="modifierRule.cptCode" />
             </c-input-group>
@@ -22,9 +26,9 @@
             <strong>Leave blank to match all CPT codes</strong>
         </c-col>
     </c-row>
-    <c-row class="align-items-center mb-2">
+    <c-row>
         <c-col xs="5">
-            <c-input-group class="mb-3">
+            <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
                 <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance"
                     *ngIf="insuranceCompanies">
@@ -33,6 +37,14 @@
                         {{insurance.name}}
                     </option>
                 </select>
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row class="align-items-center mb-1">
+        <c-col xs="5">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 30%;">Name</span>
+                <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="modifierRule.name">
             </c-input-group>
         </c-col>
     </c-row>

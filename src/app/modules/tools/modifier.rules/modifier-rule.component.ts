@@ -72,7 +72,11 @@ export class ModifierRuleComponent implements OnInit {
   }
   checkValue(value: ModifierRule) {
     this.modifierRuleService.create(value).subscribe(result => {
-      this.toastr.success("Fee Schdule set Active");
+      if (value.active)
+        this.toastr.success("Modifier Rule set Active");
+      if (!value.active)
+        this.toastr.success("Modifier Rule set In-Active");
+
     }, error => {
 
     })
