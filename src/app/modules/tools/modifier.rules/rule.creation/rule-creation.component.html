@@ -75,7 +75,8 @@
     <c-row>
         <div class="col-12 text-center">
             <button cButton class="me-1" variant="outline" style="width: 15%;" size="sm" (click)="create()">
-                Create
+                <span *ngIf="mode === 'create'">Create</span>
+                <span *ngIf="mode ==='update'">Update</span>
             </button>
         </div>
     </c-row>

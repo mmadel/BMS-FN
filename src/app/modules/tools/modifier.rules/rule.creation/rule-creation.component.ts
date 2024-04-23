@@ -34,8 +34,15 @@ export class RuleCreationComponent implements OnInit {
   }
   create() {
     this.modifierRuleService.create(this.modifierRule).subscribe(result => {
-      this.toastr.success('Modifier Rule Created.')
+      
+      if (this.mode === 'create') {
+        this.toastr.success('Modifier Rule Created.')
       this.changeVisibility.emit('close_create')
+      }
+      if (this.mode === 'update') {
+        this.changeVisibility.emit('close_update')
+        this.toastr.success('Modifier Rule Updated.')
+      }
     }, error => {
       this.toastr.error('Erro during creating modifier rule')
     })

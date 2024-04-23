@@ -65,7 +65,7 @@ export class ModifierRuleComponent implements OnInit {
     if (event === 'close_create')
       this.addRuleVisible = false;
     if (event === 'close_update')
-      this.addRuleVisible = false;
+      this.editRuleVisible = false;
     this.find();
   }
 }
