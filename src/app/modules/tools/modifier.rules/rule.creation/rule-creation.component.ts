@@ -14,4 +14,7 @@ export class RuleCreationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  create(){
+      
+  }
 }

@@ -4,7 +4,8 @@
             <c-input-group class="mb-3">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Add Modifier(s)</span>
                 <input aria-describedby="basic-addon3" cFormControl id="basic-url"
-                [ngModel]="modifierRule.modifer| modifier" (ngModelChange)="modifierRule.modifer=$event"   #modifier="ngModel" maxlength="11"/>
+                    [ngModel]="modifierRule.modifer| modifier" (ngModelChange)="modifierRule.modifer=$event"
+                    #modifier="ngModel" maxlength="11" />
             </c-input-group>
         </c-col>
         <c-col xs="7">
@@ -14,7 +15,7 @@
         <c-col xs="5">
             <c-input-group class="mb-3">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">When CPT is:</span>
-                <input aria-describedby="basic-addon3" cFormControl id="basic-url" />
+                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="modifierRule.cptCode" />
             </c-input-group>
         </c-col>
         <c-col xs="7">
@@ -27,7 +28,8 @@
     <c-row>
         <c-col xs="2">
             <div class="form-check">
-                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckDefault">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckDefault"
+                    [value]="'replace'" [(ngModel)]="modifierRule.appender">
                 <label class="form-check-label" for="flexCheckDefault">
                     <strong>Replace</strong>
                 </label>
@@ -36,7 +38,8 @@
         <c-col xs="10">Remove any pre-enter modifiers and replace with new modifer</c-col>
         <c-col xs="2">
             <div class="form-check">
-                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
+                    [value]="'end'" [(ngModel)]="modifierRule.appender">
                 <label class="form-check-label" for="flexCheckChecked">
                     <strong>Append at end</strong>
                 </label>
@@ -45,12 +48,21 @@
         <c-col xs="10">Append new modifier to the end of any exsiting modifier</c-col>
         <c-col xs="2">
             <div class="form-check">
-                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
+                    [value]="'front'" [(ngModel)]="modifierRule.appender">
                 <label class="form-check-label" for="flexCheckChecked">
                     <strong>Append at front</strong>
                 </label>
             </div>
         </c-col>
         <c-col xs="10">Append new modifier to the front of any exsiting modifier</c-col>
+    </c-row>
+    <hr/>
+    <c-row>
+        <div class="col-12 text-center">
+            <button cButton class="me-1" variant="outline" style="width: 15%;" size="sm" (click)="create()">
+                Create
+            </button>
+        </div>
     </c-row>
 </c-container>
