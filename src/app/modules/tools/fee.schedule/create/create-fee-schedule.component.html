@@ -10,7 +10,7 @@
                     <label cLabel for="feeProvider">Provider</label>
                 </c-col>
                 <c-col xs="10">
-                    <select cSelect sizing="sm" style="height: 32px;" id="feeProvider" *ngIf="feeScheduleMetaData"
+                    <select [compareWith]="compareFn" cSelect sizing="sm" style="height: 32px;" id="feeProvider" *ngIf="feeScheduleMetaData"
                         [(ngModel)]="feeSchedules.provider">
                         <option value="null" disabled="true">Select Provider</option>
                         <option *ngFor="let provider of feeScheduleMetaData.providers" [ngValue]="provider">
@@ -24,7 +24,7 @@
                     <label cLabel for="feePlanType">Plan Type</label>
                 </c-col>
                 <c-col xs="10">
-                    <select cSelect sizing="sm" style="height: 32px;" id="feePlanType" *ngIf="feeScheduleMetaData"
+                    <select [compareWith]="compareFn" cSelect sizing="sm" style="height: 32px;" id="feePlanType" *ngIf="feeScheduleMetaData"
                         [(ngModel)]="feeSchedules.insurance">
                         <option value="null" disabled="true">Select Insurance Company</option>
                         <option *ngFor="let insurance of feeScheduleMetaData.insurances" [ngValue]="insurance">

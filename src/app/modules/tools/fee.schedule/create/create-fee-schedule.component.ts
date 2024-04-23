@@ -28,6 +28,7 @@ export class CreateFeeScheduleComponent implements OnInit {
   };
   inheritDefault?: boolean = false;
   defaultFee: FeeScheduleLine[]
+  compareFn = this._compareFn.bind(this);
   constructor(private feeScheduleService: FeeScheduleService,
     private toastr: ToastrService) { }
 
@@ -42,10 +43,6 @@ export class CreateFeeScheduleComponent implements OnInit {
   }
   fillModel() {
     this.feeSchedules = this.editfeeSchedules;
-    if (this.editfeeSchedules.provider === null)
-      this.feeSchedules.provider = 'default'
-    if (this.editfeeSchedules.insurance === null)
-      this.feeSchedules.insurance = 'default'
     this.feeScheduleLines = this.editfeeSchedules.feeLines;
   }
   addLine() {
@@ -120,5 +117,8 @@ export class CreateFeeScheduleComponent implements OnInit {
       const subSet = new Set(this.defaultFee);
       this.feeScheduleLines = this.feeScheduleLines.filter(obj => !subSet.has(obj));
     }
+  }
+  _compareFn(a: any, b: any) {
+    return a?.id === b?.id;
   }
 }
