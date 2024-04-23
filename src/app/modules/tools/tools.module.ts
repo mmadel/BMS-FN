@@ -39,6 +39,7 @@ import {
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 import { CreateFeeScheduleComponent } from './fee.schedule/create/create-fee-schedule.component';
+import { ModifierPipe } from './modifier.rules/pipe/modifier.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { CreateFeeScheduleComponent } from './fee.schedule/create/create-fee-sch
     CancelClaimComponent,
     ModifierRuleComponent,
     RuleCreationComponent,
-    CreateFeeScheduleComponent
+    CreateFeeScheduleComponent,
+    ModifierPipe
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rule-creation.component.scss']
 })
 export class RuleCreationComponent implements OnInit {
-
+  modiferValue:string=""
   constructor() { }
 
   ngOnInit(): void {
