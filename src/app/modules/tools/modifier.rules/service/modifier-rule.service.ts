@@ -25,4 +25,8 @@ export class ModifierRuleService {
     var url = this.baseUrl + '/find/id/'+id
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
+  public deleteById(id: number) {
+    var url = this.baseUrl + '/delete/id/' + id
+    return this.httpClient.delete(`${url}`,)
+  }
 }

@@ -41,8 +41,11 @@ export class ModifierRuleComponent implements OnInit {
   edit() {
 
   }
-  delete() {
-
+  delete(id: number) {
+    this.modifierRuleService.deleteById(id).subscribe(result => {
+      this.find();
+      this.toastr.success("Modifier Rule  deleted.")
+    })
   }
   private find() {
     this.modifierRuleService.findAll()
