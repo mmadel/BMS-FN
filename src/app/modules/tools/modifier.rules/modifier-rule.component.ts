@@ -32,5 +32,10 @@ export class ModifierRuleComponent implements OnInit {
   handleAddRuleChange(event: boolean) {
     this.addRuleVisible = event;
   }
+  edit(){
 
+  }
+  delete(){
+    
+  }
 }

@@ -18,9 +18,14 @@
     <td>
       <ng-container [ngSwitch]="columnName">
         <ng-container *ngSwitchCase="'delete'" class="py-2">
-          <button cButton color="primary" size="sm" variant="outline">
-            <svg cIcon name="cilTrash"> </svg>
-          </button>
+          <c-button-group aria-label="Basic example" role="group" size="sm">
+            <button cButton variant="outline" (click)="edit()" size="sm">
+              <svg cIcon name="cilPen"></svg>
+            </button>
+            <button cButton variant="outline" (click)="delete()" size="sm">
+              <svg cIcon name="cilTrash"></svg>
+            </button>
+          </c-button-group>
         </ng-container>
         <ng-container *ngSwitchDefault>
           {{tdContent}}
