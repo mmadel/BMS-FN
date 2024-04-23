@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { InsuranceCompanyHolder } from 'src/app/modules/model/admin/insurance.company.holder';
 import { ModifierRule } from '../model/modifier.rule';
@@ -15,11 +15,22 @@ export class RuleCreationComponent implements OnInit {
   modifierRule: ModifierRule = {
     insurance: null
   };
+  @Input() editModifierRule: ModifierRule;
+  mode: string = 'create';
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
   insuranceCompanies: InsuranceCompanyHolder[]
   ngOnInit(): void {
     this.findMetaData();
+    if (this.editModifierRule === undefined)
+      this.mode = 'create'
+    else {
+      this.mode = 'update'
+      this.fillModel();
+    }
+  }
+  private fillModel() {
+    this.modifierRule = this.editModifierRule;
   }
   create() {
     this.modifierRuleService.create(this.modifierRule).subscribe(result => {

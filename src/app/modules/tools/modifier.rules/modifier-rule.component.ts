@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { filter, tap } from 'rxjs';
 import { ModifierRule } from './model/modifier.rule';
 import { ModifierRuleService } from './service/modifier-rule.service';
-import usersData from './_data';
 @Component({
   selector: 'app-modifier-rule',
   templateUrl: './modifier-rule.component.html',
@@ -12,7 +10,9 @@ import usersData from './_data';
 export class ModifierRuleComponent implements OnInit {
   modifierRules: ModifierRule[]
   public addRuleVisible = false;
-  usersData = usersData
+  editRuleVisible: boolean = false;
+  modifierRule: ModifierRule;
+
   columns = [
     'modifier',
     'cptCode',
@@ -35,11 +35,17 @@ export class ModifierRuleComponent implements OnInit {
   toggleAddRule() {
     this.addRuleVisible = !this.addRuleVisible;
   }
+  toggleEditRule() {
+    this.editRuleVisible = !this.editRuleVisible;
+  }
   handleAddRuleChange(event: boolean) {
     this.addRuleVisible = event;
   }
-  edit() {
-
+  edit(id: number) {
+    this.modifierRuleService.findById(id).subscribe(result => {
+      this.modifierRule = result
+      this.editRuleVisible = true;
+    })
   }
   delete(id: number) {
     this.modifierRuleService.deleteById(id).subscribe(result => {

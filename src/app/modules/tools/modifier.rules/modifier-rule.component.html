@@ -28,7 +28,7 @@
           </ng-container>
           <ng-container *ngSwitchCase="'actions'" class="py-2">
             <c-button-group aria-label="Basic example" role="group" size="sm">
-              <button cButton variant="outline" (click)="edit()" size="sm">
+              <button cButton variant="outline" (click)="edit(item.id)" size="sm">
                 <svg cIcon name="cilPen"></svg>
               </button>
               <button cButton variant="outline" (click)="delete(item.id)" size="sm">
@@ -45,12 +45,23 @@
   </c-smart-table>
 </span>
 
-<c-modal [visible]="addRuleVisible" (visibleChange)="handleAddRuleChange($event)" scrollable size="xl">
+<c-modal [visible]="addRuleVisible" scrollable size="xl">
   <c-modal-header>
-    <h5 cModalTitle>Add Rules</h5>
+    <h3 cModalTitle>Add Rule</h3>
     <button (click)="toggleAddRule()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <app-rule-creation *ngIf="addRuleVisible" (changeVisibility)="changeVisibility($event)"></app-rule-creation>
+  </c-modal-body>
+</c-modal>
+
+<c-modal [visible]="editRuleVisible" scrollable size="xl">
+  <c-modal-header>
+    <h3 cModalTitle>Edit Rule</h3>
+    <button (click)="toggleEditRule()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <app-rule-creation *ngIf="editRuleVisible" (changeVisibility)="changeVisibility($event)"
+      [editModifierRule]="modifierRule"></app-rule-creation>
   </c-modal-body>
 </c-modal>
