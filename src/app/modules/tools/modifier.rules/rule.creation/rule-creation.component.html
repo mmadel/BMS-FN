@@ -26,8 +26,12 @@
         <c-col xs="5">
             <c-input-group class="mb-3">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
-                <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance">
+                <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance"
+                    *ngIf="insuranceCompanies">
                     <option value="null" disabled="true">Select Insurance Company</option>
+                    <option *ngFor="let insurance of insuranceCompanies" [ngValue]="insurance">
+                        {{insurance.name}}
+                    </option>
                 </select>
             </c-input-group>
         </c-col>

@@ -20,13 +20,17 @@ export class ModifierRuleService {
     var url = this.baseUrl + '/find'
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
-  findById(id:number) {
+  findById(id: number) {
     const headers = { 'content-type': 'application/json' }
-    var url = this.baseUrl + '/find/id/'+id
+    var url = this.baseUrl + '/find/id/' + id
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
   public deleteById(id: number) {
     var url = this.baseUrl + '/delete/id/' + id
     return this.httpClient.delete(`${url}`,)
+  }
+  public findInsuranceCompanies() {
+    var url = this.baseUrl + '/meta-data/insurance-companies'
+    return this.httpClient.get(`${url}`,)
   }
 }
