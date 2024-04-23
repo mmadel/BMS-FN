@@ -20,12 +20,14 @@ export class CreateFeeScheduleComponent implements OnInit {
   lineMode: string = 'create';
   valid: boolean = true;
   feeSchedules: FeeSchedule = {
-    provider: 'default',
-    insurance: 'default'
+    provider: null,
+    insurance: null
   };
   addNewFeeScheduleLine: FeeScheduleLine = {
     rateType: 'Per_Unit'
   };
+  inheritDefault?: boolean = false;
+  defaultFee: FeeScheduleLine[]
   constructor(private feeScheduleService: FeeScheduleService,
     private toastr: ToastrService) { }
 
@@ -58,7 +60,9 @@ export class CreateFeeScheduleComponent implements OnInit {
       rateType: 'Per_Unit'
     };
   }
+
   create() {
+    this.feeScheduleService.findDefault();
     this.validate();
     if (this.valid) {
       this.feeSchedules.feeLines = this.feeScheduleLines;
@@ -95,7 +99,7 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.addNewFeeScheduleLine = this.feeScheduleLines.find(line => line.cptCode === cptCode);
   }
   validate() {
-    if (this.feeSchedules.provider !== 'default' && this.feeSchedules.insurance !== 'default')
+    if (this.feeSchedules.provider !== null && this.feeSchedules.insurance !== null)
       this.valid = true
     else
       this.valid = false;
@@ -104,5 +108,17 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.feeScheduleService.findMetaData().subscribe((result: any) => {
       this.feeScheduleMetaData = result;
     })
+  }
+  changeInheritDefault() {
+    
+    if (this.inheritDefault) {
+      this.feeScheduleService.findDefault().subscribe((result: any) => {
+        this.defaultFee = result.feeLines;
+        this.feeScheduleLines.push(...this.defaultFee)
+      })
+    } else {
+      const subSet = new Set(this.defaultFee);
+      this.feeScheduleLines = this.feeScheduleLines.filter(obj => !subSet.has(obj));
+    }
   }
 }

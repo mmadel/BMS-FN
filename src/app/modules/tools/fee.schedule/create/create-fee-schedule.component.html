@@ -1,6 +1,6 @@
 <ngx-spinner></ngx-spinner>
 <c-callout color="danger" *ngIf="!valid" class="mt-3">
-    Select provider and Insurance Company.Only one default Fee Schdule
+    Select provider and Insurance Company.
 </c-callout>
 <c-container fluid="true">
     <c-row class="mb-2">
@@ -12,10 +12,10 @@
                 <c-col xs="10">
                     <select cSelect sizing="sm" style="height: 32px;" id="feeProvider" *ngIf="feeScheduleMetaData"
                         [(ngModel)]="feeSchedules.provider">
-                        <option value="default">Default</option>
-                            <option *ngFor="let provider of feeScheduleMetaData.providers" [value]="provider">
-                                {{provider.lastName}},{{provider.firstName}}
-                            </option>
+                        <option value="null" disabled="true">Select Provider</option>
+                        <option *ngFor="let provider of feeScheduleMetaData.providers" [ngValue]="provider">
+                            {{provider.lastName}},{{provider.firstName}}
+                        </option>
                     </select>
                 </c-col>
             </c-row>
@@ -26,8 +26,8 @@
                 <c-col xs="10">
                     <select cSelect sizing="sm" style="height: 32px;" id="feePlanType" *ngIf="feeScheduleMetaData"
                         [(ngModel)]="feeSchedules.insurance">
-                        <option value="default">Default</option>
-                        <option *ngFor="let insurance of feeScheduleMetaData.insurances" [value]="insurance">
+                        <option value="null" disabled="true">Select Insurance Company</option>
+                        <option *ngFor="let insurance of feeScheduleMetaData.insurances" [ngValue]="insurance">
                             {{insurance.name}}
                         </option>
                     </select>
@@ -41,6 +41,9 @@
                     <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="feeSchedules.name">
                 </c-col>
             </c-row>
+            <input cFormCheckInput id="inhDefault" type="checkbox" class="mx-2" [(ngModel)]="inheritDefault"
+                (change)="changeInheritDefault()" />
+            <label cFormCheckLabel for="inhDefault">Inherit default configuration</label>
         </c-col>
     </c-row>
     <c-col xs="12">
