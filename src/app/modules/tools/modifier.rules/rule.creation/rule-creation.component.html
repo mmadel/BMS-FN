@@ -22,6 +22,16 @@
             <strong>Leave blank to match all CPT codes</strong>
         </c-col>
     </c-row>
+    <c-row class="align-items-center mb-2">
+        <c-col xs="5">
+            <c-input-group class="mb-3">
+                <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
+                <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance">
+                    <option value="null" disabled="true">Select Insurance Company</option>
+                </select>
+            </c-input-group>
+        </c-col>
+    </c-row>
 
     <hr />
     <h3>How to Append Modifier</h3>
@@ -57,7 +67,7 @@
         </c-col>
         <c-col xs="10">Append new modifier to the front of any exsiting modifier</c-col>
     </c-row>
-    <hr/>
+    <hr />
     <c-row>
         <div class="col-12 text-center">
             <button cButton class="me-1" variant="outline" style="width: 15%;" size="sm" (click)="create()">

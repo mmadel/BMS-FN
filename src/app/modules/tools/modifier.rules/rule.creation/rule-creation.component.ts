@@ -10,6 +10,7 @@ import { ModifierRuleService } from '../service/modifier-rule.service';
 })
 export class RuleCreationComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
+  compareFn = this._compareFn.bind(this);
   modifierRule: ModifierRule = {
   };
   constructor(private modifierRuleService: ModifierRuleService,
@@ -23,5 +24,8 @@ export class RuleCreationComponent implements OnInit {
     }, error => {
       this.toastr.error('Erro during creating modifier rule')
     })
+  }
+   _compareFn(a: any, b: any) {
+    return a?.id === b?.id;
   }
 }
