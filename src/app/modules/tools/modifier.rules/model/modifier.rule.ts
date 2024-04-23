@@ -1,5 +1,5 @@
 export interface ModifierRule{
-    modifer?:string,
+    modifier?:string,
     cptCode?:string,
     appender?:string
 }
