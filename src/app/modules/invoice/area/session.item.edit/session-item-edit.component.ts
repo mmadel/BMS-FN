@@ -15,12 +15,12 @@ export class SessionItemEditComponent implements OnInit {
   @Input() itemType: string
   @Output() changeVisibility = new EventEmitter<string>()
   placeOfCodeKeys = Object.keys;
-
+  modifier: string[] = []
   constructor(private patientSessionService: PatientSessionService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
+    this.modifier= this.serviceCode.cptCode.modifier.split('.');
   }
   edit() {
     var cptCode: CPTCode = {
