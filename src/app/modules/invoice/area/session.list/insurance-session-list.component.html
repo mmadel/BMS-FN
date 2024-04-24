@@ -92,9 +92,11 @@
                       <button class="btn btn-link"
                         (click)="executeAction('edit_session_item',item,'place')">{{tdContent}}</button>
                     </ng-container>
-                    <ng-container *ngSwitchCase="'cpt'" class="py-2">
+                    <ng-container *ngSwitchCase="'serviceCode'" class="py-2">
                       <button class="btn btn-link"
-                        (click)="executeAction('edit_session_item',item,'cpt')">{{tdContent}}</button>
+                        (click)="executeAction('edit_session_item',item,'cpt')">
+                        {{tdContent.cptCode.serviceCode}}.{{tdContent.cptCode.modifier}}
+                      </button>
                     </ng-container>
                     <ng-container *ngSwitchCase="'unit'" class="py-2">
                       <button class="btn btn-link"

@@ -15,7 +15,7 @@ export class ServiceLinesTableColumns {
         //     _style: { width: '5%' },
         // },
         {
-            key: 'cpt',
+            key: 'serviceCode',
             label: 'Service Code',
             _style: { width: '20%' },
         },
