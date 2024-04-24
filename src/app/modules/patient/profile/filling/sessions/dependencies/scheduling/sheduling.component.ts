@@ -39,6 +39,12 @@ export class ShedulingComponent implements OnInit {
         filter((selectedSessionScheduling) => selectedSessionScheduling !== null)
       ).subscribe((selectedSessionScheduling) => {
         this.sessionScheduling = selectedSessionScheduling;
+        var pushedDoctor: any = {
+          model: {
+            npi: this.sessionScheduling.providerNPI
+          }
+        }
+        this.emitPatientSessionService.selectedProvider$.next(pushedDoctor)
       })
     else
       this.populateSessionScheduling()
@@ -75,10 +81,8 @@ export class ShedulingComponent implements OnInit {
       startTime: moment.unix(this.patientSession.serviceStartTime / 1000).toDate(),
       endTime: moment.unix(this.patientSession.serviceEndTime / 1000).toDate(),
     }
-
   }
-  pickProvider(event:any){
-    console.log('From')
+  pickProvider(event: any) {
     this.emitPatientSessionService.selectedProvider$.next(event)
   }
 }

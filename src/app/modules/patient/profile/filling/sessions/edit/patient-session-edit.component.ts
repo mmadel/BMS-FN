@@ -48,6 +48,7 @@ export class PatientSessionEditComponent implements OnInit {
   private populateSessionScheduling(selectedPateintSession: PatientSession) {
     var sessionScheduling: SessionScheduling = {
       provider: selectedPateintSession.doctorInfo.doctorLastName + ',' + selectedPateintSession.doctorInfo.doctorFirstName,
+      providerNPI:selectedPateintSession.doctorInfo.doctorNPI,
       serviceDate: moment.unix(selectedPateintSession.serviceDate / 1000).toDate(),
       startTime: moment.unix(selectedPateintSession.serviceStartTime / 1000).toDate(),
       endTime: moment.unix(selectedPateintSession.serviceEndTime / 1000).toDate(),
