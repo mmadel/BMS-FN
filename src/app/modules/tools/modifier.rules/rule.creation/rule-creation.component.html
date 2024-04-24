@@ -33,7 +33,8 @@
         </c-col>
     </c-row>
     <c-row>
-        <c-col xs="5">
+        
+        <c-col xs="5" *ngIf="!editModifierRule.defaultRule">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
                 <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance"

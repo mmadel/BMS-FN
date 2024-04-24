@@ -40,7 +40,7 @@ export class RuleCreationComponent implements OnInit {
     this.validate();
     var modifierValidation = this.validatModifier();
     if (this.valid && modifierValidation.length === 0) {
-      this.modifierRule.modifier= this.modifier.join(".");
+      this.modifierRule.modifier = this.modifier.join(".");
       this.modifierRuleService.create(this.modifierRule).subscribe(result => {
 
         if (this.mode === 'create') {
@@ -65,10 +65,11 @@ export class RuleCreationComponent implements OnInit {
     })
   }
   validate() {
-    if (this.modifierRule.insurance !== null)
-      this.valid = true
-    else
-      this.valid = false;
+    if (!this.editModifierRule.defaultRule)
+      if (this.modifierRule.insurance !== null)
+        this.valid = true
+      else
+        this.valid = false;
   }
   private validatModifier() {
     this.validModifiers = new Array();

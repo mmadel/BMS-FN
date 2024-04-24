@@ -1,7 +1,7 @@
 export interface ModifierRule{
     id?:number
     name?:string
-    defaultFee?:boolean,
+    defaultRule?:boolean,
     active?:boolean
     modifier?:string,
     cptCode?:string,
