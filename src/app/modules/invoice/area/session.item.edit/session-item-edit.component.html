@@ -6,7 +6,7 @@
             <c-col xs="12">
                 <c-input-group class="mb-1" sizing="sm">
                     <span cInputGroupText id="basic-addon3" style="width: 15%;">CPT Code</span>
-                    <input aria-describedby="basic-addon3" cFormControl id="basic-url"
+                    <input aria-describedby="basic-addon3" cFormControl id="basic-url" [formControl]="feeCtrl" 
                         [(ngModel)]="serviceCode.cptCode.serviceCode" />
                 </c-input-group>
             </c-col>
