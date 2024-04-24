@@ -50,16 +50,14 @@ export class CreateFeeScheduleComponent implements OnInit {
       let indexToUpdate = this.feeScheduleLines.findIndex(item => item.cptCode === this.addNewFeeScheduleLine.cptCode);
       this.feeScheduleLines[indexToUpdate] = this.addNewFeeScheduleLine;
       this.lineMode = 'create'
+      this.addNewFeeScheduleLine.perUnit =1;
     } else {
+      this.addNewFeeScheduleLine.perUnit =1;
       this.feeScheduleLines.push(this.addNewFeeScheduleLine)
     }
-    this.addNewFeeScheduleLine = {
-      rateType: 'Per_Unit'
-    };
   }
 
   create() {
-    this.feeScheduleService.findDefault();
     this.validate();
     if (this.valid) {
       this.feeSchedules.feeLines = this.feeScheduleLines;
@@ -96,10 +94,11 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.addNewFeeScheduleLine = this.feeScheduleLines.find(line => line.cptCode === cptCode);
   }
   validate() {
-    if (this.feeSchedules.provider !== null && this.feeSchedules.insurance !== null)
-      this.valid = true
-    else
-      this.valid = false;
+    if (!this.feeSchedules.defaultFee)
+      if (this.feeSchedules.provider !== null && this.feeSchedules.insurance !== null)
+        this.valid = true
+      else
+        this.valid = false;
   }
   findMetaData() {
     this.feeScheduleService.findMetaData().subscribe((result: any) => {
@@ -107,7 +106,7 @@ export class CreateFeeScheduleComponent implements OnInit {
     })
   }
   changeInheritDefault() {
-    
+
     if (this.inheritDefault) {
       this.feeScheduleService.findDefault().subscribe((result: any) => {
         this.defaultFee = result.feeLines;
