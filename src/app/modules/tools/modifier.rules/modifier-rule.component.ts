@@ -12,7 +12,7 @@ export class ModifierRuleComponent implements OnInit {
   public addRuleVisible = false;
   editRuleVisible: boolean = false;
   modifierRule: ModifierRule;
-
+  hasDefaultRule: boolean = false
   columns = [
     'name',
     'modifier',
@@ -59,6 +59,12 @@ export class ModifierRuleComponent implements OnInit {
     this.modifierRuleService.findAll()
       .subscribe((result: any) => {
         this.modifierRules = result
+        for (var i = 0; i < this.modifierRules.length; i++) {
+          if (this.modifierRules[i].defaultRule) {
+            this.hasDefaultRule = true;
+            break;
+          }
+        }
       }, error => {
         this.toastr.error('error during getting modifier rules');
       })
