@@ -64,10 +64,10 @@ export class BillingCodeComponent implements OnInit {
       })
   }
   applyModifierRule() {
-    this.modifierRuleService.fireDefault(this.serviceCodeListComponent.selectedItems).subscribe((result:any)=>{
+    this.modifierRuleService.fireDefault(this.serviceCodeListComponent.serviceCodes).subscribe((result:any)=>{
       this.toastr.success("Default Modifier Rule is Fired")
       console.log('Default Modifier Rule is Fired')    
-      this.emitPatientSessionService.refresh$.next(result)  
+      this.emitPatientSessionService.sessionserviceCodes$.next(result)  
     },error=>{
       this.toastr.error("Error during fire default modifier rule")
       console.log('Error during fire default modifier rule')

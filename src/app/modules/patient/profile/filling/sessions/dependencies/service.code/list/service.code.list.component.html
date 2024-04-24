@@ -5,7 +5,6 @@
             <table cTable hover small>
                 <thead>
                     <tr>
-                        <th scope="col"></th>
                         <th scope="col">#</th>
                         <th scope="col">Code</th>
                         <th scope="col">Modifier</th>
@@ -16,9 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let serviceCode of serviceCodes;index as i" (click)="selectRow(serviceCode)">
-                        <td><input cFormCheckInput  type="checkbox" [checked]="selectedItems.includes(serviceCode)"/></td>
-
+                    <tr *ngFor="let serviceCode of serviceCodes;index as i">
                         <th scope="row">{{i+1}}</th>
                         <td>{{serviceCode.cptCode.serviceCode}}</td>
                         <td>{{serviceCode.cptCode.modifier}}</td>
