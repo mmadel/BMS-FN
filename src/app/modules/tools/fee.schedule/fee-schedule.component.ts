@@ -15,6 +15,7 @@ export class FeeScheduleComponent implements OnInit {
   editFeeScheduleVisible: boolean = false;
   selectedFeeSceduleId: number;
   selectedFeeScedule: FeeSchedule
+  hasDefaultFee: boolean = false
   constructor(private feeScheduleService: FeeScheduleService
     , private toastr: ToastrService) { }
 
@@ -41,6 +42,12 @@ export class FeeScheduleComponent implements OnInit {
   private find() {
     this.feeScheduleService.find().subscribe((result: any) => {
       this.feeSchedules = result
+      for (var i = 0; i < this.feeSchedules.length; i++) {
+        if (this.feeSchedules[i].defaultFee) {
+          this.hasDefaultFee = true;
+          break;
+        }
+      }
     })
   }
   delete(id: number) {

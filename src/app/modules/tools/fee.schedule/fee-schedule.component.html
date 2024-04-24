@@ -15,6 +15,7 @@
                     </button>
                     <ul cDropdownMenu>
                         <li><a cDropdownItem (click)="createFeeSchdule()">Creat Fee Schedule</a></li>
+                        <li><a cDropdownItem (click)="createFeeSchdule()" [disabled]="hasDefaultFee">Creat Default Fee Schedule</a></li>
                         <li cDropdownDivider></li>
                         <li><a cDropdownItem [routerLink]="[]">Import Fee Schedule</a></li>
                         <li><a cDropdownItem [routerLink]="[]">Export Fee Schedule</a></li>
@@ -67,7 +68,7 @@
         <button (click)="toggleFeeScheduleVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <create-fee-schedule *ngIf="addFeeScheduleVisible"
+        <create-fee-schedule *ngIf="addFeeScheduleVisible" [defaultFeeSchedule]="hasDefaultFee"
             (changeVisibility)="changeVisibility($event)"></create-fee-schedule>
     </c-modal-body>
 </c-modal>
