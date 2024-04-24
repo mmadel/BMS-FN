@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CPTCode } from 'src/app/modules/model/clinical/cpt.code';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
-import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 
 @Component({
