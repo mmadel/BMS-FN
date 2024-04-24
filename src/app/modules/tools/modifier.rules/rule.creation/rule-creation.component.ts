@@ -21,6 +21,8 @@ export class RuleCreationComponent implements OnInit {
     private toastr: ToastrService) { }
   insuranceCompanies: InsuranceCompanyHolder[]
   valid: boolean = true;
+  modifier: string[] = []
+  validModifiers: Boolean[];
   ngOnInit(): void {
     this.findMetaData();
     if (this.editModifierRule === undefined)
@@ -35,7 +37,9 @@ export class RuleCreationComponent implements OnInit {
   }
   create() {
     this.validate();
-    if (this.valid) {
+    var modifierValidation = this.validatModifier();
+    if (this.valid && modifierValidation.length === 0) {
+      this.modifierRule.modifier= this.modifier.join(".");
       this.modifierRuleService.create(this.modifierRule).subscribe(result => {
 
         if (this.mode === 'create') {
@@ -65,4 +69,14 @@ export class RuleCreationComponent implements OnInit {
     else
       this.valid = false;
   }
+  private validatModifier() {
+    this.validModifiers = new Array();
+    for (let i = 0; i < this.modifier.length; i++) {
+      var mod: string = this.modifier[i];
+      if (mod !== undefined && (mod.length > 0 && mod.length < 2))
+        this.validModifiers[i] = false
+    }
+    return this.validModifiers;
+  }
+
 }
