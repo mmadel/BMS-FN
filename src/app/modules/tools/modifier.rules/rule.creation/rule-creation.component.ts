@@ -33,6 +33,7 @@ export class RuleCreationComponent implements OnInit {
     }
   }
   private fillModel() {
+    this.modifier = this.editModifierRule.modifier.split('.')
     this.modifierRule = this.editModifierRule;
   }
   create() {
