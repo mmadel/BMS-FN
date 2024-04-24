@@ -22,14 +22,19 @@
         </c-row>
     </c-row>
     <!-- Place of Unit-->
-    <c-row *ngIf="itemType === 'unit'">
-        <label cLabel for="unit-item">Unit</label>
-        <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.unit">
-    </c-row>
-    <!-- Place of Charge-->
-    <c-row *ngIf="itemType === 'charge'">
-        <label cLabel for="charge-item">Charge</label>
-        <input cFormControl id="charge-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.charge">
+    <c-row *ngIf="itemType === 'unit' || itemType === 'charge'">
+        <c-col xs="12">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 10%;">Unit</span>
+                <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.unit">
+            </c-input-group>
+        </c-col>
+        <c-col xs="12">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 10%;">Charge</span>
+                <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.charge">
+            </c-input-group>
+        </c-col>
     </c-row>
     <c-row class="my-3">
         <div class="col-12 text-center">
