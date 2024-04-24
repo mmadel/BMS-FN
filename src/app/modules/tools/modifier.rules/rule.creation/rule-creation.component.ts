@@ -16,6 +16,7 @@ export class RuleCreationComponent implements OnInit {
     insurance: null
   };
   @Input() editModifierRule: ModifierRule;
+  @Input() defaultRule: boolean
   mode: string = 'create';
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
@@ -28,6 +29,7 @@ export class RuleCreationComponent implements OnInit {
     if (this.editModifierRule === undefined)
       this.mode = 'create'
     else {
+      this.defaultRule = !this.editModifierRule.defaultRule;
       this.mode = 'update'
       this.fillModel();
     }
@@ -38,6 +40,9 @@ export class RuleCreationComponent implements OnInit {
   }
   create() {
     this.validate();
+    if (this.mode === 'create')
+      this.modifierRule.defaultRule = !this.defaultRule;
+
     var modifierValidation = this.validatModifier();
     if (this.valid && modifierValidation.length === 0) {
       this.modifierRule.modifier = this.modifier.join(".");
@@ -65,11 +70,12 @@ export class RuleCreationComponent implements OnInit {
     })
   }
   validate() {
-    if (!this.editModifierRule.defaultRule)
-      if (this.modifierRule.insurance !== null)
-        this.valid = true
-      else
-        this.valid = false;
+    if (this.defaultRule)
+      if (!this.editModifierRule.defaultRule)
+        if (this.modifierRule.insurance !== null)
+          this.valid = true
+        else
+          this.valid = false;
   }
   private validatModifier() {
     this.validModifiers = new Array();

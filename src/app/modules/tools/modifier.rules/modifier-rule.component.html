@@ -72,7 +72,8 @@
     <button (click)="toggleAddRule()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <app-rule-creation *ngIf="addRuleVisible" (changeVisibility)="changeVisibility($event)"></app-rule-creation>
+    <app-rule-creation *ngIf="addRuleVisible" (changeVisibility)="changeVisibility($event)"
+    [defaultRule]="hasDefaultRule"></app-rule-creation>
   </c-modal-body>
 </c-modal>
 

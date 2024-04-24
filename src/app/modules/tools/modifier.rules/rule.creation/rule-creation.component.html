@@ -34,7 +34,7 @@
     </c-row>
     <c-row>
         
-        <c-col xs="5" *ngIf="!editModifierRule.defaultRule">
+        <c-col xs="5" *ngIf="defaultRule">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
                 <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance"
@@ -52,7 +52,7 @@
             </small>
         </c-col>
     </c-row>
-    <c-row class="align-items-center mb-1">
+    <c-row class="align-items-center mb-1" *ngIf="defaultRule">
         <c-col xs="5">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Name</span>
