@@ -26,7 +26,8 @@
         <c-col xs="12">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 10%;">Unit</span>
-                <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.unit">
+                <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.unit"
+                (keyup)="calculateCharge()">
             </c-input-group>
         </c-col>
         <c-col xs="12">
