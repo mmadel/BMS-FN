@@ -15,6 +15,7 @@ import { EnterPaymentService } from '../../patient/service/session/payment/enter
 import { ClientPaymentComponent } from '../bip/client/client-payment.component';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 import { InsuranceCompanyPaymentComponent } from '../bip/insurance.company/insurance-company-payment.component';
+import { BatchPaymentService } from '../service/batch/batch-payment.service';
 
 
 @Component({
@@ -57,7 +58,8 @@ export class BatchTemplateComponent implements OnInit {
     , private insuranceCompanyService: InsuranceCompanyService
     , private postingEmitterService: PostingEmitterService
     , private enterPaymentService: EnterPaymentService
-    , private toastr: ToastrService) {
+    , private toastr: ToastrService
+    , private batchPaymentService:BatchPaymentService) {
   }
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
@@ -185,7 +187,7 @@ export class BatchTemplateComponent implements OnInit {
     var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
     if (validateTotalPayment) {
       if (this.paymentForm.valid) {
-        this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
+        this.batchPaymentService.createBtachClientPayment(serviceLinePaymentRequest).subscribe(result => {
           this.toastr.success('client payment done.');
           this.renderComponent = undefined;
           this.paymentForm.reset();
@@ -209,7 +211,7 @@ export class BatchTemplateComponent implements OnInit {
     var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
     if (validateTotalPayment) {
       if (this.paymentForm.valid) {
-        this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
+        this.batchPaymentService.createBtachInsuranceCompanyPayment(serviceLinePaymentRequest).subscribe(result => {
           this.toastr.success('Insurance company payment done.');
           this.renderComponent = undefined;
           this.paymentForm.reset();
