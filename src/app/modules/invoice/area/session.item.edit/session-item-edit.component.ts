@@ -40,7 +40,6 @@ export class SessionItemEditComponent implements OnInit {
     }
   }
   edit() {
-    console.log(this.itemType)
     var cptCode: CPTCode = {
       serviceCode: this.itemType === 'cpt' ? this.serviceCode.cptCode.serviceCode : null,
       modifier: this.itemType === 'cpt' ? this.modifier.join(".") : this.serviceCode.cptCode.modifier,

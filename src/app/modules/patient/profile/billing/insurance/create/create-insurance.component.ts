@@ -182,7 +182,6 @@ export class CreateInsuranceComponent implements OnInit {
           this.scrollUp();
           this.changeVisibility.emit('close');
         }, error => {
-          console.log(JSON.stringify(error))
           this.toastr.error("Error during creating patient insurance")
         })
 

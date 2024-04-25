@@ -143,7 +143,6 @@ export class BatchTemplateComponent implements OnInit {
         if (data == undefined) {
           this.filteredInsuranceCompany = [];
         } else {
-          console.log(JSON.stringify(data))
           this.filteredInsuranceCompany = data;
         }
       },
@@ -159,7 +158,6 @@ export class BatchTemplateComponent implements OnInit {
   }
   changeInsuranceCompanyValue(event: any) {
     this.postingFilterModel.entityId = event;
-    console.log(this.postingFilterModel.entityId)
   }
   onChangePayements(event: any[]) {
     if (event[0] === 0)
@@ -271,12 +269,10 @@ export class BatchTemplateComponent implements OnInit {
   }
   export() {
     this.enterPaymentService.exportReceipt({}).subscribe(result => {
-      console.log('dddddddddddddd')
       this.clientConfrimVisible = false;
       this.constructExportedFile(result, 'invoice-', 'pdf')
     }, (error: any) => {
       this.clientConfrimVisible = false;
-      console.log(JSON.stringify(error))
     });
   }
   constructExportedFile(response: any, fileName: string, extention: string) {

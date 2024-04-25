@@ -75,7 +75,6 @@ export class PatientSessionEditComponent implements OnInit {
         payerName: this.oldProvider.legacyID.payerName,
       }
     }
-    console.log(JSON.stringify(this.editPateintSessionShedulingComponent.sessionScheduling.provider.model))
     return {
       doctorId: this.editPateintSessionShedulingComponent.sessionScheduling.provider.model === undefined ?
         this.oldProvider.doctorId :

@@ -69,7 +69,6 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   }
 
   changePaymnet(item: any) {
-    console.log(JSON.stringify(item))
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)

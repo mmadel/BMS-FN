@@ -31,7 +31,6 @@ export class ListAuthsComponent implements OnInit {
     })
   }
   changeAuth(event: any) {
-    console.log(JSON.stringify(event))
     this.selectedPatientAuthorization = event;
   }
 }

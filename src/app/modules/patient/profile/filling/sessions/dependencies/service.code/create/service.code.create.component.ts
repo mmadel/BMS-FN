@@ -47,7 +47,6 @@ export class ServiceCodeCreateComponent implements OnInit {
     this.emitPatientSessionService.selectedProvider$.pipe(
       filter(result => result != null)
     ).subscribe((result: any) => {
-      console.log(JSON.stringify(result))
       this.doctorNPI = result.model.npi
     })
   }

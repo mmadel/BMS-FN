@@ -20,7 +20,7 @@ export class SessionHistoryItemComponent implements OnInit {
     this.showActionVisibility = !this.showActionVisibility
   }
   openSession(sessionId: number) {
-    console.log(sessionId)
+    
   }
   changeVisibility(event: any) {
     this.showActionVisibility = false
@@ -40,7 +40,7 @@ export class SessionHistoryItemComponent implements OnInit {
     this.invoiceService.downloadCMS(this.item.submissionId).subscribe(result => {
       this.constructExportedFile(result, 'cms-', 'pdf')
     }, error => {
-      console.log('Error during downloading CMS document');
+      
     })
   }
   constructExportedFile(response: any, fileName: string, extention: string) {

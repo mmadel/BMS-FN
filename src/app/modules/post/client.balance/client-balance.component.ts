@@ -114,7 +114,6 @@ export class ClientBalanceComponent implements OnInit {
       this.clientBalanceService.export(clientBalanceInvoice).subscribe(result => {
         this.constructExportedFile(result, 'invoice-', 'pdf')
       }, error => {
-        console.log('error during exporting');
       })
     } else {
       this.toastr.error("Select atleast One row ")

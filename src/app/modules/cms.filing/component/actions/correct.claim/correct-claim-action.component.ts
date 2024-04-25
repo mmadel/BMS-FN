@@ -51,21 +51,18 @@ export class CorrectClaimActionComponent implements OnInit {
     this.progressValue = Math.round(((index / 2) / 100) * 10000);
   }
   selectSession(event: any) {
-    console.log(event.target.value)
     this.selectedSessionId = event.target.value;
   }
   correct(action: string) {
     this.changeVisibility.emit('close');
     this.patientSessionService.correctClaim(this.selectePatientSession).subscribe(result => {
       switch (action) {
-        case 'redirect':
-          console.log('redirect')
+        case 'redirect':          
           var invoiceLinesRender: any = { filter: true, startDate: this.selectePatientSession.serviceDate, endDate: this.selectePatientSession.serviceDate, client: this.patient }
           this.invoiceEmitterService.invoiceLinesRendering$.next(invoiceLinesRender)
           this.router.navigate(['/invoice/session/list/'], { state: { filter: true, startDate: this.selectePatientSession.serviceDate, endDate: this.selectePatientSession.serviceDate, client: this.patient } });
           break;
         case 'close':
-          console.log('close')
           this.toastr.success('Claim has been marked as corrected');
           this.scrollUp()
           break;
@@ -76,7 +73,6 @@ export class CorrectClaimActionComponent implements OnInit {
   }
   private findSession() {
     this.patientSessionService.findSessionById(this.selectedSessionId).subscribe(result => {
-      console.log(JSON.stringify(result.records))
       this.selectePatientSession = result.records
     })
   }

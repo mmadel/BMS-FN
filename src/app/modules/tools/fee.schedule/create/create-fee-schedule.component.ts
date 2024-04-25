@@ -80,7 +80,6 @@ export class CreateFeeScheduleComponent implements OnInit {
         }
       }, error => {
         this.toastr.error('Erro during creating Fee Schdule')
-        console.log('error ' + error)
       })
     }
   }

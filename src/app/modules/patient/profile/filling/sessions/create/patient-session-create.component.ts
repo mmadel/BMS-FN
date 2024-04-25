@@ -48,10 +48,6 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
           this.scrollUp();
         })
     } else {
-      console.log('NOt Valid')
-      console.log('this.pateintSessionShedulingComponent.notValidForm ' + this.pateintSessionShedulingComponent.notValidForm)
-      console.log('this.pateintSessionBillingCodeComponent.notValidForm ' + this.pateintSessionBillingCodeComponent.notValidForm)
-      console.log('this.pateintSessionShedulingComponent.sessionForm.valid ' + this.pateintSessionBillingCodeComponent.billingcodeForm.valid)
     }
 
   }

@@ -93,7 +93,6 @@ export class CreateProviderComponent implements OnInit {
   create() {
 
     if (this.providerCreateForm.valid) {
-      console.log(JSON.stringify(this.provider))
       this.providerService.create(this.provider)
         .subscribe((result) => {
           this.toastr.success("Provider Created")
