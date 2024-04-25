@@ -204,15 +204,17 @@
             [entityPaymentId]="postingFilterModel.entityId" #insuranceCompanyPayments></insurance-company-payment>
     </c-col>
 </c-row>
-<c-modal [visible]="clientConfrimVisible" backdrop="static" id="clientConfrimVisible" >
-    <c-modal-header>
-        <h2 cModalTitle>Print Receipt</h2>
+<c-modal [visible]="clientConfrimVisible" backdrop="static" id="clientConfrimVisible">
+    <c-modal-header style="background-color:whitesmoke;">
+        <strong>Print Receipt</strong>
         <button (click)="toggleClientConfrimVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <p>
-            Batch Cleint Payments has been submitted successfully. You can print,mail or print Receipt.
-          </p>
+        <figure class="text-center">
+            <h3>
+                Batch Cleint Payments has been submitted successfully. You can print,mail or print Receipt.
+            </h3>
+        </figure>
         <div class="text-center">
             <c-button-group>
                 <button class="btn btn-outline-danger  p-6 rounded-2 mx-1" (click)="export()">
