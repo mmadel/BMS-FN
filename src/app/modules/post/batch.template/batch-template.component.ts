@@ -161,27 +161,26 @@ export class BatchTemplateComponent implements OnInit {
     this.postingFilterModel.entityId = event;
     console.log(this.postingFilterModel.entityId)
   }
-  // onChangePayements(event: any[]) {
-  //   if (event[0] === 0)
-  //     this.totalPayments = this.totalPayments + event[1];
-  //   if (event[0] !== 0)
-  //     this.totalPayments = this.totalPayments - event[0] + event[1];
-  //   this.paymentBatch.totalAmount = this.totalPayments;
-  // }
-  // onChangeAdjustments(event: any[]) {
-  //   if (event[0] === 0)
-  //     this.totalAdjustments = this.totalAdjustments + event[1];
-  //   if (event[0] !== 0)
-  //     this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
-  // }
+  onChangePayements(event: any[]) {
+    if (event[0] === 0)
+      this.totalPayments = this.totalPayments + event[1];
+    if (event[0] !== 0)
+      this.totalPayments = this.totalPayments - event[0] + event[1];
+    this.paymentBatch.totalAmount = this.totalPayments;
+  }
+  onChangeAdjustments(event: any[]) {
+    if (event[0] === 0)
+      this.totalAdjustments = this.totalAdjustments + event[1];
+    if (event[0] !== 0)
+      this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
+  }
   applyPayments() {
-    this.clientConfrimVisible = true;
-    // if (this.clientPayments !== undefined) {
-    //   this.createClientPayment()
-    // }
-    // if (this.insuranceCompanyPayments !== undefined) {
-    //   this.createInsuranceCompanyPayment();
-    // }
+    if (this.clientPayments !== undefined) {
+      this.createClientPayment()
+    }
+    if (this.insuranceCompanyPayments !== undefined) {
+      this.createInsuranceCompanyPayment();
+    }
   }
   createClientPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.clientPayments.constructPaymentLines(this.paymentBatch);
@@ -194,6 +193,7 @@ export class BatchTemplateComponent implements OnInit {
           this.paymentForm.reset();
           this.scrollUp();
           this.clear(0)
+          this.clientConfrimVisible = true;
         }, error => {
           this.toastr.error('error during client payment.');
           this.scrollUp();
@@ -269,12 +269,12 @@ export class BatchTemplateComponent implements OnInit {
       }
     })();
   }
-  export(){
-    this.enterPaymentService.exportReceipt({}).subscribe(result=>{
+  export() {
+    this.enterPaymentService.exportReceipt({}).subscribe(result => {
       console.log('dddddddddddddd')
       this.clientConfrimVisible = false;
       this.constructExportedFile(result, 'invoice-', 'pdf')
-    },(error:any)=>{
+    }, (error: any) => {
       this.clientConfrimVisible = false;
       console.log(JSON.stringify(error))
     });
