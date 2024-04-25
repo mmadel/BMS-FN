@@ -274,7 +274,7 @@ export class BatchTemplateComponent implements OnInit {
   export() {
     this.batchPaymentService.exportReceipt(this.clientBatchReceiptRequest).subscribe(result => {
       this.clientConfrimVisible = false;
-      this.constructExportedFile(result, 'invoice-', 'pdf')
+      this.constructExportedFile(result, 'Receipt-', 'pdf')
     }, (error: any) => {
       this.clientConfrimVisible = false;
     });
