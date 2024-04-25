@@ -40,8 +40,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   ];
   constructor(private postingServiceService: PostingServiceService
     , private toastr: ToastrService
-    , private postingEmitterService: PostingEmitterService
-    , private enterPaymentService: EnterPaymentService) { super() }
+    , private postingEmitterService: PostingEmitterService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();

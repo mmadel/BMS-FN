@@ -57,7 +57,6 @@ export class BatchTemplateComponent implements OnInit {
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
     , private postingEmitterService: PostingEmitterService
-    , private enterPaymentService: EnterPaymentService
     , private toastr: ToastrService
     , private batchPaymentService:BatchPaymentService) {
   }
