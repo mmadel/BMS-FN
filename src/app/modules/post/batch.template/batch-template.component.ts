@@ -15,6 +15,7 @@ import { EnterPaymentService } from '../../patient/service/session/payment/enter
 import { ClientPaymentComponent } from '../bip/client/client-payment.component';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 import { InsuranceCompanyPaymentComponent } from '../bip/insurance.company/insurance-company-payment.component';
+import { ClientBatchReceiptRequest } from '../model/batch/client/client.batch.receipt.request';
 import { BatchPaymentService } from '../service/batch/batch-payment.service';
 
 
@@ -60,6 +61,7 @@ export class BatchTemplateComponent implements OnInit {
     , private toastr: ToastrService
     , private batchPaymentService:BatchPaymentService) {
   }
+  clientBatchReceiptRequest:ClientBatchReceiptRequest;
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
     if (this.batchType === 'bip')
@@ -186,13 +188,14 @@ export class BatchTemplateComponent implements OnInit {
     var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
     if (validateTotalPayment) {
       if (this.paymentForm.valid) {
-        this.batchPaymentService.createBtachClientPayment(serviceLinePaymentRequest).subscribe(result => {
-          this.toastr.success('client payment done.');
+        this.batchPaymentService.createBtachClientPayment(serviceLinePaymentRequest).subscribe((result:any) => {
+          //this.toastr.success('client payment done.');
           this.renderComponent = undefined;
           this.paymentForm.reset();
           this.scrollUp();
           this.clear(0)
           this.clientConfrimVisible = true;
+          this.clientBatchReceiptRequest = result
         }, error => {
           this.toastr.error('error during client payment.');
           this.scrollUp();
@@ -269,7 +272,7 @@ export class BatchTemplateComponent implements OnInit {
     })();
   }
   export() {
-    this.batchPaymentService.exportReceipt({}).subscribe(result => {
+    this.batchPaymentService.exportReceipt(this.clientBatchReceiptRequest).subscribe(result => {
       this.clientConfrimVisible = false;
       this.constructExportedFile(result, 'invoice-', 'pdf')
     }, (error: any) => {
