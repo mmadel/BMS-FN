@@ -10,4 +10,5 @@ export interface BatchSessionServiceLinePayment{
     charge?:number;
     serviceLinePaymentAction?:string
     createdAt?:number
+    sessionId?:number
 }
