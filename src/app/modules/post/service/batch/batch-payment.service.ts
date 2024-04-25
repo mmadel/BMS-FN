@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BatchPaymentService {
-  private baseUrl = environment.baseURL + '/batch/paymentm'
+  private baseUrl = environment.baseURL + '/batch/payment'
   constructor(private httpClient: HttpClient) { }
   public createBtachClientPayment(serviceLinePaymentRequest:ServiceLinePaymentRequest){
     const headers = { 'content-type': 'application/json' }
@@ -19,5 +19,10 @@ export class BatchPaymentService {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/insurance-company/create';
     return this.httpClient.post( url, JSON.stringify(serviceLinePaymentRequest),{ 'headers': headers })
+  }
+  public exportReceipt(clientBalanceInvoice: any){
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/client/receipt/pdf';
+    return this.httpClient.post(`${url}`, JSON.stringify(clientBalanceInvoice), { responseType: 'blob', 'headers': headers })
   }
 }
