@@ -99,6 +99,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     var filteredList: any = this.clientPayments.items.filter((item: any) => {
       return (item.payment !== null && item.adjust !== null)
     })
+    serviceLinePaymentRequest.totalAmount = paymentBatch.totalAmount;
     serviceLinePaymentRequest.serviceLinePaymentType = 'Client'
     serviceLinePaymentRequest.paymentEntityId = this.entityPaymentId;
     serviceLinePaymentRequest.receivedDate =
