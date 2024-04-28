@@ -29,7 +29,7 @@ export class RuleCreationComponent implements OnInit {
     if (this.editModifierRule === undefined)
       this.mode = 'create'
     else {
-      this.defaultRule = !this.editModifierRule.defaultRule;
+      this.defaultRule = !this.editModifierRule?.defaultRule;
       this.mode = 'update'
       this.fillModel();
     }
@@ -71,7 +71,7 @@ export class RuleCreationComponent implements OnInit {
   }
   validate() {
     if (this.defaultRule)
-      if (!this.editModifierRule.defaultRule)
+      if (!this.editModifierRule?.defaultRule)
         if (this.modifierRule.insurance !== null)
           this.valid = true
         else
