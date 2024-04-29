@@ -5,7 +5,7 @@
 <c-container fluid="true">
     <c-row class="mb-2">
         <c-col xs="12">
-            <c-row [gutter]="6" class="align-items-center mb-2">
+            <c-row [gutter]="6" class="align-items-center mb-2" *ngIf="defaultFeeSchedule">
                 <c-col xs="1">
                     <label cLabel for="feeProvider">Provider</label>
                 </c-col>
@@ -19,7 +19,7 @@
                     </select>
                 </c-col>
             </c-row>
-            <c-row [gutter]="6" class="align-items-center mb-2">
+            <c-row [gutter]="6" class="align-items-center mb-2" *ngIf="defaultFeeSchedule">
                 <c-col xs="1">
                     <label cLabel for="feePlanType">Plan Type</label>
                 </c-col>
@@ -33,17 +33,19 @@
                     </select>
                 </c-col>
             </c-row>
-            <c-row [gutter]="6" class="align-items-center mb-2">
+            <c-row [gutter]="6" class="align-items-center mb-2" *ngIf="defaultFeeSchedule">
                 <c-col xs="1">
                     <label cLabel for="feePlanType">Name</label>
                 </c-col>
-                <c-col xs="10">
+                <c-col xs="10" >
                     <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="feeSchedules.name">
                 </c-col>
             </c-row>
+            <span *ngIf="defaultFeeSchedule">
             <input cFormCheckInput id="inhDefault" type="checkbox" class="mx-2" [(ngModel)]="inheritDefault"
                 (change)="changeInheritDefault()" />
             <label cFormCheckLabel for="inhDefault">Inherit default configuration</label>
+        </span>
         </c-col>
     </c-row>
     <c-col xs="12">

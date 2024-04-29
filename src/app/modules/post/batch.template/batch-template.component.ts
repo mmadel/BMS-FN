@@ -15,6 +15,8 @@ import { EnterPaymentService } from '../../patient/service/session/payment/enter
 import { ClientPaymentComponent } from '../bip/client/client-payment.component';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 import { InsuranceCompanyPaymentComponent } from '../bip/insurance.company/insurance-company-payment.component';
+import { ClientBatchReceiptRequest } from '../model/batch/client/client.batch.receipt.request';
+import { BatchPaymentService } from '../service/batch/batch-payment.service';
 
 
 @Component({
@@ -56,9 +58,10 @@ export class BatchTemplateComponent implements OnInit {
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
     , private postingEmitterService: PostingEmitterService
-    , private enterPaymentService: EnterPaymentService
-    , private toastr: ToastrService) {
+    , private toastr: ToastrService
+    , private batchPaymentService:BatchPaymentService) {
   }
+  clientBatchReceiptRequest:ClientBatchReceiptRequest;
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
     if (this.batchType === 'bip')
@@ -143,7 +146,6 @@ export class BatchTemplateComponent implements OnInit {
         if (data == undefined) {
           this.filteredInsuranceCompany = [];
         } else {
-          console.log(JSON.stringify(data))
           this.filteredInsuranceCompany = data;
         }
       },
@@ -159,41 +161,41 @@ export class BatchTemplateComponent implements OnInit {
   }
   changeInsuranceCompanyValue(event: any) {
     this.postingFilterModel.entityId = event;
-    console.log(this.postingFilterModel.entityId)
   }
-  // onChangePayements(event: any[]) {
-  //   if (event[0] === 0)
-  //     this.totalPayments = this.totalPayments + event[1];
-  //   if (event[0] !== 0)
-  //     this.totalPayments = this.totalPayments - event[0] + event[1];
-  //   this.paymentBatch.totalAmount = this.totalPayments;
-  // }
-  // onChangeAdjustments(event: any[]) {
-  //   if (event[0] === 0)
-  //     this.totalAdjustments = this.totalAdjustments + event[1];
-  //   if (event[0] !== 0)
-  //     this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
-  // }
+  onChangePayements(event: any[]) {
+    if (event[0] === 0)
+      this.totalPayments = this.totalPayments + event[1];
+    if (event[0] !== 0)
+      this.totalPayments = this.totalPayments - event[0] + event[1];
+    this.paymentBatch.totalAmount = this.totalPayments;
+  }
+  onChangeAdjustments(event: any[]) {
+    if (event[0] === 0)
+      this.totalAdjustments = this.totalAdjustments + event[1];
+    if (event[0] !== 0)
+      this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
+  }
   applyPayments() {
-    this.clientConfrimVisible = true;
-    // if (this.clientPayments !== undefined) {
-    //   this.createClientPayment()
-    // }
-    // if (this.insuranceCompanyPayments !== undefined) {
-    //   this.createInsuranceCompanyPayment();
-    // }
+    if (this.clientPayments !== undefined) {
+      this.createClientPayment()
+    }
+    if (this.insuranceCompanyPayments !== undefined) {
+      this.createInsuranceCompanyPayment();
+    }
   }
   createClientPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.clientPayments.constructPaymentLines(this.paymentBatch);
     var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
     if (validateTotalPayment) {
       if (this.paymentForm.valid) {
-        this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
-          this.toastr.success('client payment done.');
+        this.batchPaymentService.createBtachClientPayment(serviceLinePaymentRequest).subscribe((result:any) => {
+          //this.toastr.success('client payment done.');
           this.renderComponent = undefined;
           this.paymentForm.reset();
           this.scrollUp();
           this.clear(0)
+          this.clientConfrimVisible = true;
+          this.clientBatchReceiptRequest = result
         }, error => {
           this.toastr.error('error during client payment.');
           this.scrollUp();
@@ -211,7 +213,7 @@ export class BatchTemplateComponent implements OnInit {
     var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
     if (validateTotalPayment) {
       if (this.paymentForm.valid) {
-        this.enterPaymentService.create(serviceLinePaymentRequest).subscribe(result => {
+        this.batchPaymentService.createBtachInsuranceCompanyPayment(serviceLinePaymentRequest).subscribe(result => {
           this.toastr.success('Insurance company payment done.');
           this.renderComponent = undefined;
           this.paymentForm.reset();
@@ -269,14 +271,12 @@ export class BatchTemplateComponent implements OnInit {
       }
     })();
   }
-  export(){
-    this.enterPaymentService.exportReceipt({}).subscribe(result=>{
-      console.log('dddddddddddddd')
+  export() {
+    this.batchPaymentService.exportReceipt(this.clientBatchReceiptRequest).subscribe(result => {
       this.clientConfrimVisible = false;
-      this.constructExportedFile(result, 'invoice-', 'pdf')
-    },(error:any)=>{
+      this.constructExportedFile(result, 'Receipt-', 'pdf')
+    }, (error: any) => {
       this.clientConfrimVisible = false;
-      console.log(JSON.stringify(error))
     });
   }
   constructExportedFile(response: any, fileName: string, extention: string) {

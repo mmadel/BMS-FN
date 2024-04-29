@@ -1,27 +1,41 @@
 <ngx-spinner></ngx-spinner>
 <c-container [fluid]="true">
-    <c-card class="w-90 mb-2" color="light">
-        <c-card-body>
-            <c-row>
-                <c-col><strong>CPT : </strong>{{serviceCode.cptCode.serviceCode}}</c-col>
-            </c-row>
-        </c-card-body>
-    </c-card>
-
     <!-- Place of CPT-->
     <c-row *ngIf="itemType === 'cpt'">
-        <label cLabel for="cpt-item">CPT</label>
-        <input cFormControl id="cpt-item" sizing="sm" [(ngModel)]="serviceCode.cptCode.serviceCode">
+        <c-row>
+            <c-col xs="12">
+                <c-input-group class="mb-1" sizing="sm">
+                    <span cInputGroupText id="basic-addon3" style="width: 15%;">CPT Code</span>
+                    <input aria-describedby="basic-addon3" cFormControl id="basic-url" [formControl]="feeCtrl" 
+                        [(ngModel)]="serviceCode.cptCode.serviceCode" />
+                </c-input-group>
+            </c-col>
+            <c-col xs="12">
+                <c-input-group sizing="sm" class="mb-1">
+                    <span cInputGroupText id="basic-addon3" style="width: 15%;">Modifier(s)</span>
+                    <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" />
+                    <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" />
+                    <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" />
+                    <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" />
+                </c-input-group>
+            </c-col>
+        </c-row>
     </c-row>
     <!-- Place of Unit-->
-    <c-row *ngIf="itemType === 'unit'">
-        <label cLabel for="unit-item">Unit</label>
-        <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.unit">
-    </c-row>
-    <!-- Place of Charge-->
-    <c-row *ngIf="itemType === 'charge'">
-        <label cLabel for="charge-item">Charge</label>
-        <input cFormControl id="charge-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.charge">
+    <c-row *ngIf="itemType === 'unit' || itemType === 'charge'">
+        <c-col xs="12">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 10%;">Unit</span>
+                <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.unit"
+                (keyup)="calculateCharge()">
+            </c-input-group>
+        </c-col>
+        <c-col xs="12">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 10%;">Charge</span>
+                <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.charge">
+            </c-input-group>
+        </c-col>
     </c-row>
     <c-row class="my-3">
         <div class="col-12 text-center">

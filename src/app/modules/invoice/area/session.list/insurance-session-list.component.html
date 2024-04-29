@@ -78,8 +78,8 @@
                   <ng-container [ngSwitch]="columnName">
                     <ng-container *ngSwitchCase="'actions'" class="py-2">
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button cButton variant="outline" class="btn btn-link" size="sm" cTooltip=" assign Authorization"
-                          (click)="executeAction('auth',item)">
+                        <button cButton variant="outline" class="btn btn-link" size="sm"
+                          cTooltip=" assign Authorization" (click)="executeAction('auth',item)">
                           <svg cIcon name="cilBookmark"></svg>
                         </button>
                         <button cButton variant="outline" class="btn btn-link" size="sm" cTooltip=" edit session"
@@ -92,9 +92,10 @@
                       <button class="btn btn-link"
                         (click)="executeAction('edit_session_item',item,'place')">{{tdContent}}</button>
                     </ng-container>
-                    <ng-container *ngSwitchCase="'cpt'" class="py-2">
-                      <button class="btn btn-link"
-                        (click)="executeAction('edit_session_item',item,'cpt')">{{tdContent}}</button>
+                    <ng-container *ngSwitchCase="'serviceCode'" class="py-2">
+                      <button class="btn btn-link" (click)="executeAction('edit_session_item',item,'cpt')">
+                        {{tdContent.cptCode.serviceCode}}.{{tdContent.cptCode.modifier}}
+                      </button>
                     </ng-container>
                     <ng-container *ngSwitchCase="'unit'" class="py-2">
                       <button class="btn btn-link"
@@ -158,7 +159,8 @@
   </c-modal-header>
   <c-modal-body>
     <session-item-edit *ngIf="editSessionItemVisibility" [serviceCode]="sessionServiceCodeLine.serviceCode"
-      [itemType]="itemType" (changeVisibility)="changeVisibility($event)"> </session-item-edit>
+      [doctorNPI]="sessionServiceCodeLine.data.doctorInfo.doctorNPI" [itemType]="itemType"
+      (changeVisibility)="changeVisibility($event)"> </session-item-edit>
   </c-modal-body>
 </c-modal>
 

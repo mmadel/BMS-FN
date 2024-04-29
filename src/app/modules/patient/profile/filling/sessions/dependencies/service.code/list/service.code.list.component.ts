@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { filter, tap } from 'rxjs';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
@@ -15,6 +15,7 @@ export class ServiceCodeListComponent implements OnInit {
   @Input() editMode?: boolean = false;
   editServiceCodeVisibility: boolean = false;
   @Input() selectedServiceCodes?: ServiceCode[]
+  selectedItems: any[] = [];
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {

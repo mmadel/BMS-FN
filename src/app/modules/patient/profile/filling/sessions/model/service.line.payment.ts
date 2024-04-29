@@ -6,6 +6,7 @@ export interface ServiceLinePayment{
     payment?:number;
     adjust?:number;
     serviceLineId?:number;
+    sessionId?:number
     serviceLinePaymentAction?:string,
     service?:string
     charge?:number

@@ -72,4 +72,8 @@ export class PatientService extends BasePaginationService {
     var url = this.baseUrl + '/auth/on/patientId/' + patientId
     return this.httpClient.get(url);
   }
+  public findPatientInsuranceCompanies(patientId: number) {
+    var url = this.baseUrl + '/insurance-company/patientId/' + patientId
+    return this.httpClient.get(url);
+  }
 }

@@ -45,6 +45,7 @@ export class ServiceCodeCreateComponent implements OnInit {
         this.emptyDiagnosisCodes = false;
     })
     this.emitPatientSessionService.selectedProvider$.pipe(
+      filter(result => result != null)
     ).subscribe((result: any) => {
       this.doctorNPI = result.model.npi
     })
@@ -134,7 +135,7 @@ export class ServiceCodeCreateComponent implements OnInit {
           this.isLoading = false
         });
   }
-  
+
   calculateCharge() {
     if (this.feeScheduleLine.cptCode !== null) {
       switch (this.feeScheduleLine.rateType) {

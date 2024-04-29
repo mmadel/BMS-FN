@@ -2,20 +2,22 @@ export class ServiceLinesTableColumns {
     static readonly columns = [
         {
             key: 'dos_str',
-            label: 'Date Of Service'
-        },
-        'provider',
-        {
-            key: 'caseTitle',
-            label: 'Case'
+            label: 'Date Of Service',
+            _style: { width: '10%' },
         },
         {
-            key: 'place',
-            _style: { width: '5%' },
+            key: 'provider',
+            label: 'Provider',
+            _style: { width: '10%' },
         },
+        // {
+        //     key: 'place',
+        //     _style: { width: '5%' },
+        // },
         {
-            key: 'cpt',
-            _style: { width: '8%' },
+            key: 'serviceCode',
+            label: 'Service Code',
+            _style: { width: '20%' },
         },
         {
             key: 'unit',

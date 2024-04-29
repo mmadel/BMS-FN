@@ -40,8 +40,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   ];
   constructor(private postingServiceService: PostingServiceService
     , private toastr: ToastrService
-    , private postingEmitterService: PostingEmitterService
-    , private enterPaymentService: EnterPaymentService) { super() }
+    , private postingEmitterService: PostingEmitterService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -69,7 +68,6 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   }
 
   changePaymnet(item: any) {
-    console.log(JSON.stringify(item))
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
@@ -101,8 +99,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     var filteredList: any = this.clientPayments.items.filter((item: any) => {
       return (item.payment !== null && item.adjust !== null)
     })
-    serviceLinePaymentRequest.serviceLinePaymentType = 'Client'
-    serviceLinePaymentRequest.paymentEntityId = this.entityPaymentId;
+    serviceLinePaymentRequest.totalAmount = paymentBatch.totalAmount;
     serviceLinePaymentRequest.receivedDate =
       paymentBatch.receivedDate_date !== undefined ?
         moment(paymentBatch.receivedDate_date).unix() * 1000 : undefined

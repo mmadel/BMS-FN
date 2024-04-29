@@ -81,14 +81,27 @@
                         <c-card>
                             <c-card-header>Service Lines</c-card-header>
                             <c-card-body>
-                                <div style="float:right">
-                                    <button cButton color="info" variant="outline" size="sm"
-                                        (click)="toggleserviceCode()">
-                                        <svg cIcon name="cilPlus"></svg>
-                                    </button>
-                                </div>
-                                <service-code-list #serviceCodeListComponent [editMode]="editMode"
-                                    [selectedServiceCodes]="populatedServiceCodes"></service-code-list>
+                                <c-row>
+                                    <c-col xs="12">
+                                        <div style="float:right">
+                                            <button cButton color="info" variant="outline" size="sm" (click)="applyModifierRule()">
+                                                Apply Modifier Rule
+                                            </button>
+                                        </div>
+                                        <div style="float:right" class="mx-1">
+                                            <button cButton color="info" variant="outline" size="sm"
+                                                (click)="toggleserviceCode()">
+                                                Add Service Line
+                                            </button>
+                                        </div>
+                                    </c-col>
+                                </c-row>
+                                <c-row>
+                                    <c-col xs="12">
+                                        <service-code-list #serviceCodeListComponent [editMode]="editMode"
+                                            [selectedServiceCodes]="populatedServiceCodes"></service-code-list>
+                                    </c-col>
+                                </c-row>
                             </c-card-body>
                         </c-card>
                     </c-col>
@@ -104,7 +117,7 @@
     </c-modal-header>
     <c-modal-body>
         <service-code-creation *ngIf="serviceCodeVisibility"
-            (onCreateServiceCode)="getCreatedServiceCode($event)" ></service-code-creation>
+            (onCreateServiceCode)="getCreatedServiceCode($event)"></service-code-creation>
     </c-modal-body>
 </c-modal>
 <c-modal id="addDaignosisModal" [visible]="addDaignosisVisibility" backdrop="static" size="lg">

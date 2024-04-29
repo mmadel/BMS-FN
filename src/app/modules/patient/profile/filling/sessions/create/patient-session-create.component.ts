@@ -28,11 +28,15 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
   }
 
   createSession() {
-    if (!this.pateintSessionShedulingComponent.sessionForm.valid)
+    if (this.pateintSessionShedulingComponent.sessionForm.valid)
+      this.pateintSessionShedulingComponent.notValidForm = false;
+    else
       this.pateintSessionShedulingComponent.notValidForm = true;
-    if (!this.pateintSessionBillingCodeComponent.billingcodeForm.valid)
+    if (this.pateintSessionBillingCodeComponent.billingcodeForm.valid)
+      this.pateintSessionBillingCodeComponent.notValidForm = false;
+    else
       this.pateintSessionBillingCodeComponent.notValidForm = true;
-    if (!(this.pateintSessionShedulingComponent.notValidForm || this.pateintSessionBillingCodeComponent.notValidForm)) {
+    if (this.pateintSessionShedulingComponent.sessionForm.valid && this.pateintSessionBillingCodeComponent.billingcodeForm.valid) {
       this.constructModel();
       this.patientSessionService.create(this.patientSession)
         .subscribe((result) => {
@@ -43,6 +47,7 @@ export class PatientSessionCreateComponent implements OnInit, AfterViewInit {
           this.toastr.error("Error during session creation")
           this.scrollUp();
         })
+    } else {
     }
 
   }

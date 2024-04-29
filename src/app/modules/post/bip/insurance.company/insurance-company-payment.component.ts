@@ -107,8 +107,6 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
 
   private constructRequest(paymentBatch: PaymentBatch): ServiceLinePaymentRequest {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = {};
-
-    serviceLinePaymentRequest.serviceLinePaymentType = 'InsuranceCompany'
     serviceLinePaymentRequest.paymentEntityId = this.entityPaymentId;
     serviceLinePaymentRequest.receivedDate =
       paymentBatch.receivedDate_date !== undefined ?

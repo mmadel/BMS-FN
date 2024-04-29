@@ -31,7 +31,6 @@ export class ClientBalanceSettingsComponent implements OnInit {
       })
   }
   changeTaxID(event: any) {
-    console.log(event.target.value)
     this.clientBalanceSettings.patientBalanceAccountSettings.taxID = event.target.value;
   }
   changeNPI(event: any) {

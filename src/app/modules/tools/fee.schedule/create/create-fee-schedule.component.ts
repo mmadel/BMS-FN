@@ -16,6 +16,7 @@ export class CreateFeeScheduleComponent implements OnInit {
   editfeeScheduleLine: FeeScheduleLine;
   feeScheduleMetaData: FeeScheduleMetaData;
   @Input() editfeeSchedules: FeeSchedule;
+  @Input() defaultFeeSchedule: boolean
   mode: string = 'create';
   lineMode: string = 'create';
   valid: boolean = true;
@@ -34,9 +35,12 @@ export class CreateFeeScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.findMetaData();
-    if (this.editfeeSchedules === undefined)
+    if (this.editfeeSchedules === undefined) {
       this.mode = 'create'
+    }
+
     else {
+      this.defaultFeeSchedule = !this.editfeeSchedules.defaultFee;
       this.mode = 'update'
       this.fillModel();
     }
@@ -50,19 +54,19 @@ export class CreateFeeScheduleComponent implements OnInit {
       let indexToUpdate = this.feeScheduleLines.findIndex(item => item.cptCode === this.addNewFeeScheduleLine.cptCode);
       this.feeScheduleLines[indexToUpdate] = this.addNewFeeScheduleLine;
       this.lineMode = 'create'
+      this.addNewFeeScheduleLine.perUnit = 1;
     } else {
+      this.addNewFeeScheduleLine.perUnit = 1;
       this.feeScheduleLines.push(this.addNewFeeScheduleLine)
     }
-    this.addNewFeeScheduleLine = {
-      rateType: 'Per_Unit'
-    };
   }
 
   create() {
-    this.feeScheduleService.findDefault();
     this.validate();
     if (this.valid) {
       this.feeSchedules.feeLines = this.feeScheduleLines;
+      if (this.mode === 'create')
+      this.feeSchedules.defaultFee = !this.defaultFeeSchedule;
       this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
         this.scrollUp();
 
@@ -76,7 +80,6 @@ export class CreateFeeScheduleComponent implements OnInit {
         }
       }, error => {
         this.toastr.error('Erro during creating Fee Schdule')
-        console.log('error ' + error)
       })
     }
   }
@@ -96,10 +99,11 @@ export class CreateFeeScheduleComponent implements OnInit {
     this.addNewFeeScheduleLine = this.feeScheduleLines.find(line => line.cptCode === cptCode);
   }
   validate() {
-    if (this.feeSchedules.provider !== null && this.feeSchedules.insurance !== null)
-      this.valid = true
-    else
-      this.valid = false;
+    if (this.defaultFeeSchedule)
+      if (this.feeSchedules.provider !== null && this.feeSchedules.insurance !== null)
+        this.valid = true
+      else
+        this.valid = false;
   }
   findMetaData() {
     this.feeScheduleService.findMetaData().subscribe((result: any) => {
@@ -107,7 +111,7 @@ export class CreateFeeScheduleComponent implements OnInit {
     })
   }
   changeInheritDefault() {
-    
+
     if (this.inheritDefault) {
       this.feeScheduleService.findDefault().subscribe((result: any) => {
         this.defaultFee = result.feeLines;

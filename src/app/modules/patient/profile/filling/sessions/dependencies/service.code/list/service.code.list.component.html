@@ -7,6 +7,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Code</th>
+                        <th scope="col">Modifier</th>
                         <th scope="col">LineNote</th>
                         <th scope="col">Unit</th>
                         <th scope="col">Charge</th>
@@ -17,10 +18,10 @@
                     <tr *ngFor="let serviceCode of serviceCodes;index as i">
                         <th scope="row">{{i+1}}</th>
                         <td>{{serviceCode.cptCode.serviceCode}}</td>
-                        <td></td>
+                        <td>{{serviceCode.cptCode.modifier}}</td>
                         <td>{{serviceCode.cptCode.unit}}</td>
                         <td>{{serviceCode.cptCode.charge}}</td>
-                        <td>
+                        <td style="width: 5%;">
                             <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                                 <button cButton color="info" variant="outline"
                                     (click)="toggleEditServiceLine(serviceCode,i)" size="sm">

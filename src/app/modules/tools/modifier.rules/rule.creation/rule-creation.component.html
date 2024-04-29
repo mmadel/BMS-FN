@@ -1,81 +1,107 @@
 <c-container [fluid]="true">
+    <ngx-spinner></ngx-spinner>
     <c-row>
         <c-col xs="5">
-            <div class="input-group input-group-sm mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 130px;">Add Modifier(s)</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-            </div>
+            <c-input-group sizing="sm" class="mb-1">
+                <span cInputGroupText id="basic-addon3" style="width: 30%;">Add Modifier(s)</span>
+                <input cFormControl maxlength="2" [(ngModel)]="modifier[0]"
+                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[0] ===false}" />
+                <input cFormControl maxlength="2" [(ngModel)]="modifier[1]"
+                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[1] ===false}" />
+                <input cFormControl maxlength="2" [(ngModel)]="modifier[2]"
+                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[2] ===false}" />
+                <input cFormControl maxlength="2" [(ngModel)]="modifier[3]"
+                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[3] ===false}" />
+            </c-input-group>
         </c-col>
         <c-col xs="7">
-            <strong>(separate multiple with a'.' , i.e. GP.KX )</strong>
+            <small *ngIf="validModifiers?.length > 0" class="form-text text-danger mb-3">
+                modifier value with one digit is not allowed
+            </small>
         </c-col>
 
         <c-col xs="5">
-            <div class="input-group input-group-sm mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-sm" style="width: 130px;">When CPT is:</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-            </div>
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 30%;">When CPT is:</span>
+                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="modifierRule.cptCode"
+                    cPopover="Leave blank to match all CPT codes" [cPopoverTrigger]="'hover'"
+                    cPopoverPlacement="right" />
+            </c-input-group>
         </c-col>
         <c-col xs="7">
-            <strong>Leave blank to match all CPT codes</strong>
+            <!-- CPT Code description-->
+        </c-col>
+    </c-row>
+    <c-row>
+        
+        <c-col xs="5" *ngIf="defaultRule">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
+                <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance"
+                    *ngIf="insuranceCompanies">
+                    <option value="null" disabled="true">Select Insurance Company</option>
+                    <option *ngFor="let insurance of insuranceCompanies" [ngValue]="insurance">
+                        {{insurance.name}}
+                    </option>
+                </select>
+            </c-input-group>
+        </c-col>
+        <c-col xs="7">
+            <small *ngIf="!valid" class="form-text text-danger mb-3">
+                Select Insurance Company.
+            </small>
+        </c-col>
+    </c-row>
+    <c-row class="align-items-center mb-1" *ngIf="defaultRule">
+        <c-col xs="5">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 30%;">Name</span>
+                <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="modifierRule.name">
+            </c-input-group>
         </c-col>
     </c-row>
 
     <hr />
-    <h5>How to Append Modifier</h5>
+    <h3>How to Append Modifier</h3>
     <c-row>
         <c-col xs="2">
             <div class="form-check">
-                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckDefault">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckDefault"
+                    [value]="'replace'" [(ngModel)]="modifierRule.appender">
                 <label class="form-check-label" for="flexCheckDefault">
-                    Replace
+                    <strong>Replace</strong>
                 </label>
             </div>
         </c-col>
-        <c-col xs="10"><strong>Remove any pre-enter modifiers and replace with new modifer</strong></c-col>
+        <c-col xs="10">Remove any pre-enter modifiers and replace with new modifer</c-col>
         <c-col xs="2">
             <div class="form-check">
-                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
+                    [value]="'end'" [(ngModel)]="modifierRule.appender">
                 <label class="form-check-label" for="flexCheckChecked">
-                    Append at end
+                    <strong>Append at end</strong>
                 </label>
             </div>
         </c-col>
-        <c-col xs="10"><strong>Append new modifier to the end of any exsiting modifier</strong></c-col>
+        <c-col xs="10">Append new modifier to the end of any exsiting modifier</c-col>
         <c-col xs="2">
             <div class="form-check">
-                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked">
+                <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
+                    [value]="'front'" [(ngModel)]="modifierRule.appender">
                 <label class="form-check-label" for="flexCheckChecked">
-                    Append at front
+                    <strong>Append at front</strong>
                 </label>
             </div>
         </c-col>
-        <c-col xs="10"><strong>Append new modifier to the front of any exsiting modifier</strong></c-col>
+        <c-col xs="10">Append new modifier to the front of any exsiting modifier</c-col>
     </c-row>
     <hr />
-    <h5>Permanet</h5>
     <c-row>
-        <c-col xs="2">
-            <div class="form-check">
-                <input class="form-check-input" name="permanet"  type="radio" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Yes
-                </label>
-            </div>
-        </c-col>
-        <c-col xs="10"><strong>The modifier will be permanently appended to the CPT code</strong></c-col>
-        <c-col xs="2">
-            <div class="form-check">
-                <input class="form-check-input" name="permanet" type="radio" value="" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
-                    No
-                </label>
-            </div>
-        </c-col>
-        <c-col xs="10"><strong>Only show up on claims to this payer</strong></c-col>
+        <div class="col-12 text-center">
+            <button cButton class="me-1" variant="outline" style="width: 15%;" size="sm" (click)="create()">
+                <span *ngIf="mode === 'create'">Create</span>
+                <span *ngIf="mode ==='update'">Update</span>
+            </button>
+        </div>
     </c-row>
 </c-container>

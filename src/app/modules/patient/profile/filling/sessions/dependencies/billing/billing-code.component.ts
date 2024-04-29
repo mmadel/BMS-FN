@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { filter, first } from 'rxjs';
 import { ClinicService } from 'src/app/modules/admin.tools/services/clinic.service';
 import { Clinic } from 'src/app/modules/model/admin/clinic';
@@ -10,6 +11,7 @@ import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/fee-schedule.service';
+import { ModifierRuleService } from 'src/app/modules/tools/modifier.rules/service/modifier-rule.service';
 import { BillingCode } from '../../model/billing.code';
 import { DignosisListComponent } from '../dignosis.list/dignosis-list.component';
 import { ServiceCodeListComponent } from '../service.code/list/service.code.list.component';
@@ -42,7 +44,9 @@ export class BillingCodeComponent implements OnInit {
   compareFn = this._compareFn.bind(this);
   activePane = 0;
   constructor(private emitPatientSessionService: EmitPatientSessionService,
-    private clinicService: ClinicService) { }
+    private clinicService: ClinicService,
+    private modifierRuleService: ModifierRuleService,
+    private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -58,6 +62,15 @@ export class BillingCodeComponent implements OnInit {
       .subscribe((result: any) => {
         this.clinics = result
       })
+  }
+  applyModifierRule() {
+    this.modifierRuleService.fireDefault(this.serviceCodeListComponent.serviceCodes).subscribe((result:any)=>{
+      this.toastr.success("Default Modifier Rule is Fired")
+      this.emitPatientSessionService.sessionserviceCodes$.next(result)  
+    },error=>{
+      this.toastr.error("Error during fire default modifier rule")
+
+    })
   }
   toggleserviceCode() {
     this.serviceCodeVisibility = !this.serviceCodeVisibility
