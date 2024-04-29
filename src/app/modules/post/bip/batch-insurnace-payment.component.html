@@ -147,25 +147,14 @@
                                 required="true" id="depositDate" name="depositDate"
                                 #depositDate="ngModel"></c-date-picker>
                         </c-col>
-                        <c-col xs="12" class="mb-2" *ngIf="isuranceCompany">
-                            <small
-                                *ngIf="notValidForm   && (paymentinsuranceCompany.errors) ||paymentinsuranceCompany.invalid && (paymentinsuranceCompany.dirty || paymentinsuranceCompany.touched)"
-                                class="form-text text-danger">
-                                Insurance Company
-                            </small>
-                            <ng-autocomplete [data]="isuranceCompany" [searchKeyword]="'name'" [debounceTime]="500"
-                                id="paymentinsuranceCompany" name="paymentinsuranceCompany"
-                                placeholder="Insurance Company" [itemTemplate]="itemTemplate"
-                                [(ngModel)]="paymentBatch.insuranceCompany" required
-                                [notFoundTemplate]="notFoundTemplate" #paymentinsuranceCompany="ngModel">
-                            </ng-autocomplete>
-                            <ng-template #itemTemplate let-item>
-                                <a [innerHTML]="item.name"></a>
-                            </ng-template>
-
-                            <ng-template #notFoundTemplate let-notFound>
-                                <div [innerHTML]="notFound"></div>
-                            </ng-template>
+                        <c-col xs="12" class="mb-2" *ngIf="selectedSearchOption ==='client' && patientInsurances">
+                            <select cFormControl cCol cSelect id="insCompEntity" style="max-height: 30px;" sizing="sm"
+                                class="mb-1" name="insCompEntity" [(ngModel)]="selectedInsuranceCompany">
+                                <option value="null">Select Insurance Company</option>
+                                <option *ngFor="let patientInsuranceCompany of patientInsurances" [ngValue]="patientInsuranceCompany.insuranceCompany[1]">
+                                    {{patientInsuranceCompany.insuranceCompany[0]}}
+                                </option>
+                            </select>
                         </c-col>
                         <c-col xs="6" class="mb-2">
                             <strong>Total Payments : </strong> {{totalPayments | currency}}

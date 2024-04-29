@@ -7,6 +7,7 @@ import { InsuranceCompanyService } from '../../admin.tools/services/insurance.co
 import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
 import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
 import { IsuranceCompany } from '../../model/admin/insurance.company';
+import { PatientInsurance } from '../../model/clinical/patient.insurance';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { ServiceLinePayment } from '../../patient/profile/filling/sessions/model/service.line.payment';
 import { ServiceLinePaymentRequest } from '../../patient/profile/filling/sessions/model/service.line.payment.request';
@@ -30,6 +31,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   customRanges = CustomDdateRanges.dateRnage;
   notValidForm: boolean = false
   patientClient = new FormControl();
+  selectedInsuranceCompany: number = null;
   insuranceCompanyForm = new FormControl();
   selectedSearchOption: string = "none";
   enteredClientName: string;
@@ -48,7 +50,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     receivedDate_date: new Date()
   }
   invalidServiceCode: any[]
-  isuranceCompany: IsuranceCompany[]
+  patientInsurances: PatientInsurance[]
   postingFilterModel: PostingFilterModel = {};
   constructor(private patientService: PatientService
     , private insuranceCompanyService: InsuranceCompanyService
@@ -61,7 +63,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     this.findPatientByNameAutoComplete();
     this.findInsuranceCompanyByNameAutoComplete();
   }
-  
+
   private findPatientByNameAutoComplete() {
     this.patientClient.valueChanges
       .pipe(
@@ -144,8 +146,6 @@ export class BatchInsurnacePaymentComponent implements OnInit {
 
   changePatientValue(event: any) {
     this.postingFilterModel.entityId = event;
-
-
   }
   changeInsuranceCompanyValue(event: any) {
     this.postingFilterModel.entityId = event;
@@ -174,6 +174,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   createClientPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.clientPayments.constructPaymentLines(this.paymentBatch);
     serviceLinePaymentRequest.serviceLinePaymentType = 'InsuranceCompany'
+    serviceLinePaymentRequest.paymentEntityId = this.selectedInsuranceCompany;
     var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
     if (validateTotalPayment) {
       if (this.paymentForm.valid) {
@@ -232,6 +233,9 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     if (this.selectedSearchOption === 'client' && this.postingFilterModel.entityId > 0) {
       this.renderComponent = 'client'
       this.postingEmitterService.searchPostingClient$.next(this.postingFilterModel)
+      this.patientService.findPatientInsuranceCompanies(this.postingFilterModel.entityId).subscribe((result: any) => {
+        this.patientInsurances = result
+      })
     }
     if (this.selectedSearchOption === 'insurance' && this.postingFilterModel.entityId > 0) {
       this.postingEmitterService.searchPostingInsuranceCompany$.next(this.postingFilterModel)

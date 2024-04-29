@@ -100,7 +100,6 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
       return (item.payment !== null && item.adjust !== null)
     })
     serviceLinePaymentRequest.totalAmount = paymentBatch.totalAmount;
-    serviceLinePaymentRequest.paymentEntityId = this.entityPaymentId;
     serviceLinePaymentRequest.receivedDate =
       paymentBatch.receivedDate_date !== undefined ?
         moment(paymentBatch.receivedDate_date).unix() * 1000 : undefined
