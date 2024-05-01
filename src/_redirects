@@ -31,7 +31,7 @@
 /billing/api/posting/find/patient/:patientId https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/find/patient/:patientId  200
 
 /billing/api/posting/client/find/patient/:patientId https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/client/find/patient/:patientId  200
-/billing/api/posting/client/find https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/client/find/patient/:patientId  200
+/billing/api/posting/client/find https://billing-service-e4526add3402.herokuapp.com/billing/api/posting/client/find  200
 /billing/api/payer/create https://billing-service-e4526add3402.herokuapp.com/billing/api/payer/create  200
 /billing/api/payer/find https://billing-service-e4526add3402.herokuapp.com/billing/api/payer/find  200
 /billing/api/session/history/find https://billing-service-e4526add3402.herokuapp.com/billing/api/session/history/find  200
