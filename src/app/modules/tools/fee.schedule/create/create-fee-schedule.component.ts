@@ -59,6 +59,9 @@ export class CreateFeeScheduleComponent implements OnInit {
       this.addNewFeeScheduleLine.perUnit = 1;
       this.feeScheduleLines.push(this.addNewFeeScheduleLine)
     }
+    this.addNewFeeScheduleLine = {
+      rateType: 'Per_Unit'
+    };
   }
 
   create() {
@@ -66,7 +69,7 @@ export class CreateFeeScheduleComponent implements OnInit {
     if (this.valid) {
       this.feeSchedules.feeLines = this.feeScheduleLines;
       if (this.mode === 'create')
-      this.feeSchedules.defaultFee = !this.defaultFeeSchedule;
+        this.feeSchedules.defaultFee = !this.defaultFeeSchedule;
       this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
         this.scrollUp();
 
