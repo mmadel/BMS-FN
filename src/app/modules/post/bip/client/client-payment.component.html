@@ -1,10 +1,10 @@
 <ngx-spinner></ngx-spinner>
 <c-container fluid="true">
   <ng-container *ngIf="props$ | async as props" fluid="true">
-    <c-smart-table [columns]="columns" #clientPayments [items]="(serviceLinePayments$ | async) ?? []" activePage="1"
-      [itemsPerPage]="props.itemsPerPage" (itemsPerPageChange)="handleItemsPerPageChange($event)"
-      [itemsPerPageOptions]="[5,10,20,30,40,50]" [itemsPerPageSelect]="true"
-      [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+    <c-smart-table [columns]="batchType === 'bc'? columnsBC:columnsBI" #clientPayments
+      [items]="(serviceLinePayments$ | async) ?? []" activePage="1" [itemsPerPage]="props.itemsPerPage"
+      (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20,30,40,50]"
+      [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
       [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
       [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
       (sorterValueChange)="handleSorterValueChange($event)" header>
@@ -37,15 +37,17 @@
             <ng-container *ngSwitchCase="'balance'" class="py-2">
               <label>{{item.balance | currency}}</label>
             </ng-container>
-            <ng-container *ngSwitchCase="'serviceLinePaymentAction'" class="py-2">
-              <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction"
-                [disabled]="item.payment === null || item.adjust === null">
-                <option value=null selected disabled>Select</option>
-                <option value="Resubmit"> Resubmit</option>
-                <option value="Close">Close Session</option>
-                <option value="Current_Status">Keep current status</option>
-              </select>
-            </ng-container>
+            <span *ngIf="batchType ==='bi'">
+              <ng-container *ngSwitchCase="'serviceLinePaymentAction'" class="py-2">
+                <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction"
+                  [disabled]="item.payment === null || item.adjust === null">
+                  <option value=null selected disabled>Select</option>
+                  <option value="Resubmit"> Resubmit</option>
+                  <option value="Close">Close Session</option>
+                  <option value="Current_Status">Keep current status</option>
+                </select>
+              </ng-container>
+            </span>
             <ng-container *ngSwitchDefault>
               {{tdContent}}
             </ng-container>

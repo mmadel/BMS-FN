@@ -27,7 +27,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   totalPayment: number = 0;
   serviceLinesPaymnet: any
   @Input() entityPaymentId: number;
-  columns = [
+  columnsBI = [
     { key: 'id' },
     { key: 'dos', label: 'DateOfService' },
     'cpt',
@@ -38,6 +38,17 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     { key: 'adjust', label: 'Adjust' },
     { key: 'balance', label: 'Balance', _style: { width: '10%' } },
     { key: 'serviceLinePaymentAction', label: 'Session Actions', _style: { width: '20%' } },
+  ];
+  columnsBC = [
+    { key: 'id' },
+    { key: 'dos', label: 'DateOfService' },
+    'cpt',
+    'provider',
+    { key: 'charge', label: 'Billed' },
+    { key: 'previousPayment', label: 'Pmts' },
+    { key: 'payment', label: 'PmtAmt' },
+    { key: 'adjust', label: 'Adjust' },
+    { key: 'balance', label: 'Balance', _style: { width: '10%' } }
   ];
   constructor(private postingServiceService: PostingServiceService
     , private toastr: ToastrService
