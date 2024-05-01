@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { SmartTableComponent } from '@coreui/angular-pro';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
 import { ServiceLinePayment } from '../model/service.line.payment';
 import { ServiceLinePaymentRequest } from '../model/service.line.payment.request';
@@ -44,10 +45,12 @@ export class EnterPaymentComponent implements OnInit {
   selectedInsuranceCompany: number = null
   serviceLinesActions: string[];
   constructor(private enterPaymentService: EnterPaymentService
-    , private toastr: ToastrService) { }
+    , private toastr: ToastrService
+    , private patientService: PatientService) { }
 
   ngOnInit(): void {
     this.getSessionData();
+    this.findInsuranceCompanies()
     this.fetchPayment();
   }
   private getSessionData() {
@@ -57,6 +60,13 @@ export class EnterPaymentComponent implements OnInit {
     this.DOS = moment.unix(this.sessionData.serviceDate / 1000).format('MM/DD/YYYY')
     this.client = this.sessionData.patientName;
     this.provider = this.sessionData.doctorInfo.doctorLastName + ',' + this.sessionData.doctorInfo.doctorFirstName
+  }
+  private findInsuranceCompanies() {
+    if (this.insuranceCompanies === undefined)
+      this.patientService.findPatientInsuranceCompanies(this.sessionData.patientId).subscribe((result: any) => {
+        console.log(JSON.stringify(result))
+        this.insuranceCompanies = result.map((obj: any) => obj.insuranceCompany);
+      })
   }
   private calculateNumbers() {
     this.totalUnits = 0;
