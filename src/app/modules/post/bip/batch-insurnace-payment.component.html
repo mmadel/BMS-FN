@@ -185,7 +185,7 @@
 
 <c-row>
     <c-col *ngIf="renderComponent ==='client'">
-        <client-payment #clientPayments *ngIf="renderComponent ==='client'"
+        <client-payment #clientPayments *ngIf="renderComponent ==='client'" [batchType]="'bi'"
             [entityPaymentId]="postingFilterModel.entityId"></client-payment>
     </c-col>
     <c-col *ngIf="renderComponent ==='insurance'">

@@ -19,6 +19,7 @@ import { PostingFilterModel } from '../filter/posting.filter.model';
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
   filter: PostingFilterModel;
+  @Input() batchType: string;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   @ViewChild('clientPayments') clientPayments: SmartTableComponent;
@@ -46,10 +47,34 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     this.initListComponent();
     this.postingEmitterService.searchPostingClient$.subscribe((emittedPostingFilter: PostingFilterModel) => {
       this.filter = emittedPostingFilter;
-      this.find();
+      switch (this.batchType) {
+        case 'bc':
+          this.findForClient();
+          break;
+        case 'bi':
+          this.findForBatchInsuranceCompany();
+          break;
+      }
     })
   }
-  private find() {
+  private findForClient() {
+    this.filter.startDate = this.filter.searchStartDate !== undefined ? moment(this.filter.searchStartDate).unix() * 1000 : undefined
+    this.filter.endDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchEndDate).unix() * 1000 : undefined
+    this.serviceLinePayments$ = this.postingServiceService.findClientPaymentsFilteredForBC(this.apiParams$, this.filter).pipe(
+      filter((result) => result !== null),
+      tap((response: any) => {
+        this.totalItems$.next(response.number_of_records);
+        if (response.number_of_records) {
+          this.errorMessage$.next('');
+        }
+      }),
+      map((response: any) => {
+        this.serviceLinesPaymnet = response.records
+        return response.records
+      })
+    );
+  }
+  private findForBatchInsuranceCompany() {
     this.filter.startDate = this.filter.searchStartDate !== undefined ? moment(this.filter.searchStartDate).unix() * 1000 : undefined
     this.filter.endDate = this.filter.searchEndDate !== undefined ? moment(this.filter.searchEndDate).unix() * 1000 : undefined
     this.serviceLinePayments$ = this.postingServiceService.findClientPaymentsFiltered(this.apiParams$, this.filter).pipe(

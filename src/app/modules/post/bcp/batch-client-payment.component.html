@@ -167,7 +167,7 @@
 
 <c-row>
     <c-col *ngIf="isSearch">
-        <client-payment #clientPayments *ngIf="isSearch"
+        <client-payment #clientPayments *ngIf="isSearch" [batchType]="'bc'"
             [entityPaymentId]="postingFilterModel.entityId"></client-payment>
     </c-col>
 </c-row>

@@ -18,10 +18,20 @@ export class PostingServiceService extends BasePaginationService {
     var url = this.baseUrl + '/find/patient/' + clientId
     return this.get(config$, url)
   }
+  public findClientPaymentsForBC(config$: BehaviorSubject<IApiParams>, clientId: number): Observable<any> {
+    var url = this.baseUrl + '/client/find/patient/' + clientId
+    return this.get(config$, url)
+  }
   public findClientPaymentsFiltered(config$: BehaviorSubject<IApiParams>, postingFilter: PostingFilterModel): Observable<any> {
     var url = this.baseUrl + '/find';
     return this.post(config$, url, JSON.stringify(postingFilter))
   }
+  public findClientPaymentsFilteredForBC(config$: BehaviorSubject<IApiParams>, postingFilter: PostingFilterModel): Observable<any> {
+    var url = this.baseUrl + '/client/find';
+    return this.post(config$, url, JSON.stringify(postingFilter))
+  }
+  
+
   public findInsuranceCompanyPayments(insuranceCompany: number): Observable<any> {
     var url = this.baseUrl + '/find/insurance/company/' + insuranceCompany
     return this.httpClient.get(url)
