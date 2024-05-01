@@ -127,6 +127,7 @@ export class BatchClientPaymentComponent implements OnInit {
   createClientPayment() {
     var serviceLinePaymentRequest: ServiceLinePaymentRequest = this.clientPayments.constructPaymentLines(this.paymentBatch);
     serviceLinePaymentRequest.serviceLinePaymentType = 'Client'
+    serviceLinePaymentRequest.paymentEntityId = this.postingFilterModel.entityId;
     var validateTotalPayment: boolean = this.validateTotalPayments(serviceLinePaymentRequest.serviceLinePayments);
     if (validateTotalPayment) {
       if (this.paymentForm.valid) {

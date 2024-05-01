@@ -149,7 +149,14 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
         moment(paymentBatch.depositDate_date).unix() * 1000 : undefined
 
     serviceLinePaymentRequest.paymentMethod = paymentBatch.paymentMethod
-    serviceLinePaymentRequest.serviceLinePayments = filteredList;
+    if (this.batchType === 'bi')
+      serviceLinePaymentRequest.serviceLinePayments = filteredList;
+    if (this.batchType === 'bc') {
+      filteredList.forEach((payment: any) => {
+        payment.serviceLinePaymentAction = 'Current_Status'
+      });
+      serviceLinePaymentRequest.serviceLinePayments = filteredList;
+    }
     return serviceLinePaymentRequest;
   }
 } 
