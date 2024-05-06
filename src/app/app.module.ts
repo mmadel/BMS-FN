@@ -56,6 +56,7 @@ import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { LoggingInterceptor } from './modules/logging/logging.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
+import { SecurityModule } from './modules/secuirty/security.module';
 
 
 const APP_CONTAINERS = [
@@ -110,6 +111,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       closeButton: true,
       progressBar: true,
     }),
+    SecurityModule
   ],
   providers: [
     {
