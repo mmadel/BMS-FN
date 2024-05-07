@@ -30,6 +30,11 @@ const routes: Routes = [
       },
       {
         path: 'invoice',
+        data: {
+          title: 'Invoice',
+          roles: ['billing-role']
+        },
+        canActivate: [KcAuthGuard],
         loadChildren: () =>
           import('./modules/invoice/invoice.module').then((m) => m.InvoiceModule)
       },
