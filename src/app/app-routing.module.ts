@@ -15,16 +15,31 @@ const routes: Routes = [
     children: [
       {
         path: 'patient',
+        data: {
+          title: 'Patient',
+          roles: ['patient-role']
+        },
+        canActivate: [KcAuthGuard],
         loadChildren: () =>
           import('./modules/patient/patient.module').then((m) => m.PatientModule)
       },
       {
         path: 'provider',
+        data: {
+          title: 'Provider',
+          roles: ['provider-role', 'referring-provider-role', 'soild-provider-role']
+        },
+        canActivate: [KcAuthGuard],
         loadChildren: () =>
           import('./modules/providers/providers.module').then((m) => m.ProvidersModule)
       },
       {
         path: 'insurance',
+        data: {
+          title: 'Insurance',
+          roles: ['billing-role']
+        },
+        canActivate: [KcAuthGuard],
         loadChildren: () =>
           import('./modules/Insurance/insurance.module').then((m) => m.InsuranceModule)
       },
@@ -40,22 +55,42 @@ const routes: Routes = [
       },
       {
         path: 'cms/filing',
+        data: {
+          title: 'CMS-Filing',
+          roles: ['filing-role']
+        },
+        canActivate: [KcAuthGuard],
         loadChildren: () =>
           import('./modules/cms.filing/cms-filing.module').then((m) => m.CmsFilingModule)
       },
 
       {
         path: 'posting',
+        data: {
+          title: 'Posting',
+          roles: ['payment-role']
+        },
+        canActivate: [KcAuthGuard],
         loadChildren: () =>
           import('./modules/post/posting.module').then((m) => m.PostingModule)
       },
       {
         path: 'tools',
+        data: {
+          title: 'Tools',
+          roles: ['billing-role']
+        },
+        canActivate: [KcAuthGuard],
         loadChildren: () =>
           import('./modules/tools/tools.module').then((m) => m.ToolsModule)
       },
       {
-        path:'admin/tools',
+        path: 'admin/tools',
+        data: {
+          title: 'Admin Tools',
+          roles: ['admin-tool-role']
+        },
+        canActivate: [KcAuthGuard],
         loadChildren: () =>
           import('./modules/admin.tools/admin-tools.module').then((m) => m.AdminToolsModule)
 

@@ -11,9 +11,7 @@ import {
 const routes: Routes = [
   {
     path: '',
-    data: {
-      title: 'Tools',
-    },
+    
     children: [
       {
         path: 'fee-schedule',

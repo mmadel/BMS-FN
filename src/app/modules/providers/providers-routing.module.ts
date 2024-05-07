@@ -8,9 +8,7 @@ import {
 const routes: Routes = [
   {
     path: '',
-    data: {
-      title: 'Providers',
-    },
+
     children :[
       {
         path: 'providerlist',

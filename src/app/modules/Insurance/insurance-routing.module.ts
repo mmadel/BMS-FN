@@ -7,9 +7,6 @@ import {
 const routes: Routes = [
   {
     path: '',
-    data: {
-      title: 'Insurance',
-    },
     children: [
       {
         path: 'list',

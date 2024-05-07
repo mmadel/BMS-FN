@@ -23,7 +23,7 @@
   </c-sidebar-brand>
 
   <perfect-scrollbar [config]="perfectScrollbarConfig">
-    <c-sidebar-nav [navItems]="navItems"></c-sidebar-nav>
+    <c-sidebar-nav  *ngIf="navItems" [navItems]="navItems"></c-sidebar-nav>
   </perfect-scrollbar>
 
   <c-sidebar-toggler
