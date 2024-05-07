@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 import { DefaultLayoutComponent } from './core';
+import { KcAuthGuard } from './modules/secuirty/guard/kc-auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [KcAuthGuard],
     data: {
       title: 'Home'
     },

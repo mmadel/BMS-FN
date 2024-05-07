@@ -9,9 +9,10 @@ import { Observable } from 'rxjs';
 export class KcAuthGuard extends KeycloakAuthGuard {
   constructor(protected override router: Router, protected override keycloakAngular: KeycloakService) {
     super(router, keycloakAngular);
+    console.log('KcAuthGuard')
   }
   async isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-    if (!this.authenticated) {
+    if (!this.authenticated) {      
       await this.keycloakAngular.login({
         redirectUri: window.location.origin + state.url,
       });

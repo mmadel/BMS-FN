@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { initializer } from './keycloak-initializer';
 import { KeycloakService } from 'keycloak-angular';
+import { KcAuthGuard } from './guard/kc-auth.guard';
 
 
 
@@ -18,7 +19,9 @@ import { KeycloakService } from 'keycloak-angular';
       useFactory: initializer,
       multi: true,
       deps: [KeycloakService]
-    }
+    },
+    KeycloakService,
+    KcAuthGuard
   ]
 })
 export class SecurityModule { }
