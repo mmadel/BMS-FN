@@ -18,6 +18,12 @@ export class UserService {
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
 
+  public findUsers(){
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/find/users';
+    return this.httpClient.get(`${url}`, { 'headers': headers })
+  }
+
   public gteUUID() {
     if (this.uuid === undefined) {
       return from(this.keycloakAngular.getKeycloakInstance().loadUserInfo()).pipe(

@@ -1,1 +1,41 @@
-<p>list-accounts works!</p>
+<ngx-spinner></ngx-spinner>
+<c-row>
+    <c-col xs="10" class="mb-2">
+        <h1>Fee Schedule</h1>
+    </c-col>
+</c-row>
+<hr />
+<c-row>
+    <c-col xs="12">
+        <div style="float: right;">
+            <button cButton variant="outline">Create Account</button>
+        </div>
+    </c-col>
+    <c-col xs="12">
+        <table cTable *ngIf="users">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 5%;">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" style="width: 10%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users;index as i">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{user.name}}</td>
+                    <td>
+                        <c-button-group aria-label="Basic example" role="group" size="sm">
+                            <button cButton variant="outline" (click)="editUser(user.uuid)" size="sm">
+                                <svg cIcon name="cilPen"></svg>
+                            </button>
+                            <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm">
+                                <svg cIcon name="cilTrash"></svg>
+                            </button>
+                        </c-button-group>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </c-col>
+</c-row>
