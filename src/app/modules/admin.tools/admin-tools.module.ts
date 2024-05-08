@@ -39,6 +39,7 @@ import { InsuranceMappingComponent } from './components/insurance.company/mappin
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AssignPayerComponent } from './components/insurance.company/mapping/payer.assign/assign-payer.component';
 import { ListAccountsComponent } from './components/account/list/list-accounts.component';
+import { CreateAccountComponent } from './components/account/create/create-account.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ListAccountsComponent } from './components/account/list/list-accounts.c
     CreateFacilityComponent,
     InsuranceMappingComponent,
     AssignPayerComponent,
-    ListAccountsComponent
+    ListAccountsComponent,
+    CreateAccountComponent
   ],
   imports: [
     CommonModule,
