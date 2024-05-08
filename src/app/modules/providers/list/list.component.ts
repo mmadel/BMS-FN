@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { filter, map, Observable, tap } from 'rxjs';
 import { Provider } from '../../model/clinical/provider/provider';
 import { ListTemplate } from '../../model/template/list.template';
+import { RoleScopeFinderService } from '../../secuirty/service/role-scope-finder.service';
 import { ProviderService } from '../service/provider.service';
 @Component({
   selector: 'app-list',
@@ -29,11 +30,14 @@ export class ListComponent extends ListTemplate implements OnInit {
       _style: { width: '5%' }
     }
   ]
-  constructor(private providerService: ProviderService) { super(); }
+  constructor(private providerService: ProviderService,private roleScopeFinderService:RoleScopeFinderService) { super(); }
 
   ngOnInit(): void {
     this.initListComponent();
     this.find();
+    this.roleScopeFinderService.find().subscribe(result=>{
+      console.log(JSON.stringify(result))
+    })
   }
   toggleAddProvider() {
     this.addVisibility = !this.addVisibility

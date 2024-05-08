@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { INavData } from '@coreui/angular-pro';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
+import { catchError, map, of } from 'rxjs';
 import { ItemFilter } from '../nav.item.filter/item.filter';
 import { RoleNavItemConverter } from '../role.converter/role.nav.item.converter';
 import { RenderNavItemsService } from '../service/render-nav-items.service';
@@ -28,9 +29,7 @@ export class KcAuthGuard extends KeycloakAuthGuard {
     this.renderNavItemsService.renderItems$.next(filteredList)
 
     //notify  user scope based on roles restrict actions 
-    this.keycloakAngular.getKeycloakInstance().loadUserInfo().then((reuslt:any)=>{
-      this.roleScopeFinderService.find(this.roles, reuslt.sub)
-    })
+    this.roleScopeFinderService.find();
     // Get the roles required from the route.
     const requiredRoles = route.data['roles'];
     // Allow the user to to proceed if no additional roles are required to access the route.

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 import { DefaultLayoutComponent } from './core';
 import { KcAuthGuard } from './modules/secuirty/guard/kc-auth.guard';
+import { Role } from './modules/secuirty/model/roles';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
         path: 'patient',
         data: {
           title: 'Patient',
-          roles: ['patient-role']
+          roles: [Role.PATIENT_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -27,7 +28,7 @@ const routes: Routes = [
         path: 'provider',
         data: {
           title: 'Provider',
-          roles: ['provider-role', 'referring-provider-role', 'soild-provider-role']
+          roles: [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -37,7 +38,7 @@ const routes: Routes = [
         path: 'insurance',
         data: {
           title: 'Insurance',
-          roles: ['billing-role']
+          roles: [Role.BILLING_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -47,7 +48,7 @@ const routes: Routes = [
         path: 'invoice',
         data: {
           title: 'Invoice',
-          roles: ['billing-role']
+          roles: [Role.BILLING_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -57,7 +58,7 @@ const routes: Routes = [
         path: 'cms/filing',
         data: {
           title: 'CMS-Filing',
-          roles: ['filing-role']
+          roles: [Role.FILING_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -68,7 +69,7 @@ const routes: Routes = [
         path: 'posting',
         data: {
           title: 'Posting',
-          roles: ['payment-role']
+          roles: [Role.PAYMENT_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -78,7 +79,7 @@ const routes: Routes = [
         path: 'tools',
         data: {
           title: 'Tools',
-          roles: ['billing-role']
+          roles: [Role.BILLING_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -88,7 +89,7 @@ const routes: Routes = [
         path: 'admin/tools',
         data: {
           title: 'Admin Tools',
-          roles: ['admin-tool-role']
+          roles: [Role.ADMIN_TOOL_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
