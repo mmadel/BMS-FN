@@ -25,7 +25,8 @@ import {
   ModalModule,
   MultiSelectModule,
   SpinnerModule,
-  SmartPaginationModule
+  SmartPaginationModule,
+  AccordionModule
 } from '@coreui/angular-pro';
 import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
@@ -82,6 +83,7 @@ import { CreateAccountComponent } from './components/account/create/create-accou
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    AccordionModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
