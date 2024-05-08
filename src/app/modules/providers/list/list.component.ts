@@ -36,7 +36,7 @@ export class ListComponent extends ListTemplate implements OnInit {
     this.initListComponent();
     this.find();
     this.roleScopeFinderService.find().subscribe(result=>{
-      console.log(JSON.stringify(result))
+
     })
   }
   toggleAddProvider() {

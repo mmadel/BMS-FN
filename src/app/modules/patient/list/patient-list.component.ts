@@ -31,7 +31,6 @@ export class PatientListComponent extends ListTemplate implements OnInit {
         this.scope = 'modify'
       else
         this.scope = roleScope.scope
-      console.log(this.scope)
     })
   }
 

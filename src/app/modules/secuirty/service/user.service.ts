@@ -21,7 +21,6 @@ export class UserService {
   public gteUUID() {
     if (this.uuid === undefined) {
       return from(this.keycloakAngular.getKeycloakInstance().loadUserInfo()).pipe(
-        tap(result => console.log(JSON.stringify(result))),
         map((userProfile: any) => {
 
           this.uuid = userProfile.sub;
