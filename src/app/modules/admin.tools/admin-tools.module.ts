@@ -38,6 +38,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { InsuranceMappingComponent } from './components/insurance.company/mapping/insurance-mapping.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AssignPayerComponent } from './components/insurance.company/mapping/payer.assign/assign-payer.component';
+import { ListAccountsComponent } from './components/account/list/list-accounts.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AssignPayerComponent } from './components/insurance.company/mapping/pay
     ClinicsComponent,
     CreateFacilityComponent,
     InsuranceMappingComponent,
-    AssignPayerComponent
+    AssignPayerComponent,
+    ListAccountsComponent
   ],
   imports: [
     CommonModule,
