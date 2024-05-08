@@ -1,7 +1,6 @@
 export class AdminToolRoleToItemConverter {
     public static convert(roles: string[], filterItems: string[]) {
         const providerFiltered = roles.filter(this.filterCriteria);
-        console.log(JSON.stringify(providerFiltered))
         if (providerFiltered.includes('admin-tool-role')) {
             filterItems.push('Admin Tools');
         } else {

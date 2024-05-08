@@ -5,11 +5,15 @@ import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 import { ItemFilter } from '../nav.item.filter/item.filter';
 import { RoleNavItemConverter } from '../role.converter/role.nav.item.converter';
 import { RenderNavItemsService } from '../service/render-nav-items.service';
+import { RoleScopeFinderService } from '../service/role-scope-finder.service';
 @Injectable({
   providedIn: 'root'
 })
 export class KcAuthGuard extends KeycloakAuthGuard {
-  constructor(protected override router: Router, protected override keycloakAngular: KeycloakService, private renderNavItemsService: RenderNavItemsService) {
+  constructor(protected override router: Router
+    , protected override keycloakAngular: KeycloakService
+    , private renderNavItemsService: RenderNavItemsService
+    , private roleScopeFinderService: RoleScopeFinderService) {
     super(router, keycloakAngular);
   }
   async isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
@@ -18,13 +22,15 @@ export class KcAuthGuard extends KeycloakAuthGuard {
         redirectUri: window.location.origin + state.url,
       });
     }
-
-    //render nav items based on roles
-    var convertedList : string[] = RoleNavItemConverter.convert(this.roles);
-    var filteredList:INavData[] = ItemFilter.filterNavItems(convertedList);
+    //notify  nav items based on roles to be rendered 
+    var convertedList: string[] = RoleNavItemConverter.convert(this.roles);
+    var filteredList: INavData[] = ItemFilter.filterNavItems(convertedList);
     this.renderNavItemsService.renderItems$.next(filteredList)
 
-
+    //notify  user scope based on roles restrict actions 
+    this.keycloakAngular.getKeycloakInstance().loadUserInfo().then((reuslt:any)=>{
+      this.roleScopeFinderService.find(this.roles, reuslt.sub)
+    })
     // Get the roles required from the route.
     const requiredRoles = route.data['roles'];
     // Allow the user to to proceed if no additional roles are required to access the route.

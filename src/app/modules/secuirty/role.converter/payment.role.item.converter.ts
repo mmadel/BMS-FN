@@ -1,7 +1,6 @@
 export class PaymentRoleItemConverter {
     public static convert(roles: string[], filterItems: string[]) {
         const providerFiltered = roles.filter(this.filterCriteria);
-        console.log(JSON.stringify(providerFiltered))
         if (providerFiltered.includes('payment-role')) {
             filterItems.push('Posting');
         } else {
