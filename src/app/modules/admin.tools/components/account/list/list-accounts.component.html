@@ -1,14 +1,14 @@
 <ngx-spinner></ngx-spinner>
 <c-row>
     <c-col xs="10" class="mb-2">
-        <h1>Fee Schedule</h1>
+        <h1>Accounts List</h1>
     </c-col>
 </c-row>
 <hr />
 <c-row>
     <c-col xs="12">
         <div style="float: right;">
-            <button cButton variant="outline">Create Account</button>
+            <button cButton variant="outline" (click)="createAccount()">Create Account</button>
         </div>
     </c-col>
     <c-col xs="12">
@@ -39,3 +39,12 @@
         </table>
     </c-col>
 </c-row>
+<c-modal [visible]="createAccountVisible" scrollable size="xl" backdrop="static">
+    <c-modal-header>
+        <h2 cModalTitle>Create Account</h2>
+        <button (click)="toggleCreateAccountVisible()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <create-account (changeVisibility)="changeVisibility($event)"></create-account>
+    </c-modal-body>
+</c-modal>

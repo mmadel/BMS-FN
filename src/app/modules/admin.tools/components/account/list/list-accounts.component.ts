@@ -9,6 +9,7 @@ import { UserService } from 'src/app/modules/secuirty/service/user.service';
 })
 export class ListAccountsComponent implements OnInit {
   users: User[]
+  createAccountVisible: boolean = false;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -23,5 +24,17 @@ export class ListAccountsComponent implements OnInit {
   }
   deleteUser(uuid:string){
 
+  }
+  toggleCreateAccountVisible() {
+    this.createAccountVisible = !this.createAccountVisible
+  }
+  changeVisibility(event: any) {
+    if (event === 'close')
+      this.createAccountVisible = false;
+    
+  }
+  
+  createAccount() {
+    this.createAccountVisible = true;
   }
 }
