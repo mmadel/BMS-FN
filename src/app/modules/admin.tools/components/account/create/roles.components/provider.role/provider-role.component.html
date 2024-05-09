@@ -1,0 +1,58 @@
+<c-form-check inline sizing="xl">
+    <input cFormCheckInput id="providersh" [value]="true" name="providers" [checked]="" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="billingh">Hidden</label>
+</c-form-check>
+<c-form-check inline>
+    <input cFormCheckInput id="providersv" [value]="false" name="providers" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="providersv">View</label>
+</c-form-check>
+<c-form-check inline>
+    <input cFormCheckInput id="providersvm" [value]="false" name="providers" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="providersvm">View & Edit</label>
+</c-form-check>
+<button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleBottom" *ngIf="!subPermissionVisability"></svg>
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleTop" *ngIf="subPermissionVisability"></svg>
+</button>
+<table class="table table-sm" *ngIf="subPermissionVisability">
+    <tbody>
+        <tr>
+            <td>
+                Provider
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="providerh" [value]="true" name="provider" [checked]="" type="radio" />
+                    <label cFormCheckLabel for="providerh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="providerv" [value]="false" name="provider" type="radio" />
+                    <label cFormCheckLabel for="providerv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="providervm" [value]="false" name="provider" type="radio" />
+                    <label cFormCheckLabel for="providervm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Referring Provider
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="referringproviderh" [value]="true" name="referringprovider" [checked]="" type="radio" />
+                    <label cFormCheckLabel for="referringproviderh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="referringproviderv" [value]="false" name="referringprovider" type="radio" />
+                    <label cFormCheckLabel for="referringproviderv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="referringprovidervm" [value]="false" name="referringprovider" type="radio" />
+                    <label cFormCheckLabel for="referringprovidervm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+    </tbody>
+</table>
