@@ -1,6 +1,9 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/modules/model/admin/user/user';
+import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
+import { UserService } from 'src/app/modules/secuirty/service/user.service';
 import { AdminRoleComponent } from './roles.components/admin.role/admin-role.component';
 import { BillingRoleComponent } from './roles.components/billing.role/billing-role.component';
 import { ClientRoleComponent } from './roles.components/client.role/client-role.component';
@@ -32,12 +35,12 @@ export class CreateAccountComponent implements OnInit {
   notValidPaymentPermission: boolean = false;
   notValidAdminPermission: boolean = false;
   user: User = {};
-  constructor() { }
+  constructor(private userService: UserService
+    , private toastrService: ToastrService) { }
 
   ngOnInit(): void {
   }
   create() {
-
     if (this.accountForm.valid || (this.checkBillingPermissionValidation()
       && this.checkProviderPermissionValidation()
       && this.checkClientPermissionValidation()
@@ -45,6 +48,13 @@ export class CreateAccountComponent implements OnInit {
       && this.checkFilingPermissionValidation()
       && this.checkAdminPermissionValidation())) {
       this.notValidForm = false;
+
+      this.user.roleScope = this.FillRoleScope();
+      this.userService.createUser(this.user).subscribe(result => {
+        this.toastrService.success("User Created.")
+      }, error => {
+        this.toastrService.error("Error during user creation.")
+      })
     } else {
       this.notValidForm = true;
     }
@@ -73,6 +83,16 @@ export class CreateAccountComponent implements OnInit {
   }
   private checkAdminPermissionValidation(): boolean {
     return this.notValidAdminPermission = !this.adminRoleComponent.isValid()
-
+  }
+  private FillRoleScope(): RoleScope[] {
+    var roleScopes: RoleScope[] = []
+    roleScopes.push(... this.billingRoleComponent?.getRoleScopes());
+    roleScopes.push(... this.providerRoleComponent.getRoleScopes());
+    roleScopes.push(... this.clientRoleComponent.getRoleScopes());
+    roleScopes.push(... this.paymentRoleComponent.getRoleScopes());
+    roleScopes.push(... this.filingRoleComponent.getRoleScopes());
+    roleScopes.push(... this.clientRoleComponent.getRoleScopes());
+    roleScopes.push(... this.adminRoleComponent.getRoleScopes());
+    return roleScopes;
   }
 }

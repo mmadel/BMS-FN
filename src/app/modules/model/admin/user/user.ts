@@ -1,3 +1,5 @@
+import { RoleScope } from "src/app/modules/secuirty/model/role.scope";
+
 export interface User {
     id?: number,
     uuid?: string,
@@ -6,4 +8,5 @@ export interface User {
     lastName?: string
     accountID?: string
     email?: string
+    roleScope?: RoleScope[]
 }

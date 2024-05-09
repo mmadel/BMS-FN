@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { from, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../../model/admin/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,17 @@ export class UserService {
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
 
-  public findUsers(){
+  public findUsers() {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/find/users';
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
 
+  public createUser(user: User) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/create';
+    return this.httpClient.post(`${url}`, JSON.stringify(user), { 'headers': headers })
+  }
   public gteUUID() {
     if (this.uuid === undefined) {
       return from(this.keycloakAngular.getKeycloakInstance().loadUserInfo()).pipe(

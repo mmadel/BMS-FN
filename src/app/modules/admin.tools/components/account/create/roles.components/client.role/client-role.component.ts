@@ -22,4 +22,9 @@ export class ClientRoleComponent implements OnInit {
   isValid(): boolean {
     return !(this.clientPermission.length === 0)
   }
+  getRoleScopes(): RoleScope[] {
+    var roleScopes: RoleScope[] = []
+    roleScopes.push(...this.clientPermission)
+    return roleScopes;
+  }
 }

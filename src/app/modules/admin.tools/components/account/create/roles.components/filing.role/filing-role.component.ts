@@ -21,4 +21,9 @@ export class FilingRoleComponent implements OnInit {
   isValid(): boolean {
     return !(this.filingPermission.length === 0)
   }
+  getRoleScopes(): RoleScope[] {
+    var roleScopes: RoleScope[] = []
+    roleScopes.push(...this.filingPermission)
+    return roleScopes;
+  }
 }

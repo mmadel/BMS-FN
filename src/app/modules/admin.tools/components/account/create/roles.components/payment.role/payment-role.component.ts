@@ -51,4 +51,12 @@ export class PaymentRoleComponent implements OnInit {
     return !((this.paymentRoleScopes.length === 0
       && (this.paymentBatchInsuranceRoleScopes.length === 0 || this.paymentBatchClientRoleScopes.length === 0 || this.paymentBalanceStatementRoleScopes.length === 0)))
   }
+  getRoleScopes(): RoleScope[] {
+    var roleScopes: RoleScope[] = []
+    roleScopes.push(...this.paymentRoleScopes)
+    roleScopes.push(...this.paymentBatchInsuranceRoleScopes)
+    roleScopes.push(...this.paymentBatchClientRoleScopes)
+    roleScopes.push(...this.paymentBalanceStatementRoleScopes)
+    return roleScopes;
+  }
 }

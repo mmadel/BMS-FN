@@ -44,4 +44,11 @@ export class ProviderRoleComponent implements OnInit {
     return !((this.providerRoleScopes.length === 0
       && (this.providerSolideRoleScopes.length === 0 || this.providserReferringRoleScopes.length === 0)))
   }
+  getRoleScopes(): RoleScope[] {
+    var roleScopes: RoleScope[] = []
+    roleScopes.push(...this.providerRoleScopes)
+    roleScopes.push(...this.providerSolideRoleScopes)
+    roleScopes.push(...this.providserReferringRoleScopes)
+    return roleScopes;
+  }
 }

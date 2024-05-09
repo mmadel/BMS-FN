@@ -51,4 +51,12 @@ export class BillingRoleComponent implements OnInit {
     return !((this.billingRoleScopes.length === 0
       && (this.invoiceRoleScopes.length === 0 || this.feeScheduleRoleScopes.length === 0 || this.modifierFeeRoleScopes.length === 0)))
   }
+  getRoleScopes(): RoleScope[] {
+    var roleScopes: RoleScope[] = []
+    roleScopes.push(...this.billingRoleScopes)
+    roleScopes.push(...this.invoiceRoleScopes)
+    roleScopes.push(...this.feeScheduleRoleScopes)
+    roleScopes.push(...this.modifierFeeRoleScopes)
+    return roleScopes;
+  }
 }

@@ -49,4 +49,12 @@ export class AdminRoleComponent implements OnInit {
     return !((this.adminRoleScopes.length === 0
       && (this.groupInfoRoleScopes.length === 0 || this.insuranceMapperRoleScopes.length === 0 || this.accountRoleScopes.length === 0)))
   }
+  getRoleScopes(): RoleScope[] {
+    var roleScopes: RoleScope[] = []
+    roleScopes.push(...this.adminRoleScopes)
+    roleScopes.push(...this.groupInfoRoleScopes)
+    roleScopes.push(...this.insuranceMapperRoleScopes)
+    roleScopes.push(...this.accountRoleScopes)
+    return roleScopes;
+  }
 }
