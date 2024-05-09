@@ -44,6 +44,7 @@ import { CreateAccountComponent } from './components/account/create/create-accou
 import { BillingRoleComponent } from './components/account/create/roles.components/billing.role/billing-role.component';
 import { ProviderRoleComponent } from './components/account/create/roles.components/provider.role/provider-role.component';
 import { PaymentRoleComponent } from './components/account/create/roles.components/payment.role/payment-role.component';
+import { ClientRoleComponent } from './components/account/create/roles.components/client.role/client-role.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { PaymentRoleComponent } from './components/account/create/roles.componen
     CreateAccountComponent,
     BillingRoleComponent,
     ProviderRoleComponent,
-    PaymentRoleComponent
+    PaymentRoleComponent,
+    ClientRoleComponent
   ],
   imports: [
     CommonModule,
