@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { Role } from 'src/app/modules/secuirty/model/roles';
-import { Scope } from 'src/app/modules/secuirty/model/scope';
 import { RoleScopeCreator } from '../../role.scope.creator';
 
 @Component({

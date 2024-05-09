@@ -15,7 +15,7 @@ export class FilingRoleComponent implements OnInit {
   ngOnInit(): void {
   }
   changeFilingPermission(event: any) {
-    var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
+    var scopeIdValues: string[] = ['filingh', 'filingv', 'filingvm']
     this.filingPermission = RoleScopeCreator.create(event.target.id, scopeIdValues, this.filingPermission, Role.FILING_ROLE)
   }
   isValid(): boolean {
