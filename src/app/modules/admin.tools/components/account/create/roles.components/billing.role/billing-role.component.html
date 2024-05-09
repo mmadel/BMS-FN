@@ -1,18 +1,17 @@
-<c-form-check inline sizing="xl">
-    <input cFormCheckInput id="billingh" name="billing" [checked]="billingPermission.isHidden"
-        (change)="changeBilling($event)" type="radio" [disabled]="subPermissionVisability" />
-    <label cFormCheckLabel for="billingh">Hidden</label>
-</c-form-check>
-<c-form-check inline>
-    <input cFormCheckInput id="billingv" name="billing" type="radio" [disabled]="subPermissionVisability"
-        [checked]="billingPermission.isViewOnly" (change)="changeBilling($event)" />
-    <label cFormCheckLabel for="billingv">View</label>
-</c-form-check>
-<c-form-check inline>
-    <input cFormCheckInput id="billingvm" name="billing" type="radio" [disabled]="subPermissionVisability"
-        [checked]="billingPermission.isModify" (change)="changeBilling($event)" />
-    <label cFormCheckLabel for="billingvm">View & Edit</label>
-</c-form-check>
+<span *ngIf="!subPermissionVisability">
+    <c-form-check inline sizing="xl">
+        <input cFormCheckInput id="billingh" name="billing" (change)="changeBilling($event)" type="radio" />
+        <label cFormCheckLabel for="billingh">Hidden</label>
+    </c-form-check>
+    <c-form-check inline>
+        <input cFormCheckInput id="billingv" name="billing" type="radio" (change)="changeBilling($event)" />
+        <label cFormCheckLabel for="billingv">View</label>
+    </c-form-check>
+    <c-form-check inline>
+        <input cFormCheckInput id="billingvm" name="billing" type="radio" (change)="changeBilling($event)" />
+        <label cFormCheckLabel for="billingvm">View & Edit</label>
+    </c-form-check>
+</span>
 <button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
     <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleBottom" *ngIf="!subPermissionVisability"></svg>
     <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleTop" *ngIf="subPermissionVisability"></svg>
@@ -26,22 +25,17 @@
             <td>
                 <c-form-check inline sizing="xl">
                     <input cFormCheckInput id="invh" [value]="true" name="invoice" [checked]="" type="radio"
-                        [checked]="billingSubPermission.billingInvoicePermission.isHidden" 
-                        (change)="changeBilling($event)" />
+                        (change)="changeInvoice($event)" />
                     <label cFormCheckLabel for="invh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="invv" [value]="false" name="invoice" type="radio" 
-                        [checked]="billingSubPermission.billingInvoicePermission.isViewOnly" 
-                        (change)="changeBilling($event)" />
-                    />
+                    <input cFormCheckInput id="invv" [value]="false" name="invoice" type="radio"
+                        (change)="changeInvoice($event)" />
                     <label cFormCheckLabel for="invv">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="invvvm" [value]="false" name="invoice" type="radio" 
-                        [checked]="billingSubPermission.billingInvoicePermission.isModify" 
-                        (change)="changeBilling($event)" />
-                    />
+                    <input cFormCheckInput id="invvvm" [value]="false" name="invoice" type="radio"
+                        (change)="changeInvoice($event)" />
                     <label cFormCheckLabel for="invvvm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -53,23 +47,18 @@
             <td>
                 <c-form-check inline sizing="xl">
                     <input cFormCheckInput id="feeh" [value]="true" name="fee" [checked]="" type="radio"
-                        [checked]="billingSubPermission.billingFeeSchedulePermission.isHidden" 
-                        (change)="changeBilling($event)" />
-                    />
+                        (change)="changeFeeSchedule($event)" />
+
                     <label cFormCheckLabel for="feeh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="feev" [value]="false" name="fee" type="radio" 
-                        [checked]="billingSubPermission.billingFeeSchedulePermission.isViewOnly" 
-                        (change)="changeBilling($event)" 
-                    />
+                    <input cFormCheckInput id="feev" [value]="false" name="fee" type="radio"
+                        (change)="changeFeeSchedule($event)" />
                     <label cFormCheckLabel for="feev">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="feevm" [value]="false" name="fee" type="radio" 
-                        [checked]="billingSubPermission.billingFeeSchedulePermission.isHidden" 
-                        (change)="changeBilling($event)" 
-                    />
+                    <input cFormCheckInput id="feevm" [value]="false" name="fee" type="radio"
+                        (change)="changeFeeSchedule($event)" />
                     <label cFormCheckLabel for="feevm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -80,24 +69,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="modifierh" [value]="true" name="modifier" [checked]="" type="radio" 
-                        [checked]="billingSubPermission.billingModifierRulePermission.isHidden" 
-                        (change)="changeBilling($event)" 
-                    />
+                    <input cFormCheckInput id="modifierh" [value]="true" name="modifier" [checked]="" type="radio"
+                        (change)="changeModifierRule($event)" />
                     <label cFormCheckLabel for="modifierh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="modifierv" [value]="false" name="modifier" type="radio" 
-                        [checked]="billingSubPermission.billingModifierRulePermission.isViewOnly" 
-                        (change)="changeBilling($event)" 
-                    />
+                    <input cFormCheckInput id="modifierv" [value]="false" name="modifier" type="radio"
+                        (change)="changeModifierRule($event)" />
                     <label cFormCheckLabel for="modifierv">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="modifiervm" [value]="false" name="modifier" type="radio" 
-                        [checked]="billingSubPermission.billingModifierRulePermission.isModify" 
-                        (change)="changeBilling($event)" 
-                    />
+                    <input cFormCheckInput id="modifiervm" [value]="false" name="modifier" type="radio"
+                        (change)="changeModifierRule($event)" />
                     <label cFormCheckLabel for="modifiervm">View & Edit</label>
                 </c-form-check>
             </td>
