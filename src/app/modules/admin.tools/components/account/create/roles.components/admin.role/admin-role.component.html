@@ -1,0 +1,77 @@
+<c-form-check inline sizing="xl">
+    <input cFormCheckInput id="adminh" [value]="true" name="admin" [checked]="" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="adminh">Hidden</label>
+</c-form-check>
+<c-form-check inline>
+    <input cFormCheckInput id="adminv" [value]="false" name="admin" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="adminv">View</label>
+</c-form-check>
+<c-form-check inline>
+    <input cFormCheckInput id="adminvm" [value]="false" name="admin" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="adminvm">View & Edit</label>
+</c-form-check>
+<button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleBottom" *ngIf="!subPermissionVisability"></svg>
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleTop" *ngIf="subPermissionVisability"></svg>
+</button>
+<table class="table table-sm" *ngIf="subPermissionVisability">
+    <tbody>
+        <tr>
+            <td>
+                Group Information
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="groupinfoh" [value]="true" name="groupinfo" [checked]="" type="radio" />
+                    <label cFormCheckLabel for="groupinfoh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="groupinfov" [value]="false" name="groupinfo" type="radio" />
+                    <label cFormCheckLabel for="groupinfov">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="groupinfovm" [value]="false" name="groupinfo" type="radio" />
+                    <label cFormCheckLabel for="groupinfovm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Insurance Mapping
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="insurancemappingh" [value]="true" name="insurancemapping" [checked]="" type="radio" />
+                    <label cFormCheckLabel for="insurancemappingh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="insurancemappingv" [value]="false" name="fee" type="radio" />
+                    <label cFormCheckLabel for="insurancemappingv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="insurancemappingvm" [value]="false" name="fee" type="radio" />
+                    <label cFormCheckLabel for="insurancemappingvm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Account Management
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="accountmanagementh" [value]="true" name="accountmanagement" [checked]="" type="radio" />
+                    <label cFormCheckLabel for="accountmanagementh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="accountmanagementv" [value]="false" name="accountmanagement" type="radio" />
+                    <label cFormCheckLabel for="accountmanagementv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="accountmanagementvm" [value]="false" name="modifier" type="radio" />
+                    <label cFormCheckLabel for="accountmanagementvm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+    </tbody>
+</table>
