@@ -1,13 +1,13 @@
 <c-form-check inline sizing="xl">
-    <input cFormCheckInput id="adminh" [value]="true" name="admin" [checked]="" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="adminh" name="admin" type="radio" (change)="changeAdmin($event)" />
     <label cFormCheckLabel for="adminh">Hidden</label>
 </c-form-check>
 <c-form-check inline>
-    <input cFormCheckInput id="adminv" [value]="false" name="admin" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="adminv" name="admin" type="radio" (change)="changeAdmin($event)" />
     <label cFormCheckLabel for="adminv">View</label>
 </c-form-check>
 <c-form-check inline>
-    <input cFormCheckInput id="adminvm" [value]="false" name="admin" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="adminvm" name="admin" type="radio" (change)="changeAdmin($event)" />
     <label cFormCheckLabel for="adminvm">View & Edit</label>
 </c-form-check>
 <button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
@@ -22,15 +22,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="groupinfoh" [value]="true" name="groupinfo" [checked]="" type="radio" />
+                    <input cFormCheckInput id="groupinfoh" name="groupinfo" type="radio"
+                        (change)="changeGroupInfo($event)" />
                     <label cFormCheckLabel for="groupinfoh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="groupinfov" [value]="false" name="groupinfo" type="radio" />
+                    <input cFormCheckInput id="groupinfov" name="groupinfo" type="radio"
+                        (change)="changeGroupInfo($event)" />
                     <label cFormCheckLabel for="groupinfov">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="groupinfovm" [value]="false" name="groupinfo" type="radio" />
+                    <input cFormCheckInput id="groupinfovm" name="groupinfo" type="radio"
+                        (change)="changeGroupInfo($event)" />
                     <label cFormCheckLabel for="groupinfovm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -41,15 +44,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="insurancemappingh" [value]="true" name="insurancemapping" [checked]="" type="radio" />
+                    <input cFormCheckInput id="insurancemappingh" name="insurancemapping" type="radio"
+                        (change)="changeInsuranceMapper($event)" />
                     <label cFormCheckLabel for="insurancemappingh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="insurancemappingv" [value]="false" name="fee" type="radio" />
+                    <input cFormCheckInput id="insurancemappingv" name="fee" type="radio"
+                        (change)="changeInsuranceMapper($event)" />
                     <label cFormCheckLabel for="insurancemappingv">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="insurancemappingvm" [value]="false" name="fee" type="radio" />
+                    <input cFormCheckInput id="insurancemappingvm" name="fee" type="radio"
+                        (change)="changeInsuranceMapper($event)" />
                     <label cFormCheckLabel for="insurancemappingvm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -60,15 +66,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="accountmanagementh" [value]="true" name="accountmanagement" [checked]="" type="radio" />
+                    <input cFormCheckInput id="accountmanagementh" name="accountmanagement" type="radio"
+                        (change)="changeAccountMapper($event)" />
                     <label cFormCheckLabel for="accountmanagementh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="accountmanagementv" [value]="false" name="accountmanagement" type="radio" />
+                    <input cFormCheckInput id="accountmanagementv" name="accountmanagement" type="radio"
+                        (change)="changeAccountMapper($event)" />
                     <label cFormCheckLabel for="accountmanagementv">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="accountmanagementvm" [value]="false" name="modifier" type="radio" />
+                    <input cFormCheckInput id="accountmanagementvm" name="modifier" type="radio"
+                        (change)="changeAccountMapper($event)" />
                     <label cFormCheckLabel for="accountmanagementvm">View & Edit</label>
                 </c-form-check>
             </td>

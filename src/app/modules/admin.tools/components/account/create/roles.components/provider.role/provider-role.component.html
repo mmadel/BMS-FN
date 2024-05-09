@@ -1,13 +1,13 @@
 <c-form-check inline sizing="xl">
-    <input cFormCheckInput id="providersh" [value]="true" name="providers" [checked]="" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="providersh" name="providers" type="radio" (change)="changeProvider($event)" />
     <label cFormCheckLabel for="billingh">Hidden</label>
 </c-form-check>
 <c-form-check inline>
-    <input cFormCheckInput id="providersv" [value]="false" name="providers" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="providersv" name="providers" type="radio" (change)="changeProvider($event)" />
     <label cFormCheckLabel for="providersv">View</label>
 </c-form-check>
 <c-form-check inline>
-    <input cFormCheckInput id="providersvm" [value]="false" name="providers" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="providersvm" name="providers" type="radio" (change)="changeProvider($event)" />
     <label cFormCheckLabel for="providersvm">View & Edit</label>
 </c-form-check>
 <button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
@@ -22,15 +22,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="providerh" [value]="true" name="provider" [checked]="" type="radio" />
+                    <input cFormCheckInput id="providerh" name="provider" type="radio"
+                        (change)="changeSolidProvider($event)" />
                     <label cFormCheckLabel for="providerh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="providerv" [value]="false" name="provider" type="radio" />
+                    <input cFormCheckInput id="providerv" name="provider" type="radio"
+                        (change)="changeSolidProvider($event)" />
                     <label cFormCheckLabel for="providerv">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="providervm" [value]="false" name="provider" type="radio" />
+                    <input cFormCheckInput id="providervm" name="provider" type="radio"
+                        (change)="changeSolidProvider($event)" />
                     <label cFormCheckLabel for="providervm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -41,15 +44,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="referringproviderh" [value]="true" name="referringprovider" [checked]="" type="radio" />
+                    <input cFormCheckInput id="referringproviderh" name="referringprovider" type="radio"
+                        (change)="changeReferringProvider($event)" />
                     <label cFormCheckLabel for="referringproviderh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="referringproviderv" [value]="false" name="referringprovider" type="radio" />
+                    <input cFormCheckInput id="referringproviderv" name="referringprovider" type="radio"
+                        (change)="changeReferringProvider($event)" />
                     <label cFormCheckLabel for="referringproviderv">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="referringprovidervm" [value]="false" name="referringprovider" type="radio" />
+                    <input cFormCheckInput id="referringprovidervm" name="referringprovider" type="radio"
+                        (change)="changeReferringProvider($event)" />
                     <label cFormCheckLabel for="referringprovidervm">View & Edit</label>
                 </c-form-check>
             </td>

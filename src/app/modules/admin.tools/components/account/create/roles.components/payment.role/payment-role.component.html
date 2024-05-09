@@ -1,13 +1,13 @@
 <c-form-check inline sizing="xl">
-    <input cFormCheckInput id="paymenth" [value]="true" name="payment" [checked]="" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="paymenth" name="payment" [checked]="" type="radio" (change)="changePayment($event)" />
     <label cFormCheckLabel for="paymenth">Hidden</label>
 </c-form-check>
 <c-form-check inline>
-    <input cFormCheckInput id="paymentv" [value]="false" name="payment" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="paymentv" name="payment" type="radio" (change)="changePayment($event)" />
     <label cFormCheckLabel for="paymentv">View</label>
 </c-form-check>
 <c-form-check inline>
-    <input cFormCheckInput id="paymentvm" [value]="false" name="payment" type="radio" [disabled]="subPermissionVisability"/>
+    <input cFormCheckInput id="paymentvm" name="payment" type="radio" (change)="changePayment($event)" />
     <label cFormCheckLabel for="paymentvm">View & Edit</label>
 </c-form-check>
 <button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
@@ -22,15 +22,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="batchinsuranceh" [value]="true" name="batchinsurance" [checked]="" type="radio" />
+                    <input cFormCheckInput id="batchinsuranceh" name="batchinsurance" type="radio"
+                        (change)="changePaymentBatchInsurance($event)" />
                     <label cFormCheckLabel for="batchinsuranceh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="batchinsurancev" [value]="false" name="invoice" type="radio" />
+                    <input cFormCheckInput id="batchinsurancev" name="invoice" type="radio"
+                        (change)="changePaymentBatchInsurance($event)" />
                     <label cFormCheckLabel for="batchinsurancev">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="batchinsurancevm" [value]="false" name="invoice" type="radio" />
+                    <input cFormCheckInput id="batchinsurancevm" name="invoice" type="radio"
+                        (change)="changePaymentBatchInsurance($event)" />
                     <label cFormCheckLabel for="batchinsurancevm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -41,15 +44,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="batchclienth" [value]="true" name="batchclient" [checked]="" type="radio" />
+                    <input cFormCheckInput id="batchclienth" name="batchclient" type="radio"
+                        (change)="changePaymentBatchClient($event)" />
                     <label cFormCheckLabel for="batchclienth">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="batchclientv" [value]="false" name="batchclient" type="radio" />
+                    <input cFormCheckInput id="batchclientv" name="batchclient" type="radio"
+                        (change)="changePaymentBatchClient($event)" />
                     <label cFormCheckLabel for="batchclientv">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="batchclientvm" [value]="false" name="batchclient" type="radio" />
+                    <input cFormCheckInput id="batchclientvm" name="batchclient" type="radio"
+                        (change)="changePaymentBatchClient($event)" />
                     <label cFormCheckLabel for="batchclientvm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -60,15 +66,18 @@
             </td>
             <td>
                 <c-form-check inline sizing="xl">
-                    <input cFormCheckInput id="balanceh" [value]="true" name="balance" [checked]="" type="radio" />
+                    <input cFormCheckInput id="balanceh" name="balance" type="radio"
+                        (change)="changePaymentBalanceStatement($event)" />
                     <label cFormCheckLabel for="balanceh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="balancev" [value]="false" name="balance" type="radio" />
+                    <input cFormCheckInput id="balancev" name="balance" type="radio"
+                        (change)="changePaymentBalanceStatement($event)" />
                     <label cFormCheckLabel for="balancev">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="balancevm" [value]="false" name="balance" type="radio" />
+                    <input cFormCheckInput id="balancevm" name="balance" type="radio"
+                        (change)="changePaymentBalanceStatement($event)" />
                     <label cFormCheckLabel for="balancevm">View & Edit</label>
                 </c-form-check>
             </td>
