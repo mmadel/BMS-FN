@@ -7,9 +7,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class CreateAccountComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
+  mode: string='create'
   constructor() { }
 
   ngOnInit(): void {
   }
+  create() {
 
+  }
 }
