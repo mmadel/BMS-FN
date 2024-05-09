@@ -45,4 +45,8 @@ export class AdminRoleComponent implements OnInit {
     var scopeIdValues: string[] = ['accountmanagementh', 'accountmanagementv', 'accountmanagementvm']
     this.accountRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.accountRoleScopes, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE)
   }
+  isValid(): boolean {
+    return !((this.adminRoleScopes.length === 0
+      && (this.groupInfoRoleScopes.length === 0 || this.insuranceMapperRoleScopes.length === 0 || this.accountRoleScopes.length === 0)))
+  }
 }

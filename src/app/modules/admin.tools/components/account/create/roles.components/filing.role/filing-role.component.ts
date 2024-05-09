@@ -18,5 +18,7 @@ export class FilingRoleComponent implements OnInit {
     var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
     this.filingPermission = RoleScopeCreator.create(event.target.id, scopeIdValues, this.filingPermission, Role.FILING_ROLE)
   }
-
+  isValid(): boolean {
+    return !(this.filingPermission.length === 0)
+  }
 }

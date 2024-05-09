@@ -40,4 +40,8 @@ export class ProviderRoleComponent implements OnInit {
     var scopeIdValues: string[] = ['referringproviderh', 'referringproviderv', 'referringprovidervm']
     this.providserReferringRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.providserReferringRoleScopes, Role.REFERRING_PROVIDER_ROLE)
   }
+  isValid(): boolean {
+    return !((this.providerRoleScopes.length === 0
+      && (this.providerSolideRoleScopes.length === 0 || this.providserReferringRoleScopes.length === 0)))
+  }
 }

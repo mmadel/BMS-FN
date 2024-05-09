@@ -19,4 +19,7 @@ export class ClientRoleComponent implements OnInit {
     var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
     this.clientPermission = RoleScopeCreator.create(event.target.id, scopeIdValues, this.clientPermission, Role.PATIENT_ROLE)
   }
+  isValid(): boolean {
+    return !(this.clientPermission.length === 0)
+  }
 }

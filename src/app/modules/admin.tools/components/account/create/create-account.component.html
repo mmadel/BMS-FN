@@ -65,6 +65,29 @@
                     User Permission
                 </div>
                 <div class="card-body">
+                    <small *ngIf="notValidBillingPermission " class="form-text text-danger">
+                        Billing Permission is required
+                    </small>
+                    <br />
+                    <small *ngIf="notValidProviderPermission" class="form-text text-danger">
+                        Provider Permission is required
+                    </small>
+                    <br />
+                    <small *ngIf="notValidClientPermission " class="form-text text-danger">
+                        Client Permission is required
+                    </small>
+                    <br />
+                    <small *ngIf="notValidFilingPermission " class="form-text text-danger">
+                        Filing Permission is required
+                    </small>
+                    <br />
+                    <small *ngIf="notValidPaymentPermission " class="form-text text-danger">
+                        Payment Permission is required
+                    </small>
+                    <br />
+                    <small *ngIf="notValidAdminPermission " class="form-text text-danger">
+                        Admin Permission is required
+                    </small>
                     <table class="table table-sm">
                         <tbody>
                             <tr>
@@ -76,7 +99,7 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <billing-role></billing-role>
+                                    <billing-role #billingRoleComponent></billing-role>
                                 </td>
                             </tr>
                             <tr>
@@ -88,7 +111,7 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <provider-role></provider-role>
+                                    <provider-role #providerRoleComponent></provider-role>
                                 </td>
                             </tr>
                             <tr>
@@ -100,7 +123,7 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <client-role></client-role>
+                                    <client-role #clientRoleComponent></client-role>
                                 </td>
                             </tr>
                             <tr>
@@ -112,7 +135,7 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <payment-role></payment-role>
+                                    <payment-role #paymentRoleComponent></payment-role>
                                 </td>
                             </tr>
                             <tr>
@@ -124,7 +147,7 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <filing-role></filing-role>
+                                    <filing-role #filingRoleComponent></filing-role>
                                 </td>
                             </tr>
                             <tr>
@@ -136,7 +159,7 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <admin-role></admin-role>
+                                    <admin-role #adminRoleComponent></admin-role>
                                 </td>
                             </tr>
                         </tbody>

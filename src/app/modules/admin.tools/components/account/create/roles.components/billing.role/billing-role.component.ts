@@ -47,4 +47,8 @@ export class BillingRoleComponent implements OnInit {
     var scopeIdValues: string[] = ['modifierh', 'modifierv', 'modifiervm']
     this.modifierFeeRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.modifierFeeRoleScopes, Role.MODIFIER_RULE_BILLING_ROLE)
   }
+  isValid(): boolean {
+    return !((this.billingRoleScopes.length === 0
+      && (this.invoiceRoleScopes.length === 0 || this.feeScheduleRoleScopes.length === 0 || this.modifierFeeRoleScopes.length === 0)))
+  }
 }
