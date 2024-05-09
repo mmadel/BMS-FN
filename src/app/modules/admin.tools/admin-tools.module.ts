@@ -41,6 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AssignPayerComponent } from './components/insurance.company/mapping/payer.assign/assign-payer.component';
 import { ListAccountsComponent } from './components/account/list/list-accounts.component';
 import { CreateAccountComponent } from './components/account/create/create-account.component';
+import { BillingRoleComponent } from './components/account/create/roles.components/billing.role/billing-role.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CreateAccountComponent } from './components/account/create/create-accou
     InsuranceMappingComponent,
     AssignPayerComponent,
     ListAccountsComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    BillingRoleComponent
   ],
   imports: [
     CommonModule,

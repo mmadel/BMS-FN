@@ -1,0 +1,77 @@
+<c-form-check inline sizing="xl">
+    <input cFormCheckInput id="billingh" [value]="true" name="billing" [checked]="" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="billingh">Hidden</label>
+</c-form-check>
+<c-form-check inline>
+    <input cFormCheckInput id="billingv" [value]="false" name="billing" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="billingv">View</label>
+</c-form-check>
+<c-form-check inline>
+    <input cFormCheckInput id="billingvm" [value]="false" name="billing" type="radio" [disabled]="subPermissionVisability"/>
+    <label cFormCheckLabel for="billingvm">View & Edit</label>
+</c-form-check>
+<button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleBottom" *ngIf="!subPermissionVisability"></svg>
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleTop" *ngIf="subPermissionVisability"></svg>
+</button>
+<table class="table table-sm" *ngIf="subPermissionVisability">
+    <tbody>
+        <tr>
+            <td>
+                Invoice Area
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="invh" [value]="true" name="invoice" [checked]="" type="radio" />
+                    <label cFormCheckLabel for="invh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="invv" [value]="false" name="invoice" type="radio" />
+                    <label cFormCheckLabel for="invv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="invvvm" [value]="false" name="invoice" type="radio" />
+                    <label cFormCheckLabel for="invvvm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Fee Schedule
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="feeh" [value]="true" name="fee" [checked]="" type="radio" />
+                    <label cFormCheckLabel for="feeh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="feev" [value]="false" name="fee" type="radio" />
+                    <label cFormCheckLabel for="feev">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="feevm" [value]="false" name="fee" type="radio" />
+                    <label cFormCheckLabel for="feevm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Modifier Rule
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="modifierh" [value]="true" name="modifier" [checked]="" type="radio" />
+                    <label cFormCheckLabel for="modifierh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="modifierv" [value]="false" name="modifier" type="radio" />
+                    <label cFormCheckLabel for="modifierv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="modifiervm" [value]="false" name="modifier" type="radio" />
+                    <label cFormCheckLabel for="modifiervm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+    </tbody>
+</table>
