@@ -43,6 +43,7 @@ import { ListAccountsComponent } from './components/account/list/list-accounts.c
 import { CreateAccountComponent } from './components/account/create/create-account.component';
 import { BillingRoleComponent } from './components/account/create/roles.components/billing.role/billing-role.component';
 import { ProviderRoleComponent } from './components/account/create/roles.components/provider.role/provider-role.component';
+import { PaymentRoleComponent } from './components/account/create/roles.components/payment.role/payment-role.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ProviderRoleComponent } from './components/account/create/roles.compone
     ListAccountsComponent,
     CreateAccountComponent,
     BillingRoleComponent,
-    ProviderRoleComponent
+    ProviderRoleComponent,
+    PaymentRoleComponent
   ],
   imports: [
     CommonModule,
