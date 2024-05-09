@@ -1,125 +1,151 @@
 <ngx-spinner></ngx-spinner>
-<c-row>
-    <c-col xs="6" class="mb-2">
-        <div class="card">
-            <div class="card-header">
-                New User Account
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <label cLabel for="accfname">First Name</label>
-                    <input cFormControl id="accfname" sizing="sm" />
+<form cForm #accountForm="ngForm">
+    <c-row>
+        <c-col xs="6" class="mb-2">
+            <div class="card">
+                <div class="card-header">
+                    New User Account
                 </div>
-                <div class="mb-3">
-                    <label cLabel for="acclname">Last Name</label>
-                    <input cFormControl id="acclname" sizing="sm" />
-                </div>
-            </div>
-        </div>
-    </c-col>
-    <c-col xs="6" class="mb-2">
-        <div class="card">
-            <div class="card-header">
-                New User Account
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <label cLabel for="accusridname">User ID</label>
-                    <input cFormControl id="accusridname" sizing="sm" />
-                </div>
-                <div class="mb-3">
-                    <label cLabel for="accusrmailname">Email</label>
-                    <input cFormControl id="accusrmailname" sizing="sm" />
+                <div class="card-body">
+                    <small
+                        *ngIf="notValidForm   && (accountFirstname.errors) ||   accountFirstname.invalid && (accountFirstname.dirty || accountFirstname.touched)"
+                        class="form-text text-danger">
+                        First name is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="accfname">First Name</label>
+                        <input cFormControl id="accfname" [(ngModel)]="user.firstName" sizing="sm" name="firstname"
+                            #accountFirstname="ngModel" required />
+                    </div>
+                    <small
+                        *ngIf="notValidForm   && (accounLastname.errors) ||   accounLastname.invalid && (accounLastname.dirty || accounLastname.touched)"
+                        class="form-text text-danger">
+                        Last name is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="acclname">Last Name</label>
+                        <input cFormControl id="acclname" sizing="sm" #accounLastname="ngModel" name="lastname" required
+                            [(ngModel)]="user.lastName" />
+                    </div>
                 </div>
             </div>
-        </div>
-    </c-col>
-    <c-col xs="12" class="mb-2">
-        <div class="card">
-            <div class="card-header">
-                User Permission
+        </c-col>
+        <c-col xs="6" class="mb-2">
+            <div class="card">
+                <div class="card-header">
+                    New User Account
+                </div>
+                <div class="card-body">
+                    <small
+                        *ngIf="notValidForm   && (accounID.errors) ||   accounID.invalid && (accounID.dirty || accounID.touched)"
+                        class="form-text text-danger">
+                        Account ID is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="accusridname">User ID</label>
+                        <input cFormControl id="accusridname" sizing="sm" #accounID="ngModel" name="accounID" required
+                            [(ngModel)]="user.accountID" />
+                    </div>
+                    <small
+                        *ngIf="notValidForm   && (accountEmail.errors) ||   accountEmail.invalid && (accountEmail.dirty || accountEmail.touched)"
+                        class="form-text text-danger">
+                        Email is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="accusrmailname">Email</label>
+                        <input cFormControl id="accusrmailname" sizing="sm" #accountEmail="ngModel" name="accountEmail"
+                            required [(ngModel)]="user.email" />
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <table class="table table-sm">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <h3>
-                                    <strong>
-                                        Billing
-                                    </strong>
-                                </h3>
-                            </td>
-                            <td>
-                                <billing-role></billing-role>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>
-                                    <strong>
-                                        Providers
-                                    </strong>
-                                </h3>
-                            </td>
-                            <td>
-                                <provider-role></provider-role>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>
-                                    <strong>
-                                        Client
-                                    </strong>
-                                </h3>
-                            </td>
-                            <td>
-                                <client-role></client-role>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>
-                                    <strong>
-                                        Payment
-                                    </strong>
-                                </h3>
-                            </td>
-                            <td>
-                                <payment-role></payment-role>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>
-                                    <strong>
-                                        Filing
-                                    </strong>
-                                </h3>
-                            </td>
-                            <td>
-                                <filing-role></filing-role>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>
-                                    <strong>
-                                        Admin Tools
-                                    </strong>
-                                </h3>
-                            </td>
-                            <td>
-                                <admin-role></admin-role>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        </c-col>
+        <c-col xs="12" class="mb-2">
+            <div class="card">
+                <div class="card-header">
+                    User Permission
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Billing
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <billing-role></billing-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Providers
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <provider-role></provider-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Client
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <client-role></client-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Payment
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <payment-role></payment-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Filing
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <filing-role></filing-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Admin Tools
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <admin-role></admin-role>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </c-col>
-</c-row>
+        </c-col>
+    </c-row>
+</form>
 <div class="col text-center my-3">
     <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;">
         <span *ngIf="mode ==='create'"> Create</span>
