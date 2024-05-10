@@ -41,23 +41,29 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit(): void {
   }
   create() {
-    if (this.accountForm.valid || (this.checkBillingPermissionValidation()
-      && this.checkProviderPermissionValidation()
-      && this.checkClientPermissionValidation()
-      && this.checkPaymentPermissionValidation()
-      && this.checkFilingPermissionValidation()
-      && this.checkAdminPermissionValidation())) {
+    var isPermissinosValid = this.checkPermissionValidation();
+    if (this.accountForm.valid && isPermissinosValid) {
       this.notValidForm = false;
 
       this.user.roleScope = this.FillRoleScope();
+      this.user.name = this.user.lastName + ',' + this.user.firstName;
       this.userService.createUser(this.user).subscribe(result => {
         this.toastrService.success("User Created.")
+        this.changeVisibility.next('close')
       }, error => {
         this.toastrService.error("Error during user creation.")
       })
     } else {
       this.notValidForm = true;
     }
+  }
+  private checkPermissionValidation(): boolean {
+    return !(this.checkBillingPermissionValidation()
+      && this.checkProviderPermissionValidation()
+      && this.checkClientPermissionValidation()
+      && this.checkPaymentPermissionValidation()
+      && this.checkFilingPermissionValidation()
+      && this.checkAdminPermissionValidation())
   }
   private checkBillingPermissionValidation(): boolean {
     return this.notValidBillingPermission = !this.billingRoleComponent.isValid()

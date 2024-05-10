@@ -31,6 +31,7 @@ export class ListAccountsComponent implements OnInit {
   changeVisibility(event: any) {
     if (event === 'close')
       this.createAccountVisible = false;
+      this.find();
     
   }
   

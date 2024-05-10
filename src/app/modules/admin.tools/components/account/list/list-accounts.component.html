@@ -45,6 +45,6 @@
         <button (click)="toggleCreateAccountVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <create-account (changeVisibility)="changeVisibility($event)"></create-account>
+        <create-account (changeVisibility)="changeVisibility($event)" *ngIf="createAccountVisible"></create-account>
     </c-modal-body>
 </c-modal>
