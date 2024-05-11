@@ -4,6 +4,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { initializer } from './keycloak-initializer';
 import { KeycloakService } from 'keycloak-angular';
 import { KcAuthGuard } from './guard/kc-auth.guard';
+import { EncryptionService } from './service/encryption.service';
 
 
 
@@ -18,8 +19,9 @@ import { KcAuthGuard } from './guard/kc-auth.guard';
       provide: APP_INITIALIZER,
       useFactory: initializer,
       multi: true,
-      deps: [KeycloakService]
+      deps: [KeycloakService],
     },
+    EncryptionService,
     KeycloakService,
     KcAuthGuard
   ]
