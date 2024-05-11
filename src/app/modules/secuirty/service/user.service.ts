@@ -24,6 +24,11 @@ export class UserService {
     var url = this.baseUrl + '/find/users';
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
+  public findUser(uuid: string) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/find/uuid/' + uuid;
+    return this.httpClient.get(`${url}`, { 'headers': headers })
+  }
 
   public createUser(user: User) {
     const headers = { 'content-type': 'application/json' }

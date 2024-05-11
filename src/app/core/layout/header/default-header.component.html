@@ -48,9 +48,9 @@
         </c-header-nav> -->
 
         <!--aside toggler-->
-        <button toggle="visible" cHeaderToggler cSidebarToggle="aside1" class="px-md-0 me-md-3 d-none d-sm-block">
-            <svg cIcon name="cilApplicationsSettings" size="lg"></svg>
-        </button>
+        <c-header-nav class="ms-3 me-sm-4">
+            <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
+        </c-header-nav>
     </c-container>
     <c-header-divider></c-header-divider>
     <c-container [fluid]="true">
@@ -59,57 +59,12 @@
 </ng-container>
 <!--</c-header>-->
 
-<!-- <ng-template #userDropdown>
+<ng-template #userDropdown>
     <c-dropdown alignment="end" variant="nav-item">
         <a href [caret]="false" cDropdownToggle class="py-0">
-            <c-avatar cTextColor="primary" shape="rounded-1" size="md" src="./assets/img/avatars/11.jpg"
-                status="success">
-            </c-avatar>
+            <c-avatar color="secondary"  *ngIf="loggedIn" status="success">{{loggedIn}}</c-avatar>
         </a>
         <ul cDropdownMenu class="pt-0 pr-5 w-auto">
-            <li>
-                <h6 cDropdownHeader class="bg-light dark:bg-white dark:bg-opacity-10 fw-semibold py-2">Account</h6>
-            </li>
-            <li>
-                <a [routerLink]="[]" cDropdownItem>
-                    <svg cIcon class="me-2" name="cilBell"></svg>
-                    Updates
-                    <c-badge class="ms-2 float-end" color="info-gradient">
-                        42
-                    </c-badge>
-                </a>
-            </li>
-            <li>
-                <a routerLink="/apps/email/inbox" cDropdownItem>
-                    <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
-                    Messages
-                    <c-badge class="ms-2 float-end" color="success-gradient">
-                        42
-                    </c-badge>
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="[]" cDropdownItem>
-                    <svg cIcon class="me-2" name="cilTask"></svg>
-                    Tasks
-                    <c-badge class="ms-2 float-end" color="danger-gradient">
-                        42
-                    </c-badge>
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="[]" cDropdownItem>
-                    <svg cIcon class="me-2" name='cilCommentSquare'></svg>
-                    Comments
-                    <c-badge class="ms-auto" color="warning-gradient">
-                        42
-                    </c-badge>
-                </a>
-            </li>
-            <li>
-                <h6 cDropdownHeader class="bg-light dark:bg-white dark:bg-opacity-10 fw-semibold py-2">Settings</h6>
-            </li>
-            <li></li>
             <li>
                 <a [routerLink]="[]" cDropdownItem>
                     <svg cIcon class="me-2" name="cilUser"></svg>
@@ -122,37 +77,21 @@
                     Settings
                 </a>
             </li>
-            <li>
-                <a [routerLink]="[]" cDropdownItem>
-                    <svg cIcon class="me-2" name="cilCreditCard"></svg>
-                    Payments
-                    <c-badge class="ms-2 float-end" color="secondary-gradient">
-                        42
-                    </c-badge>
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="[]" cDropdownItem>
-                    <svg cIcon class="me-2" name="cilFile"></svg>
-                    Projects
-                    <c-badge class="ms-2 float-end" color="primary-gradient">
-                        42
-                    </c-badge>
-                </a>
-            </li>
+
+
             <li>
                 <hr cDropdownDivider />
             </li>
             <li>
-                <a [routerLink]="[]" cDropdownItem>
+                <a (click)="logout()" cDropdownItem>
                     <svg cIcon class="me-2" name="cilLockLocked"></svg>
-                    Lock Account
+                    Logout
                 </a>
             </li>
             <li></li>
         </ul>
     </c-dropdown>
-</ng-template> -->
+</ng-template>
 
 <!-- <ng-template #messagesDropdown>
     <c-dropdown alignment="end" variant="nav-item">
