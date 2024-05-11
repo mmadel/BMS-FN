@@ -6,7 +6,8 @@ export interface User {
     name?: string;
     firstName?: string
     lastName?: string
-    accountID?: string
+    userAccount?: string
     email?: string
+    password?: string
     roleScope?: RoleScope[]
 }

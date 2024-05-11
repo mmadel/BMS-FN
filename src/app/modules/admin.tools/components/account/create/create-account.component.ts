@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/modules/model/admin/user/user';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
+import { EncryptionService } from 'src/app/modules/secuirty/service/encryption.service';
 import { UserService } from 'src/app/modules/secuirty/service/user.service';
 import { AdminRoleComponent } from './roles.components/admin.role/admin-role.component';
 import { BillingRoleComponent } from './roles.components/billing.role/billing-role.component';
@@ -36,7 +37,8 @@ export class CreateAccountComponent implements OnInit {
   notValidAdminPermission: boolean = false;
   user: User = {};
   constructor(private userService: UserService
-    , private toastrService: ToastrService) { }
+    , private toastrService: ToastrService
+    , private encryptionService: EncryptionService) { }
 
   ngOnInit(): void {
   }
@@ -47,6 +49,7 @@ export class CreateAccountComponent implements OnInit {
 
       this.user.roleScope = this.FillRoleScope();
       this.user.name = this.user.lastName + ',' + this.user.firstName;
+      this.user.password = this.encryptionService.encrypt(this.user.password)
       this.userService.createUser(this.user).subscribe(result => {
         this.toastrService.success("User Created.")
         this.changeVisibility.next('close')
