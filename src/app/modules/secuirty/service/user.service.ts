@@ -11,6 +11,7 @@ import { User } from '../../model/admin/user/user';
 export class UserService {
   private baseUrl = environment.baseURL + '/user'
   uuid: string
+  accessToken: string;
   constructor(private httpClient: HttpClient, private keycloakAngular: KeycloakService) { }
 
   public findUSerRoleScope(uuid: string, roles: string[]) {
@@ -46,6 +47,18 @@ export class UserService {
       )
     } else {
       return of(this.uuid);
+    }
+  }
+  public getAccessToken() {
+    if (this.accessToken === undefined) {
+      return from(this.keycloakAngular.getToken()).pipe(
+        map((accessToken: any) => {
+          this.accessToken = accessToken;
+          return accessToken;
+        })
+      )
+    } else {
+      return of(this.accessToken);
     }
   }
 }

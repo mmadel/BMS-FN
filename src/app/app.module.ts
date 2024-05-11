@@ -57,6 +57,7 @@ import { LoggingInterceptor } from './modules/logging/logging.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 import { SecurityModule } from './modules/secuirty/security.module';
+import { AuthInterceptor } from './modules/secuirty/interceptor/auth.interceptor';
 
 
 const APP_CONTAINERS = [
@@ -124,6 +125,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
     IconSetService,
     Title,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
