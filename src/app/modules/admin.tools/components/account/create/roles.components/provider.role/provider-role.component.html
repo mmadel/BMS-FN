@@ -1,15 +1,17 @@
-<c-form-check inline sizing="xl">
-    <input cFormCheckInput id="providersh" name="providers" type="radio" (change)="changeProvider($event)" />
-    <label cFormCheckLabel for="billingh">Hidden</label>
-</c-form-check>
-<c-form-check inline>
-    <input cFormCheckInput id="providersv" name="providers" type="radio" (change)="changeProvider($event)" />
-    <label cFormCheckLabel for="providersv">View</label>
-</c-form-check>
-<c-form-check inline>
-    <input cFormCheckInput id="providersvm" name="providers" type="radio" (change)="changeProvider($event)" />
-    <label cFormCheckLabel for="providersvm">View & Edit</label>
-</c-form-check>
+<span *ngIf="!subPermissionVisability">
+    <c-form-check inline sizing="xl">
+        <input cFormCheckInput id="providersh" name="providers" type="radio" (change)="changeProvider($event)" />
+        <label cFormCheckLabel for="billingh">Hidden</label>
+    </c-form-check>
+    <c-form-check inline>
+        <input cFormCheckInput id="providersv" name="providers" type="radio" (change)="changeProvider($event)" />
+        <label cFormCheckLabel for="providersv">View</label>
+    </c-form-check>
+    <c-form-check inline>
+        <input cFormCheckInput id="providersvm" name="providers" type="radio" (change)="changeProvider($event)" />
+        <label cFormCheckLabel for="providersvm">View & Edit</label>
+    </c-form-check>
+</span>
 <button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
     <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleBottom" *ngIf="!subPermissionVisability"></svg>
     <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleTop" *ngIf="subPermissionVisability"></svg>
