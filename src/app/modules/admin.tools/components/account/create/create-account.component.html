@@ -56,17 +56,25 @@
                         <input cFormControl id="accusridname" sizing="sm" #accounID="ngModel" name="accounID" required
                             [(ngModel)]="user.userAccount" />
                     </div>
-                    <small
-                    *ngIf="notValidForm   && (accusridpassword.errors) ||   accusridpassword.invalid && (accusridpassword.dirty || accusridpassword.touched)"
-                    class="form-text text-danger">
-                    Account pasword is required
-                </small>
-                <div class="mb-3">
-                    <label cLabel for="accusridpassword">User Password</label>
-                    <input cFormControl id="accusridpassword" sizing="sm" #accusridpassword="ngModel" name="accusridpassword" required
-                        [(ngModel)]="user.password" type="password"/>
-                </div>
-
+                    <div *ngIf="!userSetPassword">
+                        <small
+                        *ngIf="notValidForm   && (accusridpassword.errors) ||   accusridpassword.invalid && (accusridpassword.dirty || accusridpassword.touched)"
+                        class="form-text text-danger">
+                        Account pasword is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="accusridpassword">User Password</label>
+                        <input cFormControl id="accusridpassword" sizing="sm" #accusridpassword="ngModel"
+                            name="accusridpassword" required [(ngModel)]="user.password" type="password" />
+                    </div>
+                    </div>
+                    <div class="mb-3">
+                        <c-form-check [switch]="true">
+                            <input cFormCheckInput type="checkbox" [checked]="userSetPassword"
+                                (change)="userSetPassword = !userSetPassword" />
+                            <label cFormCheckLabel>Update profile-Set Password</label>
+                        </c-form-check>
+                    </div>
                 </div>
             </div>
         </c-col>

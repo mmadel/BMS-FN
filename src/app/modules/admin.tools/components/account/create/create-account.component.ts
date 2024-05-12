@@ -36,6 +36,7 @@ export class CreateAccountComponent implements OnInit {
   notValidPaymentPermission: boolean = false;
   notValidAdminPermission: boolean = false;
   user: User = {};
+  userSetPassword: boolean = false
   constructor(private userService: UserService
     , private toastrService: ToastrService
     , private encryptionService: EncryptionService) { }
@@ -49,12 +50,17 @@ export class CreateAccountComponent implements OnInit {
 
       this.user.roleScope = this.FillRoleScope();
       this.user.name = this.user.lastName + ',' + this.user.firstName;
-      this.user.password = this.encryptionService.encrypt(this.user.password)
+      if (!this.userSetPassword)
+        this.user.password = this.encryptionService.encrypt(this.user.password)
+      else
+        this.user.password = undefined;
+
       this.userService.createUser(this.user).subscribe(result => {
         this.toastrService.success("User Created.")
         this.changeVisibility.next('close')
       }, error => {
-        this.toastrService.error("Error during user creation.")
+        console.log(error.error.message)
+        this.toastrService.error("Error during user creation.", error.error.message)
       })
     } else {
       this.notValidForm = true;
