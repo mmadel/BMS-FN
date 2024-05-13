@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/modules/model/admin/user/user';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { UserService } from 'src/app/modules/secuirty/service/user.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class ListAccountsComponent implements OnInit {
   users: User[]
   createAccountVisible: boolean = false;
   constructor(private userService: UserService) { }
-
+  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE ,Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE ];
   ngOnInit(): void {
     this.find()
   }
