@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { InsuranceCompanyConfiguration } from '../../model/admin/insurance.company.configuration';
 import { InsuranceCompanyHolder } from '../../model/admin/insurance.company.holder';
+import { Role } from '../../secuirty/model/roles';
 import { BillingProviderConfiguration } from '../model/billing.provider.configuration';
 import { GeneralConfiguration } from '../model/general.configuration';
 import { InsuranceCompanyConfigurationService } from '../service/insurance-company-configuration.service';
@@ -38,6 +39,7 @@ export class InsuranceListComponent implements OnInit {
   ];
 
   details_visible = Object.create({});
+  componentScopes: string[] = [Role.BILLING_ROLE ];
   constructor(private insuranceCompanyContainerService: InsuranceCompanyContainerService
     , private insuranceCompanyConfigurationService: InsuranceCompanyConfigurationService
     , private toastr: ToastrService) { }
