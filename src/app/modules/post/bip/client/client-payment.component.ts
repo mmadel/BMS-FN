@@ -9,6 +9,7 @@ import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { BatchSessionServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/batch.session.service.line.payment';
 import { ServiceLinePaymentRequest } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment.request';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { PostingServiceService } from '../../service/posting-service.service';
 import { PostingFilterModel } from '../filter/posting.filter.model';
 
@@ -53,7 +54,7 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   constructor(private postingServiceService: PostingServiceService
     , private toastr: ToastrService
     , private postingEmitterService: PostingEmitterService) { super() }
-
+  componentScopes: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
   ngOnInit(): void {
     this.initListComponent();
     this.postingEmitterService.searchPostingClient$.subscribe((emittedPostingFilter: PostingFilterModel) => {

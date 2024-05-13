@@ -12,6 +12,7 @@ import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { ServiceLinePayment } from '../../patient/profile/filling/sessions/model/service.line.payment';
 import { ServiceLinePaymentRequest } from '../../patient/profile/filling/sessions/model/service.line.payment.request';
 import { PatientService } from '../../patient/service/patient.service';
+import { Role } from '../../secuirty/model/roles';
 import { ClientBatchReceiptRequest } from '../model/batch/client/client.batch.receipt.request';
 import { BatchPaymentService } from '../service/batch/batch-payment.service';
 import { ClientPaymentComponent } from './client/client-payment.component';
@@ -59,6 +60,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     , private batchPaymentService: BatchPaymentService) {
   }
   clientBatchReceiptRequest: ClientBatchReceiptRequest;
+  componentScopes: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
     this.findInsuranceCompanyByNameAutoComplete();
