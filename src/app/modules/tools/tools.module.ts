@@ -41,6 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 import { CreateFeeScheduleComponent } from './fee.schedule/create/create-fee-schedule.component';
 import { ModifierPipe } from './modifier.rules/pipe/modifier.pipe';
+import { ModelModule } from '../model/model.module';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { ModifierPipe } from './modifier.rules/pipe/modifier.pipe';
     FormsModule,
     CalloutModule,
     PopoverModule,
+    ModelModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })
