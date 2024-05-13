@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { ClinicsComponent } from '../clinics/clinics.component';
 import { OrganizationComponent } from '../organization/organization.component';
 
@@ -12,6 +13,7 @@ export class GroupComponent implements OnInit {
   @ViewChild('listclinicsComponent') listclinicsComponent: ClinicsComponent;
   editProviderVisibility: boolean = false;
   addFacilityVisibility: boolean = false;
+  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE];
   constructor() { }
 
   ngOnInit(): void {
