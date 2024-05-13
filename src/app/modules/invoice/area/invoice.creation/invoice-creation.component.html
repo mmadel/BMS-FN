@@ -12,10 +12,12 @@
                             <li><a cDropdownItem><svg cIcon name="cilViewStream" class="text-info"></svg>
                                     Preview</a></li>
                             <li cDropdownDivider></li>
-                            <li><a cDropdownItem (click)="create(patientInsurance)"><svg cIcon
-                                        name="cibAdobeAcrobatReader" class="text-danger"></svg>
+                            <li><a cDropdownItem (click)="create(patientInsurance)" role-scope
+                                    [componentScopes]="componentScopes"><svg cIcon name="cibAdobeAcrobatReader"
+                                        class="text-danger"></svg>
                                     Print</a></li>
-                            <li><a cDropdownItem (click)="createElectronic(patientInsurance)"><svg cIcon name="cilSend"
+                            <li><a cDropdownItem (click)="createElectronic(patientInsurance)" role-scope
+                                    [componentScopes]="componentScopes"><svg cIcon name="cilSend"
                                         class="text-success"></svg>
                                     Electronic Submission</a>
                             </li>
@@ -74,19 +76,20 @@
         <form cForm>
             <div class="mb-3">
                 <label cLabel for="exampleFormControlInput1">Resubmission codes</label>
-                <select aria-label="Default select example" cSelect sizing="sm" [(ngModel)]="correctCode" [disabled]="avoidCorrectClaimFlag"
-                    name="correctCode">
+                <select aria-label="Default select example" cSelect sizing="sm" [(ngModel)]="correctCode"
+                    [disabled]="avoidCorrectClaimFlag" name="correctCode">
                     <option value="7">Corrected claim-7</option>
                     <option value="8">Void claim-8</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label cLabel for="REF">REF#</label>
-                <input cFormControl id="REF" placeholder="REF Number" sizing="sm" [(ngModel)]="refNumber" [disabled]="avoidCorrectClaimFlag"
-                    name="refNumber" />
+                <input cFormControl id="REF" placeholder="REF Number" sizing="sm" [(ngModel)]="refNumber"
+                    [disabled]="avoidCorrectClaimFlag" name="refNumber" />
             </div>
             <div class="mb-3">
-                <input cFormCheckInput id="avoidcorrect" type="checkbox" [checked]="avoidCorrectClaimFlag" (change)="avoidCorrectClaimFlag = !avoidCorrectClaimFlag"/>
+                <input cFormCheckInput id="avoidcorrect" type="checkbox" [checked]="avoidCorrectClaimFlag"
+                    (change)="avoidCorrectClaimFlag = !avoidCorrectClaimFlag" />
                 <label cFormCheckLabel for="avoidcorrect" class="mx-1">Handle claim without correction action</label>
             </div>
         </form>

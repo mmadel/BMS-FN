@@ -6,9 +6,11 @@ import { ButtonModule, FormModule, GridModule, SharedModule, TableModule, Utilit
 import { ClonePipe } from './pipe/clone.pipe';
 import { PhonePipe } from './pipe/phone/phone.pipe';
 import { StatePipe } from './pipe/state/state.pipe';
+import { ScopeDirective } from './directives/scope/scope.directive';
 
 const APP_COMMON_DIRECTIVES = [
-  ZipCodeDirective
+  ZipCodeDirective,
+  ScopeDirective
 ]
 
 
@@ -17,7 +19,7 @@ const APP_COMMON_DIRECTIVES = [
     APP_COMMON_DIRECTIVES,
     ClonePipe,
     PhonePipe,
-    StatePipe
+    StatePipe,
   ],
   imports: [
     CommonModule,

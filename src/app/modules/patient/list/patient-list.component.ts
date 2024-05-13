@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import * as moment from 'moment';
 import { map, Observable, tap } from 'rxjs';
 import { MinimalPatient } from '../../model/clinical/minimal.patient';
@@ -16,22 +16,13 @@ import { PatientService } from '../service/patient.service';
 })
 export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<MinimalPatient[]>;
-  scope: string;
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor(private paitentService: PatientService
-    , private router: Router
-    , private roleScopeFinderService: RoleScopeFinderService) { super() }
+    , private router: Router) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
     this.find();
-    this.roleScopeFinderService.find().subscribe((result: RoleScope[]) => {
-
-      var roleScope: RoleScope = result.find(roleScope => roleScope.role === Role.PATIENT_ROLE)
-      if (roleScope === undefined)
-        this.scope = 'modify'
-      else
-        this.scope = roleScope.scope
-    })
   }
 
   columns = [

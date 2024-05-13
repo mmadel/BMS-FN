@@ -68,7 +68,8 @@
   </c-col>
   <c-col xs="12">
     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-      <button cButton color="primary" variant="outline" (click)="add()" *ngIf="scope && scope =='modify'">Add New
+      <button cButton color="primary" variant="outline" (click)="add()" role-scope
+        [componentScopes]="componentScopes">Add New
         Patient</button>
       <c-dropdown variant="btn-group">
         <button cButton cDropdownToggle>
@@ -115,10 +116,12 @@
                   <button cButton variant="outline" (click)="view(item)" size="sm">
                     <svg cIcon name="cilBrowser"></svg>
                   </button>
-                  <button cButton variant="outline" (click)="remove(item)" size="sm">
+                  <button cButton variant="outline" (click)="remove(item)" size="sm" role-scope
+                    [componentScopes]="componentScopes">
                     <svg cIcon name="cilTrash"></svg>
                   </button>
-                  <button cButton variant="outline" (click)="edit(item)" size="sm">
+                  <button cButton variant="outline" (click)="edit(item)" size="sm" role-scope
+                    [componentScopes]="componentScopes">
                     <svg cIcon name="cilPen"></svg>
                   </button>
                 </div>
