@@ -53,7 +53,8 @@
 </c-row>
 <c-row *ngIf="searchFlag">
     <c-col xs="4" class="mb-3">
-        <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+        <c-button-group aria-label="Button outlined group with nested dropdown" role="group" role-scope
+            [componentScopes]="componentScopes">
             <c-dropdown variant="btn-group">
                 <button cButton cDropdownToggle>
                     Actions
@@ -79,6 +80,7 @@
         <button (click)="toggleSettingsVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <client-balance-settings *ngIf="settingsVisible" (changeVisibility)="changeClientBalanceSettings($event)"></client-balance-settings>
+        <client-balance-settings *ngIf="settingsVisible"
+            (changeVisibility)="changeClientBalanceSettings($event)"></client-balance-settings>
     </c-modal-body>
 </c-modal>

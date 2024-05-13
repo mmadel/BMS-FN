@@ -6,6 +6,7 @@ import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
 import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
 import { PatientService } from '../../patient/service/patient.service';
+import { Role } from '../../secuirty/model/roles';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 import { ClientBalanceInvoice } from '../model/clinet.balance.invoice';
 import { ClientBalanceService } from '../service/client-balance.service';
@@ -29,6 +30,7 @@ export class ClientBalanceComponent implements OnInit {
   settingsVisible: boolean = false;
   @ViewChild('pendingInsurance') pendingInsuranceComponent: PendingInsuranceComponent;
   @ViewChild('finalizeCharge') finalizeChargeComponent: FinalizeChargeComponent;
+  componentScopes: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
   constructor(private patientService: PatientService
     , private postingEmitterService: PostingEmitterService
     , private clientBalanceService: ClientBalanceService
