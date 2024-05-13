@@ -10,6 +10,7 @@ import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { ServiceLinePayment } from '../../patient/profile/filling/sessions/model/service.line.payment';
 import { ServiceLinePaymentRequest } from '../../patient/profile/filling/sessions/model/service.line.payment.request';
 import { PatientService } from '../../patient/service/patient.service';
+import { Role } from '../../secuirty/model/roles';
 import { ClientPaymentComponent } from '../bip/client/client-payment.component';
 import { PostingFilterModel } from '../bip/filter/posting.filter.model';
 import { ClientBatchReceiptRequest } from '../model/batch/client/client.batch.receipt.request';
@@ -21,7 +22,7 @@ import { BatchPaymentService } from '../service/batch/batch-payment.service';
   styleUrls: ['./batch-client-payment.component.scss']
 })
 export class BatchClientPaymentComponent implements OnInit {
-  isSearch:boolean = false;
+  isSearch: boolean = false;
   @ViewChild('paymentForm') paymentForm: NgForm;
   @ViewChild('clientPayments') clientPayments: ClientPaymentComponent;
   customRanges = CustomDdateRanges.dateRnage;
@@ -52,6 +53,7 @@ export class BatchClientPaymentComponent implements OnInit {
     , private batchPaymentService: BatchPaymentService) {
   }
   clientBatchReceiptRequest: ClientBatchReceiptRequest;
+  componentScopes: string[] = [Role.PATIENT_ROLE, Role.BATCH_CLIENT_PAYMENT_ROLE];
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
   }
@@ -164,7 +166,7 @@ export class BatchClientPaymentComponent implements OnInit {
   clear() {
     this.patientClient.setValue(undefined);
     this.filteredPatients = undefined;
-    this.postingFilterModel = {}    
+    this.postingFilterModel = {}
   }
   scrollUp() {
     (function smoothscroll() {
