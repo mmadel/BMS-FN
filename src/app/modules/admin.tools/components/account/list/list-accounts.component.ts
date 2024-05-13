@@ -11,8 +11,10 @@ import { UserService } from 'src/app/modules/secuirty/service/user.service';
 export class ListAccountsComponent implements OnInit {
   users: User[]
   createAccountVisible: boolean = false;
+  updateAccountVisible: boolean = false;
+  selecteduuid: string;
   constructor(private userService: UserService) { }
-  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE ,Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE ];
+  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE];
   ngOnInit(): void {
     this.find()
   }
@@ -20,22 +22,26 @@ export class ListAccountsComponent implements OnInit {
   private find() {
     this.userService.findUsers().subscribe((users: any) => this.users = users)
   }
-  editUser(uuid:string){
-
+  editUser(uuid: string) {
+    this.updateAccountVisible = true;
+    this.selecteduuid = uuid;
   }
-  deleteUser(uuid:string){
+  deleteUser(uuid: string) {
 
   }
   toggleCreateAccountVisible() {
     this.createAccountVisible = !this.createAccountVisible
   }
+  toggleUpdateAccountVisible() {
+    this.updateAccountVisible = !this.updateAccountVisible
+  }
   changeVisibility(event: any) {
     if (event === 'close')
       this.createAccountVisible = false;
-      this.find();
-    
+    this.find();
+
   }
-  
+
   createAccount() {
     this.createAccountVisible = true;
   }

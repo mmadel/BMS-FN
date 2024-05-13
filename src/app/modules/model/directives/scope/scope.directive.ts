@@ -14,7 +14,7 @@ export class ScopeDirective implements OnInit {
 
       //var roleScope: RoleScope = result.find(roleScope => roleScope.role === this.scope)
       var roleScope: RoleScope = this.match(result, this.componentScopes)
-      if (roleScope.scope === 'view')
+      if (roleScope !== undefined && roleScope.scope === 'view')
         this.renderer.setStyle(this.el.nativeElement, 'display', 'none');[]
     })
   }
