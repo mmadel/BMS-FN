@@ -1,0 +1,53 @@
+<ngx-spinner></ngx-spinner>
+<c-row>
+    <c-col xs="10" class="mb-2">
+        <h1>Accounts List</h1>
+    </c-col>
+</c-row>
+<hr />
+<c-row>
+    <c-col xs="12">
+        <div style="float: right;">
+            <button cButton variant="outline" (click)="createAccount()" role-scope
+                [componentScopes]="componentScopes">Create Account</button>
+        </div>
+    </c-col>
+    <c-col xs="12">
+        <table cTable *ngIf="users">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 5%;">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" style="width: 10%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users;index as i">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{user.name}}</td>
+                    <td>
+                        <c-button-group aria-label="Basic example" role="group" size="sm">
+                            <button cButton variant="outline" (click)="editUser(user.uuid)" size="sm" role-scope
+                                [componentScopes]="componentScopes">
+                                <svg cIcon name="cilPen"></svg>
+                            </button>
+                            <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm" role-scope
+                                [componentScopes]="componentScopes">
+                                <svg cIcon name="cilTrash"></svg>
+                            </button>
+                        </c-button-group>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </c-col>
+</c-row>
+<c-modal [visible]="createAccountVisible" scrollable size="xl" backdrop="static">
+    <c-modal-header>
+        <h2 cModalTitle>Create Account</h2>
+        <button (click)="toggleCreateAccountVisible()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <create-account (changeVisibility)="changeVisibility($event)" *ngIf="createAccountVisible"></create-account>
+    </c-modal-body>
+</c-modal>

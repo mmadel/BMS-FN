@@ -6,6 +6,7 @@ import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/in
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { SelectedSessionServiceLine } from 'src/app/modules/model/invoice/select.session.service.line';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { InvocieRequestCreator } from '../../invoice.creator/invocie.request.creator';
 import { InvoiceRequest } from '../../model/temp/invoice.request';
 import { OtherPatientInsurance } from '../../model/temp/other.patient.insurance';
@@ -29,6 +30,7 @@ export class InvoiceCreationComponent implements OnInit {
   filterpatientInsurances: PatientInsurance[]
   patientInsurance: PatientInsurance;
   avoidCorrectClaimFlag: boolean = false;
+  componentScopes: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE ];
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
     , private insuranceCompanyService: InsuranceCompanyService) { }

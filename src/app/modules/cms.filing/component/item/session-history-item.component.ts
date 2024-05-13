@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { InvoiceService } from 'src/app/modules/invoice/service/invoice.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { SessionHistory } from '../../model/session.history';
 
 @Component({
@@ -12,6 +13,7 @@ export class SessionHistoryItemComponent implements OnInit {
   @Input() item: SessionHistory;
   showActionVisibility: boolean = false
   showCorrectClaimActionVisibility: boolean = false;
+  componentScopes: string[] = [Role.FILING_ROLE ];
   constructor(private invoiceService: InvoiceService) { }
 
   ngOnInit(): void {

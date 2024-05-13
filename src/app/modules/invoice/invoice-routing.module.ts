@@ -9,9 +9,6 @@ import {
 const routes: Routes = [
   {
     path: '',
-    data: {
-      title: 'Invoice',
-    },
     children: [
       {
         path: 'client/list',

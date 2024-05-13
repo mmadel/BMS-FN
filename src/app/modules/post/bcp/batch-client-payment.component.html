@@ -154,7 +154,7 @@
                         </small>
                         <c-col xs="12" class="text-center">
                             <button cButton variant="outline" class="me-1" color="primary" size="sm"
-                                (click)="applyPayments()">
+                                (click)="applyPayments()" role-scope [componentScopes]="componentScopes">
                                 Apply Payments
                             </button>
                         </c-col>
@@ -184,7 +184,7 @@
         </figure>
         <div class="text-center">
             <c-button-group>
-                <button class="btn btn-outline-danger  p-6 rounded-2 mx-1" (click)="export()">
+                <button class="btn btn-outline-danger  p-6 rounded-2 mx-1" (click)="export()" >
                     <svg cIcon name="cibAdobeAcrobatReader" size="3xl"> </svg>
                 </button>
                 <button class="btn btn-outline-primary  p-6 rounded-2 mx-1">

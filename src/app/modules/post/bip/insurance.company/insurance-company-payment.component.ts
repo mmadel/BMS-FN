@@ -13,6 +13,7 @@ import { ServiceLinePaymentRequest } from 'src/app/modules/patient/profile/filli
 import { PateintEmittingService } from 'src/app/modules/patient/service/emitting/pateint-emitting.service';
 import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { PostingServiceService } from '../../service/posting-service.service';
 import { PostingFilterModel } from '../filter/posting.filter.model';
 import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
@@ -48,6 +49,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     { key: 'serviceLinePaymentAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
   serviceLinesPaymnet: any = []
+  componentScopes: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
   @Input() entityPaymentId: number;
   ngOnInit(): void {
     this.initListComponent();

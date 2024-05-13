@@ -1,0 +1,66 @@
+<span *ngIf="!subPermissionVisability">
+    <c-form-check inline sizing="xl">
+        <input cFormCheckInput id="providersh" name="providers" type="radio" (change)="changeProvider($event)" />
+        <label cFormCheckLabel for="billingh">Hidden</label>
+    </c-form-check>
+    <c-form-check inline>
+        <input cFormCheckInput id="providersv" name="providers" type="radio" (change)="changeProvider($event)" />
+        <label cFormCheckLabel for="providersv">View</label>
+    </c-form-check>
+    <c-form-check inline>
+        <input cFormCheckInput id="providersvm" name="providers" type="radio" (change)="changeProvider($event)" />
+        <label cFormCheckLabel for="providersvm">View & Edit</label>
+    </c-form-check>
+</span>
+<button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleBottom" *ngIf="!subPermissionVisability"></svg>
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleTop" *ngIf="subPermissionVisability"></svg>
+</button>
+<table class="table table-sm" *ngIf="subPermissionVisability">
+    <tbody>
+        <tr>
+            <td>
+                Provider
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="providerh" name="provider" type="radio"
+                        (change)="changeSolidProvider($event)" />
+                    <label cFormCheckLabel for="providerh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="providerv" name="provider" type="radio"
+                        (change)="changeSolidProvider($event)" />
+                    <label cFormCheckLabel for="providerv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="providervm" name="provider" type="radio"
+                        (change)="changeSolidProvider($event)" />
+                    <label cFormCheckLabel for="providervm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Referring Provider
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="referringproviderh" name="referringprovider" type="radio"
+                        (change)="changeReferringProvider($event)" />
+                    <label cFormCheckLabel for="referringproviderh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="referringproviderv" name="referringprovider" type="radio"
+                        (change)="changeReferringProvider($event)" />
+                    <label cFormCheckLabel for="referringproviderv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="referringprovidervm" name="referringprovider" type="radio"
+                        (change)="changeReferringProvider($event)" />
+                    <label cFormCheckLabel for="referringprovidervm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+    </tbody>
+</table>

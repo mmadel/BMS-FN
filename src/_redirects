@@ -88,7 +88,11 @@
 /billing/api/batch/payment/client/create https://billing-service-e4526add3402.herokuapp.com/billing/api/batch/payment/client/create  200
 /billing/api/batch/payment/client/receipt/pdf https://billing-service-e4526add3402.herokuapp.com/billing/api/batch/payment/client/receipt/pdf  200
 /billing/api/batch/payment/insurance-company/create https://billing-service-e4526add3402.herokuapp.com/billing/api/batch/payment/insurance-company/create  200
-
-
+/billing/api/user/create https://billing-service-e4526add3402.herokuapp.com/billing/api/user/create  200
+/billing/api/user/update https://billing-service-e4526add3402.herokuapp.com/billing/api/user/update  200
+/billing/api/user/scope/find/uuid/:uuid/roles/:roles https://billing-service-e4526add3402.herokuapp.com/billing/api/user/scope/find/uuid/:uuid/roles/:roles  200
+/billing/api/user/find/users https://billing-service-e4526add3402.herokuapp.com/billing/api/user/find/users  200
+/billing/api/user/find/uuid/:uuid https://billing-service-e4526add3402.herokuapp.com/billing/api/user/find/uuid/:uuid  200
+/billing/api/user/find/uuid/:uuid https://billing-service-e4526add3402.herokuapp.com/billing/api/user/find/uuid/:uuid  200
 
 /*  /index.html   200

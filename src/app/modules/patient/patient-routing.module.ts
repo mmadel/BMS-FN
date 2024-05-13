@@ -8,9 +8,6 @@ import {
 const routes: Routes = [
   {
     path: '',
-    data: {
-      title: 'Patient',
-    },
     children: [
       {
         path: 'list',
