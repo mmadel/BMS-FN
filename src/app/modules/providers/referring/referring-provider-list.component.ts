@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { ReferringProvider } from '../../model/clinical/referring.provider';
 import { ListTemplate } from '../../model/template/list.template';
+import { Role } from '../../secuirty/model/roles';
 import { ReferringProviderService } from '../service/referring-provider.service';
 @Component({
   selector: 'app-referring-provider-list',
@@ -35,6 +36,7 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   toggleDetails(item: any) {
     this.details_visible[item] = !this.details_visible[item];
   }
+  componentScopes: string[] = [Role.PROVIDER_ROLE , Role.REFERRING_PROVIDER_ROLE ];
   constructor(private referringProviderService: ReferringProviderService) { super(); }
 
   ngOnInit(): void {
