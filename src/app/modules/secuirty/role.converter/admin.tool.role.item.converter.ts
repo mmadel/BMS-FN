@@ -1,22 +1,30 @@
+import { MenuItem } from "../model/nav.item";
 import { Role } from "../model/roles";
 
 export class AdminToolRoleToItemConverter {
-    public static convert(roles: string[], filterItems: string[]) {
-        const providerFiltered = roles.filter(this.filterCriteria);
-        if (providerFiltered.includes(Role.ADMIN_TOOL_ROLE)) {
-            filterItems.push('Admin Tools');
-        } else {
-            if (providerFiltered.includes(Role.GROUP_INFO_ADMIN_TOOL_ROLE))
-                filterItems.push('Admin Tools-Group Information');
-            if (providerFiltered.includes(Role.INSURANCE_MAPPING_ADMIN_TOOL_ROLE))
-                filterItems.push('Admin Tools-Insurances Mapping');
-            if (providerFiltered.includes(Role.SESSION_DEFAULT_ADMIN_TOOL_ROLE))
-                filterItems.push('Admin Tools-Session Defaults');
-            if (providerFiltered.includes(Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE))
-                filterItems.push('Admin Tools-Account Management');
+    public static convert(roles: string[], menuItems: MenuItem[]) {
+        var parentWithNoChilds: MenuItem
+        var parentWithChilds: MenuItem = {
+            parent: "Admin Tools",
+            children: []
         }
-    }
-    private static filterCriteria(str: string): boolean {
-        return str.includes('admin-tool');
+        for (var i = 0; i < roles.length; i++) {
+            if (roles[i] === Role.ADMIN_TOOL_ROLE) {
+                parentWithNoChilds = {
+                    parent: "Admin Tools"
+                }
+                menuItems.push(parentWithNoChilds)
+                return;
+            }
+            if (roles[i] === Role.GROUP_INFO_ADMIN_TOOL_ROLE)
+                parentWithChilds.children.push('Group Information')
+            if (roles[i] === Role.INSURANCE_MAPPING_ADMIN_TOOL_ROLE)
+                parentWithChilds.children.push('Insurances Mapping')
+            if (roles[i] === Role.SESSION_DEFAULT_ADMIN_TOOL_ROLE)
+                parentWithChilds.children.push('Session Defaults')
+            if (roles[i] === Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE)
+                parentWithChilds.children.push('Account Management')
+        }
+        menuItems.push(parentWithChilds)
     }
 }

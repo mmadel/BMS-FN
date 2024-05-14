@@ -1,18 +1,26 @@
+import { MenuItem } from "../model/nav.item";
 import { Role } from "../model/roles";
 
 export class ProviderRoleItemConverter {
-    public static convert(roles: string[], filterItems: string[]) {
-        const providerFiltered = roles.filter(this.filterCriteria);
-        if (providerFiltered.includes(Role.PROVIDER_ROLE)) {
-            filterItems.push('Providers');
-        } else {
-            if (providerFiltered.includes('referring-provider-role'))
-                filterItems.push('Providers-Provider List');
-            if (providerFiltered.includes(Role.MODIFIER_RULE_BILLING_ROLE))
-                filterItems.push('Providers-Modifier Rules');
+    public static convert(roles: string[], menuItems: MenuItem[]) {
+        var parentWithNoChilds: MenuItem
+        var parentWithChilds: MenuItem = {
+            parent: "Providers",
+            children: []
         }
-    }
-    private static filterCriteria(str: string): boolean {
-        return str.includes('provider');
+        for (var i = 0; i < roles.length; i++) {
+            if (roles[i] === Role.PROVIDER_ROLE) {
+                parentWithNoChilds = {
+                    parent: "Providers"
+                }
+                menuItems.push(parentWithNoChilds)
+                return;
+            }
+            if (roles[i] === Role.SOLID_PROVIDER_ROLE)
+                parentWithChilds.children.push('Provider List')
+            if (roles[i] === Role.MODIFIER_RULE_BILLING_ROLE)
+                parentWithChilds.children.push('Referring Provider List')
+        }
+        menuItems.push(parentWithChilds)
     }
 }

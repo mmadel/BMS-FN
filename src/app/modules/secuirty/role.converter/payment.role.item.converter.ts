@@ -1,20 +1,30 @@
+import { MenuItem } from "../model/nav.item";
 import { Role } from "../model/roles";
 
 export class PaymentRoleItemConverter {
-    public static convert(roles: string[], filterItems: string[]) {
-        const providerFiltered = roles.filter(this.filterCriteria);
-        if (providerFiltered.includes(Role.PAYMENT_ROLE)) {
-            filterItems.push('Posting');
-        } else {
-            if (providerFiltered.includes(Role.BATCH_INSURANCE_PAYMENT_ROLE))
-                filterItems.push('Posting-Batch Insurance Payment');
-            if (providerFiltered.includes(Role.BATCH_CLIENT_PAYMENT_ROLE))
-                filterItems.push('Posting-Batch Client Payment');
-            if (providerFiltered.includes(Role.BALANCE_STATEMENT_PAYMENT_ROLE))
-                filterItems.push('Posting-Client Blance');
+    public static convert(roles: string[], menuItems: MenuItem[]) {
+        var parentWithNoChilds: MenuItem
+        var parentWithChilds: MenuItem = {
+            parent: "Posting",
+            children: []
         }
+        console.log(JSON.stringify(roles))
+        for (var i = 0; i < roles.length; i++) {
+            if (roles[i] === Role.PAYMENT_ROLE) {
+                parentWithNoChilds = {
+                    parent: "Posting"
+                }
+                menuItems.push(parentWithNoChilds)
+                return;
+            }
+            if (roles[i] === Role.BATCH_INSURANCE_PAYMENT_ROLE)
+                parentWithChilds.children.push('Batch Insurance Payment')
+            if (roles[i] === Role.BATCH_CLIENT_PAYMENT_ROLE)
+                parentWithChilds.children.push('Batch Client Payment')
+            if (roles[i] === Role.BALANCE_STATEMENT_PAYMENT_ROLE)
+                parentWithChilds.children.push('Client Blance')
+        }
+        menuItems.push(parentWithChilds)
     }
-    private static filterCriteria(str: string): boolean {
-        return str.includes('payment');
-    }
+
 }
