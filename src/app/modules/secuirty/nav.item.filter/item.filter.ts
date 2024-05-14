@@ -1,25 +1,20 @@
 import { INavData } from "@coreui/angular-pro";
 import { navItems } from "src/app/core/layout/_nav";
+import { MenuItem } from "../model/nav.item";
 
-export class ItemFilter{
-    public static filterNavItems(returnedNavItems: string[]): INavData[] {
-        var filteredNavItem: INavData[] = []
+export class ItemFilter {
+
+    public static filterNavItems(returnedNavItems: MenuItem[]): INavData[] {
+        // console.log(JSON.stringify(returnedNavItems))
         var navMenuItems: INavData[] = navItems;
+        var filteredNavItem: INavData[] = []
         for (var i = 0; i < returnedNavItems.length; i++) {
-            const [parentName, childNames] = returnedNavItems[i].split('-');
-            var navItm: INavData = navMenuItems.find(item => item.name === parentName)
-            if (childNames === undefined)
-                filteredNavItem.push(navItm);
-            if (childNames !== undefined) {
-                var childList: string[] = childNames.split(',')
-                var children: INavData[] = [];
-                for (var j = 0; j < navItm.children?.length; j++) {
-                    var child: INavData = navItm.children[j];
-                    if (childList.includes(child.name))
-                        children.push(child);
-                }
-                navItm.children = children
-                filteredNavItem.push(navItm);
+            var navItm: INavData = navMenuItems.find(item => item.name === returnedNavItems[i].parent)
+            filteredNavItem.push(navItm);
+            if (returnedNavItems[i].children !== undefined) {
+                var parent: INavData = navMenuItems.find(item => item.name === returnedNavItems[i].parent)
+                parent.children = parent.children.filter(item => returnedNavItems[i].children.includes(item.name))
+
             }
         }
         return filteredNavItem;

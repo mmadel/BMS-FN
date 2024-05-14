@@ -51,3 +51,14 @@
         <create-account (changeVisibility)="changeVisibility($event)" *ngIf="createAccountVisible"></create-account>
     </c-modal-body>
 </c-modal>
+
+<c-modal [visible]="updateAccountVisible" scrollable size="xl" backdrop="static">
+    <c-modal-header>
+        <h2 cModalTitle>Update Account</h2>
+        <button (click)="toggleUpdateAccountVisible()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <create-account (changeVisibility)="changeVisibility($event)" [uuid]="selecteduuid"
+            *ngIf="updateAccountVisible"></create-account>
+    </c-modal-body>
+</c-modal>

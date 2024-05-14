@@ -48,7 +48,7 @@ const routes: Routes = [
         path: 'invoice',
         data: {
           title: 'Invoice',
-          roles: [Role.BILLING_ROLE]
+          roles: [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -69,7 +69,7 @@ const routes: Routes = [
         path: 'posting',
         data: {
           title: 'Posting',
-          roles: [Role.PAYMENT_ROLE]
+          roles: [Role.PAYMENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE, Role.BATCH_CLIENT_PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -79,7 +79,7 @@ const routes: Routes = [
         path: 'tools',
         data: {
           title: 'Tools',
-          roles: [Role.BILLING_ROLE]
+          roles: [Role.BILLING_ROLE, Role.FEE_SCHEDULE_BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>
@@ -89,7 +89,7 @@ const routes: Routes = [
         path: 'admin/tools',
         data: {
           title: 'Admin Tools',
-          roles: [Role.ADMIN_TOOL_ROLE]
+          roles: [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE, Role.INSURANCE_MAPPING_ADMIN_TOOL_ROLE, Role.SESSION_DEFAULT_ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE]
         },
         canActivate: [KcAuthGuard],
         loadChildren: () =>

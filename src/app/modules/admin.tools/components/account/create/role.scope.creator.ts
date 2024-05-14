@@ -10,7 +10,6 @@ export class RoleScopeCreator {
         }
         //View Only
         if (elementId === scopeIds[1]) {
-            console.log('View Only')
             var roleScope: RoleScope = {
                 role: role
             }

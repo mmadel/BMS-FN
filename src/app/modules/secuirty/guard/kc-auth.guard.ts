@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { INavData } from '@coreui/angular-pro';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
-import { catchError, map, of } from 'rxjs';
-import { ItemFilter } from '../nav.item.filter/item.filter';
-import { RoleNavItemConverter } from '../role.converter/role.nav.item.converter';
+import { MenuItemsConstructor } from '../menu.items.constructor';
 import { RenderNavItemsService } from '../service/render-nav-items.service';
 import { RoleScopeFinderService } from '../service/role-scope-finder.service';
 @Injectable({
@@ -23,9 +21,8 @@ export class KcAuthGuard extends KeycloakAuthGuard {
         redirectUri: window.location.origin + state.url,
       });
     }
-    //notify  nav items based on roles to be rendered 
-    var convertedList: string[] = RoleNavItemConverter.convert(this.roles);
-    var filteredList: INavData[] = ItemFilter.filterNavItems(convertedList);
+    
+    var filteredList: INavData[] = MenuItemsConstructor.construct(this.roles)
     this.renderNavItemsService.renderItems$.next(filteredList)
 
     //notify  user scope based on roles restrict actions 

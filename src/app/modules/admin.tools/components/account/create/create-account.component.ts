@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/modules/model/admin/user/user';
@@ -19,6 +19,7 @@ import { ProviderRoleComponent } from './roles.components/provider.role/provider
 })
 export class CreateAccountComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
+  @Input() uuid: string;
   @ViewChild('accountForm') accountForm: NgForm;
   @ViewChild('billingRoleComponent') billingRoleComponent: BillingRoleComponent;
   @ViewChild('clientRoleComponent') clientRoleComponent: ClientRoleComponent;
@@ -42,6 +43,8 @@ export class CreateAccountComponent implements OnInit {
     , private encryptionService: EncryptionService) { }
 
   ngOnInit(): void {
+    if (this.uuid !== undefined)
+      this.find();
   }
   create() {
     var isPermissinosValid = this.checkPermissionValidation();
@@ -109,5 +112,12 @@ export class CreateAccountComponent implements OnInit {
     roleScopes.push(... this.clientRoleComponent.getRoleScopes());
     roleScopes.push(... this.adminRoleComponent.getRoleScopes());
     return roleScopes;
+  }
+  private find() {
+    this.userService.findUser(this.uuid).subscribe((result: any) => {
+      this.user.roleScope = result.roleScope
+      console.log(JSON.stringify(result.roleScope))
+      // this.billingRoleComponent.billingRoleScopes= result.roleScope
+    })
   }
 }
