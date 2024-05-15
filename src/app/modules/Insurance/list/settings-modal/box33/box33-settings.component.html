@@ -14,7 +14,8 @@
                         {{defualtBillingProvider.organizationData.state}},
                         {{defualtBillingProvider.organizationData.zipcode}}
                     </p>
-                    <a cCardLink (click)="onChangeDefualtBillingProvider()">Change</a>
+                    <a cCardLink (click)="onChangeDefualtBillingProvider()" dispaly-input
+                        [componentScopes]="componentScopes">Change</a>
                 </c-card-body>
             </c-card>
         </c-col>

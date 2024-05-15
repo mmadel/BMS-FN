@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { GeneralConfiguration } from '../../../model/general.configuration';
 
 @Component({
@@ -6,7 +7,8 @@ import { GeneralConfiguration } from '../../../model/general.configuration';
   templateUrl: './general-settings.component.html',
   styleUrls: ['./general-settings.component.scss']
 })
-export class GeneralSettingsComponent implements OnInit {
+export class GeneralSettingsComponent implements OnInit {  
+  componentScopes: string[] = [Role.BILLING_ROLE ];
   @Input() selectedGeneralConfiguration: GeneralConfiguration;
   generalConfiguration: GeneralConfiguration;
   constructor() { }
