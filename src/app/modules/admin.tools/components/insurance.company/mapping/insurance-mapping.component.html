@@ -29,7 +29,7 @@
                             <ng-container [ngSwitch]="columnName">
                                 <ng-container *ngSwitchCase="'mapping'" class="py-2">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button cButton variant="outline" size="sm" (click)="toggleDetails(item)" >
+                                        <button cButton variant="outline" size="sm" (click)="toggleDetails(item)">
                                             <svg cIcon name="cilMenu"></svg>
                                         </button>
                                     </div>
@@ -59,7 +59,7 @@
 </c-container>
 <c-modal [visible]="isnsuranceMapperVisible" scrollable size="xl" backdrop="static" scrollable>
     <c-modal-header>
-        <h5 cModalTitle>Mapper</h5>
+        <h3 cModalTitle>Mapper</h3>
         <button (click)="toggleInsuranceMapperSettings()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
