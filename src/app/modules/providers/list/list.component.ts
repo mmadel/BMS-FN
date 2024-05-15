@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, map, Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Provider } from '../../model/clinical/provider/provider';
 import { ListTemplate } from '../../model/template/list.template';
 import { Role } from '../../secuirty/model/roles';
-import { EncryptionService } from '../../secuirty/service/encryption.service';
 import { RoleScopeFinderService } from '../../secuirty/service/role-scope-finder.service';
 import { ProviderService } from '../service/provider.service';
 @Component({
@@ -12,6 +11,7 @@ import { ProviderService } from '../service/provider.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends ListTemplate implements OnInit {
+  componentScopes: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE ];
   providers$!: Observable<Provider[]>;
   addVisibility: boolean = false
   columns = [
@@ -33,7 +33,6 @@ export class ListComponent extends ListTemplate implements OnInit {
     }
   ]
   constructor(private providerService: ProviderService,private roleScopeFinderService:RoleScopeFinderService) { super(); }
-  componentScopes: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE ];
   ngOnInit(): void {
     this.initListComponent();
     this.find();

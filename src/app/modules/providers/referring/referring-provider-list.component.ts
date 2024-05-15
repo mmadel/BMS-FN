@@ -10,6 +10,7 @@ import { ReferringProviderService } from '../service/referring-provider.service'
   styleUrls: ['./referring-provider-list.component.scss']
 })
 export class ReferringProviderListComponent extends ListTemplate implements OnInit {
+  componentScopes: string[] = [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE];
   referringProviderCreationVisibility: boolean
   referringProviders$!: Observable<ReferringProvider[]>;
   columns = [
@@ -36,7 +37,6 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   toggleDetails(item: any) {
     this.details_visible[item] = !this.details_visible[item];
   }
-  componentScopes: string[] = [Role.PROVIDER_ROLE , Role.REFERRING_PROVIDER_ROLE ];
   constructor(private referringProviderService: ReferringProviderService) { super(); }
 
   ngOnInit(): void {

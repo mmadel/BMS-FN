@@ -10,10 +10,10 @@
         <c-col xs="12" >
             <div style="float:right;">
                 <c-button-group aria-label="Basic outlined example" role="group">
-                    <button cButton color="primary" variant="outline" (click)="toggleReferringProviderCreation()">
+                    <button cButton color="primary" variant="outline" (click)="toggleReferringProviderCreation()" dispaly-input [componentScopes]="componentScopes">
                         Add Referring Provider
                     </button>
-                    <button cButton color="primary" variant="outline">
+                    <button cButton color="primary" variant="outline" dispaly-input [componentScopes]="componentScopes">
                         Upload CSV
                     </button>
                 </c-button-group>
@@ -33,7 +33,7 @@
                       <ng-container [ngSwitch]="columnName">
                         <ng-container *ngSwitchCase="'actions'" class="py-2">
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <button cButton variant="outline" (click)="remove(item)" size="sm" > 
+                            <button cButton variant="outline" (click)="remove(item)" size="sm" dispaly-input [componentScopes]="componentScopes"> 
                               <svg cIcon name="cilTrash"></svg>
                             </button>
                             <button cButton variant="outline" (click)="edit(item)" size="sm" >
