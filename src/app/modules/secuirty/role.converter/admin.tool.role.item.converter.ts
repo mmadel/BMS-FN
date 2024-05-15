@@ -25,6 +25,7 @@ export class AdminToolRoleToItemConverter {
             if (roles[i] === Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE)
                 parentWithChilds.children.push('Account Management')
         }
-        menuItems.push(parentWithChilds)
+        if (parentWithChilds.children.length !== 0)
+            menuItems.push(parentWithChilds)
     }
 }

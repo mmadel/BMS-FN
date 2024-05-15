@@ -18,9 +18,10 @@ export class ProviderRoleItemConverter {
             }
             if (roles[i] === Role.SOLID_PROVIDER_ROLE)
                 parentWithChilds.children.push('Provider List')
-            if (roles[i] === Role.MODIFIER_RULE_BILLING_ROLE)
+            if (roles[i] === Role.REFERRING_PROVIDER_ROLE)
                 parentWithChilds.children.push('Referring Provider List')
         }
-        menuItems.push(parentWithChilds)
+        if (parentWithChilds.children.length !== 0)
+            menuItems.push(parentWithChilds)
     }
 }

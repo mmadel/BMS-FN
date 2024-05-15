@@ -23,7 +23,8 @@ export class PaymentRoleItemConverter {
             if (roles[i] === Role.BALANCE_STATEMENT_PAYMENT_ROLE)
                 parentWithChilds.children.push('Client Blance')
         }
-        menuItems.push(parentWithChilds)
+        if (parentWithChilds.children.length !== 0)
+            menuItems.push(parentWithChilds)
     }
 
 }
