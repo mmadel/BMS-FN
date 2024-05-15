@@ -72,6 +72,9 @@ export class PatientProfileComponent implements OnInit {
   onTabChange(event: any) {
     this.selectedTab = Number(event)
   }
+  close(){
+    this.router.navigate(['/patient/list']);
+  }
   create(action?: string) {
     if (this.patientCreationForm.valid) {
       this.patient.birthDate = moment(this.patientDOB).unix() * 1000;

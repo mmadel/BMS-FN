@@ -15,8 +15,11 @@
 <span *ngIf="isupdated">
     <div class="d-md-flex justify-content-md-end">
         <c-button-group aria-label="Basic example" role="group" class="mb-3" size="sm">
-            <button cButton color="primary" variant="outline" (click)="create()">Edit</button>
-            <button cButton color="primary" variant="outline" (click)="create('close')">Edit & Close</button>
+            <button cButton color="primary" variant="outline" (click)="create()" dispaly-input
+                [componentScopes]="componentScopes">Edit</button>
+            <button cButton color="primary" variant="outline" (click)="create('close')" dispaly-input
+                [componentScopes]="componentScopes">Edit & Close</button>
+            <button cButton color="primary" variant="outline" (click)="close()">Close</button>
         </c-button-group>
     </div>
 </span>
@@ -36,7 +39,8 @@
                 </c-row>
             </c-card-header>
             <c-card-body>
-                <form cForm #patientCreationForm="ngForm" *ngIf="patient" readonly-form [componentScopes]="componentScopes">
+                <form cForm #patientCreationForm="ngForm" *ngIf="patient" readonly-form
+                    [componentScopes]="componentScopes">
                     <c-row>
                         <c-col class="mb-1">
                             <small
