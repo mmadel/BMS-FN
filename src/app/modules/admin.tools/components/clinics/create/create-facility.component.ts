@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Clinic } from 'src/app/modules/model/admin/clinic';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { ClinicService } from '../../../services/clinic.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { ClinicService } from '../../../services/clinic.service';
   styleUrls: ['./create-facility.component.scss']
 })
 export class CreateFacilityComponent implements OnInit {
+  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE];
   clinic: Clinic;
   @Output() changeVisibility = new EventEmitter<string>()
   constructor(private clinicService:ClinicService) { }

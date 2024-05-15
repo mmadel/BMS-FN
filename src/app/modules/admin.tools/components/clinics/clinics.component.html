@@ -19,7 +19,7 @@
           </ng-container>
           <ng-container *ngSwitchCase="'actions'" class="py-2">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button cButton variant="outline" (click)="onClickDeleteFacility(item)" size="sm" >
+              <button cButton variant="outline" (click)="onClickDeleteFacility(item)" size="sm" dispaly-input [componentScopes]="componentScopes">
                 <svg cIcon name="cilTrash"></svg>
               </button>
               <button cButton variant="outline" (click)="edit(item)" size="sm" >
