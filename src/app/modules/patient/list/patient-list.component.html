@@ -68,7 +68,7 @@
   </c-col>
   <c-col xs="12">
     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-      <button cButton color="primary" variant="outline" (click)="add()" >Add New
+      <button cButton color="primary" variant="outline" (click)="add()">Add New
         Patient</button>
       <c-dropdown variant="btn-group">
         <button cButton cDropdownToggle>
@@ -112,10 +112,8 @@
               </ng-container>
               <ng-container *ngSwitchCase="'actions'" class="py-2">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button cButton variant="outline" (click)="view(item)" size="sm">
-                    <svg cIcon name="cilBrowser"></svg>
-                  </button>
-                  <button cButton variant="outline" (click)="remove(item)" size="sm">
+                  <button cButton variant="outline" (click)="remove(item)" size="sm" dispaly-input
+                    [componentScopes]="componentScopes">
                     <svg cIcon name="cilTrash"></svg>
                   </button>
                   <button cButton variant="outline" (click)="edit(item)" size="sm">

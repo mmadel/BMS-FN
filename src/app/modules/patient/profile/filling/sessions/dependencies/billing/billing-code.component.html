@@ -46,7 +46,8 @@
                                 name="patientCases" placeholder="Cases" [itemTemplate]="itemTemplate"
                                 (selected)='pickCase($event)' (inputCleared)="unPickCase()"
                                 (inputChanged)="change($event)" [ngModel]="selectedCase"
-                                [notFoundTemplate]="notFoundTemplate">
+                                [notFoundTemplate]="notFoundTemplate" disable-auto-complete
+                                [componentScopes]="componentScopes">
                             </ng-autocomplete>
                             <ng-template #itemTemplate let-item>
                                 <a [innerHTML]="item.title"></a>
@@ -67,7 +68,8 @@
                                 <c-card-body>
                                     <div style="float:right">
                                         <button cButton color="info" variant="outline" size="sm"
-                                            (click)="toggleAddDaignosis()" dispaly-input [componentScopes]="componentScopes">
+                                            (click)="toggleAddDaignosis()" dispaly-input
+                                            [componentScopes]="componentScopes">
                                             <svg cIcon name="cilPlus"></svg>
                                         </button>
                                     </div>
@@ -84,13 +86,16 @@
                                 <c-row>
                                     <c-col xs="12">
                                         <div style="float:right">
-                                            <button cButton color="info" variant="outline" size="sm" (click)="applyModifierRule()" dispaly-input [componentScopes]="componentScopes">
+                                            <button cButton color="info" variant="outline" size="sm"
+                                                (click)="applyModifierRule()" dispaly-input
+                                                [componentScopes]="componentScopes">
                                                 Apply Modifier Rule
                                             </button>
                                         </div>
                                         <div style="float:right" class="mx-1">
                                             <button cButton color="info" variant="outline" size="sm"
-                                                (click)="toggleserviceCode()" dispaly-input [componentScopes]="componentScopes">
+                                                (click)="toggleserviceCode()" dispaly-input
+                                                [componentScopes]="componentScopes">
                                                 Add Service Line
                                             </button>
                                         </div>

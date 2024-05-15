@@ -20,7 +20,8 @@
                 <c-col sx="12">
                     <ng-autocomplete [data]="insCpmanyName" [searchKeyword]="" id="inCompanyName" name="inCompanyName"
                         [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                        (selected)='pickInsCompany($event)' [(ngModel)]="patientAuth.insCompany">
+                        (selected)='pickInsCompany($event)' [(ngModel)]="patientAuth.insCompany" disable-auto-complete
+                        [componentScopes]="componentScopes">
                     </ng-autocomplete>
                 </c-col>
                 <ng-template #itemTemplate let-item>
@@ -46,8 +47,9 @@
     </c-row>
     <c-row>
         <c-col class="mb-1">
-            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm" disable-input [componentScopes]="componentScopes" 
-                [(startDate)]="patientAuth.startDate" [(endDate)]="patientAuth.expireDate"></c-date-range-picker>
+            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm" disable-date-range-picker
+                [componentScopes]="componentScopes" [(startDate)]="patientAuth.startDate"
+                [(endDate)]="patientAuth.expireDate"></c-date-range-picker>
         </c-col>
     </c-row>
     <c-row>
