@@ -19,6 +19,7 @@ import { PendingInsuranceComponent } from './pending.insurance/pending-insurance
   styleUrls: ['./client-balance.component.scss']
 })
 export class ClientBalanceComponent implements OnInit {
+  componentScopes: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
   isLoading = false;
   postingFilterModel: PostingFilterModel = {};
   filteredPatients: any;
@@ -30,7 +31,6 @@ export class ClientBalanceComponent implements OnInit {
   settingsVisible: boolean = false;
   @ViewChild('pendingInsurance') pendingInsuranceComponent: PendingInsuranceComponent;
   @ViewChild('finalizeCharge') finalizeChargeComponent: FinalizeChargeComponent;
-  componentScopes: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
   constructor(private patientService: PatientService
     , private postingEmitterService: PostingEmitterService
     , private clientBalanceService: ClientBalanceService
