@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
 import { Patient } from 'src/app/modules/model/clinical/patient';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { AuthService } from '../../service/auth/auth.service';
 import { PatientService } from '../../service/patient.service';
 
@@ -21,6 +22,7 @@ export class AuthsComponent implements OnInit {
   patientAuthorizations: PatientAuthorization[]
   renderList: PatientAuthorization[];
   toBeUpdateModel: PatientAuthorization;
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor(private authService: AuthService
     , private patientService: PatientService
     , private toastr: ToastrService) { }

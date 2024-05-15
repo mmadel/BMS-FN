@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ReferringProvider } from 'src/app/modules/model/clinical/referring.provider';
 import { ReferringProviderService } from 'src/app/modules/providers/service/referring-provider.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 
 @Component({
   selector: 'app-view-referring-provider',
@@ -16,6 +17,7 @@ export class ViewReferringProviderComponent implements OnInit {
   selectedFirstName: string;
   selectedLastName: string;
   selectedNPI: string;
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor(private referringProviderService: ReferringProviderService) { }
 
   ngOnInit(): void {

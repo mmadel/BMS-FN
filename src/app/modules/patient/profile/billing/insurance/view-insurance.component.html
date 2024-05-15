@@ -3,7 +3,7 @@
     <c-col xs="12">
         <div style="float: right;" class="mb-2">
             <c-button cButton color="primary" class="btn-sm" (click)="toggleAddInsuranceVisibility()"
-                variant="outline">Add Card</c-button>
+                variant="outline" dispaly-input [componentScopes]="componentScopes">Add Card</c-button>
         </div>
     </c-col>
     <c-col xs="12" *ngIf="patientInsurances">
@@ -12,16 +12,16 @@
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                         <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                            (click)="edit(insurance)">
+                            (click)="edit(insurance)" >
                             <svg cIcon name="cilPen"></svg>
                         </button>
                         <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                            (click)="remove(i ,insurance)">
+                            (click)="remove(i ,insurance)" dispaly-input [componentScopes]="componentScopes">
                             <svg cIcon name="cilTrash"></svg>
                         </button>
                     </c-button-group>
                     <div class="mt-2">
-                        <c-form-check>
+                        <c-form-check dispaly-input [componentScopes]="componentScopes">
                             <label cFormCheckLabel>archive</label>
                             <input cFormCheckInput type="checkbox" name="archive" [(ngModel)]="insurance.isArchived" />
                         </c-form-check>

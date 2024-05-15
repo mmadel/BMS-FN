@@ -6,11 +6,12 @@
                 <span cInputGroupText>
                     <svg cIcon name="cilDollar" title="cilDollar"></svg>
                 </span>
-                <select cSelect aria-label="" cSelect style="max-width: 12%;">
+                <select cSelect aria-label="" cSelect style="max-width: 12%;" disable-input
+                    [componentScopes]="componentScopes">
                     <option>Dollar Amt</option>
                 </select>
-                <input cFormControl placeholder="Copay" [(ngModel)]="patient.copay" #copay="ngModel"
-                    name="copay" required />
+                <input cFormControl placeholder="Copay" [(ngModel)]="patient.copay" #copay="ngModel" readonly-input
+                    [componentScopes]="componentScopes" name="copay" required />
             </c-input-group>
         </c-col>
     </c-row>
@@ -24,11 +25,12 @@
                     <c-row>
                         <c-col xs="12" class="mb-1">
                             <input class="h-auto" aria-label="SSN" cFormControl placeholder="SSN" sizing="sm"
-                                [(ngModel)]="ssn" />
+                                [(ngModel)]="ssn" readonly-input [componentScopes]="componentScopes" />
                         </c-col>
                         <c-col xs="12" class="mb-1">
                             <input class="h-auto" aria-label="External ID" cFormControl placeholder="External ID"
-                                sizing="sm" [(ngModel)]="externalID" />
+                                sizing="sm" [(ngModel)]="externalID" readonly-input
+                                [componentScopes]="componentScopes" />
                         </c-col>
                     </c-row>
                 </c-card-body>

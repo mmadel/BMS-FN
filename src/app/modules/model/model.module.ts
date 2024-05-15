@@ -9,12 +9,18 @@ import { ZipCodeDirective } from './directives/zip-code.directive';
 import { ClonePipe } from './pipe/clone.pipe';
 import { PhonePipe } from './pipe/phone/phone.pipe';
 import { StatePipe } from './pipe/state/state.pipe';
+import { DisplayInputDirective } from './directives/permissions/display.input/display-input.directive';
+import { DisableDatePickerDirective } from './directives/permissions/disable.date.picker/disable-date-picker.directive';
+import { DisableDateRangeDirective } from './directives/permissions/disable.date.range.picker/disable-date-range.directive';
 
 const APP_COMMON_DIRECTIVES = [
   ZipCodeDirective,
   ReadonlyFormDirective,
   ReadonlyInputDirective,
   DisableInputDirective,
+  DisplayInputDirective,
+  DisableDatePickerDirective,
+  DisableDateRangeDirective
 ]
 
 

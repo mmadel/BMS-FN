@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { PatientService } from '../../../service/patient.service';
 import { CreateInsuranceComponent } from './create/create-insurance.component';
 
@@ -18,6 +19,7 @@ export class ViewInsuranceComponent implements OnInit {
   patientInsurances: PatientInsurance[] = new Array();
   editPatientInsurance: PatientInsurance;
   editModalTitle: string;
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 

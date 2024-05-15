@@ -1,7 +1,8 @@
 <ngx-spinner></ngx-spinner>
 <c-container fluid>
     <!--demographics-->
-    <form cForm #insuranceCreateForm="ngForm" (ngSubmit)="create()" (change)="resetError()">
+    <form cForm #insuranceCreateForm="ngForm" (ngSubmit)="create()" (change)="resetError()" readonly-form
+        [componentScopes]="componentScopes">
         <c-row class="justify-content-center">
             <c-col class="col">
                 <c-card class="mb-3 ustify-content-center">
@@ -428,10 +429,12 @@
         <div class="d-md-flex justify-content-md-center">
 
             <span *ngIf="mode ==='create'">
-                <button cButton color="primary" type="submit" variant="outline">Create</button>
+                <button cButton color="primary" type="submit" variant="outline" dispaly-input
+                    [componentScopes]="componentScopes">Create</button>
             </span>
             <span *ngIf="mode ==='edit'">
-                <button cButton color="primary" type="submit" variant="outline">Update</button>
+                <button cButton color="primary" type="submit" variant="outline" dispaly-input
+                    [componentScopes]="componentScopes">Update</button>
             </span>
 
         </div>

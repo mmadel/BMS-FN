@@ -1,5 +1,5 @@
 <ngx-spinner></ngx-spinner>
-<form cForm #providerCreateForm="ngForm">
+<form cForm #providerCreateForm="ngForm" readonly-form [componentScopes]="componentScopes">
     <c-row>
         <c-col class="mb-1">
             <c-input-group sizing="sm">
@@ -46,7 +46,7 @@
     </c-row>
     <c-row>
         <c-col class="mb-1">
-            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm"
+            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm" disable-input [componentScopes]="componentScopes" 
                 [(startDate)]="patientAuth.startDate" [(endDate)]="patientAuth.expireDate"></c-date-range-picker>
         </c-col>
     </c-row>
@@ -57,7 +57,7 @@
                     Visit
                 </span>
                 <input cFormControl name="visit" required #visit="ngModel" [(ngModel)]="patientAuth.visit"
-                    type="number" />
+                    readonly-input [componentScopes]="componentScopes" type="number" />
             </c-input-group>
         </c-col>
     </c-row>
@@ -68,13 +68,14 @@
                     Remaining
                 </span>
                 <input cFormControl name="remaining" required #remaining="ngModel" [(ngModel)]="patientAuth.remaining"
-                    type="number" />
+                    readonly-input [componentScopes]="componentScopes" type="number" />
             </c-input-group>
         </c-col>
     </c-row>
     <c-row>
         <div class="col text-center">
-            <button cButton color="primary" variant="outline" style="width: 15%;" (click)="create()">OK</button>
+            <button cButton color="primary" variant="outline" style="width: 15%;" (click)="create()" dispaly-input
+                [componentScopes]="componentScopes">OK</button>
         </div>
     </c-row>
 </form>

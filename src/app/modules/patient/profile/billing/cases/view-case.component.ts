@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { PatientService } from '../../../service/patient.service';
 import { EmitPatientSessionService } from '../../../service/session/shared/emit-patient-session.service';
 import { CaseAddDaignosisComponent } from './add.daignosis/case-add-daignosis.component';
@@ -19,6 +20,7 @@ export class ViewCaseComponent implements OnInit {
   mode: string;
   _cases: PatientCase[]
   editCase: PatientCase;
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor(private emitPatientSessionService: EmitPatientSessionService
     , private patientService: PatientService
     , private toastr: ToastrService) { }

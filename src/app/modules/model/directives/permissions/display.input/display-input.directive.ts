@@ -3,18 +3,18 @@ import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { RoleScopeFinderService } from 'src/app/modules/secuirty/service/role-scope-finder.service';
 
 @Directive({
-  selector: '[disable-input]'
+  selector: '[dispaly-input]'
 })
-export class DisableInputDirective implements OnInit {
+export class DisplayInputDirective implements OnInit {
   @Input() componentScopes: string[];
   constructor(private el: ElementRef, private renderer: Renderer2, private roleScopeFinderService: RoleScopeFinderService) { }
   ngOnInit(): void {
     this.roleScopeFinderService.find().subscribe((result: RoleScope[]) => {
-      var roleScope: RoleScope = this.match(result, this.componentScopes)
-      if (roleScope !== undefined && roleScope.scope === 'view') {
-        this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'true');
-      }
 
+      //var roleScope: RoleScope = result.find(roleScope => roleScope.role === this.scope)
+      var roleScope: RoleScope = this.match(result, this.componentScopes)
+      if (roleScope !== undefined && roleScope.scope === 'view')
+        this.renderer.setStyle(this.el.nativeElement, 'display', 'none')
     })
   }
   private match(userRoles: RoleScope[], componentScope: string[]): RoleScope {

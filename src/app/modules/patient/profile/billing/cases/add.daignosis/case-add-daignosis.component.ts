@@ -5,6 +5,7 @@ import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { CaseDiagnosisService } from 'src/app/modules/patient/service/case.diagnosis/case-diagnosis.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 
 @Component({
   selector: 'case-add-daignosis',
@@ -19,6 +20,7 @@ export class CaseAddDaignosisComponent implements OnInit {
   case: PatientCase;
   @Input() editcase: PatientCase;
   @Input() mode: string;
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor(private caseDiagnosisService: CaseDiagnosisService
     , private emitPatientSessionService: EmitPatientSessionService) { }
 

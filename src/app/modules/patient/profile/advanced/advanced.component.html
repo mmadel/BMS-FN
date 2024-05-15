@@ -11,13 +11,15 @@
                         <c-col xs="12"><label>Empoyment</label></c-col>
                         <c-col xs="8" class="mb-1">
                             <c-form-check inline>
-                                <input cFormCheckInput id="employmentyes" type="radio"
+                                <input cFormCheckInput id="employmentyes" type="radio" disable-input
+                                    [componentScopes]="componentScopes"
                                     [checked]="patientAdvancedInformation.pateintAdvancedCondtion.employment"
                                     [value]="true" name="employment" (change)="changeEmployment($event)" />
                                 <label cFormCheckLabel for="employmentyes">Yes</label>
                             </c-form-check>
                             <c-form-check inline>
                                 <input cFormCheckInput id="employmentno" type="radio" name="employment" [value]="false"
+                                    disable-input [componentScopes]="componentScopes"
                                     [checked]="!patientAdvancedInformation.pateintAdvancedCondtion.employment"
                                     (change)="changeEmployment($event)" />
                                 <label cFormCheckLabel for="employmentno">No</label>
@@ -30,19 +32,22 @@
                             <c-form-check inline>
                                 <input cFormCheckInput id="autoaccidentyes" [value]="true" name="autoaccident"
                                     [checked]="patientAdvancedInformation.pateintAdvancedCondtion.autoAccident"
-                                    type="radio" (change)="changeAutoAccident($event)" />
+                                    type="radio" (change)="changeAutoAccident($event)" disable-input
+                                    [componentScopes]="componentScopes" />
                                 <label cFormCheckLabel for="autoaccidentyes">Yes</label>
                             </c-form-check>
                             <c-form-check inline>
                                 <input cFormCheckInput id="autoaccidentno" [value]="false" name="autoaccident"
                                     [checked]="!patientAdvancedInformation.pateintAdvancedCondtion.autoAccident"
-                                    type="radio" (change)="changeAutoAccident($event)" />
+                                    type="radio" (change)="changeAutoAccident($event)" disable-input
+                                    [componentScopes]="componentScopes" />
                                 <label cFormCheckLabel for="autoaccidentno">No</label>
                             </c-form-check>
                         </c-col>
                         <c-col xs="5" class="mb-1">
                             <select cFormControl cSelect sizing="sm" id="advstate" name="advstate" class="mb-1"
-                                [(ngModel)]="patientAdvancedInformation.pateintAdvancedCondtion.state">
+                                [(ngModel)]="patientAdvancedInformation.pateintAdvancedCondtion.state" disable-input
+                                [componentScopes]="componentScopes">
                                 <option *ngFor="let state of states" [value]="state |state">
                                     {{state |state}}
                                 </option>
@@ -55,13 +60,15 @@
                             <c-form-check inline>
                                 <input cFormCheckInput id="otheraccidentyes" [value]="true" name="otheraccident"
                                     [checked]="patientAdvancedInformation.pateintAdvancedCondtion.otherAccident"
-                                    type="radio" (change)="changeOtherAccident($event)" />
+                                    type="radio" (change)="changeOtherAccident($event)" readonly-input
+                                    [componentScopes]="componentScopes" />
                                 <label cFormCheckLabel for="otheraccidentyes">Yes</label>
                             </c-form-check>
                             <c-form-check inline>
                                 <input cFormCheckInput id="otheraccidentno" [value]="false" name="otheraccident"
                                     [checked]="!patientAdvancedInformation.pateintAdvancedCondtion.otherAccident"
-                                    type="radio" (change)="changeOtherAccident($event)" />
+                                    type="radio" (change)="changeOtherAccident($event)" readonly-input
+                                    [componentScopes]="componentScopes" />
                                 <label cFormCheckLabel for="otheraccidentno">No</label>
                             </c-form-check>
                         </c-col>
@@ -80,24 +87,28 @@
                         <c-col xs="7" class="mb-1">
                             <c-date-picker placeholder="First Symptoms" size="sm"
                                 [ngModel]="patientAdvancedInformation.patientAdvancedDates.firstSymptoms"
+                                disable-date-picker [componentScopes]="componentScopes"
                                 (dateChange)="changeFirstSymptoms($event)"></c-date-picker>
                         </c-col>
                         <c-col xs="5"><label>Last Seen</label></c-col>
                         <c-col xs="7" class="mb-1">
                             <c-date-picker placeholder="Last Seen By Doctor" size="sm"
                                 [ngModel]="patientAdvancedInformation.patientAdvancedDates.lastSeenByDoctor"
+                                disable-date-picker [componentScopes]="componentScopes"
                                 (dateChange)="changeLastSeenByDoctor($event)"></c-date-picker>
                         </c-col>
                         <c-col xs="5"><label>Accident Date</label></c-col>
                         <c-col xs="7" class="mb-1">
                             <c-date-picker placeholder="Accident Date" size="sm"
-                                [ngModel]="patientAdvancedInformation.patientAdvancedDates.accident"
+                                [ngModel]="patientAdvancedInformation.patientAdvancedDates.accident" disable-date-picker
+                                [componentScopes]="componentScopes"
                                 (dateChange)="changeAccident($event)"></c-date-picker>
                         </c-col>
                         <c-col xs="5"><label>First Treatment</label></c-col>
                         <c-col xs="7" class="mb-1">
                             <c-date-picker placeholder="First Treatment" size="sm"
                                 [ngModel]="patientAdvancedInformation.patientAdvancedDates.firstTreatment"
+                                disable-date-picker [componentScopes]="componentScopes"
                                 (dateChange)="changeFirstTreatment($event)"></c-date-picker>
                         </c-col>
                     </c-row>
@@ -114,7 +125,8 @@
                         [(startDate)]="patientAdvancedInformation.unableToWorkStartDate_date"
                         [(endDate)]="patientAdvancedInformation.unableToWorkEndDate_date"
                         (startDateChange)="changeUnableToWorkStartDate($event)"
-                        (endDateChange)="changeUnableToWorkEndDate($event)"></c-date-range-picker>
+                        (endDateChange)="changeUnableToWorkEndDate($event)" disable-date-range-picker
+                        [componentScopes]="componentScopes"></c-date-range-picker>
                 </c-card-body>
             </c-card>
         </c-col>
@@ -128,7 +140,8 @@
                         [(startDate)]="patientAdvancedInformation.hospitalizedStartDate_date"
                         [(endDate)]="patientAdvancedInformation.hospitalizedEndDate_date"
                         (startDateChange)="changeHospitalizedStartDate($event)"
-                        (endDateChange)="changeHospitalizedEndDate($event)"></c-date-range-picker>
+                        (endDateChange)="changeHospitalizedEndDate($event)" disable-date-range-picker
+                        [componentScopes]="componentScopes"></c-date-range-picker>
                 </c-card-body>
             </c-card>
         </c-col>
@@ -139,7 +152,8 @@
                 </c-card-header>
                 <c-card-body>
                     <textarea cFormControl id="exampleFormControlTextarea1" rows="3"
-                    [(ngModel)]="patientAdvancedInformation.additionalInformation"></textarea>
+                        [(ngModel)]="patientAdvancedInformation.additionalInformation" readonly-input
+                        [componentScopes]="componentScopes"></textarea>
                 </c-card-body>
             </c-card>
         </c-col>

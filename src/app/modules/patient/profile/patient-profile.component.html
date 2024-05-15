@@ -36,7 +36,7 @@
                 </c-row>
             </c-card-header>
             <c-card-body>
-                <form cForm #patientCreationForm="ngForm" *ngIf="patient">
+                <form cForm #patientCreationForm="ngForm" *ngIf="patient" readonly-form [componentScopes]="componentScopes">
                     <c-row>
                         <c-col class="mb-1">
                             <small
