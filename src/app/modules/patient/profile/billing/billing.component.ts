@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { ReferringProvider } from 'src/app/modules/model/clinical/referring.provider';
 import { ReferringProviderService } from 'src/app/modules/providers/service/referring-provider.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { ViewCaseComponent } from './cases/view-case.component';
 import { ViewInsuranceComponent } from './insurance/view-insurance.component';
 import { ViewReferringProviderComponent } from './referring.provider/view-referring-provider.component';
@@ -18,6 +19,7 @@ export class BillingComponent implements OnInit {
   @ViewChild('insuranceComponent') insuranceComponent: ViewInsuranceComponent;
   ssn: string;
   externalID: string;
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor() { }
 
   ngOnInit(): void {

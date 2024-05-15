@@ -7,7 +7,7 @@
     <c-row>
         <c-col>
             <div style="float:right;">
-                <button cButton color="primary" variant="outline" (click)="toggleAddProvider()" role-scope [componentScopes]="componentScopes">Add Provider</button>
+                <button cButton color="primary" variant="outline" (click)="toggleAddProvider()" >Add Provider</button>
             </div>
         </c-col>
     </c-row>
@@ -34,10 +34,10 @@
                                 </ng-container>
                                 <ng-container *ngSwitchCase="'actions'" class="py-2">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button cButton variant="outline" (click)="remove(item)" size="sm" role-scope [componentScopes]="componentScopes">
+                                        <button cButton variant="outline" (click)="remove(item)" size="sm" >
                                             <svg cIcon name="cilTrash"></svg>
                                         </button>
-                                        <button cButton variant="outline" (click)="edit(item)" size="sm" role-scope [componentScopes]="componentScopes">
+                                        <button cButton variant="outline" (click)="edit(item)" size="sm" >
                                             <svg cIcon name="cilPen"></svg>
                                         </button>
                                     </div>

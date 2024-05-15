@@ -24,14 +24,14 @@
               <c-input-group sizing="sm">
                 <span cInputGroupText id="payment">&#36;</span>
                 <input cFormControl #pymentAmt aria-describedby="payment" class="w-10" type="number"
-                  (focusout)="changePaymnet(item)" [(ngModel)]="item.payment" role-scope [componentScopes]="componentScopes">
+                  (focusout)="changePaymnet(item)" [(ngModel)]="item.payment" >
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'adjust'" class="py-2">
               <c-input-group sizing="sm">
                 <span cInputGroupText id="adjust">&#36;</span>
                 <input cFormControl #adjustAmt aria-describedby="adjust" class="w-10" type="number"
-                  (focusout)="changePaymnet(item)" [(ngModel)]="item.adjust" role-scope [componentScopes]="componentScopes">
+                  (focusout)="changePaymnet(item)" [(ngModel)]="item.adjust" >
               </c-input-group>
             </ng-container>
             <ng-container *ngSwitchCase="'balance'" class="py-2">
@@ -40,7 +40,7 @@
             <span *ngIf="batchType ==='bi'">
               <ng-container *ngSwitchCase="'serviceLinePaymentAction'" class="py-2" >
                 <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction"
-                  [disabled]="item.payment === null || item.adjust === null" role-scope [componentScopes]="componentScopes">
+                  [disabled]="item.payment === null || item.adjust === null" >
                   <option value=null selected disabled>Select</option>
                   <option value="Resubmit"> Resubmit</option>
                   <option value="Close">Close Session</option>

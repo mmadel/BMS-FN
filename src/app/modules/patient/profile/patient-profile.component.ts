@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,7 @@ import { MaritalStatus } from '../../model/enum/marital.status';
 import { PhoneType } from '../../model/enum/phone.type';
 import { Countries } from '../../model/lookups/country-data-store';
 import { States } from '../../model/lookups/state-data-store';
+import { Role } from '../../secuirty/model/roles';
 import { PateintEmittingService } from '../service/emitting/pateint-emitting.service';
 import { PatientService } from '../service/patient.service';
 import { AdvancedComponent } from './advanced/advanced.component';
@@ -38,11 +39,13 @@ export class PatientProfileComponent implements OnInit {
   states: string[] = States;
   selectedTab: number = 0;
   isupdated: boolean = false;
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor(private patientService: PatientService
     , private toastr: ToastrService
     , private pateintEmittingService: PateintEmittingService
     , private route: ActivatedRoute
-    , private router: Router) { }
+    , private router: Router
+    , private elementRef: ElementRef) { }
   ngOnInit(): void {
     var patientId = this.route.snapshot.paramMap.get('id');
     if (patientId) {
@@ -51,6 +54,7 @@ export class PatientProfileComponent implements OnInit {
           this.isupdated = true;
           this.patient = result
           this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
+
         })
     } else {
       this.isupdated = false;
@@ -82,19 +86,19 @@ export class PatientProfileComponent implements OnInit {
         this.patient.patientAdvancedInformation = this.patientAdvancedComponent.patientAdvancedInformation;
       }
       this.patientService.create(this.patient)
-        .subscribe((result:any) => {
-          if (this.isupdated){
+        .subscribe((result: any) => {
+          if (this.isupdated) {
             this.toastr.success('Patient Updated');
-            if (action === 'close'){
+            if (action === 'close') {
               this.reset();
               this.router.navigate(['/patient/list']);
             }
           }
-          else{
+          else {
             this.toastr.success('Patient Created');
-            this.router.navigate(['/patient/profile/'+result.records]);
+            this.router.navigate(['/patient/profile/' + result.records]);
           }
-            
+
         }, (error) => {
           this.toastr.error('Error in Patient Created');
         })
@@ -102,7 +106,7 @@ export class PatientProfileComponent implements OnInit {
     } else {
       this.notValidForm = true;
     }
-    
+
   }
   private reset() {
     this.patientCreationForm.reset();

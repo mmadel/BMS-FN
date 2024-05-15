@@ -1,16 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ZipCodeDirective } from './directives/zip-code.directive';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule, FormModule, GridModule, SharedModule, TableModule, UtilitiesModule } from '@coreui/angular-pro';
+import { GridModule, SharedModule } from '@coreui/angular-pro';
+import { DisableInputDirective } from './directives/permissions/disable.inputs/disable-input.directive';
+import { ReadonlyFormDirective } from './directives/permissions/readonly.form/readonly-form.directive';
+import { ReadonlyInputDirective } from './directives/permissions/readonly.input/readonly-input.directive';
+import { ZipCodeDirective } from './directives/zip-code.directive';
 import { ClonePipe } from './pipe/clone.pipe';
 import { PhonePipe } from './pipe/phone/phone.pipe';
 import { StatePipe } from './pipe/state/state.pipe';
-import { ScopeDirective } from './directives/scope/scope.directive';
 
 const APP_COMMON_DIRECTIVES = [
   ZipCodeDirective,
-  ScopeDirective
+  ReadonlyFormDirective,
+  ReadonlyInputDirective,
+  DisableInputDirective,
 ]
 
 

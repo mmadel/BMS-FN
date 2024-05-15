@@ -8,7 +8,6 @@ export class PaymentRoleItemConverter {
             parent: "Posting",
             children: []
         }
-        console.log(JSON.stringify(roles))
         for (var i = 0; i < roles.length; i++) {
             if (roles[i] === Role.PAYMENT_ROLE) {
                 parentWithNoChilds = {

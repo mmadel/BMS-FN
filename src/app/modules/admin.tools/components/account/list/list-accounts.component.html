@@ -8,8 +8,7 @@
 <c-row>
     <c-col xs="12">
         <div style="float: right;">
-            <button cButton variant="outline" (click)="createAccount()" role-scope
-                [componentScopes]="componentScopes">Create Account</button>
+            <button cButton variant="outline" (click)="createAccount()">Create Account</button>
         </div>
     </c-col>
     <c-col xs="12">
@@ -27,12 +26,10 @@
                     <td>{{user.name}}</td>
                     <td>
                         <c-button-group aria-label="Basic example" role="group" size="sm">
-                            <button cButton variant="outline" (click)="editUser(user.uuid)" size="sm" role-scope
-                                [componentScopes]="componentScopes">
+                            <button cButton variant="outline" (click)="editUser(user.uuid)" size="sm" >
                                 <svg cIcon name="cilPen"></svg>
                             </button>
-                            <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm" role-scope
-                                [componentScopes]="componentScopes">
+                            <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm" >
                                 <svg cIcon name="cilTrash"></svg>
                             </button>
                         </c-button-group>
