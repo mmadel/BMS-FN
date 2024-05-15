@@ -4,7 +4,8 @@
         <c-col xs="12">
             <div style="float: right;" class="mb-3">
                 <c-button-group aria-label="Basic outlined" role="group">
-                    <button cButton color="primary" variant="outline" (click)="createSession()">
+                    <button cButton color="primary" variant="outline" (click)="createSession()" dispaly-input
+                        [componentScopes]="componentScopes">
                         Create Session
                     </button>
                     <button cButton color="primary" variant="outline" (click)="onClickSessionHistory()">
@@ -35,8 +36,7 @@
         <button (click)="toggleAddSession()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-patient-session-create *ngIf="addSessionVisibility" #patientSessionComponent
-            [selectedPateint]="pateint"
+        <app-patient-session-create *ngIf="addSessionVisibility" #patientSessionComponent [selectedPateint]="pateint"
             (changeVisibility)="changeVisibility($event)"></app-patient-session-create>
     </c-modal-body>
 </c-modal>

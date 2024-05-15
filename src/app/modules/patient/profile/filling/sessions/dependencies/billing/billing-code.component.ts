@@ -10,6 +10,7 @@ import { PatientSession } from 'src/app/modules/model/clinical/session/patient.s
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/fee-schedule.service';
 import { ModifierRuleService } from 'src/app/modules/tools/modifier.rules/service/modifier-rule.service';
 import { BillingCode } from '../../model/billing.code';
@@ -23,6 +24,7 @@ import { ServiceCodeListComponent } from '../service.code/list/service.code.list
   styleUrls: ['./billing-code.component.scss']
 })
 export class BillingCodeComponent implements OnInit {
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   billingCode: BillingCode
   @ViewChild('billingcodeForm') billingcodeForm: NgForm;
   @ViewChild('serviceCodeListComponent') serviceCodeListComponent: ServiceCodeListComponent;

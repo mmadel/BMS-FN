@@ -8,6 +8,7 @@ import { DoctorInfo } from 'src/app/modules/model/clinical/session/doctor.info';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { BillingCodeComponent } from '../dependencies/billing/billing-code.component';
 import { ShedulingComponent } from '../dependencies/scheduling/sheduling.component';
 import { BillingCode } from '../model/billing.code';
@@ -19,6 +20,7 @@ import { SessionScheduling } from '../model/session.scheduling';
   styleUrls: ['./patient-session-edit.component.scss']
 })
 export class PatientSessionEditComponent implements OnInit {
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   @ViewChild('editPateintSessionShedulingComponent') editPateintSessionShedulingComponent: ShedulingComponent;
   @ViewChild('editPateintSessionBillingCodeComponent') editPateintSessionBillingCodeComponent: BillingCodeComponent;
   selectedPateint: Patient;

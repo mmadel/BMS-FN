@@ -12,6 +12,7 @@ import { StatePipe } from './pipe/state/state.pipe';
 import { DisplayInputDirective } from './directives/permissions/display.input/display-input.directive';
 import { DisableDatePickerDirective } from './directives/permissions/disable.date.picker/disable-date-picker.directive';
 import { DisableDateRangeDirective } from './directives/permissions/disable.date.range.picker/disable-date-range.directive';
+import { DisableTimePickerDirective } from './directives/permissions/disable.time.picker/disable-time-picker.directive';
 
 const APP_COMMON_DIRECTIVES = [
   ZipCodeDirective,
@@ -20,7 +21,8 @@ const APP_COMMON_DIRECTIVES = [
   DisableInputDirective,
   DisplayInputDirective,
   DisableDatePickerDirective,
-  DisableDateRangeDirective
+  DisableDateRangeDirective,
+  DisableTimePickerDirective
 ]
 
 

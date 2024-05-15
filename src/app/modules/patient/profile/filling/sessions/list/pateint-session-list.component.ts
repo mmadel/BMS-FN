@@ -10,6 +10,7 @@ import { PatientSessionResponse } from 'src/app/modules/model/clinical/session/p
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { PatientSessionEditComponent } from '../edit/patient-session-edit.component';
 
 @Component({
@@ -47,6 +48,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   patientSessions$!: Observable<PatientSessionResponse[]>;
   selectedPatientSession: any;
   insuranceCompanies:any
+  componentScopes: string[] = [Role.PATIENT_ROLE ];
   constructor(private patientSessionService: PatientSessionService
     , private emitPatientSessionService: EmitPatientSessionService
     , private router: Router

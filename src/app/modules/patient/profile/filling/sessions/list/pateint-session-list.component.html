@@ -17,7 +17,7 @@
               <button cButton variant="outline" size="sm" (click)="openEditPateintSession(item)">
                 <svg cIcon name="cilPen"></svg>
               </button>
-              <c-dropdown variant="btn-group">
+              <c-dropdown variant="btn-group" dispaly-input [componentScopes]="componentScopes">
                 <button cButton cDropdownToggle variant="outline" size="sm">
                   actions
                 </button>

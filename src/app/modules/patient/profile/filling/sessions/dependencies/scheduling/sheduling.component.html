@@ -20,8 +20,7 @@
                             <ng-autocomplete cFormControl [data]="providers" [searchKeyword]="'name'" id="providerName"
                                 #providerName="ngModel" required style="height: 100px;" name="providerName"
                                 placeholder="Name" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                                (selected)='pickProvider($event)'
-                                [(ngModel)]="sessionScheduling.provider">
+                                (selected)='pickProvider($event)' [(ngModel)]="sessionScheduling.provider">
                             </ng-autocomplete>
                             <ng-template #itemTemplate let-item>
                                 <a [innerHTML]="item.name"></a>
@@ -47,7 +46,8 @@
 
                             <c-date-picker id="serviceDate" id="serviceDate" name="serviceDate" size="sm"
                                 placeholder="Service Date" #serviceDate="ngModel" required="true"
-                                [(ngModel)]="sessionScheduling.serviceDate"></c-date-picker>
+                                [(ngModel)]="sessionScheduling.serviceDate" disable-date-picker
+                                [componentScopes]="componentScopes"></c-date-picker>
                         </div>
                     </c-col>
                 </c-row>
@@ -64,7 +64,8 @@
                         <div class="mb-3">
                             <c-time-picker id="startTime" name="startTime" locale="en-US" size="sm"
                                 placeholder="Start Time" #startTime="ngModel" required="true"
-                                [(ngModel)]="sessionScheduling.startTime"></c-time-picker>
+                                [(ngModel)]="sessionScheduling.startTime" disable-time-picker
+                                [componentScopes]="componentScopes" ></c-time-picker>
                         </div>
 
                     </c-col>
@@ -80,7 +81,8 @@
                     </c-col>
                     <c-col xs="12">
                         <c-time-picker id="endTime" name="endTime" locale="en-US" size="sm" placeholder="End Time"
-                            #endTime="ngModel" required="true" [(ngModel)]="sessionScheduling.endTime"></c-time-picker>
+                            #endTime="ngModel" required="true" [(ngModel)]="sessionScheduling.endTime"
+                            disable-time-picker [componentScopes]="componentScopes"></c-time-picker>
                     </c-col>
                 </c-row>
             </c-card-body>

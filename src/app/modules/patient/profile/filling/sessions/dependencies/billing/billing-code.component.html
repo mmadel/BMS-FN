@@ -1,6 +1,6 @@
 <ngx-spinner></ngx-spinner>
 <c-container [fluid]="true">
-    <form cForm #billingcodeForm="ngForm">
+    <form cForm #billingcodeForm="ngForm" readonly-form [componentScopes]="componentScopes">
         <c-card class="mb-3">
             <c-card-header>
                 <h5>Billing And Coding</h5>
@@ -67,7 +67,7 @@
                                 <c-card-body>
                                     <div style="float:right">
                                         <button cButton color="info" variant="outline" size="sm"
-                                            (click)="toggleAddDaignosis()">
+                                            (click)="toggleAddDaignosis()" dispaly-input [componentScopes]="componentScopes">
                                             <svg cIcon name="cilPlus"></svg>
                                         </button>
                                     </div>
@@ -84,13 +84,13 @@
                                 <c-row>
                                     <c-col xs="12">
                                         <div style="float:right">
-                                            <button cButton color="info" variant="outline" size="sm" (click)="applyModifierRule()">
+                                            <button cButton color="info" variant="outline" size="sm" (click)="applyModifierRule()" dispaly-input [componentScopes]="componentScopes">
                                                 Apply Modifier Rule
                                             </button>
                                         </div>
                                         <div style="float:right" class="mx-1">
                                             <button cButton color="info" variant="outline" size="sm"
-                                                (click)="toggleserviceCode()">
+                                                (click)="toggleserviceCode()" dispaly-input [componentScopes]="componentScopes">
                                                 Add Service Line
                                             </button>
                                         </div>
