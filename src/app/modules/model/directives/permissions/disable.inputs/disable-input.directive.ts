@@ -11,10 +11,10 @@ export class DisableInputDirective implements OnInit {
   ngOnInit(): void {
     this.roleScopeFinderService.find().subscribe((result: RoleScope[]) => {
       var roleScope: RoleScope = this.match(result, this.componentScopes)
-
+      console.log(this.el.nativeElement.type)
       if (roleScope !== undefined && roleScope.scope === 'view') {
         this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'true');
-        if (!(this.el.nativeElement.type === 'checkbox'))
+        if (!(this.el.nativeElement.type === 'checkbox' || this.el.nativeElement.type === 'radio'))
           this.renderer.setStyle(this.el.nativeElement, 'background-color', 'white')
       }
 

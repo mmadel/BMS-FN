@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { InsuranceCompanyHolder } from 'src/app/modules/model/admin/insurance.company.holder';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { ModifierRule } from '../model/modifier.rule';
 import { ModifierRuleService } from '../service/modifier-rule.service';
 
@@ -10,6 +11,7 @@ import { ModifierRuleService } from '../service/modifier-rule.service';
   styleUrls: ['./rule-creation.component.scss']
 })
 export class RuleCreationComponent implements OnInit {
+  componentScopes: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
   @Output() changeVisibility = new EventEmitter<string>()
   compareFn = this._compareFn.bind(this);
   modifierRule: ModifierRule = {

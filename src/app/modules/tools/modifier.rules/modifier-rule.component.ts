@@ -9,6 +9,7 @@ import { ModifierRuleService } from './service/modifier-rule.service';
   styleUrls: ['./modifier-rule.component.scss']
 })
 export class ModifierRuleComponent implements OnInit {
+  componentScopes: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
   modifierRules: ModifierRule[]
   public addRuleVisible = false;
   editRuleVisible: boolean = false;
@@ -29,7 +30,7 @@ export class ModifierRuleComponent implements OnInit {
   clickAddRule() {
     this.addRuleVisible = !this.addRuleVisible;
   }
-  componentScopes: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
+
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
 

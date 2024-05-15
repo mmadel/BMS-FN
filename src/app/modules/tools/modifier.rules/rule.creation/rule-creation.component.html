@@ -5,13 +5,17 @@
             <c-input-group sizing="sm" class="mb-1">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Add Modifier(s)</span>
                 <input cFormControl maxlength="2" [(ngModel)]="modifier[0]"
-                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[0] ===false}" />
+                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[0] ===false}" readonly-input
+                    [componentScopes]="componentScopes" />
                 <input cFormControl maxlength="2" [(ngModel)]="modifier[1]"
-                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[1] ===false}" />
+                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[1] ===false}" readonly-input
+                    [componentScopes]="componentScopes" />
                 <input cFormControl maxlength="2" [(ngModel)]="modifier[2]"
-                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[2] ===false}" />
+                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[2] ===false}" readonly-input
+                    [componentScopes]="componentScopes" />
                 <input cFormControl maxlength="2" [(ngModel)]="modifier[3]"
-                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[3] ===false}" />
+                    [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[3] ===false}" readonly-input
+                    [componentScopes]="componentScopes" />
             </c-input-group>
         </c-col>
         <c-col xs="7">
@@ -24,8 +28,8 @@
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">When CPT is:</span>
                 <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="modifierRule.cptCode"
-                    cPopover="Leave blank to match all CPT codes" [cPopoverTrigger]="'hover'"
-                    cPopoverPlacement="right" />
+                    cPopover="Leave blank to match all CPT codes" [cPopoverTrigger]="'hover'" cPopoverPlacement="right"
+                    readonly-input [componentScopes]="componentScopes" />
             </c-input-group>
         </c-col>
         <c-col xs="7">
@@ -33,12 +37,12 @@
         </c-col>
     </c-row>
     <c-row>
-        
+
         <c-col xs="5" *ngIf="defaultRule">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
                 <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance"
-                    *ngIf="insuranceCompanies">
+                    *ngIf="insuranceCompanies" disable-input [componentScopes]="componentScopes">
                     <option value="null" disabled="true">Select Insurance Company</option>
                     <option *ngFor="let insurance of insuranceCompanies" [ngValue]="insurance">
                         {{insurance.name}}
@@ -56,7 +60,8 @@
         <c-col xs="5">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Name</span>
-                <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="modifierRule.name">
+                <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="modifierRule.name" readonly-input
+                    [componentScopes]="componentScopes">
             </c-input-group>
         </c-col>
     </c-row>
@@ -67,7 +72,8 @@
         <c-col xs="2">
             <div class="form-check">
                 <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckDefault"
-                    [value]="'replace'" [(ngModel)]="modifierRule.appender">
+                    [value]="'replace'" [(ngModel)]="modifierRule.appender" disable-input
+                    [componentScopes]="componentScopes">
                 <label class="form-check-label" for="flexCheckDefault">
                     <strong>Replace</strong>
                 </label>
@@ -77,7 +83,8 @@
         <c-col xs="2">
             <div class="form-check">
                 <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
-                    [value]="'end'" [(ngModel)]="modifierRule.appender">
+                    [value]="'end'" [(ngModel)]="modifierRule.appender" disable-input
+                    [componentScopes]="componentScopes">
                 <label class="form-check-label" for="flexCheckChecked">
                     <strong>Append at end</strong>
                 </label>
@@ -87,7 +94,8 @@
         <c-col xs="2">
             <div class="form-check">
                 <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
-                    [value]="'front'" [(ngModel)]="modifierRule.appender">
+                    [value]="'front'" [(ngModel)]="modifierRule.appender" disable-input
+                    [componentScopes]="componentScopes">
                 <label class="form-check-label" for="flexCheckChecked">
                     <strong>Append at front</strong>
                 </label>
@@ -98,7 +106,8 @@
     <hr />
     <c-row>
         <div class="col-12 text-center">
-            <button cButton class="me-1" variant="outline" style="width: 15%;" size="sm" (click)="create()">
+            <button cButton class="me-1" variant="outline" style="width: 15%;" size="sm" (click)="create()"
+                dispaly-input [componentScopes]="componentScopes">
                 <span *ngIf="mode === 'create'">Create</span>
                 <span *ngIf="mode ==='update'">Update</span>
             </button>
