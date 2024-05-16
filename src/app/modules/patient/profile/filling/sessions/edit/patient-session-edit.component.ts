@@ -20,7 +20,7 @@ import { SessionScheduling } from '../model/session.scheduling';
   styleUrls: ['./patient-session-edit.component.scss']
 })
 export class PatientSessionEditComponent implements OnInit {
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   @ViewChild('editPateintSessionShedulingComponent') editPateintSessionShedulingComponent: ShedulingComponent;
   @ViewChild('editPateintSessionBillingCodeComponent') editPateintSessionBillingCodeComponent: BillingCodeComponent;
   selectedPateint: Patient;

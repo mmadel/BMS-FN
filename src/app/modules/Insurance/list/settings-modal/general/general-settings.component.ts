@@ -8,7 +8,7 @@ import { GeneralConfiguration } from '../../../model/general.configuration';
   styleUrls: ['./general-settings.component.scss']
 })
 export class GeneralSettingsComponent implements OnInit {  
-  componentScopes: string[] = [Role.BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE ];
   @Input() selectedGeneralConfiguration: GeneralConfiguration;
   generalConfiguration: GeneralConfiguration;
   constructor() { }

@@ -2,16 +2,17 @@ import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { RoleScopeFinderService } from 'src/app/modules/secuirty/service/role-scope-finder.service';
+import { MatchRole } from '../match.role';
 
 @Directive({
   selector: '[readonly-form]'
 })
 export class ReadonlyFormDirective implements OnInit {
-  @Input() componentScopes: string[];
+  @Input() componentRole?: string[]
   constructor(private el: ElementRef, private form: NgForm, private roleScopeFinderService: RoleScopeFinderService) { }
   ngOnInit(): void {
     this.roleScopeFinderService.find().subscribe((result: RoleScope[]) => {
-      var roleScope: RoleScope = this.match(result, this.componentScopes)
+      var roleScope: RoleScope = MatchRole.match(result,this.componentRole)
       if (roleScope !== undefined && roleScope.scope === 'view')
         setTimeout(() => {
           Object.keys(this.form.controls).forEach(controlName => {
@@ -27,7 +28,4 @@ export class ReadonlyFormDirective implements OnInit {
     })
   }
 
-  private match(userRoles: RoleScope[], componentScope: string[]): RoleScope {
-    return userRoles.filter(item => componentScope.includes(item.role))[0];
-  }
 }

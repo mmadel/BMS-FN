@@ -12,7 +12,7 @@ import { FeeScheduleService } from '../service/fee-schedule.service';
   styleUrls: ['./create-fee-schedule.component.scss']
 })
 export class CreateFeeScheduleComponent implements OnInit {
-  componentScopes: string[] = [Role.BILLING_ROLE, Role.FEE_SCHEDULE_BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE, Role.FEE_SCHEDULE_BILLING_ROLE ];
   @Output() changeVisibility = new EventEmitter<string>()
   feeScheduleLines: FeeScheduleLine[] = [];
   editfeeScheduleLine: FeeScheduleLine;

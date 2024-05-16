@@ -7,7 +7,7 @@
     <c-row>
         <c-col>
             <div style="float:right;">
-                <button cButton color="primary" variant="outline" (click)="toggleAddProvider()" dispaly-input [componentScopes]="componentScopes">Add Provider</button>
+                <button cButton color="primary" variant="outline" (click)="toggleAddProvider()" dispaly-input [componentRole]="componentRole">Add Provider</button>
             </div>
         </c-col>
     </c-row>
@@ -34,7 +34,7 @@
                                 </ng-container>
                                 <ng-container *ngSwitchCase="'actions'" class="py-2">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button cButton variant="outline" (click)="remove(item)" size="sm" dispaly-input [componentScopes]="componentScopes">
+                                        <button cButton variant="outline" (click)="remove(item)" size="sm" dispaly-input [componentRole]="componentRole">
                                             <svg cIcon name="cilTrash"></svg>
                                         </button>
                                         <button cButton variant="outline" (click)="edit(item)" size="sm" >

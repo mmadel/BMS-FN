@@ -9,7 +9,7 @@ import { ModifierRuleService } from './service/modifier-rule.service';
   styleUrls: ['./modifier-rule.component.scss']
 })
 export class ModifierRuleComponent implements OnInit {
-  componentScopes: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
   modifierRules: ModifierRule[]
   public addRuleVisible = false;
   editRuleVisible: boolean = false;

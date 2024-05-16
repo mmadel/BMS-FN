@@ -39,7 +39,7 @@ export class InsuranceListComponent implements OnInit {
   ];
 
   details_visible = Object.create({});
-  componentScopes: string[] = [Role.BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE ];
   constructor(private insuranceCompanyContainerService: InsuranceCompanyContainerService
     , private insuranceCompanyConfigurationService: InsuranceCompanyConfigurationService
     , private toastr: ToastrService) { }

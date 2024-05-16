@@ -25,11 +25,11 @@
                             <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                                 <button cButton color="info" variant="outline"
                                     (click)="toggleEditServiceLine(serviceCode,i)" size="sm" dispaly-input
-                                    [componentScopes]="componentScopes">
+                                    [componentRole]="componentRole">
                                     <svg cIcon name="cilPen"></svg>
                                 </button>
                                 <button cButton color="info" variant="outline" (click)="popServiceCode(i)" size="sm"
-                                    dispaly-input [componentScopes]="componentScopes">
+                                    dispaly-input [componentRole]="componentRole">
                                     <svg cIcon name="cilTrash"></svg>
                                 </button>
                             </c-button-group>

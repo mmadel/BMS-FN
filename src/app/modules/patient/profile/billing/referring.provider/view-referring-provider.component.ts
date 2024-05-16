@@ -17,7 +17,7 @@ export class ViewReferringProviderComponent implements OnInit {
   selectedFirstName: string;
   selectedLastName: string;
   selectedNPI: string;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private referringProviderService: ReferringProviderService) { }
 
   ngOnInit(): void {

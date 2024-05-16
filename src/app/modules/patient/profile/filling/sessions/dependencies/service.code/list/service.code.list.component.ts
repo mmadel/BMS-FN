@@ -10,7 +10,7 @@ import { Role } from 'src/app/modules/secuirty/model/roles';
   styleUrls: ['./service.code.list.component.scss']
 })
 export class ServiceCodeListComponent implements OnInit {
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   serviceCodes: ServiceCode[];
   unitCount: number;
   chargeCount: number;

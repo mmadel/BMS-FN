@@ -12,7 +12,7 @@ import { InsuranceCompanyConfigurationEmitterService } from '../../../service/em
   styleUrls: ['./box33-settings.component.scss']
 })
 export class Box33SettingsComponent implements OnInit {
-  componentScopes: string[] = [Role.BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE ];
   @Input() selectedBillingProviderConfiguration: BillingProviderConfiguration;
   defualtBillingProvider!: Organization;
   changeProviderVisible: boolean = false;

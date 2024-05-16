@@ -21,7 +21,7 @@ export class CreateAuthComponent implements OnInit {
     insCompany: []
   }
   insCpmanyName: string[];
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private authService: AuthService
     , private toastr: ToastrService) { }
 

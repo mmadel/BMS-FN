@@ -13,7 +13,7 @@ import { Role } from 'src/app/modules/secuirty/model/roles';
   styleUrls: ['./assign-payer.component.scss']
 })
 export class AssignPayerComponent implements OnInit {
-  componentScopes: string[] = [Role.BILLING_ROLE];
+  componentRole: string[] = [Role.BILLING_ROLE];
   payerNames: string[];
   payerIds: string[];
   selectedpayerName: string;

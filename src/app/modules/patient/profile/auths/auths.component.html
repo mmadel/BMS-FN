@@ -25,9 +25,9 @@
                             <div style="float: right;" class="mb-2">
                                 <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                                     <button cButton color="primary" variant="outline" (click)="creatAuth()"
-                                        dispaly-input [componentScopes]="componentScopes">Add
+                                        dispaly-input [componentRole]="componentRole">Add
                                         Authorization</button>
-                                    <c-dropdown variant="btn-group" dispaly-input [componentScopes]="componentScopes">
+                                    <c-dropdown variant="btn-group" dispaly-input [componentRole]="componentRole">
                                         <button cButton cDropdownToggle>
                                             Actions
                                         </button>
@@ -59,7 +59,7 @@
                                                     <svg cIcon name="cilPen"></svg>
                                                 </button>
                                                 <button cButton variant="outline" class="btn-sm"
-                                                    (click)="delete(patientAuthorization)" dispaly-input [componentScopes]="componentScopes">
+                                                    (click)="delete(patientAuthorization)" dispaly-input [componentRole]="componentRole">
                                                     <svg cIcon name="cilTrash"></svg>
                                                 </button>
                                             </c-button-group>

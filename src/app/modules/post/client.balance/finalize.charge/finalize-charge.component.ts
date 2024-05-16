@@ -14,7 +14,7 @@ import { ClientBalanceService } from '../../service/client-balance.service';
   styleUrls: ['./finalize-charge.component.scss']
 })
 export class FinalizeChargeComponent extends ListTemplate implements OnInit {
-  componentScopes: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
+  componentRole: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
   finalizeFilter: PostingFilterModel;
   finalizeClientBalance$!: Observable<ClientBalance[]>;
   selectedfinalizeClientBalance: ClientBalance[]

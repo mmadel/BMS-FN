@@ -16,7 +16,7 @@ export class FillingComponent implements OnInit {
   @ViewChild('pateintSessionListComponent') pateintSessionListComponent: PateintSessionListComponent;
   sestionFlag: string = "history";
   addSessionVisibility: boolean = false
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private router: Router) { }
 
   ngOnInit(): void {

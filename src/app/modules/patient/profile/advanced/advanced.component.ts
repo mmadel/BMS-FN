@@ -23,7 +23,7 @@ export class AdvancedComponent implements OnInit {
 
   };
   states: string[] = States;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor() { }
 
   ngOnInit(): void {

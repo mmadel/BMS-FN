@@ -16,9 +16,9 @@
     <div class="d-md-flex justify-content-md-end">
         <c-button-group aria-label="Basic example" role="group" class="mb-3" size="sm">
             <button cButton color="primary" variant="outline" (click)="create()" dispaly-input
-                [componentScopes]="componentScopes">Edit</button>
+                [componentRole]="componentRole">Edit</button>
             <button cButton color="primary" variant="outline" (click)="create('close')" dispaly-input
-                [componentScopes]="componentScopes">Edit & Close</button>
+                [componentRole]="componentRole">Edit & Close</button>
             <button cButton color="primary" variant="outline" (click)="close()">Close</button>
         </c-button-group>
     </div>
@@ -40,7 +40,7 @@
             </c-card-header>
             <c-card-body>
                 <form cForm #patientCreationForm="ngForm" *ngIf="patient" readonly-form
-                    [componentScopes]="componentScopes">
+                    [componentRole]="componentRole">
                     <c-row>
                         <c-col class="mb-1">
                             <small
@@ -162,7 +162,7 @@
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
                                 </span>
                                 <c-date-picker cFormControl size="sm" [(date)]="patientDOB"
-                                    required="true" disable-date-picker [componentScopes]="componentScopes"></c-date-picker>
+                                    required="true" disable-date-picker [componentRole]="componentRole"></c-date-picker>
                             </c-input-group>
                         </c-col>
                     </c-row>

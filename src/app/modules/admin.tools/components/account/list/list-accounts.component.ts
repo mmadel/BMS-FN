@@ -14,7 +14,7 @@ export class ListAccountsComponent implements OnInit {
   updateAccountVisible: boolean = false;
   selecteduuid: string;
   constructor(private userService: UserService) { }
-  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE];
+  componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE];
   ngOnInit(): void {
     this.find()
   }

@@ -15,7 +15,7 @@ import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/f
   styleUrls: ['./session-item-edit.component.scss']
 })
 export class SessionItemEditComponent implements OnInit {
-  componentScopes: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE ];
   @Input() serviceCode: ServiceCode
   @Input() doctorNPI: string
   @Input() itemType: string

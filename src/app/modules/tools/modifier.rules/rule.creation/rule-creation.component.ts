@@ -11,7 +11,7 @@ import { ModifierRuleService } from '../service/modifier-rule.service';
   styleUrls: ['./rule-creation.component.scss']
 })
 export class RuleCreationComponent implements OnInit {
-  componentScopes: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
   @Output() changeVisibility = new EventEmitter<string>()
   compareFn = this._compareFn.bind(this);
   modifierRule: ModifierRule = {

@@ -8,7 +8,7 @@
 <c-row>
     <c-col xs="12">
         <div style="float: right;">
-            <button cButton variant="outline" (click)="createAccount()" dispaly-input [componentScopes]="componentScopes">Create Account</button>
+            <button cButton variant="outline" (click)="createAccount()" dispaly-input [componentRole]="componentRole">Create Account</button>
         </div>
     </c-col>
     <c-col xs="12">
@@ -29,7 +29,7 @@
                             <button cButton variant="outline" (click)="editUser(user.uuid)" size="sm" >
                                 <svg cIcon name="cilPen"></svg>
                             </button>
-                            <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm" dispaly-input [componentScopes]="componentScopes">
+                            <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm" dispaly-input [componentRole]="componentRole">
                                 <svg cIcon name="cilTrash"></svg>
                             </button>
                         </c-button-group>

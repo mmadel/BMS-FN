@@ -17,7 +17,7 @@ export class FeeScheduleComponent implements OnInit {
   selectedFeeSceduleId: number;
   selectedFeeScedule: FeeSchedule
   hasDefaultFee: boolean = false
-  componentScopes: string[] = [Role.BILLING_ROLE, Role.FEE_SCHEDULE_BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE, Role.FEE_SCHEDULE_BILLING_ROLE ];
   constructor(private feeScheduleService: FeeScheduleService
     , private toastr: ToastrService) { }
 

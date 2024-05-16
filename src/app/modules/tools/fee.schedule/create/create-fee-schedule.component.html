@@ -12,7 +12,7 @@
                 <c-col xs="10">
                     <select [compareWith]="compareFn" cSelect sizing="sm" style="height: 32px;" id="feeProvider"
                         *ngIf="feeScheduleMetaData" [(ngModel)]="feeSchedules.provider" disable-input
-                        [componentScopes]="componentScopes">
+                        [componentRole]="componentRole">
                         <option value="null" disabled="true">Select Provider</option>
                         <option *ngFor="let provider of feeScheduleMetaData.providers" [ngValue]="provider">
                             {{provider.lastName}},{{provider.firstName}}
@@ -27,7 +27,7 @@
                 <c-col xs="10">
                     <select [compareWith]="compareFn" cSelect sizing="sm" style="height: 32px;" id="feePlanType"
                         *ngIf="feeScheduleMetaData" [(ngModel)]="feeSchedules.insurance" disable-input
-                        [componentScopes]="componentScopes">
+                        [componentRole]="componentRole">
                         <option value="null" disabled="true">Select Insurance Company</option>
                         <option *ngFor="let insurance of feeScheduleMetaData.insurances" [ngValue]="insurance">
                             {{insurance.name}}
@@ -41,7 +41,7 @@
                 </c-col>
                 <c-col xs="10">
                     <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="feeSchedules.name" disable-input
-                        [componentScopes]="componentScopes">
+                        [componentRole]="componentRole">
                 </c-col>
             </c-row>
             <span *ngIf="defaultFeeSchedule">
@@ -58,7 +58,7 @@
             </c-card-header>
             <c-card-body>
                 <div style="float:left;width: 100%;" class=" mb-3">
-                    <c-card dispaly-input [componentScopes]="componentScopes">
+                    <c-card dispaly-input [componentRole]="componentRole">
                         <c-card-body>
                             <div class="row mb-2">
                                 <div class="col">
@@ -124,11 +124,11 @@
                                     <td>
                                         <c-button-group aria-label="Basic example" role="group" size="sm">
                                             <button cButton variant="outline" size="sm" (click)="editLine(line.cptCode)"
-                                                dispaly-input [componentScopes]="componentScopes">
+                                                dispaly-input [componentRole]="componentRole">
                                                 <svg cIcon name="cilPen"></svg>
                                             </button>
                                             <button cButton variant="outline" size="sm" (click)="deleteLine(i)"
-                                                dispaly-input [componentScopes]="componentScopes">
+                                                dispaly-input [componentRole]="componentRole">
                                                 <svg cIcon name="cilTrash"></svg>
                                             </button>
                                         </c-button-group>
@@ -143,7 +143,7 @@
         </c-card>
     </c-col>
     <div class="col text-center my-3">
-        <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;" dispaly-input [componentScopes]="componentScopes">
+        <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;" dispaly-input [componentRole]="componentRole">
             <span *ngIf="mode ==='create'"> Create</span>
             <span *ngIf="mode ==='update'"> Update</span>
         </button>

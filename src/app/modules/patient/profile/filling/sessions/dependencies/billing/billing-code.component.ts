@@ -24,7 +24,7 @@ import { ServiceCodeListComponent } from '../service.code/list/service.code.list
   styleUrls: ['./billing-code.component.scss']
 })
 export class BillingCodeComponent implements OnInit {
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   billingCode: BillingCode
   @ViewChild('billingcodeForm') billingcodeForm: NgForm;
   @ViewChild('serviceCodeListComponent') serviceCodeListComponent: ServiceCodeListComponent;

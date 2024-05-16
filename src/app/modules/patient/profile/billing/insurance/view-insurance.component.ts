@@ -19,7 +19,7 @@ export class ViewInsuranceComponent implements OnInit {
   patientInsurances: PatientInsurance[] = new Array();
   editPatientInsurance: PatientInsurance;
   editModalTitle: string;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 

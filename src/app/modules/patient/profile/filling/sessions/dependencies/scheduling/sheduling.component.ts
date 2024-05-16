@@ -18,7 +18,7 @@ interface ProviderInfo {
   styleUrls: ['./sheduling.component.scss']
 })
 export class ShedulingComponent implements OnInit {
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   sessionScheduling: SessionScheduling;
   providers: ProviderInfo[];
   notValidForm: boolean = false;

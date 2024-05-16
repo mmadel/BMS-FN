@@ -19,7 +19,7 @@ import { PendingInsuranceComponent } from './pending.insurance/pending-insurance
   styleUrls: ['./client-balance.component.scss']
 })
 export class ClientBalanceComponent implements OnInit {
-  componentScopes: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
+  componentRole: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
   isLoading = false;
   postingFilterModel: PostingFilterModel = {};
   filteredPatients: any;

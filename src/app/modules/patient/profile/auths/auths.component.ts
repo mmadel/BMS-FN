@@ -22,7 +22,7 @@ export class AuthsComponent implements OnInit {
   patientAuthorizations: PatientAuthorization[]
   renderList: PatientAuthorization[];
   toBeUpdateModel: PatientAuthorization;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private authService: AuthService
     , private patientService: PatientService
     , private toastr: ToastrService) { }

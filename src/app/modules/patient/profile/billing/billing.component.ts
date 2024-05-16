@@ -19,7 +19,7 @@ export class BillingComponent implements OnInit {
   @ViewChild('insuranceComponent') insuranceComponent: ViewInsuranceComponent;
   ssn: string;
   externalID: string;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor() { }
 
   ngOnInit(): void {

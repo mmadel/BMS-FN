@@ -48,7 +48,7 @@ export class CreateInsuranceComponent implements OnInit {
   payerIdList: string[];
   selectedPayerName: string;
   selectedPayerId: string
-  componentScopes: string[] = [Role.PATIENT_ROLE];
+  componentRole: string[] = [Role.PATIENT_ROLE];
   constructor(private payerService: PayerService
     , private patientService: PatientService
     , private toastr: ToastrService) { }

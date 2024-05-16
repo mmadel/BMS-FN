@@ -10,7 +10,7 @@ import { ReferringProviderService } from '../service/referring-provider.service'
   styleUrls: ['./referring-provider-list.component.scss']
 })
 export class ReferringProviderListComponent extends ListTemplate implements OnInit {
-  componentScopes: string[] = [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE];
+  componentRole: string[] = [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE];
   referringProviderCreationVisibility: boolean
   referringProviders$!: Observable<ReferringProvider[]>;
   columns = [

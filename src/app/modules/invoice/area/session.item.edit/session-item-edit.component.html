@@ -7,21 +7,20 @@
                 <c-input-group class="mb-1" sizing="sm">
                     <span cInputGroupText id="basic-addon3" style="width: 15%;">CPT Code</span>
                     <input aria-describedby="basic-addon3" cFormControl id="basic-url" [formControl]="feeCtrl"
-                        [(ngModel)]="serviceCode.cptCode.serviceCode" readonly-input
-                        [componentScopes]="componentScopes" />
+                        [(ngModel)]="serviceCode.cptCode.serviceCode" readonly-input [componentRole]="componentRole" />
                 </c-input-group>
             </c-col>
             <c-col xs="12">
                 <c-input-group sizing="sm" class="mb-1">
                     <span cInputGroupText id="basic-addon3" style="width: 15%;">Modifier(s)</span>
                     <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" readonly-input
-                        [componentScopes]="componentScopes" />
+                        [componentRole]="componentRole" />
                     <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" readonly-input
-                        [componentScopes]="componentScopes" />
+                        [componentRole]="componentRole" />
                     <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" readonly-input
-                        [componentScopes]="componentScopes" />
+                        [componentRole]="componentRole" />
                     <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" readonly-input
-                        [componentScopes]="componentScopes" />
+                        [componentRole]="componentRole" />
                 </c-input-group>
             </c-col>
         </c-row>
@@ -32,21 +31,21 @@
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 10%;">Unit</span>
                 <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.unit"
-                    (keyup)="calculateCharge()" disable-input [componentScopes]="componentScopes">
+                    (keyup)="calculateCharge()" disable-input [componentRole]="componentRole">
             </c-input-group>
         </c-col>
         <c-col xs="12">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 10%;">Charge</span>
                 <input cFormControl id="unit-item" type="number" sizing="sm" [(ngModel)]="serviceCode.cptCode.charge"
-                    disable-input [componentScopes]="componentScopes">
+                    disable-input [componentRole]="componentRole">
             </c-input-group>
         </c-col>
     </c-row>
     <c-row class="my-3">
         <div class="col-12 text-center">
             <button cButton variant="outline" style="width: 15%;" (click)="edit()" size="sm" dispaly-input
-                [componentScopes]="componentScopes">Change</button>
+                [componentRole]="componentRole">Change</button>
         </div>
     </c-row>
 </c-container>

@@ -39,7 +39,7 @@ export class PatientProfileComponent implements OnInit {
   states: string[] = States;
   selectedTab: number = 0;
   isupdated: boolean = false;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private patientService: PatientService
     , private toastr: ToastrService
     , private pateintEmittingService: PateintEmittingService

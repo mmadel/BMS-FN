@@ -3,7 +3,7 @@
         <c-col xs="12">
             <c-form-check inline>
                 <input cFormCheckInput id="radioinline1" name="radioinline" type="checkbox"
-                    [(ngModel)]="generalConfiguration.box32"  disable-input [componentScopes]="componentScopes"/>
+                    [(ngModel)]="generalConfiguration.box32"  disable-input [componentRole]="componentRole"/>
                 <label cFormCheckLabel for="radioinline1">
                     <strong>Use Patient/Client address in Box32</strong> for home based sessions
                 </label>
@@ -19,7 +19,7 @@
                 </strong>
             </label>
             <select cSelect id="box26" style="height: auto;line-height: 14px;" [(ngModel)]="generalConfiguration.box26"
-                disable-input [componentScopes]="componentScopes">
+                disable-input [componentRole]="componentRole">
                 <option value="insured_primary_id">Insured's PrimaryID</option>
                 <option value="pateint_ssn">Pateint SSN</option>
                 <option value="pateint_external_id">Pateint External ID</option>

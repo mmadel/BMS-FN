@@ -2,7 +2,7 @@
 <c-container fluid>
     <!--demographics-->
     <form cForm #insuranceCreateForm="ngForm" (ngSubmit)="create()" (change)="resetError()" readonly-form
-        [componentScopes]="componentScopes">
+        [componentRole]="componentRole">
         <c-row class="justify-content-center">
             <c-col class="col">
                 <c-card class="mb-3 ustify-content-center">
@@ -430,11 +430,11 @@
 
             <span *ngIf="mode ==='create'">
                 <button cButton color="primary" type="submit" variant="outline" dispaly-input
-                    [componentScopes]="componentScopes">Create</button>
+                    [componentRole]="componentRole">Create</button>
             </span>
             <span *ngIf="mode ==='edit'">
                 <button cButton color="primary" type="submit" variant="outline" dispaly-input
-                    [componentScopes]="componentScopes">Update</button>
+                    [componentRole]="componentRole">Update</button>
             </span>
 
         </div>

@@ -16,7 +16,7 @@ import { PatientService } from '../service/patient.service';
 })
 export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<MinimalPatient[]>;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private paitentService: PatientService
     , private router: Router) { super() }
 

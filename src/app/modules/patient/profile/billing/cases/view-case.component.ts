@@ -20,9 +20,8 @@ export class ViewCaseComponent implements OnInit {
   mode: string;
   _cases: PatientCase[]
   editCase: PatientCase;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
-  constructor(private emitPatientSessionService: EmitPatientSessionService
-    , private patientService: PatientService
+  componentRole: string[] = [Role.PATIENT_ROLE];
+  constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {

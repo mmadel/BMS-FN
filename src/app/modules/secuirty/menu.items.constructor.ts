@@ -17,7 +17,6 @@ export class MenuItemsConstructor {
         BillingRoleToItemConverter.convert(roles, menuItems);
         PaymentRoleItemConverter.convert(roles, menuItems)
         AdminToolRoleToItemConverter.convert(roles, menuItems)
-        console.log(JSON.stringify(menuItems))
         return this.filterNavItems(menuItems)
     }
     private static filterNavItems(returnedNavItems: MenuItem[]): INavData[] {

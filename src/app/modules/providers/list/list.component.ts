@@ -11,7 +11,7 @@ import { ProviderService } from '../service/provider.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends ListTemplate implements OnInit {
-  componentScopes: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE ];
+  componentRole: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE ];
   providers$!: Observable<Provider[]>;
   addVisibility: boolean = false
   columns = [
