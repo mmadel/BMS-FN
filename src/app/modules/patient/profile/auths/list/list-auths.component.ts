@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PatientAuthorization } from 'src/app/modules/model/clinical/auth/patient.auth';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { AuthService } from '../../../service/auth/auth.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { AuthService } from '../../../service/auth/auth.service';
   styleUrls: ['./list-auths.component.scss']
 })
 export class ListAuthsComponent implements OnInit {
+  componentRole: string[] =[Role.PATIENT_ROLE]
   @Input() sessionId: number
   @Input() patientId: number
   @Output() changeEditPorfileVisibility = new EventEmitter<string>()
