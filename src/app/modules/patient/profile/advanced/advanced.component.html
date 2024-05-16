@@ -60,14 +60,14 @@
                             <c-form-check inline>
                                 <input cFormCheckInput id="otheraccidentyes" [value]="true" name="otheraccident"
                                     [checked]="patientAdvancedInformation.pateintAdvancedCondtion.otherAccident"
-                                    type="radio" (change)="changeOtherAccident($event)" readonly-input
+                                    type="radio" (change)="changeOtherAccident($event)" disable-input
                                     [componentScopes]="componentScopes" />
                                 <label cFormCheckLabel for="otheraccidentyes">Yes</label>
                             </c-form-check>
                             <c-form-check inline>
                                 <input cFormCheckInput id="otheraccidentno" [value]="false" name="otheraccident"
                                     [checked]="!patientAdvancedInformation.pateintAdvancedCondtion.otherAccident"
-                                    type="radio" (change)="changeOtherAccident($event)" readonly-input
+                                    type="radio" (change)="changeOtherAccident($event)" disable-input 
                                     [componentScopes]="componentScopes" />
                                 <label cFormCheckLabel for="otheraccidentno">No</label>
                             </c-form-check>

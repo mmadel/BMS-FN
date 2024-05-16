@@ -5,8 +5,12 @@ import { Role } from "../model/roles";
 export class BillingRoleToItemConverter {
     public static convert(roles: string[], menuItems: MenuItem[]) {
         var parentWithNoChilds: MenuItem
-        var parentWithChilds: MenuItem = {
+        var toolesParentWithChilds: MenuItem = {
             parent: "Tools",
+            children: []
+        }
+        var insuranceParentWithChilds: MenuItem = {
+            parent: "Invoicing",
             children: []
         }
         for (var i = 0; i < roles.length; i++) {
@@ -26,13 +30,20 @@ export class BillingRoleToItemConverter {
                 menuItems.push(parentWithNoChilds)
                 return;
             }
+            if (roles[i] === Role.INVOICE_BILLING_ROLE) {
+
+                insuranceParentWithChilds.children.push('Invoicing Area')
+            }
+
             if (roles[i] === Role.FEE_SCHEDULE_BILLING_ROLE)
-                parentWithChilds.children.push('Fee Schedule')
+                toolesParentWithChilds.children.push('Fee Schedule')
             if (roles[i] === Role.MODIFIER_RULE_BILLING_ROLE)
-                parentWithChilds.children.push('Modifier Rules')
+                toolesParentWithChilds.children.push('Modifier Rules')
         }
-        if (parentWithChilds.children.length !== 0)
-            menuItems.push(parentWithChilds)
+        if (toolesParentWithChilds.children.length !== 0)
+            menuItems.push(toolesParentWithChilds)
+        if (insuranceParentWithChilds.children.length !== 0)
+            menuItems.push(insuranceParentWithChilds)
 
     }
     private static filterCriteria(str: string): boolean {

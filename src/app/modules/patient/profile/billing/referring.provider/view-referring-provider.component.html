@@ -3,7 +3,8 @@
     <c-col xs="4">
         <ng-autocomplete [data]="referringFirstNameList" [searchKeyword]="" id="patientname" name="patientname"
             placeholder="FirstName" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-            (selected)='pickFirstName($event)' (inputCleared)="unpickFirstName()" [(ngModel)]="selectedFirstName">
+            (selected)='pickFirstName($event)' (inputCleared)="unpickFirstName()" [(ngModel)]="selectedFirstName"
+            disable-auto-complete [componentScopes]="componentScopes">
         </ng-autocomplete>
         <ng-template #itemTemplate let-item>
             <a [innerHTML]="item"></a>
@@ -17,7 +18,7 @@
         <ng-autocomplete [data]="referringLastNameList" [searchKeyword]="" id="LastName" name="LastName"
             placeholder="LastName" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
             (selected)='pickLastName($event)' (inputCleared)="unpickLastName()" [(ngModel)]="selectedLastName"
-            disable-input [componentScopes]="componentScopes">
+             disable-auto-complete [componentScopes]="componentScopes">
         </ng-autocomplete>
         <ng-template #itemTemplate let-item>
             <a [innerHTML]="item"></a>
@@ -30,8 +31,7 @@
     <c-col xs="4">
         <ng-autocomplete [data]="referringNPIList" [searchKeyword]="" id="NPI" name="NPI" placeholder="NPI"
             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" [notFoundTemplate]="notFoundTemplate"
-            (selected)='pickNPI($event)' (inputCleared)="unpickNPI()" [(ngModel)]="selectedNPI" disable-input
-            [componentScopes]="componentScopes">
+            (selected)='pickNPI($event)' (inputCleared)="unpickNPI()" [(ngModel)]="selectedNPI" disable-auto-complete [componentScopes]="componentScopes">
         </ng-autocomplete>
         <ng-template #itemTemplate let-item>
             <a [innerHTML]="item.fullName"></a>
