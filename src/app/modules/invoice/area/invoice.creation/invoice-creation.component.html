@@ -11,11 +11,13 @@
                         <ul cDropdownMenu variant="outline">
                             <li><a cDropdownItem><svg cIcon name="cilViewStream" class="text-info"></svg>
                                     Preview</a></li>
-                            <li cDropdownDivider></li>
-                            <li><a cDropdownItem (click)="create(patientInsurance)" ><svg cIcon name="cibAdobeAcrobatReader"
+                            <li cDropdownDivider dispaly-input [componentRole]="componentRole"></li>
+                            <li><a cDropdownItem (click)="create(patientInsurance)" dispaly-input
+                                    [componentRole]="componentRole"><svg cIcon name="cibAdobeAcrobatReader"
                                         class="text-danger"></svg>
                                     Print</a></li>
-                            <li><a cDropdownItem (click)="createElectronic(patientInsurance)" ><svg cIcon name="cilSend"
+                            <li><a cDropdownItem (click)="createElectronic(patientInsurance)" dispaly-input
+                                    [componentRole]="componentRole"><svg cIcon name="cilSend"
                                         class="text-success"></svg>
                                     Electronic Submission</a>
                             </li>

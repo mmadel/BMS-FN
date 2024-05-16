@@ -18,6 +18,7 @@ import { InvoiceService } from '../../service/invoice.service';
   styleUrls: ['./invoice-creation.component.scss']
 })
 export class InvoiceCreationComponent implements OnInit {
+  componentRole: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE ];
   @Input() client: Patient
   @Input() patientInsurances: PatientInsurance[]
   @Input() selectedSessionServiceLine: SelectedSessionServiceLine[];
