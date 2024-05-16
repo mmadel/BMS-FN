@@ -17,16 +17,14 @@
               <button cButton variant="outline" size="sm" (click)="openEditPateintSession(item)">
                 <svg cIcon name="cilPen"></svg>
               </button>
-              <c-dropdown variant="btn-group" dispaly-input [componentRole]="componentRole">
-                <button cButton cDropdownToggle variant="outline" size="sm">
-                  actions
-                </button>
-                <ul cDropdownMenu>
-                  <li><button cDropdownItem (click)="enterPayment(item)">Enter Payment</button></li>
-                  <li><button cDropdownItem (click)="correctClaim(item)" [disabled]="item.data.isCorrectSession">Correct
-                      Claim</button></li>
-                </ul>
-              </c-dropdown>
+              <button cButton variant="outline" size="sm" (click)="enterPayment(item)" dispaly-input
+                cTooltip="enter payment" [childRole]="enterPaymentRole">
+                <svg cIcon name="cilDollar"></svg>
+              </button>
+              <button cButton variant="outline" size="sm" (click)="correctClaim(item)" cTooltip="correct calim"
+                [disabled]="item.data.isCorrectSession" dispaly-input [childRole]="correctClaimRole">
+                <svg cIcon name="cilPaperclip"></svg>
+              </button>
             </div>
           </ng-container>
           <ng-container *ngSwitchDefault>
