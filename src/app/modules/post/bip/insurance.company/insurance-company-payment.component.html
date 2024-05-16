@@ -27,17 +27,17 @@
                   {{item.billedValue |currency }}
                 </ng-container>
                 <ng-container *ngSwitchCase="'payment'" class="py-2 ">
-                  <c-input-group sizing="sm">
+                  <c-input-group sizing="sm" dispaly-input [componentRole]="componentRole">
                     <span cInputGroupText id="payment">&#36;</span>
                     <input cFormControl aria-describedby="payment" class="w-10" [(ngModel)]="item.payment" type="number"
-                      (focusout)="changePaymnet(item)" >
+                      (focusout)="changePaymnet(item)">
                   </c-input-group>
                 </ng-container>
                 <ng-container *ngSwitchCase="'adjust'" class="py-2">
-                  <c-input-group sizing="sm">
+                  <c-input-group sizing="sm" dispaly-input [componentRole]="componentRole">
                     <span cInputGroupText id="adjust">&#36;</span>
                     <input cFormControl aria-describedby="adjust" class="w-10" [(ngModel)]="item.adjust" type="number"
-                      (focusout)="changePaymnet(item)" >
+                      (focusout)="changePaymnet(item)">
                   </c-input-group>
                 </ng-container>
                 <ng-container *ngSwitchCase="'balance'" class="py-2">
@@ -45,7 +45,8 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="'serviceLinePaymentAction'" class="py-2">
                   <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction"
-                    [disabled]="item.payment === null || item.adjust === null" >
+                    [disabled]="item.payment === null || item.adjust === null" dispaly-input
+                    [componentRole]="componentRole">
                     <option value=null selected disabled>Select</option>
                     <option value="Resubmit"> Resubmit</option>
                     <option value="Close">Close Session</option>

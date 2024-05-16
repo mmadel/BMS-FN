@@ -1,12 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
-import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { filter, debounceTime, tap, switchMap, finalize } from 'rxjs';
+import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { InsuranceCompanyService } from '../../admin.tools/services/insurance.company/insurance-company.service';
 import { CustomDdateRanges } from '../../invoice/area/session.list/constant/custom.date.ranges';
 import { PostingEmitterService } from '../../invoice/service/emitting/posting-emitter.service';
-import { IsuranceCompany } from '../../model/admin/insurance.company';
 import { PatientInsurance } from '../../model/clinical/patient.insurance';
 import { PaymentBatch } from '../../model/posting/batch.paymnet';
 import { ServiceLinePayment } from '../../patient/profile/filling/sessions/model/service.line.payment';
@@ -60,7 +58,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     , private batchPaymentService: BatchPaymentService) {
   }
   clientBatchReceiptRequest: ClientBatchReceiptRequest;
-  componentScopes: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
+  componentRole: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
     this.findInsuranceCompanyByNameAutoComplete();

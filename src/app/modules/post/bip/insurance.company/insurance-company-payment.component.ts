@@ -49,7 +49,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     { key: 'serviceLinePaymentAction', label: 'Session Actions', _style: { width: '20%' } },
   ];
   serviceLinesPaymnet: any = []
-  componentScopes: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
+  componentRole: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
   @Input() entityPaymentId: number;
   ngOnInit(): void {
     this.initListComponent();
