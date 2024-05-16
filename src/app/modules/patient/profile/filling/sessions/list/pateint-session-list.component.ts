@@ -50,7 +50,7 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   insuranceCompanies: any
   componentRole: string[] = [Role.PATIENT_ROLE];
   enterPaymentRole: string = Role.PAYMENT_ROLE;
-  correctClaimRole :string = Role.BILLING_ROLE
+  correctClaimRole :string = Role.INVOICE_BILLING_ROLE
   constructor(private patientSessionService: PatientSessionService
     , private emitPatientSessionService: EmitPatientSessionService
     , private router: Router

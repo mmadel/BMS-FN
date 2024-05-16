@@ -12,7 +12,6 @@ export class DisplayInputDirective implements OnInit {
   constructor(private el: ElementRef, private renderer: Renderer2, private roleScopeFinderService: RoleScopeFinderService) { }
   ngOnInit(): void {
     this.roleScopeFinderService.find().subscribe((result: RoleScope[]) => {
-      console.log(this.componentRole + '  ' + this.childRole)
       var roleScope: RoleScope = MatchRole.match(result, this.componentRole, this.childRole);
       if (roleScope !== undefined && roleScope.scope === 'view')
         this.renderer.setStyle(this.el.nativeElement, 'display', 'none')

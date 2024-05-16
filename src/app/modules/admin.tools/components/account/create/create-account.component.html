@@ -35,7 +35,7 @@
                     <div class="mb-3">
                         <label cLabel for="accusrmailname">Email</label>
                         <input cFormControl id="accusrmailname" sizing="sm" #accountEmail="ngModel" name="accountEmail"
-                            required [(ngModel)]="user.email"  type="email" email/>
+                            required [(ngModel)]="user.email" type="email" email />
                     </div>
                 </div>
             </div>
@@ -58,15 +58,15 @@
                     </div>
                     <div *ngIf="!userSetPassword">
                         <small
-                        *ngIf="notValidForm   && (accusridpassword.errors) ||   accusridpassword.invalid && (accusridpassword.dirty || accusridpassword.touched)"
-                        class="form-text text-danger">
-                        Account pasword is required
-                    </small>
-                    <div class="mb-3">
-                        <label cLabel for="accusridpassword">User Password</label>
-                        <input cFormControl id="accusridpassword" sizing="sm" #accusridpassword="ngModel"
-                            name="accusridpassword" required [(ngModel)]="user.password" type="password" />
-                    </div>
+                            *ngIf="notValidForm   && (accusridpassword.errors) ||   accusridpassword.invalid && (accusridpassword.dirty || accusridpassword.touched)"
+                            class="form-text text-danger">
+                            Account pasword is required
+                        </small>
+                        <div class="mb-3">
+                            <label cLabel for="accusridpassword">User Password</label>
+                            <input cFormControl id="accusridpassword" sizing="sm" #accusridpassword="ngModel"
+                                name="accusridpassword" required [(ngModel)]="user.password" type="password" />
+                        </div>
                     </div>
                     <div class="mb-3">
                         <c-form-check [switch]="true">
@@ -84,26 +84,8 @@
                     User Permission
                 </div>
                 <div class="card-body">
-                    <small *ngIf="notValidBillingPermission " class="form-text text-danger">
-                        Billing Permission is required<br />
-                    </small>
-
-                    <small *ngIf="notValidProviderPermission" class="form-text text-danger">
-                        Provider Permission is required <br />
-                    </small>
-                    <small *ngIf="notValidClientPermission " class="form-text text-danger">
-                        Client Permission is required
-                    </small>
-                    <small *ngIf="notValidFilingPermission " class="form-text text-danger">
-                        Filing Permission is required <br />
-                    </small>
-
-                    <small *ngIf="notValidPaymentPermission " class="form-text text-danger">
-                        Payment Permission is required <br />
-                    </small>
-
-                    <small *ngIf="notValidAdminPermission " class="form-text text-danger">
-                        Admin Permission is required
+                    <small *ngIf="notValidPermissions " class="form-text text-danger">
+                        Select Permissions<br />
                     </small>
                     <table class="table table-sm">
                         <tbody>

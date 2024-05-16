@@ -3,7 +3,6 @@ import { Scope } from "src/app/modules/secuirty/model/scope";
 
 export class RoleScopeCreator {
     public static create(elementId: string, scopeIds: string[], roleScopes: RoleScope[], role: string): RoleScope[] {
-        console.log(elementId + ' ' + scopeIds)
         //Hidden
         if (elementId === scopeIds[0]) {
             roleScopes = [];

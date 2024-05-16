@@ -29,6 +29,7 @@ export class CreateAccountComponent implements OnInit {
   @ViewChild('filingRoleComponent') filingRoleComponent: FilingRoleComponent;
 
   notValidForm: boolean = false
+  notValidPermissions: boolean = false
   mode: string = 'create'
   notValidBillingPermission: boolean = false;
   notValidProviderPermission: boolean = false;
@@ -47,61 +48,32 @@ export class CreateAccountComponent implements OnInit {
       this.find();
   }
   create() {
-    var isPermissinosValid = this.checkPermissionValidation();
-    if (this.accountForm.valid && isPermissinosValid) {
+    if (this.accountForm.valid) {
       this.notValidForm = false;
-
       this.user.roleScope = this.FillRoleScope();
-      this.user.name = this.user.lastName + ',' + this.user.firstName;
-      if (!this.userSetPassword)
-        this.user.password = this.encryptionService.encrypt(this.user.password)
-      else
-        this.user.password = undefined;
+      if (this.user.roleScope.length === 0)
+        this.notValidPermissions = true
+      else {
+        this.user.name = this.user.lastName + ',' + this.user.firstName;
+        if (!this.userSetPassword)
+          this.user.password = this.encryptionService.encrypt(this.user.password)
+        else
+          this.user.password = undefined;
+        this.userService.createUser(this.user).subscribe(result => {
+          this.toastrService.success("User Created.")
+          this.changeVisibility.next('close')
+        }, error => {
+          console.log(error.error.message)
+          this.toastrService.error("Error during user creation.", error.error.message)
+        })
+        this.notValidPermissions = false;
+      }
 
-      this.userService.createUser(this.user).subscribe(result => {
-        this.toastrService.success("User Created.")
-        this.changeVisibility.next('close')
-      }, error => {
-        console.log(error.error.message)
-        this.toastrService.error("Error during user creation.", error.error.message)
-      })
     } else {
       this.notValidForm = true;
     }
   }
-  private checkPermissionValidation(): boolean {
-    return !(this.checkBillingPermissionValidation()
-      && this.checkProviderPermissionValidation()
-      && this.checkClientPermissionValidation()
-      && this.checkPaymentPermissionValidation()
-      && this.checkFilingPermissionValidation()
-      && this.checkAdminPermissionValidation())
-  }
-  private checkBillingPermissionValidation(): boolean {
-    return this.notValidBillingPermission = !this.billingRoleComponent.isValid()
-  }
 
-  private checkProviderPermissionValidation(): boolean {
-    console.log(this.providerRoleComponent.isValid())
-    return this.notValidProviderPermission = !this.providerRoleComponent.isValid();
-  }
-
-  private checkClientPermissionValidation(): boolean {
-    return this.notValidClientPermission = !this.clientRoleComponent.isValid();
-  }
-
-  private checkPaymentPermissionValidation(): boolean {
-    return this.notValidPaymentPermission = !this.paymentRoleComponent.isValid();
-  }
-
-  private checkFilingPermissionValidation(): boolean {
-    console.log(this.filingRoleComponent.isValid())
-    return this.notValidFilingPermission = !this.filingRoleComponent.isValid()
-
-  }
-  private checkAdminPermissionValidation(): boolean {
-    return this.notValidAdminPermission = !this.adminRoleComponent.isValid()
-  }
   private FillRoleScope(): RoleScope[] {
     var roleScopes: RoleScope[] = []
     roleScopes.push(... this.billingRoleComponent?.getRoleScopes());
@@ -109,14 +81,12 @@ export class CreateAccountComponent implements OnInit {
     roleScopes.push(... this.clientRoleComponent.getRoleScopes());
     roleScopes.push(... this.paymentRoleComponent.getRoleScopes());
     roleScopes.push(... this.filingRoleComponent.getRoleScopes());
-    roleScopes.push(... this.clientRoleComponent.getRoleScopes());
     roleScopes.push(... this.adminRoleComponent.getRoleScopes());
     return roleScopes;
   }
   private find() {
     this.userService.findUser(this.uuid).subscribe((result: any) => {
       this.user.roleScope = result.roleScope
-      console.log(JSON.stringify(result.roleScope))
       // this.billingRoleComponent.billingRoleScopes= result.roleScope
     })
   }
