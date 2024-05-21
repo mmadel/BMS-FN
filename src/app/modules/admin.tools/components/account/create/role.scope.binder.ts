@@ -28,6 +28,12 @@ export class RoleScopeBinder {
                 case Role.PROVIDER_ROLE:
                     this.bindProviderRole(roleScope[i].scope)
                     break;
+                case Role.SOLID_PROVIDER_ROLE:
+                    this.bindSolidProviderRole(roleScope[i].scope);
+                    break;
+                case Role.REFERRING_PROVIDER_ROLE:
+                    this.bindReferringProviderRole(roleScope[i].scope);
+                    break;
                 case Role.PATIENT_ROLE:
                     this.bindClinetRole(roleScope[i].scope)
                     break;
@@ -132,6 +138,26 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.billing_Modifier_RuleV = true
+                break;
+        }
+    }
+    private static bindSolidProviderRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.solidProviderV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.solidProviderM = true
+                break;
+        }
+    }
+    private static bindReferringProviderRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.referringProviderV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.referringProviderM = true
                 break;
         }
     }

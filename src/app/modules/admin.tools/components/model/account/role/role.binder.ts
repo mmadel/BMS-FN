@@ -19,6 +19,14 @@ export interface RoleBinder {
     providerV?: boolean;
     providerM?: boolean;
 
+    solidProviderH?: boolean;
+    solidProviderV?: boolean;
+    solidProviderM?: boolean;
+
+    referringProviderH?: boolean;
+    referringProviderV?: boolean;
+    referringProviderM?: boolean;
+
     clientH?: boolean;
     clientV?: boolean;
     clientM?: boolean;
