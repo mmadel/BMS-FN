@@ -35,6 +35,18 @@ export interface RoleBinder {
     paymentV?: boolean;
     paymentM?: boolean;
 
+    batchClientpaymentH?: boolean;
+    batchClientpaymentV?: boolean;
+    batchClientpaymentM?: boolean;
+
+    batchInsurancepaymentH?: boolean;
+    batchInsurancepaymentV?: boolean;
+    batchInsurancepaymentM?: boolean;
+
+    balanceStatementpaymentH?: boolean;
+    balanceStatementpaymentV?: boolean;
+    balanceStatementpaymentM?: boolean;
+
     filingH?: boolean;
     filingV?: boolean;
     filingM?: boolean;

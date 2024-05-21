@@ -22,6 +22,7 @@ export class ClientRoleComponent implements OnInit {
       filter(result => result !== null)
     )
       .subscribe((result: any) => {
+        this.clientPermission = [];
         this.selectedView = result
         var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
         this.clientPermission = RoleScopeCreator.create('clientv', scopeIdValues, this.clientPermission, Role.PATIENT_ROLE)
@@ -29,6 +30,7 @@ export class ClientRoleComponent implements OnInit {
   }
 
   changeClientPermission(event: any) {
+    this.clientPermission = [];
     var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
     this.clientPermission = RoleScopeCreator.create(event.target.id, scopeIdValues, this.clientPermission, Role.PATIENT_ROLE)
   }

@@ -40,11 +40,11 @@ export class CreateAccountComponent implements OnInit {
   notValidAdminPermission: boolean = false;
   user: User = {};
   userSetPassword: boolean = false
-  roles?:RoleScope[]
+  roles?: RoleScope[]
   constructor(private userService: UserService
     , private toastrService: ToastrService
     , private encryptionService: EncryptionService
-    ,private roleEmitingService: RoleEmitingService) { }
+    , private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {
   }
@@ -76,6 +76,13 @@ export class CreateAccountComponent implements OnInit {
   }
 
   private FillRoleScope(): RoleScope[] {
+    console.log('this.billingRoleComponent?.getRoleScopes() ' + JSON.stringify(this.billingRoleComponent?.getRoleScopes()))
+    console.log('this.providerRoleComponent.getRoleScopes() ' + JSON.stringify(this.providerRoleComponent.getRoleScopes()))
+    console.log('this.clientRoleComponent.getRoleScopes() ' + JSON.stringify(this.clientRoleComponent.getRoleScopes()))
+    console.log('this.paymentRoleComponent.getRoleScopes() ' + JSON.stringify(this.paymentRoleComponent.getRoleScopes()))
+    console.log('this.filingRoleComponent.getRoleScopes() ' + JSON.stringify(this.filingRoleComponent.getRoleScopes()))
+    console.log('this.adminRoleComponent.getRoleScopes() ' + JSON.stringify(this.adminRoleComponent.getRoleScopes()))
+
     var roleScopes: RoleScope[] = []
     roleScopes.push(... this.billingRoleComponent?.getRoleScopes());
     roleScopes.push(... this.providerRoleComponent.getRoleScopes());
@@ -85,5 +92,5 @@ export class CreateAccountComponent implements OnInit {
     roleScopes.push(... this.adminRoleComponent.getRoleScopes());
     return roleScopes;
   }
-  
+
 }

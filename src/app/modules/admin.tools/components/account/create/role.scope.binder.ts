@@ -40,6 +40,20 @@ export class RoleScopeBinder {
                 case Role.PAYMENT_ROLE:
                     this.bindPaymentRole(roleScope[i].scope)
                     break;
+
+                case Role.BATCH_CLIENT_PAYMENT_ROLE:
+                    this.bindBatchClientRole(roleScope[i].scope)
+                    break;
+
+                case Role.BATCH_INSURANCE_PAYMENT_ROLE:
+                    this.bindBatchInsuranceRole(roleScope[i].scope);
+                    break;
+
+                case Role.BALANCE_STATEMENT_PAYMENT_ROLE:
+                    this.bindBalanceStatementRole(roleScope[i].scope)
+                    break;
+
+
                 case Role.FILING_ROLE:
                     this.bindFilingRole(roleScope[i].scope)
                     break;
@@ -161,6 +175,39 @@ export class RoleScopeBinder {
                 break;
         }
     }
+    private static bindBatchClientRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.batchClientpaymentV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.batchClientpaymentM = true
+                break;
+        }
+    }
+    private static bindBatchInsuranceRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.batchInsurancepaymentV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.batchInsurancepaymentM = true
+                break;
+        }
+    }
+
+    private static bindBalanceStatementRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.balanceStatementpaymentV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.balanceStatementpaymentM = true
+                break;
+        }
+    }
+
+
     private static initRoleBinder() {
         this.roleBinder = {
             billingH: false,

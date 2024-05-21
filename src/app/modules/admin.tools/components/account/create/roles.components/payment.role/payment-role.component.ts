@@ -20,7 +20,6 @@ export class PaymentRoleComponent implements OnInit {
   constructor(private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.roleBinder))
   }
   toggleSubPermission() {
     this.subPermissionVisability = !this.subPermissionVisability;
@@ -41,17 +40,17 @@ export class PaymentRoleComponent implements OnInit {
   }
   changePaymentBatchInsurance(event: any) {
     var scopeIdValues: string[] = ['batchinsuranceh', 'batchinsurancev', 'batchinsurancevm']
-    this.paymentRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BATCH_INSURANCE_PAYMENT_ROLE)
+    this.paymentBatchInsuranceRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BATCH_INSURANCE_PAYMENT_ROLE)
     this.notifyClient(event.target.id, 'batchinsuranceh')
   }
   changePaymentBatchClient(event: any) {
     var scopeIdValues: string[] = ['batchclienth', 'batchclientv', 'batchclientvm']
-    this.paymentRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BATCH_CLIENT_PAYMENT_ROLE)
+    this.paymentBatchClientRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BATCH_CLIENT_PAYMENT_ROLE)
     this.notifyClient(event.target.id, 'batchclienth')
   }
   changePaymentBalanceStatement(event: any) {
     var scopeIdValues: string[] = ['balanceh', 'balancev', 'balancevm']
-    this.paymentRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BALANCE_STATEMENT_PAYMENT_ROLE)
+    this.paymentBalanceStatementRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BALANCE_STATEMENT_PAYMENT_ROLE)
     this.notifyClient(event.target.id, 'balanceh')
   }
   isValid(): boolean {
