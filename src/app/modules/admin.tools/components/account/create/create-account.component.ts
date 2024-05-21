@@ -76,13 +76,6 @@ export class CreateAccountComponent implements OnInit {
   }
 
   private FillRoleScope(): RoleScope[] {
-    console.log('this.billingRoleComponent?.getRoleScopes() ' + JSON.stringify(this.billingRoleComponent?.getRoleScopes()))
-    console.log('this.providerRoleComponent.getRoleScopes() ' + JSON.stringify(this.providerRoleComponent.getRoleScopes()))
-    console.log('this.clientRoleComponent.getRoleScopes() ' + JSON.stringify(this.clientRoleComponent.getRoleScopes()))
-    console.log('this.paymentRoleComponent.getRoleScopes() ' + JSON.stringify(this.paymentRoleComponent.getRoleScopes()))
-    console.log('this.filingRoleComponent.getRoleScopes() ' + JSON.stringify(this.filingRoleComponent.getRoleScopes()))
-    console.log('this.adminRoleComponent.getRoleScopes() ' + JSON.stringify(this.adminRoleComponent.getRoleScopes()))
-
     var roleScopes: RoleScope[] = []
     roleScopes.push(... this.billingRoleComponent?.getRoleScopes());
     roleScopes.push(... this.providerRoleComponent.getRoleScopes());

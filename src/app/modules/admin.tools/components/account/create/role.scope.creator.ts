@@ -5,7 +5,13 @@ export class RoleScopeCreator {
     public static create(elementId: string, scopeIds: string[], roleScopes: RoleScope[], role: string): RoleScope[] {
         //Hidden
         if (elementId === scopeIds[0]) {
-            roleScopes = [];
+            var roleScope: RoleScope = {
+                role: role
+            }
+            roleScope.scope = Scope.HIDDENSCOPE;
+            roleScopes = this.removeFromRoleScopesByScope(roleScopes, Scope.MODIFYSCOPE);
+            roleScopes = this.removeFromRoleScopesByScope(roleScopes, Scope.VIEWSCOPE);
+            roleScopes.push(roleScope)
         }
         //View Only
         if (elementId === scopeIds[1]) {

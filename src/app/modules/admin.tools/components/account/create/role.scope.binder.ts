@@ -13,7 +13,6 @@ export class RoleScopeBinder {
                 case Role.BILLING_ROLE:
                     this.bindBillingRole(roleScope[i].scope)
                     break;
-
                 case Role.INVOICE_BILLING_ROLE:
                     this.bindBillingInsuranceAreaRole(roleScope[i].scope)
                     break;
@@ -52,8 +51,6 @@ export class RoleScopeBinder {
                 case Role.BALANCE_STATEMENT_PAYMENT_ROLE:
                     this.bindBalanceStatementRole(roleScope[i].scope)
                     break;
-
-
                 case Role.FILING_ROLE:
                     this.bindFilingRole(roleScope[i].scope)
                     break;
@@ -83,6 +80,9 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.billingM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.billingH = true
                 break;
         }
     }
