@@ -3,14 +3,14 @@
     <c-row>
         <c-col xs="6" class="mb-3">
             <c-card>
-                <c-card-header>              
+                <c-card-header>
                     <strong>Authorization Watch</strong>
                     <span *ngIf="!patientAuthorization">
                         <p class="text-medium-emphasis small">
                             Authorization is turned OFF
                         </p>
                         <p class="text-danger">
-                            Authorization has to be selected manually for any submission after turned off 
+                            Authorization has to be selected manually for any submission after turned off
                         </p>
                     </span>
                     <span *ngIf="patientAuthorization">
@@ -24,9 +24,10 @@
                         <c-col xs="12">
                             <div style="float: right;" class="mb-2">
                                 <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                                    <button cButton color="primary" variant="outline" (click)="creatAuth()">Add
+                                    <button cButton color="primary" variant="outline" (click)="creatAuth()"
+                                        dispaly-input [componentRole]="componentRole">Add
                                         Authorization</button>
-                                    <c-dropdown variant="btn-group">
+                                    <c-dropdown variant="btn-group" dispaly-input [componentRole]="componentRole">
                                         <button cButton cDropdownToggle>
                                             Actions
                                         </button>
@@ -36,8 +37,10 @@
                                             <li><a cDropdownItem (click)="hideExpire()" *ngIf="renderdAuthExpire">Hide
                                                     Expired</a></li>
                                             <li cDropdownDivider></li>
-                                            <li><a cDropdownItem (click)="turnOn()" *ngIf="!patientAuthorization">Turn On</a></li>
-                                            <li><a cDropdownItem (click)="turnOff()" *ngIf="patientAuthorization">Turn Off</a></li>
+                                            <li><a cDropdownItem (click)="turnOn()" *ngIf="!patientAuthorization">Turn
+                                                    On</a></li>
+                                            <li><a cDropdownItem (click)="turnOff()" *ngIf="patientAuthorization">Turn
+                                                    Off</a></li>
                                         </ul>
                                     </c-dropdown>
                                 </c-button-group>
@@ -45,15 +48,18 @@
                         </c-col>
                         <span *ngIf="patientAuthorizations">
                             <c-col xs="12" *ngFor="let patientAuthorization of renderList;let i=index;">
-                                <div class="card border-light mb-2" [ngClass]="{'text-bg-light': patientAuthorization.isExpired}">
+                                <div class="card border-light mb-2"
+                                    [ngClass]="{'text-bg-light': patientAuthorization.isExpired}">
                                     <div class="card-body">
                                         <div style="float: right;">
                                             <c-button-group aria-label="Button outlined group with nested dropdown"
                                                 role="group">
-                                                <button cButton variant="outline" class="btn-sm" (click)="updateAuth(patientAuthorization)">
+                                                <button cButton variant="outline" class="btn-sm"
+                                                    (click)="updateAuth(patientAuthorization)">
                                                     <svg cIcon name="cilPen"></svg>
                                                 </button>
-                                                <button cButton variant="outline" class="btn-sm" (click)="delete(patientAuthorization)">
+                                                <button cButton variant="outline" class="btn-sm"
+                                                    (click)="delete(patientAuthorization)" dispaly-input [componentRole]="componentRole">
                                                     <svg cIcon name="cilTrash"></svg>
                                                 </button>
                                             </c-button-group>
@@ -92,7 +98,7 @@
 </c-container>
 <c-modal id="createAuth" [visible]="createAutVisibility" backdrop="static" size="lg">
     <c-modal-header>
-        <h5 cModalTitle>Add Authorization</h5>
+        <h3 cModalTitle>Add Authorization</h3>
         <button (click)="toggleCreateAuthVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -102,11 +108,12 @@
 </c-modal>
 <c-modal id="updateAuth" [visible]="updateAutVisibility" backdrop="static" size="lg">
     <c-modal-header>
-        <h5 cModalTitle>Update Authorization</h5>
+        <h3 cModalTitle>Update Authorization</h3>
         <button (click)="toggleUpdateAuthVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
         <create-auth *ngIf="updateAutVisibility" (changeVisibility)="changeUpdateVisibility($event)"
-            [patientInsurances]="patient.patientInsurances" [patientId]="patient.id" [updatedModel]="toBeUpdateModel" ></create-auth>
+            [patientInsurances]="patient.patientInsurances" [patientId]="patient.id"
+            [updatedModel]="toBeUpdateModel"></create-auth>
     </c-modal-body>
 </c-modal>

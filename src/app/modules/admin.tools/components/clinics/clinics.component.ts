@@ -25,7 +25,7 @@ export class ClinicsComponent extends ListTemplate implements OnInit {
     { key: 'actions', _style: { width: '5%' } }
   ];
   constructor(private clinicService: ClinicService, private toastr: ToastrService) { super() }
-  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE];
+  componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE];
   ngOnInit(): void {
     this.initListComponent();
     this.find();

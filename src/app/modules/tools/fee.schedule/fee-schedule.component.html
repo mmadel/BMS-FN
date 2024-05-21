@@ -7,8 +7,8 @@
 <hr />
 <c-row>
     <c-col xs="12">
-        <div style="float: right;" role-scope [componentScopes]="componentScopes">
-            <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+        <div style="float: right;" >
+            <c-button-group aria-label="Button outlined group with nested dropdown" role="group" dispaly-input [componentRole]="componentRole">
                 <c-dropdown variant="btn-group">
                     <button cButton cDropdownToggle variant="outline">
                         Actions
@@ -43,18 +43,16 @@
                         <!-- <c-badge *ngIf="fee.defaultFee" color="primary" shape="rounded-pill">Active</c-badge>
                         <c-badge *ngIf="!fee.defaultFee" color="info" shape="rounded-pill">In-Active</c-badge> -->
                         <c-form-check [switch]="true">
-                            <input cFormCheckInput type="checkbox" [(ngModel)]="fee.active" (change)="checkValue(fee)"
-                                role-scope [componentScopes]="componentScopes" />
+                            <input cFormCheckInput type="checkbox" [(ngModel)]="fee.active" (change)="checkValue(fee)" disable-input [componentRole]="componentRole"/>
                         </c-form-check>
                     </td>
                     <td>
                         <c-button-group aria-label="Basic example" role="group" size="sm">
-                            <button cButton variant="outline" (click)="editFeeSchdule(fee.id)" size="sm" role-scope
-                                [componentScopes]="componentScopes">
+                            <button cButton variant="outline" (click)="editFeeSchdule(fee.id)" size="sm" >
                                 <svg cIcon name="cilPen"></svg>
                             </button>
                             <button cButton variant="outline" (click)="delete(fee.id)" size="sm"
-                                [disabled]="fee.defaultFee" role-scope [componentScopes]="componentScopes">
+                                [disabled]="fee.defaultFee" dispaly-input [componentRole]="componentRole">
                                 <svg cIcon name="cilTrash"></svg>
                             </button>
                         </c-button-group>

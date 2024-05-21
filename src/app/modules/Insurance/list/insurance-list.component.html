@@ -8,15 +8,16 @@
 <c-row>
     <c-col xs="12">
         <ng-container fluid="true">
-            <c-smart-table [columns]="columns" [items]="(isuranceCompanyList$ | async) ?? []" activePage="1" pagination [itemsPerPageOptions]="[5,10,20]"
-                [tableProps]="{ hover: true, striped: true, small:true  }" [tableBodyProps]="{ align: 'middle'}" header>
+            <c-smart-table [columns]="columns" [items]="(isuranceCompanyList$ | async) ?? []" activePage="1" pagination
+                [itemsPerPageOptions]="[5,10,20]" [tableProps]="{ hover: true, striped: true, small:true  }"
+                [tableBodyProps]="{ align: 'middle'}" header>
                 <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
                     let-tdContent="tdContent">
                     <td>
                         <ng-container [ngSwitch]="columnName">
                             <ng-container *ngSwitchCase="'actions'" class="py-2">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button cButton variant="outline" size="sm" (click)="openSesstings(item)" role-scope [componentScopes]="componentScopes">
+                                    <button cButton variant="outline" size="sm" (click)="openSesstings(item)">
                                         <svg cIcon name="cilMenu"></svg>
                                     </button>
                                 </div>
@@ -35,7 +36,7 @@
 
 <c-modal [visible]="isnsuranceSettingsVisible" scrollable size="xl" backdrop="static">
     <c-modal-header>
-        <h5 cModalTitle>Insurance Company Settings</h5>
+        <h3 cModalTitle>Insurance Company Settings</h3>
         <button (click)="toggleInsuranceSettings()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -85,6 +86,7 @@
         </c-container>
     </c-modal-body>
     <c-modal-footer>
-        <button cButton color="primary" size="sm" variant="outline" (click)="save()">Save changes</button>
+        <button cButton color="primary" size="sm" variant="outline" (click)="save()" dispaly-input
+            [componentRole]="componentRole">Save changes</button>
     </c-modal-footer>
 </c-modal>

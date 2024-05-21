@@ -10,8 +10,9 @@
                     <label cLabel for="feeProvider">Provider</label>
                 </c-col>
                 <c-col xs="10">
-                    <select [compareWith]="compareFn" cSelect sizing="sm" style="height: 32px;" id="feeProvider" *ngIf="feeScheduleMetaData"
-                        [(ngModel)]="feeSchedules.provider">
+                    <select [compareWith]="compareFn" cSelect sizing="sm" style="height: 32px;" id="feeProvider"
+                        *ngIf="feeScheduleMetaData" [(ngModel)]="feeSchedules.provider" disable-input
+                        [componentRole]="componentRole">
                         <option value="null" disabled="true">Select Provider</option>
                         <option *ngFor="let provider of feeScheduleMetaData.providers" [ngValue]="provider">
                             {{provider.lastName}},{{provider.firstName}}
@@ -24,8 +25,9 @@
                     <label cLabel for="feePlanType">Plan Type</label>
                 </c-col>
                 <c-col xs="10">
-                    <select [compareWith]="compareFn" cSelect sizing="sm" style="height: 32px;" id="feePlanType" *ngIf="feeScheduleMetaData"
-                        [(ngModel)]="feeSchedules.insurance">
+                    <select [compareWith]="compareFn" cSelect sizing="sm" style="height: 32px;" id="feePlanType"
+                        *ngIf="feeScheduleMetaData" [(ngModel)]="feeSchedules.insurance" disable-input
+                        [componentRole]="componentRole">
                         <option value="null" disabled="true">Select Insurance Company</option>
                         <option *ngFor="let insurance of feeScheduleMetaData.insurances" [ngValue]="insurance">
                             {{insurance.name}}
@@ -37,15 +39,16 @@
                 <c-col xs="1">
                     <label cLabel for="feePlanType">Name</label>
                 </c-col>
-                <c-col xs="10" >
-                    <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="feeSchedules.name">
+                <c-col xs="10">
+                    <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="feeSchedules.name" disable-input
+                        [componentRole]="componentRole">
                 </c-col>
             </c-row>
             <span *ngIf="defaultFeeSchedule">
-            <input cFormCheckInput id="inhDefault" type="checkbox" class="mx-2" [(ngModel)]="inheritDefault"
-                (change)="changeInheritDefault()" />
-            <label cFormCheckLabel for="inhDefault">Inherit default configuration</label>
-        </span>
+                <input cFormCheckInput id="inhDefault" type="checkbox" class="mx-2" [(ngModel)]="inheritDefault"
+                    (change)="changeInheritDefault()" />
+                <label cFormCheckLabel for="inhDefault">Inherit default configuration</label>
+            </span>
         </c-col>
     </c-row>
     <c-col xs="12">
@@ -55,7 +58,7 @@
             </c-card-header>
             <c-card-body>
                 <div style="float:left;width: 100%;" class=" mb-3">
-                    <c-card>
+                    <c-card dispaly-input [componentRole]="componentRole">
                         <c-card-body>
                             <div class="row mb-2">
                                 <div class="col">
@@ -120,11 +123,12 @@
                                     <td>{{line.chargeAmount}}</td>
                                     <td>
                                         <c-button-group aria-label="Basic example" role="group" size="sm">
-                                            <button cButton variant="outline" size="sm"
-                                                (click)="editLine(line.cptCode)">
+                                            <button cButton variant="outline" size="sm" (click)="editLine(line.cptCode)"
+                                                dispaly-input [componentRole]="componentRole">
                                                 <svg cIcon name="cilPen"></svg>
                                             </button>
-                                            <button cButton variant="outline" size="sm" (click)="deleteLine(i)">
+                                            <button cButton variant="outline" size="sm" (click)="deleteLine(i)"
+                                                dispaly-input [componentRole]="componentRole">
                                                 <svg cIcon name="cilTrash"></svg>
                                             </button>
                                         </c-button-group>
@@ -139,7 +143,7 @@
         </c-card>
     </c-col>
     <div class="col text-center my-3">
-        <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;">
+        <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;" dispaly-input [componentRole]="componentRole">
             <span *ngIf="mode ==='create'"> Create</span>
             <span *ngIf="mode ==='update'"> Update</span>
         </button>

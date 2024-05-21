@@ -7,13 +7,13 @@
     </c-row>
     <hr />
     <c-row>
-        <c-col xs="12" role-scope [componentScopes]="componentScopes">
+        <c-col xs="12" >
             <div style="float:right;">
                 <c-button-group aria-label="Basic outlined example" role="group">
-                    <button cButton color="primary" variant="outline" (click)="toggleReferringProviderCreation()">
+                    <button cButton color="primary" variant="outline" (click)="toggleReferringProviderCreation()" dispaly-input [componentRole]="componentRole">
                         Add Referring Provider
                     </button>
-                    <button cButton color="primary" variant="outline">
+                    <button cButton color="primary" variant="outline" dispaly-input [componentRole]="componentRole">
                         Upload CSV
                     </button>
                 </c-button-group>
@@ -33,10 +33,10 @@
                       <ng-container [ngSwitch]="columnName">
                         <ng-container *ngSwitchCase="'actions'" class="py-2">
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <button cButton variant="outline" (click)="remove(item)" size="sm" role-scope [componentScopes]="componentScopes"> 
+                            <button cButton variant="outline" (click)="remove(item)" size="sm" dispaly-input [componentRole]="componentRole"> 
                               <svg cIcon name="cilTrash"></svg>
                             </button>
-                            <button cButton variant="outline" (click)="edit(item)" size="sm" role-scope [componentScopes]="componentScopes">
+                            <button cButton variant="outline" (click)="edit(item)" size="sm" >
                               <svg cIcon name="cilPen"></svg>
                             </button>
                           </div>

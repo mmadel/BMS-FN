@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { filter, tap } from 'rxjs';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 
 @Component({
   selector: 'service-code-list',
@@ -9,6 +10,7 @@ import { EmitPatientSessionService } from 'src/app/modules/patient/service/sessi
   styleUrls: ['./service.code.list.component.scss']
 })
 export class ServiceCodeListComponent implements OnInit {
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   serviceCodes: ServiceCode[];
   unitCount: number;
   chargeCount: number;

@@ -13,7 +13,7 @@ export class SessionHistoryItemComponent implements OnInit {
   @Input() item: SessionHistory;
   showActionVisibility: boolean = false
   showCorrectClaimActionVisibility: boolean = false;
-  componentScopes: string[] = [Role.FILING_ROLE ];
+  componentRole: string[] = [Role.FILING_ROLE ];
   constructor(private invoiceService: InvoiceService) { }
 
   ngOnInit(): void {

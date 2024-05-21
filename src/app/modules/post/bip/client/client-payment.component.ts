@@ -19,6 +19,7 @@ import { PostingFilterModel } from '../filter/posting.filter.model';
   styleUrls: ['./client-payment.component.scss']
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
+  componentRole: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE , Role.BATCH_CLIENT_PAYMENT_ROLE];
   filter: PostingFilterModel;
   @Input() batchType: string;
   @Output() changePayments = new EventEmitter<any[]>()
@@ -54,7 +55,6 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   constructor(private postingServiceService: PostingServiceService
     , private toastr: ToastrService
     , private postingEmitterService: PostingEmitterService) { super() }
-  componentScopes: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
   ngOnInit(): void {
     this.initListComponent();
     this.postingEmitterService.searchPostingClient$.subscribe((emittedPostingFilter: PostingFilterModel) => {

@@ -2,14 +2,15 @@
     <c-row>
         <c-col xs="12">
             <c-form-check inline>
-                <input cFormCheckInput id="radioinline1" name="radioinline" type="checkbox" [(ngModel)]="generalConfiguration.box32"/>
+                <input cFormCheckInput id="radioinline1" name="radioinline" type="checkbox"
+                    [(ngModel)]="generalConfiguration.box32"  disable-input [componentRole]="componentRole"/>
                 <label cFormCheckLabel for="radioinline1">
                     <strong>Use Patient/Client address in Box32</strong> for home based sessions
                 </label>
             </c-form-check>
         </c-col>
         <c-col xs="12">
-            <br/>
+            <br />
         </c-col>
         <c-col xs="12">
             <label for="box26" class="control-label">
@@ -17,7 +18,8 @@
                     In Box-26 of CMS-1500(Patient Account Number)
                 </strong>
             </label>
-            <select cSelect id="box26" style="height: auto;line-height: 14px;" [(ngModel)]="generalConfiguration.box26">
+            <select cSelect id="box26" style="height: auto;line-height: 14px;" [(ngModel)]="generalConfiguration.box26"
+                disable-input [componentRole]="componentRole">
                 <option value="insured_primary_id">Insured's PrimaryID</option>
                 <option value="pateint_ssn">Pateint SSN</option>
                 <option value="pateint_external_id">Pateint External ID</option>

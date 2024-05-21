@@ -94,5 +94,6 @@
 /billing/api/user/find/users https://billing-service-e4526add3402.herokuapp.com/billing/api/user/find/users  200
 /billing/api/user/find/uuid/:uuid https://billing-service-e4526add3402.herokuapp.com/billing/api/user/find/uuid/:uuid  200
 /billing/api/user/find/uuid/:uuid https://billing-service-e4526add3402.herokuapp.com/billing/api/user/find/uuid/:uuid  200
+/billing/api/user/delete/uuid/:uuid https://billing-service-e4526add3402.herokuapp.com/billing/api/user/delete/uuid/:uuid  200
 
 /*  /index.html   200

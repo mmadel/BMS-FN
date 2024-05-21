@@ -5,6 +5,7 @@ import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { CPTCode } from 'src/app/modules/model/clinical/cpt.code';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { FeeScheduleLine } from 'src/app/modules/tools/fee.schedule/model/fee.schedule.line';
 import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/fee-schedule.service';
 
@@ -14,6 +15,7 @@ import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/f
   styleUrls: ['./session-item-edit.component.scss']
 })
 export class SessionItemEditComponent implements OnInit {
+  componentRole: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE ];
   @Input() serviceCode: ServiceCode
   @Input() doctorNPI: string
   @Input() itemType: string

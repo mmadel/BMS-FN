@@ -53,16 +53,16 @@
 </c-row>
 <c-row *ngIf="searchFlag">
     <c-col xs="4" class="mb-3">
-        <c-button-group aria-label="Button outlined group with nested dropdown" role="group" role-scope
-            [componentScopes]="componentScopes">
+        <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
             <c-dropdown variant="btn-group">
                 <button cButton cDropdownToggle>
                     Actions
                 </button>
                 <ul cDropdownMenu variant="outline">
                     <li><a cDropdownItem (click)="export()">Export PDF</a></li>
-                    <li cDropdownDivider></li>
-                    <li><a cDropdownItem (click)="openSettings()">Settings</a></li>
+                    <li cDropdownDivider dispaly-input [componentRole]="componentRole"></li>
+                    <li><a cDropdownItem (click)="openSettings()" dispaly-input
+                            [componentRole]="componentRole">Settings</a></li>
                 </ul>
             </c-dropdown>
         </c-button-group>

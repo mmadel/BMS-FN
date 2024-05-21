@@ -1,6 +1,6 @@
 <ngx-spinner></ngx-spinner>
 <c-container [fluid]="true">
-    <form cForm #billingcodeForm="ngForm">
+    <form cForm #billingcodeForm="ngForm" readonly-form [componentRole]="componentRole">
         <c-card class="mb-3">
             <c-card-header>
                 <h5>Billing And Coding</h5>
@@ -46,7 +46,8 @@
                                 name="patientCases" placeholder="Cases" [itemTemplate]="itemTemplate"
                                 (selected)='pickCase($event)' (inputCleared)="unPickCase()"
                                 (inputChanged)="change($event)" [ngModel]="selectedCase"
-                                [notFoundTemplate]="notFoundTemplate">
+                                [notFoundTemplate]="notFoundTemplate" disable-auto-complete
+                                [componentRole]="componentRole">
                             </ng-autocomplete>
                             <ng-template #itemTemplate let-item>
                                 <a [innerHTML]="item.title"></a>
@@ -67,7 +68,8 @@
                                 <c-card-body>
                                     <div style="float:right">
                                         <button cButton color="info" variant="outline" size="sm"
-                                            (click)="toggleAddDaignosis()">
+                                            (click)="toggleAddDaignosis()" dispaly-input
+                                            [componentRole]="componentRole">
                                             <svg cIcon name="cilPlus"></svg>
                                         </button>
                                     </div>
@@ -84,13 +86,16 @@
                                 <c-row>
                                     <c-col xs="12">
                                         <div style="float:right">
-                                            <button cButton color="info" variant="outline" size="sm" (click)="applyModifierRule()">
+                                            <button cButton color="info" variant="outline" size="sm"
+                                                (click)="applyModifierRule()" dispaly-input
+                                                [componentRole]="componentRole">
                                                 Apply Modifier Rule
                                             </button>
                                         </div>
                                         <div style="float:right" class="mx-1">
                                             <button cButton color="info" variant="outline" size="sm"
-                                                (click)="toggleserviceCode()">
+                                                (click)="toggleserviceCode()" dispaly-input
+                                                [componentRole]="componentRole">
                                                 Add Service Line
                                             </button>
                                         </div>

@@ -1,7 +1,7 @@
 <c-row class="n5">
     <c-col xs="1">
-        <c-button-group aria-label="Basic example" role="group" size="sm" [vertical]="true" role-scope [componentScopes]="componentScopes">
-            <button cButton color="primary" variant="outline" (click)="toggleActionsModal()">
+        <c-button-group aria-label="Basic example" role="group" size="sm" [vertical]="true" >
+            <button cButton color="primary" variant="outline" (click)="toggleActionsModal()" dispaly-input [componentRole]="componentRole">
                 <svg cIcon name="cilSettings"></svg>
             </button>
             <button cButton color="danger" variant="outline" (click)="downloadCMS()">

@@ -13,7 +13,7 @@ export class GroupComponent implements OnInit {
   @ViewChild('listclinicsComponent') listclinicsComponent: ClinicsComponent;
   editProviderVisibility: boolean = false;
   addFacilityVisibility: boolean = false;
-  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE];
+  componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE];
   constructor() { }
 
   ngOnInit(): void {

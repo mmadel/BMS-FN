@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { filter } from 'rxjs';
 import { OrganizationService } from 'src/app/modules/admin.tools/services/organization.service';
 import { Organization } from 'src/app/modules/model/admin/organiztion';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { BillingProviderConfiguration } from '../../../model/billing.provider.configuration';
 import { InsuranceCompanyConfigurationEmitterService } from '../../../service/emitting/insurance-company-configuration-emitter.service';
 
@@ -11,6 +12,7 @@ import { InsuranceCompanyConfigurationEmitterService } from '../../../service/em
   styleUrls: ['./box33-settings.component.scss']
 })
 export class Box33SettingsComponent implements OnInit {
+  componentRole: string[] = [Role.BILLING_ROLE ];
   @Input() selectedBillingProviderConfiguration: BillingProviderConfiguration;
   defualtBillingProvider!: Organization;
   changeProviderVisible: boolean = false;

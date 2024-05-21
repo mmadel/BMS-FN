@@ -16,6 +16,7 @@ import { Relation } from 'src/app/modules/model/enum/relation';
 import { Countries } from 'src/app/modules/model/lookups/country-data-store';
 import { States } from 'src/app/modules/model/lookups/state-data-store';
 import { PatientService } from 'src/app/modules/patient/service/patient.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 
 @Component({
   selector: 'app-create-insurance',
@@ -47,6 +48,7 @@ export class CreateInsuranceComponent implements OnInit {
   payerIdList: string[];
   selectedPayerName: string;
   selectedPayerId: string
+  componentRole: string[] = [Role.PATIENT_ROLE];
   constructor(private payerService: PayerService
     , private patientService: PatientService
     , private toastr: ToastrService) { }

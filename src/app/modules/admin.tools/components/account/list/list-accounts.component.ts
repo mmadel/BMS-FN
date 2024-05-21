@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/modules/model/admin/user/user';
 import { Role } from 'src/app/modules/secuirty/model/roles';
 import { UserService } from 'src/app/modules/secuirty/service/user.service';
@@ -13,8 +14,8 @@ export class ListAccountsComponent implements OnInit {
   createAccountVisible: boolean = false;
   updateAccountVisible: boolean = false;
   selecteduuid: string;
-  constructor(private userService: UserService) { }
-  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE];
+  constructor(private userService: UserService, private toastrService: ToastrService) { }
+  componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE];
   ngOnInit(): void {
     this.find()
   }
@@ -27,7 +28,12 @@ export class ListAccountsComponent implements OnInit {
     this.selecteduuid = uuid;
   }
   deleteUser(uuid: string) {
-
+    this.userService.deleteUser(uuid).subscribe(result => {
+      this.toastrService.success('user deleted')
+      this.find();
+    }, error => {
+      this.toastrService.error('Error during deleting user')
+    })
   }
   toggleCreateAccountVisible() {
     this.createAccountVisible = !this.createAccountVisible

@@ -22,6 +22,7 @@ import { BatchPaymentService } from '../service/batch/batch-payment.service';
   styleUrls: ['./batch-client-payment.component.scss']
 })
 export class BatchClientPaymentComponent implements OnInit {
+  componentRole: string[] = [Role.PATIENT_ROLE, Role.BATCH_CLIENT_PAYMENT_ROLE];
   isSearch: boolean = false;
   @ViewChild('paymentForm') paymentForm: NgForm;
   @ViewChild('clientPayments') clientPayments: ClientPaymentComponent;
@@ -52,8 +53,7 @@ export class BatchClientPaymentComponent implements OnInit {
     , private toastr: ToastrService
     , private batchPaymentService: BatchPaymentService) {
   }
-  clientBatchReceiptRequest: ClientBatchReceiptRequest;
-  componentScopes: string[] = [Role.PATIENT_ROLE, Role.BATCH_CLIENT_PAYMENT_ROLE];
+  clientBatchReceiptRequest: ClientBatchReceiptRequest;  
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
   }

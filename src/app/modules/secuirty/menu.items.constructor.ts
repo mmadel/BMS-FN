@@ -4,6 +4,7 @@ import { MenuItem } from "./model/nav.item";
 import { AdminToolRoleToItemConverter } from "./role.converter/admin.tool.role.item.converter";
 import { BillingRoleToItemConverter } from "./role.converter/billing.role.item.converter";
 import { ClientRoleItemConverter } from "./role.converter/client.role.item.converter";
+import { FilingRoleItemConverter } from "./role.converter/filing.role.item.converter";
 import { PaymentRoleItemConverter } from "./role.converter/payment.role.item.converter";
 import { ProviderRoleItemConverter } from "./role.converter/provider.role.item.converter";
 
@@ -12,6 +13,7 @@ export class MenuItemsConstructor {
         var menuItems: MenuItem[] = []
         ClientRoleItemConverter.convert(roles, menuItems);
         ProviderRoleItemConverter.convert(roles, menuItems)
+        FilingRoleItemConverter.convert(roles, menuItems)
         BillingRoleToItemConverter.convert(roles, menuItems);
         PaymentRoleItemConverter.convert(roles, menuItems)
         AdminToolRoleToItemConverter.convert(roles, menuItems)

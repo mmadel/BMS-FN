@@ -21,7 +21,7 @@ export class KcAuthGuard extends KeycloakAuthGuard {
         redirectUri: window.location.origin + state.url,
       });
     }
-    
+
     var filteredList: INavData[] = MenuItemsConstructor.construct(this.roles)
     this.renderNavItemsService.renderItems$.next(filteredList)
 

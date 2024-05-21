@@ -5,6 +5,8 @@ import { ClassToggleService, HeaderComponent } from '@coreui/angular-pro';
 import { KeycloakService } from 'keycloak-angular';
 import { from, map, switchMap } from 'rxjs';
 import { UserService } from 'src/app/modules/secuirty/service/user.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-default-header',
@@ -23,7 +25,8 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   constructor(private classToggler: ClassToggleService
     , private ksAuthService: KeycloakService
-    , private userService: UserService) {
+    , private userService: UserService
+    ,private router:Router) {
     super();
   }
   ngOnInit(): void {
@@ -35,8 +38,14 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
         return this.userService.findUser(uuid)
       })
     ).subscribe((result: any) => {
-      var nameAry: string[] = result.name.split(',').map(word => this.capitalizeFirstLetter(word.trim()));
-      this.loggedIn = nameAry[0] + '' + nameAry[1]
+      if (result.uuid !== null) {
+        var nameAry: string[] = result.name.split(',').map(word => this.capitalizeFirstLetter(word.trim()));
+        this.loggedIn = nameAry[0] + '' + nameAry[1]
+      }else{
+        this.router.navigate(["/error"])
+      }
+    }, error => {
+      console.log(error)
     })
   }
 

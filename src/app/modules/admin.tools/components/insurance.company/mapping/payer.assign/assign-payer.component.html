@@ -13,7 +13,8 @@
                     <c-col xs="12">
                         <ng-autocomplete [data]="payerNames" [searchKeyword]="''" id="payername" name="payername"
                             placeholder="Payer Name" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                            (selected)='pickName($event)' (inputCleared)="unPickName()" [(ngModel)]="selectedpayerName">
+                            (selected)='pickName($event)' (inputCleared)="unPickName()" [(ngModel)]="selectedpayerName"
+                            disable-auto-complete [componentRole]="componentRole">
                         </ng-autocomplete>
                         <ng-template #itemTemplate let-item>
                             <a [innerHTML]="item"></a>
@@ -26,7 +27,8 @@
                     <c-col xs="12">
                         <ng-autocomplete [data]="payerIds" [searchKeyword]="" id="payerid" name="payerid"
                             placeholder="Payer Id" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                            (selected)='pickId($event)' (inputCleared)="unPickId()" [(ngModel)]="selectedpayerId">
+                            (selected)='pickId($event)' (inputCleared)="unPickId()" [(ngModel)]="selectedpayerId"
+                            disable-auto-complete [componentRole]="componentRole">
                         </ng-autocomplete>
                         <ng-template #itemTemplate let-item>
                             <a [innerHTML]="item"></a>
@@ -38,7 +40,7 @@
                     </c-col>
                 </c-row>
             </c-card-body>
-            <c-card-footer>
+            <c-card-footer dispaly-input [componentRole]="componentRole">
                 <div class="d-md-flex justify-content-md-center">
                     <button cButton variant="outline" size="sm" (click)="assign()">Assign</button>
                 </div>

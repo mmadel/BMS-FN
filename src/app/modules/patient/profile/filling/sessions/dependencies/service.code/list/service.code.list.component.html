@@ -24,10 +24,12 @@
                         <td style="width: 5%;">
                             <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                                 <button cButton color="info" variant="outline"
-                                    (click)="toggleEditServiceLine(serviceCode,i)" size="sm">
+                                    (click)="toggleEditServiceLine(serviceCode,i)" size="sm" dispaly-input
+                                    [componentRole]="componentRole">
                                     <svg cIcon name="cilPen"></svg>
                                 </button>
-                                <button cButton color="info" variant="outline" (click)="popServiceCode(i)" size="sm">
+                                <button cButton color="info" variant="outline" (click)="popServiceCode(i)" size="sm"
+                                    dispaly-input [componentRole]="componentRole">
                                     <svg cIcon name="cilTrash"></svg>
                                 </button>
                             </c-button-group>
@@ -55,6 +57,7 @@
         <button (click)="toggleEditServiceCode()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <service-code-update *ngIf="editServiceCodeVisibility" (changeVisibility)="changeVisibility($event)"></service-code-update>
+        <service-code-update *ngIf="editServiceCodeVisibility"
+            (changeVisibility)="changeVisibility($event)"></service-code-update>
     </c-modal-body>
-</c-modal> 
+</c-modal>

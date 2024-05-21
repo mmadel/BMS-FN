@@ -21,11 +21,11 @@
             <td>{{auth.insCompany[1]}}</td>
             <td>{{auth.startDateNumber| date:'MM/dd/y' }}</td>
             <td>{{auth.expireDateNumber| date:'MM/dd/y' }}</td>
-            <td> <input cFormCheckInput type="radio" name="selectAuth" (change)="changeAuth(auth)"
+            <td> <input cFormCheckInput type="radio" name="selectAuth" (change)="changeAuth(auth)" disable-input [componentRole]="componentRole"
                     [checked]="auth.selected" /></td>
         </tr>
     </tbody>
 </table>
 <div class="col text-center">
-    <button cButton color="primary" variant="outline" (click)="selectAuthorization()">Done</button>
+    <button cButton color="primary" variant="outline" (click)="selectAuthorization()" dispaly-input [componentRole]="componentRole">Done</button>
 </div>

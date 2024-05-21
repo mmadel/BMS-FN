@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 import { DefaultLayoutComponent } from './core';
+import { ErrorComponent } from './core/error/error.component';
 import { KcAuthGuard } from './modules/secuirty/guard/kc-auth.guard';
 import { Role } from './modules/secuirty/model/roles';
 
@@ -112,6 +113,10 @@ const routes: Routes = [
       },
     ]
   },
+  {
+    path :'error',
+    component: ErrorComponent
+  }
 ];
 
 @NgModule({

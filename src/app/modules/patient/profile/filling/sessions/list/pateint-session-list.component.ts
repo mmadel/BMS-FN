@@ -10,6 +10,7 @@ import { PatientSessionResponse } from 'src/app/modules/model/clinical/session/p
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { PatientSessionEditComponent } from '../edit/patient-session-edit.component';
 
 @Component({
@@ -46,14 +47,17 @@ export class PateintSessionListComponent extends ListTemplate implements OnInit 
   details_visible = Object.create({});
   patientSessions$!: Observable<PatientSessionResponse[]>;
   selectedPatientSession: any;
-  insuranceCompanies:any
+  insuranceCompanies: any
+  componentRole: string[] = [Role.PATIENT_ROLE];
+  enterPaymentRole: string = Role.PAYMENT_ROLE;
+  correctClaimRole :string = Role.INVOICE_BILLING_ROLE
   constructor(private patientSessionService: PatientSessionService
     , private emitPatientSessionService: EmitPatientSessionService
     , private router: Router
     , private toastr: ToastrService
     , private invoiceEmitterService: InvoiceEmitterService) { super(); }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.insuranceCompanies = this.pateint.patientInsurances.map(inComp => inComp.insuranceCompany)
     this.initListComponent();
     this.find();
