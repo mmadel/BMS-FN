@@ -94,6 +94,9 @@ export class RoleScopeBinder {
             case Scope.MODIFYSCOPE:
                 this.roleBinder.providerM = true
                 break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.providerH = true
+                break;
         }
     }
     private static bindClinetRole(scope: string) {
@@ -103,6 +106,9 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.clientM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.clientH = true
                 break;
         }
     }
@@ -114,6 +120,9 @@ export class RoleScopeBinder {
             case Scope.MODIFYSCOPE:
                 this.roleBinder.filingM = true
                 break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.filingH = true
+                break;
         }
     }
     private static bindPaymentRole(scope: string) {
@@ -124,6 +133,9 @@ export class RoleScopeBinder {
             case Scope.MODIFYSCOPE:
                 this.roleBinder.paymentM = true
                 break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.paymentH = true
+                break;
         }
     }
     private static bindAdminToolsRole(scope: string) {
@@ -133,6 +145,9 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.adminToolM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.adminToolH = true
                 break;
         }
     }
@@ -145,6 +160,9 @@ export class RoleScopeBinder {
             case Scope.MODIFYSCOPE:
                 this.roleBinder.billing_insuranceV = true
                 break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.billing_insuranceH = true
+                break;
         }
     }
     private static bindBillingFeeRole(scope: string) {
@@ -155,6 +173,9 @@ export class RoleScopeBinder {
             case Scope.MODIFYSCOPE:
                 this.roleBinder.billing_FeeM = true
                 break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.billing_FeeH = true
+                break
         }
     }
     private static bindBillingModifierRuleRole(scope: string) {
@@ -164,6 +185,9 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.billing_Modifier_RuleV = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.billing_Modifier_RuleH = true
                 break;
         }
     }
@@ -175,6 +199,9 @@ export class RoleScopeBinder {
             case Scope.MODIFYSCOPE:
                 this.roleBinder.solidProviderM = true
                 break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.solidProviderH = true
+                break;
         }
     }
     private static bindReferringProviderRole(scope: string) {
@@ -184,6 +211,9 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.referringProviderM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.referringProviderH = true
                 break;
         }
     }
@@ -227,6 +257,9 @@ export class RoleScopeBinder {
             case Scope.MODIFYSCOPE:
                 this.roleBinder.groupInfoAdminToolM = true
                 break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.groupInfoAdminToolH = true
+                break;
         }
     }
     private static bindInsuranceMappingRole(scope: string) {
@@ -236,6 +269,9 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.insuranceMappingAdminToolM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.insuranceMappingAdminToolH = true
                 break;
         }
     }
@@ -247,6 +283,9 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.accountManagementAdminToolM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.accountManagementAdminToolH = true
                 break;
         }
     }

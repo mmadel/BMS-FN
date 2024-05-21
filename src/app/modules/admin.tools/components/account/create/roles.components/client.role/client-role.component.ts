@@ -19,9 +19,10 @@ export class ClientRoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.roleEmitingService.selectedRole$.pipe(
-      filter(result => result !== null)
+      filter((result: Boolean) => result !== null && result == true)
     )
       .subscribe((result: any) => {
+        console.log(JSON.stringify(result))
         this.clientPermission = [];
         this.selectedView = result
         var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
