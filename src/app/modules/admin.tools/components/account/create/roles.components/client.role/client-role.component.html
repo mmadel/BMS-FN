@@ -1,9 +1,10 @@
 <c-form-check inline sizing="xl">
-    <input cFormCheckInput id="clienth" name="client" type="radio" (change)="changeClientPermission($event)" />
+    <input cFormCheckInput id="clienth" name="client" type="radio" (change)="changeClientPermission($event)" [disabled]="selectedView"/>
     <label cFormCheckLabel for="clienth">Hidden</label>
 </c-form-check>
 <c-form-check inline>
-    <input cFormCheckInput id="clientv" name="client" type="radio" (change)="changeClientPermission($event)">
+    <input cFormCheckInput id="clientv" name="client" type="radio" (change)="changeClientPermission($event)"
+    [checked]="selectedView">
     <label cFormCheckLabel for="clientv">View</label>
 </c-form-check>
 <c-form-check inline>
