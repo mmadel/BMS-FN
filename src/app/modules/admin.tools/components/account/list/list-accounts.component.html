@@ -27,7 +27,7 @@
                     <td>{{user.name}}</td>
                     <td>
                         <c-button-group aria-label="Basic example" role="group" size="sm">
-                            <button cButton variant="outline" (click)="editUser(user.uuid)" size="sm">
+                            <button cButton variant="outline" (click)="editUser(user)" size="sm">
                                 <svg cIcon name="cilPen"></svg>
                             </button>
                             <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm" dispaly-input
@@ -57,7 +57,7 @@
         <button (click)="toggleUpdateAccountVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <view-account (changeVisibility)="changeVisibility($event)" [uuid]="selecteduuid"
+        <view-account (changeVisibility)="changeVisibility($event)" [user]="selectedUser"
             *ngIf="updateAccountVisible"></view-account>
     </c-modal-body>
 </c-modal>

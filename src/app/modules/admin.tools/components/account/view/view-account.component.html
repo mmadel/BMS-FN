@@ -1,5 +1,5 @@
 <ngx-spinner></ngx-spinner>
-<form cForm #accountForm="ngForm" *ngIf="roleBinderValues | async as binder">
+<form cForm #accountForm="ngForm" >
     <c-row>
         <c-col xs="6" class="mb-2">
             <div class="card">
@@ -15,7 +15,7 @@
                     <div class="mb-3">
                         <label cLabel for="accfname">First Name</label>
                         <input cFormControl id="accfname" [(ngModel)]="user.firstName" sizing="sm" name="firstname"
-                            #accountFirstname="ngModel" required />
+                            #accountFirstname="ngModel" readonly/>
                     </div>
                     <small
                         *ngIf="notValidForm   && (accounLastname.errors) ||   accounLastname.invalid && (accounLastname.dirty || accounLastname.touched)"
@@ -24,8 +24,8 @@
                     </small>
                     <div class="mb-3">
                         <label cLabel for="acclname">Last Name</label>
-                        <input cFormControl id="acclname" sizing="sm" #accounLastname="ngModel" name="lastname" required
-                            [(ngModel)]="user.lastName" />
+                        <input cFormControl id="acclname" sizing="sm" #accounLastname="ngModel" name="lastname" 
+                            [(ngModel)]="user.lastName" readonly/>
                     </div>
                     <small
                         *ngIf="notValidForm   && (accountEmail.errors) ||   accountEmail.invalid && (accountEmail.dirty || accountEmail.touched)"
@@ -35,7 +35,7 @@
                     <div class="mb-3">
                         <label cLabel for="accusrmailname">Email</label>
                         <input cFormControl id="accusrmailname" sizing="sm" #accountEmail="ngModel" name="accountEmail"
-                            required [(ngModel)]="user.email" type="email" email />
+                        readonly [(ngModel)]="user.email" type="email" email />
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                     </small>
                     <div class="mb-3">
                         <label cLabel for="accusridname">User ID</label>
-                        <input cFormControl id="accusridname" sizing="sm" #accounID="ngModel" name="accounID" required
+                        <input cFormControl id="accusridname" sizing="sm" #accounID="ngModel" name="accounID" readonly
                             [(ngModel)]="user.userAccount" />
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <small *ngIf="notValidPermissions " class="form-text text-danger">
                         Select Permissions<br />
                     </small>
-                    <table class="table table-sm">
+                    <table class="table table-sm" *ngIf="roleBinderValues | async as binder">
                         <tbody>
                             <tr>
                                 <td>
