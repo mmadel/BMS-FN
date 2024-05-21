@@ -1,15 +1,15 @@
 <span *ngIf="!subPermissionVisability">
     <c-form-check inline sizing="xl">
         <input cFormCheckInput id="paymenth" name="payment" [checked]="" type="radio"
-            (change)="changePayment($event)" />
+            (change)="changePayment($event)" [checked]="roleBinder?.paymentH"/>
         <label cFormCheckLabel for="paymenth">Hidden</label>
     </c-form-check>
     <c-form-check inline>
-        <input cFormCheckInput id="paymentv" name="payment" type="radio" (change)="changePayment($event)" />
+        <input cFormCheckInput id="paymentv" name="payment" type="radio" (change)="changePayment($event)" [checked]="roleBinder?.paymentV"/>
         <label cFormCheckLabel for="paymentv">View</label>
     </c-form-check>
     <c-form-check inline>
-        <input cFormCheckInput id="paymentvm" name="payment" type="radio" (change)="changePayment($event)" />
+        <input cFormCheckInput id="paymentvm" name="payment" type="radio" (change)="changePayment($event)" [checked]="roleBinder?.paymentM"/>
         <label cFormCheckLabel for="paymentvm">View & Edit</label>
     </c-form-check>
 </span>
@@ -26,17 +26,17 @@
             <td>
                 <c-form-check inline sizing="xl">
                     <input cFormCheckInput id="batchinsuranceh" name="batchinsurance" type="radio"
-                        (change)="changePaymentBatchInsurance($event)" />
+                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.paymentH"/>
                     <label cFormCheckLabel for="batchinsuranceh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="batchinsurancev" name="invoice" type="radio"
-                        (change)="changePaymentBatchInsurance($event)" />
+                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.paymentV"/>
                     <label cFormCheckLabel for="batchinsurancev">View</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="batchinsurancevm" name="invoice" type="radio"
-                        (change)="changePaymentBatchInsurance($event)" />
+                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.paymentM"/>
                     <label cFormCheckLabel for="batchinsurancevm">View & Edit</label>
                 </c-form-check>
             </td>

@@ -1,14 +1,14 @@
 <span *ngIf="!subPermissionVisability">
     <c-form-check inline sizing="xl">
-        <input cFormCheckInput id="billingh" name="billing" (change)="changeBilling($event)" type="radio" />
+        <input cFormCheckInput id="billingh" name="billing" (change)="changeBilling($event)" type="radio" [checked]="roleBinder?.billingH"/>
         <label cFormCheckLabel for="billingh">Hidden</label>
     </c-form-check>
     <c-form-check inline>
-        <input cFormCheckInput id="billingv" name="billing" type="radio" (change)="changeBilling($event)" />
+        <input cFormCheckInput id="billingv" name="billing" type="radio" (change)="changeBilling($event)" [checked]="roleBinder?.billingV"/>
         <label cFormCheckLabel for="billingv">View</label>
     </c-form-check>
     <c-form-check inline>
-        <input cFormCheckInput id="billingvm" name="billing" type="radio" (change)="changeBilling($event)" />
+        <input cFormCheckInput id="billingvm" name="billing" type="radio" (change)="changeBilling($event)" [checked]="roleBinder?.billingM"/>
         <label cFormCheckLabel for="billingvm">View & Edit</label>
     </c-form-check>
 </span>

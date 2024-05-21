@@ -5,6 +5,7 @@ import { User } from 'src/app/modules/model/admin/user/user';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { EncryptionService } from 'src/app/modules/secuirty/service/encryption.service';
 import { UserService } from 'src/app/modules/secuirty/service/user.service';
+import { RoleEmitingService } from '../../../services/role.emiting/role-emiting.service';
 import { AdminRoleComponent } from './roles.components/admin.role/admin-role.component';
 import { BillingRoleComponent } from './roles.components/billing.role/billing-role.component';
 import { ClientRoleComponent } from './roles.components/client.role/client-role.component';
@@ -39,13 +40,13 @@ export class CreateAccountComponent implements OnInit {
   notValidAdminPermission: boolean = false;
   user: User = {};
   userSetPassword: boolean = false
+  roles?:RoleScope[]
   constructor(private userService: UserService
     , private toastrService: ToastrService
-    , private encryptionService: EncryptionService) { }
+    , private encryptionService: EncryptionService
+    ,private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {
-    if (this.uuid !== undefined)
-      this.find();
   }
   create() {
     if (this.accountForm.valid) {
@@ -84,10 +85,5 @@ export class CreateAccountComponent implements OnInit {
     roleScopes.push(... this.adminRoleComponent.getRoleScopes());
     return roleScopes;
   }
-  private find() {
-    this.userService.findUser(this.uuid).subscribe((result: any) => {
-      this.user.roleScope = result.roleScope
-      // this.billingRoleComponent.billingRoleScopes= result.roleScope
-    })
-  }
+  
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { filter } from 'rxjs';
 import { RoleEmitingService } from 'src/app/modules/admin.tools/services/role.emiting/role-emiting.service';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { Role } from 'src/app/modules/secuirty/model/roles';
+import { RoleBinder } from '../../../../model/account/role/role.binder';
 import { RoleScopeCreator } from '../../role.scope.creator';
 
 @Component({
@@ -13,6 +14,7 @@ import { RoleScopeCreator } from '../../role.scope.creator';
 export class ClientRoleComponent implements OnInit {
   clientPermission: RoleScope[] = []
   selectedView: boolean = false;
+  @Input() roleBinder?: RoleBinder
   constructor(private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {

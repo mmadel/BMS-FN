@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { Role } from 'src/app/modules/secuirty/model/roles';
+import { RoleBinder } from '../../../../model/account/role/role.binder';
 import { RoleScopeCreator } from '../../role.scope.creator';
 
 @Component({
@@ -14,6 +15,7 @@ export class AdminRoleComponent implements OnInit {
   groupInfoRoleScopes: RoleScope[] = []
   insuranceMapperRoleScopes: RoleScope[] = []
   accountRoleScopes: RoleScope[] = []
+  @Input() roleBinder?: RoleBinder
   constructor() { }
 
   ngOnInit(): void {

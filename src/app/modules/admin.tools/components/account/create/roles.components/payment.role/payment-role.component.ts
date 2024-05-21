@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RoleEmitingService } from 'src/app/modules/admin.tools/services/role.emiting/role-emiting.service';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { Role } from 'src/app/modules/secuirty/model/roles';
+import { RoleBinder } from '../../../../model/account/role/role.binder';
 import { RoleScopeCreator } from '../../role.scope.creator';
 
 @Component({
@@ -15,9 +16,11 @@ export class PaymentRoleComponent implements OnInit {
   paymentBatchInsuranceRoleScopes: RoleScope[] = []
   paymentBatchClientRoleScopes: RoleScope[] = []
   paymentBalanceStatementRoleScopes: RoleScope[] = []
+  @Input() roleBinder?: RoleBinder
   constructor(private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {
+    console.log(JSON.stringify(this.roleBinder))
   }
   toggleSubPermission() {
     this.subPermissionVisability = !this.subPermissionVisability;
