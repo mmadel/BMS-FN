@@ -55,4 +55,16 @@ export interface RoleBinder {
     adminToolV?: boolean;
     adminToolM?: boolean;
 
+    groupInfoAdminToolH?: boolean;
+    groupInfoAdminToolV?: boolean;
+    groupInfoAdminToolM?: boolean;
+
+    insuranceMappingAdminToolH?: boolean;
+    insuranceMappingAdminToolV?: boolean;
+    insuranceMappingAdminToolM?: boolean;
+
+    accountManagementAdminToolH?: boolean;
+    accountManagementAdminToolV?: boolean;
+    accountManagementAdminToolM?: boolean;
+
 }

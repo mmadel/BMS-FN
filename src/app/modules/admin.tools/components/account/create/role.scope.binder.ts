@@ -60,6 +60,18 @@ export class RoleScopeBinder {
                 case Role.ADMIN_TOOL_ROLE:
                     this.bindAdminToolsRole(roleScope[i].scope)
                     break;
+
+                case Role.GROUP_INFO_ADMIN_TOOL_ROLE:
+                    this.bindGrouoInfoRole(roleScope[i].scope)
+                    break;
+
+                case Role.INSURANCE_MAPPING_ADMIN_TOOL_ROLE:
+                    this.bindInsuranceMappingRole(roleScope[i].scope)
+                    break;
+
+                case Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE:
+                    this.bindAccountManagementRole(roleScope[i].scope)
+                    break;
             }
         }
         return this.roleBinder;
@@ -207,6 +219,37 @@ export class RoleScopeBinder {
         }
     }
 
+    private static bindGrouoInfoRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.groupInfoAdminToolV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.groupInfoAdminToolM = true
+                break;
+        }
+    }
+    private static bindInsuranceMappingRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.insuranceMappingAdminToolV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.insuranceMappingAdminToolM = true
+                break;
+        }
+    }
+
+    private static bindAccountManagementRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.accountManagementAdminToolV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.accountManagementAdminToolM = true
+                break;
+        }
+    }
 
     private static initRoleBinder() {
         this.roleBinder = {
