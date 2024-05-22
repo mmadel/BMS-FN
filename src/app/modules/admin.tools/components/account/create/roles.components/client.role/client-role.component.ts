@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { filter } from 'rxjs';
 import { RoleEmitingService } from 'src/app/modules/admin.tools/services/role.emiting/role-emiting.service';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { Role } from 'src/app/modules/secuirty/model/roles';
+import { RoleBinder } from '../../../../model/account/role/role.binder';
 import { RoleScopeCreator } from '../../role.scope.creator';
 
 @Component({
@@ -13,20 +14,25 @@ import { RoleScopeCreator } from '../../role.scope.creator';
 export class ClientRoleComponent implements OnInit {
   clientPermission: RoleScope[] = []
   selectedView: boolean = false;
+  @Input() roleBinder?: RoleBinder
+  @Input() componentRole: string[]
   constructor(private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {
     this.roleEmitingService.selectedRole$.pipe(
-      filter(result => result !== null)
+      filter((result: Boolean) => result !== null )
     )
       .subscribe((result: any) => {
+        this.clientPermission = [];
         this.selectedView = result
+        console.log(this.selectedView )
         var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
         this.clientPermission = RoleScopeCreator.create('clientv', scopeIdValues, this.clientPermission, Role.PATIENT_ROLE)
       })
   }
 
   changeClientPermission(event: any) {
+    this.clientPermission = [];
     var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
     this.clientPermission = RoleScopeCreator.create(event.target.id, scopeIdValues, this.clientPermission, Role.PATIENT_ROLE)
   }

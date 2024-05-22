@@ -1,13 +1,15 @@
 <c-form-check inline sizing="xl">
-    <input cFormCheckInput id="clienth" name="client" type="radio" (change)="changeClientPermission($event)" [disabled]="selectedView"/>
+    <input cFormCheckInput id="clienth" name="client" type="radio" (change)="changeClientPermission($event)"
+        [disabled]="selectedView" [checked]="roleBinder?.clientH" disable-input [componentRole]="componentRole" />
     <label cFormCheckLabel for="clienth">Hidden</label>
 </c-form-check>
 <c-form-check inline>
     <input cFormCheckInput id="clientv" name="client" type="radio" (change)="changeClientPermission($event)"
-    [checked]="selectedView">
+        [checked]="selectedView" [checked]="roleBinder?.clientV" disable-input [componentRole]="componentRole" />
     <label cFormCheckLabel for="clientv">View</label>
 </c-form-check>
 <c-form-check inline>
-    <input cFormCheckInput id="clientvm" name="client" type="radio" (change)="changeClientPermission($event)" />
+    <input cFormCheckInput id="clientvm" name="client" type="radio" (change)="changeClientPermission($event)"
+        [checked]="roleBinder?.clientM" disable-input [componentRole]="componentRole" />
     <label cFormCheckLabel for="clientvm">View & Edit</label>
 </c-form-check>

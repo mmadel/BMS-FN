@@ -8,7 +8,8 @@
 <c-row>
     <c-col xs="12">
         <div style="float: right;">
-            <button cButton variant="outline" (click)="createAccount()" dispaly-input [componentRole]="componentRole">Create Account</button>
+            <button cButton variant="outline" (click)="createAccount()" dispaly-input
+                [componentRole]="componentRole">Create Account</button>
         </div>
     </c-col>
     <c-col xs="12">
@@ -26,10 +27,11 @@
                     <td>{{user.name}}</td>
                     <td>
                         <c-button-group aria-label="Basic example" role="group" size="sm">
-                            <button cButton variant="outline" (click)="editUser(user.uuid)" size="sm" >
+                            <button cButton variant="outline" (click)="editUser(user)" size="sm">
                                 <svg cIcon name="cilPen"></svg>
                             </button>
-                            <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm" dispaly-input [componentRole]="componentRole">
+                            <button cButton variant="outline" (click)="deleteUser(user.uuid)" size="sm" dispaly-input
+                                [componentRole]="componentRole">
                                 <svg cIcon name="cilTrash"></svg>
                             </button>
                         </c-button-group>
@@ -55,7 +57,7 @@
         <button (click)="toggleUpdateAccountVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <create-account (changeVisibility)="changeVisibility($event)" [uuid]="selecteduuid"
-            *ngIf="updateAccountVisible"></create-account>
+        <view-account (changeVisibility)="changeVisibility($event)" [user]="selectedUser"
+            *ngIf="updateAccountVisible"></view-account>
     </c-modal-body>
 </c-modal>

@@ -14,6 +14,7 @@ export class ListAccountsComponent implements OnInit {
   createAccountVisible: boolean = false;
   updateAccountVisible: boolean = false;
   selecteduuid: string;
+  selectedUser: User
   constructor(private userService: UserService, private toastrService: ToastrService) { }
   componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE];
   ngOnInit(): void {
@@ -23,9 +24,10 @@ export class ListAccountsComponent implements OnInit {
   private find() {
     this.userService.findUsers().subscribe((users: any) => this.users = users)
   }
-  editUser(uuid: string) {
+  editUser(user: User) {
     this.updateAccountVisible = true;
-    this.selecteduuid = uuid;
+    this.selectedUser = user;
+    this.selecteduuid = user.uuid;
   }
   deleteUser(uuid: string) {
     this.userService.deleteUser(uuid).subscribe(result => {
@@ -42,8 +44,10 @@ export class ListAccountsComponent implements OnInit {
     this.updateAccountVisible = !this.updateAccountVisible
   }
   changeVisibility(event: any) {
-    if (event === 'close')
+    if (event === 'create')
       this.createAccountVisible = false;
+    if (event === 'update')
+      this.updateAccountVisible = false;
     this.find();
 
   }

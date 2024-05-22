@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { Role } from 'src/app/modules/secuirty/model/roles';
+import { RoleBinder } from '../../../../model/account/role/role.binder';
 import { RoleScopeCreator } from '../../role.scope.creator';
 
 @Component({
@@ -13,9 +14,15 @@ export class ProviderRoleComponent implements OnInit {
   providerRoleScopes: RoleScope[] = []
   providerSolideRoleScopes: RoleScope[] = []
   providserReferringRoleScopes: RoleScope[] = []
+  @Input() roleBinder?: RoleBinder
+  @Input() componentRole: string[]
+  @Input() mode: string
   constructor() { }
 
   ngOnInit(): void {
+    const checkParentRole = this.roleBinder?.providerH || this.roleBinder?.providerV || this.roleBinder?.providerM
+    if (!checkParentRole && this.mode =='update')
+      this.subPermissionVisability = true
   }
   toggleSubPermission() {
     this.subPermissionVisability = !this.subPermissionVisability;

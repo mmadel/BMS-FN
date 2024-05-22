@@ -15,7 +15,7 @@
                     <div class="mb-3">
                         <label cLabel for="accfname">First Name</label>
                         <input cFormControl id="accfname" [(ngModel)]="user.firstName" sizing="sm" name="firstname"
-                            #accountFirstname="ngModel" required />
+                            #accountFirstname="ngModel" readonly />
                     </div>
                     <small
                         *ngIf="notValidForm   && (accounLastname.errors) ||   accounLastname.invalid && (accounLastname.dirty || accounLastname.touched)"
@@ -24,8 +24,8 @@
                     </small>
                     <div class="mb-3">
                         <label cLabel for="acclname">Last Name</label>
-                        <input cFormControl id="acclname" sizing="sm" #accounLastname="ngModel" name="lastname" required
-                            [(ngModel)]="user.lastName" />
+                        <input cFormControl id="acclname" sizing="sm" #accounLastname="ngModel" name="lastname"
+                            [(ngModel)]="user.lastName" readonly />
                     </div>
                     <small
                         *ngIf="notValidForm   && (accountEmail.errors) ||   accountEmail.invalid && (accountEmail.dirty || accountEmail.touched)"
@@ -35,7 +35,7 @@
                     <div class="mb-3">
                         <label cLabel for="accusrmailname">Email</label>
                         <input cFormControl id="accusrmailname" sizing="sm" #accountEmail="ngModel" name="accountEmail"
-                            required [(ngModel)]="user.email" type="email" email />
+                            readonly [(ngModel)]="user.email" type="email" email />
                     </div>
                 </div>
             </div>
@@ -53,27 +53,8 @@
                     </small>
                     <div class="mb-3">
                         <label cLabel for="accusridname">User ID</label>
-                        <input cFormControl id="accusridname" sizing="sm" #accounID="ngModel" name="accounID" required
+                        <input cFormControl id="accusridname" sizing="sm" #accounID="ngModel" name="accounID" readonly
                             [(ngModel)]="user.userAccount" />
-                    </div>
-                    <div *ngIf="!userSetPassword">
-                        <small
-                            *ngIf="notValidForm   && (accusridpassword.errors) ||   accusridpassword.invalid && (accusridpassword.dirty || accusridpassword.touched)"
-                            class="form-text text-danger">
-                            Account pasword is required
-                        </small>
-                        <div class="mb-3">
-                            <label cLabel for="accusridpassword">User Password</label>
-                            <input cFormControl id="accusridpassword" sizing="sm" #accusridpassword="ngModel"
-                                name="accusridpassword" required [(ngModel)]="user.password" type="password" />
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <c-form-check [switch]="true">
-                            <input cFormCheckInput type="checkbox" [checked]="userSetPassword"
-                                (change)="userSetPassword = !userSetPassword" />
-                            <label cFormCheckLabel>Update profile-Set Password</label>
-                        </c-form-check>
                     </div>
                 </div>
             </div>
@@ -98,7 +79,8 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <billing-role #billingRoleComponent></billing-role>
+                                    <billing-role #billingRoleComponent [roleBinder]="binder" [mode]="'update'"
+                                        [componentRole]="componentRole"></billing-role>
                                 </td>
                             </tr>
                             <tr>
@@ -110,7 +92,8 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <provider-role #providerRoleComponent></provider-role>
+                                    <provider-role #providerRoleComponent [roleBinder]="binder" [mode]="'update'"
+                                        [componentRole]="componentRole"></provider-role>
                                 </td>
                             </tr>
                             <tr>
@@ -122,7 +105,8 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <client-role #clientRoleComponent></client-role>
+                                    <client-role #clientRoleComponent [roleBinder]="binder"
+                                        [componentRole]="componentRole"></client-role>
                                 </td>
                             </tr>
                             <tr>
@@ -134,7 +118,8 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <payment-role #paymentRoleComponent></payment-role>
+                                    <payment-role #paymentRoleComponent [roleBinder]="binder" [mode]="'update'"
+                                        [componentRole]="componentRole"></payment-role>
                                 </td>
                             </tr>
                             <tr>
@@ -146,7 +131,8 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <filing-role #filingRoleComponent></filing-role>
+                                    <filing-role #filingRoleComponent [roleBinder]="binder"
+                                        [componentRole]="componentRole"></filing-role>
                                 </td>
                             </tr>
                             <tr>
@@ -158,7 +144,8 @@
                                     </h3>
                                 </td>
                                 <td>
-                                    <admin-role #adminRoleComponent></admin-role>
+                                    <admin-role #adminRoleComponent [roleBinder]="binder" [mode]="'update'"
+                                        [componentRole]="componentRole"></admin-role>
                                 </td>
                             </tr>
                         </tbody>
@@ -169,8 +156,8 @@
     </c-row>
 </form>
 <div class="col text-center my-3">
-    <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;">
-        <span *ngIf="mode ==='create'"> Create</span>
-        <span *ngIf="mode ==='update'"> Update</span>
+    <button cButton color="info" variant="outline" size="sm" (click)="update()" style="width: 25%;" dispaly-input
+        [componentRole]="componentRole">
+        <span> Update</span>
     </button>
 </div>
