@@ -35,8 +35,10 @@ export class CreateProviderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.selectedProvider))
-    this.initModel();
+    if (this.selectedProvider)
+      this.fill();
+    else
+      this.initModel();
     this.payerService.findAll()
       .subscribe((result: any) => {
         this.payers = result;
@@ -107,6 +109,10 @@ export class CreateProviderComponent implements OnInit {
     } else {
       this.notValidForm = true;
     }
+  }
+  private fill() {
+    this.npiCtrl.setValue(this.selectedProvider.npi)
+    this.provider = this.selectedProvider
   }
   private initModel() {
     this.provider = {
