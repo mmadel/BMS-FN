@@ -20,11 +20,12 @@ export class ClientRoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.roleEmitingService.selectedRole$.pipe(
-      filter((result: Boolean) => result !== null && result == true)
+      filter((result: Boolean) => result !== null )
     )
       .subscribe((result: any) => {
         this.clientPermission = [];
         this.selectedView = result
+        console.log(this.selectedView )
         var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
         this.clientPermission = RoleScopeCreator.create('clientv', scopeIdValues, this.clientPermission, Role.PATIENT_ROLE)
       })
