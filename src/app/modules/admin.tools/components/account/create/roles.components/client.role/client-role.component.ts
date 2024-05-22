@@ -23,7 +23,6 @@ export class ClientRoleComponent implements OnInit {
       filter((result: Boolean) => result !== null && result == true)
     )
       .subscribe((result: any) => {
-        console.log(JSON.stringify(result))
         this.clientPermission = [];
         this.selectedView = result
         var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']

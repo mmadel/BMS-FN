@@ -22,7 +22,7 @@ export class PaymentRoleComponent implements OnInit {
   constructor(private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {
-    const checkParentRole = this.roleBinder.paymentH || this.roleBinder.paymentV || this.roleBinder.paymentM
+    const checkParentRole = this.roleBinder?.paymentH || this.roleBinder?.paymentV || this.roleBinder?.paymentM
     if (!checkParentRole && this.mode == 'update')
       this.subPermissionVisability = true
   }
@@ -46,6 +46,7 @@ export class PaymentRoleComponent implements OnInit {
   changePaymentBatchInsurance(event: any) {
     var scopeIdValues: string[] = ['batchinsuranceh', 'batchinsurancev', 'batchinsurancevm']
     this.paymentBatchInsuranceRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BATCH_INSURANCE_PAYMENT_ROLE)
+    
     this.notifyClient(event.target.id, 'batchinsuranceh')
   }
   changePaymentBatchClient(event: any) {

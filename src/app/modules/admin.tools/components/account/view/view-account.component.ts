@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { filter, map, Observable, tap } from 'rxjs';
 import { User } from 'src/app/modules/model/admin/user/user';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { Role } from 'src/app/modules/secuirty/model/roles';
@@ -13,6 +12,8 @@ import { ClientRoleComponent } from '../create/roles.components/client.role/clie
 import { FilingRoleComponent } from '../create/roles.components/filing.role/filing-role.component';
 import { PaymentRoleComponent } from '../create/roles.components/payment.role/payment-role.component';
 import { ProviderRoleComponent } from '../create/roles.components/provider.role/provider-role.component';
+import { RoleFilter } from '../role.util/filter/role.filter';
+
 
 @Component({
   selector: 'view-account',
@@ -20,7 +21,7 @@ import { ProviderRoleComponent } from '../create/roles.components/provider.role/
   styleUrls: ['./view-account.component.scss']
 })
 export class ViewAccountComponent implements OnInit {
-  componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE ];
+  componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE];
   notValidForm: boolean = false
   notValidPermissions: boolean = false
   @Input() user: User;
@@ -51,7 +52,7 @@ export class ViewAccountComponent implements OnInit {
     roleScopes.push(... this.filingRoleComponent.getRoleScopes());
     roleScopes.push(... this.adminRoleComponent.getRoleScopes());
 
-
+    RoleFilter.filter(this.user.roleScope, roleScopes)
     const roleScopeMap: { [key: string]: RoleScope } = {};
     this.user.roleScope.forEach(item => {
       roleScopeMap[item.role] = item;

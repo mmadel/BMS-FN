@@ -20,7 +20,7 @@ export class ProviderRoleComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const checkParentRole = this.roleBinder.providerH || this.roleBinder.providerV || this.roleBinder.providerM
+    const checkParentRole = this.roleBinder?.providerH || this.roleBinder?.providerV || this.roleBinder?.providerM
     if (!checkParentRole && this.mode =='update')
       this.subPermissionVisability = true
   }

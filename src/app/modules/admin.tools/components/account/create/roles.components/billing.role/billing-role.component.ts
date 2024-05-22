@@ -24,7 +24,7 @@ export class BillingRoleComponent implements OnInit {
 
   constructor(private roleEmitingService: RoleEmitingService) { }
   ngOnInit(): void {
-    const checkParentRole = this.roleBinder.billingH || this.roleBinder.billingV || this.roleBinder.billingM
+    const checkParentRole = this.roleBinder?.billingH || this.roleBinder?.billingV || this.roleBinder?.billingM
     if (!checkParentRole && this.mode == 'update')
       this.subPermissionVisability = true
   }
