@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
@@ -28,12 +28,14 @@ export class CreateProviderComponent implements OnInit {
   selectedPayerName: string;
   selectedPayerId: string
   payers: Payer[]
+  @Input() selectedProvider: Provider;
   constructor(private providerService: ProviderService
     , private toastr: ToastrService
     , private payerService: PayerService) { }
 
 
   ngOnInit(): void {
+    console.log(JSON.stringify(this.selectedProvider))
     this.initModel();
     this.payerService.findAll()
       .subscribe((result: any) => {

@@ -16,6 +16,7 @@ export class ListComponent extends ListTemplate implements OnInit {
   providers$!: Observable<Provider[]>;
   addVisibility: boolean = false
   editVisibility: boolean = false
+  selectedProvider: Provider;
   columns = [
     {
       key: 'id',
@@ -77,7 +78,8 @@ export class ListComponent extends ListTemplate implements OnInit {
     })
     this.find();
   }
-  edit(event: any) {
+  edit(event: Provider) {
     this.editVisibility = true;
+    this.selectedProvider = event;
   }
 }
