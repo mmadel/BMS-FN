@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
@@ -28,13 +28,17 @@ export class CreateProviderComponent implements OnInit {
   selectedPayerName: string;
   selectedPayerId: string
   payers: Payer[]
+  @Input() selectedProvider: Provider;
   constructor(private providerService: ProviderService
     , private toastr: ToastrService
     , private payerService: PayerService) { }
 
 
   ngOnInit(): void {
-    this.initModel();
+    if (this.selectedProvider)
+      this.fill();
+    else
+      this.initModel();
     this.payerService.findAll()
       .subscribe((result: any) => {
         this.payers = result;
@@ -96,15 +100,35 @@ export class CreateProviderComponent implements OnInit {
       this.providerService.create(this.provider)
         .subscribe((result) => {
           this.toastr.success("Provider Created")
-          this.changeVisibility.emit('close');
+          this.changeVisibility.emit('create');
           this.providerCreateForm.reset();
-          this.notValidForm = false;
+          this.notValidForm = !this.notValidForm;
         }, (error) => {
           this.toastr.error("Error in  Provider Creation")
         })
     } else {
       this.notValidForm = true;
     }
+  }
+  update() {
+    if (this.providerCreateForm.valid) {
+      this.providerService.update(this.provider).subscribe(result => {
+        this.toastr.success("Provider updated")
+        this.changeVisibility.emit('update');
+        this.providerCreateForm.reset();
+        this.notValidForm = !this.notValidForm;
+      }, error => {
+        this.toastr.error("Error during update provider")
+      })
+    }
+    else {
+      this.notValidForm = true;
+    }
+
+  }
+  private fill() {
+    this.npiCtrl.setValue(this.selectedProvider.npi)
+    this.provider = this.selectedProvider
   }
   private initModel() {
     this.provider = {

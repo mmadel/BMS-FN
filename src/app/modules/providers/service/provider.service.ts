@@ -23,6 +23,16 @@ export class ProviderService extends BasePaginationService {
     var url = this.baseUrl + '/create'
     return this.httpClient.post(`${url}`, JSON.stringify(provider), { 'headers': headers })
   }
+  update(provider: Provider) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/update'
+    return this.httpClient.put(`${url}`, JSON.stringify(provider), { 'headers': headers })
+  }
+  delete(id: number) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/delete/id/' + id
+    return this.httpClient.delete(`${url}`, { 'headers': headers })
+  }
   public findAllWithoutPagination() {
     var url = this.baseUrl + '/find/all'
     return this.httpClient.get(url);
