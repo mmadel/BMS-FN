@@ -100,15 +100,31 @@ export class CreateProviderComponent implements OnInit {
       this.providerService.create(this.provider)
         .subscribe((result) => {
           this.toastr.success("Provider Created")
-          this.changeVisibility.emit('close');
+          this.changeVisibility.emit('create');
           this.providerCreateForm.reset();
-          this.notValidForm = false;
+          this.notValidForm = !this.notValidForm;
         }, (error) => {
           this.toastr.error("Error in  Provider Creation")
         })
     } else {
       this.notValidForm = true;
     }
+  }
+  update() {
+    if (this.providerCreateForm.valid) {
+      this.providerService.update(this.provider).subscribe(result => {
+        this.toastr.success("Provider updated")
+        this.changeVisibility.emit('update');
+        this.providerCreateForm.reset();
+        this.notValidForm = !this.notValidForm;
+      }, error => {
+        this.toastr.error("Error during update provider")
+      })
+    }
+    else {
+      this.notValidForm = true;
+    }
+
   }
   private fill() {
     this.npiCtrl.setValue(this.selectedProvider.npi)

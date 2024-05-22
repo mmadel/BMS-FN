@@ -16,7 +16,7 @@
         <c-row>
             <c-col class="col my-2">
                 <input cFormControl [formControl]="npiCtrl" id="providernpi" class="mb-3"
-                    placeholder="Type Provider NPI" sizing="sm" />
+                    placeholder="Type Provider NPI" sizing="sm" [readonly]="selectedProvider" />
             </c-col>
         </c-row>
         <!-- provider information-->
@@ -348,5 +348,8 @@
     </c-tab-pane>
 </c-tab-content>
 <div class="d-md-flex justify-content-md-center">
-    <button cButton color="primary" (click)="create()" variant="outline">Create</button>
+    <button cButton color="primary" (click)="create()" variant="outline" size="sm"
+        *ngIf="!selectedProvider">Create</button>
+    <button cButton color="primary" (click)="update()" variant="outline" size="sm"
+        *ngIf="selectedProvider">Update</button>
 </div>

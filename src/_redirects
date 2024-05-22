@@ -59,6 +59,8 @@
 /billing/api/patient/find/patientId/:patientId https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/find/patientId/:patientId  200
 /billing/api/patient/insurance-company/patientId/:patientId https://billing-service-e4526add3402.herokuapp.com/billing/api/patient/insurance-company/patientId/:patientId  200
 /billing/api/provider/create https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/create  200
+/billing/api/provider/update https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/update  200
+/billing/api/provider/delete/id/:id https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/delete/id/:id  200
 /billing/api/provider/find https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/find  200
 /billing/api/provider/find/all https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/find/all  200
 /billing/api/referring/provider/create https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/create  200

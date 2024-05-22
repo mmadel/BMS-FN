@@ -50,10 +50,12 @@ export class ListComponent extends ListTemplate implements OnInit {
     this.editVisibility = !this.editVisibility
   }
   change(event: any) {
-    if (event === 'close') {
-      this.find();
+    if (event === 'create')
       this.addVisibility = false;
-    }
+    if (event === 'update')
+      this.editVisibility = false;
+
+    this.find();
   }
   find() {
     this.providers$ = this.providerService.findAll(this.apiParams$).pipe(
