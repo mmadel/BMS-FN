@@ -19,6 +19,7 @@ export class BillingRoleComponent implements OnInit {
   feeScheduleRoleScopes: RoleScope[] = []
   modifierFeeRoleScopes: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
+  @Input() componentRole: string[]
 
   constructor(private roleEmitingService: RoleEmitingService) { }
   ngOnInit(): void {

@@ -15,6 +15,7 @@ export class ClientRoleComponent implements OnInit {
   clientPermission: RoleScope[] = []
   selectedView: boolean = false;
   @Input() roleBinder?: RoleBinder
+  @Input() componentRole: string[]
   constructor(private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {

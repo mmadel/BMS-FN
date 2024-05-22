@@ -16,6 +16,7 @@ export class AdminRoleComponent implements OnInit {
   insuranceMapperRoleScopes: RoleScope[] = []
   accountRoleScopes: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
+  @Input() componentRole: string[]
   constructor() { }
 
   ngOnInit(): void {

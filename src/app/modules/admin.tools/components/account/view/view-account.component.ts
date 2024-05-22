@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { filter, map, Observable, tap } from 'rxjs';
 import { User } from 'src/app/modules/model/admin/user/user';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { UserService } from 'src/app/modules/secuirty/service/user.service';
 import { RoleBinder } from '../../model/account/role/role.binder';
 import { RoleScopeBinder } from '../create/role.scope.binder';
@@ -19,6 +20,7 @@ import { ProviderRoleComponent } from '../create/roles.components/provider.role/
   styleUrls: ['./view-account.component.scss']
 })
 export class ViewAccountComponent implements OnInit {
+  componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE ];
   notValidForm: boolean = false
   notValidPermissions: boolean = false
   @Input() user: User;

@@ -1,17 +1,17 @@
 <span *ngIf="!subPermissionVisability">
     <c-form-check inline sizing="xl">
         <input cFormCheckInput id="paymenth" name="payment" [checked]="" type="radio" (change)="changePayment($event)"
-            [checked]="roleBinder?.paymentH" />
+            [checked]="roleBinder?.paymentH" disable-input [componentRole]="componentRole" />
         <label cFormCheckLabel for="paymenth">Hidden</label>
     </c-form-check>
     <c-form-check inline>
         <input cFormCheckInput id="paymentv" name="payment" type="radio" (change)="changePayment($event)"
-            [checked]="roleBinder?.paymentV" />
+            [checked]="roleBinder?.paymentV" disable-input [componentRole]="componentRole" />
         <label cFormCheckLabel for="paymentv">View</label>
     </c-form-check>
     <c-form-check inline>
         <input cFormCheckInput id="paymentvm" name="payment" type="radio" (change)="changePayment($event)"
-            [checked]="roleBinder?.paymentM" />
+            [checked]="roleBinder?.paymentM" disable-input [componentRole]="componentRole" />
         <label cFormCheckLabel for="paymentvm">View & Edit</label>
     </c-form-check>
 </span>
@@ -28,17 +28,20 @@
             <td>
                 <c-form-check inline sizing="xl">
                     <input cFormCheckInput id="batchinsuranceh" name="batchinsurance" type="radio"
-                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentH" />
+                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentH"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchinsuranceh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="batchinsurancev" name="invoice" type="radio"
-                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentV" />
+                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentV"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchinsurancev">View</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="batchinsurancevm" name="invoice" type="radio"
-                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentM" />
+                        (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentM"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchinsurancevm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -50,17 +53,20 @@
             <td>
                 <c-form-check inline sizing="xl">
                     <input cFormCheckInput id="batchclienth" name="batchclient" type="radio"
-                        (change)="changePaymentBatchClient($event)" [checked]="roleBinder?.batchClientpaymentH" />
+                        (change)="changePaymentBatchClient($event)" [checked]="roleBinder?.batchClientpaymentH"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchclienth">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="batchclientv" name="batchclient" type="radio"
-                        (change)="changePaymentBatchClient($event)" [checked]="roleBinder?.batchClientpaymentV" />
+                        (change)="changePaymentBatchClient($event)" [checked]="roleBinder?.batchClientpaymentV"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchclientv">View</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="batchclientvm" name="batchclient" type="radio"
-                        (change)="changePaymentBatchClient($event)" [checked]="roleBinder?.batchClientpaymentM" />
+                        (change)="changePaymentBatchClient($event)" [checked]="roleBinder?.batchClientpaymentM"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchclientvm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -73,19 +79,22 @@
                 <c-form-check inline sizing="xl">
                     <input cFormCheckInput id="balanceh" name="balance" type="radio"
                         (change)="changePaymentBalanceStatement($event)"
-                        [checked]="roleBinder?.balanceStatementpaymentH" />
+                        [checked]="roleBinder?.balanceStatementpaymentH" disable-input
+                        [componentRole]="componentRole" />
                     <label cFormCheckLabel for="balanceh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="balancev" name="balance" type="radio"
                         (change)="changePaymentBalanceStatement($event)"
-                        [checked]="roleBinder?.balanceStatementpaymentV" />
+                        [checked]="roleBinder?.balanceStatementpaymentV" disable-input
+                        [componentRole]="componentRole" />
                     <label cFormCheckLabel for="balancev">View</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="balancevm" name="balance" type="radio"
                         (change)="changePaymentBalanceStatement($event)"
-                        [checked]="roleBinder?.balanceStatementpaymentM" />
+                        [checked]="roleBinder?.balanceStatementpaymentM" disable-input
+                        [componentRole]="componentRole" />
                     <label cFormCheckLabel for="balancevm">View & Edit</label>
                 </c-form-check>
             </td>

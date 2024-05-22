@@ -15,6 +15,7 @@ export class ProviderRoleComponent implements OnInit {
   providerSolideRoleScopes: RoleScope[] = []
   providserReferringRoleScopes: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
+  @Input() componentRole: string[]
   constructor() { }
 
   ngOnInit(): void {

@@ -12,6 +12,7 @@ import { RoleScopeCreator } from '../../role.scope.creator';
 export class FilingRoleComponent implements OnInit {
   filingPermission: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
+  @Input() componentRole: string[]
   constructor() { }
 
   ngOnInit(): void {

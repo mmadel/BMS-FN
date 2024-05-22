@@ -1,17 +1,17 @@
 <span *ngIf="!subPermissionVisability">
     <c-form-check inline sizing="xl">
         <input cFormCheckInput id="providersh" name="providers" type="radio" (change)="changeProvider($event)"
-            [checked]="roleBinder?.providerH" />
+            [checked]="roleBinder?.providerH" disable-input [componentRole]="componentRole" />
         <label cFormCheckLabel for="billingh">Hidden</label>
     </c-form-check>
     <c-form-check inline>
         <input cFormCheckInput id="providersv" name="providers" type="radio" (change)="changeProvider($event)"
-            [checked]="roleBinder?.providerV" />
+            [checked]="roleBinder?.providerV" disable-input [componentRole]="componentRole" />
         <label cFormCheckLabel for="providersv">View</label>
     </c-form-check>
     <c-form-check inline>
         <input cFormCheckInput id="providersvm" name="providers" type="radio" (change)="changeProvider($event)"
-            [checked]="roleBinder?.providerM" />
+            [checked]="roleBinder?.providerM" disable-input [componentRole]="componentRole" />
         <label cFormCheckLabel for="providersvm">View & Edit</label>
     </c-form-check>
 </span>
@@ -28,17 +28,20 @@
             <td>
                 <c-form-check inline sizing="xl">
                     <input cFormCheckInput id="providerh" name="provider" type="radio"
-                        (change)="changeSolidProvider($event)" [checked]="roleBinder?.solidProviderH" />
+                        (change)="changeSolidProvider($event)" [checked]="roleBinder?.solidProviderH" disable-input
+                        [componentRole]="componentRole" />
                     <label cFormCheckLabel for="providerh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="providerv" name="provider" type="radio"
-                        (change)="changeSolidProvider($event)" [checked]="roleBinder?.solidProviderV" />
+                        (change)="changeSolidProvider($event)" [checked]="roleBinder?.solidProviderV" disable-input
+                        [componentRole]="componentRole" />
                     <label cFormCheckLabel for="providerv">View</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="providervm" name="provider" type="radio"
-                        (change)="changeSolidProvider($event)" [checked]="roleBinder?.solidProviderM" />
+                        (change)="changeSolidProvider($event)" [checked]="roleBinder?.solidProviderM" disable-input
+                        [componentRole]="componentRole" />
                     <label cFormCheckLabel for="providervm">View & Edit</label>
                 </c-form-check>
             </td>
@@ -50,17 +53,20 @@
             <td>
                 <c-form-check inline sizing="xl">
                     <input cFormCheckInput id="referringproviderh" name="referringprovider" type="radio"
-                        (change)="changeReferringProvider($event)" [checked]="roleBinder?.referringProviderH" />
+                        (change)="changeReferringProvider($event)" [checked]="roleBinder?.referringProviderH"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="referringproviderh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="referringproviderv" name="referringprovider" type="radio"
-                        (change)="changeReferringProvider($event)" [checked]="roleBinder?.referringProviderV" />
+                        (change)="changeReferringProvider($event)" [checked]="roleBinder?.referringProviderV"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="referringproviderv">View</label>
                 </c-form-check>
                 <c-form-check inline>
                     <input cFormCheckInput id="referringprovidervm" name="referringprovider" type="radio"
-                        (change)="changeReferringProvider($event)" [checked]="roleBinder?.referringProviderM" />
+                        (change)="changeReferringProvider($event)" [checked]="roleBinder?.referringProviderM"
+                        disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="referringprovidervm">View & Edit</label>
                 </c-form-check>
             </td>

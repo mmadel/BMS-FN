@@ -17,6 +17,7 @@ export class PaymentRoleComponent implements OnInit {
   paymentBatchClientRoleScopes: RoleScope[] = []
   paymentBalanceStatementRoleScopes: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
+  @Input() componentRole: string[]
   constructor(private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {
