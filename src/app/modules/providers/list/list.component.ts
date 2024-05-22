@@ -15,6 +15,7 @@ export class ListComponent extends ListTemplate implements OnInit {
   componentRole: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE];
   providers$!: Observable<Provider[]>;
   addVisibility: boolean = false
+  editVisibility: boolean = false
   columns = [
     {
       key: 'id',
@@ -44,6 +45,9 @@ export class ListComponent extends ListTemplate implements OnInit {
   toggleAddProvider() {
     this.addVisibility = !this.addVisibility
   }
+  toggleEditProvider() {
+    this.editVisibility = !this.editVisibility
+  }
   change(event: any) {
     if (event === 'close') {
       this.find();
@@ -66,14 +70,14 @@ export class ListComponent extends ListTemplate implements OnInit {
     );
   }
   remove(item: any) {
-    this.providerService.delete(item.id).subscribe(result=>{
+    this.providerService.delete(item.id).subscribe(result => {
       this.toastr.success('provider deleted.')
-    },error=>{
+    }, error => {
       this.toastr.error('error during deleting provider')
     })
     this.find();
   }
   edit(event: any) {
-
+    this.editVisibility = true;
   }
 }

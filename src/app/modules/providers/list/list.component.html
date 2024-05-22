@@ -65,3 +65,12 @@
         <app-create-provider *ngIf="addVisibility" (changeVisibility)="change($event)"></app-create-provider>
     </c-modal-body>
 </c-modal>
+<c-modal [visible]="editVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h3 cModalTitle>Edit Provider</h3>
+        <button (click)="toggleEditProvider()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-create-provider *ngIf="editVisibility" (changeVisibility)="change($event)"></app-create-provider>
+    </c-modal-body>
+</c-modal>
