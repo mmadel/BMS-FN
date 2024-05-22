@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable, tap } from 'rxjs';
 import { Provider } from '../../model/clinical/provider/provider';
 import { ListTemplate } from '../../model/template/list.template';
@@ -11,7 +12,7 @@ import { ProviderService } from '../service/provider.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends ListTemplate implements OnInit {
-  componentRole: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE ];
+  componentRole: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE];
   providers$!: Observable<Provider[]>;
   addVisibility: boolean = false
   columns = [
@@ -32,11 +33,11 @@ export class ListComponent extends ListTemplate implements OnInit {
       _style: { width: '5%' }
     }
   ]
-  constructor(private providerService: ProviderService,private roleScopeFinderService:RoleScopeFinderService) { super(); }
+  constructor(private providerService: ProviderService, private roleScopeFinderService: RoleScopeFinderService, private toastr: ToastrService) { super(); }
   ngOnInit(): void {
     this.initListComponent();
     this.find();
-    this.roleScopeFinderService.find().subscribe(result=>{
+    this.roleScopeFinderService.find().subscribe(result => {
 
     })
   }
@@ -64,8 +65,13 @@ export class ListComponent extends ListTemplate implements OnInit {
       })
     );
   }
-  remove(event: any) {
-
+  remove(item: any) {
+    this.providerService.delete(item.id).subscribe(result=>{
+      this.toastr.success('provider deleted.')
+    },error=>{
+      this.toastr.error('error during deleting provider')
+    })
+    this.find();
   }
   edit(event: any) {
 
