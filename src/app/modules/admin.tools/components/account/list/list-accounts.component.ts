@@ -44,8 +44,10 @@ export class ListAccountsComponent implements OnInit {
     this.updateAccountVisible = !this.updateAccountVisible
   }
   changeVisibility(event: any) {
-    if (event === 'close')
+    if (event === 'create')
       this.createAccountVisible = false;
+    if (event === 'update')
+      this.updateAccountVisible = false;
     this.find();
 
   }

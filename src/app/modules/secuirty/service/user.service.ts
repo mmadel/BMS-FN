@@ -36,6 +36,11 @@ export class UserService {
     var url = this.baseUrl + '/create';
     return this.httpClient.post(`${url}`, JSON.stringify(user), { 'headers': headers })
   }
+  public updateUser(user: User){
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/update';
+    return this.httpClient.put(`${url}`, JSON.stringify(user), { 'headers': headers })
+  }
   public deleteUser(uuid: string) {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/delete/uuid/' + uuid;

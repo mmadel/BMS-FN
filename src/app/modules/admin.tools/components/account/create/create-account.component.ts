@@ -62,7 +62,7 @@ export class CreateAccountComponent implements OnInit {
           this.user.password = undefined;
         this.userService.createUser(this.user).subscribe(result => {
           this.toastrService.success("User Created.")
-          this.changeVisibility.next('close')
+          this.changeVisibility.next('create')
         }, error => {
           console.log(error.error.message)
           this.toastrService.error("Error during user creation.", error.error.message)
