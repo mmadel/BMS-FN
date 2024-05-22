@@ -16,9 +16,13 @@ export class ProviderRoleComponent implements OnInit {
   providserReferringRoleScopes: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
   @Input() componentRole: string[]
+  @Input() mode: string
   constructor() { }
 
   ngOnInit(): void {
+    const checkParentRole = this.roleBinder.providerH || this.roleBinder.providerV || this.roleBinder.providerM
+    if (!checkParentRole && this.mode =='update')
+      this.subPermissionVisability = true
   }
   toggleSubPermission() {
     this.subPermissionVisability = !this.subPermissionVisability;

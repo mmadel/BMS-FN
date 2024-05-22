@@ -18,9 +18,13 @@ export class PaymentRoleComponent implements OnInit {
   paymentBalanceStatementRoleScopes: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
   @Input() componentRole: string[]
+  @Input() mode: string
   constructor(private roleEmitingService: RoleEmitingService) { }
 
   ngOnInit(): void {
+    const checkParentRole = this.roleBinder.paymentH || this.roleBinder.paymentV || this.roleBinder.paymentM
+    if (!checkParentRole && this.mode == 'update')
+      this.subPermissionVisability = true
   }
   toggleSubPermission() {
     this.subPermissionVisability = !this.subPermissionVisability;

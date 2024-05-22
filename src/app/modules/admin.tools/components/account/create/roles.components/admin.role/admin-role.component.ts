@@ -17,9 +17,13 @@ export class AdminRoleComponent implements OnInit {
   accountRoleScopes: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
   @Input() componentRole: string[]
+  @Input() mode: string
   constructor() { }
 
   ngOnInit(): void {
+    const checkParentRole = this.roleBinder.adminToolH || this.roleBinder.adminToolV || this.roleBinder.adminToolM
+    if (!checkParentRole && this.mode == 'update')
+      this.subPermissionVisability = true
   }
   toggleSubPermission() {
     this.subPermissionVisability = !this.subPermissionVisability;

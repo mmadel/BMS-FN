@@ -20,10 +20,13 @@ export class BillingRoleComponent implements OnInit {
   modifierFeeRoleScopes: RoleScope[] = []
   @Input() roleBinder?: RoleBinder
   @Input() componentRole: string[]
+  @Input() mode: string
 
   constructor(private roleEmitingService: RoleEmitingService) { }
   ngOnInit(): void {
-
+    const checkParentRole = this.roleBinder.billingH || this.roleBinder.billingV || this.roleBinder.billingM
+    if (!checkParentRole && this.mode == 'update')
+      this.subPermissionVisability = true
   }
   toggleSubPermission() {
     this.subPermissionVisability = !this.subPermissionVisability;
