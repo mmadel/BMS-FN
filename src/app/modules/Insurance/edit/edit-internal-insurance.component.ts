@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Clinic } from '../../model/admin/clinic';
 import { BasicAddress } from '../../model/common/basic.address';
 import { States } from '../../model/lookups/state-data-store';
 
@@ -10,6 +11,7 @@ import { States } from '../../model/lookups/state-data-store';
 export class EditInternalInsuranceComponent implements OnInit {
   states: string[] = States;
   address:BasicAddress={state:null}
+  @Input() selectedClinic:Clinic;
   constructor() { }
 
   ngOnInit(): void {
