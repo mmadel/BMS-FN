@@ -71,6 +71,7 @@
 /billing/api/referring/provider/find/all https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/find/all  200
 /billing/api/insurance/company/configure https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/configure  200
 /billing/api/insurance/company/find https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/find  200
+/billing/api/insurance/company/update/internal https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/update/internal  200
 /billing/api/insurance/company/find/configuration/id/:id/visibility/:visibility https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/find/configuration/id/:id/visibility/:visibility  200
 /billing/api/insurance/company/find/element/configuration/id/:id/visibility/:visibility https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/find/element/configuration/id/:id/visibility/:visibility  200
 /billing/api/insurance/company/find/internal https://billing-service-e4526add3402.herokuapp.com/billing/api/insurance/company/find/internal  200
