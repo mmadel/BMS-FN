@@ -15,6 +15,7 @@ export class ClinicsComponent extends ListTemplate implements OnInit {
   clinics$!: Observable<Clinic[]>;
   deleteFacilityVisibility: boolean = false
   selectedFacility: Clinic;
+  editFacilityVisibility: boolean = false;
   columns = [
     {
       key: 'title',
@@ -58,8 +59,11 @@ export class ClinicsComponent extends ListTemplate implements OnInit {
         this.find();
       })
   }
+  toggleEditFacility() {
+    this.editFacilityVisibility = !this.editFacilityVisibility;
+  }
   edit(item: any) {
-
+    this.editFacilityVisibility = true;
   }
   toggoleDeleteFacility() {
     this.deleteFacilityVisibility = !this.deleteFacilityVisibility;
@@ -72,5 +76,7 @@ export class ClinicsComponent extends ListTemplate implements OnInit {
       }
     })();
   }
+  changeFacilityVisibility(event: any) {
 
+  }
 }

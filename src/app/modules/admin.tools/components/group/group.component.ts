@@ -24,6 +24,7 @@ export class GroupComponent implements OnInit {
   toggleAddFacility() {
     this.addFacilityVisibility = !this.addFacilityVisibility;
   }
+  
   onClickEditProviderInformation() {
     this.editProviderVisibility = true;
   }

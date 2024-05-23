@@ -49,3 +49,13 @@
     <button cButton color="primary" (click)="remove()">Delete</button>
   </c-modal-footer>
 </c-modal>
+<c-modal id="editFacility" [visible]="editFacilityVisibility" size="lg">
+  <c-modal-header>
+      <h3 cModalTitle>Add Facility</h3>
+      <button (click)="toggleEditFacility()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+      <app-create-facility (changeVisibility)="changeFacilityVisibility($event)"
+          *ngIf="editFacilityVisibility"></app-create-facility>
+  </c-modal-body>
+</c-modal>
