@@ -1,7 +1,8 @@
 <c-row class="n5">
     <c-col xs="1">
-        <c-button-group aria-label="Basic example" role="group" size="sm" [vertical]="true" >
-            <button cButton color="primary" variant="outline" (click)="toggleActionsModal()" dispaly-input [componentRole]="componentRole">
+        <c-button-group aria-label="Basic example" role="group" size="sm" [vertical]="true">
+            <button cButton color="primary" variant="outline" (click)="toggleActionsModal()" dispaly-input
+                [componentRole]="componentRole">
                 <svg cIcon name="cilSettings"></svg>
             </button>
             <button cButton color="danger" variant="outline" (click)="downloadCMS()">
@@ -26,7 +27,7 @@
                     <div class="fs-6">Service Dates</div>
                 </li>
                 <button *ngFor="let session of item.sessionCounts" cListGroupItem
-                    class="d-flex justify-content-between align-items-center" (click)="openSession(session.sessionId)">
+                    class="d-flex justify-content-between align-items-center" (click)="openSession(session)">
                     {{session.dateOfService |date :'MM/dd/YYYY'}}
                     <c-badge color="info" shape="rounded-pill">{{session.serviceLines}}</c-badge>
                 </button>
@@ -52,5 +53,15 @@
         <correct-claim-action *ngIf="showCorrectClaimActionVisibility" [sessionCounts]="item.sessionCounts"
             (changeVisibility)="changeCorrectClaimActionVisibility($event)"
             [patient]="item.client"></correct-claim-action>
+    </c-modal-body>
+</c-modal>
+<c-modal id="editSessionitem" [visible]="editSessionVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h3 cModalTitle>Edit Session</h3>
+        <button (click)="toggleEditSessionModal()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"
+            (changeVisibility)="changeVisibility($event)"></app-patient-session-edit>
     </c-modal-body>
 </c-modal>
