@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { InsuranceCompanyHolder } from 'src/app/modules/model/admin/insurance.company.holder';
 import { IsuranceCompanyMapper } from 'src/app/modules/model/admin/insurance.company.mapper';
 import { environment } from 'src/environments/environment';
 
@@ -16,7 +17,13 @@ export class InsuranceCompanyService {
     var url = this.baseUrl + '/find'
     return this.httpClient.get(url)
   }
-  public findByName(name:string): Observable<any> {
+  public update(internalInsuranceCompany: any): Observable<any> {
+    console.log(JSON.stringify(internalInsuranceCompany))
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/update/internal'
+    return this.httpClient.put(`${url}`, JSON.stringify(internalInsuranceCompany), { 'headers': headers })
+  }
+  public findByName(name: string): Observable<any> {
     var url = this.baseUrl + '/find/name/' + name
     return this.httpClient.get(url)
   }

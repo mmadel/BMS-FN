@@ -20,6 +20,10 @@
                                     <button cButton variant="outline" size="sm" (click)="openSesstings(item)">
                                         <svg cIcon name="cilMenu"></svg>
                                     </button>
+                                    <button cButton variant="outline" size="sm" (click)="edit(item)"
+                                        [disabled]="item.visibility === 'External'">
+                                        <svg cIcon name="cilPen"></svg>
+                                    </button>
                                 </div>
                             </ng-container>
                             <ng-container *ngSwitchDefault>
@@ -89,4 +93,14 @@
         <button cButton color="primary" size="sm" variant="outline" (click)="save()" dispaly-input
             [componentRole]="componentRole">Save changes</button>
     </c-modal-footer>
+</c-modal>
+<c-modal id="updateInternalInsurance" [visible]="editInsuranceVisible">
+    <c-modal-header>
+        <h3 cModalTitle>Edit Insurance Company</h3>
+        <button (click)="toggleEditInsurance()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <edit-internal-insurance *ngIf="editInsuranceVisible" [selectedClinic]="selectedClinic"
+            (changeVisibility)="changeVisibility($event)"></edit-internal-insurance>
+    </c-modal-body>
 </c-modal>

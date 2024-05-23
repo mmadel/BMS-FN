@@ -35,6 +35,7 @@ import {
 import { EditProviderComponent } from './list/settings-modal/box33/edit.provider/edit-provider.component';
 import { ModelModule } from '../model/model.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { EditInternalInsuranceComponent } from './edit/edit-internal-insurance.component';
 
 
 
@@ -45,6 +46,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     Box33SettingsComponent,
     ClientListSettingsComponent,
     EditProviderComponent,
+    EditInternalInsuranceComponent,
   ],
   imports: [
     CommonModule,
