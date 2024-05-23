@@ -6,6 +6,7 @@ import { PayerService } from '../../admin.tools/services/payer/payer.service';
 import { Payer } from '../../model/admin/payer';
 import { Provider } from '../../model/clinical/provider/provider';
 import { ReferringProviderIdQualifier } from '../../model/enum/referring.provider.id.qualifier';
+import { Role } from '../../secuirty/model/roles';
 import { ProviderService } from '../service/provider.service';
 
 @Component({
@@ -29,6 +30,7 @@ export class CreateProviderComponent implements OnInit {
   selectedPayerId: string
   payers: Payer[]
   @Input() selectedProvider: Provider;
+  componentRole: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE];
   constructor(private providerService: ProviderService
     , private toastr: ToastrService
     , private payerService: PayerService) { }
