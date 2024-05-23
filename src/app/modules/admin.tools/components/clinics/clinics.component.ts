@@ -25,6 +25,7 @@ export class ClinicsComponent extends ListTemplate implements OnInit {
     { key: 'clinicdata', label: 'Address', _style: { width: '10%' } },
     { key: 'actions', _style: { width: '5%' } }
   ];
+  selectedClinic: Clinic
   constructor(private clinicService: ClinicService, private toastr: ToastrService) { super() }
   componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE];
   ngOnInit(): void {
@@ -62,7 +63,8 @@ export class ClinicsComponent extends ListTemplate implements OnInit {
   toggleEditFacility() {
     this.editFacilityVisibility = !this.editFacilityVisibility;
   }
-  edit(item: any) {
+  edit(item: Clinic) {
+    this.selectedClinic = item;
     this.editFacilityVisibility = true;
   }
   toggoleDeleteFacility() {

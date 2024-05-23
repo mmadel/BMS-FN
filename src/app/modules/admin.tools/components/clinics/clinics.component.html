@@ -56,6 +56,6 @@
   </c-modal-header>
   <c-modal-body>
       <app-create-facility (changeVisibility)="changeFacilityVisibility($event)"
-          *ngIf="editFacilityVisibility"></app-create-facility>
+          *ngIf="editFacilityVisibility" [selectedClinic]="selectedClinic"></app-create-facility>
   </c-modal-body>
 </c-modal>
