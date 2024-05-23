@@ -74,6 +74,7 @@
   </c-modal-header>
   <c-modal-body>
     <app-referring-provider-create *ngIf="referringProviderEditVisibility"
+      [selectedReferringProvider]="selectedReferringProvider"
       (changeVisibility)="changeVisibility($event)"></app-referring-provider-create>
   </c-modal-body>
 </c-modal>

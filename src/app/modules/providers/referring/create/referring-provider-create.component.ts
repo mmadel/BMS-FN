@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
@@ -20,12 +20,16 @@ export class ReferringProviderCreateComponent implements OnInit {
   isLoading = false;
   idQualifierKeys = Object.keys;
   idQualifiers = ReferringProviderIdQualifier;
+  @Input() selectedReferringProvider: ReferringProvider;
   constructor(private referringProviderService: ReferringProviderService
     , private providerService: ProviderService
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.initModel();
+    if (this.selectedReferringProvider)
+      this.fill()
+    else
+      this.initModel();
     this.npiReferringProviderCtrl.valueChanges
       .pipe(
         filter(text => {
@@ -87,5 +91,9 @@ export class ReferringProviderCreateComponent implements OnInit {
       npi: null,
       referringProviderIdQualifier: null
     }
+  }
+  private fill() {
+    this.referringProvider = this.selectedReferringProvider;
+    this.npiReferringProviderCtrl.setValue(this.referringProvider.npi)
   }
 }

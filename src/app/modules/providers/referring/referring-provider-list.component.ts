@@ -15,6 +15,7 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   referringProviderCreationVisibility: boolean
   referringProviderEditVisibility: boolean
   referringProviders$!: Observable<ReferringProvider[]>;
+  selectedReferringProvider: ReferringProvider;
   columns = [
     {
       key: 'firstName',
@@ -65,6 +66,7 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
     })
   }
   edit(item: ReferringProvider) {
+    this.selectedReferringProvider = item;
     this.referringProviderEditVisibility = true;
   }
   find() {

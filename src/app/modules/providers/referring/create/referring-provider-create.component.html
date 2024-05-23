@@ -5,7 +5,7 @@
             <c-col class="col">
                 <c-input-group class="mb-3" sizing="sm">
                     <span cInputGroupText id="basic-addon1" style="width: 25%;">NPI</span>
-                    <input placeholder="NPI Name" cFormControl [formControl]="npiReferringProviderCtrl"
+                    <input placeholder="NPI Name" cFormControl [formControl]="npiReferringProviderCtrl" [readOnly]="referringProvider"
                         id="referringProvidernpi" sizing="sm" />
                 </c-input-group>
             </c-col>
