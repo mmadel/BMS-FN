@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable, tap } from 'rxjs';
 import { ReferringProvider } from '../../model/clinical/referring.provider';
 import { ListTemplate } from '../../model/template/list.template';
@@ -37,7 +38,7 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   toggleDetails(item: any) {
     this.details_visible[item] = !this.details_visible[item];
   }
-  constructor(private referringProviderService: ReferringProviderService) { super(); }
+  constructor(private referringProviderService: ReferringProviderService, private toastr: ToastrService) { super(); }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -52,7 +53,12 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
     this.find();
   }
   remove(item: any) {
-
+    this.referringProviderService.delete(item.id).subscribe(result=>{
+      this.toastr.success('Referring provider deleted')
+      this.find()
+    },error=>{
+      this.toastr.error('Error during delete referring provider')
+    })
   }
   edit(item: any) {
 
