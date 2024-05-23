@@ -39,9 +39,8 @@
             </ng-container>
             <span *ngIf="batchType ==='bi'">
               <ng-container *ngSwitchCase="'serviceLinePaymentAction'" class="py-2">
-                <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction"
-                  [disabled]="item.payment === null || item.adjust === null" dispaly-input
-                  [componentRole]="componentRole">
+                <select cSelect sizing="sm" class="w-50" [(ngModel)]="item.serviceLinePaymentAction" [disabled]="!(item.payment) && !(item.adjust )"
+                dispaly-input [componentRole]="componentRole">
                   <option value=null selected disabled>Select</option>
                   <option value="Resubmit"> Resubmit</option>
                   <option value="Close">Close Session</option>
