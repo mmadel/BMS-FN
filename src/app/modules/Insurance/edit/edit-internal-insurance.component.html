@@ -26,7 +26,7 @@
             #payorzipCode="ngModel" name="payorzipCode" [(ngModel)]="selectedClinic.address.zipCode" class="mb-1" /></c-col>
     <c-col xs="12">
         <div class="my-2 d-grid gap-2 d-md-flex justify-content-md-center">
-            <button cButton variant="outline" size="sm">Update</button>
+            <button cButton variant="outline" size="sm" (click)="update()">Update</button>
         </div>
     </c-col>
 </c-row>

@@ -26,7 +26,7 @@ export class InsuranceListComponent implements OnInit {
   selectedInsuranceCompany: InsuranceCompanyHolder;
   selectedGeneralConfiguration: GeneralConfiguration;
   selectedBillingProviderConfiguration: BillingProviderConfiguration;
-  selectedClinic:Clinic
+  selectedClinic: Clinic
   openedInsuranceCompanyConfigurationId: number = null;
   columns = [
     {
@@ -105,5 +105,9 @@ export class InsuranceListComponent implements OnInit {
       }
     else
       this.selectedBillingProviderConfiguration = null;
+  }
+  changeVisibility(event: any) {
+    if (event === 'close')
+      this.editInsuranceVisible = false
   }
 }

@@ -100,7 +100,7 @@
         <button (click)="toggleEditInsurance()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <edit-internal-insurance *ngIf="editInsuranceVisible"
-            [selectedClinic]="selectedClinic"></edit-internal-insurance>
+        <edit-internal-insurance *ngIf="editInsuranceVisible" [selectedClinic]="selectedClinic"
+            (changeVisibility)="changeVisibility($event)"></edit-internal-insurance>
     </c-modal-body>
 </c-modal>
