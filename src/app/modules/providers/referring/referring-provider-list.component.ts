@@ -13,6 +13,7 @@ import { ReferringProviderService } from '../service/referring-provider.service'
 export class ReferringProviderListComponent extends ListTemplate implements OnInit {
   componentRole: string[] = [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE];
   referringProviderCreationVisibility: boolean
+  referringProviderEditVisibility: boolean
   referringProviders$!: Observable<ReferringProvider[]>;
   columns = [
     {
@@ -47,21 +48,24 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   toggleReferringProviderCreation() {
     this.referringProviderCreationVisibility = !this.referringProviderCreationVisibility;
   }
+  toggleEditReferringProvider() {
+    this.referringProviderEditVisibility = !this.referringProviderEditVisibility
+  }
   changeVisibility(event: any) {
     if (event === 'close')
       this.referringProviderCreationVisibility = false;
     this.find();
   }
   remove(item: any) {
-    this.referringProviderService.delete(item.id).subscribe(result=>{
+    this.referringProviderService.delete(item.id).subscribe(result => {
       this.toastr.success('Referring provider deleted')
       this.find()
-    },error=>{
+    }, error => {
       this.toastr.error('Error during delete referring provider')
     })
   }
-  edit(item: any) {
-
+  edit(item: ReferringProvider) {
+    this.referringProviderEditVisibility = true;
   }
   find() {
     this.referringProviders$ = this.referringProviderService.findAll(this.apiParams$).pipe(
