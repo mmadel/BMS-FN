@@ -38,7 +38,7 @@ export class GroupComponent implements OnInit {
     }
   }
   changeAddFacilityVisibility(event: any) {
-    if (event === 'close') {
+    if (event === 'create') {
       this.addFacilityVisibility = false;
       this.listclinicsComponent.find();
     }

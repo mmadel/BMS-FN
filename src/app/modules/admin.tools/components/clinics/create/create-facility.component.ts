@@ -22,8 +22,11 @@ export class CreateFacilityComponent implements OnInit {
   add() {
     this.clinicService.create(this.clinic)
     .subscribe((result)=>{
-      this.changeVisibility.emit('close');
+      this.changeVisibility.emit('create');
     })
+  }
+  edit(){
+    this.changeVisibility.emit('update');
   }
 
 }

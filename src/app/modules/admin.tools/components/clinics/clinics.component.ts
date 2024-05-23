@@ -77,6 +77,8 @@ export class ClinicsComponent extends ListTemplate implements OnInit {
     })();
   }
   changeFacilityVisibility(event: any) {
-
+    if (event === 'update') {
+      this.editFacilityVisibility = false;
+    }
   }
 }
