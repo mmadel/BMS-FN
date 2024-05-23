@@ -158,7 +158,7 @@ export class RoleScopeBinder {
                 this.roleBinder.billing_insuranceV = true
                 break;
             case Scope.MODIFYSCOPE:
-                this.roleBinder.billing_insuranceV = true
+                this.roleBinder.billing_insuranceM = true
                 break;
             case Scope.HIDDENSCOPE:
                 this.roleBinder.billing_insuranceH = true
@@ -184,7 +184,7 @@ export class RoleScopeBinder {
                 this.roleBinder.billing_Modifier_RuleV = true
                 break;
             case Scope.MODIFYSCOPE:
-                this.roleBinder.billing_Modifier_RuleV = true
+                this.roleBinder.billing_Modifier_RuleM = true
                 break;
             case Scope.HIDDENSCOPE:
                 this.roleBinder.billing_Modifier_RuleH = true

@@ -1,5 +1,4 @@
 import { RoleScope } from "src/app/modules/secuirty/model/role.scope";
-import { Role } from "src/app/modules/secuirty/model/roles";
 import { AdminToolsRoleFilter } from "./admin.tools.role.filter";
 import { BillingRoleFilter } from "./billing.role.filter";
 import { PaymentRoleFilter } from "./payment.role.filter";

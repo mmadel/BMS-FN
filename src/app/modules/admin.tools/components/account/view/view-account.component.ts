@@ -62,6 +62,7 @@ export class ViewAccountComponent implements OnInit {
       roleScopeMap[modifiedItem.role] = modifiedItem;
     });
     this.user.roleScope = Object.values(roleScopeMap);
+    console.log(JSON.stringify(this.user))
     this.userService.updateUser(this.user).subscribe(result => {
       this.toastrService.success("user updated.")
       this.changeVisibility.next('update')
