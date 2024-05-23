@@ -1,29 +1,32 @@
-<form #addFacilityForm  cForm   (submit)="add()">
+<form #addFacilityForm cForm (submit)="add()">
     <div class="mb-3">
         <label cLabel for="factitle">Title</label>
-        <input cFormControl id="factitle" name="factitle"  sizing="sm"  [(ngModel)]="clinic.title" />
+        <input cFormControl id="factitle" name="factitle" sizing="sm" [(ngModel)]="clinic.title" />
     </div>
     <div class="mb-3">
         <label cLabel for="facnpi">NPI</label>
-        <input cFormControl id="facnpi" name="facnpi"  sizing="sm"  [(ngModel)]="clinic.npi" />
+        <input cFormControl id="facnpi" name="facnpi" sizing="sm" [(ngModel)]="clinic.npi" />
     </div>
     <div class="mb-3">
         <label cLabel for="facaddress">Address</label>
-        <input cFormControl id="facaddress" name="facaddress"  sizing="sm"  [(ngModel)]="clinic.clinicdata.address" />
+        <input cFormControl id="facaddress" name="facaddress" sizing="sm" [(ngModel)]="clinic.clinicdata.address" />
     </div>
     <div class="mb-3">
         <label cLabel for="faczipcode">Zip Code</label>
-        <input cFormControl id="faczipcode" name="faczipcode"  sizing="sm"  [(ngModel)]="clinic.clinicdata.zipCode" />
+        <input cFormControl id="faczipcode" name="faczipcode" sizing="sm" [(ngModel)]="clinic.clinicdata.zipCode" />
     </div>
     <div class="mb-3">
         <label cLabel for="faczipcode">City</label>
-        <input cFormControl id="faccity" name="faccity"  sizing="sm"  [(ngModel)]="clinic.clinicdata.city" />
+        <input cFormControl id="faccity" name="faccity" sizing="sm" [(ngModel)]="clinic.clinicdata.city" />
     </div>
     <div class="mb-3">
         <label cLabel for="facstate">State</label>
-        <input cFormControl id="facstate" name="facstate"  sizing="sm"  [(ngModel)]="clinic.clinicdata.state" />
+        <input cFormControl id="facstate" name="facstate" sizing="sm" [(ngModel)]="clinic.clinicdata.state" />
     </div>
     <div class="d-md-flex justify-content-md-center">
-        <button cButton type="submit" size="sm" style="width: 10%;" variant="outline">Save</button>
+        <button cButton type="submit" size="sm" style="width: 10%;" variant="outline"
+            *ngIf="!selectedClinic">Save</button>
+        <button cButton type="submit" size="sm" style="width: 10%;" variant="outline"
+            *ngIf="selectedClinic">Update</button>
     </div>
 </form>
