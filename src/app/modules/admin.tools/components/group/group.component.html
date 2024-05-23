@@ -65,6 +65,6 @@
         <button (click)="toggleAddFacility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-facility (changeVisibility)="changeAddFacilityVisibility($event)"></app-create-facility>
+        <app-create-facility (changeVisibility)="changeAddFacilityVisibility($event)" *ngIf="addFacilityVisibility"></app-create-facility>
     </c-modal-body>
 </c-modal>
