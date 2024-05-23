@@ -1,4 +1,4 @@
-<form #addFacilityForm cForm (submit)="add()">
+<form #addFacilityForm cForm (submit)="add()" readonly-form [componentRole]="componentScopes">
     <div class="mb-3">
         <label cLabel for="factitle">Title</label>
         <input cFormControl id="factitle" name="factitle" sizing="sm" [(ngModel)]="clinic.title" />
@@ -24,9 +24,9 @@
         <input cFormControl id="facstate" name="facstate" sizing="sm" [(ngModel)]="clinic.clinicdata.state" />
     </div>
     <div class="d-md-flex justify-content-md-center">
-        <button cButton type="submit" size="sm" style="width: 10%;" variant="outline"
-            *ngIf="!selectedClinic">Save</button>
-        <button cButton type="submit" size="sm" style="width: 10%;" variant="outline"
-            *ngIf="selectedClinic">Update</button>
+        <button cButton type="submit" size="sm" style="width: 10%;" variant="outline" *ngIf="!selectedClinic"
+            dispaly-input [componentRole]="componentScopes">Save</button>
+        <button cButton type="submit" size="sm" style="width: 10%;" variant="outline" *ngIf="selectedClinic"
+            dispaly-input [componentRole]="componentScopes">Update</button>
     </div>
 </form>
