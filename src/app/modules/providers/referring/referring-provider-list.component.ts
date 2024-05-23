@@ -12,8 +12,8 @@ import { ReferringProviderService } from '../service/referring-provider.service'
 })
 export class ReferringProviderListComponent extends ListTemplate implements OnInit {
   componentRole: string[] = [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE];
-  referringProviderCreationVisibility: boolean
-  referringProviderEditVisibility: boolean
+  referringProviderCreationVisibility: boolean = false
+  referringProviderEditVisibility: boolean = false
   referringProviders$!: Observable<ReferringProvider[]>;
   selectedReferringProvider: ReferringProvider;
   columns = [
@@ -53,8 +53,10 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
     this.referringProviderEditVisibility = !this.referringProviderEditVisibility
   }
   changeVisibility(event: any) {
-    if (event === 'close')
+    if (event === 'create')
       this.referringProviderCreationVisibility = false;
+    if (event === 'update')
+      this.referringProviderEditVisibility = false;
     this.find();
   }
   remove(item: any) {
@@ -62,7 +64,7 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
       this.toastr.success('Referring provider deleted')
       this.find()
     }, error => {
-      this.toastr.error('Error during delete referring provider')
+      this.toastr.error('Error during delete: Referring provider assigned to patient')
     })
   }
   edit(item: ReferringProvider) {

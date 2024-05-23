@@ -64,6 +64,7 @@
 /billing/api/provider/find https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/find  200
 /billing/api/provider/find/all https://billing-service-e4526add3402.herokuapp.com/billing/api/provider/find/all  200
 /billing/api/referring/provider/create https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/create  200
+/billing/api/referring/provider/update https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/update  200
 /billing/api/referring/provider/delete/:id https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/delete/:id  200
 /billing/api/referring/provider/find https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/find  200
 /billing/api/referring/provider/find/all https://billing-service-e4526add3402.herokuapp.com/billing/api/referring/provider/find/all  200

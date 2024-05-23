@@ -26,6 +26,7 @@ export class ReferringProviderCreateComponent implements OnInit {
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
+  
     if (this.selectedReferringProvider)
       this.fill()
     else
@@ -76,13 +77,22 @@ export class ReferringProviderCreateComponent implements OnInit {
         });
   }
   create() {
-    this.referringProviderService.create(this.referringProvider)
-      .subscribe((result) => {
+    if (this.selectedReferringProvider) {
+      this.referringProviderService.update(this.referringProvider).subscribe(result=>{
         this.toastr.success("Referring Provider Created")
-      }, (error) => {
-        this.toastr.error("Error in Referring Provider Creation")
+        this.changeVisibility.emit('update');
+      },error=>{
+        this.toastr.error("Error during update referring provider")
       })
-    this.changeVisibility.emit('close');
+    } else {
+      this.referringProviderService.create(this.referringProvider)
+        .subscribe((result) => {
+          this.toastr.success("Referring Provider Created")
+        }, (error) => {
+          this.toastr.error("Error in Referring Provider Creation")
+        })
+      this.changeVisibility.emit('create');
+    }
   }
   resetError() {
   }
