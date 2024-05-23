@@ -20,6 +20,10 @@
                                     <button cButton variant="outline" size="sm" (click)="openSesstings(item)">
                                         <svg cIcon name="cilMenu"></svg>
                                     </button>
+                                    <button cButton variant="outline" size="sm"
+                                        [disabled]="item.visibility === 'External'">
+                                        <svg cIcon name="cilPen"></svg>
+                                    </button>
                                 </div>
                             </ng-container>
                             <ng-container *ngSwitchDefault>
