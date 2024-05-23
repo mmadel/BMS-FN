@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { Clinic } from '../../model/admin/clinic';
 import { InsuranceCompanyConfiguration } from '../../model/admin/insurance.company.configuration';
 import { InsuranceCompanyHolder } from '../../model/admin/insurance.company.holder';
 import { Role } from '../../secuirty/model/roles';
@@ -25,6 +26,7 @@ export class InsuranceListComponent implements OnInit {
   selectedInsuranceCompany: InsuranceCompanyHolder;
   selectedGeneralConfiguration: GeneralConfiguration;
   selectedBillingProviderConfiguration: BillingProviderConfiguration;
+  selectedClinic:Clinic
   openedInsuranceCompanyConfigurationId: number = null;
   columns = [
     {
@@ -66,6 +68,7 @@ export class InsuranceListComponent implements OnInit {
       })
   }
   edit(item: any) {
+    this.selectedClinic = item;
     this.editInsuranceVisible = true;
   }
   save() {

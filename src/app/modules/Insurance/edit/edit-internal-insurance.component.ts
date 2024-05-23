@@ -10,11 +10,12 @@ import { States } from '../../model/lookups/state-data-store';
 })
 export class EditInternalInsuranceComponent implements OnInit {
   states: string[] = States;
-  address:BasicAddress={state:null}
-  @Input() selectedClinic:Clinic;
+  address: BasicAddress = { state: null }
+  @Input() selectedClinic: Clinic;
   constructor() { }
 
   ngOnInit(): void {
+    console.log(JSON.stringify(this.selectedClinic))
   }
 
 }
