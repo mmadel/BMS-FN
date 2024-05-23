@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { ReferringProvider } from 'src/app/modules/model/clinical/referring.provider';
 import { ReferringProviderIdQualifier } from 'src/app/modules/model/enum/referring.provider.id.qualifier';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { ProviderService } from '../../service/provider.service';
 import { ReferringProviderService } from '../../service/referring-provider.service';
 
@@ -21,12 +22,13 @@ export class ReferringProviderCreateComponent implements OnInit {
   idQualifierKeys = Object.keys;
   idQualifiers = ReferringProviderIdQualifier;
   @Input() selectedReferringProvider: ReferringProvider;
+  componentRole: string[] = [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE];
   constructor(private referringProviderService: ReferringProviderService
     , private providerService: ProviderService
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
-  
+
     if (this.selectedReferringProvider)
       this.fill()
     else
@@ -78,10 +80,10 @@ export class ReferringProviderCreateComponent implements OnInit {
   }
   create() {
     if (this.selectedReferringProvider) {
-      this.referringProviderService.update(this.referringProvider).subscribe(result=>{
+      this.referringProviderService.update(this.referringProvider).subscribe(result => {
         this.toastr.success("Referring Provider Created")
         this.changeVisibility.emit('update');
-      },error=>{
+      }, error => {
         this.toastr.error("Error during update referring provider")
       })
     } else {
