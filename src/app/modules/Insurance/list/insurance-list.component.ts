@@ -19,6 +19,7 @@ import { GeneralSettingsComponent } from './settings-modal/general/general-setti
 export class InsuranceListComponent implements OnInit {
   isuranceCompanyList$!: Observable<InsuranceCompanyHolder[]>;
   public isnsuranceSettingsVisible = false;
+  public editInsuranceVisible = false;
   @ViewChild('generalSettings') generalSettings: GeneralSettingsComponent;
   @ViewChild('box33Settings') box33Settings: Box33SettingsComponent;
   selectedInsuranceCompany: InsuranceCompanyHolder;
@@ -29,17 +30,17 @@ export class InsuranceListComponent implements OnInit {
     {
       key: 'name',
       label: 'Name',
-      _style: { width: '40%'}
+      _style: { width: '40%' }
     },
     {
       key: 'actions',
-      label:'Settings',
+      label: 'Settings',
       _style: { width: '10%' }
     },
   ];
 
   details_visible = Object.create({});
-  componentRole: string[] = [Role.BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE];
   constructor(private insuranceCompanyContainerService: InsuranceCompanyContainerService
     , private insuranceCompanyConfigurationService: InsuranceCompanyConfigurationService
     , private toastr: ToastrService) { }
@@ -50,9 +51,12 @@ export class InsuranceListComponent implements OnInit {
   public toggleInsuranceSettings() {
     this.isnsuranceSettingsVisible = !this.isnsuranceSettingsVisible
   }
+  public toggleEditInsurance() {
+    this.editInsuranceVisible = !this.editInsuranceVisible
+  }
   public openSesstings(event: any) {
     this.selectedInsuranceCompany = event;
-    this.insuranceCompanyConfigurationService.findInsuranceCompanyConfiguration(event.id ,event.visibility)
+    this.insuranceCompanyConfigurationService.findInsuranceCompanyConfiguration(event.id, event.visibility)
       .subscribe((result: any) => {
         if (result !== null)
           this.openedInsuranceCompanyConfigurationId = result.id;
@@ -61,10 +65,13 @@ export class InsuranceListComponent implements OnInit {
         this.isnsuranceSettingsVisible = true;
       })
   }
+  edit(item: any) {
+    this.editInsuranceVisible = true;
+  }
   save() {
     var insuranceCompanyConfiguration: InsuranceCompanyConfiguration = {
       id: this.openedInsuranceCompanyConfigurationId,
-      insuranceCompanyId : this.selectedInsuranceCompany.id,
+      insuranceCompanyId: this.selectedInsuranceCompany.id,
       visibility: this.selectedInsuranceCompany.visibility,
       box32: this.generalSettings.generalConfiguration.box32,
       box26: this.generalSettings.generalConfiguration.box26,
