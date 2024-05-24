@@ -15,6 +15,7 @@ import { ClientBalanceService } from '../../service/client-balance.service';
 })
 export class PendingInsuranceComponent extends ListTemplate implements OnInit {
   componentRole: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
+  enterPaymentRole: string = Role.SESSION_PAYMENT_ROLE;
   pendinfFilter: PostingFilterModel;
   pendingClientBalance$!: Observable<ClientBalance[]>;
   selectedPendingClientBalance: ClientBalance[]

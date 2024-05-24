@@ -33,13 +33,13 @@
                     <label cFormCheckLabel for="batchinsuranceh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="batchinsurancev" name="invoice" type="radio"
+                    <input cFormCheckInput id="batchinsurancev" name="batchinsurance" type="radio"
                         (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentV"
                         disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchinsurancev">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="batchinsurancevm" name="invoice" type="radio"
+                    <input cFormCheckInput id="batchinsurancevm" name="batchinsurance" type="radio"
                         (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentM"
                         disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchinsurancevm">View & Edit</label>
