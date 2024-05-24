@@ -33,13 +33,13 @@
                     <label cFormCheckLabel for="batchinsuranceh">Hidden</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="batchinsurancev" name="invoice" type="radio"
+                    <input cFormCheckInput id="batchinsurancev" name="batchinsurance" type="radio"
                         (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentV"
                         disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchinsurancev">View</label>
                 </c-form-check>
                 <c-form-check inline>
-                    <input cFormCheckInput id="batchinsurancevm" name="invoice" type="radio"
+                    <input cFormCheckInput id="batchinsurancevm" name="batchinsurance" type="radio"
                         (change)="changePaymentBatchInsurance($event)" [checked]="roleBinder?.batchInsurancepaymentM"
                         disable-input [componentRole]="componentRole" />
                     <label cFormCheckLabel for="batchinsurancevm">View & Edit</label>
@@ -96,6 +96,34 @@
                         [checked]="roleBinder?.balanceStatementpaymentM" disable-input
                         [componentRole]="componentRole" />
                     <label cFormCheckLabel for="balancevm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Session Payment
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="sessionh" name="sessionpayment" type="radio"
+                        (change)="changePaymentsession($event)"
+                        [checked]="roleBinder?.sessionpaymentH" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="sessionh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="sessionv" name="sessionpayment" type="radio"
+                        (change)="changePaymentsession($event)"
+                        [checked]="roleBinder?.sessionpaymentV" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="sessionv">View</label>
+                </c-form-check>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="sessionvm" name="sessionpayment" type="radio"
+                        (change)="changePaymentsession($event)"
+                        [checked]="roleBinder?.sessionpaymentM" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="sessionvm">View & Edit</label>
                 </c-form-check>
             </td>
         </tr>

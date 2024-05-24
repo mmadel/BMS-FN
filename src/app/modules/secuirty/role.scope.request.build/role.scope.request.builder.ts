@@ -38,6 +38,8 @@ export class RoleScopeRequestBuilder {
                 requestedRoles.push(Role.BATCH_INSURANCE_PAYMENT_ROLE)
             if (role === Role.BALANCE_STATEMENT_PAYMENT_ROLE)
                 requestedRoles.push(Role.BALANCE_STATEMENT_PAYMENT_ROLE)
+            if (role === Role.SESSION_PAYMENT_ROLE)
+                requestedRoles.push(Role.SESSION_PAYMENT_ROLE)
         }
     }
 
