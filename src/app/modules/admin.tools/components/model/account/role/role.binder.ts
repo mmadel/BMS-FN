@@ -47,6 +47,10 @@ export interface RoleBinder {
     balanceStatementpaymentV?: boolean;
     balanceStatementpaymentM?: boolean;
 
+    sessionpaymentH?: boolean;
+    sessionpaymentV?: boolean;
+    sessionpaymentM?: boolean;
+
     filingH?: boolean;
     filingV?: boolean;
     filingM?: boolean;

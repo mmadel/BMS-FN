@@ -99,5 +99,33 @@
                 </c-form-check>
             </td>
         </tr>
+        <tr>
+            <td>
+                Session Payment
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="sessionh" name="sessionpayment" type="radio"
+                        (change)="changePaymentsession($event)"
+                        [checked]="roleBinder?.sessionpaymentH" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="sessionh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="sessionv" name="sessionpayment" type="radio"
+                        (change)="changePaymentsession($event)"
+                        [checked]="roleBinder?.sessionpaymentV" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="sessionv">View</label>
+                </c-form-check>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="sessionvm" name="sessionpayment" type="radio"
+                        (change)="changePaymentsession($event)"
+                        [checked]="roleBinder?.sessionpaymentM" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="sessionvm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
     </tbody>
 </table>

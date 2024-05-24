@@ -16,6 +16,7 @@ export class Role {
     public static readonly BATCH_INSURANCE_PAYMENT_ROLE = 'batch-insurance-payment-role';
     public static readonly BATCH_CLIENT_PAYMENT_ROLE = 'batch-client-payment-role';
     public static readonly BALANCE_STATEMENT_PAYMENT_ROLE = 'balance-statement-payment-role';
+    public static readonly SESSION_PAYMENT_ROLE = 'session-payment-role';
 
     public static readonly ADMIN_TOOL_ROLE = 'admin-tool-role';
     public static readonly GROUP_INFO_ADMIN_TOOL_ROLE = 'group-info-admin-tool-role';

@@ -54,6 +54,10 @@ export class PaymentRoleComponent implements OnInit {
     var scopeIdValues: string[] = ['balanceh', 'balancev', 'balancevm']
     this.paymentBalanceStatementRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BALANCE_STATEMENT_PAYMENT_ROLE)
   }
+  changePaymentsession(event: any) {
+    var scopeIdValues: string[] = ['sessionh', 'sessionv', 'sessionvm']
+    this.paymentBalanceStatementRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.SESSION_PAYMENT_ROLE)
+  }
   isValid(): boolean {
     return !((this.paymentRoleScopes.length === 0
       && (this.paymentBatchInsuranceRoleScopes.length === 0 || this.paymentBatchClientRoleScopes.length === 0 || this.paymentBalanceStatementRoleScopes.length === 0)))
