@@ -115,18 +115,14 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   }
 
   constructPaymentLines(paymentBatch: PaymentBatch): any {
-    var invalidServiceCode: any[] = this.validate(this.clientPayments.items);
-    if (!(invalidServiceCode.length > 0)) {
       return this.constructRequest(paymentBatch);
-    }
-    return invalidServiceCode;
   }
   private validate(items: any[]): any[] {
     var invalidServiceCode: any[] = [];
     for (var i = 0; i < items.length; i++) {
       var item: any = items[i];
-      var isPaymentChanged: boolean = item.payment !== null && item.adjust
-      if (item.serviceLinePaymentAction === null && isPaymentChanged)
+      var isPaymentChanged: boolean = item.payment !== null || item.adjust !== null
+      if ( isPaymentChanged)
         invalidServiceCode.push(Number(item.serviceLineId));
     }
     return invalidServiceCode
