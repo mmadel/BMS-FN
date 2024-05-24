@@ -15,12 +15,13 @@ export class ListAccountsComponent implements OnInit {
   updateAccountVisible: boolean = false;
   selecteduuid: string;
   selectedUser: User
+  deleteUserVisibility: boolean = false;
+  deletedUserUUID: string;
   constructor(private userService: UserService, private toastrService: ToastrService) { }
   componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.ACCOUNT_MANAGEMENT_ADMIN_TOOL_ROLE];
   ngOnInit(): void {
     this.find()
   }
-
   private find() {
     this.userService.findUsers().subscribe((users: any) => this.users = users)
   }
@@ -30,8 +31,13 @@ export class ListAccountsComponent implements OnInit {
     this.selecteduuid = user.uuid;
   }
   deleteUser(uuid: string) {
-    this.userService.deleteUser(uuid).subscribe(result => {
+    this.deletedUserUUID = uuid;
+    this.deleteUserVisibility = true;
+  }
+  remove() {
+    this.userService.deleteUser(this.deletedUserUUID).subscribe(result => {
       this.toastrService.success('user deleted')
+      this.deleteUserVisibility = false;
       this.find();
     }, error => {
       this.toastrService.error('Error during deleting user')
@@ -42,6 +48,9 @@ export class ListAccountsComponent implements OnInit {
   }
   toggleUpdateAccountVisible() {
     this.updateAccountVisible = !this.updateAccountVisible
+  }
+  toggleDeleteUser() {
+    this.deleteUserVisibility = !this.deleteUserVisibility;
   }
   changeVisibility(event: any) {
     if (event === 'create')
