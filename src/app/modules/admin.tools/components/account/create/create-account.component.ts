@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/modules/model/admin/user/user';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
 import { Role } from 'src/app/modules/secuirty/model/roles';
+import { Scope } from 'src/app/modules/secuirty/model/scope';
 import { EncryptionService } from 'src/app/modules/secuirty/service/encryption.service';
 import { UserService } from 'src/app/modules/secuirty/service/user.service';
 import { RoleEmitingService } from '../../../services/role.emiting/role-emiting.service';
@@ -32,6 +33,7 @@ export class CreateAccountComponent implements OnInit {
 
   notValidForm: boolean = false
   notValidPermissions: boolean = false
+  isValidClient: boolean = true;
   mode: string = 'create'
   notValidBillingPermission: boolean = false;
   notValidProviderPermission: boolean = false;
@@ -54,19 +56,21 @@ export class CreateAccountComponent implements OnInit {
     if (this.accountForm.valid && !this.notValidPermissions) {
       this.notValidForm = false;
       this.user.roleScope = this.FillRoleScope();
-
-      this.user.name = this.user.lastName + ',' + this.user.firstName;
-      if (!this.userSetPassword)
-        this.user.password = this.encryptionService.encrypt(this.user.password)
-      else
-        this.user.password = undefined;
-      this.userService.createUser(this.user).subscribe(result => {
-        this.toastrService.success("User Created.")
-        this.changeVisibility.next('create')
-      }, error => {
-        console.log(error.error.message)
-        this.toastrService.error("Error during user creation.", error.error.message)
-      })
+      this.isValidClient = this.isClientWithBillingPayment(this.user.roleScope)
+      if (this.isValidClient) {
+        this.user.name = this.user.lastName + ',' + this.user.firstName;
+        if (!this.userSetPassword)
+          this.user.password = this.encryptionService.encrypt(this.user.password)
+        else
+          this.user.password = undefined;
+        this.userService.createUser(this.user).subscribe(result => {
+          this.toastrService.success("User Created.")
+          this.changeVisibility.next('create')
+        }, error => {
+          console.log(error.error.message)
+          this.toastrService.error("Error during user creation.", error.error.message)
+        })
+      }
       this.notValidPermissions = false;
     } else {
       this.notValidForm = true;
@@ -79,6 +83,25 @@ export class CreateAccountComponent implements OnInit {
       && this.paymentRoleComponent?.isValid()
       && this.filingRoleComponent?.isValid()
       && this.adminRoleComponent?.isValid())
+  }
+  private isClientWithBillingPayment(roleScopes: RoleScope[]): boolean {
+    var isValidClient: boolean = true
+    if (roleScopes.some(roleScope => ((roleScope.role === Role.BILLING_ROLE)
+      || (roleScope.role === Role.INVOICE_BILLING_ROLE)
+      || (roleScope.role === Role.FEE_SCHEDULE_BILLING_ROLE)
+      || (roleScope.role === Role.MODIFIER_RULE_BILLING_ROLE)
+      || (roleScope.role === Role.PAYMENT_ROLE)
+      || (roleScope.role === Role.BATCH_CLIENT_PAYMENT_ROLE)
+      || (roleScope.role === Role.BATCH_INSURANCE_PAYMENT_ROLE)
+      || (roleScope.role === Role.BALANCE_STATEMENT_PAYMENT_ROLE)) && (roleScope.scope !== Scope.HIDDENSCOPE))) {
+      for (var j = 0; j < roleScopes.length; j++) {
+        if (roleScopes[j].role === Role.PATIENT_ROLE && roleScopes[j].scope === Scope.HIDDENSCOPE)
+          isValidClient = false
+      }
+      return isValidClient;
+    } else {
+      return isValidClient;
+    }
   }
   private FillRoleScope(): RoleScope[] {
     var roleScopes: RoleScope[] = []

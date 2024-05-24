@@ -16,18 +16,9 @@ export class ClientRoleComponent implements OnInit {
   selectedView: boolean = false;
   @Input() roleBinder?: RoleBinder
   @Input() componentRole: string[]
-  constructor(private roleEmitingService: RoleEmitingService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.roleEmitingService.selectedRole$.pipe(
-      filter((result: Boolean) => result !== null )
-    )
-      .subscribe((result: any) => {
-        this.clientPermission = [];
-        this.selectedView = result
-        var scopeIdValues: string[] = ['clienth', 'clientv', 'clientvm']
-        this.clientPermission = RoleScopeCreator.create('clientv', scopeIdValues, this.clientPermission, Role.PATIENT_ROLE)
-      })
   }
 
   changeClientPermission(event: any) {

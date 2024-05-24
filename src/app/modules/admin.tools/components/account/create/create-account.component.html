@@ -87,6 +87,9 @@
                     <small *ngIf="notValidPermissions " class="form-text text-danger">
                         All account permission must be set<br />
                     </small>
+                    <small *ngIf="!isValidClient " class="form-text text-danger">
+                        Client permission cant be hidden in case of Billing or payment selection<br />
+                    </small>
                     <table class="table table-sm">
                         <tbody>
                             <tr>

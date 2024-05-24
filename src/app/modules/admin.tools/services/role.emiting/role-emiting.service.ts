@@ -6,7 +6,6 @@ import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
   providedIn: 'root'
 })
 export class RoleEmitingService {
-  public selectedRole$: BehaviorSubject<Boolean | null> = new BehaviorSubject<Boolean | null>(null);
   public viewRoles$: BehaviorSubject<RoleScope[] | null> = new BehaviorSubject<RoleScope[] | null>(null);
   constructor() { }
 }

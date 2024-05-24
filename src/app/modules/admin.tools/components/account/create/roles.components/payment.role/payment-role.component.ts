@@ -41,23 +41,18 @@ export class PaymentRoleComponent implements OnInit {
   changePayment(event: any) {
     var scopeIdValues: string[] = ['paymenth', 'paymentv', 'paymentvm']
     this.paymentRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.PAYMENT_ROLE)
-    this.notifyClient(event.target.id, 'paymenth')
   }
   changePaymentBatchInsurance(event: any) {
     var scopeIdValues: string[] = ['batchinsuranceh', 'batchinsurancev', 'batchinsurancevm']
     this.paymentBatchInsuranceRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BATCH_INSURANCE_PAYMENT_ROLE)
-    
-    this.notifyClient(event.target.id, 'batchinsuranceh')
   }
   changePaymentBatchClient(event: any) {
     var scopeIdValues: string[] = ['batchclienth', 'batchclientv', 'batchclientvm']
     this.paymentBatchClientRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BATCH_CLIENT_PAYMENT_ROLE)
-    this.notifyClient(event.target.id, 'batchclienth')
   }
   changePaymentBalanceStatement(event: any) {
     var scopeIdValues: string[] = ['balanceh', 'balancev', 'balancevm']
     this.paymentBalanceStatementRoleScopes = RoleScopeCreator.create(event.target.id, scopeIdValues, this.paymentRoleScopes, Role.BALANCE_STATEMENT_PAYMENT_ROLE)
-    this.notifyClient(event.target.id, 'balanceh')
   }
   isValid(): boolean {
     return !((this.paymentRoleScopes.length === 0
@@ -70,11 +65,5 @@ export class PaymentRoleComponent implements OnInit {
     roleScopes.push(...this.paymentBatchClientRoleScopes)
     roleScopes.push(...this.paymentBalanceStatementRoleScopes)
     return roleScopes;
-  }
-  private notifyClient(componentId: string, field: string) {
-    if (componentId !== field)
-      this.roleEmitingService.selectedRole$.next(true)
-    else
-      this.roleEmitingService.selectedRole$.next(false)
   }
 }
