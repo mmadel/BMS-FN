@@ -51,6 +51,9 @@ export class RoleScopeBinder {
                 case Role.BALANCE_STATEMENT_PAYMENT_ROLE:
                     this.bindBalanceStatementRole(roleScope[i].scope)
                     break;
+                case Role.SESSION_PAYMENT_ROLE:
+                    this.bindSessionPaymentRole(roleScope[i].scope)
+                    break;
                 case Role.FILING_ROLE:
                     this.bindFilingRole(roleScope[i].scope)
                     break;
@@ -225,6 +228,9 @@ export class RoleScopeBinder {
             case Scope.MODIFYSCOPE:
                 this.roleBinder.batchClientpaymentM = true
                 break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.batchClientpaymentH = true
+                break;
         }
     }
     private static bindBatchInsuranceRole(scope: string) {
@@ -234,6 +240,9 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.batchInsurancepaymentM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.batchInsurancepaymentH = true
                 break;
         }
     }
@@ -245,6 +254,22 @@ export class RoleScopeBinder {
                 break;
             case Scope.MODIFYSCOPE:
                 this.roleBinder.balanceStatementpaymentM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.balanceStatementpaymentH = true
+                break;
+        }
+    }
+    private static bindSessionPaymentRole(scope: string) {
+        switch (scope) {
+            case Scope.VIEWSCOPE:
+                this.roleBinder.sessionpaymentV = true
+                break;
+            case Scope.MODIFYSCOPE:
+                this.roleBinder.sessionpaymentM = true
+                break;
+            case Scope.HIDDENSCOPE:
+                this.roleBinder.sessionpaymentH = true
                 break;
         }
     }
