@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/modules/model/admin/user/user';
 import { RoleScope } from 'src/app/modules/secuirty/model/role.scope';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { EncryptionService } from 'src/app/modules/secuirty/service/encryption.service';
 import { UserService } from 'src/app/modules/secuirty/service/user.service';
 import { RoleEmitingService } from '../../../services/role.emiting/role-emiting.service';
@@ -49,32 +50,36 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit(): void {
   }
   create() {
-    if (this.accountForm.valid) {
+    this.notValidPermissions = !this.isPermissionValid()
+    if (this.accountForm.valid && !this.notValidPermissions) {
       this.notValidForm = false;
       this.user.roleScope = this.FillRoleScope();
-      if (this.user.roleScope.length === 0)
-        this.notValidPermissions = true
-      else {
-        this.user.name = this.user.lastName + ',' + this.user.firstName;
-        if (!this.userSetPassword)
-          this.user.password = this.encryptionService.encrypt(this.user.password)
-        else
-          this.user.password = undefined;
-        this.userService.createUser(this.user).subscribe(result => {
-          this.toastrService.success("User Created.")
-          this.changeVisibility.next('create')
-        }, error => {
-          console.log(error.error.message)
-          this.toastrService.error("Error during user creation.", error.error.message)
-        })
-        this.notValidPermissions = false;
-      }
 
+      this.user.name = this.user.lastName + ',' + this.user.firstName;
+      if (!this.userSetPassword)
+        this.user.password = this.encryptionService.encrypt(this.user.password)
+      else
+        this.user.password = undefined;
+      this.userService.createUser(this.user).subscribe(result => {
+        this.toastrService.success("User Created.")
+        this.changeVisibility.next('create')
+      }, error => {
+        console.log(error.error.message)
+        this.toastrService.error("Error during user creation.", error.error.message)
+      })
+      this.notValidPermissions = false;
     } else {
       this.notValidForm = true;
     }
   }
 
+  private isPermissionValid() {
+    return (this.billingRoleComponent?.isValid() && this.providerRoleComponent?.isValid()
+      && this.clientRoleComponent?.isValid()
+      && this.paymentRoleComponent?.isValid()
+      && this.filingRoleComponent?.isValid()
+      && this.adminRoleComponent?.isValid())
+  }
   private FillRoleScope(): RoleScope[] {
     var roleScopes: RoleScope[] = []
     roleScopes.push(... this.billingRoleComponent?.getRoleScopes());
@@ -85,5 +90,4 @@ export class CreateAccountComponent implements OnInit {
     roleScopes.push(... this.adminRoleComponent.getRoleScopes());
     return roleScopes;
   }
-
 }

@@ -19,7 +19,7 @@ import { PostingFilterModel } from '../filter/posting.filter.model';
   styleUrls: ['./client-payment.component.scss']
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
-  componentRole: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE , Role.BATCH_CLIENT_PAYMENT_ROLE];
+  componentRole: string[] = [Role.PAYMENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE , Role.BATCH_CLIENT_PAYMENT_ROLE];
   filter: PostingFilterModel;
   @Input() batchType: string;
   @Output() changePayments = new EventEmitter<any[]>()

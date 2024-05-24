@@ -58,7 +58,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     , private batchPaymentService: BatchPaymentService) {
   }
   clientBatchReceiptRequest: ClientBatchReceiptRequest;
-  componentRole: string[] = [Role.PATIENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
+  componentRole: string[] = [Role.PAYMENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE];
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
     this.findInsuranceCompanyByNameAutoComplete();
