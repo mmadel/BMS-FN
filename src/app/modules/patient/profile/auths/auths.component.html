@@ -27,7 +27,7 @@
                                     <button cButton color="primary" variant="outline" (click)="creatAuth()"
                                         dispaly-input [componentRole]="componentRole">Add
                                         Authorization</button>
-                                    <c-dropdown variant="btn-group" dispaly-input [componentRole]="componentRole">
+                                    <c-dropdown variant="btn-group">
                                         <button cButton cDropdownToggle>
                                             Actions
                                         </button>
@@ -36,10 +36,12 @@
                                                     Expired</a></li>
                                             <li><a cDropdownItem (click)="hideExpire()" *ngIf="renderdAuthExpire">Hide
                                                     Expired</a></li>
-                                            <li cDropdownDivider></li>
-                                            <li><a cDropdownItem (click)="turnOn()" *ngIf="!patientAuthorization">Turn
+                                            <li cDropdownDivider dispaly-input [componentRole]="componentRole"></li>
+                                            <li><a cDropdownItem (click)="turnOn()" *ngIf="!patientAuthorization"
+                                                    dispaly-input [componentRole]="componentRole">Turn
                                                     On</a></li>
-                                            <li><a cDropdownItem (click)="turnOff()" *ngIf="patientAuthorization">Turn
+                                            <li><a cDropdownItem (click)="turnOff()" *ngIf="patientAuthorization"
+                                                    dispaly-input [componentRole]="componentRole">Turn
                                                     Off</a></li>
                                         </ul>
                                     </c-dropdown>
@@ -55,11 +57,13 @@
                                             <c-button-group aria-label="Button outlined group with nested dropdown"
                                                 role="group">
                                                 <button cButton variant="outline" class="btn-sm"
-                                                    (click)="updateAuth(patientAuthorization)" dispaly-input [componentRole]="componentRole">
+                                                    (click)="updateAuth(patientAuthorization)" dispaly-input
+                                                    [componentRole]="componentRole">
                                                     <svg cIcon name="cilPen"></svg>
                                                 </button>
                                                 <button cButton variant="outline" class="btn-sm"
-                                                    (click)="delete(patientAuthorization)" dispaly-input [componentRole]="componentRole">
+                                                    (click)="delete(patientAuthorization)" dispaly-input
+                                                    [componentRole]="componentRole">
                                                     <svg cIcon name="cilTrash"></svg>
                                                 </button>
                                             </c-button-group>
