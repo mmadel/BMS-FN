@@ -9,6 +9,7 @@ import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { BatchSessionServiceLinePayment } from 'src/app/modules/patient/profile/filling/sessions/model/batch.session.service.line.payment';
 import { ServiceLinePaymentRequest } from 'src/app/modules/patient/profile/filling/sessions/model/service.line.payment.request';
 import { EnterPaymentService } from 'src/app/modules/patient/service/session/payment/enter-payment.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { PostingServiceService } from '../../service/posting-service.service';
 import { PostingFilterModel } from '../filter/posting.filter.model';
 
@@ -18,6 +19,7 @@ import { PostingFilterModel } from '../filter/posting.filter.model';
   styleUrls: ['./client-payment.component.scss']
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
+  componentRole: string[] = [Role.PAYMENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE , Role.BATCH_CLIENT_PAYMENT_ROLE];
   filter: PostingFilterModel;
   @Input() batchType: string;
   @Output() changePayments = new EventEmitter<any[]>()
@@ -53,7 +55,6 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   constructor(private postingServiceService: PostingServiceService
     , private toastr: ToastrService
     , private postingEmitterService: PostingEmitterService) { super() }
-
   ngOnInit(): void {
     this.initListComponent();
     this.postingEmitterService.searchPostingClient$.subscribe((emittedPostingFilter: PostingFilterModel) => {
@@ -114,18 +115,14 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   }
 
   constructPaymentLines(paymentBatch: PaymentBatch): any {
-    var invalidServiceCode: any[] = this.validate(this.clientPayments.items);
-    if (!(invalidServiceCode.length > 0)) {
       return this.constructRequest(paymentBatch);
-    }
-    return invalidServiceCode;
   }
   private validate(items: any[]): any[] {
     var invalidServiceCode: any[] = [];
     for (var i = 0; i < items.length; i++) {
       var item: any = items[i];
-      var isPaymentChanged: boolean = item.payment !== null && item.adjust
-      if (item.serviceLinePaymentAction === null && isPaymentChanged)
+      var isPaymentChanged: boolean = item.payment !== null || item.adjust !== null
+      if ( isPaymentChanged)
         invalidServiceCode.push(Number(item.serviceLineId));
     }
     return invalidServiceCode

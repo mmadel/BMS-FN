@@ -5,6 +5,7 @@ import { InsuranceCompanyService } from 'src/app/modules/admin.tools/services/in
 import { IsuranceCompany } from 'src/app/modules/model/admin/insurance.company';
 import { IsuranceCompanyMapper } from 'src/app/modules/model/admin/insurance.company.mapper';
 import { Payer } from 'src/app/modules/model/admin/payer';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 
 @Component({
   selector: 'assign-payer',
@@ -12,12 +13,12 @@ import { Payer } from 'src/app/modules/model/admin/payer';
   styleUrls: ['./assign-payer.component.scss']
 })
 export class AssignPayerComponent implements OnInit {
-
+  componentRole: string[] = [Role.BILLING_ROLE];
   payerNames: string[];
   payerIds: string[];
   selectedpayerName: string;
   selectedpayerId: string;
-  selectedMapperId:number = null;
+  selectedMapperId: number = null;
   assignedPayer: Payer;
   @Input() insuranceCompany: IsuranceCompany;
   @Input() payer!: Payer[];
@@ -26,13 +27,13 @@ export class AssignPayerComponent implements OnInit {
     , private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(this.insuranceCompany.assigner){
+    if (this.insuranceCompany.assigner) {
       this.selectedpayerId = this.insuranceCompany.assigner[0]
       this.selectedpayerName = this.insuranceCompany.assigner[1];
       this.selectedMapperId = Number(this.insuranceCompany.assigner[2]);
     }
-    this.payerNames = this.payer.map(a => a.displayName);
-    this.payerIds = this.payer.map(a => a.payerId.toString());
+    this.payerNames = this.payer.map(a => a?.displayName);
+    this.payerIds = this.payer.map(a => a?.payerId?.toString());
   }
   pickName(event: any) {
     this.payer.forEach(element => {
@@ -58,7 +59,7 @@ export class AssignPayerComponent implements OnInit {
   }
   assign() {
     var isuranceCompanyMapper: IsuranceCompanyMapper = {
-      id:this.selectedMapperId,
+      id: this.selectedMapperId,
       insuranceCompanyId: this.insuranceCompany.id,
       payer: this.assignedPayer
     }

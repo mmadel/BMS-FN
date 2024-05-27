@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientAdvancedInformation } from 'src/app/modules/model/clinical/patient.advanced';
 import { States } from 'src/app/modules/model/lookups/state-data-store';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 
 @Component({
   selector: 'patient-advanced',
@@ -22,6 +23,7 @@ export class AdvancedComponent implements OnInit {
 
   };
   states: string[] = States;
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor() { }
 
   ngOnInit(): void {

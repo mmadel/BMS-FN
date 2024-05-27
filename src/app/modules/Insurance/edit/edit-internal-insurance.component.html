@@ -1,0 +1,32 @@
+<c-row>
+    <c-col xs="12">
+        <input cFormControl placeholder="Name" sizing="sm" class="mb-1" #payorstreet="ngModel" name="insname"
+            [(ngModel)]="selectedClinic.name" />
+    </c-col>
+    <c-col xs="12">
+        <input cFormControl placeholder="Address" sizing="sm" class="mb-1" #payorstreet="ngModel" name="insstreet"
+            [(ngModel)]="selectedClinic.address.address" />
+    </c-col>
+    <c-col xs="12">
+        <input cFormControl placeholder="City" sizing="sm" class="mb-1" #patorCity="ngModel" name="insCity"
+            [(ngModel)]="selectedClinic.address.city" /></c-col>
+    <c-col xs="6">
+        <c-col xs="12">
+            <select cFormControl cSelect sizing="sm" id="state" name="instate" #payorstate="ngModel"
+                [(ngModel)]="selectedClinic.address.state">
+                <option [value]="null" disabled selected>Select State</option>
+                <option *ngFor="let state of states" [value]="state |state">
+                    {{state}}
+                </option>
+            </select>
+        </c-col>
+    </c-col>
+    <c-col xs="6">
+        <input zipcode cFormControl id="inszipCode" name="inszipCode" placeholder="ZipCode" sizing="sm"
+            #payorzipCode="ngModel" name="payorzipCode" [(ngModel)]="selectedClinic.address.zipCode" class="mb-1" /></c-col>
+    <c-col xs="12">
+        <div class="my-2 d-grid gap-2 d-md-flex justify-content-md-center">
+            <button cButton variant="outline" size="sm" (click)="update()">Update</button>
+        </div>
+    </c-col>
+</c-row>

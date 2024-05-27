@@ -13,7 +13,8 @@
                     <c-col>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button cButton class="my-2" size="sm" color="link"
-                                (click)="onClickEditProviderInformation()">Edit Provider</button>
+                                (click)="onClickEditProviderInformation()" dispaly-input
+                                [componentRole]="componentRole">Edit Provider</button>
                         </div>
                     </c-col>
                 </c-row>
@@ -35,7 +36,8 @@
                     </c-col>
                     <c-col>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button cButton class="my-2" size="sm" color="link" (click)="onClickAddFacility()">Add
+                            <button cButton class="my-2" size="sm" color="link" (click)="onClickAddFacility()"
+                                dispaly-input [componentRole]="componentRole">Add
                                 Facility</button>
                         </div>
                     </c-col>
@@ -63,6 +65,7 @@
         <button (click)="toggleAddFacility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-facility  (changeVisibility)="changeAddFacilityVisibility($event)"></app-create-facility>
+        <app-create-facility (changeVisibility)="changeAddFacilityVisibility($event)"
+            *ngIf="addFacilityVisibility"></app-create-facility>
     </c-modal-body>
 </c-modal>

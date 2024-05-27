@@ -16,11 +16,11 @@
         <c-row>
             <c-col class="col my-2">
                 <input cFormControl [formControl]="npiCtrl" id="providernpi" class="mb-3"
-                    placeholder="Type Provider NPI" sizing="sm" />
+                    placeholder="Type Provider NPI" sizing="sm" [readonly]="selectedProvider" />
             </c-col>
         </c-row>
         <!-- provider information-->
-        <form cForm #providerCreateForm="ngForm">
+        <form cForm #providerCreateForm="ngForm" readonly-form [componentRole]="componentRole">
             <c-row>
                 <c-col xs="12">
                     <c-card class="mb-4">
@@ -120,7 +120,8 @@
                             <c-col class="mb-1">
                                 <c-input-group class="mb-3" sizing="sm">
                                     <input placeholder="Address" cFormControl id="address" name="proaddress" sizing="sm"
-                                        required #proaddress="ngModel" [(ngModel)]="provider.address.first" />
+                                        readonly-input [componentRole]="componentRole" required #proaddress="ngModel"
+                                        [(ngModel)]="provider.address.first" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -133,7 +134,8 @@
                             <c-col class="mb-1">
                                 <c-input-group class="mb-3" sizing="sm">
                                     <input placeholder="State" cFormControl id="prstate" name="prstate" sizing="sm"
-                                        required #prstate="ngModel" [(ngModel)]="provider.address.state" />
+                                        required #prstate="ngModel" [(ngModel)]="provider.address.state" readonly-input
+                                        [componentRole]="componentRole" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -146,8 +148,8 @@
                             <c-col class="mb-1">
                                 <c-input-group class="mb-3" sizing="sm">
                                     <input placeholder="Zip Code" cFormControl id="przipCode" name="przipCode" required
-                                        sizing="sm" required #przipCode="ngModel"
-                                        [(ngModel)]="provider.address.zipCode" />
+                                        sizing="sm" required #przipCode="ngModel" [(ngModel)]="provider.address.zipCode"
+                                        readonly-input [componentRole]="componentRole" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -182,7 +184,8 @@
                                         License
                                     </span>
                                     <input placeholder="License" cFormControl id="license" name="prlicense" sizing="sm"
-                                        required #prlicense="ngModel" [(ngModel)]="provider.providerInfo.license" />
+                                        required #prlicense="ngModel" [(ngModel)]="provider.providerInfo.license"
+                                        readonly-input [componentRole]="componentRole" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -199,7 +202,8 @@
                                     </span>
                                     <input placeholder="Taxonomy Code" cFormControl id="prtaxonomyCode"
                                         name="prtaxonomyCode" sizing="sm" required #prtaxonomyCode="ngModel"
-                                        [(ngModel)]="provider.providerInfo.taxonomyCode" />
+                                        [(ngModel)]="provider.providerInfo.taxonomyCode" readonly-input
+                                        [componentRole]="componentRole" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -215,7 +219,8 @@
                                         Tax ID
                                     </span>
                                     <input placeholder="Tax Id" cFormControl id="prtaxId" name="prtaxId" sizing="sm"
-                                        required #prtaxId="ngModel" [(ngModel)]="provider.providerInfo.taxId" />
+                                        required #prtaxId="ngModel" [(ngModel)]="provider.providerInfo.taxId"
+                                        readonly-input [componentRole]="componentRole" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -232,7 +237,8 @@
                                     </span>
                                     <input placeholder="Profession Abbr" cFormControl id="prprofessionAbbr"
                                         name="prprofessionAbbr" sizing="sm" required #prprofessionAbbr="ngModel"
-                                        [(ngModel)]="provider.providerInfo.professionAbbr" />
+                                        [(ngModel)]="provider.providerInfo.professionAbbr" readonly-input
+                                        [componentRole]="componentRole" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -249,7 +255,8 @@
                                     </span>
                                     <input placeholder="Credentials" cFormControl id="prcredentials"
                                         name="prcredentials" sizing="sm" required #prcredentials="ngModel"
-                                        [(ngModel)]="provider.providerInfo.credentials" />
+                                        [(ngModel)]="provider.providerInfo.credentials" readonly-input
+                                        [componentRole]="componentRole" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -266,7 +273,8 @@
                                     </span>
                                     <input placeholder="Add to group" cFormControl id="prgroup" name="prgroup"
                                         sizing="sm" required #prgroup="ngModel"
-                                        [(ngModel)]="provider.providerInfo.group" />
+                                        [(ngModel)]="provider.providerInfo.group" readonly-input
+                                        [componentRole]="componentRole" />
                                 </c-input-group>
                             </c-col>
                         </c-row>
@@ -294,7 +302,8 @@
                                 <ng-autocomplete [data]="payerNameList" [searchKeyword]="" id="payername"
                                     name="patientname" placeholder="Payer Name" [itemTemplate]="itemTemplate"
                                     (selected)='pickPayerName($event)' (inputCleared)="unpickPayerName()"
-                                    [(ngModel)]="selectedPayerName" [notFoundTemplate]="notFoundTemplate">
+                                    [(ngModel)]="selectedPayerName" [notFoundTemplate]="notFoundTemplate"
+                                    disable-auto-complete [componentRole]="componentRole">
                                 </ng-autocomplete>
                                 <ng-template #itemTemplate let-item>
                                     <a [innerHTML]="item"></a>
@@ -308,7 +317,8 @@
                                 <ng-autocomplete [data]="payerIdList" [searchKeyword]="" id="payerid" name="payerid"
                                     placeholder="Payer Id" [itemTemplate]="itemTemplate"
                                     (selected)='pickPayerId($event)' (inputCleared)="unpickPayerId()"
-                                    [(ngModel)]="selectedPayerId" [notFoundTemplate]="notFoundTemplate">
+                                    [(ngModel)]="selectedPayerId" [notFoundTemplate]="notFoundTemplate"
+                                    disable-auto-complete [componentRole]="componentRole">
                                 </ng-autocomplete>
                                 <ng-template #itemTemplate let-item>
                                     <a [innerHTML]="item"></a>
@@ -325,7 +335,7 @@
                                     [(ngModel)]="provider.legacyID.providerIdQualifier">
                                     <option [value]=null disabled selected>Select Id Type</option>
                                     <option *ngFor="let qualifier of idQualifierKeys(idQualifiers)"
-                                        [value]="idQualifiers[qualifier]">
+                                        [value]="idQualifiers[qualifier]" disable-input [componentRole]="componentRole">
                                         {{qualifier}}
                                     </option>
                                 </select>
@@ -336,6 +346,7 @@
                                 <c-input-group class="mb-3" sizing="sm">
                                     <span cInputGroupText id="basic-addon1">Legacy ID</span>
                                     <input cFormControl id="prorefid" name="prorefid" sizing="sm" required
+                                        readonly-input [componentRole]="componentRole"
                                         [ngClass]="{'is-invalid': prorefid.invalid && (prorefid.dirty || prorefid.touched)}"
                                         #prorefid="ngModel" [(ngModel)]="provider.legacyID.providerId" />
                                 </c-input-group>
@@ -348,5 +359,8 @@
     </c-tab-pane>
 </c-tab-content>
 <div class="d-md-flex justify-content-md-center">
-    <button cButton color="primary" (click)="create()" variant="outline">Create</button>
+    <button cButton color="primary" (click)="create()" variant="outline" size="sm" *ngIf="!selectedProvider"
+        dispaly-input [componentRole]="componentRole">Create</button>
+    <button cButton color="primary" (click)="update()" variant="outline" size="sm" *ngIf="selectedProvider"
+        dispaly-input [componentRole]="componentRole">Update</button>
 </div>

@@ -19,10 +19,10 @@
           </ng-container>
           <ng-container *ngSwitchCase="'actions'" class="py-2">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button cButton variant="outline" (click)="onClickDeleteFacility(item)" size="sm">
+              <button cButton variant="outline" (click)="onClickDeleteFacility(item)" size="sm" dispaly-input [componentRole]="componentRole">
                 <svg cIcon name="cilTrash"></svg>
               </button>
-              <button cButton variant="outline" (click)="edit(item)" size="sm">
+              <button cButton variant="outline" (click)="edit(item)" size="sm" >
                 <svg cIcon name="cilPen"></svg>
               </button>
             </div>
@@ -48,4 +48,14 @@
   <c-modal-footer>
     <button cButton color="primary" (click)="remove()">Delete</button>
   </c-modal-footer>
+</c-modal>
+<c-modal id="editFacility" [visible]="editFacilityVisibility" size="lg">
+  <c-modal-header>
+      <h3 cModalTitle>Edit Facility</h3>
+      <button (click)="toggleEditFacility()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+      <app-create-facility (changeVisibility)="changeFacilityVisibility($event)"
+          *ngIf="editFacilityVisibility" [selectedClinic]="selectedClinic"></app-create-facility>
+  </c-modal-body>
 </c-modal>

@@ -25,7 +25,8 @@ import {
   ModalModule,
   MultiSelectModule,
   SpinnerModule,
-  SmartPaginationModule
+  SmartPaginationModule,
+  AccordionModule
 } from '@coreui/angular-pro';
 import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
@@ -38,6 +39,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { InsuranceMappingComponent } from './components/insurance.company/mapping/insurance-mapping.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AssignPayerComponent } from './components/insurance.company/mapping/payer.assign/assign-payer.component';
+import { ListAccountsComponent } from './components/account/list/list-accounts.component';
+import { CreateAccountComponent } from './components/account/create/create-account.component';
+import { BillingRoleComponent } from './components/account/create/roles.components/billing.role/billing-role.component';
+import { ProviderRoleComponent } from './components/account/create/roles.components/provider.role/provider-role.component';
+import { PaymentRoleComponent } from './components/account/create/roles.components/payment.role/payment-role.component';
+import { ClientRoleComponent } from './components/account/create/roles.components/client.role/client-role.component';
+import { FilingRoleComponent } from './components/account/create/roles.components/filing.role/filing-role.component';
+import { AdminRoleComponent } from './components/account/create/roles.components/admin.role/admin-role.component';
+import { ViewAccountComponent } from './components/account/view/view-account.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +56,16 @@ import { AssignPayerComponent } from './components/insurance.company/mapping/pay
     ClinicsComponent,
     CreateFacilityComponent,
     InsuranceMappingComponent,
-    AssignPayerComponent
+    AssignPayerComponent,
+    ListAccountsComponent,
+    CreateAccountComponent,
+    BillingRoleComponent,
+    ProviderRoleComponent,
+    PaymentRoleComponent,
+    ClientRoleComponent,
+    FilingRoleComponent,
+    AdminRoleComponent,
+    ViewAccountComponent
   ],
   imports: [
     CommonModule,
@@ -78,6 +97,7 @@ import { AssignPayerComponent } from './components/insurance.company/mapping/pay
     MultiSelectModule,
     SpinnerModule,
     SmartPaginationModule,
+    AccordionModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

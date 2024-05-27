@@ -2,7 +2,8 @@
 <c-row>
     <c-col xs="12">
         <div style="float: right;" class="mb-2">
-            <c-button cButton color="primary" class="btn-sm" variant="outline" (click)="add()">Create Case</c-button>
+            <c-button cButton color="primary" class="btn-sm" variant="outline" (click)="add()" dispaly-input
+                [componentRole]="componentRole">Create Case</c-button>
         </div>
     </c-col>
     <c-col xs="12">
@@ -10,11 +11,12 @@
             <div class="card-body">
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                        <button cButton color="info" variant="outline" class="btn-sm" (click)="edit(case)">
+                        <button cButton color="info" variant="outline" class="btn-sm" (click)="edit(case)" dispaly-input
+                            [componentRole]="componentRole">
                             <svg cIcon name="cilPen"></svg>
                         </button>
                         <button cButton color="info" variant="outline" class="btn-sm" (click)="remove(i,case)"
-                            color="info">
+                            color="info" dispaly-input [componentRole]="componentRole">
                             <svg cIcon name="cilTrash"></svg>
                         </button>
                     </c-button-group>

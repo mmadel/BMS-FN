@@ -64,7 +64,6 @@ export class EnterPaymentComponent implements OnInit {
   private findInsuranceCompanies() {
     if (this.insuranceCompanies === undefined)
       this.patientService.findPatientInsuranceCompanies(this.sessionData.patientId).subscribe((result: any) => {
-        console.log(JSON.stringify(result))
         this.insuranceCompanies = result.map((obj: any) => obj.insuranceCompany);
       })
   }

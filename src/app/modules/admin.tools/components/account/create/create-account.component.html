@@ -1,0 +1,179 @@
+<ngx-spinner></ngx-spinner>
+<form cForm #accountForm="ngForm">
+    <c-row>
+        <c-col xs="6" class="mb-2">
+            <div class="card">
+                <div class="card-header">
+                    User Information
+                </div>
+                <div class="card-body">
+                    <small
+                        *ngIf="notValidForm   && (accountFirstname.errors) ||   accountFirstname.invalid && (accountFirstname.dirty || accountFirstname.touched)"
+                        class="form-text text-danger">
+                        First name is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="accfname">First Name</label>
+                        <input cFormControl id="accfname" [(ngModel)]="user.firstName" sizing="sm" name="firstname"
+                            #accountFirstname="ngModel" required />
+                    </div>
+                    <small
+                        *ngIf="notValidForm   && (accounLastname.errors) ||   accounLastname.invalid && (accounLastname.dirty || accounLastname.touched)"
+                        class="form-text text-danger">
+                        Last name is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="acclname">Last Name</label>
+                        <input cFormControl id="acclname" sizing="sm" #accounLastname="ngModel" name="lastname" required
+                            [(ngModel)]="user.lastName" />
+                    </div>
+                    <small
+                        *ngIf="notValidForm   && (accountEmail.errors) ||   accountEmail.invalid && (accountEmail.dirty || accountEmail.touched)"
+                        class="form-text text-danger">
+                        Email is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="accusrmailname">Email</label>
+                        <input cFormControl id="accusrmailname" sizing="sm" #accountEmail="ngModel" name="accountEmail"
+                            required [(ngModel)]="user.email" type="email" email />
+                    </div>
+                </div>
+            </div>
+        </c-col>
+        <c-col xs="6" class="mb-2">
+            <div class="card">
+                <div class="card-header">
+                    User Account
+                </div>
+                <div class="card-body">
+                    <small
+                        *ngIf="notValidForm   && (accounID.errors) ||   accounID.invalid && (accounID.dirty || accounID.touched)"
+                        class="form-text text-danger">
+                        Account ID is required
+                    </small>
+                    <div class="mb-3">
+                        <label cLabel for="accusridname">User ID</label>
+                        <input cFormControl id="accusridname" sizing="sm" #accounID="ngModel" name="accounID" required
+                            [(ngModel)]="user.userAccount" />
+                    </div>
+                    <div *ngIf="!userSetPassword">
+                        <small
+                            *ngIf="notValidForm   && (accusridpassword.errors) ||   accusridpassword.invalid && (accusridpassword.dirty || accusridpassword.touched)"
+                            class="form-text text-danger">
+                            Account pasword is required
+                        </small>
+                        <div class="mb-3">
+                            <label cLabel for="accusridpassword">User Password</label>
+                            <input cFormControl id="accusridpassword" sizing="sm" #accusridpassword="ngModel"
+                                name="accusridpassword" required [(ngModel)]="user.password" type="password" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <c-form-check [switch]="true">
+                            <input cFormCheckInput type="checkbox" [checked]="userSetPassword"
+                                (change)="userSetPassword = !userSetPassword" />
+                            <label cFormCheckLabel>Update profile-Set Password</label>
+                        </c-form-check>
+                    </div>
+                </div>
+            </div>
+        </c-col>
+        <c-col xs="12" class="mb-2">
+            <div class="card">
+                <div class="card-header">
+                    User Permission
+                </div>
+                <div class="card-body">
+                    <small *ngIf="notValidPermissions " class="form-text text-danger">
+                        All account permission must be set<br />
+                    </small>
+                    <small *ngIf="!isValidClient " class="form-text text-danger">
+                        Billing or Payment access requires Client access<br />
+                    </small>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Billing
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <billing-role #billingRoleComponent></billing-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Providers
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <provider-role #providerRoleComponent></provider-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Client
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <client-role #clientRoleComponent></client-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Payment
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <payment-role #paymentRoleComponent></payment-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Filing
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <filing-role #filingRoleComponent></filing-role>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        <strong>
+                                            Admin Tools
+                                        </strong>
+                                    </h3>
+                                </td>
+                                <td>
+                                    <admin-role #adminRoleComponent></admin-role>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </c-col>
+    </c-row>
+</form>
+<div class="col text-center my-3">
+    <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;">
+        <span *ngIf="mode ==='create'"> Create</span>
+        <span *ngIf="mode ==='update'"> Update</span>
+    </button>
+</div>

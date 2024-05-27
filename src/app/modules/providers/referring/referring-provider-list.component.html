@@ -1,66 +1,80 @@
 <ngx-spinner></ngx-spinner>
 <c-container [fluid]="true">
-    <c-row>
-        <c-col xs="12">
-            <h1>Referring Provider List</h1>
-        </c-col>
-    </c-row>
-    <hr />
-    <c-row>
-        <c-col xs="12">
-            <div style="float:right;">
-                <c-button-group aria-label="Basic outlined example" role="group">
-                    <button cButton color="primary" variant="outline" (click)="toggleReferringProviderCreation()">
-                        Add Referring Provider
+  <c-row>
+    <c-col xs="12">
+      <h1>Referring Provider List</h1>
+    </c-col>
+  </c-row>
+  <hr />
+  <c-row>
+    <c-col xs="12">
+      <div style="float:right;">
+        <c-button-group aria-label="Basic outlined example" role="group">
+          <button cButton color="primary" variant="outline" (click)="toggleReferringProviderCreation()" dispaly-input
+            [componentRole]="componentRole">
+            Add Referring Provider
+          </button>
+          <button cButton color="primary" variant="outline" dispaly-input [componentRole]="componentRole">
+            Upload CSV
+          </button>
+        </c-button-group>
+      </div>
+    </c-col>
+    <c-col xs="12">
+      <ng-container *ngIf="props$ | async as props" fluid="true">
+        <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
+          [items]="(referringProviders$ | async) ?? []" [itemsPerPage]="props.itemsPerPage"
+          (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+          [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+          [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+          [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+          (sorterValueChange)="handleSorterValueChange($event)" header>
+          <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+            <td>
+              <ng-container [ngSwitch]="columnName">
+                <ng-container *ngSwitchCase="'actions'" class="py-2">
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <button cButton variant="outline" (click)="remove(item)" size="sm" dispaly-input
+                      [componentRole]="componentRole">
+                      <svg cIcon name="cilTrash"></svg>
                     </button>
-                    <button cButton color="primary" variant="outline">
-                        Upload CSV
+                    <button cButton variant="outline" (click)="edit(item)" size="sm">
+                      <svg cIcon name="cilPen"></svg>
                     </button>
-                </c-button-group>
-            </div>
-        </c-col>
-        <c-col xs="12">
-            <ng-container *ngIf="props$ | async as props" fluid="true">
-                <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns"
-                  [items]="(referringProviders$ | async) ?? []" [itemsPerPage]="props.itemsPerPage"
-                  (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
-                  [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
-                  [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
-                  [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
-                  (sorterValueChange)="handleSorterValueChange($event)"  header>
-                  <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
-                    <td>
-                      <ng-container [ngSwitch]="columnName">
-                        <ng-container *ngSwitchCase="'actions'" class="py-2">
-                          <div class="btn-group" role="group" aria-label="Basic example">
-                            <button cButton variant="outline" (click)="remove(item)" size="sm"> 
-                              <svg cIcon name="cilTrash"></svg>
-                            </button>
-                            <button cButton variant="outline" (click)="edit(item)" size="sm">
-                              <svg cIcon name="cilPen"></svg>
-                            </button>
-                          </div>
-                        </ng-container>
-                        <ng-container *ngSwitchDefault>
-                          {{tdContent}}
-                        </ng-container>
-                      </ng-container>
-                    </td>
-                  </ng-template>
-                </c-smart-table>
-                <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
-                  (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  {{tdContent}}
+                </ng-container>
               </ng-container>
+            </td>
+          </ng-template>
+        </c-smart-table>
+        <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+          (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+      </ng-container>
 
-        </c-col>
-    </c-row>
+    </c-col>
+  </c-row>
 </c-container>
-<c-modal id="AppointmentAction" [visible]="referringProviderCreationVisibility">
-    <c-modal-header>
-        <h5 cModalTitle>Referring Provider Creation</h5>
-        <button (click)="toggleReferringProviderCreation()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-        <app-referring-provider-create  *ngIf="referringProviderCreationVisibility" (changeVisibility)="changeVisibility($event)"></app-referring-provider-create>
-    </c-modal-body>
+<c-modal id="addReferring" [visible]="referringProviderCreationVisibility">
+  <c-modal-header>
+    <h3 cModalTitle>Referring Provider Creation</h3>
+    <button (click)="toggleReferringProviderCreation()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <app-referring-provider-create *ngIf="referringProviderCreationVisibility"
+      (changeVisibility)="changeVisibility($event)"></app-referring-provider-create>
+  </c-modal-body>
+</c-modal>
+<c-modal id="updateReferring" [visible]="referringProviderEditVisibility">
+  <c-modal-header>
+    <h3 cModalTitle>Edit Referring Provider</h3>
+    <button (click)="toggleEditReferringProvider()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <app-referring-provider-create *ngIf="referringProviderEditVisibility"
+      [selectedReferringProvider]="selectedReferringProvider"
+      (changeVisibility)="changeVisibility($event)"></app-referring-provider-create>
+  </c-modal-body>
 </c-modal>

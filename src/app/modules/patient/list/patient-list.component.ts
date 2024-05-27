@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import * as moment from 'moment';
 import { map, Observable, tap } from 'rxjs';
 import { MinimalPatient } from '../../model/clinical/minimal.patient';
-import { Patient } from '../../model/clinical/patient';
 import { PatientResponse } from '../../model/clinical/patient.response';
 import { ListTemplate } from '../../model/template/list.template';
-import { PateintEmittingService } from '../service/emitting/pateint-emitting.service';
+import { RoleScope } from '../../secuirty/model/role.scope';
+import { Role } from '../../secuirty/model/roles';
+import { RoleScopeFinderService } from '../../secuirty/service/role-scope-finder.service';
 import { PatientService } from '../service/patient.service';
 @Component({
   selector: 'app-patient-list',
@@ -15,6 +16,7 @@ import { PatientService } from '../service/patient.service';
 })
 export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<MinimalPatient[]>;
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private paitentService: PatientService
     , private router: Router) { super() }
 
@@ -35,12 +37,12 @@ export class PatientListComponent extends ListTemplate implements OnInit {
   remove(event: any) {
 
   }
-  add(){
-    
+  add() {
+
     this.router.navigate(['/patient/profile']);
   }
   edit(event: any) {
-    this.router.navigate(['/patient/profile',event.id]);
+    this.router.navigate(['/patient/profile', event.id]);
   }
   view(event: any) {
   }
@@ -59,7 +61,7 @@ export class PatientListComponent extends ListTemplate implements OnInit {
         for (var i = 0; i < response.records.length; i++) {
           var obj: MinimalPatient = response.records[i];
           var patientResponse: PatientResponse = {
-            id:obj.id,
+            id: obj.id,
             name: obj.name,
             dob: moment.unix(obj.dateOfBirth / 1000).toDate(),
             email: obj.email,

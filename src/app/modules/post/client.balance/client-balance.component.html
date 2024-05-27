@@ -60,8 +60,9 @@
                 </button>
                 <ul cDropdownMenu variant="outline">
                     <li><a cDropdownItem (click)="export()">Export PDF</a></li>
-                    <li cDropdownDivider></li>
-                    <li><a cDropdownItem (click)="openSettings()">Settings</a></li>
+                    <li cDropdownDivider dispaly-input [componentRole]="componentRole"></li>
+                    <li><a cDropdownItem (click)="openSettings()" dispaly-input
+                            [componentRole]="componentRole">Settings</a></li>
                 </ul>
             </c-dropdown>
         </c-button-group>
@@ -79,6 +80,7 @@
         <button (click)="toggleSettingsVisible()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <client-balance-settings *ngIf="settingsVisible" (changeVisibility)="changeClientBalanceSettings($event)"></client-balance-settings>
+        <client-balance-settings *ngIf="settingsVisible"
+            (changeVisibility)="changeClientBalanceSettings($event)"></client-balance-settings>
     </c-modal-body>
 </c-modal>

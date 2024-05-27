@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { InvoiceService } from 'src/app/modules/invoice/service/invoice.service';
+import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
+import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { SessionHistory } from '../../model/session.history';
 
 @Component({
@@ -11,16 +14,27 @@ import { SessionHistory } from '../../model/session.history';
 export class SessionHistoryItemComponent implements OnInit {
   @Input() item: SessionHistory;
   showActionVisibility: boolean = false
+  editSessionVisibility: boolean = false;
   showCorrectClaimActionVisibility: boolean = false;
-  constructor(private invoiceService: InvoiceService) { }
+  componentRole: string[] = [Role.FILING_ROLE];
+  constructor(private invoiceService: InvoiceService
+    , private emitPatientSessionService: EmitPatientSessionService
+    , private patientSessionService: PatientSessionService) { }
 
   ngOnInit(): void {
   }
   toggleActionsModal() {
     this.showActionVisibility = !this.showActionVisibility
   }
-  openSession(sessionId: number) {
-    
+  toggleEditSessionModal() {
+    this.editSessionVisibility = !this.editSessionVisibility
+  }
+  openSession(session: any) {
+    this.patientSessionService.findSessionById(session.sessionId)
+      .subscribe((result) => {
+        this.emitPatientSessionService.patientSession$.next(result.records);
+        this.editSessionVisibility = true;
+      })
   }
   changeVisibility(event: any) {
     this.showActionVisibility = false
@@ -40,7 +54,7 @@ export class SessionHistoryItemComponent implements OnInit {
     this.invoiceService.downloadCMS(this.item.submissionId).subscribe(result => {
       this.constructExportedFile(result, 'cms-', 'pdf')
     }, error => {
-      
+
     })
   }
   constructExportedFile(response: any, fileName: string, extention: string) {

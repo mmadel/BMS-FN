@@ -7,7 +7,8 @@
     <c-row>
         <c-col>
             <div style="float:right;">
-                <button cButton color="primary" variant="outline" (click)="toggleAddProvider()">Add Provider</button>
+                <button cButton color="primary" variant="outline" (click)="toggleAddProvider()" dispaly-input
+                    [componentRole]="componentRole">Add Provider</button>
             </div>
         </c-col>
     </c-row>
@@ -34,7 +35,8 @@
                                 </ng-container>
                                 <ng-container *ngSwitchCase="'actions'" class="py-2">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button cButton variant="outline" (click)="remove(item)" size="sm">
+                                        <button cButton variant="outline" (click)="remove(item)" size="sm" dispaly-input
+                                            [componentRole]="componentRole">
                                             <svg cIcon name="cilTrash"></svg>
                                         </button>
                                         <button cButton variant="outline" (click)="edit(item)" size="sm">
@@ -63,5 +65,15 @@
     </c-modal-header>
     <c-modal-body>
         <app-create-provider *ngIf="addVisibility" (changeVisibility)="change($event)"></app-create-provider>
+    </c-modal-body>
+</c-modal>
+<c-modal [visible]="editVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <h3 cModalTitle>Edit Provider</h3>
+        <button (click)="toggleEditProvider()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-create-provider *ngIf="editVisibility" (changeVisibility)="change($event)"
+            [selectedProvider]="selectedProvider"></app-create-provider>
     </c-modal-body>
 </c-modal>

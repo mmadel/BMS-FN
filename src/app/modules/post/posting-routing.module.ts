@@ -12,9 +12,6 @@ import {
 const routes: Routes = [
   {
     path: '',
-    data: {
-      title: 'Posting',
-    },
     children: [
       {
         path: 'bip',

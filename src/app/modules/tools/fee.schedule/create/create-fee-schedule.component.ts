@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { FeeSchedule } from '../model/fee.schedule';
 import { FeeScheduleLine } from '../model/fee.schedule.line';
 import { FeeScheduleMetaData } from '../model/fee.schedule.meta.data';
@@ -11,6 +12,7 @@ import { FeeScheduleService } from '../service/fee-schedule.service';
   styleUrls: ['./create-fee-schedule.component.scss']
 })
 export class CreateFeeScheduleComponent implements OnInit {
+  componentRole: string[] = [Role.BILLING_ROLE, Role.FEE_SCHEDULE_BILLING_ROLE ];
   @Output() changeVisibility = new EventEmitter<string>()
   feeScheduleLines: FeeScheduleLine[] = [];
   editfeeScheduleLine: FeeScheduleLine;
@@ -59,6 +61,9 @@ export class CreateFeeScheduleComponent implements OnInit {
       this.addNewFeeScheduleLine.perUnit = 1;
       this.feeScheduleLines.push(this.addNewFeeScheduleLine)
     }
+    this.addNewFeeScheduleLine = {
+      rateType: 'Per_Unit'
+    };
   }
 
   create() {
@@ -66,7 +71,7 @@ export class CreateFeeScheduleComponent implements OnInit {
     if (this.valid) {
       this.feeSchedules.feeLines = this.feeScheduleLines;
       if (this.mode === 'create')
-      this.feeSchedules.defaultFee = !this.defaultFeeSchedule;
+        this.feeSchedules.defaultFee = !this.defaultFeeSchedule;
       this.feeScheduleService.create(this.feeSchedules).subscribe(result => {
         this.scrollUp();
 

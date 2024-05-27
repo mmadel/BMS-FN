@@ -6,6 +6,7 @@ import { Provider } from 'src/app/modules/model/clinical/provider/provider';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { ProviderService } from 'src/app/modules/providers/service/provider.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { SessionScheduling } from '../../model/session.scheduling';
 interface ProviderInfo {
   name: string,
@@ -17,6 +18,7 @@ interface ProviderInfo {
   styleUrls: ['./sheduling.component.scss']
 })
 export class ShedulingComponent implements OnInit {
+  componentRole: string[] = [Role.PATIENT_ROLE ];
   sessionScheduling: SessionScheduling;
   providers: ProviderInfo[];
   notValidForm: boolean = false;

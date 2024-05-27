@@ -26,7 +26,7 @@
                     <svg cIcon name="cilPen"></svg>
                   </button> -->
                   <c-dropdown variant="btn-group">
-                    <button cButton variant="outline" size="sm" (click)="openEnterSession(item)">
+                    <button cButton variant="outline" size="sm" (click)="openEnterSession(item)" dispaly-input [childRole]="enterPaymentRole">
                       <svg cIcon name="cilDollar"></svg>
                     </button>
                   </c-dropdown>
@@ -61,6 +61,6 @@
   </c-modal-header>
   <c-modal-body>
     <enter-payment *ngIf="enterPaymentVisible" [session]="selectedSession"
-    (changeVisibility)="changeEnterPaymentVisibility($event)"></enter-payment>
+      (changeVisibility)="changeEnterPaymentVisibility($event)"></enter-payment>
   </c-modal-body>
 </c-modal>

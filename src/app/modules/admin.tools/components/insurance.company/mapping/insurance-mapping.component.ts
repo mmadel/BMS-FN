@@ -4,6 +4,7 @@ import { filter, first, Observable } from 'rxjs';
 import { IsuranceCompany } from 'src/app/modules/model/admin/insurance.company';
 import { IsuranceCompanyMapper } from 'src/app/modules/model/admin/insurance.company.mapper';
 import { Payer } from 'src/app/modules/model/admin/payer';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { InsuranceCompanyEmittingService } from '../../../services/emitting/insurance-company-emitting.service';
 import { InsuranceCompanyService } from '../../../services/insurance.company/insurance-company.service';
 import { PayerService } from '../../../services/payer/payer.service';
@@ -35,6 +36,7 @@ export class InsuranceMappingComponent implements OnInit {
   ];
   details_visible = Object.create({});
   payer!: Payer[]
+  componentScopes: string[] = [Role.ADMIN_TOOL_ROLE, Role.INSURANCE_MAPPING_ADMIN_TOOL_ROLE ];
   constructor(private insuranceCompanyService: InsuranceCompanyService
     , private toastr: ToastrService
     , private payerService: PayerService) { }

@@ -3,6 +3,7 @@ import { filter, map, Observable, tap } from 'rxjs';
 import { PostingEmitterService } from 'src/app/modules/invoice/service/emitting/posting-emitter.service';
 import { ListTemplate } from 'src/app/modules/model/template/list.template';
 import { PatientSessionService } from 'src/app/modules/patient/service/session/patient.session.service';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { PostingFilterModel } from '../../bip/filter/posting.filter.model';
 import { ClientBalance } from '../../model/client.balance';
 import { ClientBalanceService } from '../../service/client-balance.service';
@@ -13,6 +14,8 @@ import { ClientBalanceService } from '../../service/client-balance.service';
   styleUrls: ['./pending-insurance.component.scss']
 })
 export class PendingInsuranceComponent extends ListTemplate implements OnInit {
+  componentRole: string[] = [Role.PAYMENT_ROLE, Role.BALANCE_STATEMENT_PAYMENT_ROLE];
+  enterPaymentRole: string = Role.SESSION_PAYMENT_ROLE;
   pendinfFilter: PostingFilterModel;
   pendingClientBalance$!: Observable<ClientBalance[]>;
   selectedPendingClientBalance: ClientBalance[]

@@ -19,16 +19,18 @@
         <form cForm>
           <c-row>
             <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="Username" cFormControl placeholder="Name" sizing="sm"/>
+              <input aria-describedby="basic-addon1" aria-label="Username" cFormControl placeholder="Name"
+                sizing="sm" />
             </c-col>
             <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="phone" cFormControl placeholder="Phone" sizing="sm"/>
+              <input aria-describedby="basic-addon1" aria-label="phone" cFormControl placeholder="Phone" sizing="sm" />
             </c-col>
             <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="address" cFormControl placeholder="Address" sizing="sm"/>
+              <input aria-describedby="basic-addon1" aria-label="address" cFormControl placeholder="Address"
+                sizing="sm" />
             </c-col>
             <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Email" sizing="sm"/>
+              <input aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Email" sizing="sm" />
             </c-col>
             <c-col class="mb-2" xs="4">
               <select aria-label="Insurance company" id="insurancecompany" cSelect sizing="sm">
@@ -66,7 +68,9 @@
   </c-col>
   <c-col xs="12">
     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-      <button cButton color="primary" variant="outline" (click)="add()">Add New Patient</button>
+      <button cButton color="primary" variant="outline" (click)="add()" dispaly-input
+        [componentRole]="componentRole">Add New
+        Patient</button>
       <c-dropdown variant="btn-group">
         <button cButton cDropdownToggle>
           Actions
@@ -109,10 +113,8 @@
               </ng-container>
               <ng-container *ngSwitchCase="'actions'" class="py-2">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button cButton variant="outline" (click)="view(item)" size="sm">
-                    <svg cIcon name="cilBrowser"></svg>
-                  </button>
-                  <button cButton variant="outline" (click)="remove(item)" size="sm">
+                  <button cButton variant="outline" (click)="remove(item)" size="sm" dispaly-input
+                    [componentRole]="componentRole">
                     <svg cIcon name="cilTrash"></svg>
                   </button>
                   <button cButton variant="outline" (click)="edit(item)" size="sm">

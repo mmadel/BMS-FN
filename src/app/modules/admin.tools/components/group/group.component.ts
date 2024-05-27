@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Role } from 'src/app/modules/secuirty/model/roles';
 import { ClinicsComponent } from '../clinics/clinics.component';
 import { OrganizationComponent } from '../organization/organization.component';
 
@@ -12,6 +13,7 @@ export class GroupComponent implements OnInit {
   @ViewChild('listclinicsComponent') listclinicsComponent: ClinicsComponent;
   editProviderVisibility: boolean = false;
   addFacilityVisibility: boolean = false;
+  componentRole: string[] = [Role.ADMIN_TOOL_ROLE, Role.GROUP_INFO_ADMIN_TOOL_ROLE];
   constructor() { }
 
   ngOnInit(): void {
@@ -22,6 +24,7 @@ export class GroupComponent implements OnInit {
   toggleAddFacility() {
     this.addFacilityVisibility = !this.addFacilityVisibility;
   }
+  
   onClickEditProviderInformation() {
     this.editProviderVisibility = true;
   }
@@ -35,7 +38,7 @@ export class GroupComponent implements OnInit {
     }
   }
   changeAddFacilityVisibility(event: any) {
-    if (event === 'close') {
+    if (event === 'create') {
       this.addFacilityVisibility = false;
       this.listclinicsComponent.find();
     }

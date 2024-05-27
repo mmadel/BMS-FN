@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Role } from '../../secuirty/model/roles';
 import { ModifierRule } from './model/modifier.rule';
 import { ModifierRuleService } from './service/modifier-rule.service';
 @Component({
@@ -8,6 +9,7 @@ import { ModifierRuleService } from './service/modifier-rule.service';
   styleUrls: ['./modifier-rule.component.scss']
 })
 export class ModifierRuleComponent implements OnInit {
+  componentRole: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
   modifierRules: ModifierRule[]
   public addRuleVisible = false;
   editRuleVisible: boolean = false;
@@ -28,6 +30,7 @@ export class ModifierRuleComponent implements OnInit {
   clickAddRule() {
     this.addRuleVisible = !this.addRuleVisible;
   }
+
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
 

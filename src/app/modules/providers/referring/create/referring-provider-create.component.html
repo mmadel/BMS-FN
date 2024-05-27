@@ -1,12 +1,13 @@
 <ngx-spinner></ngx-spinner>
 <c-container fluid>
-    <form cForm #referringProviderCreateForm="ngForm" (ngSubmit)="create()">
+    <form cForm #referringProviderCreateForm="ngForm" (ngSubmit)="create()" readonly-form
+        [componentRole]="componentRole">
         <c-row class="justify-content-center">
             <c-col class="col">
                 <c-input-group class="mb-3" sizing="sm">
                     <span cInputGroupText id="basic-addon1" style="width: 25%;">NPI</span>
                     <input placeholder="NPI Name" cFormControl [formControl]="npiReferringProviderCtrl"
-                        id="referringProvidernpi" sizing="sm" />
+                        [readOnly]="selectedReferringProvider" id="referringProvidernpi" sizing="sm" />
                 </c-input-group>
             </c-col>
         </c-row>
@@ -69,7 +70,10 @@
             </c-col>
         </c-row>
         <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-center">
-            <button cButton type="submit" [disabled]="!referringProviderCreateForm.valid">Create</button>
+            <button cButton type="submit" [disabled]="!referringProviderCreateForm.valid"
+                *ngIf="!selectedReferringProvider" dispaly-input [componentRole]="componentRole">Create</button>
+            <button cButton type="submit" [disabled]="!referringProviderCreateForm.valid"
+                *ngIf="selectedReferringProvider" dispaly-input [componentRole]="componentRole">Update</button>
         </div>
     </form>
 </c-container>

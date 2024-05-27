@@ -1,0 +1,101 @@
+<span *ngIf="!subPermissionVisability">
+    <c-form-check inline sizing="xl">
+        <input cFormCheckInput id="billingh" name="billing" (change)="changeBilling($event)" type="radio"
+            [checked]="roleBinder?.billingH" disable-input [componentRole]="componentRole" />
+        <label cFormCheckLabel for="billingh">Hidden</label>
+    </c-form-check>
+    <c-form-check inline>
+        <input cFormCheckInput id="billingv" name="billing" type="radio" (change)="changeBilling($event)"
+            [checked]="roleBinder?.billingV" disable-input [componentRole]="componentRole" />
+        <label cFormCheckLabel for="billingv">View</label>
+    </c-form-check>
+    <c-form-check inline>
+        <input cFormCheckInput id="billingvm" name="billing" type="radio" (change)="changeBilling($event)"
+            [checked]="roleBinder?.billingM" disable-input [componentRole]="componentRole" />
+        <label cFormCheckLabel for="billingvm">View & Edit</label>
+    </c-form-check>
+</span>
+<button cButton size="sm" style="float: right;" variant="outline" (click)="toggleSubPermission()">
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleBottom" *ngIf="!subPermissionVisability"></svg>
+    <svg alt="CoreUI Icons Speech" cIcon name="cilArrowCircleTop" *ngIf="subPermissionVisability"></svg>
+</button>
+<table class="table table-sm" *ngIf="subPermissionVisability">
+    <tbody>
+        <tr>
+            <td>
+                Invoice Area
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="invh" [value]="true" name="invoice" [checked]="" type="radio"
+                        (change)="changeInvoice($event)" [checked]="roleBinder?.billing_insuranceH" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="invh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="invv" [value]="false" name="invoice" type="radio"
+                        (change)="changeInvoice($event)" [checked]="roleBinder?.billing_insuranceV" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="invv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="invvvm" [value]="false" name="invoice" type="radio"
+                        (change)="changeInvoice($event)" [checked]="roleBinder?.billing_insuranceM" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="invvvm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Fee Schedule
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="feeh" [value]="true" name="fee" [checked]="" type="radio"
+                        (change)="changeFeeSchedule($event)" [checked]="roleBinder?.billing_FeeH" disable-input
+                        [componentRole]="componentRole" />
+
+                    <label cFormCheckLabel for="feeh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="feev" [value]="false" name="fee" type="radio"
+                        (change)="changeFeeSchedule($event)" [checked]="roleBinder?.billing_FeeV" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="feev">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="feevm" [value]="false" name="fee" type="radio"
+                        (change)="changeFeeSchedule($event)" [checked]="roleBinder?.billing_FeeM" disable-input
+                        [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="feevm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Modifier Rule
+            </td>
+            <td>
+                <c-form-check inline sizing="xl">
+                    <input cFormCheckInput id="modifierh" [value]="true" name="modifier" [checked]="" type="radio"
+                        (change)="changeModifierRule($event)" [checked]="roleBinder?.billing_Modifier_RuleH"
+                        disable-input [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="modifierh">Hidden</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="modifierv" [value]="false" name="modifier" type="radio"
+                        (change)="changeModifierRule($event)" [checked]="roleBinder?.billing_Modifier_RuleV"
+                        disable-input [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="modifierv">View</label>
+                </c-form-check>
+                <c-form-check inline>
+                    <input cFormCheckInput id="modifiervm" [value]="false" name="modifier" type="radio"
+                        (change)="changeModifierRule($event)" [checked]="roleBinder?.billing_Modifier_RuleM"
+                        disable-input [componentRole]="componentRole" />
+                    <label cFormCheckLabel for="modifiervm">View & Edit</label>
+                </c-form-check>
+            </td>
+        </tr>
+    </tbody>
+</table>

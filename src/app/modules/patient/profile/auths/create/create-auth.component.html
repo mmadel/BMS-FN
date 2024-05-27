@@ -1,5 +1,5 @@
 <ngx-spinner></ngx-spinner>
-<form cForm #providerCreateForm="ngForm">
+<form cForm #providerCreateForm="ngForm" readonly-form [componentRole]="componentRole">
     <c-row>
         <c-col class="mb-1">
             <c-input-group sizing="sm">
@@ -20,7 +20,7 @@
                 <c-col sx="12">
                     <ng-autocomplete [data]="insCpmanyName" [searchKeyword]="" id="inCompanyName" name="inCompanyName"
                         [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                        (selected)='pickInsCompany($event)' [(ngModel)]="patientAuth.insCompany">
+                        (selected)='pickInsCompany($event)' [(ngModel)]="patientAuth.insCompany" disable-auto-complete [componentRole]="componentRole">
                     </ng-autocomplete>
                 </c-col>
                 <ng-template #itemTemplate let-item>
@@ -46,8 +46,9 @@
     </c-row>
     <c-row>
         <c-col class="mb-1">
-            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm"
-                [(startDate)]="patientAuth.startDate" [(endDate)]="patientAuth.expireDate"></c-date-range-picker>
+            <c-date-range-picker [placeholder]="['Start Date', 'Expire Date']" size="sm" disable-date-range-picker
+                [componentRole]="componentRole" [(startDate)]="patientAuth.startDate"
+                [(endDate)]="patientAuth.expireDate"></c-date-range-picker>
         </c-col>
     </c-row>
     <c-row>
@@ -57,7 +58,7 @@
                     Visit
                 </span>
                 <input cFormControl name="visit" required #visit="ngModel" [(ngModel)]="patientAuth.visit"
-                    type="number" />
+                    readonly-input [componentRole]="componentRole" type="number" />
             </c-input-group>
         </c-col>
     </c-row>
@@ -68,13 +69,14 @@
                     Remaining
                 </span>
                 <input cFormControl name="remaining" required #remaining="ngModel" [(ngModel)]="patientAuth.remaining"
-                    type="number" />
+                    readonly-input [componentRole]="componentRole" type="number" />
             </c-input-group>
         </c-col>
     </c-row>
     <c-row>
         <div class="col text-center">
-            <button cButton color="primary" variant="outline" style="width: 15%;" (click)="create()">OK</button>
+            <button cButton color="primary" variant="outline" style="width: 15%;" (click)="create()" dispaly-input
+                [componentRole]="componentRole">OK</button>
         </div>
     </c-row>
 </form>

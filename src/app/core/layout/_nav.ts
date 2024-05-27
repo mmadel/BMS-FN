@@ -127,7 +127,7 @@ export const navItems: INavData[] = [
       },
       {
         name: 'Account Management',
-        url: ''
+        url: '/admin/tools/accounts'
       }
     ]
   }

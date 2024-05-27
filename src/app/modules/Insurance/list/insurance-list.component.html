@@ -8,8 +8,9 @@
 <c-row>
     <c-col xs="12">
         <ng-container fluid="true">
-            <c-smart-table [columns]="columns" [items]="(isuranceCompanyList$ | async) ?? []" activePage="1" pagination [itemsPerPageOptions]="[5,10,20]"
-                [tableProps]="{ hover: true, striped: true, small:true  }" [tableBodyProps]="{ align: 'middle'}" header>
+            <c-smart-table [columns]="columns" [items]="(isuranceCompanyList$ | async) ?? []" activePage="1" pagination
+                [itemsPerPageOptions]="[5,10,20]" [tableProps]="{ hover: true, striped: true, small:true  }"
+                [tableBodyProps]="{ align: 'middle'}" header>
                 <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
                     let-tdContent="tdContent">
                     <td>
@@ -18,6 +19,10 @@
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button cButton variant="outline" size="sm" (click)="openSesstings(item)">
                                         <svg cIcon name="cilMenu"></svg>
+                                    </button>
+                                    <button cButton variant="outline" size="sm" (click)="edit(item)"
+                                        [disabled]="item.visibility === 'External'">
+                                        <svg cIcon name="cilPen"></svg>
                                     </button>
                                 </div>
                             </ng-container>
@@ -35,7 +40,7 @@
 
 <c-modal [visible]="isnsuranceSettingsVisible" scrollable size="xl" backdrop="static">
     <c-modal-header>
-        <h5 cModalTitle>Insurance Company Settings</h5>
+        <h3 cModalTitle>Insurance Company Settings</h3>
         <button (click)="toggleInsuranceSettings()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -85,6 +90,17 @@
         </c-container>
     </c-modal-body>
     <c-modal-footer>
-        <button cButton color="primary" size="sm" variant="outline" (click)="save()">Save changes</button>
+        <button cButton color="primary" size="sm" variant="outline" (click)="save()" dispaly-input
+            [componentRole]="componentRole">Save changes</button>
     </c-modal-footer>
+</c-modal>
+<c-modal id="updateInternalInsurance" [visible]="editInsuranceVisible">
+    <c-modal-header>
+        <h3 cModalTitle>Edit Insurance Company</h3>
+        <button (click)="toggleEditInsurance()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <edit-internal-insurance *ngIf="editInsuranceVisible" [selectedClinic]="selectedClinic"
+            (changeVisibility)="changeVisibility($event)"></edit-internal-insurance>
+    </c-modal-body>
 </c-modal>

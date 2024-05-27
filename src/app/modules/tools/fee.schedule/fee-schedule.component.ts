@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Role } from '../../secuirty/model/roles';
 import { FeeSchedule } from './model/fee.schedule';
 import { FeeScheduleService } from './service/fee-schedule.service';
 import usersData from './_data'
@@ -16,6 +17,7 @@ export class FeeScheduleComponent implements OnInit {
   selectedFeeSceduleId: number;
   selectedFeeScedule: FeeSchedule
   hasDefaultFee: boolean = false
+  componentRole: string[] = [Role.BILLING_ROLE, Role.FEE_SCHEDULE_BILLING_ROLE ];
   constructor(private feeScheduleService: FeeScheduleService
     , private toastr: ToastrService) { }
 

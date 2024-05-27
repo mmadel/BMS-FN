@@ -15,12 +15,16 @@
 <span *ngIf="isupdated">
     <div class="d-md-flex justify-content-md-end">
         <c-button-group aria-label="Basic example" role="group" class="mb-3" size="sm">
-            <button cButton color="primary" variant="outline" (click)="create()">Edit</button>
-            <button cButton color="primary" variant="outline" (click)="create('close')">Edit & Close</button>
+            <button cButton color="primary" variant="outline" (click)="create()" dispaly-input
+                [componentRole]="componentRole">Edit</button>
+            <button cButton color="primary" variant="outline" (click)="create('close')" dispaly-input
+                [componentRole]="componentRole">Edit & Close</button>
+            <button cButton color="primary" variant="outline" (click)="close()">Close</button>
         </c-button-group>
     </div>
 </span>
 <c-row>
+    <!--Patient Information-->
     <c-col xs="12">
         <c-card class="mb-4">
             <c-card-header>
@@ -35,8 +39,8 @@
                 </c-row>
             </c-card-header>
             <c-card-body>
-
-                <form cForm #patientCreationForm="ngForm" *ngIf="patient">
+                <form cForm #patientCreationForm="ngForm" *ngIf="patient" readonly-form
+                    [componentRole]="componentRole">
                     <c-row>
                         <c-col class="mb-1">
                             <small
@@ -49,7 +53,7 @@
                                 class="form-text text-danger">
                                 Last Name is required
                             </small>
-                            <c-input-group sizing="sm">
+                            <c-input-group sizing="sm" id="names">
                                 <span cInputGroupText>
                                     <svg cIcon name="cilDisabled" title="cilDisabled"></svg>
                                 </span>
@@ -130,7 +134,8 @@
                                     </option>
                                 </select>
                                 <input cFormControl size="sm" placeholder="Phone" [ngModel]="patient.phone |phone"
-                                    (ngModelChange)="patient.phone=$event" #phone="ngModel" name="phone" required  maxlength="15"/>
+                                    (ngModelChange)="patient.phone=$event" #phone="ngModel" name="phone" required
+                                    maxlength="15" />
                             </c-input-group>
                         </c-col>
                     </c-row>
@@ -157,10 +162,11 @@
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
                                 </span>
                                 <c-date-picker cFormControl size="sm" [(date)]="patientDOB"
-                                    required="true"></c-date-picker>
+                                    required="true" disable-date-picker [componentRole]="componentRole"></c-date-picker>
                             </c-input-group>
                         </c-col>
                     </c-row>
+                    <!--Address -->
                     <c-row>
                         <c-col class="mb-1">
                             <c-card>
@@ -237,6 +243,7 @@
             </c-card-body>
         </c-card>
     </c-col>
+    <!-- Tabs-->
     <c-col xs="12" *ngIf="isupdated">
         <c-card class="mb-4">
             <c-card-body>
@@ -268,14 +275,15 @@
                 </c-nav>
                 <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom"
                     (activeTabPaneIdxChange)="onTabChange($event)">
-                    <c-tab-pane tabPaneIdx=0>                        
+                    <c-tab-pane tabPaneIdx=0>
                         <app-billing #billingComponent *ngIf="selectedTab === 0" [patient]="patient"></app-billing>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=1>
                         <app-auths *ngIf="selectedTab === 1" [patient]="patient"></app-auths>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=2>
-                        <patient-advanced #patientAdvancedComponent *ngIf="selectedTab === 2" [pateint]="patient"></patient-advanced>
+                        <patient-advanced #patientAdvancedComponent *ngIf="selectedTab === 2"
+                            [pateint]="patient"></patient-advanced>
                     </c-tab-pane>
                     <c-tab-pane tabPaneIdx=3>
                         <app-filling *ngIf="selectedTab === 3" [pateint]="patient"></app-filling>

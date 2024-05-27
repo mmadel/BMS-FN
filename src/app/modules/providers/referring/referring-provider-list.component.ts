@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable, tap } from 'rxjs';
 import { ReferringProvider } from '../../model/clinical/referring.provider';
 import { ListTemplate } from '../../model/template/list.template';
+import { Role } from '../../secuirty/model/roles';
 import { ReferringProviderService } from '../service/referring-provider.service';
 @Component({
   selector: 'app-referring-provider-list',
@@ -9,8 +11,11 @@ import { ReferringProviderService } from '../service/referring-provider.service'
   styleUrls: ['./referring-provider-list.component.scss']
 })
 export class ReferringProviderListComponent extends ListTemplate implements OnInit {
-  referringProviderCreationVisibility: boolean
+  componentRole: string[] = [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE];
+  referringProviderCreationVisibility: boolean = false
+  referringProviderEditVisibility: boolean = false
   referringProviders$!: Observable<ReferringProvider[]>;
+  selectedReferringProvider: ReferringProvider;
   columns = [
     {
       key: 'firstName',
@@ -35,7 +40,7 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   toggleDetails(item: any) {
     this.details_visible[item] = !this.details_visible[item];
   }
-  constructor(private referringProviderService: ReferringProviderService) { super(); }
+  constructor(private referringProviderService: ReferringProviderService, private toastr: ToastrService) { super(); }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -44,16 +49,27 @@ export class ReferringProviderListComponent extends ListTemplate implements OnIn
   toggleReferringProviderCreation() {
     this.referringProviderCreationVisibility = !this.referringProviderCreationVisibility;
   }
+  toggleEditReferringProvider() {
+    this.referringProviderEditVisibility = !this.referringProviderEditVisibility
+  }
   changeVisibility(event: any) {
-    if (event === 'close')
+    if (event === 'create')
       this.referringProviderCreationVisibility = false;
+    if (event === 'update')
+      this.referringProviderEditVisibility = false;
     this.find();
   }
   remove(item: any) {
-
+    this.referringProviderService.delete(item.id).subscribe(result => {
+      this.toastr.success('Referring provider deleted')
+      this.find()
+    }, error => {
+      this.toastr.error('Error during delete: Referring provider assigned to patient')
+    })
   }
-  edit(item: any) {
-
+  edit(item: ReferringProvider) {
+    this.selectedReferringProvider = item;
+    this.referringProviderEditVisibility = true;
   }
   find() {
     this.referringProviders$ = this.referringProviderService.findAll(this.apiParams$).pipe(
