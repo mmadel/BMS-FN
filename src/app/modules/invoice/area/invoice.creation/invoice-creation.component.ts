@@ -69,15 +69,17 @@ export class InvoiceCreationComponent implements OnInit {
         , patientInsurance.visibility).pipe(
           tap((result) => {
             this.constructBillingProviderInformation(invoiceRequest, result)
+            invoiceRequest.submissionType ='Electronic';
           }),
           switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
         ).subscribe((response) => {
           this.toastr.success("Invocie created successfully ")
           this.changeVisibility.emit('invoice');
-          this.constructExportedFile(response, 'cms-', 'json')
+          // this.constructExportedFile(response, 'cms-', 'json')
         },
           (error) => {
-            this.toastr.error(error.error.message, 'Error In Creation');
+            console.log(JSON.stringify(error))
+            this.toastr.error( 'Error In Creation');
           })
     }
 
@@ -87,6 +89,7 @@ export class InvoiceCreationComponent implements OnInit {
       , patientInsurance.visibility).pipe(
         tap((result) => {
           this.constructBillingProviderInformation(this.invoiceRequest, result)
+          this.invoiceRequest.submissionType ='Print';
         }),
         switchMap(() => this.invoiceService.create(this.invoiceRequest))
       ).subscribe((response) => {

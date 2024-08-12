@@ -13,5 +13,6 @@ export interface InvoiceRequest {
     invoiceInsuranceCompanyInformation:InvoiceInsuranceCompanyInformation 
     invoiceBillingProviderInformation:InvoiceBillingProviderInformation ;
     invoiceRequestConfiguration:InvoiceRequestConfiguration
-    correctClaimInformation?:CorrectClaimInformation
+    correctClaimInformation?:CorrectClaimInformation;
+    submissionType?:string
 }
