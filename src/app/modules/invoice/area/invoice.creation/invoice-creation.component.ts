@@ -62,7 +62,8 @@ export class InvoiceCreationComponent implements OnInit {
     }
   }
   createElectronic(patientInsurance: PatientInsurance) {
-    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, null);
+    var otherPAtientInsurances: any[] = this.constructOtherInsurances(patientInsurance);
+    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, otherPAtientInsurances);
     invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
     if (!this.CorrectClaimVisibility) {
       this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
@@ -129,17 +130,20 @@ export class InvoiceCreationComponent implements OnInit {
     invoiceRequest.invoiceBillingProviderInformation.taxonomy = result[7]
   }
   private constructOtherInsurances(patientInsurance: PatientInsurance): OtherPatientInsurance[] {
+    console.log(JSON.stringify(patientInsurance))
     var result: OtherPatientInsurance[] = new Array();
     this.filterpatientInsurances.filter(obj => obj.id !== patientInsurance.id)
       .forEach(element => {
         var otherPatientInsurance: OtherPatientInsurance;
         var patientRelationName = element.patientRelation.r_lastName + ',' + element.patientRelation.r_firstName;
+        console.log(JSON.stringify(element))
         otherPatientInsurance = {
           insuredName: patientRelationName,
           policyGroup: element.patientInsurancePolicy.policyGroup,
           planName: element.patientInsurancePolicy.plan,
           responsibility: element.patientInsurancePolicy.responsibility,
-          createdAt: element.createdAt
+          createdAt: element.createdAt,
+          assigner: element.assigner
         }
         result.push(otherPatientInsurance);
       });

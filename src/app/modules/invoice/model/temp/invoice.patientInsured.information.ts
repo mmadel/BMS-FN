@@ -7,6 +7,7 @@ export interface InvoicePatientInsuredInformation{
      relationToInsured:string;
      firstName:string;
      lastName:string;
+     middleName:string
      dateOfBirth:number;
      gender: string;
 	 address:Address;

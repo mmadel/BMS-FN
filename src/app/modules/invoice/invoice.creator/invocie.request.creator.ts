@@ -46,6 +46,7 @@ export class InvocieRequestCreator {
             primaryId: patientInsurance.patientInsurancePolicy.primaryId,
             relationToInsured: patientInsurance.relation,
             firstName: patientInsurance.patientRelation.r_firstName,
+            middleName: patientInsurance.patientRelation.r_middleName,
             lastName: patientInsurance.patientRelation.r_lastName,
             dateOfBirth: patientInsurance.patientRelation.r_birthDate,
             gender: patientInsurance.patientRelation.r_gender,
