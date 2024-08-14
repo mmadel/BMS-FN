@@ -59,7 +59,8 @@ export class InvocieRequestCreator {
         var policyInforamtion: string[] = [patientInsurance.patientInsurancePolicy.policyGroup,
         patientInsurance.patientInsurancePolicy.plan,
         patientInsurance.patientInsurancePolicy.responsibility,
-        patientInsurance.patientInsurancePolicy.claimCasualty
+        patientInsurance.patientInsurancePolicy.claimCasualty,
+        patientInsurance.patientInsurancePolicy.employer
         ];
         var invoiceInsuranceCompanyInformation: InvoiceInsuranceCompanyInformation = {
             name: patientInsurance.insuranceCompany[0],
