@@ -18,7 +18,7 @@ import { InvoiceService } from '../../service/invoice.service';
   styleUrls: ['./invoice-creation.component.scss']
 })
 export class InvoiceCreationComponent implements OnInit {
-  componentRole: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE];
   @Input() client: Patient
   @Input() patientInsurances: PatientInsurance[]
   @Input() selectedSessionServiceLine: SelectedSessionServiceLine[];
@@ -31,7 +31,8 @@ export class InvoiceCreationComponent implements OnInit {
   filterpatientInsurances: PatientInsurance[]
   patientInsurance: PatientInsurance;
   avoidCorrectClaimFlag: boolean = false;
-  componentScopes: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE ];
+  componentScopes: string[] = [Role.BILLING_ROLE, Role.INVOICE_BILLING_ROLE];
+  claimType?: string
   constructor(private invoiceService: InvoiceService
     , private toastr: ToastrService
     , private insuranceCompanyService: InsuranceCompanyService) { }
@@ -51,6 +52,7 @@ export class InvoiceCreationComponent implements OnInit {
   }
 
   create(patientInsurance: PatientInsurance) {
+    this.claimType = 'printable'
     this.patientInsurance = patientInsurance;
     var otherPAtientInsurances: any[] = this.constructOtherInsurances(patientInsurance);
     this.invoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length
@@ -62,35 +64,42 @@ export class InvoiceCreationComponent implements OnInit {
     }
   }
   createElectronic(patientInsurance: PatientInsurance) {
+    this.claimType = 'electronic'
+    this.patientInsurance = patientInsurance;
     var otherPAtientInsurances: any[] = this.constructOtherInsurances(patientInsurance);
-    var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, otherPAtientInsurances);
-    invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
+    this.invoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, otherPAtientInsurances);
+    this.invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
+    this.checkIsCorrectServiceLines(this.selectedSessionServiceLine)
+    console.log(this.CorrectClaimVisibility)
     if (!this.CorrectClaimVisibility) {
-      this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
-        , patientInsurance.visibility).pipe(
-          tap((result) => {
-            this.constructBillingProviderInformation(invoiceRequest, result)
-            invoiceRequest.submissionType ='Electronic';
-          }),
-          switchMap(() => this.invoiceService.createElectronic(invoiceRequest))
-        ).subscribe((response) => {
-          this.toastr.success("Invocie created successfully ")
-          this.changeVisibility.emit('invoice');
-          // this.constructExportedFile(response, 'cms-', 'json')
-        },
-          (error) => {
-            console.log(JSON.stringify(error))
-            this.toastr.error( 'Error In Creation');
-          })
+      this.executedElectronically(patientInsurance)
     }
 
+  }
+  executedElectronically(patientInsurance: PatientInsurance) {
+    this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
+      , patientInsurance.visibility).pipe(
+        tap((result) => {
+          this.constructBillingProviderInformation(this.invoiceRequest, result)
+          this.invoiceRequest.submissionType = 'Electronic';
+        }),
+        switchMap(() => this.invoiceService.createElectronic(this.invoiceRequest))
+      ).subscribe((response) => {
+        this.toastr.success("Invocie created successfully ")
+        this.changeVisibility.emit('invoice');
+        // this.constructExportedFile(response, 'cms-', 'json')
+      },
+        (error) => {
+          console.log(JSON.stringify(error))
+          this.toastr.error('Error In Creation');
+        })
   }
   execute(patientInsurance: PatientInsurance) {
     this.insuranceCompanyService.findElementInsuranceCompanyConfiguration(Number(patientInsurance.insuranceCompany[1])
       , patientInsurance.visibility).pipe(
         tap((result) => {
           this.constructBillingProviderInformation(this.invoiceRequest, result)
-          this.invoiceRequest.submissionType ='Print';
+          this.invoiceRequest.submissionType = 'Print';
         }),
         switchMap(() => this.invoiceService.create(this.invoiceRequest))
       ).subscribe((response) => {
@@ -106,7 +115,7 @@ export class InvoiceCreationComponent implements OnInit {
 
         this.toastr.error(message.replace(dosAsNumber, dos), 'Submission Error', {
           disableTimeOut: true,
-          closeButton:false
+          closeButton: false
         })
       });
   }
@@ -165,7 +174,10 @@ export class InvoiceCreationComponent implements OnInit {
       refNumber: !this.avoidCorrectClaimFlag ? this.refNumber : null
     }
     this.toggleIsCorrect();
-    this.execute(this.patientInsurance)
+    if (this.claimType === 'printable')
+      this.execute(this.patientInsurance)
+    if (this.claimType === 'electronic')
+      this.executedElectronically(this.patientInsurance)
   }
   scrollUp() {
   }
