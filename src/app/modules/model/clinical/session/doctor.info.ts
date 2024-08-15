@@ -5,5 +5,6 @@ export interface DoctorInfo {
     doctorFirstName?: string
     doctorLastName?: string
     doctorNPI?: string
-    legacyID?:LegacyID
+    legacyID?:LegacyID,
+    taxonomy?:string
 }

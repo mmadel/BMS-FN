@@ -334,14 +334,14 @@
                                 <select cSelect sizing="sm" #proIdQualifier="ngModel" name="proIdQualifier" required
                                     [(ngModel)]="provider.legacyID.providerIdQualifier">
                                     <option [value]=null disabled selected>Select Id Type</option>
-                                    <option *ngFor="let qualifier of idQualifierKeys(idQualifiers)"
-                                        [value]="idQualifiers[qualifier]" disable-input [componentRole]="componentRole">
-                                        {{qualifier}}
+                                    <option *ngFor="let type of idTypes"
+                                        [value]="type.value" disable-input [componentRole]="componentRole">
+                                        {{type.name}}
                                     </option>
                                 </select>
                             </c-col>
                         </c-row>
-                        <c-row>
+                        <c-row *ngIf="provider.legacyID.providerIdQualifier !== 'ZZ'">
                             <c-col class="col mb-3">
                                 <c-input-group class="mb-3" sizing="sm">
                                     <span cInputGroupText id="basic-addon1">Legacy ID</span>

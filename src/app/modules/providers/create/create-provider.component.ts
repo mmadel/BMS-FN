@@ -6,6 +6,7 @@ import { PayerService } from '../../admin.tools/services/payer/payer.service';
 import { Payer } from '../../model/admin/payer';
 import { Provider } from '../../model/clinical/provider/provider';
 import { ReferringProviderIdQualifier } from '../../model/enum/referring.provider.id.qualifier';
+import { IDType, ProviderIdType } from '../../model/lookups/provider.id.types';
 import { Role } from '../../secuirty/model/roles';
 import { ProviderService } from '../service/provider.service';
 
@@ -24,6 +25,7 @@ export class CreateProviderComponent implements OnInit {
   provider: Provider;
   idQualifierKeys = Object.keys;
   idQualifiers = ReferringProviderIdQualifier;
+  idTypes:IDType[] = ProviderIdType;
   payerNameList: string[];
   payerIdList: string[];
   selectedPayerName: string;

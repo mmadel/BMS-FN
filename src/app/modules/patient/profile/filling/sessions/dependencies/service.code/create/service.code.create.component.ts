@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
-import { DoctorInfo } from 'src/app/modules/model/clinical/session/doctor.info';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line.type';
 import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';

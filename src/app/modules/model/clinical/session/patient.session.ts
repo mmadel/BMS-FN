@@ -1,8 +1,7 @@
 import { Clinic } from "../../admin/clinic";
-import { CaseDiagnosis } from "../case.diagnosis"
+import { CaseDiagnosis } from "../case.diagnosis";
 import { ClinicInfo } from "./clinic.info";
 import { DoctorInfo } from "./doctor.info";
-import { PateintInfo } from "./patient.info";
 import { PatientSessionHistory } from "./patient.session.history";
 import { ServiceCode } from "./service.code";
 
