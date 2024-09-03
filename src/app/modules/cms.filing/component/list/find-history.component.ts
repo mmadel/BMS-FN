@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
+import { interval, Subscription } from 'rxjs';
 import { CustomDdateRanges } from 'src/app/modules/invoice/area/session.list/constant/custom.date.ranges';
 import { SessionHistory } from '../../model/session.history';
 import { SessionHistoryCriteria } from '../../model/session.history.criteria';
@@ -13,6 +14,7 @@ import { SessionHistoryFilter } from '../../util/session.history.filter';
   styleUrls: ['./find-history.component.scss']
 })
 export class FindHistoryComponent implements OnInit {
+  subscription: Subscription;
   sessionsHistorys: SessionHistory[]
   pageSize: number = 5;
   pageIndex: number = 0;
@@ -31,6 +33,14 @@ export class FindHistoryComponent implements OnInit {
   }
   ngOnInit(): void {
     this.find()
+    this.runJob();
+  }
+  private runJob() {
+    const source = interval(600000);
+    this.subscription = source.subscribe(val => {
+      console.log(new Date())
+      this.find()
+    });
   }
   private find() {
     this.sessionHistoryService.find(this.pageIndex, this.pageSize)
