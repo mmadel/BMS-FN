@@ -1,108 +1,75 @@
-<c-row>
-    <c-col xs="12" class="mb-2">
-        <h1>Electronic Remittance Advice (ERA)</h1>
-    </c-col>
-</c-row>
-<hr />
+<ngx-spinner></ngx-spinner>
+<!--Search Panel-->
 <c-col xs="12">
-    <c-card class="mb-4">
-        <c-card-body>
-            <form cForm>
-                <c-row>
-                    <c-col xs="12">
-                    </c-col>
-                    <c-col class="mb-2" xs="3">
-                        <c-date-range-picker [placeholder]="['From', 'To']"></c-date-range-picker>
-                    </c-col>
-                    <c-col xs="2">
-                        <input type="text" class="form-control" placeholder="Client"
-                            aria-label="Example text with button addon">
-                    </c-col>
-                    <c-col xs="2">
-                        <input type="text" class="form-control" placeholder="Payer">
-                    </c-col>
-                    <c-col xs="3">
-                        <input type="text" class="form-control" placeholder="Check Number">
-                    </c-col>
-                    <c-col xs="2">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Auto save while posting
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckChecked">
-                                show flagged only
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckChecked">
-                                show archived ERA's
-                            </label>
-                        </div>
-                    </c-col>
-                </c-row>
-            </form>
-        </c-card-body>
-    </c-card>
-</c-col>
-<c-smart-table [activePage]="1" [columnSorter]="true" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
-    [items]="usersData" [tableProps]="{ hover: true, striped: true, responsive: true }"
-    [tableBodyProps]="{ align: 'middle' }" footer header pagination>
-
-    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
-        <td>
-            <ng-container [ngSwitch]="columnName">
-                <ng-container *ngSwitchCase="'status'">
-                    <ng-container *ngIf="tdContent == 'new'">
-                        <c-badge color="success">
-                            {{tdContent}}
-                        </c-badge>
-                    </ng-container>
-                    <ng-container *ngIf="tdContent == 'flag'">
-                        <svg cIcon class="me-2" name="cilFlagAlt"></svg>
-                    </ng-container>
-                </ng-container>
-                <ng-container *ngSwitchCase="'open'" class="py-2">
-                    <button cButton color="primary" size="sm" variant="outline" (click)="clickOpenERA()">
-                        <svg cIcon class="me-2" name="cilDollar"></svg>
-                    </button>
-                </ng-container>
-                <ng-container *ngSwitchCase="'archive'" class="py-2">
-                    <button cButton color="primary" size="sm" variant="outline">
-                        <svg cIcon class="me-2" name="cilFile"></svg>
-                    </button>
-                </ng-container>
-                <ng-container *ngSwitchDefault>
-                    {{tdContent}}
-                </ng-container>
-            </ng-container>
-        </td>
-    </ng-template>
-</c-smart-table>
-<c-modal [visible]="eraLinesVisibality" (visibleChange)="handleERALinesVisibleChange($event)" scrollable
-    [fullscreen]="true">
-    <c-modal-header>
-        <h5 cModalTitle>
-            <div class="btn btn-outline">
-                <svg cIcon name="cilPen"></svg>
-            </div>
-            John Doe
-        </h5>
-        <button (click)="toggleERALines()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-        <app-posting-era></app-posting-era>
-    </c-modal-body>
-    <c-modal-footer>
-        <div class="col-md-12 text-center">
-            <button cButton class="me-1" color="primary" variant="outline" style="width: 15%;"
-            (click)="apply()">
-                Apply
+  <c-card class="mb-4">
+    <c-card-header ngPreserveWhitespaces>
+      <strong>Patient Search</strong> <small>From patient list</small>
+    </c-card-header>
+    <c-card-body>
+      <p class="text-medium-emphasis small">
+        The Abiltiy to filter the era's list using Invoice Date,Client,Payers and check Number
+      </p>
+      <form cForm>
+        <c-row>
+          <c-col xs="12" class="mb-2">
+            <input cFormControl placeholder="Client Name" sizing="sm" />
+          </c-col>
+          <c-col xs="12" class="mb-2">
+            <input cFormControl placeholder="Payer Name" sizing="sm" />
+          </c-col>
+          <c-col xs="12" class="mb-2">
+            <input cFormControl placeholder="check Number" sizing="sm" />
+          </c-col>
+          <c-col xs="12" class="mb-2">
+            <c-date-range-picker selectAdjacentDays
+              [placeholder]="['Invoice Start Date','Invoice End Date']"></c-date-range-picker>
+          </c-col>
+        </c-row>
+        <c-row>
+          <c-col xs="12" class="text-center">
+            <button cButton class="me-1" color="primary" style="width: 15%;">
+              Search
             </button>
-        </div>
-    </c-modal-footer>
-</c-modal>
+          </c-col>
+        </c-row>
+      </form>
+    </c-card-body>
+  </c-card>
+</c-col>
+<c-col xs="12">
+  <ng-container *ngIf="props$ | async as props" fluid="true">
+    <c-smart-table [columnSorter]="{resetable: true }" [columns]="columns" [items]="(earList$ | async) ?? []"
+      activePage="1" pagination [itemsPerPage]="props.itemsPerPage"
+      (itemsPerPageChange)="handleItemsPerPageChange($event)" [itemsPerPageOptions]="[5,10,20]"
+      [itemsPerPageSelect]="true" [tableProps]="{ hover: true, striped: true, responsive: true , small:true }"
+      [columnFilterValue]="props.columnFilterValue?? []" [sorterValue]="props.sorterValue"
+      [tableProps]="{ hover: true, striped: true, responsive: true }" [tableBodyProps]="{ align: 'middle' }"
+      (sorterValueChange)="handleSorterValueChange($event)" header>
+      <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+        <td>
+          <ng-container [ngSwitch]="columnName">
+            <ng-container *ngSwitchCase="'payerName'" class="py-2">
+              <strong>{{item.payerName}}</strong><br />
+              Payment# : {{item.checkNumber}}
+            </ng-container>
+            <ng-container *ngSwitchCase="'actions'" class="py-2">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button cButton variant="outline" (click)="open(item)" size="sm" dispaly-input>
+                  <svg cIcon name="cilDollar"></svg>
+                </button>
+                <button cButton variant="outline" (click)="archive(item)" size="sm">
+                  <svg cIcon name="cilTrash"></svg>
+                </button>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              {{tdContent}}
+            </ng-container>
+          </ng-container>
+        </td>
+      </ng-template>
+    </c-smart-table>
+    <c-smart-pagination *ngIf="props.totalPages" [activePage]="props.activePage"
+      (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
+  </ng-container>
+</c-col>

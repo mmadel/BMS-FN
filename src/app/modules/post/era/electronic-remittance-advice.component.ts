@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
+import { ERAModel } from '../../model/invoice/era/era.model';
+import { ListTemplate } from '../../model/template/list.template';
+import { EraService } from '../service/era/era.service';
 import usersData from './_eraData';
 
 @Component({
@@ -6,51 +10,55 @@ import usersData from './_eraData';
   templateUrl: './electronic-remittance-advice.component.html',
   styleUrls: ['./electronic-remittance-advice.component.scss']
 })
-export class ElectronicRemittanceAdviceComponent implements OnInit {
-  usersData = usersData;
-  eraLinesVisibality: boolean = false;
+export class ElectronicRemittanceAdviceComponent extends ListTemplate implements OnInit {
+  earList$!: Observable<ERAModel[]>;
   columns = [
-    { key: 'status', _style: { width: '15%' } },
-    'date',
-    'payername',
-    'Lines',
-    'unappliedLines',
-    'paymentAmount',
     {
-      key: 'open',
-      label: 'Open',
+      key: 'receivedDate',
+      label: 'Receive Date',
     },
     {
-      key: 'archive',
-      label: 'Archive',
-    }
+      key: 'payerName',
+      label: 'Payer',
+    },
+    {
+      label: 'Lines',
+    },
+    {
+      label: 'unapplied',
+    },
+    {
+      label: 'paid',
+      key: 'paidAmount',
+    },
+    { key: 'actions', _style: { width: '5%' } }
   ];
-  getBadge(status: string) {
-    switch (status) {
-      case 'new':
-        return 'success';
-      case 'flag':
-        return 'secondary';
-      default:
-        return 'success';
-    }
-  }
-  constructor() { }
 
-  clickOpenERA() {
-    this.eraLinesVisibality = true;
-  }
-  handleERALinesVisibleChange(event: boolean) {
-    this.eraLinesVisibality = event;
-  }
-
-  toggleERALines() {
-    this.eraLinesVisibality = !this.eraLinesVisibality;
-  }
-  apply(){
-    this.eraLinesVisibality = !this.eraLinesVisibality;
-  }
+  constructor(private eraService:EraService) { super() }
   ngOnInit(): void {
+    this.find();
+    this.initListComponent();
   }
 
+  open(item:any){
+
+  }
+  archive(item:any){
+
+  }
+  private find(){
+    this.earList$ =  this.eraService.findAll(this.apiParams$).pipe(
+      tap((response: any) => {
+        this.totalItems$.next(response.number_of_records);
+        if (response.number_of_matching_records) {
+          this.errorMessage$.next('');
+        }
+        this.retry$.next(false);
+        this.loadingData$.next(false);
+      }),
+      map((response: any) => {
+        return response.records;
+      })
+    )
+  }
 }
