@@ -52,6 +52,14 @@
               <strong>{{item.payerName}}</strong><br />
               Payment# : {{item.checkNumber}}
             </ng-container>
+            <ng-container *ngSwitchCase="'seen'" class="py-2">
+              <c-badge [color]="'success'" *ngIf="!item.seen">
+                NEW
+              </c-badge>
+              <span *ngIf="item.seen">
+                <svg cIcon name="cilFlagAlt"></svg>
+              </span>
+            </ng-container>
             <ng-container *ngSwitchCase="'actions'" class="py-2">
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button cButton variant="outline" (click)="open(item)" size="sm" dispaly-input>

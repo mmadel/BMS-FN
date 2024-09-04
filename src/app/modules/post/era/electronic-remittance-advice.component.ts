@@ -3,7 +3,6 @@ import { map, Observable, tap } from 'rxjs';
 import { ERAModel } from '../../model/invoice/era/era.model';
 import { ListTemplate } from '../../model/template/list.template';
 import { EraService } from '../service/era/era.service';
-import usersData from './_eraData';
 
 @Component({
   selector: 'app-electronic-remittance-advice',
@@ -13,6 +12,10 @@ import usersData from './_eraData';
 export class ElectronicRemittanceAdviceComponent extends ListTemplate implements OnInit {
   earList$!: Observable<ERAModel[]>;
   columns = [
+    {
+      key: 'seen',
+      label: '',
+    },
     {
       key: 'receivedDate',
       label: 'Receive Date',
@@ -34,20 +37,20 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
     { key: 'actions', _style: { width: '5%' } }
   ];
 
-  constructor(private eraService:EraService) { super() }
+  constructor(private eraService: EraService) { super() }
   ngOnInit(): void {
     this.find();
     this.initListComponent();
   }
 
-  open(item:any){
+  open(item: any) {
 
   }
-  archive(item:any){
+  archive(item: any) {
 
   }
-  private find(){
-    this.earList$ =  this.eraService.findAll(this.apiParams$).pipe(
+  private find() {
+    this.earList$ = this.eraService.findAll(this.apiParams$).pipe(
       tap((response: any) => {
         this.totalItems$.next(response.number_of_records);
         if (response.number_of_matching_records) {
