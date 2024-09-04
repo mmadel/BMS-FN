@@ -44,6 +44,7 @@ import { FinalizeChargeComponent } from './client.balance/finalize.charge/finali
 import { PendingInsuranceComponent } from './client.balance/pending.insurance/pending-insurance.component';
 import { ClientBalanceSettingsComponent } from './client.balance/settings/client-balance-settings.component';
 import { PatientModule } from '../patient';
+import { EraDetailsComponent } from './era/details/era-details.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { PatientModule } from '../patient';
     ClientBalanceComponent,
     FinalizeChargeComponent,
     PendingInsuranceComponent,
-    ClientBalanceSettingsComponent
+    ClientBalanceSettingsComponent,
+    EraDetailsComponent
   ],
   imports: [
     CommonModule,

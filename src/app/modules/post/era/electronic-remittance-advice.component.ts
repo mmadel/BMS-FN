@@ -11,6 +11,7 @@ import { EraService } from '../service/era/era.service';
 })
 export class ElectronicRemittanceAdviceComponent extends ListTemplate implements OnInit {
   earList$!: Observable<ERAModel[]>;
+  openERAVisibility: boolean = false;
   columns = [
     {
       key: 'seen',
@@ -45,7 +46,7 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
   }
 
   open(item: any) {
-
+    this.openERAVisibility = true;
   }
   archive(item: any) {
 
@@ -64,5 +65,8 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
         return response.records;
       })
     )
+  }
+  toggleOpenERA() {
+    this.openERAVisibility = !this.openERAVisibility
   }
 }

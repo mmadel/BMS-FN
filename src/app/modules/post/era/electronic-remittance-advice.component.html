@@ -81,3 +81,12 @@
       (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
   </ng-container>
 </c-col>
+<c-modal id="openERA" [visible]="openERAVisibility" size="xl" backdrop="static">
+  <c-modal-header>
+    <h3 cModalTitle>Ope ERA</h3>
+    <button (click)="toggleOpenERA()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <era-details *ngIf="openERAVisibility"></era-details>
+  </c-modal-body>
+</c-modal>
