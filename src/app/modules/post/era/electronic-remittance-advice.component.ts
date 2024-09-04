@@ -25,6 +25,7 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
       label: 'Payer',
     },
     {
+      key: 'lines',
       label: 'Lines',
     },
     {
