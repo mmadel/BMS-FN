@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
+import { ERADetails } from '../../model/invoice/era/era.details';
 import { ERAModel } from '../../model/invoice/era/era.model';
 import { ListTemplate } from '../../model/template/list.template';
 import { EraService } from '../service/era/era.service';
@@ -10,6 +11,7 @@ import { EraService } from '../service/era/era.service';
   styleUrls: ['./electronic-remittance-advice.component.scss']
 })
 export class ElectronicRemittanceAdviceComponent extends ListTemplate implements OnInit {
+  eraDetails: ERADetails
   earList$!: Observable<ERAModel[]>;
   openERAVisibility: boolean = false;
   columns = [
@@ -46,10 +48,11 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
   }
 
   open(item: any) {
+    this.eraDetails = item.eraDetails;
     this.openERAVisibility = true;
   }
   archive(item: any) {
-
+    
   }
   private find() {
     this.earList$ = this.eraService.findAll(this.apiParams$).pipe(

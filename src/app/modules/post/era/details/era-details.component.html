@@ -1,1 +1,27 @@
-<p>era-details works!</p>
+<c-smart-table selectable header #smartTable="cSmartTable" [columns]="columns" [itemsPerPageSelect]="true" [itemsPerPage]="5"
+    pagination [sorterValue]="{ column: 'name', state: 'asc' }"
+    [tableProps]="{ hover: true, striped: true, responsive: true }" [items]="lines"
+    (selectedItemsChange)="onSelectedItemsChange($event)">
+    <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+        <td>
+            <ng-container [ngSwitch]="columnName">
+                <ng-container *ngSwitchCase="'dos'" class="py-2">
+                    {{convertDOS(item.dos)}}
+                </ng-container>
+                <ng-container *ngSwitchCase="'billAmount'" class="py-2">
+                    <input cFormControl sizing="sm" [(ngModel)]="item.billAmount" type="number"/> 
+                </ng-container>
+                <ng-container *ngSwitchCase="'paidAmount'" class="py-2">
+                    <input cFormControl sizing="sm" [(ngModel)]="item.paidAmount" type="number"/>
+                </ng-container>
+                <ng-container *ngSwitchCase="'actions'" class="py-2">
+                    dddd
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    {{tdContent}}
+                </ng-container>
+            </ng-container>
+        </td>
+    </ng-template>
+
+</c-smart-table>
