@@ -8,5 +8,6 @@ export interface ERADetails{
     totalPaid:number;
     chekType:string;
     payerName:string
+    eraId:number
     lines:ERADetailsLine[]
 }

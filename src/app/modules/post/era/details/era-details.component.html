@@ -16,7 +16,7 @@
 <c-smart-table selectable header #smartTable="cSmartTable" [columns]="columns" [itemsPerPageSelect]="true"
     [itemsPerPage]="5" pagination [sorterValue]="{ column: 'name', state: 'asc' }"
     [tableProps]="{ hover: true, striped: true, responsive: true }" [items]="lines"
-    (selectedItemsChange)="onSelectedItemsChange($event)">
+    (selectedItemsChange)="onSelectedItemsChange($event)" selectAll>
     <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
         <td>
             <ng-container [ngSwitch]="columnName">
@@ -25,7 +25,7 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="'adjustAmount'" class="py-2">
                     <label>{{item.adjustAmount}}</label> <br/>
-                    <input cFormControl sizing="sm"  [value]="item.adjustAmount" type="number" />
+                    <input cFormControl sizing="sm"  [(ngModel)]="item.editadjustAmount" type="number" />
                 </ng-container>
                 <ng-container *ngSwitchCase="'paidAmount'" class="py-2">
                     <label>{{item.paidAmount}}</label> <br/>

@@ -55,6 +55,7 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
     this.eraDetails.chekType = item.checkType
     this.eraDetails.totalPaid = item.paidAmount
     this.eraDetails.payerName = item.payerName
+    this.eraDetails.eraId = item.eraId
     this.openERAVisibility = true;
   }
   archive(item: any) {
