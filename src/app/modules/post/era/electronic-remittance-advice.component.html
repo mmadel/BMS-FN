@@ -60,6 +60,9 @@
                 <svg cIcon name="cilFlagAlt"></svg>
               </span>
             </ng-container>
+            <ng-container *ngSwitchCase="'unapplied'" class="py-2">
+              <span *ngIf="!item.seen" class="text-danger"> {{item.lines}}</span>
+            </ng-container>
             <ng-container *ngSwitchCase="'actions'" class="py-2">
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button cButton variant="outline" (click)="open(item)" size="sm" dispaly-input>
@@ -81,7 +84,7 @@
       (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
   </ng-container>
 </c-col>
-<c-modal id="openERA" [visible]="openERAVisibility" size="xl" backdrop="static">
+<c-modal id="openERA" [visible]="openERAVisibility" size="xl" backdrop="static" scrollable>
   <c-modal-header>
     <h3 cModalTitle>Ope ERA</h3>
     <button (click)="toggleOpenERA()" cButtonClose></button>

@@ -10,6 +10,7 @@ import { ERADetailsLine } from 'src/app/modules/model/invoice/era/era.details.li
 export class EraDetailsComponent implements OnInit {
   @Input() details: ERADetails
   lines : ERADetailsLine[];
+  actions: string[] = ["Close Session", "Send to insurance invoice Area", "Keep current status"];
   columns = [
     {
       key: 'dos',
@@ -25,16 +26,16 @@ export class EraDetailsComponent implements OnInit {
     },
     {
       key: 'billAmount',
-      label: 'Billed',
-      _style: { width: '7%' }
+      label: 'Billed'
     },
     {
       key: 'adjustAmount',
       label: 'adjust',
+      _style: { width: '7%' }
     },
     {
       key: 'deductAmount',
-      label: 'adjust',
+      label: 'deduct',
     },
     {
       key: 'coInsuranceAmount',
@@ -42,7 +43,7 @@ export class EraDetailsComponent implements OnInit {
     },
     {
       key: 'coPaymentAmount',
-      label: 'CPPAY',
+      label: 'COPAY',
     },
     {
       key: 'paidAmount',
@@ -54,6 +55,7 @@ export class EraDetailsComponent implements OnInit {
       label: 'actions',
     },
   ]
+
   constructor() { 
   }
 

@@ -32,7 +32,8 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
       label: 'Lines',
     },
     {
-      label: 'unapplied',
+      key:'unapplied',
+      label: 'Unapplied',
     },
     {
       label: 'paid',
