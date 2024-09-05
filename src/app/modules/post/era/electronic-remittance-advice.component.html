@@ -62,6 +62,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'unapplied'" class="py-2">
               <span *ngIf="!item.seen" class="text-danger"> {{item.lines}}</span>
+              <span *ngIf="item.seen" class="text-danger"> {{item.lines - item.unAppliedLines}}</span>
             </ng-container>
             <ng-container *ngSwitchCase="'actions'" class="py-2">
               <div class="btn-group" role="group" aria-label="Basic example">
