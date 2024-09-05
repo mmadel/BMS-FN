@@ -1,3 +1,18 @@
+
+<div class="container">
+    <div class="d-flex justify-content-between">
+      <div class="text-left">
+        <strong>{{details.payerName}}</strong>
+      </div>
+      <div class="text-right">
+        <strong>ERA date : </strong> {{details.eraDate}} <br/>
+        <strong>Payment # : </strong> {{details.checkNumber}} <br/>
+        <strong>Payment Type : </strong> {{details.chekType | uppercase}} <br/>
+        <strong>Total : </strong> {{details.totalPaid}} <br/>
+      </div>
+    </div>
+  </div>
+<hr/>
 <c-smart-table selectable header #smartTable="cSmartTable" [columns]="columns" [itemsPerPageSelect]="true"
     [itemsPerPage]="5" pagination [sorterValue]="{ column: 'name', state: 'asc' }"
     [tableProps]="{ hover: true, striped: true, responsive: true }" [items]="lines"
@@ -29,5 +44,11 @@
             </ng-container>
         </td>
     </ng-template>
-
 </c-smart-table>
+<c-row>
+    <c-col xs="12" class="text-center">
+      <button cButton class="me-1" color="primary" style="width: 15%;">
+        Apply
+      </button>
+    </c-col>
+  </c-row>

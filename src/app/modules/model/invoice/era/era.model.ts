@@ -8,5 +8,6 @@ export interface ERAModel{
     paidAmount:number,
     eraId:number
     lines:number
+    checkType:string
     eraDetails:ERADetails
 }
