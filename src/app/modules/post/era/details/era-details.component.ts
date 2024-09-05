@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ERADetails } from 'src/app/modules/model/invoice/era/era.details';
 import { ERADetailsLine } from 'src/app/modules/model/invoice/era/era.details.line';
 
@@ -9,6 +9,7 @@ import { ERADetailsLine } from 'src/app/modules/model/invoice/era/era.details.li
 })
 export class EraDetailsComponent implements OnInit {
   @Input() details: ERADetails
+  @Output()changeVisibility = new EventEmitter<string>()
   lines : ERADetailsLine[];
   actions: string[] = ["Close Session", "Send to insurance invoice Area", "Keep current status"];
   columns = [
@@ -55,7 +56,10 @@ export class EraDetailsComponent implements OnInit {
       label: 'actions',
     },
   ]
-
+  apply(){
+    console.log('eeeeee')
+    this.changeVisibility.emit('close');
+  }
   constructor() { 
   }
 

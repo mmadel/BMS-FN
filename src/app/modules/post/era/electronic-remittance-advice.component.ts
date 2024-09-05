@@ -78,4 +78,9 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
   toggleOpenERA() {
     this.openERAVisibility = !this.openERAVisibility
   }
+  changeOpenERAVisibility(event:any){
+    if (event === 'close') {
+      this.openERAVisibility = false;
+    }
+  }
 }

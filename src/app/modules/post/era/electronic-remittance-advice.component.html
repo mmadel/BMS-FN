@@ -90,6 +90,6 @@
     <button (click)="toggleOpenERA()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <era-details *ngIf="openERAVisibility" [details]="eraDetails"></era-details>
+    <era-details *ngIf="openERAVisibility" [details]="eraDetails"  (changeVisibility)="changeOpenERAVisibility($event)"></era-details>
   </c-modal-body>
 </c-modal>
