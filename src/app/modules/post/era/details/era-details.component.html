@@ -2,13 +2,13 @@
 <div class="container">
     <div class="d-flex justify-content-between">
       <div class="text-left">
-        <strong>{{details.payerName}}</strong>
+        <strong>{{era.payerName}}</strong>
       </div>
       <div class="text-right">
-        <strong>ERA date : </strong> {{details.eraDate}} <br/>
-        <strong>Payment # : </strong> {{details.checkNumber}} <br/>
-        <strong>Payment Type : </strong> {{details.chekType | uppercase}} <br/>
-        <strong>Total : </strong> {{details.totalPaid}} <br/>
+        <strong>ERA date : </strong> {{era.receivedDate}} <br/>
+        <strong>Payment # : </strong> {{era.checkNumber}} <br/>
+        <strong>Payment Type : </strong> {{era.checkType | uppercase}} <br/>
+        <strong>Total : </strong> {{era.paidAmount}} <br/>
       </div>
     </div>
   </div>

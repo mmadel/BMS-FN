@@ -11,7 +11,7 @@ import { EraService } from '../service/era/era.service';
   styleUrls: ['./electronic-remittance-advice.component.scss']
 })
 export class ElectronicRemittanceAdviceComponent extends ListTemplate implements OnInit {
-  eraDetails: ERADetails
+  selectedERAModel : ERAModel;
   earList$!: Observable<ERAModel[]>;
   openERAVisibility: boolean = false;
   columns = [
@@ -49,13 +49,7 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
   }
 
   open(item: any) {
-    this.eraDetails = item.eraDetails;
-    this.eraDetails.eraDate = item.receivedDate
-    this.eraDetails.checkNumber = item.checkNumber
-    this.eraDetails.chekType = item.checkType
-    this.eraDetails.totalPaid = item.paidAmount
-    this.eraDetails.payerName = item.payerName
-    this.eraDetails.eraId = item.eraId
+    this.selectedERAModel= item;
     this.openERAVisibility = true;
   }
   archive(item: any) {

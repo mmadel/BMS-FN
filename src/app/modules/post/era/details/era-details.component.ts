@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ERAHistory } from 'src/app/modules/model/invoice/era/er.history';
 import { ERADetails } from 'src/app/modules/model/invoice/era/era.details';
 import { ERADetailsLine } from 'src/app/modules/model/invoice/era/era.details.line';
+import { ERAModel } from 'src/app/modules/model/invoice/era/era.model';
 import { EraService } from '../../service/era/era.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { EraService } from '../../service/era/era.service';
   styleUrls: ['./era-details.component.scss']
 })
 export class EraDetailsComponent implements OnInit {
-  @Input() details: ERADetails
+  @Input() era: ERAModel
   @Output() changeVisibility = new EventEmitter<string>()
   lines: ERADetailsLine[];
   appliedLines: number[] = []
@@ -63,8 +64,8 @@ export class EraDetailsComponent implements OnInit {
   apply() {
     if (this.appliedLines.length !== 0) {
       var eraHistory: ERAHistory = {
-        eraId: this.details.eraId,
         eraLines: this.appliedLines,
+        era : this.era,
         isArchive: false
       }
       this.eraService.createERAHistory(eraHistory).subscribe(() => {
@@ -81,11 +82,11 @@ export class EraDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.details.lines.forEach(line => {
+    this.era.eraDetails.lines.forEach(line => {
       line.editadjustAmount = line.adjustAmount
       line.editpaidAmount = line.paidAmount
     })
-    this.lines = this.details.lines
+    this.lines = this.era.eraDetails.lines
   }
   convertDOS(strValue: string): string {
     const year = parseInt(strValue.substring(0, 4), 10);
