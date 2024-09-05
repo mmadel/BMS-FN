@@ -11,4 +11,5 @@ export interface ERADetailsLine{
     units:number;
     dos:string;
     claimId:string
+    chargeLineId:string
 }
