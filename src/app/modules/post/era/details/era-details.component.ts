@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ERAHistory } from 'src/app/modules/model/invoice/era/er.history';
-import { ERADetails } from 'src/app/modules/model/invoice/era/era.details';
+import { ERALineHistory } from 'src/app/modules/model/invoice/era/er.line.history';
 import { ERADetailsLine } from 'src/app/modules/model/invoice/era/era.details.line';
 import { ERAModel } from 'src/app/modules/model/invoice/era/era.model';
 import { EraService } from '../../service/era/era.service';
@@ -14,8 +14,8 @@ import { EraService } from '../../service/era/era.service';
 export class EraDetailsComponent implements OnInit {
   @Input() era: ERAModel
   @Output() changeVisibility = new EventEmitter<string>()
-  lines: ERADetailsLine[];
-  appliedLines: number[] = []
+  lines: ERALineHistory[] = [];
+  selectedLines : ERALineHistory[] = [];
   actions: string[] = ["Close Session", "Send to insurance invoice Area", "Keep current status"];
   columns = [
     {
@@ -23,7 +23,7 @@ export class EraDetailsComponent implements OnInit {
       label: 'DOS',
     },
     {
-      key: 'cptCode',
+      key: 'cpt',
       label: 'CPT',
     },
     {
@@ -31,62 +31,58 @@ export class EraDetailsComponent implements OnInit {
       label: 'units',
     },
     {
-      key: 'billAmount',
+      key: 'billed',
       label: 'Billed'
     },
     {
-      key: 'adjustAmount',
+      key: 'adjust',
       label: 'adjust',
       _style: { width: '7%' }
     },
     {
-      key: 'deductAmount',
+      key: 'deduct',
       label: 'deduct',
     },
     {
-      key: 'coInsuranceAmount',
+      key: 'COIN',
       label: 'COIN',
     },
     {
-      key: 'coPaymentAmount',
+      key: 'COPAY',
       label: 'COPAY',
     },
     {
-      key: 'paidAmount',
+      key: 'paid',
       label: 'Paid',
       _style: { width: '7%' }
     },
     {
-      key: 'actions',
+      key: 'action',
       label: 'actions',
     },
   ]
   apply() {
-    if (this.appliedLines.length !== 0) {
+    if (this.selectedLines.length !== 0) {
       var eraHistory: ERAHistory = {
-        eraLines: this.appliedLines,
-        era : this.era,
+        historyLines: this.selectedLines,
+        era: this.era,
         isArchive: false
       }
       this.eraService.createERAHistory(eraHistory).subscribe(() => {
         this.toastr.success("ERA is updated successfully")
         this.changeVisibility.emit('close');
-      },error=>{
+      }, error => {
         this.toastr.error("error during update ERA")
       })
     } else {
       this.toastr.error("Select at least one line")
     }
   }
-  constructor(private eraService: EraService,private toastr: ToastrService) {
+  constructor(private eraService: EraService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.era.eraDetails.lines.forEach(line => {
-      line.editadjustAmount = line.adjustAmount
-      line.editpaidAmount = line.paidAmount
-    })
-    this.lines = this.era.eraDetails.lines
+   this.convertToERAHistoryLines();
   }
   convertDOS(strValue: string): string {
     const year = parseInt(strValue.substring(0, 4), 10);
@@ -101,6 +97,27 @@ export class EraDetailsComponent implements OnInit {
   }
 
   onSelectedItemsChange(event: any) {
-    this.appliedLines = event.map(line => line.chargeLineId);
+    this.selectedLines = event;
+  }
+  private convertToERAHistoryLines() {
+    for (var i = 0; i < this.era.eraDetails.lines.length; i++) {
+      var eraDetailsLine: ERADetailsLine = this.era.eraDetails.lines[i];
+      var line: ERALineHistory = {
+        dos: this.convertDOS(eraDetailsLine.dos),
+        cpt: eraDetailsLine.cptCode,
+        units: eraDetailsLine.units,
+        billed: eraDetailsLine.billAmount,
+        adjust: eraDetailsLine.adjustAmount,
+        editatableAdjust: eraDetailsLine.adjustAmount,
+        deduct: eraDetailsLine.deductAmount,
+        COIN: eraDetailsLine.coInsuranceAmount,
+        COPAY: eraDetailsLine.coPaymentAmount,
+        paid: eraDetailsLine.paidAmount,
+        ediatablePaid: eraDetailsLine.paidAmount,
+        action: 'Close',
+        serviceLineId: eraDetailsLine.chargeLineId
+      }
+      this.lines.push(line)
+    }
   }
 }

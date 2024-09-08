@@ -23,19 +23,19 @@
                 <ng-container *ngSwitchCase="'dos'" class="py-2">
                     {{convertDOS(item.dos)}}
                 </ng-container>
-                <ng-container *ngSwitchCase="'adjustAmount'" class="py-2">
-                    <label>{{item.adjustAmount}}</label> <br/>
-                    <input cFormControl sizing="sm"  [(ngModel)]="item.editadjustAmount" type="number" />
+                <ng-container *ngSwitchCase="'adjust'" class="py-2">
+                    <label>{{item.adjust}}</label> <br/>
+                    <input cFormControl sizing="sm"  [(ngModel)]="item.editatableAdjust" type="number" />
                 </ng-container>
-                <ng-container *ngSwitchCase="'paidAmount'" class="py-2">
-                    <label>{{item.paidAmount}}</label> <br/>
-                    <input cFormControl sizing="sm" [value]="item.paidAmount" type="number" />
+                <ng-container *ngSwitchCase="'paid'" class="py-2">
+                    <label>{{item.paid}}</label> <br/>
+                    <input cFormControl sizing="sm" [value]="item.ediatablePaid" type="number" />
                 </ng-container>
-                <ng-container *ngSwitchCase="'actions'" class="py-2">
-                    <select cFormControl cSelect sizing="sm" id="era-actions" name="era-actions">
-                        <option *ngFor="let action of actions" [value]="action">
-                            {{action}}
-                        </option>
+                <ng-container *ngSwitchCase="'action'" class="py-2">
+                    <select cFormControl cSelect sizing="sm" id="era-actions" name="era-actions" [(ngModel)]="item.action"> 
+                      <option value="Close">Close Session</option>
+                      <option value="Resubmit">Send to insurance invoice area</option>
+                      <option value="Current_Status">Keep current status</option>
                     </select>
                 </ng-container>
                 <ng-container *ngSwitchDefault>
@@ -47,7 +47,7 @@
 </c-smart-table>
 <c-row>
     <c-col xs="12" class="text-center">
-      <button cButton class="me-1" color="primary" style="width: 15%;" (click)="apply()">
+      <button cButton class="me-1" color="primary" style="width: 15%;" (click)="apply()" [disabled]="this.lines.length ===0">
         Apply
       </button>
     </c-col>

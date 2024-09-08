@@ -14,4 +14,5 @@ export interface ERADetailsLine{
     dos:string;
     claimId:string
     chargeLineId:string
+    serviceLinePaymentAction:string
 }

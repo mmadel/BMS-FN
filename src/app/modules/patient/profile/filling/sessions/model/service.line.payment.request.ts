@@ -14,7 +14,7 @@ export interface ServiceLinePaymentRequest {
     depositDate_date?: Date,
     authtDate?: number,
     authtDate_date?: Date
-    checkNumber?: number,
+    checkNumber?: string,
     authNumber?: number
     insuranceCompany?: string;
     serviceLinePayments?: ServiceLinePayment[]

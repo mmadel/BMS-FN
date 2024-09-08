@@ -1,7 +1,8 @@
+import { ERALineHistory } from "./er.line.history";
 import { ERAModel } from "./era.model";
 
 export interface ERAHistory{
-    eraLines:number[]
+    historyLines:ERALineHistory[]
     isArchive:boolean;
     era: ERAModel
 }
