@@ -11,10 +11,10 @@
             <c-button-group aria-label="Button outlined group with nested dropdown" role="group" dispaly-input [componentRole]="componentRole">
                 <c-dropdown variant="btn-group">
                     <button cButton cDropdownToggle variant="outline">
-                        Actions
+                        Actions 
                     </button>
                     <ul cDropdownMenu>
-                        <li><a cDropdownItem (click)="createFeeSchdule()">Creat Fee Schedule</a></li>
+                        <li><a cDropdownItem (click)="createFeeSchdule()" *ngIf="hasDefaultFee">Creat Fee Schedule</a></li>
                         <li><a cDropdownItem (click)="createFeeSchdule()" *ngIf="!hasDefaultFee">Creat
                                 Default Fee Schedule</a></li>
                         <li cDropdownDivider></li>

@@ -46,7 +46,7 @@
     (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
 </ng-container>
 
-<c-modal id="editSession" [visible]="editSessionVisibility" backdrop="static" size="xl">
+<c-modal id="editSession" [visible]="editSessionVisibility" backdrop="static" size="xl" scrollable="true">
   <c-modal-header>
     <h2 cModalTitle>Edit Session</h2>
     <button (click)="toggleEditSession(null)" cButtonClose></button>
