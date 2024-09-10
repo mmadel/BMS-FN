@@ -11,12 +11,13 @@ import { ModifierRuleService } from '../service/modifier-rule.service';
   styleUrls: ['./rule-creation.component.scss']
 })
 export class RuleCreationComponent implements OnInit {
-  componentRole: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE];
   @Output() changeVisibility = new EventEmitter<string>()
   compareFn = this._compareFn.bind(this);
   modifierRule: ModifierRule = {
     insurance: null
   };
+  modifierRules: ModifierRule[] = new Array();
   @Input() editModifierRule: ModifierRule;
   @Input() defaultRule: boolean
   mode: string = 'create';
@@ -88,5 +89,20 @@ export class RuleCreationComponent implements OnInit {
     }
     return this.validModifiers;
   }
+  addRow() {
+    var modifierValidation = this.validatModifier();
+    if (this.valid && modifierValidation.length === 0) {
+      var modifierRule: ModifierRule = {
+        modifier: this.modifier.join("."),
+        cptCode: this.modifierRule.cptCode,
+        insurance: this.modifierRule.insurance,
+        name: this.modifierRule.name,
+        appender: this.modifierRule.appender
 
+      }
+      this.modifierRule = { insurance: null }
+      this.modifier = [];
+      this.modifierRules.push(modifierRule)
+    }
+  }
 }
