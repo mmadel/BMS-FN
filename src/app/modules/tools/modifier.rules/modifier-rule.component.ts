@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Role } from '../../secuirty/model/roles';
 import { ModifierRule } from './model/modifier.rule';
+import { Rule } from './model/rule';
 import { ModifierRuleService } from './service/modifier-rule.service';
 @Component({
   selector: 'app-modifier-rule',
@@ -9,11 +10,10 @@ import { ModifierRuleService } from './service/modifier-rule.service';
   styleUrls: ['./modifier-rule.component.scss']
 })
 export class ModifierRuleComponent implements OnInit {
-  componentRole: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE ];
+  componentRole: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE];
   modifierRules: ModifierRule[]
   public addRuleVisible = false;
   editRuleVisible: boolean = false;
-  modifierRule: ModifierRule;
   hasDefaultRule: boolean = false
   columns = [
     'name',
@@ -48,7 +48,6 @@ export class ModifierRuleComponent implements OnInit {
   }
   edit(id: number) {
     this.modifierRuleService.findById(id).subscribe(result => {
-      this.modifierRule = result
       this.editRuleVisible = true;
     })
   }
@@ -61,13 +60,9 @@ export class ModifierRuleComponent implements OnInit {
   private find() {
     this.modifierRuleService.findAll()
       .subscribe((result: any) => {
-        this.modifierRules = result
-        for (var i = 0; i < this.modifierRules.length; i++) {
-          if (this.modifierRules[i].defaultRule) {
-            this.hasDefaultRule = true;
-            break;
-          }
-        }
+        console.log(JSON.stringify(result))
+        this.modifierRules = result;
+        this.hasDefaultRule = this.modifierRules.length === 0 ? true : false
       }, error => {
         this.toastr.error('error during getting modifier rules');
       })

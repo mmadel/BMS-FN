@@ -2,6 +2,14 @@
     <ngx-spinner></ngx-spinner>
     <c-row>
         <c-col xs="5">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 30%;">Rule Name</span>
+                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="ruleName" />
+            </c-input-group>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col xs="5">
             <c-input-group sizing="sm" class="mb-1">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Add Modifier(s)</span>
                 <input cFormControl maxlength="2" [(ngModel)]="modifier[0]"
@@ -27,7 +35,7 @@
         <c-col xs="5">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">When CPT is:</span>
-                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="modifierRule.cptCode"
+                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="rule.cptCode"
                     cPopover="Leave blank to match all CPT codes" [cPopoverTrigger]="'hover'" cPopoverPlacement="right"
                     readonly-input [componentRole]="componentRole" />
             </c-input-group>
@@ -38,12 +46,12 @@
     </c-row>
     <c-row>
 
-        <c-col xs="5" *ngIf="defaultRule">
+        <c-col xs="5" *ngIf="!defaultRule">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
-                <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="modifierRule.insurance"
+                <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="rule.insurance"
                     *ngIf="insuranceCompanies" disable-input [componentRole]="componentRole">
-                    <option value="null" disabled="true">Select Insurance Company</option>
+                    <option value="null">All Insurance Companies</option>
                     <option *ngFor="let insurance of insuranceCompanies" [ngValue]="insurance">
                         {{insurance.name}}
                     </option>
@@ -56,22 +64,12 @@
             </small>
         </c-col>
     </c-row>
-    <c-row class="align-items-center mb-1" *ngIf="defaultRule">
-        <c-col xs="5">
-            <c-input-group class="mb-1" sizing="sm">
-                <span cInputGroupText id="basic-addon3" style="width: 30%;">Name</span>
-                <input cFormControl sizing="sm" name="cptCode" [(ngModel)]="modifierRule.name" readonly-input
-                    [componentRole]="componentRole">
-            </c-input-group>
-        </c-col>
-    </c-row>
     <h3>How to Append Modifier</h3>
     <c-row>
         <c-col xs="2">
             <div class="form-check">
                 <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckDefault"
-                    [value]="'replace'" [(ngModel)]="modifierRule.appender" disable-input
-                    [componentRole]="componentRole">
+                    [value]="'replace'" [(ngModel)]="rule.appender" disable-input [componentRole]="componentRole">
                 <label class="form-check-label" for="flexCheckDefault">
                     <strong>Replace</strong>
                 </label>
@@ -81,7 +79,7 @@
         <c-col xs="2">
             <div class="form-check">
                 <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
-                    [value]="'end'" [(ngModel)]="modifierRule.appender" disable-input [componentRole]="componentRole">
+                    [value]="'end'" [(ngModel)]="rule.appender" disable-input [componentRole]="componentRole">
                 <label class="form-check-label" for="flexCheckChecked">
                     <strong>Append at end</strong>
                 </label>
@@ -91,7 +89,7 @@
         <c-col xs="2">
             <div class="form-check">
                 <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
-                    [value]="'front'" [(ngModel)]="modifierRule.appender" disable-input [componentRole]="componentRole">
+                    [value]="'front'" [(ngModel)]="rule.appender" disable-input [componentRole]="componentRole">
                 <label class="form-check-label" for="flexCheckChecked">
                     <strong>Append at front</strong>
                 </label>
@@ -101,10 +99,14 @@
     </c-row>
     <div class="row">
         <div class="col text-center">
-            <button cButton color="info" variant="outline" size="sm" style="width: 10%;" (click)="addRow()">
-                <span *ngIf="lineMode ==='create'">Add</span>
-                <span *ngIf="lineMode ==='update'">Edit</span>
-            </button>
+            <span *ngIf="lineMode ==='create'">
+                <button cButton color="info" variant="outline" size="sm" style="width: 10%;"
+                    (click)="addRow()">Add</button>
+            </span>
+            <span *ngIf="lineMode ==='update'">
+                <button cButton color="info" variant="outline" size="sm" style="width: 10%;"
+                    (click)="editRow()">Edit</button>
+            </span>
         </div>
     </div>
     <hr />
@@ -116,21 +118,19 @@
                         <th scope="col">Modifier</th>
                         <th scope="col">CPT</th>
                         <th scope="col">Insurance Company</th>
-                        <th scope="col">Rule Name</th>
                         <th scope="col">Rule Appender</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let line of modifierRules;index as i">
+                    <tr *ngFor="let line of rules;index as i">
                         <td>{{line.modifier}}</td>
                         <td>{{line.cptCode}}</td>
-                        <td>{{line.insurance.name}}</td>
-                        <td>{{line.name}}</td>
+                        <td>{{line.insurance === null?"All":line.insurance.name}}</td>
                         <td>{{line.appender}}</td>
                         <td>
                             <c-button-group aria-label="Basic example" role="group" size="sm">
-                                <button cButton variant="outline" size="sm" (click)="editRow(line.name)">
+                                <button cButton variant="outline" size="sm" (click)="opeRow(line.id)">
                                     <svg cIcon name="cilPen"></svg>
                                 </button>
                                 <button cButton variant="outline" size="sm" (click)="deleteRow(i)">
