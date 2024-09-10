@@ -18,15 +18,25 @@ export class RuleCreationComponent implements OnInit {
   rule: Rule = { insurance: null };
   modifierRule: ModifierRule = {}
   rules: Rule[] = new Array();
-  @Input() editRule: Rule;
+  @Input() editModifierRule: ModifierRule;
   @Input() defaultRule: boolean
   ruleName: string
   mode: string = 'create';
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
   ngOnInit(): void {
-    console.log(this.defaultRule)
+    if (this.editModifierRule !== undefined) {
+      this.mode = 'update'
+      this.fillModel();
+    }
+
     this.findMetaData();
+  }
+  private fillModel() {
+    this.modifierRule = this.editModifierRule;
+    this.defaultRule = this.editModifierRule.defaultRule
+    this.ruleName = this.editModifierRule.name;
+    this.rules = this.editModifierRule.rules
   }
   insuranceCompanies: InsuranceCompanyHolder[]
   valid: boolean = true;
@@ -37,13 +47,17 @@ export class RuleCreationComponent implements OnInit {
 
   create() {
     this.modifierRule = {
+      id: this.mode === 'create' ? null : this.editModifierRule.id,
       name: this.ruleName,
       rules: this.rules,
-      active: true,
+      active: this.mode === 'create' ? true : this.editModifierRule.active,
       defaultRule: this.defaultRule
-    }    
+    }
     this.modifierRuleService.create(this.modifierRule).subscribe(() => {
-      this.changeVisibility.emit('close_create')
+      if (this.mode === 'create')
+        this.changeVisibility.emit('close_create')
+      else
+        this.changeVisibility.emit('close_update')
       this.toastr.success('Modifier Rule Created.')
     })
   }

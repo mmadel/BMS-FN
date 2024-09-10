@@ -90,7 +90,7 @@
     <button (click)="toggleEditRule()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <!-- <app-rule-creation *ngIf="editRuleVisible" (changeVisibility)="changeVisibility($event)"
-      [editRule]="rule"></app-rule-creation> -->
+    <app-rule-creation *ngIf="editRuleVisible" (changeVisibility)="changeVisibility($event)"
+      [editModifierRule]="editModifierRule"></app-rule-creation>
   </c-modal-body>
 </c-modal>

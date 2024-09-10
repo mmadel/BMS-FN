@@ -15,6 +15,7 @@ export class ModifierRuleComponent implements OnInit {
   public addRuleVisible = false;
   editRuleVisible: boolean = false;
   hasDefaultRule: boolean = false
+  editModifierRule:ModifierRule;
   columns = [
     'name',
     {
@@ -52,6 +53,7 @@ export class ModifierRuleComponent implements OnInit {
   }
   edit(id: number) {
     this.modifierRuleService.findById(id).subscribe(result => {
+      this.editModifierRule = result;
       this.editRuleVisible = true;
     })
   }
