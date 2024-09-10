@@ -11,7 +11,7 @@ import { Role } from 'src/app/modules/secuirty/model/roles';
 })
 export class ServiceCodeListComponent implements OnInit {
   componentRole: string[] = [Role.PATIENT_ROLE ];
-  serviceCodes: ServiceCode[];
+  serviceCodes: ServiceCode[] = new Array();
   unitCount: number;
   chargeCount: number;
   @Input() editMode?: boolean = false;
@@ -21,10 +21,11 @@ export class ServiceCodeListComponent implements OnInit {
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-    if (this.editMode)
-      this.populateList();
-    else
-      this.serviceCodes = new Array();
+    this.populateList();
+    // if (this.editMode)
+    //   this.populateList();
+    // else
+    //   this.serviceCodes = new Array();
   }
   toggleEditServiceLine(serviceCode: ServiceCode, index: number) {
     this.emitPatientSessionService.sessionserviceCode$.next(serviceCode)
