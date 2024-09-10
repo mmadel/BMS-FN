@@ -17,10 +17,14 @@ export class ModifierRuleComponent implements OnInit {
   hasDefaultRule: boolean = false
   columns = [
     'name',
-    'modifier',
-    'cptCode',
-    'appender',
-    'active',
+    {
+      key: 'defaultRule',
+      label: 'IsDefault',
+    },
+    {
+      key: 'active',
+      label: 'IsActive',
+    },
     {
       key: 'actions',
       label: '',
@@ -60,7 +64,6 @@ export class ModifierRuleComponent implements OnInit {
   private find() {
     this.modifierRuleService.findAll()
       .subscribe((result: any) => {
-        console.log(JSON.stringify(result))
         this.modifierRules = result;
         this.hasDefaultRule = this.modifierRules.length === 0 ? true : false
       }, error => {

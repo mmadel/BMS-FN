@@ -47,6 +47,12 @@
                 [componentRole]="componentRole" />
             </c-form-check>
           </ng-container>
+          <ng-container *ngSwitchCase="'defaultRule'" class="py-2">
+            <c-form-check [switch]="true">
+              <input cFormCheckInput type="checkbox" [(ngModel)]="item.defaultRule" disabled="true" disable-input
+                [componentRole]="componentRole" />
+            </c-form-check>
+          </ng-container>
           <ng-container *ngSwitchCase="'actions'" class="py-2">
             <c-button-group aria-label="Basic example" role="group" size="sm">
               <button cButton variant="outline" (click)="edit(item.id)" size="sm">

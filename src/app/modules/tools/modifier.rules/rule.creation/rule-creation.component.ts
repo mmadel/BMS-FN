@@ -20,7 +20,7 @@ export class RuleCreationComponent implements OnInit {
   rules: Rule[] = new Array();
   @Input() editRule: Rule;
   @Input() defaultRule: boolean
-  ruleName:string
+  ruleName: string
   mode: string = 'create';
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
@@ -36,14 +36,16 @@ export class RuleCreationComponent implements OnInit {
 
 
   create() {
-        this.modifierRule={
-          name : this.ruleName,
-          rules : this.rules,
-          active:true,
-          defaultRule:this.defaultRule
-        }
-        this.changeVisibility.emit('close_create')
-      console.log(JSON.stringify(this.modifierRule))
+    this.modifierRule = {
+      name: this.ruleName,
+      rules: this.rules,
+      active: true,
+      defaultRule: this.defaultRule
+    }    
+    this.modifierRuleService.create(this.modifierRule).subscribe(() => {
+      this.changeVisibility.emit('close_create')
+      this.toastr.success('Modifier Rule Created.')
+    })
   }
   _compareFn(a: any, b: any) {
     return a?.id === b?.id;
@@ -68,7 +70,7 @@ export class RuleCreationComponent implements OnInit {
   editRow() {
     let indexToUpdate = this.rules.findIndex(item => item.id === this.rule.id);
     this.buildModel();
-    this.rules[indexToUpdate] =this.rule
+    this.rules[indexToUpdate] = this.rule
     this.clearModel()
     this.lineMode = 'create'
   }
