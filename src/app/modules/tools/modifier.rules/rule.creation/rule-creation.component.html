@@ -9,6 +9,26 @@
         </c-col>
     </c-row>
     <c-row>
+        <c-col xs="5" *ngIf="!defaultRule">
+            <c-input-group class="mb-1" sizing="sm">
+                <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
+                <select [compareWith]="compareFn" cSelect id="mrinsuranceComp" [(ngModel)]="insurance"
+                    *ngIf="insuranceCompanies" disable-input [componentRole]="componentRole">
+                    <option value="null">All Insurance Companies</option>
+                    <option *ngFor="let insurance of insuranceCompanies" [ngValue]="insurance">
+                        {{insurance.name}}
+                    </option>
+                </select>
+            </c-input-group>
+        </c-col>
+        <c-col xs="7">
+            <small *ngIf="!valid" class="form-text text-danger mb-3">
+                Select Insurance Company.
+            </small>
+        </c-col>
+    </c-row>
+    <hr/>
+    <c-row>
         <c-col xs="5">
             <c-input-group sizing="sm" class="mb-1">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Add Modifier(s)</span>
@@ -42,26 +62,6 @@
         </c-col>
         <c-col xs="7">
             <!-- CPT Code description-->
-        </c-col>
-    </c-row>
-    <c-row>
-
-        <c-col xs="5" *ngIf="!defaultRule">
-            <c-input-group class="mb-1" sizing="sm">
-                <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
-                <select [compareWith]="compareFn" cSelect id="feePlanType" [(ngModel)]="rule.insurance"
-                    *ngIf="insuranceCompanies" disable-input [componentRole]="componentRole">
-                    <option value="null">All Insurance Companies</option>
-                    <option *ngFor="let insurance of insuranceCompanies" [ngValue]="insurance">
-                        {{insurance.name}}
-                    </option>
-                </select>
-            </c-input-group>
-        </c-col>
-        <c-col xs="7">
-            <small *ngIf="!valid" class="form-text text-danger mb-3">
-                Select Insurance Company.
-            </small>
         </c-col>
     </c-row>
     <h3>How to Append Modifier</h3>
@@ -117,7 +117,6 @@
                     <tr>
                         <th scope="col">Modifier</th>
                         <th scope="col">CPT</th>
-                        <th scope="col">Insurance Company</th>
                         <th scope="col">Rule Appender</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -126,7 +125,6 @@
                     <tr *ngFor="let line of rules;index as i">
                         <td>{{line.modifier}}</td>
                         <td>{{line.cptCode}}</td>
-                        <td>{{line.insurance === null?"All":line.insurance.name}}</td>
                         <td>{{line.appender}}</td>
                         <td>
                             <c-button-group aria-label="Basic example" role="group" size="sm">

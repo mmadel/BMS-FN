@@ -15,12 +15,13 @@ export class RuleCreationComponent implements OnInit {
   componentRole: string[] = [Role.BILLING_ROLE, Role.MODIFIER_RULE_BILLING_ROLE];
   @Output() changeVisibility = new EventEmitter<string>()
   compareFn = this._compareFn.bind(this);
-  rule: Rule = { insurance: null };
-  modifierRule: ModifierRule = {}
+  rule: Rule = {};
+  modifierRule: ModifierRule = { insuranceCompany: null }
   rules: Rule[] = new Array();
   @Input() editModifierRule: ModifierRule;
   @Input() defaultRule: boolean
   ruleName: string
+  insurance: any = null;
   mode: string = 'create';
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
@@ -37,6 +38,7 @@ export class RuleCreationComponent implements OnInit {
     this.defaultRule = this.editModifierRule.defaultRule
     this.ruleName = this.editModifierRule.name;
     this.rules = this.editModifierRule.rules
+    this.insurance=  this.editModifierRule.insuranceCompany
   }
   insuranceCompanies: InsuranceCompanyHolder[]
   valid: boolean = true;
@@ -53,6 +55,10 @@ export class RuleCreationComponent implements OnInit {
       active: this.mode === 'create' ? true : this.editModifierRule.active,
       defaultRule: this.defaultRule
     }
+    if (!this.defaultRule)
+      this.modifierRule.insuranceCompany = this.insurance;
+    else
+      this.modifierRule.insuranceCompany = null;
     this.modifierRuleService.create(this.modifierRule).subscribe(() => {
       if (this.mode === 'create')
         this.changeVisibility.emit('close_create')
@@ -111,7 +117,7 @@ export class RuleCreationComponent implements OnInit {
     return this.validModifiers;
   }
   clearModel() {
-    this.rule = { insurance: null }
+    this.rule = {}
     this.modifier = []
   }
   generateRandom(min: number, max: number) {

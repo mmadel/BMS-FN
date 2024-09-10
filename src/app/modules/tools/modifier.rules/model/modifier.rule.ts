@@ -6,4 +6,5 @@ export interface ModifierRule {
     defaultRule?:boolean,
     active?:boolean
     rules?:Rule[]
+    insuranceCompany?:any
 }
