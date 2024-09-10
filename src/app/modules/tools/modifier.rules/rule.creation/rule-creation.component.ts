@@ -27,6 +27,7 @@ export class RuleCreationComponent implements OnInit {
   valid: boolean = true;
   modifier: string[] = []
   validModifiers: Boolean[];
+  lineMode: string = 'create';
   ngOnInit(): void {
     this.findMetaData();
     if (this.editModifierRule === undefined)
@@ -89,23 +90,42 @@ export class RuleCreationComponent implements OnInit {
     }
     return this.validModifiers;
   }
-  addRow() {
+  clearModel() {
+    this.modifierRule = { insurance: null }
+    this.modifier = [];
+  }
+  buildModel(): ModifierRule {
     var modifierValidation = this.validatModifier();
+    var modifierRule: ModifierRule;
     if (this.valid && modifierValidation.length === 0) {
-      var modifierRule: ModifierRule = {
+      modifierRule = {
         modifier: this.modifier.join("."),
         cptCode: this.modifierRule.cptCode,
         insurance: this.modifierRule.insurance,
         name: this.modifierRule.name,
         appender: this.modifierRule.appender
-
       }
-      this.modifierRule = { insurance: null }
-      this.modifier = [];
-      this.modifierRules.push(modifierRule)
     }
+    return modifierRule;
   }
-  deleteRow(index:number){
+  addRow() {
+    if (this.lineMode == 'update') {
+      let indexToUpdate = this.modifierRules.findIndex(item => item.name === this.modifierRule.name);
+      this.modifierRules[indexToUpdate] = this.buildModel()
+      this.lineMode = 'create'
+      this.clearModel()
+    } else {
+      this.modifierRules.push(this.buildModel())
+      this.clearModel()
+    }
+
+  }
+  deleteRow(index: number) {
     this.modifierRules.splice(index, 1);
+  }
+  editRow(name: string) {
+    this.lineMode = 'update'
+    this.modifierRule = this.modifierRules.find(line => line.name === name);
+    this.modifier = this.modifierRule.modifier.split(".");
   }
 }

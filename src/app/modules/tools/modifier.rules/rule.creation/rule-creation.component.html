@@ -102,7 +102,8 @@
     <div class="row">
         <div class="col text-center">
             <button cButton color="info" variant="outline" size="sm" style="width: 10%;" (click)="addRow()">
-                Add
+                <span *ngIf="lineMode ==='create'">Add</span>
+                <span *ngIf="lineMode ==='update'">Edit</span>
             </button>
         </div>
     </div>
@@ -129,7 +130,7 @@
                         <td>{{line.appender}}</td>
                         <td>
                             <c-button-group aria-label="Basic example" role="group" size="sm">
-                                <button cButton variant="outline" size="sm">
+                                <button cButton variant="outline" size="sm" (click)="editRow(line.name)">
                                     <svg cIcon name="cilPen"></svg>
                                 </button>
                                 <button cButton variant="outline" size="sm" (click)="deleteRow(i)">
