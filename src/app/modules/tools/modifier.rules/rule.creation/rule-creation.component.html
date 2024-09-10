@@ -81,8 +81,7 @@
         <c-col xs="2">
             <div class="form-check">
                 <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
-                    [value]="'end'" [(ngModel)]="modifierRule.appender" disable-input
-                    [componentRole]="componentRole">
+                    [value]="'end'" [(ngModel)]="modifierRule.appender" disable-input [componentRole]="componentRole">
                 <label class="form-check-label" for="flexCheckChecked">
                     <strong>Append at end</strong>
                 </label>
@@ -92,8 +91,7 @@
         <c-col xs="2">
             <div class="form-check">
                 <input class="form-check-input" name="modifier" type="radio" value="" id="flexCheckChecked"
-                    [value]="'front'" [(ngModel)]="modifierRule.appender" disable-input
-                    [componentRole]="componentRole">
+                    [value]="'front'" [(ngModel)]="modifierRule.appender" disable-input [componentRole]="componentRole">
                 <label class="form-check-label" for="flexCheckChecked">
                     <strong>Append at front</strong>
                 </label>
@@ -119,6 +117,7 @@
                         <th scope="col">Insurance Company</th>
                         <th scope="col">Rule Name</th>
                         <th scope="col">Rule Appender</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,6 +127,16 @@
                         <td>{{line.insurance.name}}</td>
                         <td>{{line.name}}</td>
                         <td>{{line.appender}}</td>
+                        <td>
+                            <c-button-group aria-label="Basic example" role="group" size="sm">
+                                <button cButton variant="outline" size="sm">
+                                    <svg cIcon name="cilPen"></svg>
+                                </button>
+                                <button cButton variant="outline" size="sm" (click)="deleteRow(i)">
+                                    <svg cIcon name="cilTrash"></svg>
+                                </button>
+                            </c-button-group>
+                        </td>
                     </tr>
                 </tbody>
             </table>

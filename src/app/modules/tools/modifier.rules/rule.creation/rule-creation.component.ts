@@ -105,4 +105,7 @@ export class RuleCreationComponent implements OnInit {
       this.modifierRules.push(modifierRule)
     }
   }
+  deleteRow(index:number){
+    this.modifierRules.splice(index, 1);
+  }
 }
