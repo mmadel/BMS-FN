@@ -21,7 +21,7 @@ export class RuleCreationComponent implements OnInit {
   @Input() editModifierRule: ModifierRule;
   @Input() defaultRule: boolean
   ruleName: string
-  insurance: any = null;
+  insurance: any  ;
   mode: string = 'create';
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
@@ -38,7 +38,7 @@ export class RuleCreationComponent implements OnInit {
     this.defaultRule = this.editModifierRule.defaultRule
     this.ruleName = this.editModifierRule.name;
     this.rules = this.editModifierRule.rules
-    this.insurance=  this.editModifierRule.insuranceCompany
+    this.insurance = this.editModifierRule.insuranceCompany
   }
   insuranceCompanies: InsuranceCompanyHolder[]
   valid: boolean = true;
@@ -74,8 +74,10 @@ export class RuleCreationComponent implements OnInit {
 
 
   private findMetaData() {
+    this.defaultRule ? this.ruleName = "Default Rule" : ""
     this.modifierRuleService.findInsuranceCompanies().subscribe((result: any) => {
       this.insuranceCompanies = result;
+      this.insurance = result[0];
     })
   }
 

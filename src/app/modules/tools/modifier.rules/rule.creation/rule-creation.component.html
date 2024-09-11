@@ -4,7 +4,8 @@
         <c-col xs="5">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Rule Name</span>
-                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="ruleName" />
+                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="ruleName"
+                    [disabled]="defaultRule" />
             </c-input-group>
         </c-col>
     </c-row>
@@ -14,7 +15,6 @@
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Insurance</span>
                 <select [compareWith]="compareFn" cSelect id="mrinsuranceComp" [(ngModel)]="insurance"
                     *ngIf="insuranceCompanies" disable-input [componentRole]="componentRole">
-                    <option value="null">All Insurance Companies</option>
                     <option *ngFor="let insurance of insuranceCompanies" [ngValue]="insurance">
                         {{insurance.name}}
                     </option>
@@ -27,7 +27,7 @@
             </small>
         </c-col>
     </c-row>
-    <hr/>
+    <hr />
     <c-row>
         <c-col xs="5">
             <c-input-group sizing="sm" class="mb-1">
@@ -124,7 +124,7 @@
                 <tbody>
                     <tr *ngFor="let line of rules;index as i">
                         <td>{{line.modifier}}</td>
-                        <td>{{line.cptCode}}</td>
+                        <td>{{line.cptCode ===null? "All":line.cptCode}}</td>
                         <td>{{line.appender}}</td>
                         <td>
                             <c-button-group aria-label="Basic example" role="group" size="sm">
