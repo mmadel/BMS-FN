@@ -69,8 +69,7 @@ export class InvoiceCreationComponent implements OnInit {
     var otherPAtientInsurances: any[] = this.constructOtherInsurances(patientInsurance);
     this.invoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, otherPAtientInsurances);
     this.invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
-    this.checkIsCorrectServiceLines(this.selectedSessionServiceLine)
-    console.log(this.CorrectClaimVisibility)
+    this.checkIsCorrectServiceLines(this.selectedSessionServiceLine)  
     if (!this.CorrectClaimVisibility) {
       this.executedElectronically(patientInsurance)
     }
@@ -139,13 +138,11 @@ export class InvoiceCreationComponent implements OnInit {
     invoiceRequest.invoiceBillingProviderInformation.taxonomy = result[7]
   }
   private constructOtherInsurances(patientInsurance: PatientInsurance): OtherPatientInsurance[] {
-    console.log(JSON.stringify(patientInsurance))
     var result: OtherPatientInsurance[] = new Array();
     this.filterpatientInsurances.filter(obj => obj.id !== patientInsurance.id)
       .forEach(element => {
         var otherPatientInsurance: OtherPatientInsurance;
         var patientRelationName = element.patientRelation.r_lastName + ',' + element.patientRelation.r_firstName;
-        console.log(JSON.stringify(element))
         otherPatientInsurance = {
           insuredName: patientRelationName,
           policyGroup: element.patientInsurancePolicy.policyGroup,
