@@ -28,6 +28,7 @@ export class ViewInsuranceComponent implements OnInit {
   }
   toggleAddInsuranceVisibility() {
     this.addInsuranceVisibility = !this.addInsuranceVisibility;
+    
   }
   changeVisibility(event: any) {
     if (event === 'close') {

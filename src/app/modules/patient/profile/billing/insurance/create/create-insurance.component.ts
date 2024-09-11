@@ -114,17 +114,11 @@ export class CreateInsuranceComponent implements OnInit {
     }
   }
   pickPayerName(event: any) {
-
+    console.log(JSON.stringify(event))
+    this.patientInsurance.visibility = 'External';
     this.payers.forEach(element => {
-      if (element.displayName === event) {
+      if (element.displayName === event)
         this.selectedPayerId = element.payerId + '';
-        this.fillPayerAddress(element);
-        if (element.payerType === 'Clearing_House')
-          this.patientInsurance.visibility = 'External';
-        else
-          this.patientInsurance.visibility = 'Internal';
-      }
-
     });
 
   }
@@ -161,6 +155,7 @@ export class CreateInsuranceComponent implements OnInit {
   create() {
     if (this.insuranceCreateForm.valid) {
       if (this.editPatientInsurance === undefined) {
+        console.log(this.patientInsurance.visibility)
         switch (this.patientInsurance.visibility) {
           case "Internal":
             this.patientInsurance.insuranceCompany[0] = this.selectedPayerName
@@ -181,6 +176,8 @@ export class CreateInsuranceComponent implements OnInit {
           this.patientInsurance.assigner = result.records.assigner;
           this.patientInsurance.id = result.records.id;
           this.toastr.success("Patient insurance crteated")
+          if (result.records.insuranceCompany !== null)
+            this.patientInsurance.insuranceCompany = result.records.insuranceCompany
           this.scrollUp();
           this.changeVisibility.emit('close');
         }, error => {
