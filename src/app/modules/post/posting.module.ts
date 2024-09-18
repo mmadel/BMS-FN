@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconModule } from '@coreui/icons-angular';
 import { PostingRoutingModule } from './posting-routing.module';
-
+import {MatTableModule} from '@angular/material/table';
 import {
   BatchInsurnacePaymentComponent,
   ElectronicRemittanceAdviceComponent,
@@ -45,6 +45,7 @@ import { PendingInsuranceComponent } from './client.balance/pending.insurance/pe
 import { ClientBalanceSettingsComponent } from './client.balance/settings/client-balance-settings.component';
 import { PatientModule } from '../patient';
 import { EraDetailsComponent } from './era/details/era-details.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,8 @@ import { EraDetailsComponent } from './era/details/era-details.component';
     SpinnerModule,
     SmartPaginationModule,
     PatientModule,
+    MatTableModule,
+    InfiniteScrollModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

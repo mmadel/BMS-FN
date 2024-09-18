@@ -1,8 +1,8 @@
-import { ERALineHistory } from "./er.line.history";
+import { ERADetailsLine } from "./era.details.line";
 import { ERAModel } from "./era.model";
 
 export interface ERAHistory{
-    historyLines:ERALineHistory[]
+    historyLines:ERADetailsLine[]
     isArchive:boolean;
     era: ERAModel
 }

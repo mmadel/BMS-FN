@@ -10,4 +10,5 @@ export interface ERADetails{
     payerName:string
     eraId:number
     lines:ERADetailsLine[]
+    patientLines:{ [key: string]: ERADetailsLine[] } 
 }

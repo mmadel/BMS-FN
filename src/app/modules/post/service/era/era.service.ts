@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IApiParams } from 'src/app/modules/model/interface/api.params';
 import { ERAHistory } from 'src/app/modules/model/invoice/era/er.history';
-import { ERAModel } from 'src/app/modules/model/invoice/era/era.model';
 import { BasePaginationService } from 'src/app/modules/model/service/base-pagination.service';
 import { environment } from 'src/environments/environment';
 

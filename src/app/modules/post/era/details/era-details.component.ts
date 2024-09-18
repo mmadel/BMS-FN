@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ERAHistory } from 'src/app/modules/model/invoice/era/er.history';
-import { ERALineHistory } from 'src/app/modules/model/invoice/era/er.line.history';
 import { ERADetailsLine } from 'src/app/modules/model/invoice/era/era.details.line';
 import { ERAModel } from 'src/app/modules/model/invoice/era/era.model';
 import { EraService } from '../../service/era/era.service';
-
+export interface Person {
+  name: string;
+  email: string;
+}
 @Component({
   selector: 'era-details',
   templateUrl: './era-details.component.html',
@@ -14,8 +16,6 @@ import { EraService } from '../../service/era/era.service';
 export class EraDetailsComponent implements OnInit {
   @Input() era: ERAModel
   @Output() changeVisibility = new EventEmitter<string>()
-  lines: ERALineHistory[] = [];
-  selectedLines : ERALineHistory[] = [];
   actions: string[] = ["Close Session", "Send to insurance invoice Area", "Keep current status"];
   columns = [
     {
@@ -62,9 +62,11 @@ export class EraDetailsComponent implements OnInit {
     },
   ]
   apply() {
-    if (this.selectedLines.length !== 0) {
+    var selectedLines: ERADetailsLine[] = this.getSelectedLines(this.era.eraDetails.patientLines)
+
+    if (selectedLines.length !== 0) {
       var eraHistory: ERAHistory = {
-        historyLines: this.selectedLines,
+        historyLines: selectedLines,
         era: this.era,
         isArchive: false
       }
@@ -82,42 +84,21 @@ export class EraDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.convertToERAHistoryLines();
-  }
-  convertDOS(strValue: string): string {
-    const year = parseInt(strValue.substring(0, 4), 10);
-    const month = parseInt(strValue.substring(4, 6), 10)
-    const day = parseInt(strValue.substring(6, 8), 10);
-    // Create a Date object
-    const date = new Date(year, month, day);
-
-    // Format the date as MM/DD/YYYY
-    const formattedDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
-    return formattedDate;
   }
 
-  onSelectedItemsChange(event: any) {
-    this.selectedLines = event;
+  getKeys(map: { [key: string]: ERADetailsLine[] }): string[] {
+    return Object.keys(map);
   }
-  private convertToERAHistoryLines() {
-    for (var i = 0; i < this.era.eraDetails.lines.length; i++) {
-      var eraDetailsLine: ERADetailsLine = this.era.eraDetails.lines[i];
-      var line: ERALineHistory = {
-        dos: this.convertDOS(eraDetailsLine.dos),
-        cpt: eraDetailsLine.cptCode,
-        units: eraDetailsLine.units,
-        billed: eraDetailsLine.billAmount,
-        adjust: eraDetailsLine.adjustAmount,
-        editatableAdjust: eraDetailsLine.adjustAmount,
-        deduct: eraDetailsLine.deductAmount,
-        COIN: eraDetailsLine.coInsuranceAmount,
-        COPAY: eraDetailsLine.coPaymentAmount,
-        paid: eraDetailsLine.paidAmount,
-        ediatablePaid: eraDetailsLine.paidAmount,
-        action: 'Close',
-        serviceLineId: eraDetailsLine.chargeLineId
-      }
-      this.lines.push(line)
-    }
+
+  capitalizeNames(input: string): string {
+    return input
+      .split(',')
+      .map(name => name.toLowerCase())
+      .map(name => name.charAt(0).toUpperCase() + name.slice(1))
+      .join(',');
+  }
+  private getSelectedLines(lines: { [key: string]: ERADetailsLine[] }): ERADetailsLine[] {
+    return Object.values(lines)
+      .flatMap(lines => lines.filter(item => item.selected));
   }
 }

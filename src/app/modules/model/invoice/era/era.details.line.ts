@@ -13,6 +13,8 @@ export interface ERADetailsLine{
     units:number;
     dos:string;
     claimId:string
-    chargeLineId:string
+    serviceLineID:string
     serviceLinePaymentAction:string
+    action:string
+    selected:boolean
 }
