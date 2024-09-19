@@ -84,6 +84,7 @@ export class EraDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(JSON.stringify(this.era))
     this.checkAllTouched(this.era.eraDetails.patientLines);
   }
 

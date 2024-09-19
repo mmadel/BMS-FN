@@ -29,6 +29,7 @@
           <th>COIN</th>
           <th>COPAY</th>
           <th>Paid</th>
+          <th>Reason</th>
           <th style="width: 15%;">Action</th>
           <th style="width: 15%;">Claim Status</th>
         </tr>
@@ -36,7 +37,7 @@
       <tbody>
         <tr *ngFor="let item of this.era.eraDetails.patientLines[key]; let i = index">
           <td style="width: 5%;">
-            <input type="checkbox" checked [(ngModel)]="item.selected"  *ngIf="!item.touched"/>
+            <input type="checkbox" checked [(ngModel)]="item.selected" *ngIf="!item.touched" />
           </td>
           <td>{{ formatDate(item.dos) }}</td>
           <td>{{ item.cptCode}}</td>
@@ -74,6 +75,9 @@
             </c-row>
           </td>
           <td>
+            {{item.reasons}}
+          </td>
+          <td>
             <select id="era-actions" name="era-actions" [(ngModel)]="item.action" *ngIf="!item.touched">
               <option value="Close">Close Session</option>
               <option value="Resubmit">Send to insurance invoice area</option>
@@ -88,7 +92,14 @@
       </tbody>
     </table>
   </div>
-
+</div>
+<div class="mb-2">
+  <table style="border-collapse: collapse;width: 100%;">
+    <tr *ngFor="let reasonCode of era.eraDetails.claimAdjustmentReasonCodes; index as i;">
+      <td style="font-weight: bold;">{{reasonCode.code}}</td>
+      <td style="padding: 8px;border: none;">{{reasonCode.description}}</td>
+    </tr>
+  </table>
 </div>
 <c-row>
   <c-col xs="12" class="text-center" *ngIf="!isAllTouched">
