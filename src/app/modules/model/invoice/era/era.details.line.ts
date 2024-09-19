@@ -2,12 +2,12 @@ export interface ERADetailsLine{
     billAmount:number;
     allowedAmount:number;
     adjustAmount:number;
-    editadjustAmount:number;
+    editAdjustAmount:number;
     deductAmount:number;
     coInsuranceAmount:number;
     coPaymentAmount:number;
     paidAmount:number;
-    editpaidAmount:number
+    editPaidAmount:number
     reasons:string[];
     cptCode:number;
     units:number;
@@ -17,4 +17,8 @@ export interface ERADetailsLine{
     serviceLinePaymentAction:string
     action:string
     selected:boolean
+    touched:boolean
+    claimStatusCode:string;
+    claimStatusDescription:string;
+    
 }

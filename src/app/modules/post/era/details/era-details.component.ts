@@ -17,6 +17,7 @@ export class EraDetailsComponent implements OnInit {
   @Input() era: ERAModel
   @Output() changeVisibility = new EventEmitter<string>()
   actions: string[] = ["Close Session", "Send to insurance invoice Area", "Keep current status"];
+  isAllTouched: boolean = false;
   columns = [
     {
       key: 'dos',
@@ -63,7 +64,6 @@ export class EraDetailsComponent implements OnInit {
   ]
   apply() {
     var selectedLines: ERADetailsLine[] = this.getSelectedLines(this.era.eraDetails.patientLines)
-
     if (selectedLines.length !== 0) {
       var eraHistory: ERAHistory = {
         historyLines: selectedLines,
@@ -84,6 +84,7 @@ export class EraDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkAllTouched(this.era.eraDetails.patientLines);
   }
 
   getKeys(map: { [key: string]: ERADetailsLine[] }): string[] {
@@ -99,6 +100,10 @@ export class EraDetailsComponent implements OnInit {
   }
   private getSelectedLines(lines: { [key: string]: ERADetailsLine[] }): ERADetailsLine[] {
     return Object.values(lines)
-      .flatMap(lines => lines.filter(item => item.selected));
+      .flatMap(lines => lines.filter(item => item.selected && !item.touched));
+  }
+  private checkAllTouched(lines: { [key: string]: ERADetailsLine[] }) {
+    this.isAllTouched = Object.values(lines)
+      .every(lines => lines.every(item => item.touched));
   }
 }

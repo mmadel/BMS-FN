@@ -30,28 +30,59 @@
           <th>COPAY</th>
           <th>Paid</th>
           <th style="width: 15%;">Action</th>
+          <th style="width: 15%;">Claim Status</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of this.era.eraDetails.patientLines[key]; let i = index">
           <td style="width: 5%;">
-            <input type="checkbox" checked [(ngModel)]="item.selected"/>
+            <input type="checkbox" checked [(ngModel)]="item.selected"  *ngIf="!item.touched"/>
           </td>
           <td>{{ item.dos }}</td>
           <td>{{ item.cptCode}}</td>
           <td>{{ item.units}}</td>
-          <td>{{ item.billAmount}}</td>
-          <td>{{ item.adjustAmount}}  <input type="number" style="width: 30%;" [(ngModel)]="item.editadjustAmount"/></td>
+          <td>
+            <c-row>
+              <c-col xs="12">{{ item.billAmount}}</c-col>
+              <c-col xs="12" *ngIf="item.touched">ERA Applied:</c-col>
+            </c-row>
+          </td>
+          <td>
+            <c-row>
+              <c-col xs="12">{{ item.adjustAmount}}</c-col>
+              <c-col xs="12" *ngIf="!item.touched"><input type="number" style="width: 90%;"
+                  [(ngModel)]="item.editAdjustAmount" /></c-col>
+              <c-col xs="12" *ngIf="item.touched">{{item.editAdjustAmount
+                !==undefined?item.editAdjustAmount:item.adjustAmount}}</c-col>
+            </c-row>
+          </td>
           <td>{{ item.deductAmount}}</td>
           <td>{{ item.coInsuranceAmount}}</td>
-          <td>{{ item.coPaymentAmount}}</td>
-          <td>{{ item.paidAmount}} <input type="number" style="width: 30%;" [(ngModel)]="item.editpaidAmount"/></td>
           <td>
-            <select  id="era-actions" name="era-actions" [(ngModel)]="item.action"> 
+            <c-row>
+              <c-col xs="12">{{ item.coPaymentAmount}}</c-col>
+              <c-col xs="12" *ngIf="item.touched">ERA Applied:</c-col>
+            </c-row>
+          </td>
+          <td>
+            <c-row>
+              <c-col xs="12">{{ item.paidAmount}}</c-col>
+              <c-col xs="12" *ngIf="!item.touched"><input type="number" style="width: 90%;"
+                  [(ngModel)]="item.editPaidAmount" /></c-col>
+              <c-col xs="12" *ngIf="item.touched">{{item.editPaidAmount !== undefined ?
+                item.editPaidAmount:item.paidAmount }}</c-col>
+            </c-row>
+          </td>
+          <td>
+            <select id="era-actions" name="era-actions" [(ngModel)]="item.action" *ngIf="!item.touched">
               <option value="Close">Close Session</option>
               <option value="Resubmit">Send to insurance invoice area</option>
               <option value="Current_Status">Keep current status</option>
             </select>
+            <span *ngIf="item.touched">{{item.action}}</span>
+          </td>
+          <td>
+            {{item.claimStatusDescription}}
           </td>
         </tr>
       </tbody>
@@ -60,7 +91,7 @@
 
 </div>
 <c-row>
-  <c-col xs="12" class="text-center">
+  <c-col xs="12" class="text-center" *ngIf="!isAllTouched">
     <button cButton class="me-1" color="primary" style="width: 15%;" (click)="apply()">
       Apply
     </button>
