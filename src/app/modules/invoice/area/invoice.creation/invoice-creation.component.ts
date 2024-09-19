@@ -89,8 +89,7 @@ export class InvoiceCreationComponent implements OnInit {
         // this.constructExportedFile(response, 'cms-', 'json')
       },
         (error) => {
-          console.log(JSON.stringify(error))
-          this.toastr.error('Error In Creation');
+          this.toastr.error(error.error.message);
         })
   }
   execute(patientInsurance: PatientInsurance) {
