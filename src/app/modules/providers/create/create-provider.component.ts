@@ -25,7 +25,7 @@ export class CreateProviderComponent implements OnInit {
   provider: Provider;
   idQualifierKeys = Object.keys;
   idQualifiers = ReferringProviderIdQualifier;
-  idTypes:IDType[] = ProviderIdType;
+  idTypes: IDType[] = ProviderIdType;
   payerNameList: string[];
   payerIdList: string[];
   selectedPayerName: string;
@@ -33,6 +33,7 @@ export class CreateProviderComponent implements OnInit {
   payers: Payer[]
   @Input() selectedProvider: Provider;
   componentRole: string[] = [Role.PROVIDER_ROLE, Role.SOLID_PROVIDER_ROLE];
+  providerNPIError: string = ''
   constructor(private providerService: ProviderService
     , private toastr: ToastrService
     , private payerService: PayerService) { }
@@ -167,5 +168,34 @@ export class CreateProviderComponent implements OnInit {
   }
   unpickPayerId() {
     this.selectedPayerName = undefined
+  }
+
+  npiSearch() {
+    console.log(this.provider.npi)
+    if (this.provider.npi === undefined || this.provider.npi === '' || this.provider.npi === null) {
+      this.providerNPIError = 'Please type provider npi';
+      return;
+    } else
+      this.providerNPIError = ''
+
+    if (this.provider.npi.length !== 10) {
+      this.providerNPIError = 'Please type provider npi as 10 character ';
+      return;
+    }
+    else
+      this.providerNPIError = ''
+
+    if (this.providerNPIError === '')
+      this.providerService.findProviderByNPI(Number(this.provider.npi)).subscribe(data => {
+        this.npiNotFound = false;
+        this.provider = data;
+        this.provider.legacyID = {
+          providerIdQualifier: null
+        }
+        if (this.provider.npi === null) {
+          this.initModel();
+          this.npiNotFound = true;
+        }
+      })
   }
 }

@@ -14,9 +14,22 @@
 <c-tab-content #tabContent2="cTabContent" [activeTabPaneIdx]="0" cRounded="bottom">
     <c-tab-pane tabPaneIdx=0>
         <c-row>
-            <c-col class="col my-2">
-                <input cFormControl [formControl]="npiCtrl" id="providernpi" class="mb-3"
-                    placeholder="Type Provider NPI" sizing="sm" [readonly]="selectedProvider" />
+            <c-col xs="12">
+                <c-callout color="danger" *ngIf="providerNPIError !==''">
+                    {{providerNPIError}}
+                </c-callout>
+            </c-col>
+            <c-col xs="12" class="col my-2">
+                <c-input-group sizing="sm">
+                    <!-- <input cFormControl [formControl]="npiCtrl" id="providernpi" class="mb-3"
+                        placeholder="Type Provider NPI" sizing="sm" [readonly]="selectedProvider" /> -->
+                    <input cFormControl placeholder="Provider NPI" [(ngModel)]="provider.npi" />
+                    <span cInputGroupText>
+                        <button cButton variant="ghost" size="sm" (click)="npiSearch()">
+                            <svg cIcon name="cilSearch" title="cilUser"></svg>
+                        </button>
+                    </span>
+                </c-input-group>
             </c-col>
         </c-row>
         <!-- provider information-->
@@ -334,8 +347,8 @@
                                 <select cSelect sizing="sm" #proIdQualifier="ngModel" name="proIdQualifier" required
                                     [(ngModel)]="provider.legacyID.providerIdQualifier">
                                     <option [value]=null disabled selected>Select Id Type</option>
-                                    <option *ngFor="let type of idTypes"
-                                        [value]="type.value" disable-input [componentRole]="componentRole">
+                                    <option *ngFor="let type of idTypes" [value]="type.value" disable-input
+                                        [componentRole]="componentRole">
                                         {{type.name}}
                                     </option>
                                 </select>

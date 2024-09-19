@@ -23,7 +23,8 @@ import {
   DateRangePickerModule,
   TimePickerModule,
   ModalModule,
-  SmartPaginationModule
+  SmartPaginationModule,
+  CalloutModule 
 } from '@coreui/angular-pro';
 import {
   ListComponent,
@@ -68,6 +69,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     ModelModule,
     SmartPaginationModule,
     AutocompleteLibModule,
+    CalloutModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

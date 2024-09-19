@@ -23,6 +23,7 @@ export class ReferringProviderCreateComponent implements OnInit {
   idQualifiers = ReferringProviderIdQualifier;
   @Input() selectedReferringProvider: ReferringProvider;
   componentRole: string[] = [Role.PROVIDER_ROLE, Role.REFERRING_PROVIDER_ROLE];
+  providerNPIError: string = ''
   constructor(private referringProviderService: ReferringProviderService
     , private providerService: ProviderService
     , private toastr: ToastrService) { }
@@ -107,5 +108,25 @@ export class ReferringProviderCreateComponent implements OnInit {
   private fill() {
     this.referringProvider = this.selectedReferringProvider;
     this.npiReferringProviderCtrl.setValue(this.referringProvider.npi)
+  }
+  npiSearch() {
+    console.log(this.referringProvider.npi)
+    if (this.referringProvider.npi === undefined || this.referringProvider.npi === '' || this.referringProvider.npi === null) {
+      this.providerNPIError = 'Please type provider npi';
+      return;
+    } else
+      this.providerNPIError = ''
+
+    if (this.referringProvider.npi.length !== 10) {
+      this.providerNPIError = 'Please type provider npi as 10 character ';
+      return;
+    } else
+      this.providerNPIError = ''
+
+    if (this.providerNPIError === '')
+      this.providerService.findProviderByNPI(Number(this.referringProvider.npi)).subscribe(data => {
+        this.npiNotFound = false;
+        this.referringProvider = data;
+      })
   }
 }
