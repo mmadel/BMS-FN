@@ -38,7 +38,7 @@
           <td style="width: 5%;">
             <input type="checkbox" checked [(ngModel)]="item.selected"  *ngIf="!item.touched"/>
           </td>
-          <td>{{ item.dos }}</td>
+          <td>{{ formatDate(item.dos) }}</td>
           <td>{{ item.cptCode}}</td>
           <td>{{ item.units}}</td>
           <td>

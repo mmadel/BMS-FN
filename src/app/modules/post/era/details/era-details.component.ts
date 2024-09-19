@@ -106,4 +106,13 @@ export class EraDetailsComponent implements OnInit {
     this.isAllTouched = Object.values(lines)
       .every(lines => lines.every(item => item.touched));
   }
+  formatDate(dateString: string): string {
+    // Extract year, month, and day from the string
+    const year = dateString.substring(0, 4);
+    const month = dateString.substring(4, 6);
+    const day = dateString.substring(6, 8);
+
+    // Return formatted date as mm/dd/yyyy
+    return `${month}/${day}/${year}`;
+  }
 }
