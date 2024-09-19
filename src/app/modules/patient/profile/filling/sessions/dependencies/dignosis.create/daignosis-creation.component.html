@@ -1,8 +1,22 @@
 <ngx-spinner></ngx-spinner>
 <c-row class="mb-1">
     <c-col>
-        <input cFormControl name="icd10diagnosis" [formControl]="diagnosisCtrl" id="icd10diagnosis"
-            placeholder="Type ICD-10 Code" sizing="sm" />
+        <c-col xs="12">
+            <c-callout color="danger" *ngIf="diagnosisError !==''">
+                {{diagnosisError}}
+            </c-callout>
+        </c-col>
+        <c-col xs="12">
+            <c-input-group sizing="sm">
+                <input cFormControl placeholder="Type ICD-10 code or description" [(ngModel)]="diagnosisValue"
+                    name="diagnosisValue" />
+                <span cInputGroupText>
+                    <button cButton variant="ghost" size="sm" (click)="search()">
+                        <svg cIcon name="cilSearch" title="cilUser"></svg>
+                    </button>
+                </span>
+            </c-input-group>
+        </c-col>
     </c-col>
 </c-row>
 <c-row>

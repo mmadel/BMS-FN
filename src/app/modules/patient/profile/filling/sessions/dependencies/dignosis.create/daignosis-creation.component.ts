@@ -16,6 +16,8 @@ export class DaignosisCreationComponent implements OnInit {
   diagnosisCode?: CaseDiagnosis = {};
   filteredDiagnosis: any;
   diagnosisCtrl = new FormControl();
+  diagnosisValue: string
+  diagnosisError: string = ''
   @Output() onCreateDaignosis = new EventEmitter<CaseDiagnosis>()
   constructor(private caseDiagnosisService: CaseDiagnosisService) { }
 
@@ -69,5 +71,13 @@ export class DaignosisCreationComponent implements OnInit {
   }
   pushDaignosis() {
     this.onCreateDaignosis.emit(this.diagnosisCode);
+  }
+  search() {
+    this.caseDiagnosisService.find(this.diagnosisValue).subscribe(data => {
+      if (data !== undefined) {
+        var diagnosisResponse: any = data;
+        this.filteredDiagnosis = diagnosisResponse.listOfCodeName;
+      }
+    })
   }
 }

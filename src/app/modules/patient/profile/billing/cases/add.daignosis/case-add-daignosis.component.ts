@@ -20,7 +20,9 @@ export class CaseAddDaignosisComponent implements OnInit {
   case: PatientCase;
   @Input() editcase: PatientCase;
   @Input() mode: string;
-  componentScopes: string[] = [Role.PATIENT_ROLE ];
+  diagnosisValue: string
+  diagnosisError: string = ''
+  componentScopes: string[] = [Role.PATIENT_ROLE];
   constructor(private caseDiagnosisService: CaseDiagnosisService
     , private emitPatientSessionService: EmitPatientSessionService) { }
 
@@ -98,7 +100,15 @@ export class CaseAddDaignosisComponent implements OnInit {
       this.case.caseDiagnosis.push(this.diagnosis);
     this.diagnosis = {}
   }
-  remove(index: number){
+  remove(index: number) {
     this.case.caseDiagnosis.splice(index, 1);
+  }
+  search() {
+    this.caseDiagnosisService.find(this.diagnosisValue).subscribe(data => {
+      if (data !== undefined) {
+        var diagnosisResponse: any = data;
+        this.filteredDiagnosis = diagnosisResponse.listOfCodeName;
+      }
+    })
   }
 }
