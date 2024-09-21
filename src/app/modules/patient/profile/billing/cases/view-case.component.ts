@@ -69,9 +69,11 @@ export class ViewCaseComponent implements OnInit {
   }
   createCase() {
     this.patientService.createPatientCase(this.caseAddDaignosisComponent.case, this.patient.id)
-      .subscribe((reuslt) => {
+      .subscribe((reuslt:any) => {
+        console.log(reuslt)
         switch (this.mode) {
           case 'create':
+            this.caseAddDaignosisComponent.case.id = reuslt;
             this._cases.push(this.caseAddDaignosisComponent.case)
             this.addCaseVisibility = false
             this.toastr.success("successfully patient case created.")
