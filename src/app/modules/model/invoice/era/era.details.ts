@@ -12,5 +12,6 @@ export interface ERADetails {
     eraId: number
     lines: ERADetailsLine[]
     patientLines: { [key: string]: ERADetailsLine[] }
+    patientReasonCodes: {[key: string]: ClaimAdjustmentReasonCode[]}
     claimAdjustmentReasonCodes: ClaimAdjustmentReasonCode[]
 }
