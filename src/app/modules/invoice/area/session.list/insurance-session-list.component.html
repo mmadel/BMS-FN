@@ -94,7 +94,8 @@
                     </ng-container>
                     <ng-container *ngSwitchCase="'serviceCode'" class="py-2">
                       <button class="btn btn-link" (click)="executeAction('edit_session_item',item,'cpt')">
-                        {{tdContent.cptCode.serviceCode}}.{{tdContent.cptCode.modifier}}
+                        {{tdContent.cptCode.serviceCode}}{{tdContent.cptCode.modifier.length === 0?
+                        '':'.'+tdContent.cptCode.modifier}}
                       </button>
                     </ng-container>
                     <ng-container *ngSwitchCase="'unit'" class="py-2">

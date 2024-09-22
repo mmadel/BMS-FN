@@ -34,20 +34,22 @@ export class SessionItemEditComponent implements OnInit {
       this.fetchcFeeSchdule();
       this.modifier = this.serviceCode.cptCode.modifier.split('.');
     }
-    if(this.itemType === 'unit' || this.itemType === 'charge'){
+    if (this.itemType === 'unit' || this.itemType === 'charge') {
       this.feeScheduleService.findByCpt(this.doctorNPI, this.serviceCode.cptCode.serviceCode)
-      .subscribe((result:any)=>{
-        this.feeScheduleLine = result;
-      })
+        .subscribe((result: any) => {
+          this.feeScheduleLine = result;
+        })
     }
   }
   edit() {
+    this.modifier = this.modifier.filter(item => item !== '')
     var cptCode: CPTCode = {
       serviceCode: this.itemType === 'cpt' ? this.serviceCode.cptCode.serviceCode : null,
       modifier: this.itemType === 'cpt' ? this.modifier.join(".") : this.serviceCode.cptCode.modifier,
       unit: this.itemType === 'unit' ? this.serviceCode.cptCode.unit : null,
       charge: this.serviceCode.cptCode.charge
     }
+
     this.patientSessionService.updateItems(this.serviceCode.id, cptCode)
       .subscribe(result => {
         this.changeVisibility.emit('session-item');
@@ -97,7 +99,7 @@ export class SessionItemEditComponent implements OnInit {
         });
   }
   public calculateCharge() {
-    if(Object.keys(this.feeScheduleLine).length){
+    if (Object.keys(this.feeScheduleLine).length) {
       switch (this.feeScheduleLine.rateType) {
         case 'Per_Unit':
           this.serviceCode.cptCode.charge = this.serviceCode.cptCode.unit * this.feeScheduleLine.chargeAmount;
@@ -106,6 +108,6 @@ export class SessionItemEditComponent implements OnInit {
           this.serviceCode.cptCode.charge = this.feeScheduleLine.chargeAmount;
           break;
       }
-    }    
+    }
   }
 }
