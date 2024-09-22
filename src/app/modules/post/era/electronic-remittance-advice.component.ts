@@ -76,6 +76,7 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
   changeOpenERAVisibility(event:any){
     if (event === 'close') {
       this.openERAVisibility = false;
+      this.find();
     }
   }
 }
