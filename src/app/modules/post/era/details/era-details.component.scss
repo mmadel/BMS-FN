@@ -16,8 +16,9 @@
     background-color: rgb(236, 234, 111);
   }
   .table-container {
-    max-height: 200px; /* Set the max height you want */
-    overflow-y: auto;  /* Enables vertical scrolling */
-    overflow-x: auto;  /* Enables horizontal scrolling */
+    
     border: 1px solid #ddd; /* Optional: Add a border */
+  }
+  .touch-description-font{
+    font-size: 0.75rem ;
   }

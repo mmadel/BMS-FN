@@ -15,9 +15,9 @@
 
 <div *ngFor="let key of getKeys(this.era.eraDetails.patientLines)" class="mb-2 border border-dark">
   <div class="m-3"><strong>{{capitalizeNames(key)}}</strong></div>
-  <div class="m-3 table-container">
-    <table class="table table-hover" style="width: 100%;">
-      <thead>
+  <div class="m-3 table-container table-responsive">
+    <table class="table table-sm" >
+      <thead class="table-light">
         <tr>
           <th></th>
           <th>DOS</th>
@@ -39,33 +39,33 @@
           <td>
             <input type="checkbox" checked [(ngModel)]="item.selected" *ngIf="!item.touched" />
           </td>
-          <td>{{ formatDate(item.dos) }}</td>
-          <td>{{ item.cptCode}}</td>
-          <td>{{ item.units}}</td>
+          <td><span [ngClass]="{'fw-bold': item.touched}"> {{ formatDate(item.dos) }}</span> </td>
+          <td><span [ngClass]="{'fw-bold': item.touched}">{{ item.cptCode}}</span></td>
+          <td><span [ngClass]="{'fw-bold': item.touched}">{{ item.units}}</span></td>
           <td>
             <c-row>
-              <c-col xs="12">{{ item.billAmount}}</c-col>
+              <c-col xs="12"><span [ngClass]="{'fw-bold': item.touched}">{{ item.billAmount}}</span></c-col>
             </c-row>
           </td>
           <td>
             <c-row>
-              <c-col xs="12">{{ item.adjustAmount}}</c-col>
+              <c-col xs="12"><span [ngClass]="{'fw-bold': item.touched}">{{ item.adjustAmount}}</span></c-col>
               <c-col xs="12" *ngIf="!item.touched"><input type="number" style="width: 90%;"
                   [(ngModel)]="item.editAdjustAmount" /></c-col>
               <c-col xs="12" *ngIf="item.touched">{{item.editAdjustAmount
                 !==undefined?item.editAdjustAmount:item.adjustAmount}}</c-col>
             </c-row>
           </td>
-          <td>{{ item.deductAmount}}</td>
+          <td><span [ngClass]="{'fw-bold': item.touched}">{{ item.deductAmount}}</span></td>
           <td>{{ item.coInsuranceAmount}}</td>
           <td>
             <c-row>
-              <c-col xs="12">{{ item.coPaymentAmount}}</c-col>
+              <c-col xs="12"><span [ngClass]="{'fw-bold': item.touched}">{{ item.coPaymentAmount}}</span></c-col>
             </c-row>
           </td>
           <td>
             <c-row>
-              <c-col xs="12">{{ item.paidAmount}}</c-col>
+              <c-col xs="12"><span [ngClass]="{'fw-bold': item.touched}">{{ item.paidAmount}}</span></c-col>
               <c-col xs="12" *ngIf="!item.touched"><input type="number" style="width: 90%;"
                   [(ngModel)]="item.editPaidAmount" /></c-col>
               <c-col xs="12" *ngIf="item.touched">{{item.editPaidAmount !== undefined ?
@@ -73,7 +73,7 @@
             </c-row>
           </td>
           <td>
-            {{item.reasons}}
+            <span [ngClass]="{'fw-bold': item.touched}">{{item.reasons}}</span>
           </td>
           <td>
             <select id="era-actions" name="era-actions" [(ngModel)]="item.action" *ngIf="!item.touched">
@@ -81,10 +81,10 @@
               <option value="Resubmit">Send to insurance invoice area</option>
               <option value="Current_Status">Keep current status</option>
             </select>
-            <span *ngIf="item.touched">{{item.action}}</span>
+            <span *ngIf="item.touched" class="fw-bold">{{item.action}}</span>
           </td>
           <td>
-            {{item.claimStatusDescription}}
+            <span [ngClass]="{'fw-bold touch-description-font': item.touched}">{{item.claimStatusDescription}}</span>
           </td>
         </tr>
       </tbody>
