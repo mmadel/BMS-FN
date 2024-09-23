@@ -1,53 +1,74 @@
 <c-col xs="12">
-        <c-card class="mb-4">
-            <c-card-header>
-                <div style="float: left;">
-                    <svg cIcon name="cilInstitution" title="cilInstitution" size="xxl"></svg>
-                </div>
-                <c-row>
-                    <c-col class="mb-1">
-                        <h3>Insurances</h3>
-                    </c-col>
-                    <c-col>
-                        <div style="float:right">
-                            <button cButton color="info" variant="outline" size="sm"
-                                (click)="add()">
-                                <svg cIcon name="cilPlus"></svg>
-                            </button>
-                        </div>
-                    </c-col>
-                </c-row>
-            </c-card-header>
-            <c-card-body>
-                <table cTable small>
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Plan Type</th>
-                            <th scope="col">Primary Id</th>
-                            <th scope="col">actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let insurance of patientInsurances;let i=index;">
-                            <td>{{insurance.insuranceCompany[0]}}</td>
-                            <td>{{insurance.patientInsurancePolicy.planType}}</td>
-                            <td>{{insurance.patientInsurancePolicy.primaryId}}</td>
-                            <td>
-                                <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                                    <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                                        (click)="edit(insurance)">
-                                        <svg cIcon name="cilPen"></svg>
-                                    </button>
-                                    <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                                        (click)="remove(i)">
-                                        <svg cIcon name="cilTrash"></svg>
-                                    </button>
-                                </c-button-group>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </c-card-body>
-        </c-card>
-    </c-col>
+    <c-card class="mb-4">
+        <c-card-header>
+            <div style="float: left;">
+                <svg cIcon name="cilInstitution" title="cilInstitution" size="xxl"></svg>
+            </div>
+            <c-row>
+                <c-col class="mb-1">
+                    <h3>Insurances</h3>
+                </c-col>
+                <c-col>
+                    <div style="float:right">
+                        <button cButton color="info" variant="outline" size="sm" (click)="add()">
+                            <svg cIcon name="cilPlus"></svg>
+                        </button>
+                    </div>
+                </c-col>
+            </c-row>
+        </c-card-header>
+        <c-card-body>
+            <table cTable small>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Plan Type</th>
+                        <th scope="col">Primary Id</th>
+                        <th scope="col">actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let insurance of patient.patientInsurances;let i=index;">
+                        <td>{{insurance.insuranceCompany[0]}}</td>
+                        <td>{{insurance.patientInsurancePolicy.planType}}</td>
+                        <td>{{insurance.patientInsurancePolicy.primaryId}}</td>
+                        <td>
+                            <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                    (click)="edit(insurance)">
+                                    <svg cIcon name="cilPen"></svg>
+                                </button>
+                                <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                    (click)="remove(i)">
+                                    <svg cIcon name="cilTrash"></svg>
+                                </button>
+                            </c-button-group>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </c-card-body>
+    </c-card>
+</c-col>
+<c-modal id="editProfileInsuranceModal" [visible]="editPatientInsuranceVisibility"  size="lg">
+    <c-modal-header>
+        <h2 cModalTitle>Update Insurance</h2>
+        <button (click)="toggleVisibility('edit-insurance')" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-create-insurance #createInsuranceComponent [mode]="'edit-edit-patient-profile'"
+            *ngIf="editPatientInsuranceVisibility"  [editPatientInsurance] = "selectedPatientInsurance"
+            (changeVisibility)="createPatientInsuranceChangeVisibility($event)"></app-create-insurance>
+    </c-modal-body>
+</c-modal>
+<c-modal id="addProfileInsuranceModal" [visible]="addPatientInsuranceVisibility" backdrop="static" size="lg">
+    <c-modal-header>
+        <h2 cModalTitle>Add Insurance</h2>
+        <button (click)="toggleVisibility('create-insurance')" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <app-create-insurance #createInsuranceComponent [mode]="'create-edit-patient-profile'"
+            *ngIf="addPatientInsuranceVisibility" [patient]="patient"
+            (changeVisibility)="createPatientInsuranceChangeVisibility($event)"></app-create-insurance>
+    </c-modal-body>
+</c-modal>

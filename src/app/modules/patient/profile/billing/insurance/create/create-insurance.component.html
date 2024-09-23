@@ -283,7 +283,7 @@
                         </c-row>
                         <c-row>
                             <c-col class="mb-1">
-                                <input cFormControl placeholder="Policy/Group#" name="policygroup"  sizing="sm"
+                                <input cFormControl placeholder="Policy/Group#" name="policygroup" sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsurancePolicy.policyGroup"
                                     #policygroup="ngModel" name="policygroup" />
                             </c-col>
@@ -418,11 +418,11 @@
         </c-row>
         <div class="d-md-flex justify-content-md-center">
 
-            <span *ngIf="mode ==='create'">
+            <span *ngIf="mode ==='create' || mode ==='create-edit-patient-profile'">
                 <button cButton color="primary" type="submit" variant="outline" dispaly-input
                     [componentRole]="componentRole">Create</button>
             </span>
-            <span *ngIf="mode ==='edit'">
+            <span *ngIf="mode ==='edit' || mode==='edi-edit-patient-profile'">
                 <button cButton color="primary" type="submit" variant="outline" dispaly-input
                     [componentRole]="componentRole">Update</button>
             </span>

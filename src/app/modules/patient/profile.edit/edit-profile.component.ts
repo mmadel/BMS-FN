@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../../model/clinical/patient';
 import { Country } from '../../model/common/country';
@@ -27,6 +28,7 @@ export class EditProfileComponent implements OnInit {
   patientDOB: Date
   constructor(private patientService: PatientService, private toastr: ToastrService) { }
   ngOnInit(): void {
+    this.patientDOB  = moment.unix(this.patient.birthDate / 1000).toDate();
   }
   update() {  
     this.patientService.create(this.patient)

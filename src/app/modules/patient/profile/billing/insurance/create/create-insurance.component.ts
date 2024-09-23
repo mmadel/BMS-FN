@@ -8,7 +8,6 @@ import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { Country } from 'src/app/modules/model/common/country';
 import { Gender } from 'src/app/modules/model/enum/geneder';
-import { InsuranceCompanyVisibility } from 'src/app/modules/model/enum/Insurance.company.visibility';
 import { InsurancePlanType } from 'src/app/modules/model/enum/insurance.plan.type';
 import { InsuranceResponsability } from 'src/app/modules/model/enum/insurance.responsability';
 import { InformationRelease } from 'src/app/modules/model/enum/patient.insurance.information.release';
@@ -67,6 +66,7 @@ export class CreateInsuranceComponent implements OnInit {
   fillModel() {
     switch (this.mode) {
       case "create":
+      case "create-edit-patient-profile":
         this.patientInsurance = {
           relation: null,
           visibility: "Internal",
@@ -93,7 +93,9 @@ export class CreateInsuranceComponent implements OnInit {
         }
         break;
       case "edit":
+      case "edit-edit-patient-profile":
         this.patientInsurance = this.editPatientInsurance
+        this.patientInsurance.patientRelation.dob = moment.unix(this.patientInsurance.patientRelation.r_birthDate / 1000).toDate()
         break;
     }
   }
@@ -155,7 +157,6 @@ export class CreateInsuranceComponent implements OnInit {
   create() {
     if (this.insuranceCreateForm.valid) {
       if (this.editPatientInsurance === undefined) {
-        console.log(this.patientInsurance.visibility)
         switch (this.patientInsurance.visibility) {
           case "Internal":
             this.patientInsurance.insuranceCompany[0] = this.selectedPayerName
@@ -171,18 +172,21 @@ export class CreateInsuranceComponent implements OnInit {
       this.notValidForm = false;
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
       this.patientInsurance.patientRelation.r_birthDate = moment(this.patientInsurance.patientRelation.dob).unix() * 1000;
-      this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
-        .subscribe((result: any) => {
-          this.patientInsurance.assigner = result.records.assigner;
-          this.patientInsurance.id = result.records.id;
-          this.toastr.success("Patient insurance crteated")
-          if (result.records.insuranceCompany !== null)
-            this.patientInsurance.insuranceCompany = result.records.insuranceCompany
-          this.scrollUp();
-          this.changeVisibility.emit('close');
-        }, error => {
-          this.toastr.error("Error during creating patient insurance")
-        })
+      if (this.mode === 'create-edit-patient-profile' || this.mode === 'edit-edit-patient-profile')
+        this.changeVisibility.emit('close');
+      if (this.mode === 'create' || this.mode === 'update')
+        this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
+          .subscribe((result: any) => {
+            this.patientInsurance.assigner = result.records.assigner;
+            this.patientInsurance.id = result.records.id;
+            this.toastr.success("Patient insurance crteated")
+            if (result.records.insuranceCompany !== null)
+              this.patientInsurance.insuranceCompany = result.records.insuranceCompany
+            this.scrollUp();
+            this.changeVisibility.emit('close');
+          }, error => {
+            this.toastr.error("Error during creating patient insurance")
+          })
 
     } else {
       this.notValidForm = true;
