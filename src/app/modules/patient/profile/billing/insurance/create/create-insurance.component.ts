@@ -76,7 +76,7 @@ export class CreateInsuranceComponent implements OnInit {
             r_address: {
               country: null,
               state: null
-            }
+            },
           },
           patientInsurancePolicy: {
             responsibility: null,
@@ -207,7 +207,7 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_phone = this.patient.phone
       this.patientInsurance.patientRelation.r_gender = this.patient.gender;
       this.patientInsurance.patientRelation.r_address = this.patient.address
-      this.patientInsurance.patientRelation.r_birthDate = this.patient.birthDate
+      this.patientInsurance.patientRelation.dob = moment.unix(this.patient.birthDate / 1000).toDate()
     } else {
       this.patientInsurance.patientRelation = {
         r_gender: null,
