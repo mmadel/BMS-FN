@@ -47,7 +47,7 @@ export class EditPatientCaseComponent implements OnInit {
   createPatientCaseChangeVisibility(event: any) {
     if (event === 'close') {
       this.addPatientCaseVisibility = false;
-      this.patient.patientInsurances.push(this.caseAddDaignosisComponent.case)
+      this.patient.cases.push(this.caseAddDaignosisComponent.case)
       this.updatePatientCases(Operation.create, this.caseAddDaignosisComponent.case)
     }
   }
@@ -57,7 +57,7 @@ export class EditPatientCaseComponent implements OnInit {
       this.editPatientCaseVisibility = false;
       this.patient.cases = this.patient.cases
         .filter(patientCase => patientCase.id !== this.caseAddDaignosisComponent.case.id);
-      this.patient.patientInsurances.push(this.caseAddDaignosisComponent.case)
+      this.patient.cases.push(this.caseAddDaignosisComponent.case)
       this.updatePatientCases(Operation.update, this.caseAddDaignosisComponent.case)
     }
   }

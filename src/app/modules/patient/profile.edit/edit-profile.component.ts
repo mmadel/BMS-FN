@@ -9,6 +9,7 @@ import { PhoneType } from '../../model/enum/phone.type';
 import { Countries } from '../../model/lookups/country-data-store';
 import { States } from '../../model/lookups/state-data-store';
 import { PatientService } from '../service/patient.service';
+import { EditPatientCaseComponent } from './components/edit.patient-case/edit-patient-case.component';
 import { EditPatientInsuranceComponent } from './components/edit.patient.insurance/edit-patient-insurance.component';
 
 @Component({
@@ -27,9 +28,8 @@ export class EditProfileComponent implements OnInit {
   countries: Country[] = Countries;
   states: string[] = States;
   patientDOB: Date
-
-
   @ViewChild('editPatientInsuranceComponent') editPatientInsuranceComponent: EditPatientInsuranceComponent;
+  @ViewChild('editPatientCaseComponent') editPatientCaseComponent: EditPatientCaseComponent;
   constructor(private patientService: PatientService, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
@@ -39,6 +39,6 @@ export class EditProfileComponent implements OnInit {
     //     .subscribe((result) => {
     //       this.toastr.success('Patient updated')
     //     })
-    console.log(JSON.stringify(this.editPatientInsuranceComponent.patientInsurances))
+    console.log(JSON.stringify(this.editPatientCaseComponent.patientcases))
   }
 }

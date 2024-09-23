@@ -23,6 +23,7 @@ export class CaseAddDaignosisComponent implements OnInit {
   diagnosisValue: string
   diagnosisError: string = ''
   componentScopes: string[] = [Role.PATIENT_ROLE];
+  @Output() changeVisibility = new EventEmitter<string>()
   constructor(private caseDiagnosisService: CaseDiagnosisService
     , private emitPatientSessionService: EmitPatientSessionService) { }
 
@@ -112,5 +113,8 @@ export class CaseAddDaignosisComponent implements OnInit {
         this.filteredDiagnosis = diagnosisResponse.listOfCodeName;
       }
     })
+  }
+  createOrUpdate() {
+    this.changeVisibility.emit('close');
   }
 }
