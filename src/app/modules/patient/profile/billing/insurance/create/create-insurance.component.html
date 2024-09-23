@@ -283,24 +283,14 @@
                         </c-row>
                         <c-row>
                             <c-col class="mb-1">
-                                <small
-                                    *ngIf="notValidForm   && (policygroup.errors) ||policygroup.invalid && (policygroup.dirty || policygroup.touched)"
-                                    class="form-text text-danger">
-                                    Policy/Group is required
-                                </small>
-                                <input cFormControl placeholder="Policy/Group#" name="policygroup" required sizing="sm"
+                                <input cFormControl placeholder="Policy/Group#" name="policygroup"  sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsurancePolicy.policyGroup"
                                     #policygroup="ngModel" name="policygroup" />
                             </c-col>
                         </c-row>
                         <c-row>
                             <c-col class="mb-1">
-                                <small
-                                    *ngIf="notValidForm   && (planprogram.errors) ||planprogram.invalid && (planprogram.dirty || planprogram.touched)"
-                                    class="form-text text-danger">
-                                    Plan/Program is required
-                                </small>
-                                <input cFormControl placeholder="Plan/Program" name="planprogram" required sizing="sm"
+                                <input cFormControl placeholder="Plan/Program" name="planprogram" sizing="sm"
                                     [(ngModel)]="patientInsurance.patientInsurancePolicy.plan" #planprogram="ngModel"
                                     name="planprogram" />
                             </c-col>
