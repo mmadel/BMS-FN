@@ -3,6 +3,15 @@ import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { CreateInsuranceComponent } from '../../../profile/billing/insurance/create/create-insurance.component';
 
+interface PatientInsurances {
+  operation: PatientInsuranceOperation,
+  patientInsurance: PatientInsurance
+}
+export enum PatientInsuranceOperation {
+  create,
+  update,
+  delete
+}
 @Component({
   selector: 'edit-patient-insurance',
   templateUrl: './edit-patient-insurance.component.html',
@@ -14,6 +23,7 @@ export class EditPatientInsuranceComponent implements OnInit {
   addPatientInsuranceVisibility: boolean = false;
   editPatientInsuranceVisibility: boolean;
   selectedPatientInsurance: PatientInsurance;
+  patientInsurances: PatientInsurances[] = []
   constructor() { }
 
   ngOnInit(): void {
@@ -27,6 +37,7 @@ export class EditPatientInsuranceComponent implements OnInit {
   }
   remove(index: number) {
     this.patient.patientInsurances.splice(index, 1);
+    this.updatePatientInsurances(PatientInsuranceOperation.delete, this.patient.patientInsurances[index])
   }
   toggleVisibility(entity_name: string) {
     switch (entity_name) {
@@ -42,6 +53,22 @@ export class EditPatientInsuranceComponent implements OnInit {
     if (event === 'close') {
       this.addPatientInsuranceVisibility = false;
       this.patient.patientInsurances.push(this.createInsuranceComponent.patientInsurance)
+      this.updatePatientInsurances(PatientInsuranceOperation.create, this.createInsuranceComponent.patientInsurance)
     }
+  }
+  editPatientInsuranceChangeVisibility(event: any) {
+    if (event === 'close') {
+      this.editPatientInsuranceVisibility = false;
+      this.patient.patientInsurances = this.patient.patientInsurances
+        .filter(insurance => insurance.id !== this.createInsuranceComponent.patientInsurance.id);
+      this.patient.patientInsurances.push(this.createInsuranceComponent.patientInsurance)
+      this.updatePatientInsurances(PatientInsuranceOperation.update, this.createInsuranceComponent.patientInsurance)
+    }
+  }
+  private updatePatientInsurances(operation: PatientInsuranceOperation, patientInsurance: PatientInsurance) {
+    this.patientInsurances.push({
+      operation: operation,
+      patientInsurance: patientInsurance
+    })
   }
 }

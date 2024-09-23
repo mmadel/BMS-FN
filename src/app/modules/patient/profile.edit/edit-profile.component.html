@@ -152,7 +152,7 @@
 </c-row>
 <!--Insurances -->
 <c-row>
-    <edit-patient-insurance [patient]="patient"></edit-patient-insurance>
+    <edit-patient-insurance [patient]="patient" #editPatientInsuranceComponent></edit-patient-insurance>
 </c-row>
 <!--Cases -->
 <c-row>
@@ -165,5 +165,3 @@
 <div class="col-12 text-center">
     <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>
 </div>
-
-
