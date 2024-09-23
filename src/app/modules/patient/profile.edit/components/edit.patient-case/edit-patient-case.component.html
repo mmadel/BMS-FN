@@ -1,1 +1,79 @@
-<p>edit-patient-case works!</p>
+<c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-header>
+            <div style="float: left;">
+                <svg cIcon name="cilWheelchair" title="cilWheelchair" size="xxl"></svg>
+            </div>
+            <c-row>
+                <c-col class="mb-1">
+                    <h3>Cases</h3>
+                </c-col>
+                <c-col>
+                    <div style="float:right">
+                        <button cButton color="info" variant="outline" size="sm" (click)="add()">
+                            <svg cIcon name="cilPlus"></svg>
+                        </button>
+                    </div>
+                </c-col>
+            </c-row>
+        </c-card-header>
+        <c-card-body>
+            <table cTable small>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Case Title</th>
+                        <th scope="col">ICD-10 Codes</th>
+                        <th scope="col">actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let case of patient.cases;let i=index;">
+                        <th scope="row">{{i}}</th>
+                        <td>{{case.title }}</td>
+                        <td>
+                            <ul *ngFor="let code of case.caseDiagnosis" style="margin:0;padding:0">
+                                <li style="list-style-type: none">
+                                    {{code.diagnosisCode}} - {{code.diagnosisDescription}}
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                    (click)="edit(case)">
+                                    <svg cIcon name="cilPen"></svg>
+                                </button>
+                                <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                    (click)="remove(i)">
+                                    <svg cIcon name="cilTrash"></svg>
+                                </button>
+                            </c-button-group>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </c-card-body>
+    </c-card>
+</c-col>
+<c-modal id="addProfileCaseModal" [visible]="addPatientCaseVisibility" size="lg">
+    <c-modal-header>
+        <h2 cModalTitle>Create Patient Case</h2>
+        <button (click)="toggleVisibility('create-case')" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <case-add-daignosis #caseAddDaignosisComponent [mode]="'create-edit-patient-profile'"
+            *ngIf="addPatientCaseVisibility"></case-add-daignosis>
+    </c-modal-body>
+</c-modal>
+
+<c-modal id="editProfileCaseModal" [visible]="editPatientCaseVisibility" size="lg">
+    <c-modal-header>
+        <h2 cModalTitle>Update Patient Case</h2>
+        <button (click)="toggleVisibility('edit-case')" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <case-add-daignosis #caseAddDaignosisComponent [mode]="'edit-edit-patient-profile'"
+            [editcase]="selectedPatientCase" *ngIf="editPatientCaseVisibility"></case-add-daignosis>
+    </c-modal-body>
+</c-modal>

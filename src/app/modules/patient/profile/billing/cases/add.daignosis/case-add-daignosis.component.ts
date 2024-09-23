@@ -72,6 +72,7 @@ export class CaseAddDaignosisComponent implements OnInit {
   initModel() {
     switch (this.mode) {
       case 'create':
+      case 'create-edit-patient-profile':
         this.diagnosisCtrl.setValue('')
         this.filteredDiagnosis = []
         this.case = {
@@ -79,6 +80,7 @@ export class CaseAddDaignosisComponent implements OnInit {
         };
         break;
       case 'edit':
+      case 'edit-edit-patient-profile':
         this.case = this.editcase;
         break;
     }
