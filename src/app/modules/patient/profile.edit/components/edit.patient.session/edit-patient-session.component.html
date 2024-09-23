@@ -49,7 +49,7 @@
         </c-card-body>
     </c-card>
 </c-col>
-<c-modal id="addProfileSessionModal" [visible]="addPatientSessionVisibility" size="lg">
+<c-modal id="addProfileSessionModal" [visible]="addPatientSessionVisibility" size="lg"  backdrop="static">
     <c-modal-header>
         <h2 cModalTitle>Create Patient Session</h2>
         <button (click)="toggleVisibility('create-session')" cButtonClose></button>
@@ -58,7 +58,7 @@
         <patient-session></patient-session>
     </c-modal-body>
 </c-modal>
-<c-modal id="editProfileSessionModal" [visible]="editPatientSessionVisibility" size="lg">
+<c-modal id="editProfileSessionModal" [visible]="editPatientSessionVisibility" size="lg" backdrop="static">
     <c-modal-header>
         <h2 cModalTitle>Update Patient Session</h2>
         <button (click)="toggleVisibility('edit-session')" cButtonClose></button>
