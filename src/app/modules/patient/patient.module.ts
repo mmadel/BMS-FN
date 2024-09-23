@@ -67,6 +67,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CreateAuthComponent } from './profile/auths/create/create-auth.component';
 import { ListAuthsComponent } from './profile/auths/list/list-auths.component';
 import { EnterPaymentComponent } from './profile/filling/sessions/enter.paymnet/enter-payment.component';
+import { EditPatientInsuranceComponent } from './profile.edit/components/edit.patient.insurance/edit-patient-insurance.component';
+import { EditPatientCaseComponent } from './profile.edit/components/edit.patient-case/edit-patient-case.component';
+import { EditPatientSessionComponent } from './profile.edit/components/edit.patient.session/edit-patient-session.component';
 
 
 @NgModule({
@@ -101,6 +104,9 @@ import { EnterPaymentComponent } from './profile/filling/sessions/enter.paymnet/
     CreateAuthComponent,
     ListAuthsComponent,
     EnterPaymentComponent,
+    EditPatientInsuranceComponent,
+    EditPatientCaseComponent,
+    EditPatientSessionComponent,
   ],
   imports: [
     CommonModule,

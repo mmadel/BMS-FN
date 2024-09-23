@@ -5,7 +5,7 @@
         <c-card class="mb-4">
             <c-card-header>
                 <div style="float: left;">
-                    <svg cIcon name="cilUser" title="cilUser" size="xxl"></svg>
+                    <svg cIcon name="cilUser" title="cilUser" size="xl"></svg>
                 </div>
                 <c-row>
                     <c-col class="mb-1">
@@ -152,178 +152,15 @@
 </c-row>
 <!--Insurances -->
 <c-row>
-    <c-col xs="12">
-        <c-card class="mb-4">
-            <c-card-header>
-                <div style="float: left;">
-                    <svg cIcon name="cilInstitution" title="cilInstitution" size="xxl"></svg>
-                </div>
-                <c-row>
-                    <c-col class="mb-1">
-                        <h3>Insurances</h3>
-                    </c-col>
-                    <c-col>
-                        <div style="float:right">
-                            <button cButton color="info" variant="outline" size="sm"
-                                (click)="openAddInsuranceCompany()">
-                                <svg cIcon name="cilPlus"></svg>
-                            </button>
-                        </div>
-                    </c-col>
-                </c-row>
-            </c-card-header>
-            <c-card-body>
-                <table cTable small>
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Plan Type</th>
-                            <th scope="col">Primary Id</th>
-                            <th scope="col">Archive</th>
-                            <th scope="col">actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let insurance of patient.patientInsurances;let i=index;">
-                            <th scope="row">{{i}}</th>
-                            <td>{{insurance.patientInsurancePolicy.planType}}</td>
-                            <td>{{insurance.patientInsurancePolicy.primaryId}}</td>
-                            <td>
-                                <div class="mt-2">
-                                    <c-form-check>
-                                        <label cFormCheckLabel>archive</label>
-                                        <input cFormCheckInput type="checkbox" name="archive"
-                                            [(ngModel)]="insurance.isArchived" />
-                                    </c-form-check>
-                                </div>
-                            </td>
-                            <td>
-                                <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                                    <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                                        (click)="remove(i)">
-                                        <svg cIcon name="cilTrash"></svg>
-                                    </button>
-                                </c-button-group>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </c-card-body>
-        </c-card>
-    </c-col>
+   <edit-patient-insurance></edit-patient-insurance>
 </c-row>
 <!--Cases -->
 <c-row>
-    <c-col xs="12">
-        <c-card class="mb-4">
-            <c-card-header>
-                <div style="float: left;">
-                    <svg cIcon name="cilWheelchair" title="cilWheelchair" size="xxl"></svg>
-                </div>
-                <c-row>
-                    <c-col class="mb-1">
-                        <h3>Cases</h3>
-                    </c-col>
-                    <c-col>
-                        <div style="float:right">
-                            <button cButton color="info" variant="outline" size="sm" (click)="openAddCase()">
-                                <svg cIcon name="cilPlus"></svg>
-                            </button>
-                        </div>
-                    </c-col>
-                </c-row>
-            </c-card-header>
-            <c-card-body>
-                <table cTable small>
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Case Title</th>
-                            <th scope="col">ICD-10 Codes</th>
-                            <th scope="col">actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let case of patient.cases;let i=index;">
-                            <th scope="row">{{i}}</th>
-                            <td>{{case.title }}</td>
-                            <td>
-                                <ul *ngFor="let code of case.caseDiagnosis" style="margin:0;padding:0">
-                                    <li style="list-style-type: none">
-                                        {{code.diagnosisCode}} - {{code.diagnosisDescription}}
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>
-                                <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
-                                    <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                                        (click)="removeCase(i)">
-                                        <svg cIcon name="cilTrash"></svg>
-                                    </button>
-                                </c-button-group>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </c-card-body>
-        </c-card>
-    </c-col>
+    <edit-patient-case></edit-patient-case>
 </c-row>
 <!--Sessions -->
 <c-row>
-    <c-col xs="12">
-        <c-card class="mb-4">
-            <c-card-header>
-                <div style="float: left;">
-                    <svg cIcon name="cilCalendar" title="cilCalendar" size="xxl"></svg>
-                </div>
-                <c-row>
-                    <c-col class="mb-1">
-                        <h3>Sessions</h3>
-                    </c-col>
-                </c-row>
-            </c-card-header>
-            <c-card-body>
-                <c-col xs="12">
-                    <c-container fluid="true">
-                        <c-smart-table [activePage]="1" [columns]="columns" [itemsPerPageSelect]="true"
-                            [itemsPerPage]="5" [items]="patient.sessions"
-                            [tableProps]="{ hover: true, striped: true, small:true }" header>
-                            <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item"
-                                let-tdContent="tdContent">
-                                <td>
-                                    <ng-container [ngSwitch]="columnName">
-                                        <ng-container *ngSwitchCase="'serviceDate'" class="py-2">
-                                            {{item.serviceDate |date :'MM/dd/YYYY'}}
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="'startDate'" class="py-2">
-                                            {{item.serviceStartTime |date :'hh:mm a'}}
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="'endDate'" class="py-2">
-                                            {{item.serviceEndTime |date :'hh:mm a'}}
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="'provider'" class="py-2">
-                                            {{item.doctorInfo.doctorLastName}},{{item.doctorInfo.doctorFirstName}}
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="'show'" class="py-2">
-                                            <button (click)="openSessionDeatils(item)" cButton size="sm"
-                                                class="btn btn-link">
-                                                Details
-                                            </button>
-                                        </ng-container>
-                                        <ng-container *ngSwitchDefault>
-                                            {{tdContent}}
-                                        </ng-container>
-                                    </ng-container>
-                                </td>
-                            </ng-template>
-                        </c-smart-table>
-                    </c-container>
-                </c-col>
-            </c-card-body>
-        </c-card>
-    </c-col>
+   <edit-patient-session></edit-patient-session>
 </c-row>
 <div class="col-12 text-center">
     <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>
