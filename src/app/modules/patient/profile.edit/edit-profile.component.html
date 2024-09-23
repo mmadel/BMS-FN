@@ -186,7 +186,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let insurance of patient.patientInsurances;let i=index;">
-                            <th scope="row">{{i}}</th>                            
+                            <th scope="row">{{i}}</th>
                             <td>{{insurance.patientInsurancePolicy.planType}}</td>
                             <td>{{insurance.patientInsurancePolicy.primaryId}}</td>
                             <td>
@@ -307,7 +307,8 @@
                                             {{item.doctorInfo.doctorLastName}},{{item.doctorInfo.doctorFirstName}}
                                         </ng-container>
                                         <ng-container *ngSwitchCase="'show'" class="py-2">
-                                            <button (click)="openSessionDeatils(item)" cButton  size="sm" class="btn btn-link">
+                                            <button (click)="openSessionDeatils(item)" cButton size="sm"
+                                                class="btn btn-link">
                                                 Details
                                             </button>
                                         </ng-container>
@@ -334,7 +335,7 @@
         <button (click)="toggleeditProfileAddInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-insurance #createInsuranceCompanyEditProfileComponent *ngIf="editProfileAddInsuranceVisibility"
+        <app-create-insurance #createInsuranceCompanyEditProfileComponent [mode]="'create'" *ngIf="editProfileAddInsuranceVisibility"
             [patient]="patient" (changeVisibility)="changeeditProfileInsurancVisibility($event)"></app-create-insurance>
     </c-modal-body>
 </c-modal>
@@ -345,7 +346,7 @@
         <button (click)="toggleEditProfileAddCaseVisibilityVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <case-add-daignosis #createCaseEditProfileComponent *ngIf="editProfileAddCaseVisibility"></case-add-daignosis>
+        <case-add-daignosis #createCaseEditProfileComponent [mode]="'create'" *ngIf="editProfileAddCaseVisibility"></case-add-daignosis>
     </c-modal-body>
     <c-modal-footer>
         <div class="col-12 text-center">
@@ -353,9 +354,10 @@
         </div>
     </c-modal-footer>
 </c-modal>
-<c-modal id="viewSessionDetailsModal" [visible]="viewSessionDetailsVisibility" backdrop="static" size="xl">
+<c-modal id="viewSessionDetailsModal" [visible]="viewSessionDetailsVisibility" backdrop="static" size="lg"
+    alignment="center">
     <c-modal-header>
-        <h5 cModalTitle>View Session Details</h5>
+        <h3 cModalTitle>View Session Details</h3>
         <button (click)="togglesessionDetails()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -374,8 +376,7 @@
         </c-row>
         <c-row>
             <div class="col-12 text-center mb-1">
-                <button cButton variant="outline" style="width: 15%;"
-                    (click)="updateSession(selectedPateintSession)">Update
+                <button cButton variant="outline" (click)="updateSession(selectedPateintSession)">Update
                     Session</button>
             </div>
         </c-row>

@@ -165,10 +165,10 @@
   </c-modal-body>
 </c-modal>
 
-<c-modal id="editPatientProfile" [visible]="editPatientProfileVisibility" size="xl" backdrop="static">
+<c-modal id="editPatientProfile" [visible]="editPatientProfileVisibility" [fullscreen]="true"  backdrop="static" scrollable>
   <c-modal-header>
-    <h4>Update Profile</h4>
-    <button (click)="toggleModal('invoice_create')" cButtonClose></button>
+    <h2>Update Profile</h2>
+    <button (click)="toggleModal('patient_edit')" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <patient-edit-profile [patient]="client" *ngIf="editPatientProfileVisibility"
