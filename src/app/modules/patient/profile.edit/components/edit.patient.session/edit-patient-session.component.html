@@ -1,1 +1,69 @@
-<p>edit-patient-session works!</p>
+<c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-header>
+            <div style="float: left;">
+                <svg cIcon name="cilCalendar" title="cilCalendar" size="xxl"></svg>
+            </div>
+            <c-row>
+                <c-col class="mb-1">
+                    <h3>Sessions</h3>
+                </c-col>
+                <c-col>
+                    <div style="float:right">
+                        <button cButton color="info" variant="outline" size="sm" (click)="add()">
+                            <svg cIcon name="cilPlus"></svg>
+                        </button>
+                    </div>
+                </c-col>
+            </c-row>
+
+        </c-card-header>
+        <c-card-body>
+            <table cTable small>
+                <thead>
+                    <tr>
+                        <th scope="col">DOS</th>
+                        <th scope="col">Provider</th>
+                        <th scope="col" style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let session of patient.sessions;let i=index;">
+                        <td>{{ convertDOS(session.serviceDate)}}</td>
+                        <td>{{session.doctorInfo.doctorLastName +',' + session.doctorInfo.doctorFirstName }}</td>
+                        <td>
+                            <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                    (click)="edit(session)">
+                                    <svg cIcon name="cilPen"></svg>
+                                </button>
+                                <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                    (click)="remove(i)">
+                                    <svg cIcon name="cilTrash"></svg>
+                                </button>
+                            </c-button-group>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </c-card-body>
+    </c-card>
+</c-col>
+<c-modal id="addProfileSessionModal" [visible]="addPatientSessionVisibility" size="lg">
+    <c-modal-header>
+        <h2 cModalTitle>Create Patient Session</h2>
+        <button (click)="toggleVisibility('create-session')" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <patient-session></patient-session>
+    </c-modal-body>
+</c-modal>
+<c-modal id="editProfileSessionModal" [visible]="editPatientSessionVisibility" size="lg">
+    <c-modal-header>
+        <h2 cModalTitle>Update Patient Session</h2>
+        <button (click)="toggleVisibility('edit-session')" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <patient-session></patient-session>
+    </c-modal-body>
+</c-modal>

@@ -24,7 +24,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Plan Type</th>
                         <th scope="col">Primary Id</th>
-                        <th scope="col">actions</th>
+                        <th scope="col" style="width: 10%;">actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,14 +50,14 @@
         </c-card-body>
     </c-card>
 </c-col>
-<c-modal id="editProfileInsuranceModal" [visible]="editPatientInsuranceVisibility"  size="lg">
+<c-modal id="editProfileInsuranceModal" [visible]="editPatientInsuranceVisibility" size="lg">
     <c-modal-header>
         <h2 cModalTitle>Update Insurance</h2>
         <button (click)="toggleVisibility('edit-insurance')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
         <app-create-insurance #createInsuranceComponent [mode]="'edit-edit-patient-profile'"
-            *ngIf="editPatientInsuranceVisibility"  [editPatientInsurance] = "selectedPatientInsurance"
+            *ngIf="editPatientInsuranceVisibility" [editPatientInsurance]="selectedPatientInsurance"
             (changeVisibility)="editPatientInsuranceChangeVisibility($event)"></app-create-insurance>
     </c-modal-body>
 </c-modal>
