@@ -78,7 +78,7 @@
                     </c-col>
                 </c-row>
                 <c-row>
-                    <c-col class="mb-1" xs="8">
+                    <c-col class="mb-1" xs="12">
                         <c-input-group sizing="sm">
                             <span cInputGroupText>
                                 <svg cIcon name="cibMailRu" title="cibMailRu"></svg>
@@ -86,7 +86,7 @@
                             <input cFormControl placeholder="Email" [(ngModel)]="patient.email" id="vpemail" />
                         </c-input-group>
                     </c-col>
-                    <c-col class="mb-1">
+                    <c-col class="mb-1" xs="12">
                         <c-input-group sizing="sm">
                             <span cInputGroupText>
                                 <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
@@ -152,7 +152,7 @@
 </c-row>
 <!--Insurances -->
 <c-row>
-   <edit-patient-insurance></edit-patient-insurance>
+    <edit-patient-insurance [patientInsurances]="patient.patientInsurances"></edit-patient-insurance>
 </c-row>
 <!--Cases -->
 <c-row>
@@ -160,62 +160,10 @@
 </c-row>
 <!--Sessions -->
 <c-row>
-   <edit-patient-session></edit-patient-session>
+    <edit-patient-session></edit-patient-session>
 </c-row>
 <div class="col-12 text-center">
     <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>
 </div>
-<!--Add InsuranceModal -->
-<c-modal id="editProfileInsuranceModal" [visible]="editProfileAddInsuranceVisibility" backdrop="static" size="xl">
-    <c-modal-header>
-        <h5 cModalTitle>Add Insurance</h5>
-        <button (click)="toggleeditProfileAddInsuranceVisibility()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-        <app-create-insurance #createInsuranceCompanyEditProfileComponent [mode]="'create'" *ngIf="editProfileAddInsuranceVisibility"
-            [patient]="patient" (changeVisibility)="changeeditProfileInsurancVisibility($event)"></app-create-insurance>
-    </c-modal-body>
-</c-modal>
-<!--Add caseModal -->
-<c-modal id="editProfileCaseModal" [visible]="editProfileAddCaseVisibility" backdrop="static" size="xl">
-    <c-modal-header>
-        <h5 cModalTitle>Add Case</h5>
-        <button (click)="toggleEditProfileAddCaseVisibilityVisibility()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-        <case-add-daignosis #createCaseEditProfileComponent [mode]="'create'" *ngIf="editProfileAddCaseVisibility"></case-add-daignosis>
-    </c-modal-body>
-    <c-modal-footer>
-        <div class="col-12 text-center">
-            <button cButton variant="outline" style="width: 15%;" size="sm" (click)="createCase()">Create Case</button>
-        </div>
-    </c-modal-footer>
-</c-modal>
-<c-modal id="viewSessionDetailsModal" [visible]="viewSessionDetailsVisibility" backdrop="static" size="lg"
-    alignment="center">
-    <c-modal-header>
-        <h3 cModalTitle>View Session Details</h3>
-        <button (click)="togglesessionDetails()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-        <c-row>
-            <c-col xs="12">
-                <patient-session-sheduling *ngIf="viewSessionDetailsVisibility"
-                    #editProfilePateintSessionShedulingComponent [editMode]="true"
-                    [patientSession]="selectedPateintSession"></patient-session-sheduling>
-            </c-col>
-            <c-col xs="12">
-                <edit-session-billing-code *ngIf="viewSessionDetailsVisibility"
-                    #editProfilePateintSessionBillingCodeComponent [editMode]="true"
-                    [patientSession]="selectedPateintSession">
-                </edit-session-billing-code>
-            </c-col>
-        </c-row>
-        <c-row>
-            <div class="col-12 text-center mb-1">
-                <button cButton variant="outline" (click)="updateSession(selectedPateintSession)">Update
-                    Session</button>
-            </div>
-        </c-row>
-    </c-modal-body>
-</c-modal>
+
+
