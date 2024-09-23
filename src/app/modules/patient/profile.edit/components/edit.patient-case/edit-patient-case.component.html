@@ -63,7 +63,8 @@
     </c-modal-header>
     <c-modal-body>
         <case-add-daignosis #caseAddDaignosisComponent [mode]="'create-edit-patient-profile'"
-            *ngIf="addPatientCaseVisibility"></case-add-daignosis>
+            *ngIf="addPatientCaseVisibility"
+            (changeVisibility)="createPatientCaseChangeVisibility($event)"></case-add-daignosis>
     </c-modal-body>
 </c-modal>
 
@@ -74,6 +75,7 @@
     </c-modal-header>
     <c-modal-body>
         <case-add-daignosis #caseAddDaignosisComponent [mode]="'edit-edit-patient-profile'"
-            [editcase]="selectedPatientCase" *ngIf="editPatientCaseVisibility"></case-add-daignosis>
+            [editcase]="selectedPatientCase" *ngIf="editPatientCaseVisibility"
+            (changeVisibility)="editPatientCaseChangeVisibility($event)"></case-add-daignosis>
     </c-modal-body>
 </c-modal>

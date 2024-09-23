@@ -5,7 +5,7 @@ import { CaseAddDaignosisComponent } from '../../../profile/billing/cases/add.da
 import { Operation } from '../../enum/operation';
 interface Patientcases {
   operation: Operation,
-  patientInsurance: PatientCase
+  patientCase: PatientCase
 }
 @Component({
   selector: 'edit-patient-case',
@@ -18,7 +18,7 @@ export class EditPatientCaseComponent implements OnInit {
   addPatientCaseVisibility: boolean = false;
   editPatientCaseVisibility: boolean;
   selectedPatientCase: PatientCase;
-  patientInsurances: Patientcases[] = []
+  patientcases: Patientcases[] = []
   constructor() { }
 
   ngOnInit(): void {
@@ -44,7 +44,28 @@ export class EditPatientCaseComponent implements OnInit {
         break;
     }
   }
-  createPatientCaseChangeVisibility(event: any) { }
+  createPatientCaseChangeVisibility(event: any) {
+    if (event === 'close') {
+      this.addPatientCaseVisibility = false;
+      this.patient.patientInsurances.push(this.caseAddDaignosisComponent.case)
+      this.updatePatientCases(Operation.create, this.caseAddDaignosisComponent.case)
+    }
+  }
 
-  editPatientCaseChangeVisibility(event: any) { }
+  editPatientCaseChangeVisibility(event: any) {
+    if (event === 'close') {
+      this.editPatientCaseVisibility = false;
+      this.patient.cases = this.patient.cases
+        .filter(patientCase => patientCase.id !== this.caseAddDaignosisComponent.case.id);
+      this.patient.patientInsurances.push(this.caseAddDaignosisComponent.case)
+      this.updatePatientCases(Operation.update, this.caseAddDaignosisComponent.case)
+    }
+  }
+
+  private updatePatientCases(operation: Operation, patientCase: PatientCase) {
+    this.patientcases.push({
+      operation: operation,
+      patientCase: patientCase
+    })
+  }
 }

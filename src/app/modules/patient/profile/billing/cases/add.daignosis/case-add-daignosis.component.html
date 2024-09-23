@@ -79,5 +79,12 @@
             </table>
         </c-col>
     </c-row>
-
+    <div class="d-md-flex justify-content-md-center">
+        <span *ngIf="mode ==='create-edit-patient-profile'">
+            <button cButton color="primary" type="submit" variant="outline">Create</button>
+        </span>
+        <span *ngIf="mode==='edit-edit-patient-profile'">
+            <button cButton color="primary" type="submit" variant="outline">Update</button>
+        </span>
+    </div>
 </c-container>
