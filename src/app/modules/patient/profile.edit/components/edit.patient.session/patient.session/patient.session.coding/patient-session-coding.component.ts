@@ -5,6 +5,7 @@ import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { Provider } from 'src/app/modules/model/clinical/provider/provider';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line.type';
+import { CaseDiagnosisService } from 'src/app/modules/patient/service/case.diagnosis/case-diagnosis.service';
 import { ProviderService } from 'src/app/modules/providers/service/provider.service';
 import { FeeScheduleLine } from 'src/app/modules/tools/fee.schedule/model/fee.schedule.line';
 import { FeeScheduleService } from 'src/app/modules/tools/fee.schedule/service/fee-schedule.service';
@@ -32,15 +33,14 @@ export class PatientSessionCodingComponent implements OnInit {
   unitCount: number;
   chargeCount: number;
   selectedProvider: Provider
-  constructor(private feeScheduleService:FeeScheduleService, private providerService:ProviderService) { }
+  constructor(private feeScheduleService: FeeScheduleService
+    , private providerService: ProviderService
+    , private caseDiagnosisService: CaseDiagnosisService) { }
 
   ngOnInit(): void {
     this.fetchFeeSchdule();
-    this.providerService.selectedProvider$.pipe(
-      filter(result=>result !==undefined)
-    ).subscribe((provider:any)=>{
-      this.selectedProvider = provider
-    })
+    this.consumeProvider();
+    this.consumeDiagnosises();
   }
   calculateCharge() {
     if (this.feeScheduleLine.cptCode !== null) {
@@ -164,5 +164,24 @@ export class PatientSessionCodingComponent implements OnInit {
     else
       this.emptyCharge = true;
     return this.emptyCharge;
+  }
+  private consumeProvider() {
+    this.providerService.selectedProvider$.pipe(
+      filter(result => result !== undefined)
+    ).subscribe((provider: any) => {
+      this.selectedProvider = provider
+    })
+  }
+  private consumeDiagnosises() {
+    this.caseDiagnosisService.selectedCaseDiagnosis$.pipe(
+      filter(result => result !== undefined)
+    ).subscribe((diagnosises: any) => {
+      if (diagnosises !== null) {
+        this.diagnosises = diagnosises;
+        this.checkEmptyDaignosis();
+      }
+    }, error => {
+      console.log(error)
+    })
   }
 }

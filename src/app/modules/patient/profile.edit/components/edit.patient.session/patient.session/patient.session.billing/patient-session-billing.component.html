@@ -3,114 +3,113 @@
         <c-card class="mb-4">
             <c-card-header>
                 <div style="float: left;" class="mx-1">
-                    <svg cIcon name="cilMoney" title="" size="xxl"></svg>
+                    <svg cIcon name="cilMoney" title="" size="lg"></svg>
                 </div>
-                <h2>Billing</h2>
+                <strong>Billing</strong>
             </c-card-header>
             <c-card-body>
-                <!--place Of Codes-->
-                <c-row class="mb-1">
-                    <c-col xs="12">
-                        <small
-                            *ngIf="notValidForm   && (placeOfCode.errors) ||  placeOfCode.invalid && (placeOfCode.dirty || placeOfCode.touched)"
-                            class="form-text text-danger">
-                            Place Of Code is required
-                        </small>
-                        <select cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="placeOfCode"
-                            required="true" name="placeOfCode" #placeOfCode="ngModel">
-                            <option [value]=null selected disabled>Select Place Code</option>
-                            <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)"
-                                [ngValue]="placeOfCodevalue">
-                                {{placeOfCodes[placeOfCodevalue]}}
-                            </option>
-                        </select>
-                    </c-col>
-                </c-row>
-                <!--Clinics -->
-                <c-row class="mb-1">
-                    <small
-                        *ngIf="notValidForm   && (facility.errors) ||  facility.invalid && (facility.dirty || facility.touched)"
-                        class="form-text text-danger">
-                        facility is required
-                    </small>
-                    <c-col>
-                        <select [compareWith]="compareFn" cSelect sizing="sm" [(ngModel)]="billingCode.facility"
-                            id="facility" name="facility" required="true" #facility="ngModel">
-                            <option [value]=null selected disabled>Select Facility</option>
-                            <option *ngFor="let clinic of clinics" [ngValue]="clinic">
-                                {{clinic.title}}
-                            </option>
-                        </select>
-                    </c-col>
-                </c-row>
-                <!--patient cases-->
-                <c-row class="mb-1">
-                    <c-col class="mb-1">
-                        <select [compareWith]="compareFn" cSelect sizing="sm" [(ngModel)]="selectedCase" id="facility"
-                            name="facility" required="true" #facility="ngModel" (change)="change()">
-                            <option [value]=null selected disabled>Select Case</option>
-                            <option *ngFor="let case of patientCases" [ngValue]="case">
-                                {{case.title}}
-                            </option>
-                        </select>
-                    </c-col>
-                </c-row>
-                <c-row class="mb-1">
-                    <c-col xs="12">
-                        <c-input-group sizing="sm">
-                            <input cFormControl placeholder="Type ICD-10 code or description"
-                                [(ngModel)]="diagnosisValue" name="diagnosisValue" />
-                            <span cInputGroupText>
-                                <button cButton variant="ghost" size="sm" (click)="search()">
-                                    <svg cIcon name="cilSearch" title="cilUser"></svg>
-                                </button>
-                            </span>
-                        </c-input-group>
-                    </c-col>
-                </c-row>
                 <c-row>
-                    <span align="center" *ngIf="isLoading">
-                        <c-spinner variant="grow"></c-spinner>
-                    </span>
-                    <span *ngIf="!isLoading">
-                        <c-col>
-                            <select cSelect class="mb-2" (change)="addICD10diagnosis($event)" visibleItems="20"
-                                id="diagnosisValue" name="diagnosisValue" placeholder="Select ICD-10 Code Description">
-                                <option selected disabled>Select Diagnosis</option>
-                                <option *ngFor="let option of filteredDiagnosis">
-                                    {{option}}
-                                </option>
-                            </select>
-                        </c-col>
-                        <c-col>
-                            <div class="col-12 text-center">
-                                <button cButton variant="outline" size="sm" style="width: 15%;"
-                                    (click)="pushDaignosis()">Add</button>
-                            </div>
-                        </c-col>
-                        <c-col>
-                            <table cTable hover small>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col"></th>
-                                        <th scope="col">Code</th>
-                                        <th scope="col">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let diagnosis of diagnosises;index as i">
-                                        <th scope="row">{{i+1}}</th>
-                                        <th>
-                                            <c-badge color="success" *ngIf="diagnosis.primary">Primary</c-badge>
-                                        </th>
-                                        <td>{{diagnosis.diagnosisCode}}</td>
-                                        <td>{{diagnosis.diagnosisDescription}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </c-col>
-                    </span>
+                    <c-col xs="6">
+                        <c-row class="mb-1">
+                            <c-col xs="12" class="mb-1">
+                                <small *ngIf="validation[0]" class="form-text text-danger">
+                                    Place Of Code is required
+                                </small>
+                                <select cSelect sizing="sm" [(ngModel)]="billingCode.placeOfCode" id="placeOfCode"
+                                    required="true" name="placeOfCode" #placeOfCode="ngModel">
+                                    <option [value]=null selected disabled>Select Place Code</option>
+                                    <option *ngFor="let placeOfCodevalue of placeOfCodeKeys(placeOfCodes)"
+                                        [ngValue]="placeOfCodevalue">
+                                        {{placeOfCodes[placeOfCodevalue]}}
+                                    </option>
+                                </select>
+                            </c-col>
+                            <small *ngIf="validation[1]" class="form-text text-danger">
+                                facility is required
+                            </small>
+                            <c-col xs="12" class="mb-1">
+                                <select [compareWith]="compareFn" cSelect sizing="sm" [(ngModel)]="billingCode.facility"
+                                    id="facility" name="facility" required="true" #facility="ngModel">
+                                    <option [value]=null selected disabled>Select Facility</option>
+                                    <option *ngFor="let clinic of clinics" [ngValue]="clinic">
+                                        {{clinic.title}}
+                                    </option>
+                                </select>
+                            </c-col>
+                            <c-col class="mb-1" xs="12">
+                                <select [compareWith]="compareFn" cSelect sizing="sm" [(ngModel)]="selectedCase"
+                                    id="facility" name="facility" required="true" #facility="ngModel"
+                                    (change)="change()">
+                                    <option [value]=null selected disabled>Select Case</option>
+                                    <option *ngFor="let case of patientCases" [ngValue]="case">
+                                        {{case.title}}
+                                    </option>
+                                </select>
+                            </c-col>
+
+                        </c-row>
+                    </c-col>
+                    <c-col xs="6">
+                        <c-row>
+                            <span align="center" *ngIf="isLoading">
+                                <c-spinner variant="grow"></c-spinner>
+                            </span>
+                            <c-col xs="12" class="mb-1">
+                                <c-input-group sizing="sm">
+                                    <input cFormControl placeholder="Type ICD-10 code or description"
+                                        [(ngModel)]="diagnosisValue" name="diagnosisValue" />
+                                    <span cInputGroupText>
+                                        <button cButton variant="ghost" size="sm" (click)="search()">
+                                            <svg cIcon name="cilSearch" title="cilUser"></svg>
+                                        </button>
+                                    </span>
+                                </c-input-group>
+                            </c-col>
+                            <span *ngIf="!isLoading">
+                                <c-col class="mb-1">
+                                    <select cSelect class="mb-2" (change)="addICD10diagnosis($event)" visibleItems="20"
+                                        id="diagnosisValue" name="diagnosisValue"
+                                        placeholder="Select ICD-10 Code Description">
+                                        <option selected disabled>Select Diagnosis</option>
+                                        <option *ngFor="let option of filteredDiagnosis">
+                                            {{option}}
+                                        </option>
+                                    </select>
+                                </c-col>
+                                <small *ngIf="validation[2]" class="form-text text-danger">
+                                    Diagnosis is required
+                                </small>
+                                <c-col class="mb-1">
+                                    <div class="col-12 text-center">
+                                        <button cButton variant="outline" size="sm" style="width: 15%;"
+                                            (click)="pushDaignosis()">Add</button>
+                                    </div>
+                                </c-col>
+                                <c-col>
+                                    <table cTable hover small>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col"></th>
+                                                <th scope="col">Code</th>
+                                                <th scope="col">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let diagnosis of diagnosises;index as i">
+                                                <th scope="row">{{i+1}}</th>
+                                                <th>
+                                                    <c-badge color="success" *ngIf="diagnosis.primary">Primary</c-badge>
+                                                </th>
+                                                <td>{{diagnosis.diagnosisCode}}</td>
+                                                <td>{{diagnosis.diagnosisDescription}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </c-col>
+                            </span>
+                        </c-row>
+                    </c-col>
                 </c-row>
             </c-card-body>
         </c-card>

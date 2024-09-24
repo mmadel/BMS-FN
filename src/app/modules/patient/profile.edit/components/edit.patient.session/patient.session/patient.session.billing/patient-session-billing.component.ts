@@ -28,6 +28,7 @@ export class PatientSessionBillingComponent implements OnInit {
   filteredDiagnosis: any;
   diagnosisCode?: CaseDiagnosis = {};
   isLoading = false;
+  validation: boolean[] = [];
   constructor(private clinicService: ClinicService, private caseDiagnosisService: CaseDiagnosisService) { }
 
   ngOnInit(): void {
@@ -39,11 +40,11 @@ export class PatientSessionBillingComponent implements OnInit {
   change() {
     this.billingCode.caseTitle = this.selectedCase.caseTitle;
     this.diagnosises.push(...this.selectedCase.caseDiagnosis)
+    this.caseDiagnosisService.selectedCaseDiagnosis$.next(this.diagnosises)
     this.checkEmptyDaignosis()
   }
   search() {
     this.caseDiagnosisService.find(this.diagnosisValue).subscribe(data => {
-      console.log(JSON.stringify(data))
       if (data !== undefined) {
         var diagnosisResponse: any = data;
         this.filteredDiagnosis = diagnosisResponse.listOfCodeName;
@@ -59,9 +60,13 @@ export class PatientSessionBillingComponent implements OnInit {
     this.diagnosisCode.diagnosisDescription = desrciption;
   }
   pushDaignosis() {
-    this.diagnosises.push(this.diagnosisCode);
-    this.diagnosisCode = {}
-    this.checkEmptyDaignosis()
+    this.firediagnosisCodesValidation();
+    if (!this.validation[2]) {
+      this.diagnosises.push(this.diagnosisCode);
+      this.diagnosisCode = {}
+      this.checkEmptyDaignosis()
+      this.caseDiagnosisService.selectedCaseDiagnosis$.next(this.diagnosises)
+    }
   }
   private findClinics() {
     this.clinicService.findAllWithoutPagination()
@@ -81,6 +86,12 @@ export class PatientSessionBillingComponent implements OnInit {
     this.diagnosisCodes = this.diagnosises.map(code => {
       return code.diagnosisCode;
     })
+  }
+  private firediagnosisCodesValidation() {
+    if (this.diagnosisCode.diagnosisCode === undefined)
+      this.validation[2] = true;
+    else
+      this.validation[2] = false;
   }
 
 }
