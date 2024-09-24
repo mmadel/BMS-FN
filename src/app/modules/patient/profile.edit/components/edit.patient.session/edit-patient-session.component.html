@@ -55,8 +55,7 @@
         <button (click)="toggleVisibility('create-session')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <patient-session [patient]="patient"></patient-session>
-        <!-- <app-patient-session-create *ngIf="addPatientSessionVisibility" #patientSessionComponent [selectedPateint]="patient"></app-patient-session-create> -->
+        <patient-session [patient]="patient" *ngIf="addPatientSessionVisibility"></patient-session>
     </c-modal-body>
 </c-modal>
 <c-modal id="editProfileSessionModal" [visible]="editPatientSessionVisibility" size="lg" backdrop="static">
@@ -65,6 +64,6 @@
         <button (click)="toggleVisibility('edit-session')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <patient-session></patient-session>
+        <patient-session *ngIf="editPatientSessionVisibility"></patient-session>
     </c-modal-body>
 </c-modal>
