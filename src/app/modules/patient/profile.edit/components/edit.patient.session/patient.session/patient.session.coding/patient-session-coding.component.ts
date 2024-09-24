@@ -35,6 +35,7 @@ export class PatientSessionCodingComponent implements OnInit {
   constructor(private feeScheduleService:FeeScheduleService, private providerService:ProviderService) { }
 
   ngOnInit(): void {
+    this.fetchFeeSchdule();
     this.providerService.selectedProvider$.pipe(
       filter(result=>result !==undefined)
     ).subscribe((provider:any)=>{
