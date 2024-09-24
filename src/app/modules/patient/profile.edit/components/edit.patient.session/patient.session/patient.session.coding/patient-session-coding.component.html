@@ -1,1 +1,119 @@
-<p>patient-session-coding works!</p>
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <div style="float: left;" class="mx-1">
+                    <svg cIcon name="cilTask" title="cilTask" size="lg"></svg>
+                </div>
+                <h2>Coding</h2>
+            </c-card-header>
+            <c-card-body>
+                <c-container fluid>
+                    <div class="mb-3">
+                        <small *ngIf="validCPT !==undefined && validCPT === 0" class="form-text text-danger mb-3">
+                            Empty CPT is not allowed
+                        </small>
+                        <small *ngIf="validCPT !==undefined && validCPT === 5" class="form-text text-danger mb-3">
+                            CPT is with less than five digits is not allowed
+                        </small><br />
+                        <label cLabel for="serviceCode">Service Code</label>
+
+                        <!-- [disabled]="emptyDiagnosisCodes" -->
+                        <input cFormControl name="serviceCode" [formControl]="feeCtrl" id="serviceCode" sizing="sm"
+                            maxlength="5" sizing="sm" [(ngModel)]="serviceCode.cptCode.serviceCode" />
+                    </div>
+                    <div class="mb-3">
+                        <small *ngIf="validModifiers?.length > 0" class="form-text text-danger mb-3">
+                            modifier value with one digit is not allowed
+                        </small><br />
+                        <label cLabel for="modifier">Modifier</label>
+                        <c-input-group sizing="sm">
+                            <input cFormControl maxlength="2" [(ngModel)]="modifier[0]" [disabled]="emptyDiagnosisCodes"
+                                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[0] ===false}" />
+                            <input cFormControl maxlength="2" [(ngModel)]="modifier[1]" [disabled]="emptyDiagnosisCodes"
+                                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[1] ===false}" />
+                            <input cFormControl maxlength="2" [(ngModel)]="modifier[2]" [disabled]="emptyDiagnosisCodes"
+                                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[2] ===false}" />
+                            <input cFormControl maxlength="2" [(ngModel)]="modifier[3]" [disabled]="emptyDiagnosisCodes"
+                                [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[3] ===false}" />
+                        </c-input-group>
+                    </div>
+                    <div class="mb-3">
+                        <label cLabel for="lineNote">Line Note</label>
+                        <textarea cFormControl id="lineNote" rows="1" sizing="sm" [disabled]="emptyDiagnosisCodes"
+                            [(ngModel)]="serviceCode.lineNote"></textarea>
+                    </div>
+                    <c-multi-select multiple class="mb-2" visibleItems="20" placeholder="Select Diagnosis"
+                        [(ngModel)]="selectedDiagnosisCodes">
+                        <c-multi-select-option *ngFor="let diagnosisCode of diagnosisCodes" [value]="diagnosisCode">
+                            {{ diagnosisCode}}
+                        </c-multi-select-option>
+                    </c-multi-select>
+                    <div class="mb-3">
+                        <small *ngIf="!emptyUnit" class="form-text text-danger mb-3">
+                            Empty Unit
+                        </small><br />
+                        <label cLabel for="unit">Unit</label>
+                        <input cFormControl id="unit" placeholder="unit" [(ngModel)]="serviceCode.cptCode.unit"
+                            sizing="sm" [disabled]="emptyDiagnosisCodes" type="number" (keyup)="calculateCharge()" />
+                    </div>
+                    <div class="mb-3">
+                        <small *ngIf="!emptyCharge" class="form-text text-danger mb-3">
+                            Empty Charge
+                        </small><br />
+                        <label cLabel for="charge">Charge</label>
+                        <input cFormControl id="charge" placeholder="Charge" [(ngModel)]="serviceCode.cptCode.charge"
+                            sizing="sm" [disabled]="emptyDiagnosisCodes" type="number" />
+                    </div>
+                    <div class="col-12 text-center">
+                        <button cButton variant="outline" size="sm" style="width: 15%;" [disabled]="emptyDiagnosisCodes"
+                            (click)="pushServiceCodes()">Add</button>
+                    </div>
+                </c-container>
+                <c-row>
+                    <c-col>
+                        <table cTable hover small>
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Modifier</th>
+                                    <th scope="col">LineNote</th>
+                                    <th scope="col">Unit</th>
+                                    <th scope="col">Charge</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let serviceCode of serviceCodes;index as i">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{serviceCode.cptCode.serviceCode}}</td>
+                                    <td>{{serviceCode.cptCode.modifier}}</td>
+                                    <td>{{serviceCode.cptCode.unit}}</td>
+                                    <td>{{serviceCode.cptCode.charge}}</td>
+                                    <td style="width: 5%;">
+                                        <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                            <button cButton color="info" variant="outline"  size="sm">
+                                                <svg cIcon name="cilTrash"></svg>
+                                            </button>
+                                        </c-button-group>
+            
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        Total : {{unitCount}}
+                                    </td>
+                                    <td>{{chargeCount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>

@@ -4,6 +4,7 @@ import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { ClinicService } from 'src/app/modules/admin.tools/services/clinic.service';
 import { Clinic } from 'src/app/modules/model/admin/clinic';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
+import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { Provider } from 'src/app/modules/model/clinical/provider/provider';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
@@ -34,7 +35,7 @@ export class PatientSessionComponent implements OnInit {
   placeOfCodes = PlaceOfCode;
   compareFn = this._compareFn.bind(this);
   clinics: Clinic[];
-  @Input() patientCases: PatientCase[];
+  @Input() patient?: Patient;
   selectedCase: any = null;
   diagnosisValue: string
   isLoading = false;

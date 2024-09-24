@@ -10,7 +10,7 @@ import { BasePaginationService } from '../../model/service/base-pagination.servi
   providedIn: 'root'
 })
 export class ProviderService extends BasePaginationService {
-
+  public selectedProvider$: BehaviorSubject<Provider | null> = new BehaviorSubject<Provider | null>(null);
   private baseUrl = environment.baseURL + '/provider'
   constructor(httpClient: HttpClient) { super(httpClient) }
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {

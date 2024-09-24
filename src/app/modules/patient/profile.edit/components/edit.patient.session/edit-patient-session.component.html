@@ -55,7 +55,7 @@
         <button (click)="toggleVisibility('create-session')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <patient-session [patientCases]="patient.cases"></patient-session>
+        <patient-session [patient]="patient"></patient-session>
         <!-- <app-patient-session-create *ngIf="addPatientSessionVisibility" #patientSessionComponent [selectedPateint]="patient"></app-patient-session-create> -->
     </c-modal-body>
 </c-modal>
