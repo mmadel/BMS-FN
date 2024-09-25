@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { Provider } from 'src/app/modules/model/clinical/provider/provider';
+import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { ServiceLineType } from 'src/app/modules/model/enum/session/service.line.type';
 import { CaseDiagnosisService } from 'src/app/modules/patient/service/case.diagnosis/case-diagnosis.service';
@@ -33,6 +34,7 @@ export class PatientSessionCodingComponent implements OnInit {
   unitCount: number;
   chargeCount: number;
   selectedProvider: Provider
+  @Input() selectedSession: PatientSession
   constructor(private feeScheduleService: FeeScheduleService
     , private providerService: ProviderService
     , private caseDiagnosisService: CaseDiagnosisService) { }
@@ -41,6 +43,7 @@ export class PatientSessionCodingComponent implements OnInit {
     this.fetchFeeSchdule();
     this.consumeProvider();
     this.consumeDiagnosises();
+    this.fillModel();
   }
   calculateCharge() {
     if (this.feeScheduleLine.cptCode !== null) {
@@ -57,6 +60,12 @@ export class PatientSessionCodingComponent implements OnInit {
   remove(index: number) {
     this.serviceCodes.splice(index, 1);
     this.countChargeUnit();
+  }
+  private fillModel() {
+    if (this.selectedSession !== undefined) {
+      this.serviceCodes = this.selectedSession.serviceCodes;
+      this.countChargeUnit();
+    }
   }
   private fetchFeeSchdule() {
     this.feeCtrl.valueChanges
