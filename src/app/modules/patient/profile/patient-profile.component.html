@@ -39,8 +39,7 @@
                 </c-row>
             </c-card-header>
             <c-card-body>
-                <form cForm #patientCreationForm="ngForm" *ngIf="patient" readonly-form
-                    [componentRole]="componentRole">
+                <form cForm #patientCreationForm="ngForm" *ngIf="patient" readonly-form [componentRole]="componentRole">
                     <c-row>
                         <c-col class="mb-1">
                             <small
@@ -161,8 +160,8 @@
                                 <span cInputGroupText>
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
                                 </span>
-                                <c-date-picker cFormControl size="sm" [(date)]="patientDOB"
-                                    required="true" disable-date-picker [componentRole]="componentRole"></c-date-picker>
+                                <c-date-picker cFormControl size="sm" [(date)]="patientDOB" required="true"
+                                    disable-date-picker [componentRole]="componentRole"></c-date-picker>
                             </c-input-group>
                         </c-col>
                     </c-row>
@@ -242,6 +241,9 @@
                 </form>
             </c-card-body>
         </c-card>
+        <div class="col text-center my-3" *ngIf="!isupdated">
+            <button cButton color="info" variant="outline" size="sm" (click)="create()">Save</button>
+        </div>
     </c-col>
     <!-- Tabs-->
     <c-col xs="12" *ngIf="isupdated">
@@ -291,5 +293,9 @@
                 </c-tab-content>
             </c-card-body>
         </c-card>
+        <div class="col text-center my-3">
+            <button cButton color="info" variant="outline" size="sm" (click)="create('close')" dispaly-input
+                [componentRole]="componentRole">Edit</button>
+        </div>
     </c-col>
 </c-row>
