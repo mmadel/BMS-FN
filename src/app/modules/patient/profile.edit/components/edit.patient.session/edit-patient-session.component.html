@@ -59,6 +59,7 @@
             <c-row>
                 <!--Scheduling -->
                 <c-col xs="12">
+                    {{selectedPatientSession| json}}
                     <patient-session-scheduling></patient-session-scheduling>
                 </c-col>
                 <!-- billing-->
@@ -88,7 +89,7 @@
             <c-row>
                 <!--Scheduling -->
                 <c-col xs="12">
-                    <patient-session-scheduling></patient-session-scheduling>
+                    <patient-session-scheduling [selectedSession]="selectedPatientSession"></patient-session-scheduling>
                 </c-col>
                 <!-- billing-->
                 <c-col xs="12">
