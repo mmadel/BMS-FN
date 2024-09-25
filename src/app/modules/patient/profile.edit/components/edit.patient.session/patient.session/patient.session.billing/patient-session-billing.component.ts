@@ -3,6 +3,7 @@ import { ClinicService } from 'src/app/modules/admin.tools/services/clinic.servi
 import { Clinic } from 'src/app/modules/model/admin/clinic';
 import { CaseDiagnosis } from 'src/app/modules/model/clinical/case.diagnosis';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
+import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { PlaceOfCode } from 'src/app/modules/model/enum/place.code';
 import { BillingCode } from 'src/app/modules/patient/profile/filling/sessions/model/billing.code';
 import { CaseDiagnosisService } from 'src/app/modules/patient/service/case.diagnosis/case-diagnosis.service';
@@ -29,10 +30,12 @@ export class PatientSessionBillingComponent implements OnInit {
   diagnosisCode?: CaseDiagnosis = {};
   isLoading = false;
   validation: boolean[] = [];
+  @Input() selectedSession: PatientSession
   constructor(private clinicService: ClinicService, private caseDiagnosisService: CaseDiagnosisService) { }
 
   ngOnInit(): void {
     this.findClinics();
+    this.fillModel();
   }
   _compareFn(a: any, b: any) {
     return a?.id === b?.id;
@@ -71,6 +74,17 @@ export class PatientSessionBillingComponent implements OnInit {
   remove(index: number) {
     this.diagnosises.splice(index, 1);
   }
+  private fillModel() {
+    if (this.selectedSession !== null) {
+      this.billingCode = {
+        placeOfCode: this.selectedSession.placeOfCode,
+        facility: this.selectedSession.clinic,
+        caseTitle: this.selectedSession.caseTitle,
+      }
+      this.diagnosises = this.selectedSession.caseDiagnosis;
+      this.selectedCase = this.findSelectedPatientCase(this.selectedSession.caseTitle);
+    }
+  }
   private findClinics() {
     this.clinicService.findAllWithoutPagination()
       .subscribe((result: any) => {
@@ -95,5 +109,8 @@ export class PatientSessionBillingComponent implements OnInit {
       this.validation[2] = true;
     else
       this.validation[2] = false;
+  }
+  private findSelectedPatientCase(title: string) {
+    return this.patientCases.filter(pateintCase => pateintCase.title === title)[0]
   }
 }

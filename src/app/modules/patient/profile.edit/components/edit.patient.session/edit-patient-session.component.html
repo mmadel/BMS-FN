@@ -93,7 +93,8 @@
                 </c-col>
                 <!-- billing-->
                 <c-col xs="12">
-                    <patient-session-billing [patientCases]="patient?.cases"></patient-session-billing>
+                    <patient-session-billing [patientCases]="patient?.cases"
+                        [selectedSession]="selectedPatientSession"></patient-session-billing>
                 </c-col>
                 <!--Coding-->
                 <c-col xs="12">
