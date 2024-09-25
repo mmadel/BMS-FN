@@ -70,7 +70,6 @@ import { EnterPaymentComponent } from './profile/filling/sessions/enter.paymnet/
 import { EditPatientInsuranceComponent } from './profile.edit/components/edit.patient.insurance/edit-patient-insurance.component';
 import { EditPatientCaseComponent } from './profile.edit/components/edit.patient-case/edit-patient-case.component';
 import { EditPatientSessionComponent } from './profile.edit/components/edit.patient.session/edit-patient-session.component';
-import { PatientSessionComponent } from './profile.edit/components/edit.patient.session/patient.session/patient-session.component';
 import { PatientSessionSchedulingComponent } from './profile.edit/components/edit.patient.session/patient.session/patient.session.scheduling/patient-session-scheduling.component';
 import { PatientSessionCodingComponent } from './profile.edit/components/edit.patient.session/patient.session/patient.session.coding/patient-session-coding.component';
 import { PatientSessionBillingComponent } from './profile.edit/components/edit.patient.session/patient.session/patient.session.billing/patient-session-billing.component';
@@ -111,7 +110,6 @@ import { PatientSessionBillingComponent } from './profile.edit/components/edit.p
     EditPatientInsuranceComponent,
     EditPatientCaseComponent,
     EditPatientSessionComponent,
-    PatientSessionComponent,
     PatientSessionSchedulingComponent,
     PatientSessionCodingComponent,
     PatientSessionBillingComponent,

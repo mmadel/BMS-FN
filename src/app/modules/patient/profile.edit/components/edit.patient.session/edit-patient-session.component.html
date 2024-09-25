@@ -49,14 +49,34 @@
         </c-card-body>
     </c-card>
 </c-col>
-<c-modal id="addProfileSessionModal" [visible]="addPatientSessionVisibility" size="xl" backdrop="static" scrollable>
+<c-modal id="addProfileSessionModal" [visible]="addPatientSessionVisibility" size="lg" backdrop="static" scrollable>
     <c-modal-header>
         <h2 cModalTitle>Create Patient Session</h2>
         <button (click)="toggleVisibility('create-session')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <patient-session [patient]="patient" *ngIf="addPatientSessionVisibility"></patient-session>
+        <div *ngIf="addPatientSessionVisibility">
+            <c-row>
+                <!--Scheduling -->
+                <c-col xs="12">
+                    <patient-session-scheduling></patient-session-scheduling>
+                </c-col>
+                <!-- billing-->
+                <c-col xs="12">
+                    <patient-session-billing [patientCases]="patient?.cases"></patient-session-billing>
+                </c-col>
+                <!--Coding-->
+                <c-col xs="12">
+                    <patient-session-coding></patient-session-coding>
+                </c-col>
+            </c-row>
+        </div>
     </c-modal-body>
+    <c-card-footer>
+        <div class="col-12 text-center m-2">
+            <button cButton variant="outline" size="sm" style="width: 15%;">Create Session</button>
+        </div>
+    </c-card-footer>
 </c-modal>
 <c-modal id="editProfileSessionModal" [visible]="editPatientSessionVisibility" size="lg" backdrop="static">
     <c-modal-header>
@@ -64,6 +84,21 @@
         <button (click)="toggleVisibility('edit-session')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <patient-session *ngIf="editPatientSessionVisibility"></patient-session>
+        <div *ngIf="editPatientSessionVisibility">
+            <c-row>
+                <!--Scheduling -->
+                <c-col xs="12">
+                    <patient-session-scheduling></patient-session-scheduling>
+                </c-col>
+                <!-- billing-->
+                <c-col xs="12">
+                    <patient-session-billing [patientCases]="patient?.cases"></patient-session-billing>
+                </c-col>
+                <!--Coding-->
+                <c-col xs="12">
+                    <patient-session-coding></patient-session-coding>
+                </c-col>
+            </c-row>
+        </div>
     </c-modal-body>
 </c-modal>
