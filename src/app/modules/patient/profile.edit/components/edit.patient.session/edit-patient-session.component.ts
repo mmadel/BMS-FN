@@ -1,8 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
-
+import { Operation } from '../../enum/operation';
+import { PatientSessionBillingComponent } from './patient.session/patient.session.billing/patient-session-billing.component';
+import { PatientSessionCodingComponent } from './patient.session/patient.session.coding/patient-session-coding.component';
+import { PatientSessionSchedulingComponent } from './patient.session/patient.session.scheduling/patient-session-scheduling.component';
+interface PatientSessions {
+  operation: Operation,
+  patientSession: PatientSession
+}
 @Component({
   selector: 'edit-patient-session',
   templateUrl: './edit-patient-session.component.html',
@@ -13,6 +20,10 @@ export class EditPatientSessionComponent implements OnInit {
   addPatientSessionVisibility: boolean = false;
   editPatientSessionVisibility: boolean;
   selectedPatientSession: PatientSession
+  patientSessions: PatientSessions[] = []
+  @ViewChild('patientSessionSchedulingComponent') patientSessionSchedulingComponent: PatientSessionSchedulingComponent;
+  @ViewChild('patientSessionBillingComponent') patientSessionBillingComponent: PatientSessionBillingComponent;
+  @ViewChild('patientSessionCodingComponent') patientSessionCodingComponent: PatientSessionCodingComponent;
   constructor() { }
 
   ngOnInit(): void {
@@ -39,5 +50,41 @@ export class EditPatientSessionComponent implements OnInit {
         this.editPatientSessionVisibility = !this.editPatientSessionVisibility
         break;
     }
+  }
+  create() {
+    this.addPatientSessionVisibility = false;
+    var createdPatientSession = this.constructModel();
+    this.patient.sessions.push(createdPatientSession);
+    this.updatePatientCases(Operation.create, createdPatientSession);
+  }
+  private constructModel(): PatientSession {
+    return {
+      serviceDate: moment(this.patientSessionSchedulingComponent.sessionScheduling.serviceDate).unix() * 1000,
+      serviceStartTime: moment(this.patientSessionSchedulingComponent.sessionScheduling.startTime).unix() * 1000,
+      serviceEndTime: moment(this.patientSessionSchedulingComponent.sessionScheduling.endTime).unix() * 1000,
+      placeOfCode: this.patientSessionBillingComponent.billingCode.placeOfCode,
+      patientId: this.patient.id,
+      doctorInfo: this.constructorModelDoctorInfo(),
+      clinic: this.patientSessionBillingComponent.billingCode.facility,
+      caseTitle: this.patientSessionBillingComponent.billingCode.caseTitle,
+      caseDiagnosis: this.patientSessionBillingComponent.diagnosises,
+      serviceCodes: this.patientSessionCodingComponent.serviceCodes,
+      isCasesAttached: this.patientSessionBillingComponent.billingCode.isCaseAttached === undefined ? false :
+        this.patientSessionBillingComponent.billingCode.isCaseAttached
+    }
+  }
+  private constructorModelDoctorInfo() {
+    return {
+      doctorId: this.patientSessionSchedulingComponent.sessionScheduling.provider.model.id,
+      doctorFirstName: this.patientSessionSchedulingComponent.sessionScheduling.provider.model.firstName,
+      doctorLastName: this.patientSessionSchedulingComponent.sessionScheduling.provider.model.lastName,
+      doctorNPI: this.patientSessionSchedulingComponent.sessionScheduling.provider.model.npi
+    }
+  }
+  private updatePatientCases(operation: Operation, patientSession: PatientSession) {
+    this.patientSessions.push({
+      operation: operation,
+      patientSession: patientSession
+    })
   }
 }

@@ -75,7 +75,7 @@ export class PatientSessionBillingComponent implements OnInit {
     this.diagnosises.splice(index, 1);
   }
   private fillModel() {
-    if (this.selectedSession !== null) {
+    if (this.selectedSession !== undefined) {
       this.billingCode = {
         placeOfCode: this.selectedSession.placeOfCode,
         facility: this.selectedSession.clinic,

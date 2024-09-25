@@ -18,7 +18,7 @@
                         </small>
                         <input cFormControl name="serviceCode" [formControl]="feeCtrl" id="serviceCode" sizing="sm"
                             maxlength="5" sizing="sm" [(ngModel)]="serviceCode.cptCode.serviceCode"
-                            [disabled]="emptyDiagnosisCodes" placeholder="Service Code" />
+                            placeholder="Service Code" />
                     </div>
                     <div class="mb-1">
                         <small *ngIf="validModifiers?.length > 0" class="form-text text-danger mb-3">
@@ -94,7 +94,8 @@
                                     <td style="width: 5%;">
                                         <c-button-group aria-label="Button outlined group with nested dropdown"
                                             role="group">
-                                            <button cButton color="info" variant="outline" size="sm" (click)="remove(i)">
+                                            <button cButton color="info" variant="outline" size="sm"
+                                                (click)="remove(i)">
                                                 <svg cIcon name="cilTrash"></svg>
                                             </button>
                                         </c-button-group>

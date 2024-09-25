@@ -59,23 +59,23 @@
             <c-row>
                 <!--Scheduling -->
                 <c-col xs="12">
-                    {{selectedPatientSession| json}}
-                    <patient-session-scheduling></patient-session-scheduling>
+                    <patient-session-scheduling #patientSessionSchedulingComponent></patient-session-scheduling>
                 </c-col>
                 <!-- billing-->
                 <c-col xs="12">
-                    <patient-session-billing [patientCases]="patient?.cases"></patient-session-billing>
+                    <patient-session-billing [patientCases]="patient?.cases"
+                        #patientSessionBillingComponent></patient-session-billing>
                 </c-col>
                 <!--Coding-->
                 <c-col xs="12">
-                    <patient-session-coding></patient-session-coding>
+                    <patient-session-coding #patientSessionCodingComponent></patient-session-coding>
                 </c-col>
             </c-row>
         </div>
     </c-modal-body>
     <c-card-footer>
         <div class="col-12 text-center m-2">
-            <button cButton variant="outline" size="sm" style="width: 15%;">Create Session</button>
+            <button cButton variant="outline" size="sm" style="width: 15%;" (click)="create()">Create Session</button>
         </div>
     </c-card-footer>
 </c-modal>
@@ -89,16 +89,18 @@
             <c-row>
                 <!--Scheduling -->
                 <c-col xs="12">
-                    <patient-session-scheduling [selectedSession]="selectedPatientSession"></patient-session-scheduling>
+                    <patient-session-scheduling [selectedSession]="selectedPatientSession"
+                        #patientSessionSchedulingComponent></patient-session-scheduling>
                 </c-col>
                 <!-- billing-->
                 <c-col xs="12">
-                    <patient-session-billing [patientCases]="patient?.cases"
-                        [selectedSession]="selectedPatientSession"></patient-session-billing>
+                    <patient-session-billing [patientCases]="patient?.cases" [selectedSession]="selectedPatientSession"
+                        #patientSessionBillingComponent></patient-session-billing>
                 </c-col>
                 <!--Coding-->
                 <c-col xs="12">
-                    <patient-session-coding [selectedSession]="selectedPatientSession"></patient-session-coding>
+                    <patient-session-coding [selectedSession]="selectedPatientSession"
+                        #patientSessionCodingComponent></patient-session-coding>
                 </c-col>
             </c-row>
         </div>
