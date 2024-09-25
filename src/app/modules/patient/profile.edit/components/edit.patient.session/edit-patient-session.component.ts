@@ -40,6 +40,7 @@ export class EditPatientSessionComponent implements OnInit {
   }
   remove(index: number) {
     this.patient.sessions.splice(index, 1);
+    this.updatePatientCases(Operation.delete, this.patient.sessions[index])
   }
   toggleVisibility(entity_name: string) {
     switch (entity_name) {
@@ -57,8 +58,17 @@ export class EditPatientSessionComponent implements OnInit {
     this.patient.sessions.push(createdPatientSession);
     this.updatePatientCases(Operation.create, createdPatientSession);
   }
+  update() {
+    this.editPatientSessionVisibility = false;
+    var updatedPatientSession = this.constructModel();
+    this.patient.sessions = this.patient.sessions
+      .filter(patientSession => patientSession.id !== updatedPatientSession.id);
+    this.patient.sessions.push(updatedPatientSession);
+    this.updatePatientCases(Operation.update, updatedPatientSession);
+  }
   private constructModel(): PatientSession {
     return {
+      id: this.selectedPatientSession !== undefined ? this.selectedPatientSession.id : null,
       serviceDate: moment(this.patientSessionSchedulingComponent.sessionScheduling.serviceDate).unix() * 1000,
       serviceStartTime: moment(this.patientSessionSchedulingComponent.sessionScheduling.startTime).unix() * 1000,
       serviceEndTime: moment(this.patientSessionSchedulingComponent.sessionScheduling.endTime).unix() * 1000,
