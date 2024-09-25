@@ -172,7 +172,7 @@
   </c-modal-header>
   <c-modal-body>
     <patient-edit-profile [patient]="client" *ngIf="editPatientProfileVisibility"
-      (changeEditPorfileVisibility)="changeVisibility($event)"></patient-edit-profile>
+      (changeVisibility)="changeVisibility($event)"></patient-edit-profile>
   </c-modal-body>
 </c-modal>
 
@@ -183,6 +183,6 @@
   </c-modal-header>
   <c-modal-body>
     <list-auths [sessionId]="sessionId" [patientId]="client?.id" *ngIf="viewAuthorizationVisibility"
-      (changeEditPorfileVisibility)="changeVisibility($event)"></list-auths>
+      (changeVisibility)="changeVisibility($event)"></list-auths>
   </c-modal-body>
 </c-modal>

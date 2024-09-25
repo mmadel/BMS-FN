@@ -4,7 +4,7 @@ import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insuran
 import { CreateInsuranceComponent } from '../../../profile/billing/insurance/create/create-insurance.component';
 import { Operation } from '../../enum/operation';
 
-interface PatientInsurances {
+export interface PatientInsurances {
   operation: Operation,
   patientInsurance: PatientInsurance
 }
@@ -32,8 +32,9 @@ export class EditPatientInsuranceComponent implements OnInit {
     this.selectedPatientInsurance = patientInsurance;
   }
   remove(index: number) {
+    var deleted: PatientInsurance = this.patient.patientInsurances[index];
     this.patient.patientInsurances.splice(index, 1);
-    this.updatePatientInsurances(Operation.delete, this.patient.patientInsurances[index])
+    this.updatePatientInsurances(Operation.delete, deleted)
   }
   toggleVisibility(entity_name: string) {
     switch (entity_name) {

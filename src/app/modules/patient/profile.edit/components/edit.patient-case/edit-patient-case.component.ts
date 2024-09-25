@@ -3,7 +3,7 @@ import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { CaseAddDaignosisComponent } from '../../../profile/billing/cases/add.daignosis/case-add-daignosis.component';
 import { Operation } from '../../enum/operation';
-interface Patientcases {
+export interface Patientcases {
   operation: Operation,
   patientCase: PatientCase
 }
@@ -32,7 +32,9 @@ export class EditPatientCaseComponent implements OnInit {
     this.selectedPatientCase = patientCase;
   }
   remove(index: number) {
+    var deleted: PatientCase = this.patient.cases[index];
     this.patient.cases.splice(index, 1);
+    this.updatePatientCases(Operation.delete, deleted)
   }
   toggleVisibility(entity_name: string) {
     switch (entity_name) {

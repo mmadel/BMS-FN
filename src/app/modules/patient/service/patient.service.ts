@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Patient } from '../../model/clinical/patient';
 import { PatientCase } from '../../model/clinical/patient.case';
 import { PatientInsurance } from '../../model/clinical/patient.insurance';
+import { UpdatePatientProfile } from '../../model/clinical/update.profile/update.patient.profile';
 import { IApiParams } from '../../model/interface/api.params';
 import { BasePaginationService } from '../../model/service/base-pagination.service';
 
@@ -19,6 +20,11 @@ export class PatientService extends BasePaginationService {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create'
     return this.httpClient.post(`${url}`, JSON.stringify(patient), { 'headers': headers })
+  }
+  update(patientProfile: UpdatePatientProfile) {
+    const headers = { 'content-type': 'application/json' }
+    var url = this.baseUrl + '/update'
+    return this.httpClient.put(`${url}`, JSON.stringify(patientProfile), { 'headers': headers })
   }
 
   createPatientInsurance(patientInsurance: PatientInsurance, patientId: number) {

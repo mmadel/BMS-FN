@@ -25,7 +25,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
   sessionServiceCodeLines$: Observable<SessionServiceCodeLine[]>
   selectedSessionServiceCodeLine: SelectedSessionServiceLine[]
   sessionServiceCodeLine: SessionServiceCodeLine
-  sessionId:number;
+  sessionId: number;
   clientId: Observable<number>
   client: Patient;
   editSessionVisibility: boolean = false;
@@ -125,6 +125,7 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     }
   }
   changeVisibility(component: any) {
+    console.log(component)
     switch (component) {
       case "session":
         this.editSessionVisibility = false;

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../../model/clinical/patient';
+import { UpdatePatientProfile } from '../../model/clinical/update.profile/update.patient.profile';
 import { Country } from '../../model/common/country';
 import { Gender } from '../../model/enum/geneder';
 import { MaritalStatus } from '../../model/enum/marital.status';
@@ -11,6 +12,7 @@ import { States } from '../../model/lookups/state-data-store';
 import { PatientService } from '../service/patient.service';
 import { EditPatientCaseComponent } from './components/edit.patient-case/edit-patient-case.component';
 import { EditPatientInsuranceComponent } from './components/edit.patient.insurance/edit-patient-insurance.component';
+import { EditPatientSessionComponent } from './components/edit.patient.session/edit-patient-session.component';
 
 @Component({
   selector: 'patient-edit-profile',
@@ -30,15 +32,35 @@ export class EditProfileComponent implements OnInit {
   patientDOB: Date
   @ViewChild('editPatientInsuranceComponent') editPatientInsuranceComponent: EditPatientInsuranceComponent;
   @ViewChild('editPatientCaseComponent') editPatientCaseComponent: EditPatientCaseComponent;
+  @ViewChild('editPatientSessionComponent') editPatientSessionComponent: EditPatientSessionComponent;
+  @Output() changeVisibility = new EventEmitter<string>()
   constructor(private patientService: PatientService, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
   }
   update() {
-    //   this.patientService.create(this.patient)
-    //     .subscribe((result) => {
-    //       this.toastr.success('Patient updated')
-    //     })
-    console.log(JSON.stringify(this.editPatientCaseComponent.patientcases))
+    var updatePatientProfile: UpdatePatientProfile = {
+      insurances: this.editPatientInsuranceComponent.patientInsurances,
+      cases: this.editPatientCaseComponent.patientcases,
+      sessions: this.editPatientSessionComponent.patientSessions,
+      patientId: this.patient.id
+    }
+    this.patientService.update(updatePatientProfile).subscribe(result => {
+      this.changeVisibility.emit('profile');
+      this.scrollUp();
+      this.toastr.success("pateint profile updated")
+    }, error => {
+      console.log(error)
+      this.scrollUp();
+      this.toastr.error("Error during update patient profile")
+    })
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

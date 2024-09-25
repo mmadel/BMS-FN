@@ -6,7 +6,7 @@ import { Operation } from '../../enum/operation';
 import { PatientSessionBillingComponent } from './patient.session/patient.session.billing/patient-session-billing.component';
 import { PatientSessionCodingComponent } from './patient.session/patient.session.coding/patient-session-coding.component';
 import { PatientSessionSchedulingComponent } from './patient.session/patient.session.scheduling/patient-session-scheduling.component';
-interface PatientSessions {
+export interface PatientSessions {
   operation: Operation,
   patientSession: PatientSession
 }
@@ -38,10 +38,10 @@ export class EditPatientSessionComponent implements OnInit {
     this.editPatientSessionVisibility = true;
     this.selectedPatientSession = patientSession;
   }
-  remove(index: number) {
-    this.patient.sessions.splice(index, 1);
-    this.updatePatientCases(Operation.delete, this.patient.sessions[index])
-  }
+  // remove(index: number) {
+  //   this.patient.sessions.splice(index, 1);
+  //   this.updatePatientCases(Operation.delete, this.patient.sessions[index])
+  // }
   toggleVisibility(entity_name: string) {
     switch (entity_name) {
       case 'create-session':

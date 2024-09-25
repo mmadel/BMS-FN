@@ -174,7 +174,8 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_birthDate = moment(this.patientInsurance.patientRelation.dob).unix() * 1000;
       if (this.mode === 'create-edit-patient-profile' || this.mode === 'edit-edit-patient-profile')
         this.changeVisibility.emit('close');
-      if (this.mode === 'create' || this.mode === 'update')
+      console.log(this.mode)
+      if (this.mode === 'create' || this.mode === 'edit')
         this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
           .subscribe((result: any) => {
             this.patientInsurance.assigner = result.records.assigner;
@@ -185,6 +186,7 @@ export class CreateInsuranceComponent implements OnInit {
             this.scrollUp();
             this.changeVisibility.emit('close');
           }, error => {
+            console.log(error)
             this.toastr.error("Error during creating patient insurance")
           })
 
