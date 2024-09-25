@@ -131,7 +131,7 @@
                             [(ngModel)]="patient.address.first" />
                     </c-col>
                     <c-col xs="12">
-                        <input cFormControl sizing="sm" class="mb-1" name="vpCity" [value]="patient.address.city" />
+                        <input cFormControl sizing="sm" class="mb-1" name="vpCity" [(ngModel)]="patient.address.city" />
                     </c-col>
                     <c-col xs="12">
                         <select cFormControl cSelect sizing="sm" id="vpstate" name="vpstate" #state="ngModel"

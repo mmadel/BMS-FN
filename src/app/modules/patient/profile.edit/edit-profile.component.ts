@@ -39,11 +39,12 @@ export class EditProfileComponent implements OnInit {
     this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
   }
   update() {
+    console.log(JSON.stringify(this.patient))
     var updatePatientProfile: UpdatePatientProfile = {
       insurances: this.editPatientInsuranceComponent.patientInsurances,
       cases: this.editPatientCaseComponent.patientcases,
       sessions: this.editPatientSessionComponent.patientSessions,
-      patientId: this.patient.id
+      patient: this.patient
     }
     this.patientService.update(updatePatientProfile).subscribe(result => {
       this.changeVisibility.emit('profile');
