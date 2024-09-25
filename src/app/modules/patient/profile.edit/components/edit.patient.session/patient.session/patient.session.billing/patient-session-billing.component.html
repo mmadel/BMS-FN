@@ -93,6 +93,7 @@
                                                 <th scope="col"></th>
                                                 <th scope="col">Code</th>
                                                 <th scope="col">Description</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -103,6 +104,14 @@
                                                 </th>
                                                 <td>{{diagnosis.diagnosisCode}}</td>
                                                 <td>{{diagnosis.diagnosisDescription}}</td>
+                                                <td>
+                                                    <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                                                        <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                                            (click)="remove(i)">
+                                                            <svg cIcon name="cilTrash"></svg>
+                                                        </button>
+                                                    </c-button-group>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

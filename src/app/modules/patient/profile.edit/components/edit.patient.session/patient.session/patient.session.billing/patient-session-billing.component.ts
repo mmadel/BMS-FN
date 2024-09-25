@@ -68,6 +68,9 @@ export class PatientSessionBillingComponent implements OnInit {
       this.caseDiagnosisService.selectedCaseDiagnosis$.next(this.diagnosises)
     }
   }
+  remove(index: number) {
+    this.diagnosises.splice(index, 1);
+  }
   private findClinics() {
     this.clinicService.findAllWithoutPagination()
       .subscribe((result: any) => {
@@ -93,5 +96,4 @@ export class PatientSessionBillingComponent implements OnInit {
     else
       this.validation[2] = false;
   }
-
 }

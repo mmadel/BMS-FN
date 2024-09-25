@@ -54,6 +54,10 @@ export class PatientSessionCodingComponent implements OnInit {
       }
     }
   }
+  remove(index: number) {
+    this.serviceCodes.splice(index, 1);
+    this.countChargeUnit();
+  }
   private fetchFeeSchdule() {
     this.feeCtrl.valueChanges
       .pipe(
@@ -120,6 +124,7 @@ export class PatientSessionCodingComponent implements OnInit {
       this.serviceCodes.push(this.serviceCode);
     }
     this.serviceCode = { cptCode: {} };
+    this.modifier = []
     this.countChargeUnit();
   }
   countChargeUnit() {

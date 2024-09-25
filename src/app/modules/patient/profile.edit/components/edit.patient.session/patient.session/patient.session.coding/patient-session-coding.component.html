@@ -78,9 +78,9 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Code</th>
                                     <th scope="col">Modifier</th>
-                                    <th scope="col">LineNote</th>
                                     <th scope="col">Unit</th>
                                     <th scope="col">Charge</th>
+                                    <th scope="col">Action</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -94,7 +94,7 @@
                                     <td style="width: 5%;">
                                         <c-button-group aria-label="Button outlined group with nested dropdown"
                                             role="group">
-                                            <button cButton color="info" variant="outline" size="sm">
+                                            <button cButton color="info" variant="outline" size="sm" (click)="remove(i)">
                                                 <svg cIcon name="cilTrash"></svg>
                                             </button>
                                         </c-button-group>
