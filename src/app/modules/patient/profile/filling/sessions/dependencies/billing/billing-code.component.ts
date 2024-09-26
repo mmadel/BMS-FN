@@ -45,6 +45,7 @@ export class BillingCodeComponent implements OnInit {
   clinics: Clinic[];
   compareFn = this._compareFn.bind(this);
   activePane = 0;
+  disableDefaultModifierRule :boolean = false;
   constructor(private emitPatientSessionService: EmitPatientSessionService,
     private clinicService: ClinicService,
     private modifierRuleService: ModifierRuleService,
@@ -66,6 +67,7 @@ export class BillingCodeComponent implements OnInit {
       })
   }
   applyModifierRule() {
+    this.disableDefaultModifierRule = true;
     this.modifierRuleService.fireDefault(this.serviceCodeListComponent.serviceCodes).subscribe((result:any)=>{
       this.toastr.success("Default Modifier Rule is Fired")
       this.emitPatientSessionService.sessionserviceCodes$.next(result)  
