@@ -2,10 +2,13 @@
     <ngx-spinner></ngx-spinner>
     <c-row>
         <c-col xs="5">
+            <small *ngIf="notValidForm[0]" class="form-text text-danger">
+                Rule Name Is required
+            </small>
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Rule Name</span>
                 <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="ruleName"
-                    [disabled]="defaultRule" />
+                    required="true" [disabled]="defaultRule" />
             </c-input-group>
         </c-col>
     </c-row>
@@ -64,6 +67,9 @@
             <!-- CPT Code description-->
         </c-col>
     </c-row>
+    <small *ngIf="notValidForm[1]" class="form-text text-danger">
+        Select rule action
+    </small>
     <h3>How to Append Modifier</h3>
     <c-row>
         <c-col xs="2">

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { InsuranceCompanyHolder } from 'src/app/modules/model/admin/insurance.company.holder';
 import { Role } from 'src/app/modules/secuirty/model/roles';
@@ -21,8 +22,9 @@ export class RuleCreationComponent implements OnInit {
   @Input() editModifierRule: ModifierRule;
   @Input() defaultRule: boolean
   ruleName: string
-  insurance: any  ;
+  insurance: any;
   mode: string = 'create';
+  notValidForm: boolean[] = [];
   constructor(private modifierRuleService: ModifierRuleService,
     private toastr: ToastrService) { }
   ngOnInit(): void {
@@ -48,6 +50,7 @@ export class RuleCreationComponent implements OnInit {
 
 
   create() {
+    this.validateForm();
     this.modifierRule = {
       id: this.mode === 'create' ? null : this.editModifierRule.id,
       name: this.ruleName,
@@ -59,19 +62,30 @@ export class RuleCreationComponent implements OnInit {
       this.modifierRule.insuranceCompany = this.insurance;
     else
       this.modifierRule.insuranceCompany = null;
-    this.modifierRuleService.create(this.modifierRule).subscribe(() => {
-      if (this.mode === 'create')
-        this.changeVisibility.emit('close_create')
-      else
-        this.changeVisibility.emit('close_update')
-      this.toastr.success('Modifier Rule Created.')
-    })
+    if (this.notValidForm.every(value => value === false))
+      this.modifierRuleService.create(this.modifierRule).subscribe(() => {
+        if (this.mode === 'create')
+          this.changeVisibility.emit('close_create')
+        else
+          this.changeVisibility.emit('close_update')
+        this.toastr.success('Modifier Rule Created.')
+      })
   }
   _compareFn(a: any, b: any) {
     return a?.id === b?.id;
   }
 
+  private validateForm() {
+    if (this.ruleName === undefined || this.ruleName === '')
+      this.notValidForm[0] = true;
+    else
+      this.notValidForm[0] = false;
 
+    if (this.rule.appender === undefined || this.rule.appender === '')
+      this.notValidForm[1] = true;
+    else
+      this.notValidForm[1] = false;
+  }
 
   private findMetaData() {
     this.defaultRule ? this.ruleName = "Default Rule" : ""
