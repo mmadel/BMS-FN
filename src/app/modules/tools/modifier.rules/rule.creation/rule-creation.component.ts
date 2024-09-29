@@ -50,7 +50,6 @@ export class RuleCreationComponent implements OnInit {
 
 
   create() {
-    this.validateForm();
     this.modifierRule = {
       id: this.mode === 'create' ? null : this.editModifierRule.id,
       name: this.ruleName,
@@ -62,14 +61,13 @@ export class RuleCreationComponent implements OnInit {
       this.modifierRule.insuranceCompany = this.insurance;
     else
       this.modifierRule.insuranceCompany = null;
-    if (this.notValidForm.every(value => value === false))
-      this.modifierRuleService.create(this.modifierRule).subscribe(() => {
-        if (this.mode === 'create')
-          this.changeVisibility.emit('close_create')
-        else
-          this.changeVisibility.emit('close_update')
-        this.toastr.success('Modifier Rule Created.')
-      })
+    this.modifierRuleService.create(this.modifierRule).subscribe(() => {
+      if (this.mode === 'create')
+        this.changeVisibility.emit('close_create')
+      else
+        this.changeVisibility.emit('close_update')
+      this.toastr.success('Modifier Rule Created.')
+    })
   }
   _compareFn(a: any, b: any) {
     return a?.id === b?.id;
@@ -96,19 +94,25 @@ export class RuleCreationComponent implements OnInit {
   }
 
   addRow() {
+    this.validateForm();
     var modifierValidation = this.validatModifier();
-    if (modifierValidation.length === 0) {
-      this.buildModel();
-      this.rules.push(this.rule)
-      this.clearModel()
+    if (this.notValidForm.every(value => value === false)) {
+      if (modifierValidation.length === 0) {
+        this.buildModel();
+        this.rules.push(this.rule)
+        this.clearModel()
+      }
     }
   }
   editRow() {
-    let indexToUpdate = this.rules.findIndex(item => item.id === this.rule.id);
-    this.buildModel();
-    this.rules[indexToUpdate] = this.rule
-    this.clearModel()
-    this.lineMode = 'create'
+    this.validateForm();
+    if (this.notValidForm.every(value => value === false)) {
+      let indexToUpdate = this.rules.findIndex(item => item.id === this.rule.id);
+      this.buildModel();
+      this.rules[indexToUpdate] = this.rule
+      this.clearModel()
+      this.lineMode = 'create'
+    }
   }
   deleteRow(index: number) {
     this.rules.splice(index, 1);
