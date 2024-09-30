@@ -19,11 +19,12 @@
         <form cForm>
           <c-row>
             <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="Username" cFormControl placeholder="Name"
-                sizing="sm"  [(ngModel)]="patientSearchCriteria.name" name="sc_pname"/>
+              <input aria-describedby="basic-addon1" aria-label="Username" cFormControl placeholder="Name" sizing="sm"
+                [(ngModel)]="patientSearchCriteria.name" name="sc_pname" />
             </c-col>
             <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="phone" cFormControl placeholder="Phone" sizing="sm" />
+              <input aria-describedby="basic-addon1" aria-label="phone" cFormControl placeholder="Phone" sizing="sm"
+                [ngModel]="patientSearchCriteria.phone |phone" (ngModelChange)="patientSearchCriteria.phone=$event" #phone="ngModel" name="phone" />
             </c-col>
             <c-col class="mb-2" xs="12">
               <input aria-describedby="basic-addon1" aria-label="address" cFormControl placeholder="Address"
