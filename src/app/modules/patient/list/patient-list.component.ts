@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { map, Observable, tap } from 'rxjs';
 import { MinimalPatient } from '../../model/clinical/minimal.patient';
 import { PatientResponse } from '../../model/clinical/patient.response';
+import { PatientSearchCriteria } from '../../model/clinical/patient.search.criteria';
 import { ListTemplate } from '../../model/template/list.template';
-import { RoleScope } from '../../secuirty/model/role.scope';
 import { Role } from '../../secuirty/model/roles';
-import { RoleScopeFinderService } from '../../secuirty/service/role-scope-finder.service';
 import { PatientService } from '../service/patient.service';
 @Component({
   selector: 'app-patient-list',
@@ -16,6 +15,7 @@ import { PatientService } from '../service/patient.service';
 })
 export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<MinimalPatient[]>;
+  patientSearchCriteria:PatientSearchCriteria={}
   componentRole: string[] = [Role.PATIENT_ROLE ];
   constructor(private paitentService: PatientService
     , private router: Router) { super() }
@@ -46,6 +46,33 @@ export class PatientListComponent extends ListTemplate implements OnInit {
   }
   view(event: any) {
   }
+  search(){
+    this.patients$ = this.paitentService.findFilter(this.apiParams$, this.patientSearchCriteria).pipe(
+      tap((response: any) => {
+        this.totalItems$.next(response.number_of_matching_records);
+        if (response.number_of_records) {
+          this.errorMessage$.next('');
+        }
+        this.retry$.next(false);
+        this.loadingData$.next(false);
+      }),
+      map((response: any) => {
+        var list: PatientResponse[] = new Array()
+        for (var i = 0; i < response.records.length; i++) {
+          var obj: MinimalPatient = response.records[i];
+          var patientResponse: PatientResponse = {
+            id: obj.id,
+            name: obj.name,
+            dob: moment.unix(obj.dateOfBirth / 1000).toDate(),
+            email: obj.email,
+          }
+          list.push(patientResponse)
+        }
+        return list;
+      })
+    );
+  }
+
   find() {
     this.patients$ = this.paitentService.findAll(this.apiParams$).pipe(
       tap((response: any) => {

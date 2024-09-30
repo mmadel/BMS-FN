@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Patient } from '../../model/clinical/patient';
 import { PatientCase } from '../../model/clinical/patient.case';
 import { PatientInsurance } from '../../model/clinical/patient.insurance';
+import { PatientSearchCriteria } from '../../model/clinical/patient.search.criteria';
 import { UpdatePatientProfile } from '../../model/clinical/update.profile/update.patient.profile';
 import { IApiParams } from '../../model/interface/api.params';
 import { BasePaginationService } from '../../model/service/base-pagination.service';
@@ -51,6 +52,10 @@ export class PatientService extends BasePaginationService {
   public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {
     var url = this.baseUrl + '/find'
     return this.get(config$, url)
+  }
+  public findFilter(config$: BehaviorSubject<IApiParams>,patientSearchCriteria:PatientSearchCriteria): Observable<any> {
+    var url = this.baseUrl + '/find/filter'
+    return this.post(config$, url, JSON.stringify(patientSearchCriteria))
   }
 
   public findById(patientId: number) {

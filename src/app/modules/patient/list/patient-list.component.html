@@ -20,7 +20,7 @@
           <c-row>
             <c-col class="mb-2" xs="12">
               <input aria-describedby="basic-addon1" aria-label="Username" cFormControl placeholder="Name"
-                sizing="sm" />
+                sizing="sm"  [(ngModel)]="patientSearchCriteria.name" name="sc_pname"/>
             </c-col>
             <c-col class="mb-2" xs="12">
               <input aria-describedby="basic-addon1" aria-label="phone" cFormControl placeholder="Phone" sizing="sm" />
@@ -57,7 +57,7 @@
               </select>
             </c-col>
             <c-col xs="12" class="text-center">
-              <button cButton class="me-1" color="primary" style="width: 15%;">
+              <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">
                 Search
               </button>
             </c-col>
