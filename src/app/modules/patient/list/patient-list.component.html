@@ -27,11 +27,8 @@
                 [ngModel]="patientSearchCriteria.phone |phone" (ngModelChange)="patientSearchCriteria.phone=$event" #phone="ngModel" name="phone" />
             </c-col>
             <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="address" cFormControl placeholder="Address"
-                sizing="sm" />
-            </c-col>
-            <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Email" sizing="sm" />
+              <input aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Email" sizing="sm" 
+              [(ngModel)]="patientSearchCriteria.email" name="sc_pemail"/>
             </c-col>
             <c-col class="mb-2" xs="4">
               <select aria-label="Insurance company" id="insurancecompany" cSelect sizing="sm">
