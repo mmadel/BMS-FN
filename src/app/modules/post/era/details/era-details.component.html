@@ -73,7 +73,7 @@
             </c-row>
           </td>
           <td>
-            <span [ngClass]="{'fw-bold': item.touched}">{{item.reasons}}</span>
+            <span [ngClass]="{'fw-bold': item.touched}">{{item.reasons | sort}}</span>
           </td>
           <td>
             <select id="era-actions" name="era-actions" [(ngModel)]="item.action" *ngIf="!item.touched">

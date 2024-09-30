@@ -14,6 +14,7 @@ import { DisableDatePickerDirective } from './directives/permissions/disable.dat
 import { DisableDateRangeDirective } from './directives/permissions/disable.date.range.picker/disable-date-range.directive';
 import { DisableTimePickerDirective } from './directives/permissions/disable.time.picker/disable-time-picker.directive';
 import { DisableAutoCompleteDirective } from './directives/permissions/disable.auto.complete/disable-auto-complete.directive';
+import { SortNumberPipe } from './pipe/sort/sort-number.pipe';
 
 const APP_COMMON_DIRECTIVES = [
   ZipCodeDirective,
@@ -34,6 +35,7 @@ const APP_COMMON_DIRECTIVES = [
     ClonePipe,
     PhonePipe,
     StatePipe,
+    SortNumberPipe,
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,7 @@ const APP_COMMON_DIRECTIVES = [
     ClonePipe,
     PhonePipe,
     StatePipe,
+    SortNumberPipe,
     ReactiveFormsModule, FormsModule
   ]
 })
