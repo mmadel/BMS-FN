@@ -24,35 +24,17 @@
             </c-col>
             <c-col class="mb-2" xs="12">
               <input aria-describedby="basic-addon1" aria-label="phone" cFormControl placeholder="Phone" sizing="sm"
-                [ngModel]="patientSearchCriteria.phone |phone" (ngModelChange)="patientSearchCriteria.phone=$event" #phone="ngModel" name="phone" />
+                [ngModel]="patientSearchCriteria.phone |phone" (ngModelChange)="patientSearchCriteria.phone=$event"
+                #phone="ngModel" name="phone" />
             </c-col>
             <c-col class="mb-2" xs="12">
-              <input aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Email" sizing="sm" 
-              [(ngModel)]="patientSearchCriteria.email" name="sc_pemail"/>
+              <input aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Email" sizing="sm"
+                [(ngModel)]="patientSearchCriteria.email" name="sc_pemail" />
             </c-col>
-            <c-col class="mb-2" xs="4">
-              <select aria-label="Insurance company" id="insurancecompany" cSelect sizing="sm">
-                <option value="1">Insurance Company</option>
-                <option value="1">company-one</option>
-                <option value="2">company-two</option>
-                <option value="3">company-three</option>
-              </select>
-            </c-col>
-            <c-col class="mb-2" xs="4">
-              <select aria-label="Provider" id="provider" cSelect sizing="sm">
-                <option value="1">Provider</option>
-                <option value="1">Provider-one</option>
-                <option value="2">Provider-two</option>
-                <option value="3">Provider-three</option>
-              </select>
-            </c-col>
-            <c-col class="mb-2" xs="4">
-              <select aria-label="Facility" id="facility" cSelect sizing="sm">
-                <option value="1">Facility</option>
-                <option value="1">Facility-one</option>
-                <option value="2">Facility-two</option>
-                <option value="3">Facility-three</option>
-              </select>
+            <c-col class="mb-2" xs="12">
+              <input
+               aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Insurance Company" sizing="sm"
+                [(ngModel)]="patientSearchCriteria.insuranceCompany" name="sc_peinsuranceCompany" />
             </c-col>
             <c-col xs="12" class="text-center">
               <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">
