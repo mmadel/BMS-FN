@@ -21,11 +21,11 @@ export class ServiceCodeListComponent implements OnInit {
   constructor(private emitPatientSessionService: EmitPatientSessionService) { }
 
   ngOnInit(): void {
-    this.populateList();
-    // if (this.editMode)
-    //   this.populateList();
-    // else
-    //   this.serviceCodes = new Array();
+    // this.populateList();
+    if (this.editMode)
+      this.populateList();
+    else
+      this.serviceCodes = new Array();
   }
   toggleEditServiceLine(serviceCode: ServiceCode, index: number) {
     this.emitPatientSessionService.sessionserviceCode$.next(serviceCode)
