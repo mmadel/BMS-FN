@@ -24,58 +24,19 @@ export class CaseAddDaignosisComponent implements OnInit {
   diagnosisError: string = ''
   componentScopes: string[] = [Role.PATIENT_ROLE];
   @Output() changeVisibility = new EventEmitter<string>()
+  isICD10diagnosisSelected: boolean = false;
   constructor(private caseDiagnosisService: CaseDiagnosisService
     , private emitPatientSessionService: EmitPatientSessionService) { }
 
 
   ngOnInit(): void {
     this.initModel()
-    this.diagnosisCtrl.valueChanges
-      .pipe(
-        filter(text => {
-          if (text === undefined)
-            return false;
-          if (text.length > 1) {
-            return true
-          } else {
-            this.filteredDiagnosis = [];
-            return false;
-          }
-        }),
-        debounceTime(500),
-        tap((value) => {
-          this.filteredDiagnosis = [];
-          this.isLoading = true;
-        }),
-        switchMap((value) => {
-          return this.caseDiagnosisService.find(value)
-            .pipe(
-              finalize(() => {
-                this.isLoading = false
-              }),
-            )
-        }
-        )
-      )
-      .subscribe(data => {
-        if (data == undefined) {
-          this.filteredDiagnosis = [];
-        } else {
-          var diagnosisResponse: any = data;
-          this.filteredDiagnosis = diagnosisResponse.listOfCodeName;
-        }
-      },
-        error => {
-          this.isLoading = false
-        });
   }
 
   initModel() {
     switch (this.mode) {
       case 'create':
       case 'create-edit-patient-profile':
-        this.diagnosisCtrl.setValue('')
-        this.filteredDiagnosis = []
         this.case = {
           caseDiagnosis: []
         };
@@ -87,14 +48,13 @@ export class CaseAddDaignosisComponent implements OnInit {
     }
   }
   selectICD10diagnosis(event: any) {
-    var diagnosis: string = event.target.value
-    var diagnosisArr = diagnosis.split(',')
-    var code: string = diagnosisArr[0]
-    var desrciption: string = diagnosisArr.slice(1).toString();
-    this.diagnosis.diagnosisCode = code
-    this.diagnosis.diagnosisDescription = desrciption;
+    console.log(event.target.value);
+    this.prepareICD10diagnosis(event.target.value)
+    this.isICD10diagnosisSelected = true;
   }
   addICD10diagnosis() {
+    if(!this.isICD10diagnosisSelected)
+    this.prepareICD10diagnosis(this.filteredDiagnosis[0].flat().map(item => `${item}`).join(", "));
     if (this.case.caseDiagnosis.length === 0)
       this.diagnosis.primary = true
     else
@@ -106,12 +66,24 @@ export class CaseAddDaignosisComponent implements OnInit {
   remove(index: number) {
     this.case.caseDiagnosis.splice(index, 1);
   }
+  private prepareICD10diagnosis(selectedDiagnosis: any) {
+    var diagnosis: string = selectedDiagnosis
+    var diagnosisArr = diagnosis.split(',')
+    var code: string = diagnosisArr[0]
+    var desrciption: string = diagnosisArr.slice(1).toString();
+    this.diagnosis.diagnosisCode = code
+    this.diagnosis.diagnosisDescription = desrciption;
+  }
   search() {
     this.caseDiagnosisService.find(this.diagnosisValue).subscribe(data => {
+      this.filteredDiagnosis = []
       if (data !== undefined) {
         var diagnosisResponse: any = data;
         this.filteredDiagnosis = diagnosisResponse.listOfCodeName;
+        this.isICD10diagnosisSelected = false;
       }
+    },error=>{
+      console.log(error)
     })
   }
   createOrUpdate() {
