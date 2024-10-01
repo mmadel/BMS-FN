@@ -76,11 +76,25 @@
                                 <span cInputGroupText>
                                     <svg cIcon name="cilUser" title="cilUser"></svg>
                                 </span>
-                                <select aria-label="" cSelect #gender="ngModel" name="gender" required
+                                <select aria-label="" cSelect #gender="ngModel" name="genderidn"
                                     [(ngModel)]="patient.gender">
                                     <option [value]="null">Select Gender</option>
                                     <option *ngFor="let genderValue of genderKeys(genders)" [ngValue]="genderValue">
                                         {{genders[genderValue]}}
+                                    </option>
+                                </select>
+                            </c-input-group>
+                        </c-col>
+                        <c-col>
+                            <c-input-group sizing="sm">
+                                <span cInputGroupText>
+                                    <svg cIcon name="cilList" title="cilUser"></svg>
+                                </span>
+                                <select aria-label="" cSelect #gender="ngModel" name="genderIden" required
+                                    [(ngModel)]="patient.genderIdentity">
+                                    <option [value]="null">Select Gender Identity</option>
+                                    <option *ngFor="let genderIdenValue of genderIdentity(gendersIdentity)" [ngValue]="genderIdenValue">
+                                        {{gendersIdentity[genderIdenValue]}}
                                     </option>
                                 </select>
                             </c-input-group>

@@ -37,6 +37,21 @@
                                     readOnly />
                             </c-input-group>
                         </c-col>
+                        <c-col>
+                            <c-input-group sizing="sm">
+                                <span cInputGroupText>
+                                    <svg cIcon name="cilList" title="cilUser"></svg>
+                                </span>
+                                <select aria-label="" cSelect #gender="ngModel" name="genderIden" required
+                                    [(ngModel)]="patient.genderIdentity">
+                                    <option [value]="null">Select Gender Identity</option>
+                                    <option *ngFor="let genderIdenValue of genderIdentity(gendersIdentity)"
+                                        [ngValue]="genderIdenValue">
+                                        {{gendersIdentity[genderIdenValue]}}
+                                    </option>
+                                </select>
+                            </c-input-group>
+                        </c-col>
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
@@ -137,8 +152,8 @@
                             </select>
                         </c-col>
                         <c-col xs="12">
-                            <input  cFormControl  [value]="patient.address.zipCode"
-                                readonly sizing="sm" id="vpzipCode" name="vpzipCode" class="mb-1" />
+                            <input cFormControl [value]="patient.address.zipCode" readonly sizing="sm" id="vpzipCode"
+                                name="vpzipCode" class="mb-1" />
                         </c-col>
                     </c-row>
                 </c-card-body>

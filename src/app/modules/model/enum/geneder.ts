@@ -1,6 +1,8 @@
 export enum Gender {
     Male = "Male",
-    Female = "Female",
+    Female = "Female"
+}
+export enum GenderIdentity {
     NonBinary = "NonBinary",
     SelfDescribe = "SelfDescribe",
     NotPrefer = "NotPrefer",

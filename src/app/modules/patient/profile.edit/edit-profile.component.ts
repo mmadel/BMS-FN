@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../../model/clinical/patient';
 import { UpdatePatientProfile } from '../../model/clinical/update.profile/update.patient.profile';
 import { Country } from '../../model/common/country';
-import { Gender } from '../../model/enum/geneder';
+import { Gender, GenderIdentity } from '../../model/enum/geneder';
 import { MaritalStatus } from '../../model/enum/marital.status';
 import { PhoneType } from '../../model/enum/phone.type';
 import { Countries } from '../../model/lookups/country-data-store';
@@ -23,6 +23,8 @@ export class EditProfileComponent implements OnInit {
   @Input() patient: Patient = {}
   genders = Gender;
   genderKeys = Object.values;
+  gendersIdentity = GenderIdentity;
+  genderIdentity = Object.values;
   maritalStatuses = MaritalStatus;
   maritalStatusKeys = Object.values;
   phoneTypes = PhoneType

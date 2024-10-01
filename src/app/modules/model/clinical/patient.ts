@@ -14,6 +14,7 @@ export interface Patient {
     birthDate?: number;
     maritalStatus?: string;
     gender?: string;
+    genderIdentity?:string
     address?: Address
     cases?: PatientCase[];
     sessions?: PatientSession[];

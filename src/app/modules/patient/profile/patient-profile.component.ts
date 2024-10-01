@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { filter, first, tap } from 'rxjs';
 import { Patient } from '../../model/clinical/patient';
 import { Country } from '../../model/common/country';
-import { Gender } from '../../model/enum/geneder';
+import { Gender, GenderIdentity } from '../../model/enum/geneder';
 import { MaritalStatus } from '../../model/enum/marital.status';
 import { PhoneType } from '../../model/enum/phone.type';
 import { Countries } from '../../model/lookups/country-data-store';
@@ -30,7 +30,9 @@ export class PatientProfileComponent implements OnInit {
   patient: Patient
   patientDOB: Date
   genderKeys = Object.values;
+  genderIdentity = Object.values;
   genders = Gender;
+  gendersIdentity=GenderIdentity;
   maritalStatusKeys = Object.values;
   maritalStatuses = MaritalStatus;
   phoneTypesKeys = Object.values;

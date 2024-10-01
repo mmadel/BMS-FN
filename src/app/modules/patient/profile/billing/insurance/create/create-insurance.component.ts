@@ -7,7 +7,7 @@ import { Payer } from 'src/app/modules/model/admin/payer';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { Country } from 'src/app/modules/model/common/country';
-import { Gender } from 'src/app/modules/model/enum/geneder';
+import { Gender, GenderIdentity } from 'src/app/modules/model/enum/geneder';
 import { InsurancePlanType } from 'src/app/modules/model/enum/insurance.plan.type';
 import { InsuranceResponsability } from 'src/app/modules/model/enum/insurance.responsability';
 import { InformationRelease } from 'src/app/modules/model/enum/patient.insurance.information.release';
@@ -33,6 +33,8 @@ export class CreateInsuranceComponent implements OnInit {
   relations = Relation;
   genderKeys = Object.values;
   genders = Gender;
+  gendersIdentity = GenderIdentity;
+  genderIdentity = Object.values;
   countries: Country[] = Countries;
   states: string[] = States;
   insuranceResponsabilityKeys = Object.values;
@@ -73,6 +75,7 @@ export class CreateInsuranceComponent implements OnInit {
           isArchived: false,
           patientRelation: {
             r_gender: null,
+            r_genderIdentity : null,
             r_address: {
               country: null,
               state: null
