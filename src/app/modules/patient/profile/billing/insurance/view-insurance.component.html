@@ -2,8 +2,8 @@
 <c-row>
     <c-col xs="12">
         <div style="float: right;" class="mb-2">
-            <c-button cButton color="primary" class="btn-sm" (click)="toggleAddInsuranceVisibility()"
-                variant="outline" dispaly-input [componentRole]="componentRole">Create Patient Insurance</c-button>
+            <c-button cButton color="primary" class="btn-sm" (click)="toggleAddInsuranceVisibility()" variant="outline"
+                dispaly-input [componentRole]="componentRole">Create Patient Insurance</c-button>
         </div>
     </c-col>
     <c-col xs="12" *ngIf="patientInsurances">
@@ -12,7 +12,7 @@
                 <div style="float: right;">
                     <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                         <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                            (click)="edit(insurance)" >
+                            (click)="edit(insurance)">
                             <svg cIcon name="cilPen"></svg>
                         </button>
                         <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
@@ -30,9 +30,10 @@
                 <h2>
                     <strong>{{insurance.insuranceCompany[0]}}</strong>
                 </h2>
-                <h3>{{insurance.patientInsurancePolicy.responsibility}}</h3>
+                <h3><strong>Responsibility : {{insurance.patientInsurancePolicy.responsibility}}</strong></h3>
                 <h3>Plan : {{insurance.patientInsurancePolicy.planType}}</h3>
                 <h3>Primary ID : {{insurance.patientInsurancePolicy.primaryId}}</h3>
+                <h3>Payer Id : {{insurance.insuranceCompany[2]}}</h3>
             </div>
         </div>
     </c-col>
@@ -44,7 +45,7 @@
     </c-modal-header>
     <c-modal-body>
         <app-create-insurance *ngIf="addInsuranceVisibility" (changeVisibility)="changeVisibility($event)"
-            [mode] ="'create'" [patient]="patient" #createInsuranceComponent></app-create-insurance>
+            [mode]="'create'" [patient]="patient" #createInsuranceComponent></app-create-insurance>
     </c-modal-body>
 </c-modal>
 <c-modal id="editInsuranceModal" [visible]="editInsuranceVisibility" backdrop="static" size="lg">
@@ -54,8 +55,7 @@
     </c-modal-header>
     <c-modal-body>
         <app-create-insurance *ngIf="editInsuranceVisibility" (changeVisibility)="changeVisibility($event)"
-            [patient]="patient" #createInsuranceComponent
-            [mode] ="'edit'"
+            [patient]="patient" #createInsuranceComponent [mode]="'edit'"
             [editPatientInsurance]="editPatientInsurance"></app-create-insurance>
     </c-modal-body>
 </c-modal>
