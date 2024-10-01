@@ -58,7 +58,7 @@
                     Visit
                 </span>
                 <input cFormControl name="visit" required #visit="ngModel" [(ngModel)]="patientAuth.visit"
-                    readonly-input [componentRole]="componentRole" type="number" />
+                    readonly-input [componentRole]="componentRole" type="number" (focusout)="initPatientAuthRemainig()"/>
             </c-input-group>
         </c-col>
     </c-row>

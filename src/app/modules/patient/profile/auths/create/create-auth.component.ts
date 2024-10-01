@@ -62,7 +62,10 @@ export class CreateAuthComponent implements OnInit {
     })
 
   }
-  scrollUp() {
+  initPatientAuthRemainig(){
+    this.patientAuth.remaining = this.patientAuth.visit;
+  }
+  private scrollUp() {
     (function smoothscroll() {
       var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
       if (currentScroll > 0) {
