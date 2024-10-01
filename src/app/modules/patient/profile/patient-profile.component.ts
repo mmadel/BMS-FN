@@ -106,6 +106,7 @@ export class PatientProfileComponent implements OnInit {
           this.toastr.error('Error in Patient Created');
         })
       this.notValidForm = false
+      this.scrollUp();
     } else {
       this.notValidForm = true;
     }
@@ -114,5 +115,13 @@ export class PatientProfileComponent implements OnInit {
   private reset() {
     this.patientCreationForm.reset();
     this.patientDOB = null;
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 } 
