@@ -49,8 +49,8 @@ export class PatientService extends BasePaginationService {
     return this.httpClient.delete(`${url}`, { 'headers': headers })
   }
 
-  public findAll(config$: BehaviorSubject<IApiParams>): Observable<any> {
-    var url = this.baseUrl + '/find'
+  public findAll(config$: BehaviorSubject<IApiParams>,status:boolean): Observable<any> {
+    var url = this.baseUrl + '/find/status/' + status
     return this.get(config$, url)
   }
   public findFilter(config$: BehaviorSubject<IApiParams>,patientSearchCriteria:PatientSearchCriteria): Observable<any> {

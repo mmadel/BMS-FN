@@ -6,4 +6,5 @@ export interface PatientResponse{
     dob?:Date
     email?:string
     data?:Patient
+    status:boolean
 }

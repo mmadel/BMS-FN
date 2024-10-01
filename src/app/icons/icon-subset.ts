@@ -104,14 +104,14 @@ import {
   cilViewStream,
   cilHouse,
   cilFlagAlt,
-  cilAppsSettings,cilPhone,cibMailRu,cilBirthdayCake,cilViewColumn,cilEyedropper,cilBrowser,
+  cilAppsSettings, cilPhone, cibMailRu, cilBirthdayCake, cilViewColumn, cilEyedropper, cilBrowser,
   cilBank,
   cilMedicalCross,
   cilInstitution,
   cilWheelchair,
   cilExpandDown,
-  cilChevronCircleDownAlt,cilFilter,cilFilterX,cilHistory,cibIfixit, cibGmail, cilArrowThickBottom, cilArrowCircleBottom,cilArrowCircleTop,cilSearch
-  
+  cilChevronCircleDownAlt, cilFilter, cilFilterX, cilHistory, cibIfixit, cibGmail, cilArrowThickBottom, cilArrowCircleBottom, cilArrowCircleTop, cilSearch, cilLockUnlocked
+
 } from '@coreui/icons';
 
 export const iconSubset = {
@@ -235,7 +235,7 @@ export const iconSubset = {
   cilAppsSettings,
   cilInstitution,
   cilWheelchair,
-  cilExpandDown,cilChevronCircleDownAlt,cibGmail,cilArrowThickBottom,cilArrowCircleBottom,cilArrowCircleTop,cilSearch
+  cilExpandDown, cilChevronCircleDownAlt, cibGmail, cilArrowThickBottom, cilArrowCircleBottom, cilArrowCircleTop, cilSearch, cilLockUnlocked
 };
 
 export enum IconSubset {
@@ -271,7 +271,7 @@ export enum IconSubset {
   cilCalendar = 'cilCalendar',
   cilChart = 'cilChart',
   cilChartPie = 'cilChartPie',
-  cilCheck='cilCheck',
+  cilCheck = 'cilCheck',
   cilChevronLeft = 'cilChevronLeft',
   cilChevronRight = 'cilChevronRight',
   cilCloudDownload = 'cilCloudDownload',

@@ -3,4 +3,5 @@ export interface MinimalPatient{
      name?:string;
      dateOfBirth?:number;
      email?:string
+     status?:boolean;
 }

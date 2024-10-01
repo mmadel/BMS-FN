@@ -32,9 +32,8 @@
                 [(ngModel)]="patientSearchCriteria.email" name="sc_pemail" />
             </c-col>
             <c-col class="mb-2" xs="12">
-              <input
-               aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Insurance Company" sizing="sm"
-                [(ngModel)]="patientSearchCriteria.insuranceCompany" name="sc_peinsuranceCompany" />
+              <input aria-describedby="basic-addon1" aria-label="email" cFormControl placeholder="Insurance Company"
+                sizing="sm" [(ngModel)]="patientSearchCriteria.insuranceCompany" name="sc_peinsuranceCompany" />
             </c-col>
             <c-col xs="12" class="text-center">
               <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">
@@ -56,10 +55,11 @@
           Actions
         </button>
         <ul cDropdownMenu variant="outline">
-          <li><a cDropdownItem [routerLink]="[]">Activate (Selected)</a></li>
-          <li><a cDropdownItem [routerLink]="[]">Inactivate (Selected)</a></li>
-          <li cDropdownDivider></li>
-          <li><a cDropdownItem [routerLink]="[]">Show Inactive</a></li>
+          <!-- <li><a cDropdownItem [routerLink]="[]">Activate (Selected)</a></li>
+          <li><a cDropdownItem [routerLink]="[]">Inactivate (Selected)</a></li> -->
+          <li><a cDropdownItem [routerLink]="[]" (click)="viewActive()">Show Active</a></li>
+          <li><a cDropdownItem [routerLink]="[]" (click)="viewInActive()">Show Inactive</a></li>
+          <!-- <li cDropdownDivider></li> -->
         </ul>
       </c-dropdown>
     </c-button-group>
@@ -100,9 +100,16 @@
                   <button cButton variant="outline" (click)="edit(item)" size="sm">
                     <svg cIcon name="cilPen"></svg>
                   </button>
-                  <button cButton variant="outline" (click)="inactive(item)" size="sm">
-                    <svg cIcon name="cilLockLocked"></svg>
-                  </button>
+                  <span *ngIf="item.status">
+                    <button cButton variant="outline" (click)="inactive(item)" size="sm">
+                      <svg cIcon name="cilLockLocked"></svg>
+                    </button>
+                  </span>
+                  <span *ngIf="!item.status">
+                    <button cButton variant="outline" (click)="active(item)" size="sm">
+                      <svg cIcon name="cilLockUnlocked"></svg>
+                    </button>
+                  </span>
                 </div>
               </ng-container>
               <ng-container *ngSwitchDefault>

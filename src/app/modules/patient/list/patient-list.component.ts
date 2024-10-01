@@ -24,7 +24,7 @@ export class PatientListComponent extends ListTemplate implements OnInit {
 
   ngOnInit(): void {
     this.initListComponent();
-    this.find();
+    this.find(true);
   }
 
   columns = [
@@ -50,12 +50,25 @@ export class PatientListComponent extends ListTemplate implements OnInit {
     this.paitentService.changePatientStatus(patient.id, false).subscribe(reuslt => {
       this.toastrService.success("patient status is deactivated")
       this.scrollUp()
-      this.find()
-    },error=>{
+      this.find(true)
+    }, error => {
       this.toastrService.error("Error during deactivate patient")
     })
   }
-  view(event: any) {
+  active(patient: any) {
+    this.paitentService.changePatientStatus(patient.id, true).subscribe(reuslt => {
+      this.toastrService.success("patient status is activated")
+      this.scrollUp()
+      this.find(true)
+    }, error => {
+      this.toastrService.error("Error during activate patient")
+    })
+  }
+  viewActive() {
+    this.find(true);
+  }
+  viewInActive() {
+    this.find(false);
   }
   search() {
     this.patients$ = this.paitentService.findFilter(this.apiParams$, this.patientSearchCriteria).pipe(
@@ -76,6 +89,7 @@ export class PatientListComponent extends ListTemplate implements OnInit {
             name: obj.name,
             dob: moment.unix(obj.dateOfBirth / 1000).toDate(),
             email: obj.email,
+            status : obj.status
           }
           list.push(patientResponse)
         }
@@ -84,8 +98,8 @@ export class PatientListComponent extends ListTemplate implements OnInit {
     );
   }
 
-  find() {
-    this.patients$ = this.paitentService.findAll(this.apiParams$).pipe(
+  find(stauts: boolean) {
+    this.patients$ = this.paitentService.findAll(this.apiParams$, stauts).pipe(
       tap((response: any) => {
         this.totalItems$.next(response.number_of_matching_records);
         if (response.number_of_records) {
@@ -103,6 +117,7 @@ export class PatientListComponent extends ListTemplate implements OnInit {
             name: obj.name,
             dob: moment.unix(obj.dateOfBirth / 1000).toDate(),
             email: obj.email,
+            status : obj.status
           }
           list.push(patientResponse)
         }
