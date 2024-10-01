@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { filter } from 'rxjs';
+import { filter, tap } from 'rxjs';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { EmitPatientSessionService } from '../../../service/session/shared/emit-patient-session.service';
 
@@ -51,6 +51,7 @@ export class SessionServiceCodeListComponent implements OnInit {
   private populateList() {
     if (this.selectedServiceCodes === undefined)
       this.emitPatientSessionService.sessionserviceCodes$.pipe(
+        tap(result=>console.log('PUSHIDED..' + result)),
         filter((serviceCodes) => serviceCodes !== null)
       ).subscribe((serviceCodes) => {
         this.serviceCodes = new Array();
