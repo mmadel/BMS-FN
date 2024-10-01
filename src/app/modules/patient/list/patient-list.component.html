@@ -100,6 +100,9 @@
                   <button cButton variant="outline" (click)="edit(item)" size="sm">
                     <svg cIcon name="cilPen"></svg>
                   </button>
+                  <button cButton variant="outline" (click)="inactive(item)" size="sm">
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </button>
                 </div>
               </ng-container>
               <ng-container *ngSwitchDefault>

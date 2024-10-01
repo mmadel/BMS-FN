@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable, tap } from 'rxjs';
 import { MinimalPatient } from '../../model/clinical/minimal.patient';
 import { PatientResponse } from '../../model/clinical/patient.response';
@@ -15,10 +16,11 @@ import { PatientService } from '../service/patient.service';
 })
 export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<MinimalPatient[]>;
-  patientSearchCriteria:PatientSearchCriteria={}
-  componentRole: string[] = [Role.PATIENT_ROLE ];
+  patientSearchCriteria: PatientSearchCriteria = {}
+  componentRole: string[] = [Role.PATIENT_ROLE];
   constructor(private paitentService: PatientService
-    , private router: Router) { super() }
+    , private router: Router
+    , private toastrService: ToastrService) { super() }
 
   ngOnInit(): void {
     this.initListComponent();
@@ -44,9 +46,18 @@ export class PatientListComponent extends ListTemplate implements OnInit {
   edit(event: any) {
     this.router.navigate(['/patient/profile', event.id]);
   }
+  inactive(patient: any) {
+    this.paitentService.changePatientStatus(patient.id, false).subscribe(reuslt => {
+      this.toastrService.success("patient status is deactivated")
+      this.scrollUp()
+      this.find()
+    },error=>{
+      this.toastrService.error("Error during deactivate patient")
+    })
+  }
   view(event: any) {
   }
-  search(){
+  search() {
     this.patients$ = this.paitentService.findFilter(this.apiParams$, this.patientSearchCriteria).pipe(
       tap((response: any) => {
         this.totalItems$.next(response.number_of_matching_records);
@@ -98,5 +109,13 @@ export class PatientListComponent extends ListTemplate implements OnInit {
         return list;
       })
     );
+  }
+  scrollUp() {
+    (function smoothscroll() {
+      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      if (currentScroll > 0) {
+        window.scrollTo(0, 0);
+      }
+    })();
   }
 }

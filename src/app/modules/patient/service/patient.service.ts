@@ -87,4 +87,9 @@ export class PatientService extends BasePaginationService {
     var url = this.baseUrl + '/insurance-company/patientId/' + patientId
     return this.httpClient.get(url);
   }
+
+  public changePatientStatus(patientId:number , status:boolean){
+    var url = this.baseUrl + '/change-status/patientId/'+patientId + '/' + status;
+    return this.httpClient.put(url,null);
+  }
 }
