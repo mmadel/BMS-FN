@@ -16,7 +16,7 @@
 <div *ngFor="let key of getKeys(this.era.eraDetails.patientLines)" class="mb-2 border border-dark">
   <div class="m-3"><strong>{{capitalizeNames(key)}}</strong></div>
   <div class="m-3 table-container table-responsive">
-    <table class="table table-sm" >
+    <table class="table table-sm">
       <thead class="table-light">
         <tr>
           <th></th>
@@ -57,7 +57,7 @@
             </c-row>
           </td>
           <td><span [ngClass]="{'fw-bold': item.touched}">{{ item.deductAmount}}</span></td>
-          <td>{{ item.coInsuranceAmount}}</td>
+          <td><span [ngClass]="{'fw-bold': item.touched}">{{ item.coInsuranceAmount}}</span></td>
           <td>
             <c-row>
               <c-col xs="12"><span [ngClass]="{'fw-bold': item.touched}">{{ item.coPaymentAmount}}</span></c-col>
