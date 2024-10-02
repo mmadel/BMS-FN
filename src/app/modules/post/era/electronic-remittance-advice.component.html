@@ -60,9 +60,15 @@
                 <svg cIcon name="cilFlagAlt"></svg>
               </span>
             </ng-container>
+            <ng-container *ngSwitchCase="'lines'" class="py-2">
+              <strong>{{item.lines}}</strong>
+            </ng-container>
             <ng-container *ngSwitchCase="'unapplied'" class="py-2">
-              <span *ngIf="!item.seen" class="text-danger"> {{item.lines}}</span>
-              <span *ngIf="item.seen" class="text-danger"> {{item.lines - item.unAppliedLines}}</span>
+              <span *ngIf="!item.seen" class="text-danger"> <strong>{{item.lines}}</strong></span>
+              <span *ngIf="item.seen" class="text-danger"> <strong>{{item.lines - item.unAppliedLines}}</strong></span>
+            </ng-container>
+            <ng-container *ngSwitchCase="'paidAmount'" class="py-2">
+              <strong>{{item.paidAmount}}</strong>
             </ng-container>
             <ng-container *ngSwitchCase="'actions'" class="py-2">
               <div class="btn-group" role="group" aria-label="Basic example">
@@ -91,6 +97,7 @@
     <button (click)="toggleOpenERA()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <era-details *ngIf="openERAVisibility" [era]="selectedERAModel"  (changeVisibility)="changeOpenERAVisibility($event)"></era-details>
+    <era-details *ngIf="openERAVisibility" [era]="selectedERAModel"
+      (changeVisibility)="changeOpenERAVisibility($event)"></era-details>
   </c-modal-body>
 </c-modal>
