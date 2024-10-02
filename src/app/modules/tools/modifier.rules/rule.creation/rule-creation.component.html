@@ -35,16 +35,20 @@
         <c-col xs="5">
             <c-input-group sizing="sm" class="mb-1">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">Add Modifier(s)</span>
-                <input cFormControl maxlength="2" [(ngModel)]="modifier[0]"
+                <input cFormControl maxlength="2" [ngModel]="modifier[0]"
+                    (ngModelChange)="modifier[0] = $event.toUpperCase()"
                     [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[0] ===false}" readonly-input
                     [componentRole]="componentRole" />
-                <input cFormControl maxlength="2" [(ngModel)]="modifier[1]"
+                <input cFormControl maxlength="2" [ngModel]="modifier[1]"
+                    (ngModelChange)="modifier[1] = $event.toUpperCase()"
                     [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[1] ===false}" readonly-input
                     [componentRole]="componentRole" />
-                <input cFormControl maxlength="2" [(ngModel)]="modifier[2]"
+                <input cFormControl maxlength="2" [ngModel]="modifier[2]"
+                    (ngModelChange)="modifier[2] = $event.toUpperCase()"
                     [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[2] ===false}" readonly-input
                     [componentRole]="componentRole" />
-                <input cFormControl maxlength="2" [(ngModel)]="modifier[3]"
+                <input cFormControl maxlength="2" [ngModel]="modifier[3]"
+                    (ngModelChange)="modifier[3] = $event.toUpperCase()"
                     [ngClass]="{'is-invalid': validModifiers !==undefined && validModifiers[3] ===false}" readonly-input
                     [componentRole]="componentRole" />
             </c-input-group>
@@ -58,9 +62,10 @@
         <c-col xs="5">
             <c-input-group class="mb-1" sizing="sm">
                 <span cInputGroupText id="basic-addon3" style="width: 30%;">When CPT is:</span>
-                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [(ngModel)]="rule.cptCode"
-                    cPopover="Leave blank to match all CPT codes" [cPopoverTrigger]="'hover'" cPopoverPlacement="right"
-                    readonly-input [componentRole]="componentRole" />
+                <input aria-describedby="basic-addon3" cFormControl id="basic-url" [ngModel]="rule.cptCode"
+                    (ngModelChange)="rule.cptCode = $event.toUpperCase()" cPopover="Leave blank to match all CPT codes"
+                    [cPopoverTrigger]="'hover'" cPopoverPlacement="right" readonly-input
+                    [componentRole]="componentRole" />
             </c-input-group>
         </c-col>
         <c-col xs="7">

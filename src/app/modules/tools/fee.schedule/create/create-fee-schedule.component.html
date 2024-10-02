@@ -63,7 +63,8 @@
                             <div class="row mb-2">
                                 <div class="col">
                                     <input cFormControl sizing="sm" placeholder="CPT Code" name="cptCode"
-                                        [(ngModel)]="addNewFeeScheduleLine.cptCode">
+                                        [ngModel]="addNewFeeScheduleLine.cptCode"
+                                        (ngModelChange)="addNewFeeScheduleLine.cptCode = $event.toUpperCase()">
                                 </div>
                                 <div class="col">
                                     <select cSelect sizing="sm" [(ngModel)]="addNewFeeScheduleLine.rateType"
@@ -143,7 +144,8 @@
         </c-card>
     </c-col>
     <div class="col text-center my-3">
-        <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;" dispaly-input [componentRole]="componentRole">
+        <button cButton color="info" variant="outline" size="sm" (click)="create()" style="width: 25%;" dispaly-input
+            [componentRole]="componentRole">
             <span *ngIf="mode ==='create'"> Create</span>
             <span *ngIf="mode ==='update'"> Update</span>
         </button>
