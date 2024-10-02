@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { join } from 'lodash';
 import { Patient } from 'src/app/modules/model/clinical/patient';
 import { PatientInsurance } from 'src/app/modules/model/clinical/patient.insurance';
 import { CreateInsuranceComponent } from '../../../profile/billing/insurance/create/create-insurance.component';
@@ -67,5 +68,8 @@ export class EditPatientInsuranceComponent implements OnInit {
       operation: operation,
       patientInsurance: patientInsurance
     })
+  }
+  changeArchive(insurance: any) {
+    this.updatePatientInsurances(Operation.update, insurance)
   }
 }

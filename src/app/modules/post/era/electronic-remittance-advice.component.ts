@@ -97,7 +97,9 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
     }
   }
   changePatientProfileVisibility(event: any) {
-    if (event === 'profile')
+    if (event === 'profile') {
       this.editPatientProfileVisibility = false;
+      this.openERAVisibility = true;
+    }
   }
 }

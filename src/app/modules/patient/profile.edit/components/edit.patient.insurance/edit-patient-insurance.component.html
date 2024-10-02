@@ -24,6 +24,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Plan Type</th>
                         <th scope="col">Primary Id</th>
+                        <th></th>
                         <th scope="col" style="width: 10%;">actions</th>
                     </tr>
                 </thead>
@@ -32,6 +33,12 @@
                         <td>{{insurance.insuranceCompany[0]}}</td>
                         <td>{{insurance.patientInsurancePolicy.planType}}</td>
                         <td>{{insurance.patientInsurancePolicy.primaryId}}</td>
+                        <td>
+                            <c-form-check [switch]="true">
+                                <input cFormCheckInput type="checkbox" [(ngModel)]="insurance.isArchived" (change)="changeArchive(insurance)" />
+                                <label cFormCheckLabel>Archive</label>
+                            </c-form-check>
+                        </td>
                         <td>
                             <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                                 <button cButton variant="outline" class="btn-sm" variant="outline" color="info"

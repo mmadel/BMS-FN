@@ -125,7 +125,6 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
     }
   }
   changeVisibility(component: any) {
-    console.log(component)
     switch (component) {
       case "session":
         this.editSessionVisibility = false;

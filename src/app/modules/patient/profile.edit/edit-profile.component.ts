@@ -41,7 +41,6 @@ export class EditProfileComponent implements OnInit {
     this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
   }
   update() {
-    console.log(JSON.stringify(this.patient))
     var updatePatientProfile: UpdatePatientProfile = {
       insurances: this.editPatientInsuranceComponent.patientInsurances,
       cases: this.editPatientCaseComponent.patientcases,
