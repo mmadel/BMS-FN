@@ -10,6 +10,7 @@ import { PhoneType } from '../../model/enum/phone.type';
 import { Countries } from '../../model/lookups/country-data-store';
 import { States } from '../../model/lookups/state-data-store';
 import { PatientService } from '../service/patient.service';
+import { EditPatientAuthorizationComponent } from './components/edit.authorization/edit-patient-authorization.component';
 import { EditPatientCaseComponent } from './components/edit.patient-case/edit-patient-case.component';
 import { EditPatientInsuranceComponent } from './components/edit.patient.insurance/edit-patient-insurance.component';
 import { EditPatientSessionComponent } from './components/edit.patient.session/edit-patient-session.component';
@@ -35,6 +36,7 @@ export class EditProfileComponent implements OnInit {
   @ViewChild('editPatientInsuranceComponent') editPatientInsuranceComponent: EditPatientInsuranceComponent;
   @ViewChild('editPatientCaseComponent') editPatientCaseComponent: EditPatientCaseComponent;
   @ViewChild('editPatientSessionComponent') editPatientSessionComponent: EditPatientSessionComponent;
+  @ViewChild('editPatientAuthorizationComponent') editPatientAuthorizationComponent: EditPatientAuthorizationComponent;
   @Output() changeEditProfileVisibility = new EventEmitter<string>()
   constructor(private patientService: PatientService, private toastr: ToastrService) { }
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class EditProfileComponent implements OnInit {
       insurances: this.editPatientInsuranceComponent.patientInsurances,
       cases: this.editPatientCaseComponent.patientcases,
       sessions: this.editPatientSessionComponent.patientSessions,
+      authorizations : this.editPatientAuthorizationComponent.patientAuthorizations,
       patient: this.patient
     }
     this.patientService.update(updatePatientProfile).subscribe(result => {

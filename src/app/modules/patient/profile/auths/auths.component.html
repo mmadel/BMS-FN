@@ -79,7 +79,7 @@
                                         </c-row>
                                         <c-row>
                                             <c-col xs="12">
-                                                <strong>{{patientAuthorization.insCompany[1]}} </strong>
+                                                <strong>{{patientAuthorization.insCompany[0]}} </strong>
                                             </c-col>
                                         </c-row>
                                         Service Code : {{patientAuthorization.serviceCode}}
@@ -106,7 +106,7 @@
         <button (click)="toggleCreateAuthVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <create-auth *ngIf="createAutVisibility" (changeVisibility)="changeVisibility($event)"
+        <create-auth *ngIf="createAutVisibility" (changeVisibility)="changeVisibility($event)" [mode]="'create'"
             [patientInsurances]="patient.patientInsurances" [patientId]="patient.id"></create-auth>
     </c-modal-body>
 </c-modal>
@@ -116,7 +116,7 @@
         <button (click)="toggleUpdateAuthVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <create-auth *ngIf="updateAutVisibility" (changeVisibility)="changeUpdateVisibility($event)"
+        <create-auth *ngIf="updateAutVisibility" (changeVisibility)="changeUpdateVisibility($event)" [mode]="'update'"
             [patientInsurances]="patient.patientInsurances" [patientId]="patient.id"
             [updatedModel]="toBeUpdateModel"></create-auth>
     </c-modal-body>

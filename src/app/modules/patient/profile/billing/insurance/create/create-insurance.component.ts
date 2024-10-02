@@ -75,7 +75,7 @@ export class CreateInsuranceComponent implements OnInit {
           isArchived: false,
           patientRelation: {
             r_gender: null,
-            r_genderIdentity : null,
+            r_genderIdentity: null,
             r_address: {
               country: null,
               state: null
@@ -177,7 +177,6 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_birthDate = moment(this.patientInsurance.patientRelation.dob).unix() * 1000;
       if (this.mode === 'create-edit-patient-profile' || this.mode === 'edit-edit-patient-profile')
         this.changeCreateInsuranceVisibility.emit('close');
-      console.log(this.mode)
       if (this.mode === 'create' || this.mode === 'edit')
         this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
           .subscribe((result: any) => {

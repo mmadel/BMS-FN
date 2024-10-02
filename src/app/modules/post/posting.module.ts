@@ -62,7 +62,7 @@ import { PatientProfileDialogComponent } from './era/details/patient.profile.dia
     PendingInsuranceComponent,
     ClientBalanceSettingsComponent,
     EraDetailsComponent,
-    PatientProfileDialogComponent
+    PatientProfileDialogComponent,
   ],
   imports: [
     CommonModule,

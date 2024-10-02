@@ -20,7 +20,8 @@
                 <c-col sx="12">
                     <ng-autocomplete [data]="insCpmanyName" [searchKeyword]="" id="inCompanyName" name="inCompanyName"
                         [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                        (selected)='pickInsCompany($event)' [(ngModel)]="patientAuth.insCompany" disable-auto-complete [componentRole]="componentRole">
+                        (selected)='pickInsCompany($event)' [(ngModel)]="patientAuth.insCompany" disable-auto-complete
+                        [componentRole]="componentRole">
                     </ng-autocomplete>
                 </c-col>
                 <ng-template #itemTemplate let-item>
@@ -58,7 +59,8 @@
                     Visit
                 </span>
                 <input cFormControl name="visit" required #visit="ngModel" [(ngModel)]="patientAuth.visit"
-                    readonly-input [componentRole]="componentRole" type="number" (focusout)="initPatientAuthRemainig()"/>
+                    readonly-input [componentRole]="componentRole" type="number"
+                    (focusout)="initPatientAuthRemainig()" />
             </c-input-group>
         </c-col>
     </c-row>
@@ -75,8 +77,14 @@
     </c-row>
     <c-row>
         <div class="col text-center">
-            <button cButton color="primary" variant="outline" style="width: 15%;" (click)="create()" dispaly-input
-                [componentRole]="componentRole">OK</button>
+            <span *ngIf="mode ==='create-edit-patient-profile' || mode ==='create'">
+                <button cButton color="primary" variant="outline" style="width: 15%;" (click)="create()" dispaly-input
+                    [componentRole]="componentRole">Create</button>
+            </span>
+            <span *ngIf="mode ==='edit-edit-patient-profile' || mode ==='update'">
+                <button cButton color="primary" variant="outline" style="width: 15%;" (click)="update()" dispaly-input
+                    [componentRole]="componentRole">Update</button>
+            </span>
         </div>
     </c-row>
 </form>

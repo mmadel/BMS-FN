@@ -49,7 +49,8 @@
                             <select aria-label="" cSelect #gender="ngModel" name="genderIden" required
                                 [(ngModel)]="patient.genderIdentity">
                                 <option [value]="null">Select Gender Identity</option>
-                                <option *ngFor="let genderIdenValue of genderIdentity(gendersIdentity)" [ngValue]="genderIdenValue">
+                                <option *ngFor="let genderIdenValue of genderIdentity(gendersIdentity)"
+                                    [ngValue]="genderIdenValue">
                                     {{gendersIdentity[genderIdenValue]}}
                                 </option>
                             </select>
@@ -175,6 +176,10 @@
 <!--Sessions -->
 <c-row>
     <edit-patient-session [patient]="patient" #editPatientSessionComponent></edit-patient-session>
+</c-row>
+<!--Authorization-->
+<c-row>
+    <edit-patient-authorization #editPatientAuthorizationComponent [patient]="patient"></edit-patient-authorization>
 </c-row>
 <div class="col-12 text-center">
     <button cButton variant="outline" style="width: 15%;" (click)="update()">Update Profile</button>

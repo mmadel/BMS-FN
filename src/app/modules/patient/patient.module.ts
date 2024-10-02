@@ -73,6 +73,7 @@ import { EditPatientSessionComponent } from './profile.edit/components/edit.pati
 import { PatientSessionSchedulingComponent } from './profile.edit/components/edit.patient.session/patient.session/patient.session.scheduling/patient-session-scheduling.component';
 import { PatientSessionCodingComponent } from './profile.edit/components/edit.patient.session/patient.session/patient.session.coding/patient-session-coding.component';
 import { PatientSessionBillingComponent } from './profile.edit/components/edit.patient.session/patient.session/patient.session.billing/patient-session-billing.component';
+import { EditPatientAuthorizationComponent } from './profile.edit/components/edit.authorization/edit-patient-authorization.component';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { PatientSessionBillingComponent } from './profile.edit/components/edit.p
     PatientSessionSchedulingComponent,
     PatientSessionCodingComponent,
     PatientSessionBillingComponent,
+    EditPatientAuthorizationComponent,
   ],
   imports: [
     CommonModule,

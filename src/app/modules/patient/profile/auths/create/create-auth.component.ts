@@ -15,13 +15,14 @@ export class CreateAuthComponent implements OnInit {
   @Output() changeVisibility = new EventEmitter<string>()
   @Input() patientInsurances?: PatientInsurance[];
   @Input() patientId: number
+  @Input() mode: string
   @Input() updatedModel: PatientInsurance
   selectedInsuranceCompany: string[];
   patientAuth: PatientAuthorization = {
     insCompany: []
   }
   insCpmanyName: string[];
-  componentRole: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE];
   constructor(private authService: AuthService
     , private toastr: ToastrService) { }
 
@@ -39,20 +40,26 @@ export class CreateAuthComponent implements OnInit {
     this.patientAuth.startDateNumber = this.patientAuth.startDate !== undefined ? moment(this.patientAuth.startDate).unix() * 1000 : undefined
     this.patientAuth.expireDateNumber = this.patientAuth.expireDate !== undefined ? moment(this.patientAuth.expireDate).unix() * 1000 : undefined
     this.patientAuth.patientId = this.patientId
-    this.authService.create(this.patientAuth).subscribe(result => {
-      this.toastr.success('Patient Authorization created');
+    if (this.mode === 'create-edit-patient-profile')
       this.changeVisibility.emit('close');
-      this.scrollUp();
-    }, (error) => {
-      this.toastr.error('Error  during Add Patient Authorization');
-    })
+    if (this.mode === 'create')
+      this.authService.create(this.patientAuth).subscribe(result => {
+        this.toastr.success('Patient Authorization created');
+        this.changeVisibility.emit('close');
+        this.scrollUp();
+      }, (error) => {
+        this.toastr.error('Error  during Add Patient Authorization');
+      })
   }
   update() {
-    this.authService.update(this.patientAuth).subscribe(result => {
-      this.toastr.success('Patient Authorization created');
+    if (this.mode === 'edit-edit-patient-profile')
       this.changeVisibility.emit('close');
-      this.scrollUp();
-    })
+    if (this.mode === 'update')
+      this.authService.update(this.patientAuth).subscribe(result => {
+        this.toastr.success('Patient Authorization created');
+        this.changeVisibility.emit('close');
+        this.scrollUp();
+      })
   }
   pickInsCompany(selectedInsCompany) {
     this.patientInsurances.forEach(patientInsurance => {
@@ -62,7 +69,7 @@ export class CreateAuthComponent implements OnInit {
     })
 
   }
-  initPatientAuthRemainig(){
+  initPatientAuthRemainig() {
     this.patientAuth.remaining = this.patientAuth.visit;
   }
   private scrollUp() {

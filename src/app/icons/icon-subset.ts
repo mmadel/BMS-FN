@@ -110,7 +110,8 @@ import {
   cilInstitution,
   cilWheelchair,
   cilExpandDown,
-  cilChevronCircleDownAlt, cilFilter, cilFilterX, cilHistory, cibIfixit, cibGmail, cilArrowThickBottom, cilArrowCircleBottom, cilArrowCircleTop, cilSearch, cilLockUnlocked
+  cilChevronCircleDownAlt, cilFilter, cilFilterX, cilHistory, cibIfixit, cibGmail, cilArrowThickBottom
+  , cilArrowCircleBottom, cilArrowCircleTop, cilSearch, cilLockUnlocked, cilBellExclamation, cilToggleOn, cilToggleOff,cilMediaStop
 
 } from '@coreui/icons';
 
@@ -235,7 +236,11 @@ export const iconSubset = {
   cilAppsSettings,
   cilInstitution,
   cilWheelchair,
-  cilExpandDown, cilChevronCircleDownAlt, cibGmail, cilArrowThickBottom, cilArrowCircleBottom, cilArrowCircleTop, cilSearch, cilLockUnlocked
+  cilExpandDown, cilChevronCircleDownAlt, cibGmail, 
+  cilArrowThickBottom, cilArrowCircleBottom, 
+  cilArrowCircleTop, cilSearch, cilLockUnlocked, 
+  cilBellExclamation, cilToggleOn, cilToggleOff
+  ,cilMediaStop
 };
 
 export enum IconSubset {
