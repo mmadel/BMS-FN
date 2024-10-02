@@ -24,7 +24,7 @@ import { Role } from 'src/app/modules/secuirty/model/roles';
 })
 export class CreateInsuranceComponent implements OnInit {
   @ViewChild('insuranceCreateForm') insuranceCreateForm: NgForm;
-  @Output() changeVisibility = new EventEmitter<string>()
+  @Output() changeCreateInsuranceVisibility = new EventEmitter<string>()
   @Input() patient: Patient;
   @Input() mode: string;
   @Input() editPatientInsurance: PatientInsurance;
@@ -176,7 +176,7 @@ export class CreateInsuranceComponent implements OnInit {
       this.patientInsurance.patientRelation.r_address.state = this.patientInsurance.patientRelation.r_address.state.split('-')[0].trim();
       this.patientInsurance.patientRelation.r_birthDate = moment(this.patientInsurance.patientRelation.dob).unix() * 1000;
       if (this.mode === 'create-edit-patient-profile' || this.mode === 'edit-edit-patient-profile')
-        this.changeVisibility.emit('close');
+        this.changeCreateInsuranceVisibility.emit('close');
       console.log(this.mode)
       if (this.mode === 'create' || this.mode === 'edit')
         this.patientService.createPatientInsurance(this.patientInsurance, this.patient.id)
@@ -187,7 +187,7 @@ export class CreateInsuranceComponent implements OnInit {
             if (result.records.insuranceCompany !== null)
               this.patientInsurance.insuranceCompany = result.records.insuranceCompany
             this.scrollUp();
-            this.changeVisibility.emit('close');
+            this.changeCreateInsuranceVisibility.emit('close');
           }, error => {
             console.log(error)
             this.toastr.error("Error during creating patient insurance")

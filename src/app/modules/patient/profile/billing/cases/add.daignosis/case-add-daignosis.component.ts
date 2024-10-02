@@ -23,7 +23,7 @@ export class CaseAddDaignosisComponent implements OnInit {
   diagnosisValue: string
   diagnosisError: string = ''
   componentScopes: string[] = [Role.PATIENT_ROLE];
-  @Output() changeVisibility = new EventEmitter<string>()
+  @Output() changeVisibilityCaseAddDaignosis = new EventEmitter<string>()
   isICD10diagnosisSelected: boolean = false;
   constructor(private caseDiagnosisService: CaseDiagnosisService
     , private emitPatientSessionService: EmitPatientSessionService) { }
@@ -87,6 +87,6 @@ export class CaseAddDaignosisComponent implements OnInit {
     })
   }
   createOrUpdate() {
-    this.changeVisibility.emit('close');
+    this.changeVisibilityCaseAddDaignosis.emit('close');
   }
 }

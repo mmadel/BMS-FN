@@ -35,7 +35,7 @@ export class EditProfileComponent implements OnInit {
   @ViewChild('editPatientInsuranceComponent') editPatientInsuranceComponent: EditPatientInsuranceComponent;
   @ViewChild('editPatientCaseComponent') editPatientCaseComponent: EditPatientCaseComponent;
   @ViewChild('editPatientSessionComponent') editPatientSessionComponent: EditPatientSessionComponent;
-  @Output() changeVisibility = new EventEmitter<string>()
+  @Output() changeEditProfileVisibility = new EventEmitter<string>()
   constructor(private patientService: PatientService, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
@@ -49,7 +49,7 @@ export class EditProfileComponent implements OnInit {
       patient: this.patient
     }
     this.patientService.update(updatePatientProfile).subscribe(result => {
-      this.changeVisibility.emit('profile');
+      this.changeEditProfileVisibility.emit('profile');
       this.scrollUp();
       this.toastr.success("pateint profile updated")
     }, error => {

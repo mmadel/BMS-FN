@@ -46,6 +46,8 @@ import { ClientBalanceSettingsComponent } from './client.balance/settings/client
 import { PatientModule } from '../patient';
 import { EraDetailsComponent } from './era/details/era-details.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PatientProfileDialogComponent } from './era/details/patient.profile.dialog/patient-profile-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     FinalizeChargeComponent,
     PendingInsuranceComponent,
     ClientBalanceSettingsComponent,
-    EraDetailsComponent
+    EraDetailsComponent,
+    PatientProfileDialogComponent
   ],
   imports: [
     CommonModule,
@@ -93,6 +96,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PatientModule,
     MatTableModule,
     InfiniteScrollModule,
+    MatDialogModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ]
 })

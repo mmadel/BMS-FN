@@ -14,7 +14,8 @@
 <hr />
 
 <div *ngFor="let key of getKeys(this.era.eraDetails.patientLines)" class="mb-2 border border-dark">
-  <div class="m-3"><strong>{{capitalizeNames(key)}}</strong></div>
+  <div class="m-3"><strong><button class="btn btn-link"
+        (click)="openPatientProfile(key)"><strong>{{capitalizeNames(key)}}</strong></button></strong></div>
   <div class="m-3 table-container table-responsive">
     <table class="table table-sm">
       <thead class="table-light">

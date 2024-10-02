@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { result } from 'lodash';
+import { filter, map, Observable, tap } from 'rxjs';
+import { Patient } from '../../model/clinical/patient';
 import { ERADetails } from '../../model/invoice/era/era.details';
 import { ERAModel } from '../../model/invoice/era/era.model';
 import { ListTemplate } from '../../model/template/list.template';
@@ -11,9 +13,11 @@ import { EraService } from '../service/era/era.service';
   styleUrls: ['./electronic-remittance-advice.component.scss']
 })
 export class ElectronicRemittanceAdviceComponent extends ListTemplate implements OnInit {
-  selectedERAModel : ERAModel;
+  selectedERAModel: ERAModel;
   earList$!: Observable<ERAModel[]>;
   openERAVisibility: boolean = false;
+  editPatientProfileVisibility: boolean = false;
+  patient: Patient;
   columns = [
     {
       key: 'seen',
@@ -32,7 +36,7 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
       label: 'Lines',
     },
     {
-      key:'unapplied',
+      key: 'unapplied',
       label: 'Unapplied',
     },
     {
@@ -46,14 +50,19 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
   ngOnInit(): void {
     this.find();
     this.initListComponent();
+    this.eraService.selectedPatient$.pipe(
+      filter(result => result !== undefined || result !== null)
+    ).subscribe(result => {
+      this.patient = result;
+    })
   }
 
   open(item: any) {
-    this.selectedERAModel= item;
+    this.selectedERAModel = item;
     this.openERAVisibility = true;
   }
   archive(item: any) {
-    
+
   }
   private find() {
     this.earList$ = this.eraService.findAll(this.apiParams$).pipe(
@@ -73,10 +82,22 @@ export class ElectronicRemittanceAdviceComponent extends ListTemplate implements
   toggleOpenERA() {
     this.openERAVisibility = !this.openERAVisibility
   }
-  changeOpenERAVisibility(event:any){
+  togglePatientProfileModal() {
+    this.editPatientProfileVisibility = !this.editPatientProfileVisibility;
+    this.openERAVisibility = true;
+  }
+  changeOpenERAVisibility(event: any) {
     if (event === 'close') {
       this.openERAVisibility = false;
       this.find();
     }
+    if (event === 'open-profile') {
+      this.openERAVisibility = false;
+      this.editPatientProfileVisibility = true
+    }
+  }
+  changePatientProfileVisibility(event: any) {
+    if (event === 'profile')
+      this.editPatientProfileVisibility = false;
   }
 }

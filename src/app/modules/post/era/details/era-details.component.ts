@@ -1,8 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { result } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
+import { Patient } from 'src/app/modules/model/clinical/patient';
 import { ERAHistory } from 'src/app/modules/model/invoice/era/er.history';
 import { ERADetailsLine } from 'src/app/modules/model/invoice/era/era.details.line';
 import { ERAModel } from 'src/app/modules/model/invoice/era/era.model';
+import { PatientService } from 'src/app/modules/patient/service/patient.service';
 import { EraService } from '../../service/era/era.service';
 export interface Person {
   name: string;
@@ -15,7 +18,7 @@ export interface Person {
 })
 export class EraDetailsComponent implements OnInit {
   @Input() era: ERAModel
-  @Output() changeVisibility = new EventEmitter<string>()
+  @Output() changeERADetailsVisibility = new EventEmitter<string>()
   actions: string[] = ["Close Session", "Send to insurance invoice Area", "Keep current status"];
   isAllTouched: boolean = false;
   columns = [
@@ -72,7 +75,7 @@ export class EraDetailsComponent implements OnInit {
       }
       this.eraService.createERAHistory(eraHistory).subscribe(() => {
         this.toastr.success("ERA is updated successfully")
-        this.changeVisibility.emit('close');
+        this.changeERADetailsVisibility.emit('close');
       }, error => {
         this.toastr.error("error during update ERA")
       })
@@ -80,10 +83,19 @@ export class EraDetailsComponent implements OnInit {
       this.toastr.error("Select at least one line")
     }
   }
-  constructor(private eraService: EraService, private toastr: ToastrService) {
+  constructor(private eraService: EraService, private toastr: ToastrService, private patientService: PatientService) {
+  }
+  openPatientProfile(patient: string) {
+    console.log(patient)
+    var patientName: string[] = patient.toLocaleLowerCase().split(",")
+    this.patientService.findByFirstAndLast(patientName[1], patientName[0]).subscribe(result => {
+      this.eraService.selectedPatient$.next(result)
+      this.changeERADetailsVisibility.emit('open-profile');
+    })
   }
 
   ngOnInit(): void {
+    console.log('ERA Details ')
     this.checkAllTouched(this.era.eraDetails.patientLines);
   }
 

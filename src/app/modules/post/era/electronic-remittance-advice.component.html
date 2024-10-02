@@ -91,13 +91,25 @@
       (activePageChange)="handleActivePageChange($event)" [pages]="props.totalPages"></c-smart-pagination>
   </ng-container>
 </c-col>
-<c-modal id="openERA" [visible]="openERAVisibility" size="xl" backdrop="static" scrollable>
+<span *ngIf="openERAVisibility">
+<c-modal id="openERA" [visible]="true" size="xl" backdrop="static" scrollable>
   <c-modal-header>
     <h3 cModalTitle>Open ERA</h3>
     <button (click)="toggleOpenERA()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
     <era-details *ngIf="openERAVisibility" [era]="selectedERAModel"
-      (changeVisibility)="changeOpenERAVisibility($event)"></era-details>
+      (changeERADetailsVisibility)="changeOpenERAVisibility($event)"></era-details>
+  </c-modal-body>
+</c-modal>
+</span>
+<c-modal id="editPatientProfile" [visible]="editPatientProfileVisibility" size="lg" backdrop="static" scrollable>
+  <c-modal-header>
+    <h2>Update Profile</h2>
+    <button (click)="togglePatientProfileModal()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <patient-edit-profile [patient]="patient" *ngIf="editPatientProfileVisibility"
+      (changeEditProfileVisibility)="changePatientProfileVisibility($event)"></patient-edit-profile>
   </c-modal-body>
 </c-modal>
