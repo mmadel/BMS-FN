@@ -9,7 +9,7 @@
                     *ngIf="item.submissionType ==='Electronic'">
                     <svg cIcon name="cilChatBubble"></svg> Messages
                 </button>
-                <button cButton color="" variant="outline">
+                <button cButton color="" variant="outline" (click)="resend()">
                     <svg cIcon name="cilSend"></svg> Resend
                 </button>
                 <button cButton color="" variant="outline" (click)="correctClaim()">
@@ -26,7 +26,7 @@
         <div class="fs-5" style="margin-left: -2%;"><strong>Submission ID : </strong> {{item.submissionId}}</div>
         <div class="fs-6"><strong>To : </strong> {{item.insuranceCompany}}</div>
         <div class="fs-6" style="margin-left: -1%;"><strong>Submit Date : </strong> {{item.submitDate |
-            date:'MM/dd/yyy  hh:mm a'}}</div>
+            date:'MM/dd/yyy hh:mm a'}}</div>
         <div class="fs-6" style="margin-left: -1%;"><strong>Client :
             </strong>{{item.client.lastName}},{{item.client.firstName}}</div>
         <div class="fs-6" style="margin-left: -1%;"><strong>Provider : </strong>{{item.provider}}</div>
@@ -73,5 +73,15 @@
     <c-modal-body>
         <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"
             (changeVisibility)="changeVisibility($event)"></app-patient-session-edit>
+    </c-modal-body>
+</c-modal>
+
+<c-modal id="resend" [visible]="resendVisibility" backdrop="static" size="xl">
+    <c-modal-header>
+        <button cButtonClose (click)="toggle('resend')" cBonuttClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <resend-claim [submissionId]="item.submissionId" [insuranceCompany]="item.insuranceCompany" *ngIf="resendVisibility"
+            [patientId]="item.client.id"></resend-claim>
     </c-modal-body>
 </c-modal>

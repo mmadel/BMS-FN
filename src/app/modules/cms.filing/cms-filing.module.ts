@@ -13,13 +13,15 @@ import { CorrectClaimActionComponent } from './component/actions/correct.claim/c
 import { SessionHistoryItemComponent } from './component/item/session-history-item.component';
 import { FindHistoryComponent } from './component/list/find-history.component';
 import { ShowClaimMessagesComponent } from './component/actions/messages/show-claim-messages.component';
+import { ResendClaimComponent } from './component/actions/resend/resend-claim.component';
 
 @NgModule({
     declarations: [
         FindHistoryComponent,
         SessionHistoryItemComponent,
         CorrectClaimActionComponent,
-        ShowClaimMessagesComponent
+        ShowClaimMessagesComponent,
+        ResendClaimComponent,
     ],
     imports: [
         CommonModule,

@@ -27,4 +27,9 @@ export class SessionHistoryService extends BasePaginationService {
     var url = this.baseUrl + '/find/messages/submissionId/' + submissionID
     return this.httpClient.get(url)
   }
+
+  prepareClaimToSend(patientId: number, submissionId: number) {
+    var url = this.baseUrl + '/prepare/claim/patient/' + patientId + '/submissionId/' + submissionId;
+    return this.httpClient.get(url)
+  }
 }

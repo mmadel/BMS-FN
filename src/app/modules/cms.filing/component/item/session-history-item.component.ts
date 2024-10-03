@@ -16,6 +16,7 @@ export class SessionHistoryItemComponent implements OnInit {
   showMessagesVisibility: boolean = false
   editSessionVisibility: boolean = false;
   showCorrectClaimActionVisibility: boolean = false;
+  resendVisibility: boolean = false;
   componentRole: string[] = [Role.FILING_ROLE];
   constructor(private invoiceService: InvoiceService
     , private emitPatientSessionService: EmitPatientSessionService
@@ -29,6 +30,9 @@ export class SessionHistoryItemComponent implements OnInit {
   correctClaim() {
     this.showCorrectClaimActionVisibility = true
   }
+  resend() {
+    this.resendVisibility = true;
+  }
   toggle(name: string) {
     if (name === 'messages')
       this.showMessagesVisibility = !this.showMessagesVisibility;
@@ -36,6 +40,8 @@ export class SessionHistoryItemComponent implements OnInit {
       this.showCorrectClaimActionVisibility = !this.showCorrectClaimActionVisibility;
     if (name === 'session')
       this.editSessionVisibility = !this.editSessionVisibility
+    if (name = 'resend')
+      this.resendVisibility = !this.resendVisibility;
   }
   openSession(session: any) {
     this.patientSessionService.findSessionById(session.sessionId)
