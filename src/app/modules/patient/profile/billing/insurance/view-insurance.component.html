@@ -40,11 +40,11 @@
 </c-row>
 <c-modal id="addInsuranceModal" [visible]="addInsuranceVisibility" backdrop="static" size="lg">
     <c-modal-header>
-        <h3 cModalTitle>Add Patient Insurance</h3>
+        <h2 cModalTitle>Add Patient Insurance</h2>
         <button (click)="toggleAddInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-insurance *ngIf="addInsuranceVisibility" (changeVisibility)="changeVisibility($event)"
+        <app-create-insurance *ngIf="addInsuranceVisibility" (changeCreateInsuranceVisibility)="changeVisibility($event)"
             [mode]="'create'" [patient]="patient" #createInsuranceComponent></app-create-insurance>
     </c-modal-body>
 </c-modal>
@@ -54,7 +54,7 @@
         <button (click)="toggleEditInsuranceVisibility()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
-        <app-create-insurance *ngIf="editInsuranceVisibility" (changeVisibility)="changeVisibility($event)"
+        <app-create-insurance *ngIf="editInsuranceVisibility" (changeCreateInsuranceVisibility)="changeVisibility($event)"
             [patient]="patient" #createInsuranceComponent [mode]="'edit'"
             [editPatientInsurance]="editPatientInsurance"></app-create-insurance>
     </c-modal-body>

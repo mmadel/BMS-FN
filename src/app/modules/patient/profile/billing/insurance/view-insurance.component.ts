@@ -32,6 +32,7 @@ export class ViewInsuranceComponent implements OnInit {
   }
   changeVisibility(event: any) {
     if (event === 'close') {
+      console.log('@@@@@@@@ ' + this.createInsuranceComponent.mode)
       switch (this.createInsuranceComponent.mode) {
         case "create":
           this.editPatientInsurance = undefined;
