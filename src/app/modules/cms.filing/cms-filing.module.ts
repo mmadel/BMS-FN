@@ -12,12 +12,14 @@ import { CmsFilingRoutingModule } from './cms-filing-routing.module';
 import { CorrectClaimActionComponent } from './component/actions/correct.claim/correct-claim-action.component';
 import { SessionHistoryItemComponent } from './component/item/session-history-item.component';
 import { FindHistoryComponent } from './component/list/find-history.component';
+import { ShowClaimMessagesComponent } from './component/actions/messages/show-claim-messages.component';
 
 @NgModule({
     declarations: [
         FindHistoryComponent,
         SessionHistoryItemComponent,
-        CorrectClaimActionComponent
+        CorrectClaimActionComponent,
+        ShowClaimMessagesComponent
     ],
     imports: [
         CommonModule,

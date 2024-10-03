@@ -54,7 +54,7 @@ export class CorrectClaimActionComponent implements OnInit {
     this.selectedSessionId = event.target.value;
   }
   correct(action: string) {
-    this.changeVisibility.emit('close');
+    this.changeVisibility.emit('');
     this.patientSessionService.correctClaim(this.selectePatientSession).subscribe(result => {
       switch (action) {
         case 'redirect':          

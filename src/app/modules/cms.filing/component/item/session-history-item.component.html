@@ -5,7 +5,8 @@
                 <svg cIcon name="cilSettings"></svg>
             </button>
             <div cDropdownMenu>
-                <button cButton color="" variant="outline" (click)="downloadCMS()">
+                <button cButton color="" variant="outline" (click)="openMessages()"
+                    *ngIf="item.submissionType ==='Electronic'">
                     <svg cIcon name="cilChatBubble"></svg> Messages
                 </button>
                 <button cButton color="" variant="outline" (click)="downloadCMS()">
@@ -46,21 +47,26 @@
         </div>
     </c-col>
 </c-row>
+<c-modal id="showMessages" [visible]="showMessagesVisibility" size="lg" backdrop="static" scrollable="">
+    <c-modal-body>
+        <show-claim-messages [submissionID]="item.submissionId" *ngIf="showMessagesVisibility"
+            (changeVisibility)="changeVisibility($event)">
+        </show-claim-messages>
+    </c-modal-body>
+</c-modal>
 <c-modal id="showCorrectClaimActions" [visible]="showCorrectClaimActionVisibility" size="xl" backdrop="static">
     <c-modal-header>
         <h2>Correct Claim</h2>
-        <button (click)="close('correct_claim')" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
         <correct-claim-action *ngIf="showCorrectClaimActionVisibility" [sessionCounts]="item.sessionCounts"
-            (changeVisibility)="changeCorrectClaimActionVisibility($event)"
-            [patient]="item.client"></correct-claim-action>
+            (changeVisibility)="changeVisibility($event)" [patient]="item.client"></correct-claim-action>
     </c-modal-body>
 </c-modal>
 <c-modal id="editSessionitem" [visible]="editSessionVisibility" backdrop="static" size="xl">
     <c-modal-header>
         <h3 cModalTitle>Edit Session</h3>
-        <button (click)="toggleEditSessionModal()" cButtonClose></button>
+        <button (click)="toggleEditSessionModal()" cBonuttClose></button>
     </c-modal-header>
     <c-modal-body>
         <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"

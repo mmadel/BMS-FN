@@ -22,4 +22,9 @@ export class SessionHistoryService extends BasePaginationService {
     var url = this.baseUrl + '/search?offset=' + offset + '&limit=' + limit;
     return this.httpClient.post(url, JSON.stringify(sessionHistoryCriteria), { 'headers': headers })
   }
+
+  findMessages(submissionID: number) {
+    var url = this.baseUrl + '/find/messages/submissionId/' + submissionID
+    return this.httpClient.get(url)
+  }
 }

@@ -13,7 +13,7 @@ import { SessionHistory } from '../../model/session.history';
 })
 export class SessionHistoryItemComponent implements OnInit {
   @Input() item: SessionHistory;
-  showActionVisibility: boolean = false
+  showMessagesVisibility: boolean = false
   editSessionVisibility: boolean = false;
   showCorrectClaimActionVisibility: boolean = false;
   componentRole: string[] = [Role.FILING_ROLE];
@@ -23,8 +23,8 @@ export class SessionHistoryItemComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  toggleActionsModal() {
-    this.showActionVisibility = !this.showActionVisibility
+  openMessages() {
+    this.showMessagesVisibility = true;
   }
   toggleEditSessionModal() {
     this.editSessionVisibility = !this.editSessionVisibility
@@ -37,18 +37,12 @@ export class SessionHistoryItemComponent implements OnInit {
       })
   }
   changeVisibility(event: any) {
-    this.showActionVisibility = false
+    if (event === 'messages')
+      this.showMessagesVisibility = !this.showMessagesVisibility;
     if (event === 'correct_claim')
-      this.showCorrectClaimActionVisibility = true;
-  }
-  close(action: string) {
-    if (action === 'correct_claim') {
-      this.showCorrectClaimActionVisibility = false;
-    }
-  }
-  changeCorrectClaimActionVisibility(event: any) {
-    if (event === 'close')
-      this.showCorrectClaimActionVisibility = false;
+      this.showCorrectClaimActionVisibility = !this.showCorrectClaimActionVisibility;
+    if (event === 'session')
+      this.editSessionVisibility = !this.editSessionVisibility;
   }
   downloadCMS() {
     this.invoiceService.downloadCMS(this.item.submissionId).subscribe(result => {

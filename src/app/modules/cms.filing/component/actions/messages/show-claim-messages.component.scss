@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+.claim-container {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.claim-title {
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #1a73e8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.messages-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+.messages-list li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+.messages-list li:last-child {
+    border-bottom: none;
+}

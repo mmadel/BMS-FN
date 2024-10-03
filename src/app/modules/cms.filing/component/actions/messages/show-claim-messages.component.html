@@ -1,0 +1,11 @@
+<div class="claim-container" *ngFor="let submissionClaimMessages of submissionClaimMessages; index as i">
+    <div class="claim-title">Date of Service: {{submissionClaimMessages.dos | date: 'MM/dd/yyyy'}}</div>
+    <ul class="messages-list">
+        <li *ngFor="let message of submissionClaimMessages.messages">
+            {{message}}
+        </li>
+    </ul>
+</div>
+<div class="col-12 text-center">
+    <button cButton variant="outline" style="width: 15%;" (click)="close()">Close</button>
+</div>
