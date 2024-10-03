@@ -26,8 +26,16 @@ export class SessionHistoryItemComponent implements OnInit {
   openMessages() {
     this.showMessagesVisibility = true;
   }
-  toggleEditSessionModal() {
-    this.editSessionVisibility = !this.editSessionVisibility
+  correctClaim() {
+    this.showCorrectClaimActionVisibility = true
+  }
+  toggle(name: string) {
+    if (name === 'messages')
+      this.showMessagesVisibility = !this.showMessagesVisibility;
+    if (name === 'correct')
+      this.showCorrectClaimActionVisibility = !this.showCorrectClaimActionVisibility;
+    if (name === 'session')
+      this.editSessionVisibility = !this.editSessionVisibility
   }
   openSession(session: any) {
     this.patientSessionService.findSessionById(session.sessionId)

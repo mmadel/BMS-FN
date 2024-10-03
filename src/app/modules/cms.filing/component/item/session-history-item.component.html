@@ -9,10 +9,10 @@
                     *ngIf="item.submissionType ==='Electronic'">
                     <svg cIcon name="cilChatBubble"></svg> Messages
                 </button>
-                <button cButton color="" variant="outline" (click)="downloadCMS()">
+                <button cButton color="" variant="outline">
                     <svg cIcon name="cilSend"></svg> Resend
                 </button>
-                <button cButton color="" variant="outline" (click)="downloadCMS()">
+                <button cButton color="" variant="outline" (click)="correctClaim()">
                     <svg cIcon name="cilPaperclip"></svg> Correct
                 </button>
                 <hr cDropdownDivider>
@@ -48,6 +48,9 @@
     </c-col>
 </c-row>
 <c-modal id="showMessages" [visible]="showMessagesVisibility" size="lg" backdrop="static" scrollable="">
+    <c-modal-header>
+        <button cButtonClose (click)="toggle('messages')" cBonuttClose></button>
+    </c-modal-header>
     <c-modal-body>
         <show-claim-messages [submissionID]="item.submissionId" *ngIf="showMessagesVisibility"
             (changeVisibility)="changeVisibility($event)">
@@ -56,7 +59,7 @@
 </c-modal>
 <c-modal id="showCorrectClaimActions" [visible]="showCorrectClaimActionVisibility" size="xl" backdrop="static">
     <c-modal-header>
-        <h2>Correct Claim</h2>
+        <button cButtonClose (click)="toggle('correct')" cBonuttClose></button>
     </c-modal-header>
     <c-modal-body>
         <correct-claim-action *ngIf="showCorrectClaimActionVisibility" [sessionCounts]="item.sessionCounts"
@@ -65,8 +68,7 @@
 </c-modal>
 <c-modal id="editSessionitem" [visible]="editSessionVisibility" backdrop="static" size="xl">
     <c-modal-header>
-        <h3 cModalTitle>Edit Session</h3>
-        <button (click)="toggleEditSessionModal()" cBonuttClose></button>
+        <button cButtonClose (click)="toggle('session')" cBonuttClose></button>
     </c-modal-header>
     <c-modal-body>
         <app-patient-session-edit #patientSessionEditComponent *ngIf="editSessionVisibility"

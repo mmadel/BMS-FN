@@ -65,6 +65,7 @@ export class InvocieRequestCreator {
         var invoiceInsuranceCompanyInformation: InvoiceInsuranceCompanyInformation = {
             name: patientInsurance.insuranceCompany[0],
             id: Number(patientInsurance.insuranceCompany[1]),
+            payerId:patientInsurance.insuranceCompany[2],
             address: patientInsurance.insuranceCompanyAddress,
             visibility: patientInsurance.visibility,
             assigner: patientInsurance.assigner,
