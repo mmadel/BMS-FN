@@ -10,7 +10,6 @@ import { ModelModule } from '../model/model.module';
 import { PatientModule } from '../patient';
 import { CmsFilingRoutingModule } from './cms-filing-routing.module';
 import { CorrectClaimActionComponent } from './component/actions/correct.claim/correct-claim-action.component';
-import { ShowActionsComponent } from './component/actions/show/show-actions.component';
 import { SessionHistoryItemComponent } from './component/item/session-history-item.component';
 import { FindHistoryComponent } from './component/list/find-history.component';
 
@@ -18,7 +17,6 @@ import { FindHistoryComponent } from './component/list/find-history.component';
     declarations: [
         FindHistoryComponent,
         SessionHistoryItemComponent,
-        ShowActionsComponent,
         CorrectClaimActionComponent
     ],
     imports: [
