@@ -47,13 +47,13 @@ export class PatientListComponent extends ListTemplate implements OnInit {
     this.router.navigate(['/patient/profile']);
   }
   edit(event: any) {
-    this.paitentService.findById(event.id).subscribe(result => {
-      this.selectedPatient = result;
-      this.editPatientProfileVisibility = true;
-    }, error => {
-      console.log('Error getting patient to be edit ' + error);
-    })
-    //  this.router.navigate(['/patient/profile', event.id]);
+    // this.paitentService.findById(event.id).subscribe(result => {
+    //   this.selectedPatient = result;
+    //   this.editPatientProfileVisibility = true;
+    // }, error => {
+    //   console.log('Error getting patient to be edit ' + error);
+    // })
+     this.router.navigate(['/patient/profile', event.id]);
   }
   inactive(patient: any) {
     this.paitentService.changePatientStatus(patient.id, false).subscribe(reuslt => {
