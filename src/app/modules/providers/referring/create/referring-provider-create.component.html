@@ -73,7 +73,7 @@
             <c-col class="col mb-3">
                 <c-input-group class="mb-3" sizing="sm">
                     <span cInputGroupText id="basic-addon1" style="width: 15%;">ID</span>
-                    <input placeholder="ID" cFormControl id="refid" name="refid" sizing="sm"
+                    <input placeholder="ID" cFormControl id="refid" name="refid" sizing="sm" maxlength="6"
                         [ngClass]="{'is-invalid': refid.invalid && (refid.dirty || refid.touched)}" #refid="ngModel"
                         [(ngModel)]="referringProvider.referringProviderId" />
                 </c-input-group>
