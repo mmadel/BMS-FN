@@ -59,7 +59,6 @@ import { ServiceCodeEditComponent } from './profile/filling/sessions/dependencie
 import { DignosisListComponent } from './profile/filling/sessions/dependencies/dignosis.list/dignosis-list.component';
 import { DaignosisCreationComponent } from './profile/filling/sessions/dependencies/dignosis.create/daignosis-creation.component';
 import { CaseAddDaignosisComponent } from './profile/billing/cases/add.daignosis/case-add-daignosis.component';
-import { ViewProfileComponent } from './profile.view/view-profile.component';
 import { EditProfileComponent } from './profile.edit/edit-profile.component';
 import { SessionBillingCodeComponent } from './profile.edit/components/session.billing.code/session-billing-code.component';
 import { SessionServiceCodeListComponent } from './profile.edit/components/session.service.code.list/session-service-code-list.component';
@@ -98,7 +97,6 @@ import { EditPatientAuthorizationComponent } from './profile.edit/components/edi
     ServiceCodeCreateComponent,
     ServiceCodeListComponent,
     ServiceCodeEditComponent,
-    ViewProfileComponent,
     DignosisListComponent,
     DaignosisCreationComponent,
     CaseAddDaignosisComponent,
@@ -151,7 +149,6 @@ import { EditPatientAuthorizationComponent } from './profile.edit/components/edi
   ],
   exports: [
     PatientSessionEditComponent,
-    ViewProfileComponent,
     EditProfileComponent,
     ListAuthsComponent,
     EnterPaymentComponent

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable, tap } from 'rxjs';
 import { MinimalPatient } from '../../model/clinical/minimal.patient';
+import { Patient } from '../../model/clinical/patient';
 import { PatientResponse } from '../../model/clinical/patient.response';
 import { PatientSearchCriteria } from '../../model/clinical/patient.search.criteria';
 import { ListTemplate } from '../../model/template/list.template';
@@ -18,6 +19,8 @@ export class PatientListComponent extends ListTemplate implements OnInit {
   patients$!: Observable<MinimalPatient[]>;
   patientSearchCriteria: PatientSearchCriteria = {}
   componentRole: string[] = [Role.PATIENT_ROLE];
+  editPatientProfileVisibility: boolean = false;
+  selectedPatient: Patient;
   constructor(private paitentService: PatientService
     , private router: Router
     , private toastrService: ToastrService) { super() }
@@ -44,7 +47,13 @@ export class PatientListComponent extends ListTemplate implements OnInit {
     this.router.navigate(['/patient/profile']);
   }
   edit(event: any) {
-    this.router.navigate(['/patient/profile', event.id]);
+    this.paitentService.findById(event.id).subscribe(result => {
+      this.selectedPatient = result;
+      this.editPatientProfileVisibility = true;
+    }, error => {
+      console.log('Error getting patient to be edit ' + error);
+    })
+    //  this.router.navigate(['/patient/profile', event.id]);
   }
   inactive(patient: any) {
     this.paitentService.changePatientStatus(patient.id, false).subscribe(reuslt => {
@@ -89,7 +98,7 @@ export class PatientListComponent extends ListTemplate implements OnInit {
             name: obj.name,
             dob: moment.unix(obj.dateOfBirth / 1000).toDate(),
             email: obj.email,
-            status : obj.status
+            status: obj.status
           }
           list.push(patientResponse)
         }
@@ -117,7 +126,7 @@ export class PatientListComponent extends ListTemplate implements OnInit {
             name: obj.name,
             dob: moment.unix(obj.dateOfBirth / 1000).toDate(),
             email: obj.email,
-            status : obj.status
+            status: obj.status
           }
           list.push(patientResponse)
         }
@@ -132,5 +141,12 @@ export class PatientListComponent extends ListTemplate implements OnInit {
         window.scrollTo(0, 0);
       }
     })();
+  }
+  toggle() {
+    this.editPatientProfileVisibility = !this.editPatientProfileVisibility
+  }
+  changeVisibility(event: any) {
+    if (event === 'profile')
+      this.editPatientProfileVisibility = false;
   }
 }

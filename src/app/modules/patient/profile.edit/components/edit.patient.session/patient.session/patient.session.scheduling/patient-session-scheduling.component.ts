@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Provider } from 'src/app/modules/model/clinical/provider/provider';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
-import { SessionScheduling } from 'src/app/modules/patient/session/model/session.scheduling';
+import { SessionScheduling } from 'src/app/modules/patient/model/session.scheduling';
 import { ProviderService } from 'src/app/modules/providers/service/provider.service';
 interface ProviderInfo {
   name: string,

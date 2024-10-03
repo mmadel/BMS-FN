@@ -20,14 +20,14 @@ const routes: Routes = [
         path: 'profile',
         component: PatientProfileComponent,
         data: {
-          title: 'Patient Profile',
+          title: 'create',
         },
       },
       {
         path: 'profile/:id',
         component: PatientProfileComponent,
         data: {
-          title: 'Patient Profile',
+          title: 'patient',
         },
       }
     ]

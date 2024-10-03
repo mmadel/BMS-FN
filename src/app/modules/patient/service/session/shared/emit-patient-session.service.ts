@@ -5,7 +5,7 @@ import { PatientCase } from 'src/app/modules/model/clinical/patient.case';
 import { PatientSession } from 'src/app/modules/model/clinical/session/patient.session';
 import { ServiceCode } from 'src/app/modules/model/clinical/session/service.code';
 import { BillingCode } from '../../../profile/filling/sessions/model/billing.code';
-import { SessionScheduling } from '../../../session/model/session.scheduling';
+import { SessionScheduling } from '../../../model/session.scheduling';
 
 @Injectable({
   providedIn: 'root'

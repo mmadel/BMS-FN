@@ -32,7 +32,7 @@ export class PatientProfileComponent implements OnInit {
   genderKeys = Object.values;
   genderIdentity = Object.values;
   genders = Gender;
-  gendersIdentity=GenderIdentity;
+  gendersIdentity = GenderIdentity;
   maritalStatusKeys = Object.values;
   maritalStatuses = MaritalStatus;
   phoneTypesKeys = Object.values;
@@ -41,7 +41,7 @@ export class PatientProfileComponent implements OnInit {
   states: string[] = States;
   selectedTab: number = 0;
   isupdated: boolean = false;
-  componentRole: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE];
   constructor(private patientService: PatientService
     , private toastr: ToastrService
     , private pateintEmittingService: PateintEmittingService
@@ -74,7 +74,7 @@ export class PatientProfileComponent implements OnInit {
   onTabChange(event: any) {
     this.selectedTab = Number(event)
   }
-  close(){
+  close() {
     this.router.navigate(['/patient/list']);
   }
   create(action?: string) {
