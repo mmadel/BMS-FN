@@ -82,6 +82,6 @@
     </c-modal-header>
     <c-modal-body>
         <resend-claim [submissionId]="item.submissionId" [insuranceCompany]="item.insuranceCompany" *ngIf="resendVisibility"
-            [patientId]="item.client.id"></resend-claim>
+            [patientId]="item.client.id" (changeVisibility)="changeVisibility($event)"></resend-claim>
     </c-modal-body>
 </c-modal>

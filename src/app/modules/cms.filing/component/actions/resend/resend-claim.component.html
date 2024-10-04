@@ -1,1 +1,64 @@
-<p>resend-claim works!</p>
+<div class="card" *ngIf="invoicerequest">
+    <h2 class="card-header">Patient</h2>
+    <div class="card-body">
+        <p><strong>ID:</strong> {{ invoicerequest.patientInformation.id }}</p>
+        <p><strong>Name:</strong> {{ invoicerequest.patientInformation.firstName }} {{
+            invoicerequest.patientInformation.lastName }}</p>
+        <p><strong>Gender:</strong> {{ invoicerequest.patientInformation.gender }}</p>
+        <p><strong>Phone:</strong> {{ invoicerequest.patientInformation.phone }}</p>
+        <p><strong>Address :</strong> {{ invoicerequest.patientInformation.address.first }}, {{
+            invoicerequest.patientInformation.address.city }},
+            {{ invoicerequest.patientInformation.address.state }} {{ invoicerequest.patientInformation.address.zipCode
+            }}</p>
+        <p><strong>Referring Provider: </strong>
+            {{ invoicerequest.patientInformation.referringProvider.firstName | lowercase}} {{
+            invoicerequest.patientInformation.referringProvider.lastName | lowercase}} ({{
+            invoicerequest.patientInformation.referringProvider.professionAbbr }}) , <strong>NPI:</strong> {{
+            invoicerequest.patientInformation.referringProvider.npi }}</p>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <h2 class="card-header">Payer</h2>
+    <div class="card-body">
+        <p><strong>Payer:</strong> {{ invoicerequest.invoiceInsuranceCompanyInformation.name }}</p>
+        <p><strong>Payer ID:</strong> {{ invoicerequest.invoiceInsuranceCompanyInformation.payerId }}</p>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <h2 class="card-header">Service Lines</h2>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">DOS</th>
+                        <th scope="col">Provider</th>
+                        <th scope="col">Service Code</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">Diagnoses</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Charge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let line of invoicerequest.selectedSessionServiceLine">
+                        <td>{{line.sessionId.serviceDate}}</td>
+                        <td>{{line.sessionId.doctorInfo.doctorLastName + ',' + line.sessionId.doctorInfo.doctorFirstName
+                            }}</td>
+                        <td>{{line.serviceLine.cptCode.serviceCode}}</td>
+                        <td>{{line.serviceLine.cptCode.modifier}}</td>
+                        <td>{{line.serviceLine.diagnoses}}</td>
+                        <td>{{line.serviceLine.cptCode.unit}}</td>
+                        <td>{{line.serviceLine.cptCode.charge}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="col text-center my-3">
+    <button cButton color="info" variant="outline" size="sm" (click)="resend()" style="width: 25%;">Re-Submit
+    </button>
+</div>

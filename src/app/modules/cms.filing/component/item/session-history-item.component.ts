@@ -40,8 +40,10 @@ export class SessionHistoryItemComponent implements OnInit {
       this.showCorrectClaimActionVisibility = !this.showCorrectClaimActionVisibility;
     if (name === 'session')
       this.editSessionVisibility = !this.editSessionVisibility
-    if (name = 'resend')
+    if (name === 'resend') {
       this.resendVisibility = !this.resendVisibility;
+    }
+
   }
   openSession(session: any) {
     this.patientSessionService.findSessionById(session.sessionId)
@@ -57,6 +59,8 @@ export class SessionHistoryItemComponent implements OnInit {
       this.showCorrectClaimActionVisibility = !this.showCorrectClaimActionVisibility;
     if (event === 'session')
       this.editSessionVisibility = !this.editSessionVisibility;
+    if (event === 'resend')
+      this.resendVisibility = !this.resendVisibility;
   }
   downloadCMS() {
     this.invoiceService.downloadCMS(this.item.submissionId).subscribe(result => {
