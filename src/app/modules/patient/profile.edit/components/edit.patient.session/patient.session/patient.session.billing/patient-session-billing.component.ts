@@ -36,6 +36,7 @@ export class PatientSessionBillingComponent implements OnInit {
   ngOnInit(): void {
     this.findClinics();
     this.fillModel();
+    this.emitDiagnosises();
   }
   _compareFn(a: any, b: any) {
     return a?.id === b?.id;
@@ -43,7 +44,6 @@ export class PatientSessionBillingComponent implements OnInit {
   change() {
     this.billingCode.caseTitle = this.selectedCase.caseTitle;
     this.diagnosises.push(...this.selectedCase.caseDiagnosis)
-    this.caseDiagnosisService.selectedCaseDiagnosis$.next(this.diagnosises)
     this.checkEmptyDaignosis()
   }
   search() {
@@ -73,6 +73,14 @@ export class PatientSessionBillingComponent implements OnInit {
   }
   remove(index: number) {
     this.diagnosises.splice(index, 1);
+  }
+  private emitDiagnosises() {
+    if (this.diagnosises !== null && this.diagnosises.length !== 0){
+      this.caseDiagnosisService.selectedCaseDiagnosis$.next(this.diagnosises)
+    }else{
+      this.caseDiagnosisService.selectedCaseDiagnosis$.next(null)
+    }
+      
   }
   private fillModel() {
     if (this.selectedSession !== undefined) {

@@ -48,7 +48,6 @@ export class CaseAddDaignosisComponent implements OnInit {
     }
   }
   selectICD10diagnosis(event: any) {
-    console.log(event.target.value);
     this.prepareICD10diagnosis(event.target.value)
     this.isICD10diagnosisSelected = true;
   }
@@ -83,7 +82,6 @@ export class CaseAddDaignosisComponent implements OnInit {
         this.isICD10diagnosisSelected = false;
       }
     },error=>{
-      console.log(error)
     })
   }
   createOrUpdate() {

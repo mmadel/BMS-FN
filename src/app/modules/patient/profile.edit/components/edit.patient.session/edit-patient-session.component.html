@@ -56,16 +56,18 @@
             <c-row>
                 <!--Scheduling -->
                 <c-col xs="12">
-                    <patient-session-scheduling #patientSessionSchedulingComponent></patient-session-scheduling>
+                    <patient-session-scheduling *ngIf="addPatientSessionVisibility"
+                        #patientSessionSchedulingComponent></patient-session-scheduling>
                 </c-col>
                 <!-- billing-->
                 <c-col xs="12">
-                    <patient-session-billing [patientCases]="patient?.cases"
+                    <patient-session-billing [patientCases]="patient?.cases" *ngIf="addPatientSessionVisibility"
                         #patientSessionBillingComponent></patient-session-billing>
                 </c-col>
                 <!--Coding-->
                 <c-col xs="12">
-                    <patient-session-coding #patientSessionCodingComponent></patient-session-coding>
+                    <patient-session-coding #patientSessionCodingComponent
+                        *ngIf="addPatientSessionVisibility"></patient-session-coding>
                 </c-col>
             </c-row>
         </div>
@@ -88,17 +90,18 @@
                 <!--Scheduling -->
                 <c-col xs="12">
                     <patient-session-scheduling [selectedSession]="selectedPatientSession"
+                        *ngIf="editPatientSessionVisibility"
                         #patientSessionSchedulingComponent></patient-session-scheduling>
                 </c-col>
                 <!-- billing-->
                 <c-col xs="12">
                     <patient-session-billing [patientCases]="patient?.cases" [selectedSession]="selectedPatientSession"
-                        #patientSessionBillingComponent></patient-session-billing>
+                        *ngIf="editPatientSessionVisibility" #patientSessionBillingComponent></patient-session-billing>
                 </c-col>
                 <!--Coding-->
                 <c-col xs="12">
                     <patient-session-coding [selectedSession]="selectedPatientSession"
-                        #patientSessionCodingComponent></patient-session-coding>
+                        *ngIf="editPatientSessionVisibility" #patientSessionCodingComponent></patient-session-coding>
                 </c-col>
             </c-row>
         </div>

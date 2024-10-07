@@ -29,7 +29,6 @@ export class FeeScheduleService extends BasePaginationService {
     return this.httpClient.get(`${url}`, { 'headers': headers })
   }
   findByCpt(npi: string, cpt: string) {
-    console.log(npi + '------ ' + cpt)
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/find/npi/' + npi + '/cpt/' + cpt
     return this.httpClient.get(`${url}`, { 'headers': headers })

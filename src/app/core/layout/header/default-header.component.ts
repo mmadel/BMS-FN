@@ -45,7 +45,6 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
         this.router.navigate(["/error"])
       }
     }, error => {
-      console.log(error)
     })
   }
 

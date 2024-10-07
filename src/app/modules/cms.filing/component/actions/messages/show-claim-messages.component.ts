@@ -21,7 +21,6 @@ export class ShowClaimMessagesComponent implements OnInit {
     this.sessionHistoryService.findMessages(this.submissionID).subscribe((result: any) => {
       this.submissionClaimMessages = result
     }, error => {
-      console.log('Error : ' + error)
     })
   }
   close() {

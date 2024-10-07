@@ -70,7 +70,6 @@ export class ViewCaseComponent implements OnInit {
   createCase() {
     this.patientService.createPatientCase(this.caseAddDaignosisComponent.case, this.patient.id)
       .subscribe((reuslt:any) => {
-        console.log(reuslt)
         switch (this.mode) {
           case 'create':
             this.caseAddDaignosisComponent.case.id = reuslt;

@@ -103,7 +103,6 @@ export class PatientSessionCodingComponent implements OnInit {
         }
       },
         error => {
-          console.log(error)
           this.isLoading = false
         });
   }
@@ -188,14 +187,13 @@ export class PatientSessionCodingComponent implements OnInit {
   }
   private consumeDiagnosises() {
     this.caseDiagnosisService.selectedCaseDiagnosis$.pipe(
-      filter(result => result !== undefined)
+      filter(result => (result !== null || result !== undefined) && result.length > 0)
     ).subscribe((diagnosises: any) => {
       if (diagnosises !== null) {
         this.diagnosises = diagnosises;
         this.checkEmptyDaignosis();
       }
     }, error => {
-      console.log(error)
     })
   }
 }

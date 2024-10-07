@@ -36,7 +36,6 @@ export class ViewInsuranceComponent implements OnInit {
         case "create":
           this.editPatientInsurance = undefined;
           var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
-          console.log(JSON.stringify(createdInsurance))
           this.patientInsurances.push(createdInsurance);
           this.patientInsurances.sort((a, b) => b.createdAt - a.createdAt);
           this.addInsuranceVisibility = false;

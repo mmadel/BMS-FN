@@ -44,7 +44,6 @@ export class EditPatientAuthorizationComponent implements OnInit {
     this.createAutVisibility = true;
   }
   togglePAtientWatchAuthorization(val: boolean) {
-    console.log(val)
     this.patient.authorizationWatching = val;
   }
   remove(index) {
@@ -53,7 +52,6 @@ export class EditPatientAuthorizationComponent implements OnInit {
     this.updatePatientAuthorizations(Operation.delete, deleted)
   }
   edit(patientAuthorization: PatientAuthorization) {
-    console.log(JSON.stringify(patientAuthorization))
     this.selectedPatientAuthorization = patientAuthorization;
     this.updateAutVisibility = true;
   }

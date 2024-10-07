@@ -42,7 +42,6 @@ export class InvoiceService extends BasePaginationService {
   createElectronic(invoiceRequest: InvoiceRequest) {
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/create/electronic'
-    console.log('createElectronic')
     return this.httpClient.post(`${url}`, JSON.stringify(invoiceRequest), {'headers': headers })
   }
   downloadCMS(invoiceId: number) {

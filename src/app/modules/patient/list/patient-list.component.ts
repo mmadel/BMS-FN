@@ -51,7 +51,6 @@ export class PatientListComponent extends ListTemplate implements OnInit {
     //   this.selectedPatient = result;
     //   this.editPatientProfileVisibility = true;
     // }, error => {
-    //   console.log('Error getting patient to be edit ' + error);
     // })
      this.router.navigate(['/patient/profile', event.id]);
   }

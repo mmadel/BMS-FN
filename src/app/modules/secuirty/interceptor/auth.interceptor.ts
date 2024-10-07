@@ -27,7 +27,6 @@ export class AuthInterceptor implements HttpInterceptor {
       finalize(() => {
       }), 
       catchError(error => {
-        console.log(JSON.stringify(error))
         if (error.status === 401) {
           this.keycloakAngular.logout();
         }

@@ -27,7 +27,6 @@ export class ResendClaimComponent implements OnInit {
     private toastrService: ToastrService) { }
 
   ngOnInit(): void {
-    console.log('resss')
     this.prepare().pipe(
       switchMap((result) => this.prepareBillingProviderInformation(result[0], result[1])),
     ).subscribe(result => {

@@ -33,6 +33,7 @@ export class EditPatientSessionComponent implements OnInit {
   }
   add() {
     this.addPatientSessionVisibility = true;
+    this.selectedPatientSession = undefined;
   }
   edit(patientSession: PatientSession) {
     this.editPatientSessionVisibility = true;

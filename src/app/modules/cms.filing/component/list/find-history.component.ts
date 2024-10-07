@@ -45,7 +45,6 @@ export class FindHistoryComponent implements OnInit {
   private runJob() {
     const source = interval(600000);
     this.subscription = source.subscribe(val => {
-      console.log(new Date())
       this.find()
     });
   }

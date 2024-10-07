@@ -55,7 +55,6 @@ export class EditProfileComponent implements OnInit {
       this.scrollUp();
       this.toastr.success("pateint profile updated")
     }, error => {
-      console.log(error)
       this.scrollUp();
       this.toastr.error("Error during update patient profile")
     })

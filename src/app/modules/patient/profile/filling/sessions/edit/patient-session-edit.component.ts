@@ -35,7 +35,6 @@ export class PatientSessionEditComponent implements OnInit {
     this.emitPatientSessionService.patientSession$.pipe(
       filter((selectedPateint) => selectedPateint !== null)
     ).subscribe((result) => {
-      console.log(JSON.stringify(result))
       this.populateSessionScheduling(result);
       this.populateBillingCode(result)
       this.assignPatientSessionData(result);
@@ -125,7 +124,6 @@ export class PatientSessionEditComponent implements OnInit {
     if (!this.editPateintSessionBillingCodeComponent.billingcodeForm.valid)
       this.editPateintSessionBillingCodeComponent.notValidForm = true;
     if (!(this.editPateintSessionShedulingComponent.notValidForm || this.editPateintSessionBillingCodeComponent.notValidForm)) {
-      console.log(JSON.stringify(updatedPateintSession))
       this.patientSessionService.update(updatedPateintSession)
         .subscribe((result) => {
           this.changeVisibility.emit('session');

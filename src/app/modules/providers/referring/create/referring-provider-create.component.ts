@@ -110,7 +110,6 @@ export class ReferringProviderCreateComponent implements OnInit {
     this.npiReferringProviderCtrl.setValue(this.referringProvider.npi)
   }
   npiSearch() {
-    console.log(this.referringProvider.npi)
     if (this.referringProvider.npi === undefined || this.referringProvider.npi === '' || this.referringProvider.npi === null) {
       this.providerNPIError = 'Please type provider npi';
       return;

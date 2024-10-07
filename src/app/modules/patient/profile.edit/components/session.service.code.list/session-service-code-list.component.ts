@@ -51,7 +51,6 @@ export class SessionServiceCodeListComponent implements OnInit {
   private populateList() {
     if (this.selectedServiceCodes === undefined)
       this.emitPatientSessionService.sessionserviceCodes$.pipe(
-        tap(result=>console.log('PUSHIDED..' + result)),
         filter((serviceCodes) => serviceCodes !== null)
       ).subscribe((serviceCodes) => {
         this.serviceCodes = new Array();

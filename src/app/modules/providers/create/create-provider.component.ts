@@ -171,7 +171,6 @@ export class CreateProviderComponent implements OnInit {
   }
 
   npiSearch() {
-    console.log(this.provider.npi)
     if (this.provider.npi === undefined || this.provider.npi === '' || this.provider.npi === null) {
       this.providerNPIError = 'Please type provider npi';
       return;

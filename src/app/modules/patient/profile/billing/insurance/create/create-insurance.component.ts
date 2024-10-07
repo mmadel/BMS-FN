@@ -181,7 +181,6 @@ export class CreateInsuranceComponent implements OnInit {
           .subscribe((result: any) => {
             this.patientInsurance.assigner = result.records.assigner;
             this.patientInsurance.id = result.records.id;
-            console.log(JSON.stringify(result))
             this.patientInsurance.createdAt = result.records.createdAt;
             this.toastr.success("Patient insurance crteated")
             if (result.records.insuranceCompany !== null)
@@ -189,7 +188,6 @@ export class CreateInsuranceComponent implements OnInit {
             this.scrollUp();
             this.changeCreateInsuranceVisibility.emit('close');
           }, error => {
-            console.log(error)
             this.toastr.error("Error during creating patient insurance")
           })
 

@@ -19,7 +19,6 @@ export class EditInternalInsuranceComponent implements OnInit {
   constructor(private insuranceCompanyService: InsuranceCompanyService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.selectedClinic))
   }
   update() {
     this.insuranceCompanyService.update(this.selectedClinic).subscribe(result => {

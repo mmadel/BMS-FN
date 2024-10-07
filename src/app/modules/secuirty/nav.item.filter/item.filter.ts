@@ -5,7 +5,6 @@ import { MenuItem } from "../model/nav.item";
 export class ItemFilter {
 
     public static filterNavItems(returnedNavItems: MenuItem[]): INavData[] {
-        // console.log(JSON.stringify(returnedNavItems))
         var navMenuItems: INavData[] = navItems;
         var filteredNavItem: INavData[] = []
         for (var i = 0; i < returnedNavItems.length; i++) {

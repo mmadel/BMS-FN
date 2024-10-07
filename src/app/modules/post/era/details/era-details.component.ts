@@ -86,7 +86,6 @@ export class EraDetailsComponent implements OnInit {
   constructor(private eraService: EraService, private toastr: ToastrService, private patientService: PatientService) {
   }
   openPatientProfile(patient: string) {
-    console.log(patient)
     var patientName: string[] = patient.toLocaleLowerCase().split(",")
     this.patientService.findByFirstAndLast(patientName[1], patientName[0]).subscribe(result => {
       this.eraService.selectedPatient$.next(result)
@@ -95,7 +94,6 @@ export class EraDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('ERA Details ')
     this.checkAllTouched(this.era.eraDetails.patientLines);
   }
 

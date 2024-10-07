@@ -18,7 +18,6 @@ export class InsuranceCompanyService {
     return this.httpClient.get(url)
   }
   public update(internalInsuranceCompany: any): Observable<any> {
-    console.log(JSON.stringify(internalInsuranceCompany))
     const headers = { 'content-type': 'application/json' }
     var url = this.baseUrl + '/update/internal'
     return this.httpClient.put(`${url}`, JSON.stringify(internalInsuranceCompany), { 'headers': headers })

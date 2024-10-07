@@ -18,7 +18,7 @@
                         </small>
                         <input cFormControl name="serviceCode" [formControl]="feeCtrl" id="serviceCode" sizing="sm"
                             maxlength="5" sizing="sm" [ngModel]="serviceCode.cptCode.serviceCode"
-                            (ngModelChange)="serviceCode.cptCode.serviceCode = $event.toUpperCase()"
+                            (ngModelChange)="serviceCode.cptCode.serviceCode = $event?.toUpperCase()"
                             placeholder="Service Code" />
                     </div>
                     <div class="mb-1">
