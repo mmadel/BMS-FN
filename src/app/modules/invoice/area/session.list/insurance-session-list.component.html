@@ -104,7 +104,7 @@
                     </ng-container>
                     <ng-container *ngSwitchCase="'charge'" class="py-2">
                       <button class="btn btn-link"
-                        (click)="executeAction('edit_session_item',item,'charge')">{{tdContent}}</button>
+                        (click)="executeAction('edit_session_item',item,'charge')">{{tdContent | currency}}</button>
                     </ng-container>
                     <ng-container *ngSwitchDefault>
                       {{tdContent}}
