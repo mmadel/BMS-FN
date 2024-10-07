@@ -18,7 +18,7 @@ export class ViewCaseComponent implements OnInit {
   addCaseVisibility: boolean = false
   editCaseVisibility: boolean = false;
   mode: string;
-  _cases: PatientCase[]
+  _cases: PatientCase[]=[]
   editCase: PatientCase;
   componentRole: string[] = [Role.PATIENT_ROLE];
   constructor(private patientService: PatientService
