@@ -19,7 +19,7 @@ export class ViewInsuranceComponent implements OnInit {
   patientInsurances: PatientInsurance[] = new Array();
   editPatientInsurance: PatientInsurance;
   editModalTitle: string;
-  componentRole: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE];
   constructor(private patientService: PatientService
     , private toastr: ToastrService) { }
 
@@ -28,16 +28,17 @@ export class ViewInsuranceComponent implements OnInit {
   }
   toggleAddInsuranceVisibility() {
     this.addInsuranceVisibility = !this.addInsuranceVisibility;
-    
+
   }
   changeVisibility(event: any) {
     if (event === 'close') {
-      console.log('@@@@@@@@ ' + this.createInsuranceComponent.mode)
       switch (this.createInsuranceComponent.mode) {
         case "create":
           this.editPatientInsurance = undefined;
           var createdInsurance: PatientInsurance = this.createInsuranceComponent.patientInsurance;
+          console.log(JSON.stringify(createdInsurance))
           this.patientInsurances.push(createdInsurance);
+          this.patientInsurances.sort((a, b) => b.createdAt - a.createdAt);
           this.addInsuranceVisibility = false;
           break;
         case "edit":

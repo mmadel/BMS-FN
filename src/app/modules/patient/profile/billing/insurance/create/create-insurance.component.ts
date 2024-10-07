@@ -119,7 +119,6 @@ export class CreateInsuranceComponent implements OnInit {
     }
   }
   pickPayerName(event: any) {
-    console.log(JSON.stringify(event))
     this.patientInsurance.visibility = 'External';
     this.payers.forEach(element => {
       if (element.displayName === event)
@@ -182,6 +181,8 @@ export class CreateInsuranceComponent implements OnInit {
           .subscribe((result: any) => {
             this.patientInsurance.assigner = result.records.assigner;
             this.patientInsurance.id = result.records.id;
+            console.log(JSON.stringify(result))
+            this.patientInsurance.createdAt = result.records.createdAt;
             this.toastr.success("Patient insurance crteated")
             if (result.records.insuranceCompany !== null)
               this.patientInsurance.insuranceCompany = result.records.insuranceCompany
