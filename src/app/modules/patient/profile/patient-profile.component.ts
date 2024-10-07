@@ -62,6 +62,7 @@ export class PatientProfileComponent implements OnInit {
       this.isupdated = false;
       this.patient = {
         gender: null,
+        genderIdentity:null,
         maritalStatus: null,
         address: {
           country: null,
