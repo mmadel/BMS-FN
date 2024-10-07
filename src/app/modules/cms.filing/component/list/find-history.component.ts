@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
-import { interval, Subscription } from 'rxjs';
+import { filter, interval, Subscription } from 'rxjs';
 import { CustomDdateRanges } from 'src/app/modules/invoice/area/session.list/constant/custom.date.ranges';
+import { EmitPatientSessionService } from 'src/app/modules/patient/service/session/shared/emit-patient-session.service';
 import { SessionHistory } from '../../model/session.history';
 import { SessionHistoryCriteria } from '../../model/session.history.criteria';
 import { SessionHistoryService } from '../../service/session-history.service';
@@ -29,11 +30,17 @@ export class FindHistoryComponent implements OnInit {
     { id: 3, name: 'acknowledge', checked: false },
     { id: 3, name: 'error', checked: false }
   ];
-  constructor(private sessionHistoryService: SessionHistoryService) {
+  constructor(private sessionHistoryService: SessionHistoryService,
+    private emitPatientSessionService: EmitPatientSessionService) {
   }
   ngOnInit(): void {
     this.find()
     this.runJob();
+    this.emitPatientSessionService.requestSessionsHistorty$.pipe(
+      filter(result => result !==undefined || result !== null || !result)
+    ).subscribe(re=>{
+      this.find();
+    })
   }
   private runJob() {
     const source = interval(600000);

@@ -43,8 +43,10 @@ export class ServiceCodeEditComponent implements OnInit {
     if (validMod.length === 0 && validCPt === -1 && validUniy && validCharge) {
       this.selectedServiceCode.cptCode.modifier = this.modifier.join(".")
       this.selectedServiceCode.diagnoses = this.selectedDiagnosisCodes
+      this.selectedServiceCode.isChanged = true;
       this.changeVisibility.emit('close');
     }
+
   }
   private validatModifier() {
     this.validModifiers = new Array();

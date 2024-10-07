@@ -20,12 +20,13 @@ import { SessionScheduling } from '../model/session.scheduling';
   styleUrls: ['./patient-session-edit.component.scss']
 })
 export class PatientSessionEditComponent implements OnInit {
-  componentRole: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE];
   @ViewChild('editPateintSessionShedulingComponent') editPateintSessionShedulingComponent: ShedulingComponent;
   @ViewChild('editPateintSessionBillingCodeComponent') editPateintSessionBillingCodeComponent: BillingCodeComponent;
   selectedPateint: Patient;
   oldProvider: DoctorInfo;
   selectedPateintSessionId: number
+  sessionStatus:string;
   @Output() changeVisibility = new EventEmitter<string>()
   constructor(private patientSessionService: PatientSessionService
     , private emitPatientSessionService: EmitPatientSessionService
@@ -34,6 +35,7 @@ export class PatientSessionEditComponent implements OnInit {
     this.emitPatientSessionService.patientSession$.pipe(
       filter((selectedPateint) => selectedPateint !== null)
     ).subscribe((result) => {
+      console.log(JSON.stringify(result))
       this.populateSessionScheduling(result);
       this.populateBillingCode(result)
       this.assignPatientSessionData(result);
@@ -46,11 +48,12 @@ export class PatientSessionEditComponent implements OnInit {
     }
     this.oldProvider = selectedPateintSession.doctorInfo;
     this.selectedPateintSessionId = selectedPateintSession.id
+    this.sessionStatus = selectedPateintSession.status
   }
   private populateSessionScheduling(selectedPateintSession: PatientSession) {
     var sessionScheduling: SessionScheduling = {
       provider: selectedPateintSession.doctorInfo.doctorLastName + ',' + selectedPateintSession.doctorInfo.doctorFirstName,
-      providerNPI:selectedPateintSession.doctorInfo.doctorNPI,
+      providerNPI: selectedPateintSession.doctorInfo.doctorNPI,
       serviceDate: moment.unix(selectedPateintSession.serviceDate / 1000).toDate(),
       startTime: moment.unix(selectedPateintSession.serviceStartTime / 1000).toDate(),
       endTime: moment.unix(selectedPateintSession.serviceEndTime / 1000).toDate(),
@@ -101,6 +104,7 @@ export class PatientSessionEditComponent implements OnInit {
       serviceEndTime: moment(this.editPateintSessionShedulingComponent.sessionScheduling.endTime).unix() * 1000,
       placeOfCode: this.editPateintSessionBillingCodeComponent.billingCode.placeOfCode,
       patientId: this.selectedPateint.id,
+      status : this.sessionStatus,
       doctorInfo: this.constructorModelDoctorInfo(),
       clinicInfo: this.constructModelClinicInfo(),
       clinic: this.editPateintSessionBillingCodeComponent.billingCode.facility,
@@ -121,6 +125,7 @@ export class PatientSessionEditComponent implements OnInit {
     if (!this.editPateintSessionBillingCodeComponent.billingcodeForm.valid)
       this.editPateintSessionBillingCodeComponent.notValidForm = true;
     if (!(this.editPateintSessionShedulingComponent.notValidForm || this.editPateintSessionBillingCodeComponent.notValidForm)) {
+      console.log(JSON.stringify(updatedPateintSession))
       this.patientSessionService.update(updatedPateintSession)
         .subscribe((result) => {
           this.changeVisibility.emit('session');

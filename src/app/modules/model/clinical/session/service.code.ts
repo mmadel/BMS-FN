@@ -9,4 +9,5 @@ export interface ServiceCode {
     isCorrect?: boolean;
     lineNote?: string;
     payments?: number;
+    isChanged?:boolean
 }

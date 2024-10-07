@@ -1,4 +1,5 @@
 <c-row class="n5">
+    <!--Seetings Dropdown button-->
     <c-col xs="1">
         <c-dropdown>
             <button cButton cDropdownToggle color="secondary" variant="outline">
@@ -22,6 +23,7 @@
             </div>
         </c-dropdown>
     </c-col>
+    <!--Submission Details-->
     <c-col xs="9">
         <div class="fs-5" style="margin-left: -2%;"><strong>Submission ID : </strong> {{item.submissionId}}</div>
         <div class="fs-6"><strong>To : </strong> {{item.insuranceCompany}}</div>
@@ -31,6 +33,7 @@
             </strong>{{item.client.lastName}},{{item.client.firstName}}</div>
         <div class="fs-6" style="margin-left: -1%;"><strong>Provider : </strong>{{item.provider}}</div>
     </c-col>
+    <!--Service Dates Details-->
     <c-col xs="2">
         <div class="overflow-auto" style="max-width: 260px; max-height: 100px;">
             <ul cListGroup>
@@ -81,7 +84,8 @@
         <button cButtonClose (click)="toggle('resend')" cBonuttClose></button>
     </c-modal-header>
     <c-modal-body>
-        <resend-claim [submissionId]="item.submissionId" [insuranceCompany]="item.insuranceCompany" *ngIf="resendVisibility"
-            [patientId]="item.client.id" (changeVisibility)="changeVisibility($event)"></resend-claim>
+        <resend-claim [submissionId]="item.submissionId" [insuranceCompany]="item.insuranceCompany"
+            *ngIf="resendVisibility" [patientId]="item.client.id"
+            (changeVisibility)="changeVisibility($event)"></resend-claim>
     </c-modal-body>
 </c-modal>

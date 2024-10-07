@@ -11,6 +11,7 @@ import { SessionScheduling } from '../../../model/session.scheduling';
   providedIn: 'root'
 })
 export class EmitPatientSessionService {
+  public requestSessionsHistorty$: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(null);
   public patientSession$: BehaviorSubject<PatientSession | null> = new BehaviorSubject<PatientSession | null>(null);
   public sessionScheduling$: BehaviorSubject<SessionScheduling | null> = new BehaviorSubject<SessionScheduling | null>(null);
   public sessionBillingCode$: BehaviorSubject<BillingCode | null> = new BehaviorSubject<BillingCode | null>(null);

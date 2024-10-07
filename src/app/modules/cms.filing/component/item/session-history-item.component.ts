@@ -59,8 +59,10 @@ export class SessionHistoryItemComponent implements OnInit {
       this.showCorrectClaimActionVisibility = !this.showCorrectClaimActionVisibility;
     if (event === 'session')
       this.editSessionVisibility = !this.editSessionVisibility;
-    if (event === 'resend')
+    if (event === 'resend'){
       this.resendVisibility = !this.resendVisibility;
+      this.emitPatientSessionService.requestSessionsHistorty$.next(true)
+    }
   }
   downloadCMS() {
     this.invoiceService.downloadCMS(this.item.submissionId).subscribe(result => {

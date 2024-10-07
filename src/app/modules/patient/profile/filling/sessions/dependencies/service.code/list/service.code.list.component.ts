@@ -10,7 +10,7 @@ import { Role } from 'src/app/modules/secuirty/model/roles';
   styleUrls: ['./service.code.list.component.scss']
 })
 export class ServiceCodeListComponent implements OnInit {
-  componentRole: string[] = [Role.PATIENT_ROLE ];
+  componentRole: string[] = [Role.PATIENT_ROLE];
   serviceCodes: ServiceCode[] = new Array();
   unitCount: number;
   chargeCount: number;
@@ -55,7 +55,6 @@ export class ServiceCodeListComponent implements OnInit {
   private populateList() {
     if (this.selectedServiceCodes === undefined)
       this.emitPatientSessionService.sessionserviceCodes$.pipe(
-        tap(result=>console.log('PUSHIDED..' + result)),
         filter((serviceCodes) => serviceCodes !== null)
       ).subscribe((serviceCodes) => {
         this.serviceCodes = new Array();

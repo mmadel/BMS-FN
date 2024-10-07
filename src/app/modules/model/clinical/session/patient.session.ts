@@ -8,6 +8,7 @@ import { ServiceCode } from "./service.code";
 export interface PatientSession {
     id?: number
     patientId?:number
+    status?:string
     doctorInfo?: DoctorInfo;
     clinicInfo?: ClinicInfo
     clinic?:Clinic;
