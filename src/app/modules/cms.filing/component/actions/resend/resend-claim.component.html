@@ -18,15 +18,15 @@
     </div>
 </div>
 
-<div class="card mt-3">
+<div class="card mt-3" *ngIf="invoicerequest">
     <h2 class="card-header">Payer</h2>
     <div class="card-body">
-        <p><strong>Payer:</strong> {{ invoicerequest.invoiceInsuranceCompanyInformation.name }}</p>
-        <p><strong>Payer ID:</strong> {{ invoicerequest.invoiceInsuranceCompanyInformation.payerId }}</p>
+        <p><strong>Payer:</strong> {{ invoicerequest?.invoiceInsuranceCompanyInformation.name }}</p>
+        <p><strong>Payer ID:</strong> {{ invoicerequest?.invoiceInsuranceCompanyInformation.payerId }}</p>
     </div>
 </div>
 
-<div class="card mt-3">
+<div class="card mt-3" *ngIf="invoicerequest">
     <h2 class="card-header">Service Lines</h2>
     <div class="card-body">
         <div class="table-responsive">
