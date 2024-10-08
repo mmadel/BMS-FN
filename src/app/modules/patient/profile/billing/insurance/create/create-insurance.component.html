@@ -189,8 +189,10 @@
                             <!--Date Of Birth-->
                             <c-row>
                                 <c-col class="mb-2">
-                                    <c-date-picker cFormControl size="sm" placeholder="Date of Birth"
-                                        [(date)]="patientInsurance.patientRelation.dob" required="true"></c-date-picker>
+                                    <!-- <c-date-picker cFormControl size="sm" placeholder="Date of Birth"
+                                        [(date)]="patientInsurance.patientRelation.dob" required="true"></c-date-picker> -->
+                                    <input type="date" cFormControl [ngModel]="patientInsurance.patientRelation.dob | date:'yyyy-MM-dd'"
+                                        (ngModelChange)="patientInsurance.patientRelation.dob = $event" name="pprofiledob" #myDate>
                                 </c-col>
                             </c-row>
                         </span>
