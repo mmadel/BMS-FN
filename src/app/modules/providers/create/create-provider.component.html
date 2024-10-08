@@ -231,7 +231,7 @@
                                     <span cInputGroupText style="width: 10%;">
                                         Tax ID
                                     </span>
-                                    <input placeholder="Tax Id" cFormControl id="prtaxId" name="prtaxId" sizing="sm"
+                                    <input placeholder="Tax Id" cFormControl id="prtaxId" name="prtaxId" sizing="sm" maxlength="9"
                                         required #prtaxId="ngModel" [(ngModel)]="provider.providerInfo.taxId"
                                         readonly-input [componentRole]="componentRole" />
                                 </c-input-group>
