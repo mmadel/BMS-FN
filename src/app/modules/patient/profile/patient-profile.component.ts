@@ -44,7 +44,6 @@ export class PatientProfileComponent implements OnInit {
   componentRole: string[] = [Role.PATIENT_ROLE];
   constructor(private patientService: PatientService
     , private toastr: ToastrService
-    , private pateintEmittingService: PateintEmittingService
     , private route: ActivatedRoute
     , private router: Router
     , private elementRef: ElementRef) { }
@@ -56,7 +55,6 @@ export class PatientProfileComponent implements OnInit {
           this.isupdated = true;
           this.patient = result
           this.patientDOB = moment.unix(this.patient.birthDate / 1000).toDate();
-
         })
     } else {
       this.isupdated = false;

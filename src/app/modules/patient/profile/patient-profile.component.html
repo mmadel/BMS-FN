@@ -93,7 +93,8 @@
                                 <select aria-label="" cSelect #gender="ngModel" name="genderIden" required
                                     [(ngModel)]="patient.genderIdentity">
                                     <option [value]="null">Select Gender Identity</option>
-                                    <option *ngFor="let genderIdenValue of genderIdentity(gendersIdentity)" [ngValue]="genderIdenValue">
+                                    <option *ngFor="let genderIdenValue of genderIdentity(gendersIdentity)"
+                                        [ngValue]="genderIdenValue">
                                         {{gendersIdentity[genderIdenValue]}}
                                     </option>
                                 </select>
@@ -154,17 +155,17 @@
                     </c-row>
                     <c-row>
                         <c-col class="mb-1">
-                            <small
+                            <!-- <small
                                 *ngIf="notValidForm   && (email.errors) || email.invalid && (email.dirty || email.touched)"
                                 class="form-text text-danger">
                                 Email is required
-                            </small>
+                            </small> -->
                             <c-input-group sizing="sm">
                                 <span cInputGroupText>
                                     <svg cIcon name="cibMailRu" title="cibMailRu"></svg>
                                 </span>
-                                <input cFormControl placeholder="Email" required [(ngModel)]="patient.email"
-                                    #email="ngModel" name="email" />
+                                <input cFormControl placeholder="Email" [(ngModel)]="patient.email" #email="ngModel"
+                                    name="email" />
                             </c-input-group>
                         </c-col>
                     </c-row>
@@ -174,8 +175,10 @@
                                 <span cInputGroupText>
                                     <svg cIcon name="cilBirthdayCake" title="cilBirthdayCake"></svg>
                                 </span>
-                                <c-date-picker cFormControl size="sm" [(date)]="patientDOB" required="true"
-                                    disable-date-picker [componentRole]="componentRole"></c-date-picker>
+                                <!-- <c-date-picker cFormControl size="sm" [(date)]="patientDOB" required="true"
+                                    disable-date-picker [componentRole]="componentRole"></c-date-picker> -->
+                                <input type="date" cFormControl [ngModel]="patientDOB | date:'yyyy-MM-dd'" 
+                                    (ngModelChange)="patientDOB = $event" name="pprofiledob" #myDate>
                             </c-input-group>
                         </c-col>
                     </c-row>
