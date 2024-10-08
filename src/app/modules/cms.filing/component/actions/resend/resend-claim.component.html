@@ -10,7 +10,7 @@
             invoicerequest.patientInformation.address.city }},
             {{ invoicerequest.patientInformation.address.state }} {{ invoicerequest.patientInformation.address.zipCode
             }}</p>
-        <p><strong>Referring Provider: </strong>
+        <p *ngIf="invoicerequest.patientInformation.referringProvider"><strong>Referring Provider: </strong>
             {{ invoicerequest.patientInformation.referringProvider.firstName | lowercase}} {{
             invoicerequest.patientInformation.referringProvider.lastName | lowercase}} ({{
             invoicerequest.patientInformation.referringProvider.professionAbbr }}) , <strong>NPI:</strong> {{
@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let line of invoicerequest.selectedSessionServiceLine">
-                        <td>{{line.sessionId.serviceDate}}</td>
+                        <td>{{line.sessionId.serviceDate  |date:'MM/dd/YYYY'}}</td>
                         <td>{{line.sessionId.doctorInfo.doctorLastName + ',' + line.sessionId.doctorInfo.doctorFirstName
                             }}</td>
                         <td>{{line.serviceLine.cptCode.serviceCode}}</td>
