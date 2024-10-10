@@ -25,6 +25,10 @@ import { PaymentLinesConstructor } from '../util/paymnet.lines.constructor';
 })
 export class InsuranceCompanyPaymentComponent extends ListTemplate implements OnInit {
   filter: PostingFilterModel;
+  payment: number = 0;
+  previouspayment: number = this.payment;
+  adjust:number = 0;
+  previousadjust: number = this.adjust;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
   insuranceCompanyPostingPayments$!: Observable<Map<string, BatchSessionServiceLinePayment[]>>;
@@ -70,7 +74,46 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
       }),
     )
   }
-
+  onFocusPaymnet() {
+    this.previouspayment = this.payment;
+  }
+  
+  onFocusOutPaymnet(item: any) {
+    var value:any[]=[];
+    if (this.isValidAmount(item.payment)) {
+      this.payment = item.payment
+      value[0] = this.payment;
+    }
+    else{
+      value[0]=0;
+      value[1]=this.previouspayment;
+    }
+    var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
+    var balance: number = _rslt.balance
+    item.balance = this.calculateBalance(item.payment, item.adjust, balance)
+    this.changePayments.emit(value);
+  }
+  onFocusAdjust() {
+    this.previousadjust = this.adjust;
+  }
+  onFocusOutAdjust(item: any) {
+    var value:any[]=[];
+    if (this.isValidAmount(item.adjust)) {
+      this.adjust = item.adjust
+      value[0] = this.adjust;
+    }
+    else{
+      value[0]=0;
+      value[1]=this.previousadjust;
+    }
+    var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
+    var balance: number = _rslt.balance
+    item.balance = this.calculateBalance(item.payment, item.adjust, balance)
+    this.changeAdjustments.emit(value);
+  }
+  isValidAmount(amount: number): boolean {
+    return amount > 0; // Example condition: must be greater than 0
+  }
   changePaymnet(item: any, type?: string) {
     switch (type) {
       case 'payment':
@@ -79,9 +122,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
       case 'adjust':
         this.changeAdjustments.emit(item.adjust)
         break;
-
     }
-    console.log(type)
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
