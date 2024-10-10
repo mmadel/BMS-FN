@@ -206,7 +206,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
           this.toastr.success('Insurance company payment done.');
           this.renderComponent = undefined;
           this.paymentForm.reset();
-          this.clear(1)
+          this.clear(0)
           this.scrollUp();
         }, error => {
           this.toastr.error('error during Insurance company  payment.');
@@ -226,6 +226,8 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     for (var i = 0; i < serviceLinePayments.length; i++) {
       totalPayments = totalPayments + serviceLinePayments[i].payment
     }
+    console.log(this.paymentBatch.totalAmount)
+    console.log(JSON.stringify(serviceLinePayments[i]))
     return totalPayments === this.paymentBatch.totalAmount;
   }
   search() {
@@ -242,6 +244,8 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     }
   }
   clear(filterType: number) {
+    this.totalPayments = 0;
+    this.totalAdjustments = 0;
     if (filterType === 0) {
       this.selectedSearchOption = 'none';
       this.renderComponent = 'none'
@@ -249,8 +253,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     if (filterType === 1) {
       this.patientClient.setValue(undefined);
       this.insuranceCompanyForm.setValue(undefined)
-      this.filteredPatients = undefined;
-      this.filteredInsuranceCompany = undefined;
+      this.filteredInsuranceCompany = [];
       this.renderComponent = 'none'
     }
     this.postingFilterModel = {}

@@ -150,7 +150,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
       serviceLinePayment.push(...paymentServiceLine);
     }
     var filteredList: any = serviceLinePayment.filter((item: any) => {
-      return (item.payment !== null && item.adjust !== null)
+      return (item.payment !== null || item.adjust !== null)
     })
     serviceLinePaymentRequest.serviceLinePayments = filteredList
     return serviceLinePaymentRequest;
