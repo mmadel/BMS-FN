@@ -29,6 +29,10 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   totalPayment: number = 0;
   serviceLinesPaymnet: any
   @Input() entityPaymentId: number;
+  payment: number = 0;
+  previouspayment: number = this.payment;
+  adjust: number = 0;
+  previousadjust: number = this.adjust;
   columnsBI = [
     { key: 'id' },
     { key: 'dos', label: 'DateOfService' },
@@ -103,7 +107,43 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
       })
     );
   }
-
+  onFocusOutPaymnet(item: any) {
+    var value: any[] = [];
+    if (item.payment === item.tmpPreviousPayment)
+      return
+    if (this.isValidAmount(item.payment)) {
+      item.tmpPreviousPayment = item.payment;
+      value[0] = item.payment;
+    }
+    else {
+      value[0] = 0;
+      value[1] = item.tmpPreviousPayment;
+    }
+    var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
+    var balance: number = _rslt.balance
+    item.balance = this.calculateBalance(item.payment, item.adjust, balance)
+    this.changePayments.emit(value);
+  }
+  onFocusOutAdjust(item: any) {
+    var value: any[] = [];
+    if (item.adjust === item.tmpPreviousAdjust)
+      return
+    if (this.isValidAmount(item.adjust)) {
+      item.tmpPreviousAdjust = item.adjust;
+      value[0] = item.adjust;
+    }
+    else {
+      value[0] = 0;
+      value[1] = item.tmpPreviousAdjust;
+    }
+    var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
+    var balance: number = _rslt.balance
+    item.balance = this.calculateBalance(item.payment, item.adjust, balance)
+    this.changeAdjustments.emit(value);
+  }
+  isValidAmount(amount: number): boolean {
+    return amount > 0;
+  }
   changePaymnet(item: any, type?: string) {
     switch (type) {
       case 'payment':

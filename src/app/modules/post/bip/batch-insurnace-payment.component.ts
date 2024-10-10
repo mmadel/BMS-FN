@@ -159,8 +159,6 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   onChangeAdjustments(event: any) {
     if (event[0] !== 0)
       this.totalAdjustments = this.totalAdjustments + event[0];
-    
-    console.log(event)
     if (event[0] === 0 && this.totalAdjustments !== 0)
       this.totalAdjustments = this.totalAdjustments - event[1]
   }

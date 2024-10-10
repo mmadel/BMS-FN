@@ -27,7 +27,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
   filter: PostingFilterModel;
   payment: number = 0;
   previouspayment: number = this.payment;
-  adjust:number = 0;
+  adjust: number = 0;
   previousadjust: number = this.adjust;
   @Output() changePayments = new EventEmitter<any[]>()
   @Output() changeAdjustments = new EventEmitter<any[]>()
@@ -74,37 +74,36 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
       }),
     )
   }
-  onFocusPaymnet() {
-    this.previouspayment = this.payment;
-  }
-  
+
+
   onFocusOutPaymnet(item: any) {
-    var value:any[]=[];
+    var value: any[] = [];
+    if (item.payment === item.tmpPreviousPayment)
+      return
     if (this.isValidAmount(item.payment)) {
-      this.payment = item.payment
-      value[0] = this.payment;
+      item.tmpPreviousPayment = item.payment;
+      value[0] = item.payment;
     }
-    else{
-      value[0]=0;
-      value[1]=this.previouspayment;
+    else {
+      value[0] = 0;
+      value[1] = item.tmpPreviousPayment;
     }
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
     this.changePayments.emit(value);
   }
-  onFocusAdjust() {
-    this.previousadjust = this.adjust;
-  }
   onFocusOutAdjust(item: any) {
-    var value:any[]=[];
+    var value: any[] = [];
+    if (item.adjust === item.tmpPreviousAdjust)
+      return
     if (this.isValidAmount(item.adjust)) {
-      this.adjust = item.adjust
-      value[0] = this.adjust;
+      item.tmpPreviousAdjust = item.adjust;
+      value[0] = item.adjust;
     }
-    else{
-      value[0]=0;
-      value[1]=this.previousadjust;
+    else {
+      value[0] = 0;
+      value[1] = item.tmpPreviousAdjust;
     }
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
@@ -112,7 +111,7 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     this.changeAdjustments.emit(value);
   }
   isValidAmount(amount: number): boolean {
-    return amount > 0; // Example condition: must be greater than 0
+    return amount > 0;
   }
   changePaymnet(item: any, type?: string) {
     switch (type) {

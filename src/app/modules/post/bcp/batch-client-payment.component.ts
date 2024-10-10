@@ -53,7 +53,7 @@ export class BatchClientPaymentComponent implements OnInit {
     , private toastr: ToastrService
     , private batchPaymentService: BatchPaymentService) {
   }
-  clientBatchReceiptRequest: ClientBatchReceiptRequest;  
+  clientBatchReceiptRequest: ClientBatchReceiptRequest;
   ngOnInit(): void {
     this.findPatientByNameAutoComplete();
   }
@@ -110,18 +110,17 @@ export class BatchClientPaymentComponent implements OnInit {
   changeInsuranceCompanyValue(event: any) {
     this.postingFilterModel.entityId = event;
   }
-  onChangePayements(event: any[]) {
-    if (event[0] === 0)
-      this.totalPayments = this.totalPayments + event[1];
+  onChangePayements(event: any) {
     if (event[0] !== 0)
-      this.totalPayments = this.totalPayments - event[0] + event[1];
-    this.paymentBatch.totalAmount = this.totalPayments;
+      this.totalPayments = this.totalPayments + event[0];
+    if (event[0] === 0)
+      this.totalPayments = this.totalPayments - event[1]
   }
-  onChangeAdjustments(event: any[]) {
-    if (event[0] === 0)
-      this.totalAdjustments = this.totalAdjustments + event[1];
+  onChangeAdjustments(event: any) {
     if (event[0] !== 0)
-      this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
+      this.totalAdjustments = this.totalAdjustments + event[0];
+    if (event[0] === 0)
+      this.totalAdjustments = this.totalAdjustments - event[1]
   }
   applyPayments() {
     this.createClientPayment()

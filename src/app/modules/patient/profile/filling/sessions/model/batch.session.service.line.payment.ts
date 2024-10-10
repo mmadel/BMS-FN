@@ -5,7 +5,9 @@ export interface BatchSessionServiceLinePayment{
     provider?:string
     balance?:number
     payment?:number
+    tmpPreviousPayment?:number
     adjust?:number
+    tmpPreviousAdjust?:number
     previousPayment?:number
     charge?:number;
     serviceLinePaymentAction?:string
