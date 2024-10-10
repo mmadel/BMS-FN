@@ -19,7 +19,7 @@ import { PostingFilterModel } from '../filter/posting.filter.model';
   styleUrls: ['./client-payment.component.scss']
 })
 export class ClientPaymentComponent extends ListTemplate implements OnInit {
-  componentRole: string[] = [Role.PAYMENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE , Role.BATCH_CLIENT_PAYMENT_ROLE];
+  componentRole: string[] = [Role.PAYMENT_ROLE, Role.BATCH_INSURANCE_PAYMENT_ROLE, Role.BATCH_CLIENT_PAYMENT_ROLE];
   filter: PostingFilterModel;
   @Input() batchType: string;
   @Output() changePayments = new EventEmitter<any[]>()
@@ -104,7 +104,15 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     );
   }
 
-  changePaymnet(item: any) {
+  changePaymnet(item: any, type?: string) {
+    switch (type) {
+      case 'payment':
+        this.changePayments.emit(item.payment)
+        break;
+      case 'adjust':
+        this.changeAdjustments.emit(item.adjust)
+        break;
+    }
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
@@ -115,14 +123,14 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
   }
 
   constructPaymentLines(paymentBatch: PaymentBatch): any {
-      return this.constructRequest(paymentBatch);
+    return this.constructRequest(paymentBatch);
   }
   private validate(items: any[]): any[] {
     var invalidServiceCode: any[] = [];
     for (var i = 0; i < items.length; i++) {
       var item: any = items[i];
       var isPaymentChanged: boolean = item.payment !== null || item.adjust !== null
-      if ( isPaymentChanged)
+      if (isPaymentChanged)
         invalidServiceCode.push(Number(item.serviceLineId));
     }
     return invalidServiceCode

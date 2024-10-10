@@ -30,14 +30,14 @@
                   <c-input-group sizing="sm" dispaly-input [componentRole]="componentRole">
                     <span cInputGroupText id="payment">&#36;</span>
                     <input cFormControl aria-describedby="payment" class="w-10" [(ngModel)]="item.payment" type="number"
-                      (focusout)="changePaymnet(item)">
+                      (focusout)="changePaymnet(item,'payment')">
                   </c-input-group>
                 </ng-container>
                 <ng-container *ngSwitchCase="'adjust'" class="py-2">
                   <c-input-group sizing="sm" dispaly-input [componentRole]="componentRole">
                     <span cInputGroupText id="adjust">&#36;</span>
                     <input cFormControl aria-describedby="adjust" class="w-10" [(ngModel)]="item.adjust" type="number"
-                      (focusout)="changePaymnet(item)">
+                      (focusout)="changePaymnet(item,'adjust')">
                   </c-input-group>
                 </ng-container>
                 <ng-container *ngSwitchCase="'balance'" class="py-2">

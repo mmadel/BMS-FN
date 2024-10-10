@@ -150,18 +150,17 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   changeInsuranceCompanyValue(event: any) {
     this.postingFilterModel.entityId = event;
   }
-  onChangePayements(event: any[]) {
-    if (event[0] === 0)
-      this.totalPayments = this.totalPayments + event[1];
-    if (event[0] !== 0)
-      this.totalPayments = this.totalPayments - event[0] + event[1];
-    this.paymentBatch.totalAmount = this.totalPayments;
+  onChangePayements(event: any) {
+    console.log(event)
+    if (event !== 0)
+      this.totalPayments = this.totalPayments + event;
+    // this.paymentBatch.totalAmount = this.totalPayments;
   }
-  onChangeAdjustments(event: any[]) {
-    if (event[0] === 0)
-      this.totalAdjustments = this.totalAdjustments + event[1];
-    if (event[0] !== 0)
-      this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
+  onChangeAdjustments(event: any) {
+    if (event !== 0)
+      this.totalAdjustments = this.totalAdjustments + event;
+    // if (event[0] !== 0)
+    //   this.totalAdjustments = this.totalAdjustments - event[0] + event[1];
   }
   applyPayments() {
     if (this.clientPayments !== undefined) {

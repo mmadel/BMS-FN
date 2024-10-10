@@ -71,7 +71,17 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     )
   }
 
-  changePaymnet(item: any) {
+  changePaymnet(item: any, type?: string) {
+    switch (type) {
+      case 'payment':
+        this.changePayments.emit(item.payment)
+        break;
+      case 'adjust':
+        this.changeAdjustments.emit(item.adjust)
+        break;
+
+    }
+    console.log(type)
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
     item.balance = this.calculateBalance(item.payment, item.adjust, balance)
