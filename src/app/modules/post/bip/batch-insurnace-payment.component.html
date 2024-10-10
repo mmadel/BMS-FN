@@ -5,6 +5,7 @@
     </c-col>
 </c-row>
 <hr />
+<!--Search  Panel-->
 <c-row>
     <c-col>
         <c-card class="mb-4">
@@ -81,6 +82,7 @@
         </c-card>
     </c-col>
 </c-row>
+<!--Payment Form-->
 <c-row>
     <c-col xs="4" dispaly-input [componentRole]="componentRole">
         <c-card class="mb-4">
@@ -151,7 +153,8 @@
                             <select cFormControl cCol cSelect id="insCompEntity" style="max-height: 30px;" sizing="sm"
                                 class="mb-1" name="insCompEntity" [(ngModel)]="selectedInsuranceCompany">
                                 <option value="null">Select Insurance Company</option>
-                                <option *ngFor="let patientInsuranceCompany of patientInsurances" [ngValue]="patientInsuranceCompany.insuranceCompany[1]">
+                                <option *ngFor="let patientInsuranceCompany of patientInsurances"
+                                    [ngValue]="patientInsuranceCompany.insuranceCompany[1]">
                                     {{patientInsuranceCompany.insuranceCompany[0]}}
                                 </option>
                             </select>
@@ -172,7 +175,7 @@
                         </small>
                         <c-col xs="12" class="text-center">
                             <button cButton variant="outline" class="me-1" color="primary" size="sm"
-                                (click)="applyPayments()" >
+                                (click)="applyPayments()">
                                 Apply Payments
                             </button>
                         </c-col>
@@ -182,7 +185,7 @@
         </c-card>
     </c-col>
 </c-row>
-
+<!--Payment Entries-->
 <c-row>
     <c-col *ngIf="renderComponent ==='client'">
         <client-payment #clientPayments *ngIf="renderComponent ==='client'" [batchType]="'bi'"
