@@ -44,11 +44,10 @@
                     </c-col>
                     <c-col xs="12">
                         <div class="mb-3">
-
-                            <c-date-picker id="serviceDate" id="serviceDate" name="serviceDate" size="sm"
-                                placeholder="Service Date" #serviceDate="ngModel" required="true"
-                                [(ngModel)]="sessionScheduling.serviceDate" disable-date-picker
-                                [componentRole]="componentRole"></c-date-picker>
+                            <input type="date" cFormControl
+                                [ngModel]="sessionScheduling.serviceDate | date:'yyyy-MM-dd'"
+                                (ngModelChange)="sessionScheduling.serviceDate = $event" id="serviceDate"
+                                id="serviceDate" name="serviceDate" #serviceDate="ngModel" required="true" sizing="sm">
                         </div>
                     </c-col>
                 </c-row>

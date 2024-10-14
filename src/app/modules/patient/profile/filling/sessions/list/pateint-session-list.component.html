@@ -10,7 +10,7 @@
       <td>
         <ng-container [ngSwitch]="columnName">
           <ng-container *ngSwitchCase="'dateOfService'" class="py-2">
-            {{tdContent| date:'MMM d, y, h:mm a'}}
+            {{tdContent| date:'MM/dd/yyyy h:mm a'}}
           </ng-container>
           <ng-container *ngSwitchCase="'actions'" class="py-2">
             <div class="btn-group" role="group" aria-label="Basic example">
