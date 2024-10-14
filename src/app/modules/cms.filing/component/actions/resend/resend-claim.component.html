@@ -45,8 +45,7 @@
                 <tbody>
                     <tr *ngFor="let line of invoicerequest.selectedSessionServiceLine">
                         <td>{{line.sessionId.serviceDate  |date:'MM/dd/YYYY'}}</td>
-                        <td>{{line.sessionId.doctorInfo.doctorLastName + ',' + line.sessionId.doctorInfo.doctorFirstName
-                            }}</td>
+                        <td>{{(line.sessionId.doctorInfo.doctorLastName | lowercase) + ',' + (line.sessionId.doctorInfo.doctorFirstName | lowercase)}}</td>
                         <td>{{line.serviceLine.cptCode.serviceCode}}</td>
                         <td>{{line.serviceLine.cptCode.modifier}}</td>
                         <td>{{line.serviceLine.diagnoses}}</td>
