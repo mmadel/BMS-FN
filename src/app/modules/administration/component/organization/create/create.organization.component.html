@@ -1,0 +1,62 @@
+<ngx-spinner></ngx-spinner>
+
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <div style="float: left;">
+                    <svg cIcon name="cilBank" title="cilBank" size="xxl"></svg>
+                </div>
+                <c-row>
+                    <c-col class="mb-1">
+                        <h2>Billing Provider Information</h2>
+                    </c-col>
+                </c-row>
+            </c-card-header>
+            <c-card-body>
+                <billing-info #billingInfoComponent></billing-info>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <div style="float: left;">
+                    <svg cIcon name="cilUser" title="cilUser" size="xxl"></svg>
+                </div>
+                <c-row>
+                    <c-col class="mb-1">
+                        <h2>Administrator Information</h2>
+                    </c-col>
+                </c-row>
+            </c-card-header>
+            <c-card-body>
+                <user-info #userInfoComponent></user-info>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <div style="float: left;">
+                    <svg cIcon name="cilMedicalCross" title="cilMedicalCross" size="xxl"></svg>
+                </div>
+                <c-row>
+                    <c-col class="mb-1">
+                        <h2>Service Facilities</h2>
+                    </c-col>
+                </c-row>
+            </c-card-header>
+            <c-card-body>
+                <facility-info #facilityInfoComponent></facility-info>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+<c-row>
+    <c-col>
+        <div class="text-center">
+            <button cButton style="width: 10%;" variant="outline" (click)="create()">Create</button>
+        </div>
+    </c-col>
+</c-row>

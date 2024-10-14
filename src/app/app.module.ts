@@ -58,6 +58,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 import { SecurityModule } from './modules/secuirty/security.module';
 import { AuthInterceptor } from './modules/secuirty/interceptor/auth.interceptor';
+import { AdministrationLayoutComponent } from './administration.layout/administration.layout.component';
 
 
 const APP_CONTAINERS = [
@@ -72,7 +73,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, SimulatorLayoutComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, SimulatorLayoutComponent, AdministrationLayoutComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

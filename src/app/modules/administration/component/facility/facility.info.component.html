@@ -1,0 +1,108 @@
+<form #facilityInfoFrom="ngForm" >
+    <!-- Facility Title and NPI -->
+    <div class="row mb-3" >
+        <div class="col-md-6">
+            <label for="facilitytitle" class="form-label">Facility Title</label>
+            <input type="text" cFormControl sizing="sm" id="facilitytitle" placeholder="Enter facility name" required
+                #facilitytitle="ngModel" [(ngModel)]="facility.title" name="facilitytitle">
+            <small
+                *ngIf="notValidForm   && (facilitytitle.errors) || facilitytitle.invalid && (facilitytitle.dirty || facilitytitle.touched)"
+                class="form-text text-danger">
+                Name is required
+            </small>
+        </div>
+        <div class="col-md-6">
+            <label for="facilitynpi" class="form-label">NPI</label>
+            <input type="text" cFormControl sizing="sm" id="facilitynpi" placeholder="Enter NPI" required
+                #facilitynpi="ngModel" [(ngModel)]="facility.npi" name="facilitynpi">
+            <small
+                *ngIf="notValidForm   && (facilitynpi.errors) || facilitynpi.invalid && (facilitynpi.dirty || facilitynpi.touched)"
+                class="form-text text-danger">
+                NPI is required
+            </small>
+        </div>
+    </div>
+
+    <!-- Address Section -->
+    <h4 class="mb-3">Address Information</h4>
+
+    <!-- Address -->
+    <div class="mb-3">
+        <label for="facilityfaddress" class="form-label">Street Address</label>
+        <input type="text" cFormControl sizing="sm" id="facilityfaddress" placeholder="Enter street address" required
+            #facilityfaddress="ngModel" [(ngModel)]="facility.address" name="facilityfaddress">
+        <small
+            *ngIf="notValidForm   && (facilityfaddress.errors) || facilityfaddress.invalid && (facilityfaddress.dirty || facilityfaddress.touched)"
+            class="form-text text-danger">
+            Address is required
+        </small>
+    </div>
+
+    <!-- City, State, and Zip Code -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="facilitycity" class="form-label">City</label>
+            <input type="text" cFormControl sizing="sm" id="facilitycity" placeholder="Enter city" required
+                #facilitycity="ngModel" [(ngModel)]="facility.city" name="facilitycity">
+            <small
+                *ngIf="notValidForm   && (facilitycity.errors) || facilitycity.invalid && (facilitycity.dirty || facilitycity.touched)"
+                class="form-text text-danger">
+                City is required
+            </small>
+        </div>
+        <div class="col-md-4">
+            <label for="facilitystate" class="form-label">State</label>
+            <input type="text" cFormControl sizing="sm" id="facilitystate" placeholder="Enter state" required
+                #facilitystate="ngModel" [(ngModel)]="facility.state" name="facilitystate">
+            <small
+                *ngIf="notValidForm   && (facilitystate.errors) || facilitystate.invalid && (facilitystate.dirty || facilitystate.touched)"
+                class="form-text text-danger">
+                State is required
+            </small>
+        </div>
+        <div class="col-md-4">
+            <label for="zipCode" class="form-label">Zip Code</label>
+            <input type="text" cFormControl sizing="sm" id="zipCode" placeholder="Enter zip code" required
+                #facilitystate="ngModel" [(ngModel)]="facility.zipCode" name="facilitystate">
+            <small
+                *ngIf="notValidForm   && (facilitystate.errors) || facilitystate.invalid && (facilitystate.dirty || facilitystate.touched)"
+                class="form-text text-danger">
+                zipCode is required
+            </small>
+        </div>
+    </div>
+    <div class="text-center">
+        <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+    </div>
+</form>
+<c-row>
+    <c-col>
+        <table cTable hover>
+            <thead>
+                <tr>
+                    <th scope="col">Facility Name</th>
+                    <th scope="col">NPI</th>
+                    <th scope="col" style="width: 5%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let facility of facilities;index as i">
+                    <td>{{facility.title}}</td>
+                    <td>{{facility.npi}}</td>
+                    <td>
+                        <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
+                            <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                (click)="edit()">
+                                <svg cIcon name="cilPen"></svg>
+                            </button>
+                            <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
+                                (click)="remove(i)">
+                                <svg cIcon name="cilTrash"></svg>
+                            </button>
+                        </c-button-group>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </c-col>
+</c-row>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdministrationLayoutComponent } from './administration.layout/administration.layout.component';
 import { SimulatorLayoutComponent } from './availity.simulator/simulator-layout.component';
 import { DefaultLayoutComponent } from './core';
 import { ErrorComponent } from './core/error/error.component';
@@ -114,8 +115,28 @@ const routes: Routes = [
     ]
   },
   {
-    path :'error',
+    path: 'error',
     component: ErrorComponent
+  }
+  , {
+    path: '',
+    component: AdministrationLayoutComponent,
+    data: {
+      title: 'Home'
+    },
+    children: [
+      {
+        path: 'setup',
+        data: {
+          title: 'setup',
+          roles: [Role.ADMIN]
+        },
+        canActivate: [KcAuthGuard],
+        loadChildren: () =>
+          import('./modules/administration/administration.module').then((m) => m.AdministrationModule)
+      },
+    ]
+
   }
 ];
 

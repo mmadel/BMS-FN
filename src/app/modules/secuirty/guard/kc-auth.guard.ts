@@ -40,6 +40,12 @@ export class KcAuthGuard extends KeycloakAuthGuard {
       if (valid)
         break;
     }
+    if (!valid) {
+      this.keycloakAngular.logout();
+      await this.keycloakAngular.login({
+        redirectUri: window.location.origin + state.url,
+      });
+    }
 
     return valid;
   }

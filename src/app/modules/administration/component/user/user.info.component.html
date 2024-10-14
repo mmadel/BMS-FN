@@ -1,0 +1,75 @@
+<form #userInfoFrom>
+  <!-- Personal Information Section -->
+  <h4 class="mb-3">Personal Information</h4>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="adminfirstName" class="form-label">First Name</label>
+      <input type="text" cFormControl sizing="sm" id="firstName" placeholder="Enter first name" required
+        #adminfirstName="ngModel" [(ngModel)]="user.firstName" name="adminfirstName">
+      <small
+        *ngIf="notValidForm   && (adminfirstName.errors) || adminfirstName.invalid && (adminfirstName.dirty || adminfirstName.touched)"
+        class="form-text text-danger">
+        First Name is required
+      </small>
+    </div>
+    <div class="col-md-6">
+      <label for="adminlastName" class="form-label">Last Name</label>
+      <input type="text" cFormControl sizing="sm" id="adminlastName" placeholder="Enter last name" required
+        #adminlastName="ngModel" [(ngModel)]="user.lastName" name="adminlastName">
+      <small
+        *ngIf="notValidForm   && (adminlastName.errors) || adminlastName.invalid && (adminlastName.dirty || adminlastName.touched)"
+        class="form-text text-danger">
+        Last Name is required
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="adminfullname" class="form-label">Full Name</label>
+      <input type="text" cFormControl sizing="sm" id="adminfullname" placeholder="Enter full name" required
+        #adminfullname="ngModel" [(ngModel)]="user.name" name="adminfullname">
+      <small
+        *ngIf="notValidForm   && (adminfullname.errors) || adminfullname.invalid && (adminfullname.dirty || adminfullname.touched)"
+        class="form-text text-danger">
+        User Name is required
+      </small>
+    </div>
+    <div class="col-md-6">
+      <label for="adminemail" class="form-label">Email</label>
+      <input type="email" cFormControl sizing="sm" id="email" placeholder="Enter email" required #adminemail="ngModel"
+        [(ngModel)]="user.email" name="adminemail">
+      <small
+        *ngIf="notValidForm   && (adminemail.errors) || adminemail.invalid && (adminemail.dirty || adminemail.touched)"
+        class="form-text text-danger">
+        Email is required
+      </small>
+    </div>
+  </div>
+
+  <!-- Account Information Section -->
+  <h4 class="mb-3">Account Information</h4>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="adminuser" class="form-label">User Account</label>
+      <input type="text" cFormControl sizing="sm" id="userAccount" placeholder="Enter username or account ID" required
+        #adminuser="ngModel" [(ngModel)]="user.userAccount" name="adminuser">
+      <small *ngIf="notValidForm   && (adminuser.errors) || adminuser.invalid && (adminuser.dirty || adminuser.touched)"
+        class="form-text text-danger">
+        User Account is required
+      </small>
+    </div>
+    <div class="col-md-6">
+      <label for="password" class="form-label">Password</label>
+      <input type="adminpassword" cFormControl sizing="sm" id="adminpassword" placeholder="Enter password" required
+        #adminpassword="ngModel" [(ngModel)]="user.password" name="adminpassword">
+      <small
+        *ngIf="notValidForm   && (adminpassword.errors) || adminpassword.invalid && (adminpassword.dirty || adminpassword.touched)"
+        class="form-text text-danger">
+        Password is required
+      </small>
+    </div>
+  </div>
+
+
+</form>

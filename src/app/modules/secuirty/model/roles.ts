@@ -1,4 +1,5 @@
 export class Role {
+    public static readonly ADMIN = 'admin-biller';
     public static readonly PATIENT_ROLE = 'patient-role';
 
     public static readonly BILLING_ROLE = 'billing-role';

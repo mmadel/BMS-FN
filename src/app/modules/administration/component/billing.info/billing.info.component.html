@@ -1,0 +1,153 @@
+<form cForm #billingInfoFrom>
+    <!-- Personal Information Section -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="businessName" class="form-label">Business Name</label>
+            <input type="text" cFormControl sizing="sm" id="businessName" placeholder="Enter business name" required
+                #billingbusinessName="ngModel" [(ngModel)]="billingInfo.businessName" name="billingbusinessName">
+            <small
+                *ngIf="notValidForm   && (billingbusinessName.errors) || billingbusinessName.invalid && (billingbusinessName.dirty || billingbusinessName.touched)"
+                class="form-text text-danger">
+                Business Name is required
+            </small>
+        </div>
+        <div class="col-md-6">
+            <label for="billingnpi" class="form-label">NPI</label>
+            <input type="text" cFormControl sizing="sm" id="billingnpi" placeholder="Enter NPI" required
+                #billingnpi="ngModel" [(ngModel)]="billingInfo.npi" name="billingnpi">
+            <small *ngIf="notValidForm   && (billingnpi.errors) || (billingnpi.dirty || billingnpi.touched)"
+                class="form-text text-danger">
+                NPIis required
+            </small>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="billigfirstName" class="form-label">First Name</label>
+            <input type="text" cFormControl sizing="sm" id="billigfirstName" placeholder="Enter first name" required
+                #billigfirstName="ngModel" [(ngModel)]="billingInfo.firstName" name="billigfirstName">
+            <small
+                *ngIf="notValidForm   && (billigfirstName.errors) || (billigfirstName.dirty || billigfirstName.touched)"
+                class="form-text text-danger">
+                First name is required
+            </small>
+        </div>
+        <div class="col-md-6">
+            <label for="billiglastName" class="form-label">Last Name</label>
+            <input type="text" cFormControl sizing="sm" id="billiglastName" placeholder="Enter last name" required
+                #billiglastName="ngModel" [(ngModel)]="billingInfo.lastName" name="billiglastName">
+            <small *ngIf="notValidForm   && (billiglastName.errors) || (billiglastName.dirty || billiglastName.touched)"
+                class="form-text text-danger">
+                Last name is required
+            </small>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="taxId" class="form-label">Tax ID</label>
+            <input type="text" cFormControl sizing="sm" id="taxId" placeholder="Enter tax ID" required #taxId="ngModel"
+                [(ngModel)]="billingInfo.taxId" name="taxId">
+            <small *ngIf="notValidForm   && (taxId.errors) ||  (taxId.dirty || taxId.touched)"
+                class="form-text text-danger">
+                Tax Id is required
+            </small>
+        </div>
+        <div class="col-md-6">
+            <label for="taxonomy" class="form-label">Taxonomy</label>
+            <input type="text" cFormControl sizing="sm" id="taxonomy" placeholder="Enter taxonomy" required
+                #taxonomy="ngModel" [(ngModel)]="billingInfo.taxonomy" name="taxonomy">
+            <small *ngIf="notValidForm   && (taxonomy.errors) ||(taxonomy.dirty || taxonomy.touched)"
+                class="form-text text-danger">
+                taxonomy is required
+            </small>
+        </div>
+    </div>
+    <!-- Street Address Section -->
+    <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" cFormControl sizing="sm" id="billingaddress" placeholder="Enter street address" required
+            #billingaddress="ngModel" [(ngModel)]="billingInfo.address" name="billingaddress">
+        <small *ngIf="notValidForm   && (billingaddress.errors)  || (billingaddress.dirty || billingaddress.touched)"
+            class="form-text text-danger">
+            First Address is required
+        </small>
+    </div>
+
+    <div class="mb-3">
+        <label for="billingaddress2" class="form-label">Address 2</label>
+        <input type="text" cFormControl sizing="sm" id="billingaddress2"
+            placeholder="Enter additional address info (optional)" required #billingaddress2="ngModel"
+            [(ngModel)]="billingInfo.addressTwo" name="billingaddress2">
+        <small *ngIf="notValidForm   && (billingaddress2.errors)  || (billingaddress2.dirty || billingaddress2.touched)"
+            class="form-text text-danger">
+            Second Address is required
+        </small>
+    </div>
+
+    <!-- City, State, and Zip Code Section -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="billingcity" class="form-label">City</label>
+            <input type="text" cFormControl sizing="sm" id="billingcity" placeholder="Enter city" required
+                #billingcity="ngModel" [(ngModel)]="billingInfo.city" name="billingcity">
+            <small
+                *ngIf="notValidForm   && (billingcity.errors)  || billingcity.invalid && (billingcity.dirty || billingcity.touched)"
+                class="form-text text-danger">
+                City is required
+            </small>
+        </div>
+        <div class="col-md-4">
+            <label for="state" billingstate="form-label">State</label>
+            <input type="text" cFormControl sizing="sm" id="billingstate" placeholder="Enter state" required
+                #billingstate="ngModel" [(ngModel)]="billingInfo.state" name="billingstate">
+            <small *ngIf="notValidForm   && (billingstate.errors)  || (billingstate.dirty || billingstate.touched)"
+                class="form-text text-danger">
+                State is required
+            </small>
+        </div>
+        <div class="col-md-4">
+            <label for="billingzipcode" class="form-label">Zip Code</label>
+            <input type="text" cFormControl sizing="sm" id="billingzipcode" placeholder="Enter zip code" required
+                #billingzipcode="ngModel" [(ngModel)]="billingInfo.zipcode" name="billingzipcode">
+            <small
+                *ngIf="notValidForm   && (billingzipcode.errors)  ||  (billingzipcode.dirty || billingzipcode.touched)"
+                class="form-text text-danger">
+                Zipcode is required
+            </small>
+        </div>
+    </div>
+
+    <!-- Contact Information Section -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="billingphone" class="form-label">Phone</label>
+            <input type="text" cFormControl sizing="sm" id="billingphone" placeholder="Enter phone number" required
+                #billingphone="ngModel" [(ngModel)]="billingInfo.phone" name="billingphone">
+            <small *ngIf="notValidForm   && (billingphone.errors)  ||   (billingphone.dirty || billingphone.touched)"
+                class="form-text text-danger">
+                Phone is required
+            </small>
+        </div>
+        <div class="col-md-6">
+            <label for="billingfax" class="form-label">Fax</label>
+            <input type="text" cFormControl sizing="sm" id="billingfax" placeholder="Enter fax number" required
+                #billingfax="ngModel" [(ngModel)]="billingInfo.fax" name="billingfax">
+            <small *ngIf="notValidForm   && (billingfax.errors)  ||   (billingfax.dirty || billingfax.touched)"
+                class="form-text text-danger">
+                Fax is required
+            </small>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="billingemail" class="form-label">Email</label>
+        <input type="email" cFormControl sizing="sm" id="billingemail" placeholder="Enter email" required
+            #billingemail="ngModel" [(ngModel)]="billingInfo.email" name="billingemail">
+        <small *ngIf="notValidForm   && (billingemail.errors) || (billingemail.dirty || billingemail.touched)"
+            class="form-text text-danger">
+            Email is required
+        </small>
+    </div>
+</form>
