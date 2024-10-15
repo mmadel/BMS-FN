@@ -1,4 +1,4 @@
-import { Facility } from "../../administration/component/facility/facility.info.component";
+import { Clinic } from "./clinic";
 import { OrganizationData } from "./organization.data";
 import { User } from "./user/user";
 
@@ -11,5 +11,5 @@ export interface Organization {
     organizationData?: OrganizationData;
     type?: string
     user?: User
-    facilities?: Facility[];
+    clinics?: Clinic[]
 }

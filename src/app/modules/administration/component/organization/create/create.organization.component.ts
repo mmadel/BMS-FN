@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AdministratorRoleCreator } from 'src/app/modules/admin.tools/components/account/create/admin.role.creator';
+import { Clinic } from 'src/app/modules/model/admin/clinic';
+import { ClinicData } from 'src/app/modules/model/admin/clinic.data';
 import { OrganizationData } from 'src/app/modules/model/admin/organization.data';
 import { Organization } from 'src/app/modules/model/admin/organiztion';
 import { User } from 'src/app/modules/model/admin/user/user';
+import { EncryptionService } from 'src/app/modules/secuirty/service/encryption.service';
 import { CreateOrganizationService } from '../../../service/create/create-organization.service';
 import { BillingInfo, BillingInfoComponent } from '../../billing.info/billing.info.component';
 import { Facility, FacilityInfoComponent } from '../../facility/facility.info.component';
@@ -18,13 +22,14 @@ export class CreateOrganizationComponent implements OnInit {
   @ViewChild('userInfoComponent') userInfoComponent: UserInfoComponent;
   @ViewChild('facilityInfoComponent') facilityInfoComponent: FacilityInfoComponent;
   organization: Organization = {};
-  constructor(private createOrganizationService: CreateOrganizationService, private toastrService: ToastrService) { }
+  constructor(private createOrganizationService: CreateOrganizationService,
+    private toastrService: ToastrService,
+    private encryptionService: EncryptionService) { }
 
   ngOnInit(): void {
   }
   create() {
-    console.log(this.isValidOrganization())
-    if (this.isValidOrganization()) {
+    if (true) {
       this.buildOrganizationBillingProvider(this.billingInfoComponent.billingInfo);
       this.buildOrganizationAdministratorInfo(this.userInfoComponent.user);
       this.buildOrganizationFacilityInfo(this.facilityInfoComponent.facilities);
@@ -59,11 +64,26 @@ export class CreateOrganizationComponent implements OnInit {
   }
 
   private buildOrganizationAdministratorInfo(user: User) {
+    user.password = this.encryptionService.encrypt(user.password)
+    user.roleScope = AdministratorRoleCreator.create();
     this.organization.user = user;
   }
 
-  private buildOrganizationFacilityInfo(facility: Facility[]) {
-    this.organization.facilities = facility
+  private buildOrganizationFacilityInfo(facilities: Facility[]) {
+    this.organization.clinics = facilities.map(facility => {
+      var clinicData: ClinicData = {
+        address: facility.address,
+        zipCode: facility.zipCode,
+        city: facility.city,
+        state: facility.state
+      }
+      return {
+        title: facility.title,
+        npi: facility.title,
+        clinicdata: clinicData
+      }
+    })
+    this.organization
   }
 
   private isValidOrganization(): boolean {

@@ -61,7 +61,7 @@
     </div>
     <div class="col-md-6">
       <label for="password" class="form-label">Password</label>
-      <input type="adminpassword" cFormControl sizing="sm" id="adminpassword" placeholder="Enter password" required
+      <input type="password" cFormControl sizing="sm" id="adminpassword" placeholder="Enter password" required
         #adminpassword="ngModel" [(ngModel)]="user.password" name="adminpassword">
       <small
         *ngIf="notValidForm   && (adminpassword.errors) || adminpassword.invalid && (adminpassword.dirty || adminpassword.touched)"
