@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { OrganizationData } from 'src/app/modules/model/admin/organization.data';
 import { Organization } from 'src/app/modules/model/admin/organiztion';
 import { User } from 'src/app/modules/model/admin/user/user';
+import { CreateOrganizationService } from '../../../service/create/create-organization.service';
 import { BillingInfo, BillingInfoComponent } from '../../billing.info/billing.info.component';
 import { Facility, FacilityInfoComponent } from '../../facility/facility.info.component';
 import { UserInfoComponent } from '../../user/user.info.component';
@@ -16,7 +18,7 @@ export class CreateOrganizationComponent implements OnInit {
   @ViewChild('userInfoComponent') userInfoComponent: UserInfoComponent;
   @ViewChild('facilityInfoComponent') facilityInfoComponent: FacilityInfoComponent;
   organization: Organization = {};
-  constructor() { }
+  constructor(private createOrganizationService: CreateOrganizationService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -26,7 +28,12 @@ export class CreateOrganizationComponent implements OnInit {
       this.buildOrganizationBillingProvider(this.billingInfoComponent.billingInfo);
       this.buildOrganizationAdministratorInfo(this.userInfoComponent.user);
       this.buildOrganizationFacilityInfo(this.facilityInfoComponent.facilities);
-      console.log(JSON.stringify(this.organization))
+      this.createOrganizationService.create(this.organization).subscribe(result => {
+        this.toastrService.success('Organization Created');
+      }, error => {
+        this.toastrService.error('Error during create Organization');
+      })
+
     }
   }
 
