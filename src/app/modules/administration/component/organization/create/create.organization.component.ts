@@ -67,6 +67,7 @@ export class CreateOrganizationComponent implements OnInit {
   private buildOrganizationAdministratorInfo(user: User) {
     user.password = this.encryptionService.encrypt(user.password)
     user.roleScope = AdministratorRoleCreator.create();
+    user.name = user.lastName + ',' + user.firstName
     this.organization.user = user;
   }
 
