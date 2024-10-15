@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { OrganizationData } from 'src/app/modules/model/admin/organization.data';
 import { Organization } from 'src/app/modules/model/admin/organiztion';
+import { User } from 'src/app/modules/model/admin/user/user';
 import { BillingInfo, BillingInfoComponent } from '../../billing.info/billing.info.component';
-import { FacilityInfoComponent } from '../../facility/facility.info.component';
+import { Facility, FacilityInfoComponent } from '../../facility/facility.info.component';
 import { UserInfoComponent } from '../../user/user.info.component';
 
 @Component({
@@ -13,40 +15,66 @@ export class CreateOrganizationComponent implements OnInit {
   @ViewChild('billingInfoComponent') billingInfoComponent: BillingInfoComponent;
   @ViewChild('userInfoComponent') userInfoComponent: UserInfoComponent;
   @ViewChild('facilityInfoComponent') facilityInfoComponent: FacilityInfoComponent;
+  organization: Organization = {};
   constructor() { }
 
   ngOnInit(): void {
   }
   create() {
-    if (this.billingInfoComponent.billingInfoFrom.valid) {
-      this.billingInfoComponent.notValidForm = false;
-      this.buildOrganizationBillingProvider(this.billingInfoComponent.billingInfo)
-    } else {
-      this.billingInfoComponent.notValidForm = true
-    }
-    if (this.userInfoComponent.userInfoFrom.valid) {
-      this.userInfoComponent.notValidForm = false;
-      this.buildOrganizationAdministratorInfo();
-    } else {
-      this.userInfoComponent.notValidForm = true
-    }
-    if (this.facilityInfoComponent.facilities.length > 1) {
-      this.facilityInfoComponent.notValid = false;
-      this.buildOrganizationFacilityInfo()
-    } else {
-      this.facilityInfoComponent.notValid = true
+    console.log(this.isValidOrganization())
+    if (this.isValidOrganization()) {
+      this.buildOrganizationBillingProvider(this.billingInfoComponent.billingInfo);
+      this.buildOrganizationAdministratorInfo(this.userInfoComponent.user);
+      this.buildOrganizationFacilityInfo(this.facilityInfoComponent.facilities);
+      console.log(JSON.stringify(this.organization))
     }
   }
 
   private buildOrganizationBillingProvider(billingInfo: BillingInfo) {
-
+    this.organization.businessName = billingInfo.businessName
+    this.organization.firstName = billingInfo.firstName;
+    this.organization.lastName = billingInfo.lastName;
+    this.organization.npi = billingInfo.npi;
+    this.organization.type = 'Default';
+    var organizationData: OrganizationData = {
+      taxId: billingInfo.taxId,
+      taxonomy: billingInfo.taxonomy,
+      address: billingInfo.address,
+      addressTwo: billingInfo.addressTwo,
+      city: billingInfo.city,
+      state: billingInfo.state,
+      zipcode: billingInfo.zipcode,
+      phone: billingInfo.phone,
+      fax: billingInfo.fax,
+      email: billingInfo.email
+    }
+    this.organization.organizationData = organizationData;
   }
 
-  private buildOrganizationAdministratorInfo() {
-
+  private buildOrganizationAdministratorInfo(user: User) {
+    this.organization.user = user;
   }
 
-  private buildOrganizationFacilityInfo() {
+  private buildOrganizationFacilityInfo(facility: Facility[]) {
+    this.organization.facilities = facility
+  }
 
+  private isValidOrganization(): boolean {
+    if (this.billingInfoComponent.billingInfoFrom.valid)
+      this.billingInfoComponent.notValidForm = false;
+    else
+      this.billingInfoComponent.notValidForm = true
+
+    if (this.userInfoComponent.userInfoFrom.valid)
+      this.userInfoComponent.notValidForm = false;
+    else
+      this.userInfoComponent.notValidForm = true
+
+    if (this.facilityInfoComponent.facilities.length === 1)
+      this.facilityInfoComponent.notValid = false;
+    else
+      this.facilityInfoComponent.notValid = true
+
+    return !this.billingInfoComponent.notValidForm && !this.userInfoComponent.notValidForm && !this.facilityInfoComponent.notValid
   }
 }

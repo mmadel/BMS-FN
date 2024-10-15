@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-interface Facility {
+export interface Facility {
   title?: string,
   npi?: string,
   address?: string
