@@ -82,7 +82,7 @@
     <div class="mb-3">
         <label for="billingaddress2" class="form-label">Address 2</label>
         <input type="text" cFormControl sizing="sm" id="billingaddress2"
-            placeholder="Enter additional address info (optional)" required #billingaddress2="ngModel"
+            placeholder="Enter additional address info (optional)"  #billingaddress2="ngModel"
             [(ngModel)]="billingInfo.addressTwo" name="billingaddress2">
         <small
             *ngIf="notValidForm   && (billingaddress2.errors)  || billingaddress2.invalid &&(billingaddress2.dirty || billingaddress2.touched)"
