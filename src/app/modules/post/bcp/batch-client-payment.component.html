@@ -86,8 +86,9 @@
                             </select>
                         </c-col>
                         <c-col xs="12" class="mb-2">
-                            <c-date-picker placeholder="Received Date"
-                                [(date)]="paymentBatch.receivedDate_date"></c-date-picker>
+                            <input type="date" cFormControl
+                                [ngModel]="paymentBatch.receivedDate_date | date:'yyyy-MM-dd'"
+                                (ngModelChange)="paymentBatch.receivedDate_date = $event" name="receivedDate_date">
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <small
@@ -95,8 +96,9 @@
                                 class="form-text text-danger">
                                 Check Date
                             </small>
-                            <c-date-picker placeholder="Check Date" [(ngModel)]="paymentBatch.checkDate_date"
-                                required="true" id="checkdate" name="checkdate" #checkdate="ngModel"></c-date-picker>
+                            <input type="date" cFormControl [ngModel]="paymentBatch.checkDate_date | date:'yyyy-MM-dd'"
+                                (ngModelChange)="paymentBatch.checkDate_date = $event" name="checkDate_date"
+                                #checkdate="ngModel">
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <small
@@ -114,9 +116,10 @@
                                 class="form-text text-danger">
                                 Deposit Date
                             </small>
-                            <c-date-picker placeholder="Deposit Date" [(ngModel)]="paymentBatch.depositDate_date"
-                                required="true" id="depositDate" name="depositDate"
-                                #depositDate="ngModel"></c-date-picker>
+                            <input type="date" cFormControl
+                                [ngModel]="paymentBatch.depositDate_date | date:'yyyy-MM-dd'"
+                                (ngModelChange)="paymentBatch.depositDate_date = $event" name="depositDate_date"
+                                #depositDate="ngModel">
                         </c-col>
                         <c-col xs="12" class="mb-2" *ngIf="isuranceCompany">
                             <small
