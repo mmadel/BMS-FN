@@ -51,40 +51,56 @@
                                 </button>
                             </c-input-group>
                         </c-col>
-                        <c-col xs="12" class="mb-2">
-                            <c-date-range-picker [placeholder]="['DOS From', 'DOS To']"
-                                [(startDate)]="sessionHistoryCriteria.dosStart_Date"
-                                [(endDate)]="sessionHistoryCriteria.dosEnd_Date"
-                                [ranges]="customRanges"></c-date-range-picker>
+                        <c-col xs="1" class="mb-2">DOS From</c-col>
+                        <c-col xs="5" class="mb-2">
+                            <input type="date" cFormControl sizing="sm"
+                                [ngModel]="sessionHistoryCriteria.dosStart_Date | date:'yyyy-MM-dd'"
+                                (ngModelChange)="sessionHistoryCriteria.dosStart_Date = $event" name="dosStart_Date"
+                                id="dosStart_Date" #dosEnd_Date>
                         </c-col>
-                        <c-col xs="12" class="mb-2">
-                            <c-date-range-picker [placeholder]="['Claim Submit From', 'Claim Submit To']"
-                                [(startDate)]="sessionHistoryCriteria.submitStart_Date"
-                                [(endDate)]="sessionHistoryCriteria.submitEnd_Date"
-                                [ranges]="customRanges"></c-date-range-picker>
+                        <c-col xs="1" class="mb-2">DOS End</c-col>
+                        <c-col xs="5" class="mb-2">
+                            <input type="date" cFormControl
+                                [ngModel]="sessionHistoryCriteria.dosEnd_Date | date:'yyyy-MM-dd'" sizing="sm"
+                                (ngModelChange)="sessionHistoryCriteria.dosEnd_Date = $event" name="dosEnd_Date"
+                                #dosEnd_Date>
+                        </c-col>
+                        <c-col xs="1" class="mb-2">Submit From</c-col>
+                        <c-col xs="5" class="mb-2">
+                            <input type="date" cFormControl
+                                [ngModel]="sessionHistoryCriteria.submitStart_Date | date:'yyyy-MM-dd'" sizing="sm"
+                                (ngModelChange)="sessionHistoryCriteria.submitStart_Date = $event" name="submitStart_Date"
+                                #submitStart_Date>
+                        </c-col>
+                        <c-col xs="1" class="mb-2">Submit To</c-col>
+                        <c-col xs="5" class="mb-2">
+                            <input type="date" cFormControl
+                                [ngModel]="sessionHistoryCriteria.submitEnd_Date | date:'yyyy-MM-dd'" sizing="sm"
+                                (ngModelChange)="sessionHistoryCriteria.submitEnd_Date = $event" name="submitEnd_Date"
+                                #submitEnd_Date>
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <div class="grey">
-                                <input type="checkbox" name="optionsRadios" id="checkOtherprint" [(ngModel)]="status[0].checked" 
-                                (change)="onCheckboxChange(status[0])">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherprint"
+                                    [(ngModel)]="status[0].checked" (change)="onCheckboxChange(status[0])">
                                 <label for="checkOtherprint"></label>
                             </div>
-                            <div class="show text-secondary" >Print & Mail</div>
+                            <div class="show text-secondary">Print & Mail</div>
                             <div class="blue">
-                                <input type="checkbox" name="optionsRadios" id="checkOtherpending" [(ngModel)]="status[1].checked"
-                                (change)="onCheckboxChange(status[1])">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherpending"
+                                    [(ngModel)]="status[1].checked" (change)="onCheckboxChange(status[1])">
                                 <label for="checkOtherpending"></label>
                             </div>
                             <div class="show text-primary">Awaiting Acknowledgement</div>
                             <div class="green">
-                                <input type="checkbox" name="optionsRadios" id="checkOtherack" [(ngModel)]="status[2].checked"
-                                (change)="onCheckboxChange(status[2])">
+                                <input type="checkbox" name="optionsRadios" id="checkOtherack"
+                                    [(ngModel)]="status[2].checked" (change)="onCheckboxChange(status[2])">
                                 <label for="checkOtherack"></label>
                             </div>
                             <div class="show text-success">Acknowledgement Received</div>
                             <div class="red">
-                                <input type="checkbox" name="optionsRadios" id="checkOthererror" [(ngModel)]="status[3].checked"
-                                (change)="onCheckboxChange(status[3])">
+                                <input type="checkbox" name="optionsRadios" id="checkOthererror"
+                                    [(ngModel)]="status[3].checked" (change)="onCheckboxChange(status[3])">
                                 <label for="checkOthererror"></label>
                             </div>
                             <div class="show text-danger">Error</div>
