@@ -151,9 +151,10 @@ export class BatchInsurnacePaymentComponent implements OnInit {
     this.postingFilterModel.entityId = event;
   }
   onChangePayements(event: any) {
+    console.log(event)
     if (event[0] !== 0)
-      this.totalPayments = this.totalPayments + event[0];
-    if (event[0] === 0 && this.totalPayments !== 0)
+      this.totalPayments = (this.totalPayments + event[0]) - event[1];
+    if ((event[0] === 0) && this.totalPayments !== 0)
       this.totalPayments = this.totalPayments - event[1]
   }
   onChangeAdjustments(event: any) {

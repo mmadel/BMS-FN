@@ -149,7 +149,7 @@
                             </small>
                             <input type="date" cFormControl
                                 [ngModel]="paymentBatch.depositDate_date | date:'yyyy-MM-dd'"
-                                (ngModelChange)="paymentBatch.depositDate_date = $event" name="in_checkDate_date"
+                                (ngModelChange)="paymentBatch.depositDate_date = $event" name="in_depositDate_date"
                                 #depositDate="ngModel">
                         </c-col>
                         <c-col xs="12" class="mb-2" *ngIf="selectedSearchOption ==='client' && patientInsurances">
