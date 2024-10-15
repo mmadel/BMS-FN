@@ -1,62 +1,79 @@
 <ngx-spinner></ngx-spinner>
-
-<c-row>
-    <c-col xs="12">
-        <c-card class="mb-4">
-            <c-card-header>
-                <div style="float: left;">
-                    <svg cIcon name="cilBank" title="cilBank" size="xxl"></svg>
+<div *ngIf="!organizationCreated">
+    <c-row>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-header>
+                    <div style="float: left;">
+                        <svg cIcon name="cilBank" title="cilBank" size="xxl"></svg>
+                    </div>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <h2>Billing Provider Information</h2>
+                        </c-col>
+                    </c-row>
+                </c-card-header>
+                <c-card-body>
+                    <billing-info #billingInfoComponent></billing-info>
+                </c-card-body>
+            </c-card>
+        </c-col>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-header>
+                    <div style="float: left;">
+                        <svg cIcon name="cilUser" title="cilUser" size="xxl"></svg>
+                    </div>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <h2>Administrator Information</h2>
+                        </c-col>
+                    </c-row>
+                </c-card-header>
+                <c-card-body>
+                    <user-info #userInfoComponent></user-info>
+                </c-card-body>
+            </c-card>
+        </c-col>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-header>
+                    <div style="float: left;">
+                        <svg cIcon name="cilMedicalCross" title="cilMedicalCross" size="xxl"></svg>
+                    </div>
+                    <c-row>
+                        <c-col class="mb-1">
+                            <h2>Facilities</h2>
+                        </c-col>
+                    </c-row>
+                </c-card-header>
+                <c-card-body>
+                    <facility-info #facilityInfoComponent></facility-info>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+    <c-row>
+        <c-col>
+            <div class="text-center">
+                <button cButton style="width: 10%;" variant="outline" (click)="create()">Create</button>
+            </div>
+        </c-col>
+    </c-row>
+</div>
+<div *ngIf="organizationCreated">
+    <section class="mail-seccess section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 col-12">
+                    <!-- Error Inner -->
+                    <div class="success-inner">
+                        <h1><i class="fa fa-envelope"></i><span>Your Information Was Created Successfully</span></h1>
+                        <p>Thank you for completing your Organization Creation form! We appreciate your cooperation and look
+                            forward to providing you with the best possible care.</p>
+                    </div>
                 </div>
-                <c-row>
-                    <c-col class="mb-1">
-                        <h2>Billing Provider Information</h2>
-                    </c-col>
-                </c-row>
-            </c-card-header>
-            <c-card-body>
-                <billing-info #billingInfoComponent></billing-info>
-            </c-card-body>
-        </c-card>
-    </c-col>
-    <c-col xs="12">
-        <c-card class="mb-4">
-            <c-card-header>
-                <div style="float: left;">
-                    <svg cIcon name="cilUser" title="cilUser" size="xxl"></svg>
-                </div>
-                <c-row>
-                    <c-col class="mb-1">
-                        <h2>Administrator Information</h2>
-                    </c-col>
-                </c-row>
-            </c-card-header>
-            <c-card-body>
-                <user-info #userInfoComponent></user-info>
-            </c-card-body>
-        </c-card>
-    </c-col>
-    <c-col xs="12">
-        <c-card class="mb-4">
-            <c-card-header>
-                <div style="float: left;">
-                    <svg cIcon name="cilMedicalCross" title="cilMedicalCross" size="xxl"></svg>
-                </div>
-                <c-row>
-                    <c-col class="mb-1">
-                        <h2>Facilities</h2>
-                    </c-col>
-                </c-row>
-            </c-card-header>
-            <c-card-body>
-                <facility-info #facilityInfoComponent></facility-info>
-            </c-card-body>
-        </c-card>
-    </c-col>
-</c-row>
-<c-row>
-    <c-col>
-        <div class="text-center">
-            <button cButton style="width: 10%;" variant="outline" (click)="create()">Create</button>
+            </div>
         </div>
-    </c-col>
-</c-row>
+    </section>
+</div>

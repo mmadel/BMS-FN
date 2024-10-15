@@ -17,7 +17,7 @@ import { UserInfoComponent } from './component/user/user.info.component';
     CreateOrganizationComponent,
     BillingInfoComponent,
     FacilityInfoComponent,
-    UserInfoComponent
+    UserInfoComponent,
   ],
   imports: [
     CommonModule,

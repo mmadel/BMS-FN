@@ -21,6 +21,7 @@ export class CreateOrganizationComponent implements OnInit {
   @ViewChild('userInfoComponent') userInfoComponent: UserInfoComponent;
   @ViewChild('facilityInfoComponent') facilityInfoComponent: FacilityInfoComponent;
   organization: Organization = {};
+  organizationCreated: boolean = true;
   constructor(private createOrganizationService: CreateOrganizationService,
     private toastrService: ToastrService,
     private encryptionService: EncryptionService) { }
@@ -33,8 +34,10 @@ export class CreateOrganizationComponent implements OnInit {
       this.buildOrganizationAdministratorInfo(this.userInfoComponent.user);
       this.buildOrganizationFacilityInfo(this.facilityInfoComponent.facilities);
       this.createOrganizationService.create(this.organization).subscribe(result => {
+        this.organizationCreated = true;
         this.toastrService.success('Organization Created');
       }, error => {
+        this.organizationCreated = false;
         this.toastrService.error('Error during create Organization');
       })
 

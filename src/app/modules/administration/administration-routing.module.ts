@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GreetingOrganizationComponent } from './component/greeting/greeting-organization.component';
 import { CreateOrganizationComponent } from './component/organization/create/create.organization.component';
 
 const routes: Routes = [
@@ -7,7 +8,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'create',
+        path: '',
         component: CreateOrganizationComponent,
         data: {
           title: 'Setup Organization',
