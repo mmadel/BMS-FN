@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AdministratorRoleCreator } from 'src/app/modules/admin.tools/components/account/create/admin.role.creator';
-import { Clinic } from 'src/app/modules/model/admin/clinic';
 import { ClinicData } from 'src/app/modules/model/admin/clinic.data';
 import { OrganizationData } from 'src/app/modules/model/admin/organization.data';
 import { Organization } from 'src/app/modules/model/admin/organiztion';
