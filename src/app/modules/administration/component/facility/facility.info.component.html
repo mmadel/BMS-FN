@@ -1,6 +1,8 @@
-<form #facilityInfoFrom="ngForm" >
-    <!-- Facility Title and NPI -->
-    <div class="row mb-3" >
+<form #facilityInfoFrom="ngForm">
+    <small *ngIf="notValid" class="form-text text-danger">
+        One clinic is required
+    </small>
+    <div class="row mb-3">
         <div class="col-md-6">
             <label for="facilitytitle" class="form-label">Facility Title</label>
             <input type="text" cFormControl sizing="sm" id="facilitytitle" placeholder="Enter facility name" required
@@ -73,8 +75,8 @@
     </div>
     <div class="text-center">
         <button type="button" class="btn btn-primary" (click)="add()">
-        <span *ngIf="!isEditFacility">Add</span>
-        <span *ngIf="isEditFacility">Edit</span>
+            <span *ngIf="!isEditFacility">Add</span>
+            <span *ngIf="isEditFacility">Edit</span>
         </button>
     </div>
 </form>

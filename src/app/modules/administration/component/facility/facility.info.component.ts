@@ -18,6 +18,7 @@ export class FacilityInfoComponent implements OnInit {
   isEditFacility: boolean = false;
   editFacilityIndex: number = undefined;
   notValidForm: boolean = false;
+  notValid:boolean=false
   facility: Facility = {}
   @ViewChild('facilityInfoFrom') facilityInfoFrom: NgForm;
   facilities: Facility[] = []

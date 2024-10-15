@@ -19,14 +19,22 @@ export class CreateOrganizationComponent implements OnInit {
   }
   create() {
     if (this.billingInfoComponent.billingInfoFrom.valid) {
+      this.billingInfoComponent.notValidForm = false;
       this.buildOrganizationBillingProvider(this.billingInfoComponent.billingInfo)
     } else {
       this.billingInfoComponent.notValidForm = true
     }
     if (this.userInfoComponent.userInfoFrom.valid) {
+      this.userInfoComponent.notValidForm = false;
       this.buildOrganizationAdministratorInfo();
     } else {
       this.userInfoComponent.notValidForm = true
+    }
+    if (this.facilityInfoComponent.facilities.length > 1) {
+      this.facilityInfoComponent.notValid = false;
+      this.buildOrganizationFacilityInfo()
+    } else {
+      this.facilityInfoComponent.notValid = true
     }
   }
 
