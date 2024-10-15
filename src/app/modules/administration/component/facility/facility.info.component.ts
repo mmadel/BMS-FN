@@ -15,6 +15,8 @@ interface Facility {
   styleUrls: ['./facility.info.component.scss']
 })
 export class FacilityInfoComponent implements OnInit {
+  isEditFacility: boolean = false;
+  editFacilityIndex: number = undefined;
   notValidForm: boolean = false;
   facility: Facility = {}
   @ViewChild('facilityInfoFrom') facilityInfoFrom: NgForm;
@@ -24,20 +26,24 @@ export class FacilityInfoComponent implements OnInit {
   ngOnInit(): void {
   }
   add() {
-    console.log(this.facilityInfoFrom.valid)
     if (this.facilityInfoFrom.valid) {
-      const clone: Facility = { ...this.facility};
+      if (this.isEditFacility)
+        this.facilities.splice(this.editFacilityIndex, 1);
+      const clone: Facility = { ...this.facility };
       this.facilities.push(clone)
       this.facilityInfoFrom.reset();
       this.notValidForm = false;
+      this.isEditFacility = false;
     } else {
       this.notValidForm = true;
     }
   }
-  edit() {
-
+  edit(i: number) {
+    this.facility = { ...this.facilities[i] };
+    this.isEditFacility = true;
+    this.editFacilityIndex = i;
   }
-  remove(index:number) {
+  remove(index: number) {
     this.facilities.splice(index, 1);
   }
 }

@@ -72,7 +72,10 @@
         </div>
     </div>
     <div class="text-center">
-        <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+        <button type="button" class="btn btn-primary" (click)="add()">
+        <span *ngIf="!isEditFacility">Add</span>
+        <span *ngIf="isEditFacility">Edit</span>
+        </button>
     </div>
 </form>
 <c-row>
@@ -92,7 +95,7 @@
                     <td>
                         <c-button-group aria-label="Button outlined group with nested dropdown" role="group">
                             <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
-                                (click)="edit()">
+                                (click)="edit(i)">
                                 <svg cIcon name="cilPen"></svg>
                             </button>
                             <button cButton variant="outline" class="btn-sm" variant="outline" color="info"
