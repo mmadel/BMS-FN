@@ -45,6 +45,8 @@ export class ResendClaimComponent implements OnInit {
         var invoiceRequest: InvoiceRequest = InvocieRequestCreator.create(patient, patientInsurance, filterpatientInsurances.length, otherPAtientInsurances);
         invoiceRequest.selectedSessionServiceLine = result.serviceLines
         invoiceRequest.submissionType = 'Electronic'
+        invoiceRequest.resend = true;
+        invoiceRequest.submissionId = this.submissionId;
         value[0] = invoiceRequest;
         value[1] = patientInsurance;
         return value;

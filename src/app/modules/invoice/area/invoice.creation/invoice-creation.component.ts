@@ -59,6 +59,7 @@ export class InvoiceCreationComponent implements OnInit {
       , otherPAtientInsurances);
     this.invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
     this.checkIsCorrectServiceLines(this.selectedSessionServiceLine)
+    this.invoiceRequest.resend = false;
     if (!this.CorrectClaimVisibility) {
       this.execute(patientInsurance)
     }
@@ -69,7 +70,8 @@ export class InvoiceCreationComponent implements OnInit {
     var otherPAtientInsurances: any[] = this.constructOtherInsurances(patientInsurance);
     this.invoiceRequest = InvocieRequestCreator.create(this.client, patientInsurance, this.filterpatientInsurances.length, otherPAtientInsurances);
     this.invoiceRequest.selectedSessionServiceLine = this.selectedSessionServiceLine;
-    this.checkIsCorrectServiceLines(this.selectedSessionServiceLine)  
+    this.invoiceRequest.resend = false;
+    this.checkIsCorrectServiceLines(this.selectedSessionServiceLine)
     if (!this.CorrectClaimVisibility) {
       this.executedElectronically(patientInsurance)
     }

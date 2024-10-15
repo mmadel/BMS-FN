@@ -10,9 +10,11 @@ export interface InvoiceRequest {
     selectedSessionServiceLine?: SelectedSessionServiceLine[];
     patientInformation: InvoicePatientInformation;
     invoicePatientInsuredInformation: InvoicePatientInsuredInformation;
-    invoiceInsuranceCompanyInformation:InvoiceInsuranceCompanyInformation 
-    invoiceBillingProviderInformation:InvoiceBillingProviderInformation ;
-    invoiceRequestConfiguration:InvoiceRequestConfiguration
-    correctClaimInformation?:CorrectClaimInformation;
-    submissionType?:string
+    invoiceInsuranceCompanyInformation: InvoiceInsuranceCompanyInformation
+    invoiceBillingProviderInformation: InvoiceBillingProviderInformation;
+    invoiceRequestConfiguration: InvoiceRequestConfiguration
+    correctClaimInformation?: CorrectClaimInformation;
+    submissionType?: string
+    resend?: boolean
+    submissionId?: number;
 }
