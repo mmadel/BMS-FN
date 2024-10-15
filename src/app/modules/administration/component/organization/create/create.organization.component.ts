@@ -29,7 +29,7 @@ export class CreateOrganizationComponent implements OnInit {
   ngOnInit(): void {
   }
   create() {
-    if (true) {
+    if (this.isValidOrganization()) {
       this.buildOrganizationBillingProvider(this.billingInfoComponent.billingInfo);
       this.buildOrganizationAdministratorInfo(this.userInfoComponent.user);
       this.buildOrganizationFacilityInfo(this.facilityInfoComponent.facilities);
