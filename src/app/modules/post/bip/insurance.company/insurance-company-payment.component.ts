@@ -78,15 +78,18 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
 
   onFocusOutPaymnet(item: any) {
     var value: any[] = [];
-    if (item.payment === item.tmpPreviousPayment)
+    if (item.payment === item.tmpPreviousPayment) {
       return
+    }
     if (this.isValidAmount(item.payment)) {
+      value[1] = item.tmpPreviousPayment;
       item.tmpPreviousPayment = item.payment;
       value[0] = item.payment;
     }
     else {
       value[0] = 0;
       value[1] = item.tmpPreviousPayment;
+      item.tmpPreviousPayment = 0
     }
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
@@ -98,12 +101,14 @@ export class InsuranceCompanyPaymentComponent extends ListTemplate implements On
     if (item.adjust === item.tmpPreviousAdjust)
       return
     if (this.isValidAmount(item.adjust)) {
+      value[1] = item.tmpPreviousAdjust
       item.tmpPreviousAdjust = item.adjust;
       value[0] = item.adjust;
     }
     else {
       value[0] = 0;
       value[1] = item.tmpPreviousAdjust;
+      item.tmpPreviousAdjust = 0
     }
     var _rslt = this.serviceLinesPaymnet.find((pmnts: any) => pmnts.serviceLineId === item.serviceLineId);
     var balance: number = _rslt.balance
