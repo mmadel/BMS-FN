@@ -104,6 +104,10 @@ export class ClientBalanceComponent implements OnInit {
   clear(filterType: number) {
     this.searchFlag = false;
   }
+  clearDOSFilter(){
+    this.postingFilterModel.searchStartDate = undefined;
+    this.postingFilterModel.searchEndDate = undefined;
+  }
   export() {
     var clientBalanceInvoice: ClientBalanceInvoice = {
       pendingClientBalance: this.pendingInsuranceComponent.selectedPendingClientBalance,

@@ -34,11 +34,21 @@
                             </button>
                         </c-col>
                     </c-row>
-                    <c-col xs="11" class="mb-2 ">
-                        <c-date-range-picker [placeholder]="['Start', 'End']"
-                            [(startDate)]="postingFilterModel.searchStartDate"
-                            [(endDate)]="postingFilterModel.searchEndDate"
-                            [ranges]="customRanges"></c-date-range-picker>
+                    <c-col xs="12">
+                        <c-input-group class="mb-3" sizing="sm">
+                            <span cInputGroupText id="basic-addon1" >DOS</span>
+                            <input type="date" cFormControl sizing="sm"
+                                [ngModel]="postingFilterModel.searchStartDate | date:'yyyy-MM-dd'"
+                                (ngModelChange)="postingFilterModel.searchStartDate = $event" name="dosStart_Date"
+                                id="dosStart_Date" #dosEnd_Date>
+                            <input type="date" cFormControl
+                                [ngModel]="postingFilterModel.searchEndDate | date:'yyyy-MM-dd'" sizing="sm"
+                                (ngModelChange)="postingFilterModel.searchEndDate = $event" name="dosEnd_Date"
+                                #dosEnd_Date>
+                            <button cButton size="sm" variant="outline" (click)="clearDOSFilter()">
+                                <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                            </button>
+                        </c-input-group>
                     </c-col>
                 </form>
                 <c-col xs="12" class="text-center">
