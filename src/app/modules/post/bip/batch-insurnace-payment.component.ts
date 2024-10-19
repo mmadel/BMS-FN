@@ -159,7 +159,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
   }
   onChangeAdjustments(event: any) {
     if (event[0] !== 0)
-      this.totalAdjustments = this.totalAdjustments + event[0];
+      this.totalAdjustments = (this.totalAdjustments + event[0]) - event[1];
     if (event[0] === 0 && this.totalAdjustments !== 0)
       this.totalAdjustments = this.totalAdjustments - event[1]
   }
@@ -257,7 +257,7 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.filteredInsuranceCompany = [];
       this.renderComponent = 'none'
     }
-    if(filterType === 2){
+    if (filterType === 2) {
       this.postingFilterModel.searchStartDate = undefined;
       this.postingFilterModel.searchEndDate = undefined;
     }

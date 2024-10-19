@@ -108,7 +108,6 @@ export class ClientPaymentComponent extends ListTemplate implements OnInit {
     );
   }
   onFocusOutPaymnet(item: any) {
-    console.log(item.payment + '  PRE: ' + item.tmpPreviousPayment)
     var value: any[] = [];
     if (item.payment === item.tmpPreviousPayment) {
       return
