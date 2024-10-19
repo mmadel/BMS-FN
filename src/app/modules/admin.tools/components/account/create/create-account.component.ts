@@ -67,7 +67,7 @@ export class CreateAccountComponent implements OnInit {
           this.toastrService.success("User Created.")
           this.changeVisibility.next('create')
         }, error => {
-          this.toastrService.error("Error during user creation.", error.error.message)
+          this.toastrService.error("Error during user creation.")
         })
       }
       this.notValidPermissions = false;

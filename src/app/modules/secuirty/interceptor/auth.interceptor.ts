@@ -12,30 +12,36 @@ import { UserService } from '../service/user.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private keycloakAngular: KeycloakService , private userService:UserService) {}
+  constructor(private keycloakAngular: KeycloakService, private userService: UserService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return from(this.userService.getAccessToken())
-    .pipe(
-      mergeMap(token => {
-        request = request.clone({
-          setHeaders: { Authorization: `Bearer ${token}` }
-        });
-        return next.handle(request);
-      }
-      ),
-      finalize(() => {
-      }), 
-      catchError(error => {
-        if (error.status === 401) {
-          this.keycloakAngular.logout();
+      .pipe(
+        mergeMap(token => {
+          let org: any = JSON.parse(window.atob(token.split('.')[1])).org;
+          if (org !== undefined)
+            request = request.clone({
+              setHeaders: { Authorization: `Bearer ${token}`, 'X-TenantID': `${org}` }
+            });
+          else if (request.url === 'billing/api/onboarding/setup')
+            request = request.clone({
+              setHeaders: { Authorization: `Bearer ${token}` }
+            });
+          return next.handle(request);
         }
-        if (error.error.errorCode === 'UNAUTHORIZED') {
-          this.keycloakAngular.logout();
-        } else {
-          return throwError(error);
-        }
-        return [];
-      }))
+        ),
+        finalize(() => {
+        }),
+        catchError(error => {
+          if (error.status === 401) {
+            this.keycloakAngular.logout();
+          }
+          if (error.error.errorCode === 'UNAUTHORIZED') {
+            this.keycloakAngular.logout();
+          } else {
+            return throwError(error);
+          }
+          return [];
+        }))
   }
 }
