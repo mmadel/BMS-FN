@@ -167,6 +167,10 @@ export class BatchClientPaymentComponent implements OnInit {
     this.filteredPatients = undefined;
     this.postingFilterModel = {}
   }
+  clearDosFilter(){
+    this.postingFilterModel.searchStartDate = undefined
+    this.postingFilterModel.searchEndDate = undefined;
+  }
   scrollUp() {
     (function smoothscroll() {
       var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
