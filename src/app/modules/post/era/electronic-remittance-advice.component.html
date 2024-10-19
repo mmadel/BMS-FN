@@ -20,9 +20,15 @@
           <c-col xs="12" class="mb-2">
             <input cFormControl placeholder="check Number" sizing="sm" />
           </c-col>
-          <c-col xs="12" class="mb-2">
-            <c-date-range-picker selectAdjacentDays
-              [placeholder]="['Invoice Start Date','Invoice End Date']"></c-date-range-picker>
+          <c-col xs="12">
+            <c-input-group class="mb-3" sizing="sm">
+              <span cInputGroupText id="basic-addon1" >Invoice</span>
+              <input type="date" cFormControl sizing="sm" name="invoiceStart_Date" id="invoiceStart_Date">
+              <input type="date" cFormControl name="invoiceEnd_Date">
+              <button cButton size="sm" variant="outline">
+                <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+              </button>
+            </c-input-group>
           </c-col>
         </c-row>
         <c-row>
@@ -92,16 +98,16 @@
   </ng-container>
 </c-col>
 <span *ngIf="openERAVisibility">
-<c-modal id="openERA" [visible]="true" size="xl" backdrop="static" scrollable>
-  <c-modal-header>
-    <h3 cModalTitle>Open ERA</h3>
-    <button (click)="toggleOpenERA()" cButtonClose></button>
-  </c-modal-header>
-  <c-modal-body>
-    <era-details *ngIf="openERAVisibility" [era]="selectedERAModel"
-      (changeERADetailsVisibility)="changeOpenERAVisibility($event)"></era-details>
-  </c-modal-body>
-</c-modal>
+  <c-modal id="openERA" [visible]="true" size="xl" backdrop="static" scrollable>
+    <c-modal-header>
+      <h3 cModalTitle>Open ERA</h3>
+      <button (click)="toggleOpenERA()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <era-details *ngIf="openERAVisibility" [era]="selectedERAModel"
+        (changeERADetailsVisibility)="changeOpenERAVisibility($event)"></era-details>
+    </c-modal-body>
+  </c-modal>
 </span>
 <c-modal id="editPatientProfile" [visible]="editPatientProfileVisibility" size="lg" backdrop="static" scrollable>
   <c-modal-header>
