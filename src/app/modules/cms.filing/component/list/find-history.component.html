@@ -51,33 +51,38 @@
                                 </button>
                             </c-input-group>
                         </c-col>
-                        <c-col xs="1" class="mb-2">DOS From</c-col>
-                        <c-col xs="5" class="mb-2">
-                            <input type="date" cFormControl sizing="sm"
-                                [ngModel]="sessionHistoryCriteria.dosStart_Date | date:'yyyy-MM-dd'"
-                                (ngModelChange)="sessionHistoryCriteria.dosStart_Date = $event" name="dosStart_Date"
-                                id="dosStart_Date" #dosEnd_Date>
+                        <!--DOS Filter-->
+                        <c-col xs="12">
+                            <c-input-group class="mb-3" sizing="sm">
+                                <span cInputGroupText id="basic-addon1" class="col-1">DOS</span>
+                                <input type="date" cFormControl sizing="sm"
+                                    [ngModel]="sessionHistoryCriteria.dosStart_Date | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="sessionHistoryCriteria.dosStart_Date = $event" name="dosStart_Date"
+                                    id="dosStart_Date" #dosEnd_Date>
+                                <input type="date" cFormControl
+                                    [ngModel]="sessionHistoryCriteria.dosEnd_Date | date:'yyyy-MM-dd'" sizing="sm"
+                                    (ngModelChange)="sessionHistoryCriteria.dosEnd_Date = $event" name="dosEnd_Date"
+                                    #dosEnd_Date>
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('dos')">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
                         </c-col>
-                        <c-col xs="1" class="mb-2">DOS End</c-col>
-                        <c-col xs="5" class="mb-2">
-                            <input type="date" cFormControl
-                                [ngModel]="sessionHistoryCriteria.dosEnd_Date | date:'yyyy-MM-dd'" sizing="sm"
-                                (ngModelChange)="sessionHistoryCriteria.dosEnd_Date = $event" name="dosEnd_Date"
-                                #dosEnd_Date>
-                        </c-col>
-                        <c-col xs="1" class="mb-2">Submit From</c-col>
-                        <c-col xs="5" class="mb-2">
-                            <input type="date" cFormControl
-                                [ngModel]="sessionHistoryCriteria.submitStart_Date | date:'yyyy-MM-dd'" sizing="sm"
-                                (ngModelChange)="sessionHistoryCriteria.submitStart_Date = $event" name="submitStart_Date"
-                                #submitStart_Date>
-                        </c-col>
-                        <c-col xs="1" class="mb-2">Submit To</c-col>
-                        <c-col xs="5" class="mb-2">
-                            <input type="date" cFormControl
-                                [ngModel]="sessionHistoryCriteria.submitEnd_Date | date:'yyyy-MM-dd'" sizing="sm"
-                                (ngModelChange)="sessionHistoryCriteria.submitEnd_Date = $event" name="submitEnd_Date"
-                                #submitEnd_Date>
+                        <c-col xs="12">
+                            <c-input-group class="mb-3" sizing="sm">
+                                <span cInputGroupText id="basic-addon1" class="col-1">Submit</span>
+                                <input type="date" cFormControl
+                                    [ngModel]="sessionHistoryCriteria.submitStart_Date | date:'yyyy-MM-dd'" sizing="sm"
+                                    (ngModelChange)="sessionHistoryCriteria.submitStart_Date = $event"
+                                    name="submitStart_Date" #submitStart_Date>
+                                <input type="date" cFormControl
+                                    [ngModel]="sessionHistoryCriteria.submitEnd_Date | date:'yyyy-MM-dd'" sizing="sm"
+                                    (ngModelChange)="sessionHistoryCriteria.submitEnd_Date = $event"
+                                    name="submitEnd_Date" #submitEnd_Date>
+                                <button cButton size="sm" variant="outline" (click)="clearFilter('submit')">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
                         </c-col>
                         <c-col xs="12" class="mb-2">
                             <div class="grey">

@@ -37,8 +37,8 @@ export class FindHistoryComponent implements OnInit {
     this.find()
     this.runJob();
     this.emitPatientSessionService.requestSessionsHistorty$.pipe(
-      filter(result => result !==undefined || result !== null || !result)
-    ).subscribe(re=>{
+      filter(result => result !== undefined || result !== null || !result)
+    ).subscribe(re => {
       this.find();
     })
   }
@@ -105,6 +105,14 @@ export class FindHistoryComponent implements OnInit {
         break;
       case 'claim_id':
         this.sessionHistoryCriteria.claimId = undefined;
+        break;
+      case 'dos':
+        this.sessionHistoryCriteria.dosStart_Date = undefined;
+        this.sessionHistoryCriteria.dosEnd_Date = undefined;
+        break;
+      case 'submit':
+        this.sessionHistoryCriteria.submitStart_Date = undefined;
+        this.sessionHistoryCriteria.submitEnd_Date = undefined;
         break;
     }
   }
