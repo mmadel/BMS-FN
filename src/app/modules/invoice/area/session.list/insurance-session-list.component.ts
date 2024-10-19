@@ -104,6 +104,10 @@ export class InsuranceSessionListComponent extends ListTemplate implements OnIni
       this.filterModel.provider = undefined;
     if (filter === 'case')
       this.filterModel.sessionCase = undefined;
+    if (filter === 'dos'){
+      this.filterModel.searchStartDate = undefined;
+      this.filterModel.searchEndDate = undefined;
+    }
   }
   toggleModal(modal: any) {
     switch (modal) {
