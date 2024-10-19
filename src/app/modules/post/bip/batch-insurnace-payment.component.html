@@ -15,63 +15,69 @@
             <c-card-body>
                 <form cForm>
                     <c-row>
-                        <c-col class="mb-2" xs="11">
-                            <select aria-label="searchentity" id="searchentity" cSelect sizing="sm" name="searchentity"
-                                [(ngModel)]="selectedSearchOption">
-                                <option value="none" disabled>Select Search Criteria</option>
-                                <option value="client">Client</option>
-                                <option value="insurance">Insurance Company</option>
-                            </select>
-                        </c-col>
-                        <c-col class="mb-2" xs="1">
-                            <button cButton size="sm" variant="outline" (click)="clear(0)">
-                                <svg cIcon name="cilFilter" title="cilFilterX"></svg>
-                            </button>
+                        <c-col class="mb-2" xs="12">
+                            <c-input-group class="mb-3" sizing="sm">
+                                <select aria-label="searchentity" id="searchentity" cSelect sizing="sm"
+                                    name="searchentity" [(ngModel)]="selectedSearchOption">
+                                    <option value="none" disabled>Select Search Criteria</option>
+                                    <option value="client">Client</option>
+                                    <option value="insurance">Insurance Company</option>
+                                </select>
+                                <button cButton size="sm" variant="outline" (click)="clear(0)">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
                         </c-col>
                     </c-row>
                     <c-row>
-                        <!-- Auto complete for patient -->
-                        <c-col class="mb-2" xs="11" *ngIf="selectedSearchOption ==='client'">
-                            <input cFormControl name="patientname" [formControl]="patientClient" placeholder="Patient"
-                                class="mb-2" sizing="sm" />
-                            <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoading"
-                                (valueChange)="changePatientValue($event)">
-                                <c-multi-select-option *ngFor="let patient of filteredPatients"
-                                    [value]="patient.clientId">
-                                    {{ patient.clientName}}
-                                </c-multi-select-option>
-                            </c-multi-select>
-                            <span align="center" *ngIf="isLoading">
-                                <c-spinner variant="grow"></c-spinner>
-                            </span>
+                        <!-- Auto complete for patient-->
+                        <c-col class="mb-2" xs="12" *ngIf="selectedSearchOption ==='client'">
+                            <c-input-group class="mb-3" sizing="sm">
+                                <input cFormControl name="patientname" [formControl]="patientClient"
+                                    placeholder="Patient" class="mb-2" />
+                                <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoading"
+                                    (valueChange)="changePatientValue($event)">
+                                    <c-multi-select-option *ngFor="let patient of filteredPatients"
+                                        [value]="patient.clientId">
+                                        {{ patient.clientName}}
+                                    </c-multi-select-option>
+                                </c-multi-select>
+                            </c-input-group>
                         </c-col>
                         <!-- Auto complete for insurance company -->
-                        <c-col class="mb-2" xs="11" *ngIf=" selectedSearchOption ==='insurance'">
-                            <input cFormControl name="insurancecompany" [formControl]="insuranceCompanyForm"
-                                placeholder="Insurance Company" class="mb-2" sizing="sm" />
-                            <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoadingInsuranceCompany"
-                                (valueChange)="changeInsuranceCompanyValue($event)">
-                                <c-multi-select-option *ngFor="let insuranceCompany of filteredInsuranceCompany"
-                                    [value]="insuranceCompany.id">
-                                    {{ insuranceCompany.name}}
-                                </c-multi-select-option>
-                            </c-multi-select>
-                            <span align="center" *ngIf="isLoadingInsuranceCompany">
-                                <c-spinner variant="grow"></c-spinner>
-                            </span>
+                        <c-col class="mb-2" xs="12" *ngIf="selectedSearchOption ==='insurance'">
+                            <c-input-group class="mb-3" sizing="sm">
+                                <input cFormControl name="insurancecompany" [formControl]="insuranceCompanyForm"
+                                    placeholder="Insurance Company" class="mb-2" sizing="sm" />
+                                <c-multi-select class="mb-2" visibleItems="20" *ngIf="!isLoadingInsuranceCompany"
+                                    (valueChange)="changeInsuranceCompanyValue($event)">
+                                    <c-multi-select-option *ngFor="let insuranceCompany of filteredInsuranceCompany"
+                                        [value]="insuranceCompany.id">
+                                        {{ insuranceCompany.name}}
+                                    </c-multi-select-option>
+                                </c-multi-select>
+                                <span align="center" *ngIf="isLoadingInsuranceCompany">
+                                    <c-spinner variant="grow"></c-spinner>
+                                </span>
+                            </c-input-group>
                         </c-col>
-                        <c-col class="mb-2" xs="1" *ngIf="selectedSearchOption !== 'none'">
-                            <button cButton size="sm" variant="outline" (click)="clear(1)">
-                                <svg cIcon name="cilFilter" title="cilFilterX"></svg>
-                            </button>
+                        <c-col xs="12" *ngIf="selectedSearchOption === 'client'">
+                            <c-input-group class="mb-3" sizing="sm">
+                                <span cInputGroupText id="basic-addon1">DOS</span>
+                                <input type="date" cFormControl sizing="sm"
+                                    [ngModel]="postingFilterModel.searchStartDate | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="postingFilterModel.searchStartDate = $event" name="dosStart_Date"
+                                    id="dosStart_Date" #dosEnd_Date>
+                                <input type="date" cFormControl
+                                    [ngModel]="postingFilterModel.searchEndDate | date:'yyyy-MM-dd'" sizing="sm"
+                                    (ngModelChange)="postingFilterModel.searchEndDate = $event" name="dosEnd_Date"
+                                    #dosEnd_Date>
+                                <button cButton size="sm" variant="outline" (click)="clear(2)">
+                                    <svg cIcon name="cilFilter" title="cilFilterX"></svg>
+                                </button>
+                            </c-input-group>
                         </c-col>
                     </c-row>
-                    <c-col xs="11" class="mb-2 " *ngIf="selectedSearchOption === 'client'">
-                        <c-date-range-picker [placeholder]="['Start', 'End']"
-                            [(startDate)]="postingFilterModel.searchStartDate"
-                            [(endDate)]="postingFilterModel.searchEndDate"
-                            [ranges]="customRanges"></c-date-range-picker>
-                    </c-col>
                 </form>
                 <c-col xs="12" class="text-center">
                     <button cButton class="me-1" color="primary" style="width: 15%;" (click)="search()">

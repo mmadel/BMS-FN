@@ -257,6 +257,10 @@ export class BatchInsurnacePaymentComponent implements OnInit {
       this.filteredInsuranceCompany = [];
       this.renderComponent = 'none'
     }
+    if(filterType === 2){
+      this.postingFilterModel.searchStartDate = undefined;
+      this.postingFilterModel.searchEndDate = undefined;
+    }
     this.postingFilterModel = {}
   }
   scrollUp() {
